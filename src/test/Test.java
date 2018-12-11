@@ -5,6 +5,7 @@ public class Test {
 		System.out.println("哈囉");
 		System.out.println("最新");
 
+		System.out.println("yooo");
 	}
 
 }
