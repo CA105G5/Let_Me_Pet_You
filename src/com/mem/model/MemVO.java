@@ -1,6 +1,9 @@
 package com.mem.model;
 
 public class MemVO implements java.io.Serializable {
+	
+	private static final long serialVersionUID = -554825475600104306L;
+	
 	private String memb_id;
 	private String memb_sta;
 	private String memb_acc;
@@ -14,8 +17,8 @@ public class MemVO implements java.io.Serializable {
 	private Integer memb_balance;
 	private String memb_cre_type;
 	private String memb_cre_name;
-	private Integer memb_cre_year;
-	private Integer memb_cre_month;
+	private String memb_cre_year;
+	private String memb_cre_month;
 	private Integer memb_vio_times;
 	
 	public String getMemb_id() {
@@ -96,16 +99,16 @@ public class MemVO implements java.io.Serializable {
 	public void setMemb_cre_name(String memb_cre_name) {
 		this.memb_cre_name = memb_cre_name;
 	}
-	public Integer getMemb_cre_year() {
+	public String getMemb_cre_year() {
 		return memb_cre_year;
 	}
-	public void setMemb_cre_year(Integer memb_cre_year) {
+	public void setMemb_cre_year(String memb_cre_year) {
 		this.memb_cre_year = memb_cre_year;
 	}
-	public Integer getMemb_cre_month() {
+	public String getMemb_cre_month() {
 		return memb_cre_month;
 	}
-	public void setMemb_cre_month(Integer memb_cre_month) {
+	public void setMemb_cre_month(String memb_cre_month) {
 		this.memb_cre_month = memb_cre_month;
 	}
 	public Integer getMemb_vio_times() {
