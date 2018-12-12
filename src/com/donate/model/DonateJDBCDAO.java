@@ -16,11 +16,11 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 	String userid = "Jen";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO donate (DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN_ST, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS) VALUES ('D'||LPAD(to_char(donate_id_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN_ST, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS FROM donate order by donate_ID";
-	private static final String GET_ONE_STMT = "SELECT DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN_ST, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS FROM donate where donate_ID = ?";
+	private static final String INSERT_STMT = "INSERT INTO donate (DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS) VALUES ('D'||LPAD(to_char(donate_id_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS FROM donate order by donate_ID";
+	private static final String GET_ONE_STMT = "SELECT DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS FROM donate where donate_ID = ?";
 	private static final String DELETE = "DELETE FROM donate where donate_ID = ?";
-	private static final String UPDATE = "UPDATE donate set MEMB_ID=?, BANK_ID=?, DONATE_AMOUNT=?, DONATE_DATE=?, DONATE_COIN_ST=?, DONATE_PRIVATE=?, DONATE_SRC=?, DONATE_SRC_CRE=?, DONATE_SRC_TRN=?, DONATE_STATUS=? where donate_ID = ?";
+	private static final String UPDATE = "UPDATE donate set MEMB_ID=?, BANK_ID=?, DONATE_AMOUNT=?, DONATE_DATE=?, DONATE_COIN=?, DONATE_PRIVATE=?, DONATE_SRC=?, DONATE_SRC_CRE=?, DONATE_SRC_TRN=?, DONATE_STATUS=? where donate_ID = ?";
 
 	@Override
 	public void insert(DonateVO donateVO) {
@@ -37,7 +37,7 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 			pstmt.setString(2, donateVO.getBank_id());
 			pstmt.setInt(3, donateVO.getDonate_amount());
 			pstmt.setTimestamp(4, donateVO.getDonate_date());
-			pstmt.setString(5, donateVO.getDonate_coin_st());
+			pstmt.setInt(5, donateVO.getDonate_coin());
 			pstmt.setString(6, donateVO.getDonate_private());
 			pstmt.setString(7, donateVO.getDonate_src());
 			pstmt.setString(8, donateVO.getDonate_src_cre());
@@ -89,7 +89,7 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 			pstmt.setString(2, donateVO.getBank_id());
 			pstmt.setInt(3, donateVO.getDonate_amount());
 			pstmt.setTimestamp(4, donateVO.getDonate_date());
-			pstmt.setString(5, donateVO.getDonate_coin_st());
+			pstmt.setInt(5, donateVO.getDonate_coin());
 			pstmt.setString(6, donateVO.getDonate_private());
 			pstmt.setString(7, donateVO.getDonate_src());
 			pstmt.setString(8, donateVO.getDonate_src_cre());
@@ -151,7 +151,7 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 				donateVO.setBank_id(rs.getString("bank_id"));
 				donateVO.setDonate_amount(rs.getInt("donate_amount"));
 				donateVO.setDonate_date(rs.getTimestamp("donate_date"));
-				donateVO.setDonate_coin_st(rs.getString("donate_coin_st"));
+				donateVO.setDonate_coin(rs.getInt("donate_coin"));
 				donateVO.setDonate_private(rs.getString("donate_private"));
 				donateVO.setDonate_src(rs.getString("donate_src"));
 				donateVO.setDonate_src_cre(rs.getString("donate_src_cre"));
@@ -217,7 +217,7 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 				donateVO.setBank_id(rs.getString("bank_id"));
 				donateVO.setDonate_amount(rs.getInt("donate_amount"));
 				donateVO.setDonate_date(rs.getTimestamp("donate_date"));
-				donateVO.setDonate_coin_st(rs.getString("donate_coin_st"));
+				donateVO.setDonate_coin(rs.getInt("donate_coin"));
 				donateVO.setDonate_private(rs.getString("donate_private"));
 				donateVO.setDonate_src(rs.getString("donate_src"));
 				donateVO.setDonate_src_cre(rs.getString("donate_src_cre"));
@@ -313,7 +313,7 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 //		donateVO1.setBank_id("004");
 //		donateVO1.setDonate_amount(66666);
 //		donateVO1.setDonate_date(new Timestamp(new Date().getTime()));
-//		donateVO1.setDonate_coin_st("已發放");
+//		donateVO1.setDonate_coin(66);
 //		donateVO1.setDonate_private("不匿名");
 //		donateVO1.setDonate_src("轉帳");
 ////		donateVO1.setDonate_src_cre("8888");
@@ -323,12 +323,12 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 
 		// 修改
 //		DonateVO donateVO2 = new DonateVO();
-//		donateVO2.setDonate_id("D000000007");
+//		donateVO2.setDonate_id("D000000011");
 //		donateVO2.setMemb_id("M000000001");
 //		donateVO2.setBank_id("004");
 //		donateVO2.setDonate_amount(8888888);
 //		donateVO2.setDonate_date(new Timestamp(new Date().getTime()));
-//		donateVO2.setDonate_coin_st("已發放");
+//		donateVO2.setDonate_coin(88888);
 //		donateVO2.setDonate_private("不匿名");
 //		donateVO2.setDonate_src("轉帳");
 //		donateVO2.setDonate_src_cre("8888");
@@ -340,26 +340,26 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 		dao.delete("D000000011");
 
 		// 查詢
-//		DonateVO donateVO3 = dao.findByPrimaryKey("D000000001");
-//		System.out.print(donateVO3.getDonate_id() + ",");
-//		System.out.print(donateVO3.getMemb_id() + ",");
-//		System.out.print(donateVO3.getDonate_amount() + ",");
-//		System.out.print(donateVO3.getDonate_date() + ",");
-//		System.out.print(donateVO3.getDonate_src() + ",");
-//		System.out.println(donateVO3.getDonate_status());
-//		System.out.println("---------------------");
+		DonateVO donateVO3 = dao.findByPrimaryKey("D000000010");
+		System.out.print(donateVO3.getDonate_id() + ",");
+		System.out.print(donateVO3.getMemb_id() + ",");
+		System.out.print(donateVO3.getDonate_amount() + ",");
+		System.out.print(donateVO3.getDonate_date() + ",");
+		System.out.print(donateVO3.getDonate_src() + ",");
+		System.out.println(donateVO3.getDonate_status());
+		System.out.println("---------------------");
 
 		// 查詢
-//		List<DonateVO> list = dao.getAll();
-//		for (DonateVO aDon : list) {
-//			System.out.print(aDon.getDonate_id() + ",");
-//			System.out.print(aDon.getMemb_id() + ",");
-//			System.out.print(aDon.getDonate_amount() + ",");
-//			System.out.print(aDon.getDonate_date() + ",");
-//			System.out.print(aDon.getDonate_src() + ",");
-//			System.out.println(aDon.getDonate_status());
-//			System.out.println("---------------------");
-//		}
+		List<DonateVO> list = dao.getAll();
+		for (DonateVO aDon : list) {
+			System.out.print(aDon.getDonate_id() + ",");
+			System.out.print(aDon.getMemb_id() + ",");
+			System.out.print(aDon.getDonate_amount() + ",");
+			System.out.print(aDon.getDonate_date() + ",");
+			System.out.print(aDon.getDonate_src() + ",");
+			System.out.println(aDon.getDonate_status());
+			System.out.println("---------------------");
+		}
 	}
 
 }

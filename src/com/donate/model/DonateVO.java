@@ -10,7 +10,7 @@ public class DonateVO implements Serializable {
 	private	String		bank_id;
 	private	Integer		donate_amount;
 	private	Timestamp	donate_date;
-	private	String		donate_coin_st;
+	private	Integer		donate_coin;
 	private	String		donate_private;
 	private	String		donate_src;
 	private	String		donate_src_cre;
@@ -47,11 +47,11 @@ public class DonateVO implements Serializable {
 	public void setDonate_date(Timestamp donate_date) {
 		this.donate_date = donate_date;
 	}
-	public String getDonate_coin_st() {
-		return donate_coin_st;
+	public Integer getDonate_coin() {
+		return donate_coin;
 	}
-	public void setDonate_coin_st(String donate_coin_st) {
-		this.donate_coin_st = donate_coin_st;
+	public void setDonate_coin(Integer donate_coin) {
+		this.donate_coin = donate_coin;
 	}
 	public String getDonate_private() {
 		return donate_private;
