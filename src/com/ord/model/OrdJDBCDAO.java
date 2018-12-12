@@ -12,7 +12,7 @@ import java.util.List;
 
 import com.ord.model.OrdVO;
 
-public class OrdJDBCDAO implements OrdDAO_interface {
+public class OrdJDBCDAO implements OrdDAO_interface { 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "Jen";
