@@ -1,0 +1,22 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>form.html</TITLE>
+</HEAD>
+<BODY>
+
+  <!-- 將method改成post，觀察網址列變化。Hello.java檔案裡的方法需配合更改為doPost方法  --> 
+  <FORM METHOD="get" ACTION="PhotoReaderId">
+      
+          請輸入您要查詢的產品編號，將會列出照片!
+    <br>     
+    <INPUT TYPE="TEXT" NAME="wish_id" VALUE="W000000001"><p>
+    <INPUT TYPE="SUBMIT"><br>
+    <br>
+	<img src="PhotoReader?wish_img_id=0000000028" width="500">
+<!-- http://localhost:8081/CA105G5/util/PhotoReader?wish_img_id=0000000002 -->
+  </FORM>
+
+</BODY>
+</HTML>
