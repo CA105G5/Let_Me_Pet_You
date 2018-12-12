@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class OrdVO implements Serializable { 
+public class OrdVO implements Serializable {
 	
 	private	String		ord_id;
 	private	String		memb_id;

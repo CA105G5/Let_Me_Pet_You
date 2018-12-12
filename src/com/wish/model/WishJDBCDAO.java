@@ -1,4 +1,4 @@
-package com.ord.model;
+package com.wish.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,22 +10,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.ord.model.OrdVO;
-
-public class OrdJDBCDAO implements OrdDAO_interface {
+public class WishJDBCDAO implements WishDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "Jen";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO ord (ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM) VALUES ('O'|| to_char(sysdate,'yyyymmdd')||'-'||LPAD(to_char(ORD_id_seq.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord order by ORD_ID";
-	private static final String GET_ONE_STMT = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord where ORD_ID = ?";
-	private static final String DELETE = "DELETE FROM ord where ORD_ID = ?";
-	private static final String UPDATE = "UPDATE ord set MEMB_ID=?, ORD_DATE=?, ORD_TOTAL=?,ORD_RECEIVER=?, ORD_RC_TEL=?, ORD_RC_ADD=?, ORD_RC_COMM=? where ORD_ID = ?";
+	private static final String INSERT_STMT = "INSERT INTO wish (WISH_ID, WISH_NAME, WISH_DES, WISH_QTY, WISH_STOCK, WISH_DATE, WISH_STATUS, WISH_COIN) VALUES ('W'||LPAD(to_char(wish_id_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT WISH_ID, WISH_NAME, WISH_DES, WISH_QTY, WISH_STOCK, WISH_DATE, WISH_STATUS, WISH_COIN FROM wish order by wish_ID";
+	private static final String GET_ONE_STMT = "SELECT WISH_ID, WISH_NAME, WISH_DES, WISH_QTY, WISH_STOCK, WISH_DATE, WISH_STATUS, WISH_COIN FROM wish where wish_ID = ?";
+	private static final String DELETE = "DELETE FROM wish where wish_id = ?";
+	private static final String UPDATE = "UPDATE wish set WISH_NAME=?, WISH_DES=?, WISH_QTY=?, WISH_STOCK=?, WISH_DATE=?, WISH_STATUS=?, WISH_COIN=? where wish_id = ?";
 
 	@Override
-	public void insert(OrdVO ordVO) {
+	public void insert(WishVO wishVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -35,13 +33,13 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, ordVO.getMemb_id());
-			pstmt.setTimestamp(2, ordVO.getOrd_date());
-			pstmt.setInt(3, ordVO.getOrd_total());
-			pstmt.setString(4, ordVO.getOrd_receiver());
-			pstmt.setString(5, ordVO.getOrd_rc_tel());
-			pstmt.setString(6, ordVO.getOrd_rc_add());
-			pstmt.setString(7, ordVO.getOrd_rc_comm());
+			pstmt.setString(1, wishVO.getWish_name());
+			pstmt.setString(2, wishVO.getWish_des());
+			pstmt.setInt(3, wishVO.getWish_qty());
+			pstmt.setInt(4, wishVO.getWish_stock());
+			pstmt.setTimestamp(5, wishVO.getWish_date());
+			pstmt.setString(6, wishVO.getWish_status());
+			pstmt.setInt(7, wishVO.getWish_coin());
 
 			int rowsUpdated = pstmt.executeUpdate();
 			System.out.println("Changed " + rowsUpdated + "rows");
@@ -73,7 +71,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 	}
 
 	@Override
-	public void update(OrdVO ordVO) {
+	public void update(WishVO wishVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -83,14 +81,14 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, ordVO.getMemb_id());
-			pstmt.setTimestamp(2, ordVO.getOrd_date());
-			pstmt.setInt(3, ordVO.getOrd_total());
-			pstmt.setString(4, ordVO.getOrd_receiver());
-			pstmt.setString(5, ordVO.getOrd_rc_tel());
-			pstmt.setString(6, ordVO.getOrd_rc_add());
-			pstmt.setString(7, ordVO.getOrd_rc_comm());
-			pstmt.setString(8, ordVO.getOrd_id());
+			pstmt.setString(1, wishVO.getWish_name());
+			pstmt.setString(2, wishVO.getWish_des());
+			pstmt.setInt(3, wishVO.getWish_qty());
+			pstmt.setInt(4, wishVO.getWish_stock());
+			pstmt.setTimestamp(5, wishVO.getWish_date());
+			pstmt.setString(6, wishVO.getWish_status());
+			pstmt.setInt(7, wishVO.getWish_coin());
+			pstmt.setString(8, wishVO.getWish_id());
 
 			int rowsUpdated = pstmt.executeUpdate();
 
@@ -123,8 +121,8 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 	}
 
 	@Override
-	public OrdVO findByPrimaryKey(String ord_id) {
-		OrdVO ordVO = null;
+	public WishVO findByPrimaryKey(String wish_id) {
+		WishVO wishVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -135,21 +133,21 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setString(1, ord_id);
+			pstmt.setString(1, wish_id);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// ordVo 也稱為 Domain objects
-				ordVO = new OrdVO();
-				ordVO.setOrd_id(ord_id);
-				ordVO.setMemb_id(rs.getString("memb_id"));
-				ordVO.setOrd_date(rs.getTimestamp("ord_date"));
-				ordVO.setOrd_total(rs.getInt("ord_total"));
-				ordVO.setOrd_receiver(rs.getString("ord_receiver"));
-				ordVO.setOrd_rc_tel(rs.getString("ord_rc_tel"));
-				ordVO.setOrd_rc_add(rs.getString("ord_rc_add"));
-				ordVO.setOrd_rc_comm(rs.getString("ord_rc_comm"));
+				// prodVo 也稱為 Domain objects
+				wishVO = new WishVO();
+				wishVO.setWish_id(wish_id);
+				wishVO.setWish_name(rs.getString("wish_name"));
+				wishVO.setWish_des(rs.getString("wish_des"));
+				wishVO.setWish_qty(rs.getInt("wish_qty"));
+				wishVO.setWish_stock(rs.getInt("wish_stock"));
+				wishVO.setWish_date(rs.getTimestamp("wish_date"));
+				wishVO.setWish_status(rs.getString("wish_status"));
+				wishVO.setWish_coin(rs.getInt("wish_coin"));
 			}
 
 			// Handle any driver errors
@@ -182,14 +180,14 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 				}
 			}
 		}
-		return ordVO;
+		return wishVO;
 
 	}
 
 	@Override
-	public List<OrdVO> getAll() {
-		List<OrdVO> list = new ArrayList<OrdVO>();
-		OrdVO ordVO = null;
+	public List<WishVO> getAll() {
+		List<WishVO> list = new ArrayList<WishVO>();
+		WishVO wishVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -203,17 +201,17 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// OrdVO 也稱為 Domain objects
-				ordVO = new OrdVO();
-				ordVO.setOrd_id(rs.getString("ord_id"));
-				ordVO.setMemb_id(rs.getString("memb_id"));
-				ordVO.setOrd_date(rs.getTimestamp("ord_date"));
-				ordVO.setOrd_total(rs.getInt("ord_total"));
-				ordVO.setOrd_receiver(rs.getString("ord_receiver"));
-				ordVO.setOrd_rc_tel(rs.getString("ord_rc_tel"));
-				ordVO.setOrd_rc_add(rs.getString("ord_rc_add"));
-				ordVO.setOrd_rc_comm(rs.getString("ord_rc_comm"));
-				list.add(ordVO); // Store the row in the list
+				// WishVO 也稱為 Domain objects
+				wishVO = new WishVO();
+				wishVO.setWish_id(rs.getString("wish_id"));
+				wishVO.setWish_name(rs.getString("wish_name"));
+				wishVO.setWish_des(rs.getString("wish_des"));
+				wishVO.setWish_qty(rs.getInt("wish_qty"));
+				wishVO.setWish_stock(rs.getInt("wish_stock"));
+				wishVO.setWish_date(rs.getTimestamp("wish_date"));
+				wishVO.setWish_status(rs.getString("wish_status"));
+				wishVO.setWish_coin(rs.getInt("wish_coin"));
+				list.add(wishVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -251,7 +249,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 	}
 
 	@Override
-	public void delete(String ord_id) {
+	public void delete(String wish_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -261,7 +259,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setString(1, ord_id);
+			pstmt.setString(1, wish_id);
 
 			int rowsUpdated = pstmt.executeUpdate();
 
@@ -294,60 +292,59 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 	public static void main(String[] args) {
 
-		OrdJDBCDAO dao = new OrdJDBCDAO();
+		WishJDBCDAO dao = new WishJDBCDAO();
 
 		// 新增
-//		OrdVO ordVO1 = new OrdVO();
-//		ordVO1.setOrd_id("O00000test");
-//		ordVO1.setMemb_id("M000000001");
-//		ordVO1.setOrd_date(new Timestamp(new Date().getTime()));
-//		ordVO1.setOrd_total(30);
-//		ordVO1.setOrd_receiver("Jen");
-//		ordVO1.setOrd_rc_tel("0912345678");
-//		ordVO1.setOrd_rc_add("中壢市平鎮區中央路300號");
-//		ordVO1.setOrd_rc_comm("請晚上六點之後派送");
-//		dao.insert(ordVO1);
+//		WishVO wishVO1 = new WishVO();
+//		wishVO1.setWish_id("W00000test");
+//		wishVO1.setWish_name("Test");
+//		wishVO1.setWish_des("Test");
+//		wishVO1.setWish_qty(10);
+//		wishVO1.setWish_stock(1);
+//		wishVO1.setWish_date(new Timestamp(new Date().getTime()));
+//		wishVO1.setWish_status("上架");
+//		wishVO1.setWish_coin(10);
+//		dao.insert(wishVO1);
 
 		// 修改
-//		OrdVO ordVO2 = new OrdVO();
-//		ordVO2.setOrd_id("O20181212-007");
-//		ordVO2.setMemb_id("M000000003");
-//		ordVO2.setOrd_date(new Timestamp(new Date().getTime()));
-//		ordVO2.setOrd_total(30);
-//		ordVO2.setOrd_receiver("Jen--");
-//		ordVO2.setOrd_rc_tel("0912345678--");
-//		ordVO2.setOrd_rc_add("中壢市平鎮區中央路300號--");
-//		ordVO2.setOrd_rc_comm("請晚上六點之後派送--");
-//		dao.update(ordVO2);
+//		WishVO wishVO2 = new WishVO();
+//		wishVO2.setWish_id("W000000012");
+//		wishVO2.setWish_name("Test2");
+//		wishVO2.setWish_des("Test2");
+//		wishVO2.setWish_qty(10);
+//		wishVO2.setWish_stock(2);
+//		wishVO2.setWish_date(new Timestamp(new Date().getTime()));
+//		wishVO2.setWish_status("上架");
+//		wishVO2.setWish_coin(10);
+//		dao.update(wishVO2);
 
-		// 刪除
-//		dao.delete("O20181212-007");
-//
-//		// 查詢
-		OrdVO ordVO3 = dao.findByPrimaryKey("O20181212-008");
-		System.out.print(ordVO3.getOrd_id() + ",");
-		System.out.print(ordVO3.getMemb_id() + ",");
-		System.out.print(ordVO3.getOrd_date() + ",");
-		System.out.print(ordVO3.getOrd_total() + ",");
-		System.out.print(ordVO3.getOrd_receiver() + ",");
-		System.out.print(ordVO3.getOrd_rc_tel() + ",");
-		System.out.print(ordVO3.getOrd_rc_add() + ",");
-		System.out.println(ordVO3.getOrd_rc_comm());
-		System.out.println("---------------------");
+//		// 刪除
+		dao.delete("W000000012");
 
-//		// 查詢
-		List<OrdVO> list = dao.getAll();
-		for (OrdVO aOrd : list) {
-			System.out.print(aOrd.getOrd_id() + ",");
-			System.out.print(aOrd.getMemb_id() + ",");
-			System.out.print(aOrd.getOrd_date() + ",");
-			System.out.print(aOrd.getOrd_total() + ",");
-			System.out.print(aOrd.getOrd_receiver() + ",");
-			System.out.print(aOrd.getOrd_rc_tel() + ",");
-			System.out.print(aOrd.getOrd_rc_add() + ",");
-			System.out.println(aOrd.getOrd_rc_comm());
+		// 查詢
+//		WishVO wishVO3 = dao.findByPrimaryKey("W000000001");
+//		System.out.print(wishVO3.getWish_id() + ",");
+//		System.out.print(wishVO3.getWish_name() + ",");
+//		System.out.print(wishVO3.getWish_des() + ",");
+//		System.out.print(wishVO3.getWish_qty() + ",");
+//		System.out.print(wishVO3.getWish_stock() + ",");
+//		System.out.print(wishVO3.getWish_date() + ",");
+//		System.out.print(wishVO3.getWish_status() + ",");
+//		System.out.println(wishVO3.getWish_coin());
+//		System.out.println("---------------------");
+
+		// 查詢
+		List<WishVO> list = dao.getAll();
+		for (WishVO aWish : list) {
+			System.out.print(aWish.getWish_id() + ",");
+			System.out.print(aWish.getWish_name() + ",");
+			System.out.print(aWish.getWish_des() + ",");
+			System.out.print(aWish.getWish_qty() + ",");
+			System.out.print(aWish.getWish_stock() + ",");
+			System.out.print(aWish.getWish_date() + ",");
+			System.out.print(aWish.getWish_status() + ",");
+			System.out.println(aWish.getWish_coin());
 			System.out.println("---------------------");
-			System.out.println();
 		}
 	}
 

@@ -19,7 +19,7 @@ public class OrdItemJDBCDAO implements OrdItemDAO_interface {
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO ORD_ITEM (PROD_ID, ORD_ID, ORD_ITEM_QTY, ORD_ITEM_SP_STATUS, ORD_ITEM_SP_DATE, ORD_ITEM_RC_STATUS, ORD_ITEM_RC_DATE, ORD_ITEM_COIN_ST, ORD_ITEM_RT_STATUS, ord_item_rt_date, ord_item_rt_comm, ord_item_review, ord_item_rv_des) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT PROD_ID, ORD_ID, ORD_ITEM_QTY, ORD_ITEM_SP_STATUS, ORD_ITEM_SP_DATE, ORD_ITEM_RC_STATUS, ORD_ITEM_RC_DATE, ORD_ITEM_COIN_ST, ORD_ITEM_RT_STATUS, ord_item_rt_date, ord_item_rt_comm, ord_item_review, ord_item_rv_des FROM ORD_ITEM order by ORD_ID";
+	private static final String GET_ALL_STMT = "SELECT PROD_ID, ORD_ID, ORD_ITEM_QTY, ORD_ITEM_SP_STATUS, ORD_ITEM_SP_DATE, ORD_ITEM_RC_STATUS, ORD_ITEM_RC_DATE, ORD_ITEM_COIN_ST, ORD_ITEM_RT_STATUS, ord_item_rt_date, ord_item_rt_comm, ord_item_review, ord_item_rv_des FROM ORD_ITEM order by PROD_ID";
 	private static final String GET_ONE_STMT = "SELECT PROD_ID, ORD_ID, ORD_ITEM_QTY, ORD_ITEM_SP_STATUS, ORD_ITEM_SP_DATE, ORD_ITEM_RC_STATUS, ORD_ITEM_RC_DATE, ORD_ITEM_COIN_ST, ORD_ITEM_RT_STATUS, ord_item_rt_date, ord_item_rt_comm, ord_item_review, ord_item_rv_des FROM ORD_ITEM where PROD_ID = ? and ORD_ID = ? ";
 	private static final String DELETE = "DELETE FROM ORD_ITEM where PROD_ID = ? and ORD_ID = ? ";
 	private static final String UPDATE = "UPDATE ORD_ITEM set ORD_ITEM_QTY=?, ORD_ITEM_SP_STATUS=?, ORD_ITEM_SP_DATE=?, ORD_ITEM_RC_STATUS=?, ORD_ITEM_RC_DATE=?, ORD_ITEM_COIN_ST=?, ORD_ITEM_RT_STATUS=?, ord_item_rt_date=?, ord_item_rt_comm=?, ord_item_review=?, ord_item_rv_des=? where PROD_ID = ? and ORD_ID = ?";

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ord.model.OrdVO;
 
-public interface OrdDAO_interface { 
+public interface OrdDAO_interface {  
 	public void insert(OrdVO ordVO);
 	public void update(OrdVO ordVO);
 	public void delete(String ord_id);
