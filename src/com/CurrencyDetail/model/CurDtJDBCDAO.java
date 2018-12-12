@@ -11,7 +11,7 @@ public class CurDtJDBCDAO implements CurDtDAO_interface {
 	private static final String INSERT_STMT="INSERT INTO CURRENCY_DETAIL (cur_dt_id,memb_id,cur_src_id,cur_dt) VALUES (currency_detail_seq.NEXTVAL,?,?,?)";
 	private static final String UPDATE_STMT="UPDATE CURRENCY_DETAIL set memb_id=?, cur_src_id=?, cur_dt=? where cur_dt_id=?";
 	private static final String DELETE_STMT="DELETE FROM CURRENCY_DETAIL where cur_dt_id=?";
-	private static final String GET_ONE_STMT="";
+	private static final String GET_ONE_STMT=""; 
 	private static final String GET_ALL_STMT="";
 	
 	public static void main(String[] args) {

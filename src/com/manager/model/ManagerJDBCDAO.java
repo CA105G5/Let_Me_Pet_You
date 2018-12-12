@@ -6,7 +6,7 @@ public class ManagerJDBCDAO implements ManagerDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G5";
-	String password = "123456";
+	String password = "123456"; 
 	
 	private static final String INSERT_STMT="";
 	private static final String UPDATE_STMT="";
