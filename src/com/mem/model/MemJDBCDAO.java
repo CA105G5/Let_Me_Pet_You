@@ -9,20 +9,21 @@ public class MemJDBCDAO implements MemDAO_interface {
 	String userid = "CA105G5";
 	String password = "123456"; 
 	
-	private static final String INSERT_STMT="INSERT INTO MEMBER "
+	private static final String INSERT_STMT="INSERT INTO MEMBERS "
 			+ "(memb_id,memb_acc,memb_psw,memb_name,memb_nick,memb_email,memb_cellphone,memb_gender,memb_cre_type,memb_cre_name,memb_cre_year,memb_cre_month) "
 			+ "VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?)";
 	private static final 
-	String UPDATE_STMT="UPDATE MEMBER set memb_sta=?, memb_acc=?, memb_psw=?, memb_name=?, memb_nick=?, memb_email=?, memb_cellphone=?, memb_gender=?, memb_balance=?, memb_cre_type=?, memb_cre_name=?, memb_cre_year=?, memb_cre_month=?, memb_vio_times=? where memb_id=?";
+	String UPDATE_STMT="UPDATE MEMBERS set memb_sta=?, memb_acc=?, memb_psw=?, memb_name=?, memb_nick=?, memb_email=?, memb_cellphone=?, memb_gender=?, memb_balance=?, memb_cre_type=?, memb_cre_name=?, memb_cre_year=?, memb_cre_month=?, memb_vio_times=? where memb_id=?";
 	private static final 
-	String CLIENT_UPDATE_STMT="UPDATE MEMBER set memb_psw=?, memb_name=?, memb_nick=?, memb_email=?, memb_cellphone=?, memb_gender=?, memb_cre_type=?, memb_cre_name=?, memb_cre_year=?, memb_cre_month=? where memb_id=?";
+	String CLIENT_UPDATE_STMT="UPDATE MEMBERS set memb_psw=?, memb_name=?, memb_nick=?, memb_email=?, memb_cellphone=?, memb_gender=?, memb_cre_type=?, memb_cre_name=?, memb_cre_year=?, memb_cre_month=? where memb_id=?";
 	private static final 
-	String MANAGER_UPDATE_STMT="UPDATE MEMBER set memb_sta=?, memb_vio_times=? where memb_id=?";
-	private static final String DELETE_STMT="DELETE FROM MEMBER where memb_id=?";
-	private static final String GET_ONE_STMT="SELECT * FROM MEMBER where memb_id=?";
-	private static final String GET_ALL_STMT="SELECT * FROM MEMBER order by memb_id";
+	String MANAGER_UPDATE_STMT="UPDATE MEMBERS set memb_sta=?, memb_vio_times=? where memb_id=?";
+	private static final String DELETE_STMT="DELETE FROM MEMBERS where memb_id=?";
+	private static final String GET_ONE_STMT="SELECT * FROM MEMBERS where memb_id=?";
+	private static final String GET_ALL_STMT="SELECT * FROM MEMBERS order by memb_id";
 
 	public static void main(String[] args) {
+		//checked
 		MemJDBCDAO dao = new MemJDBCDAO();
 		
 		//insert
