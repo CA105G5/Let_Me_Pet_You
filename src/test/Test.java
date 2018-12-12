@@ -5,7 +5,7 @@ public class Test {
 		System.out.println("test");
 		System.out.println("ㄏ");
 		System.out.println("121323");
-		System.out.println("123");
+		System.out.println("13");
 		
 
 	}
