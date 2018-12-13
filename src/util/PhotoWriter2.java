@@ -35,7 +35,7 @@ public class PhotoWriter2 {
 
 					try {
         	    	System.out.println(contents2.length);
-			        File pic = new File(dir2, Integer.toString(j)+".jpg"); 
+			        File pic = new File(dir2, Integer.toString(j)+".png"); 
 			        
 			        InputStream fin = new FileInputStream(pic);  
 			        
