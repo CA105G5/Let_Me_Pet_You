@@ -259,7 +259,7 @@ public class RscMsgJDBCDAO implements RscMsgDAO_interface{
 				}
 			}
 		}
-		return list;
+		return list; 
 	}
 	public static void main(String[] args) {
 		
