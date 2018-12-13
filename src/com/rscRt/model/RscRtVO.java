@@ -9,8 +9,9 @@ public class RscRtVO implements java.io.Serializable{
 	private String memb_id;
 	private Timestamp rsc_rt_time;
 	private String rsc_rt_comm;
-	private String rsc_rt_des;
+	private String rsc_rv_des;
 	private String rsc_rt_status;
+	
 	public String getRsc_rt_id() {
 		return rsc_rt_id;
 	}
@@ -41,11 +42,11 @@ public class RscRtVO implements java.io.Serializable{
 	public void setRsc_rt_comm(String rsc_rt_comm) {
 		this.rsc_rt_comm = rsc_rt_comm;
 	}
-	public String getRsc_rt_des() {
-		return rsc_rt_des;
+	public String getRsc_rv_des() {
+		return rsc_rv_des;
 	}
-	public void setRsc_rt_des(String rsc_rt_des) {
-		this.rsc_rt_des = rsc_rt_des;
+	public void setRsc_rv_des(String rsc_rv_des) {
+		this.rsc_rv_des = rsc_rv_des;
 	}
 	public String getRsc_rt_status() {
 		return rsc_rt_status;
