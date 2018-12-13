@@ -11,10 +11,9 @@ public class RescuingVO implements java.io.Serializable{
 	private String rscing_cdes;
 	private Timestamp rscing_ctime;
 	private Timestamp rscing_etime;
-	private Integer rscing_lat;
-	private Integer rscing_lon;
+	private Double rscing_lat;
+	private Double rscing_lon;
 	private String rscing_rv_des;
-	
 	
 	public String getRsc_id() {
 		return rsc_id;
@@ -58,16 +57,16 @@ public class RescuingVO implements java.io.Serializable{
 	public void setRscing_etime(Timestamp rscing_etime) {
 		this.rscing_etime = rscing_etime;
 	}
-	public Integer getRscing_lat() {
+	public Double getRscing_lat() {
 		return rscing_lat;
 	}
-	public void setRscing_lat(Integer rscing_lat) {
+	public void setRscing_lat(Double rscing_lat) {
 		this.rscing_lat = rscing_lat;
 	}
-	public Integer getRscing_lon() {
+	public Double getRscing_lon() {
 		return rscing_lon;
 	}
-	public void setRscing_lon(Integer rscing_lon) {
+	public void setRscing_lon(Double rscing_lon) {
 		this.rscing_lon = rscing_lon;
 	}
 	public String getRscing_rv_des() {
@@ -76,4 +75,7 @@ public class RescuingVO implements java.io.Serializable{
 	public void setRscing_rv_des(String rscing_rv_des) {
 		this.rscing_rv_des = rscing_rv_des;
 	}
+	
+	
+	
 }
