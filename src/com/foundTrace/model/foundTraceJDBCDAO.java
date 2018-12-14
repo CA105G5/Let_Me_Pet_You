@@ -1,4 +1,4 @@
-package com.missingTrace.model;
+package com.foundTrace.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,20 +8,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class missingTraceJDBCDAO implements missingTraceDAO_interface {
+public class foundTraceJDBCDAO implements foundTraceDAO_interface {
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "juber";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO missing_trace(missing_case_id,memb_id) values (?,?)";
-	private static final String GET_ALL_STMT = "SELECT missing_case_id,memb_id FROM missing_trace where memb_id =? ";
-	private static final String DELETE = "DELETE FROM missing_trace where missing_case_id = ? and memb_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO found_trace(fd_case_id,memb_id) values (?,?)";
+	private static final String GET_ALL_STMT = "SELECT fd_case_id,memb_id FROM found_trace where memb_id =? ";
+	private static final String DELETE = "DELETE FROM found_trace where fd_case_id = ? and memb_id = ?";
 
 	// 新增
 	@Override
-	public void insert(missingTraceVO missingTraceVO) {
+	public void insert(foundTraceVO foundTraceVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -32,8 +32,8 @@ public class missingTraceJDBCDAO implements missingTraceDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, missingTraceVO.getMissing_case_id());
-			pstmt.setString(2, missingTraceVO.getMemb_id());
+			pstmt.setString(1, foundTraceVO.getFd_case_id());
+			pstmt.setString(2, foundTraceVO.getMemb_id());
 
 			pstmt.executeUpdate();
 
@@ -62,7 +62,7 @@ public class missingTraceJDBCDAO implements missingTraceDAO_interface {
 
 	// 新增II
 	@Override
-	public void insert(String missing_case_id, String memb_id) {
+	public void insert(String fd_case_id, String memb_id) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -72,8 +72,8 @@ public class missingTraceJDBCDAO implements missingTraceDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			
-			pstmt.setString(1, missing_case_id);
+
+			pstmt.setString(1, fd_case_id);
 			pstmt.setString(2, memb_id);
 
 			pstmt.executeUpdate();
@@ -104,7 +104,7 @@ public class missingTraceJDBCDAO implements missingTraceDAO_interface {
 
 	// 刪除
 	@Override
-	public void delete(String missing_case_id, String memb_id) {
+	public void delete(String fd_case_id, String memb_id) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -115,7 +115,7 @@ public class missingTraceJDBCDAO implements missingTraceDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setString(1, missing_case_id);
+			pstmt.setString(1, fd_case_id);
 			pstmt.setString(2, memb_id);
 
 			pstmt.executeUpdate();
@@ -146,15 +146,16 @@ public class missingTraceJDBCDAO implements missingTraceDAO_interface {
 
 	// 查詢
 	@Override
-	public List<missingTraceVO> findByMember(String memb_id) {
-		List<missingTraceVO> list = new ArrayList<missingTraceVO>();
-		missingTraceVO missingTraceVO = null;
+	public List<foundTraceVO> findByMember(String memb_id) {
+		List<foundTraceVO> list = new ArrayList<foundTraceVO>();
+		foundTraceVO foundTraceVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
+
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
@@ -164,11 +165,10 @@ public class missingTraceJDBCDAO implements missingTraceDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				missingTraceVO = new missingTraceVO();
-				missingTraceVO.setMissing_case_id(rs.getString("missing_case_id"));
-				missingTraceVO.setMemb_id(rs.getString("memb_id"));
-				list.add(missingTraceVO);
-
+				foundTraceVO = new foundTraceVO();
+				foundTraceVO.setFd_case_id(rs.getString("fd_case_id"));
+				foundTraceVO.setMemb_id(rs.getString("memb_id"));
+				list.add(foundTraceVO);
 			}
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -200,31 +200,32 @@ public class missingTraceJDBCDAO implements missingTraceDAO_interface {
 			}
 		}
 		return list;
-	}
 
+	}
+	
 	public static void main(String[] args) {
-		missingTraceJDBCDAO dao = new missingTraceJDBCDAO();
-
-		// 新增
-//		missingTraceVO missingTraceVO1 = new missingTraceVO();
-//		missingTraceVO1.setMissing_case_id("S000000001");
-//		missingTraceVO1.setMemb_id("M000000009");
-//		dao.insert(missingTraceVO1);
-
-		// 新增II
-//		dao.insert("S000000003", "M000000010");
-
-		// 刪除
-//		missingTraceVO missingTraceVO2 = new missingTraceVO();
-//		dao.delete("S000000003", "M000000010");
-
-		// 查詢
-//		List<missingTraceVO> list = dao.findByMember("M000000003");
-//		for (missingTraceVO mCase : list) {
-//			System.out.print(mCase.getMissing_case_id() + ",");
-//			System.out.println(mCase.getMemb_id());
-//			System.out.println("------------------------------------");
+		foundTraceJDBCDAO dao = new foundTraceJDBCDAO();
+		
+		//新增
+//		foundTraceVO foundTraceVO1 = new foundTraceVO();
+//		foundTraceVO1.setFd_case_id("F000000001");
+//		foundTraceVO1.setMemb_id("M000000008");
+//		dao.insert(foundTraceVO1);
+		
+		//新增
+//		dao.insert("F000000001", "M000000009");
+		
+		//刪除
+//		foundTraceVO foundTraceVO2 = new foundTraceVO();
+//		dao.delete("F000000001", "M000000009");
+		
+		//查詢
+//		List<foundTraceVO> list = dao.findByMember("M000000008");
+//		for (foundTraceVO ft : list) {
+//			System.out.print(ft.getFd_case_id()+",");
+//			System.out.println(ft.getMemb_id());
+//			System.out.println("-----------------------------------------");
 //		}
-
 	}
+	
 }
