@@ -304,7 +304,7 @@ public class WishImgJDBCDAO implements WishImgDAO_interface {
 //		dao.update(wishImgVO2);
 
 		// 刪除
-		dao.delete("0000000039");
+//		dao.delete("0000000039");
 
 		// 查詢
 //		List<WishImgVO> list = dao.findByPrimaryKey("W000000001");

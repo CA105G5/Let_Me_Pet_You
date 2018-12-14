@@ -1,5 +1,9 @@
 package com.pet.model;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,8 +22,8 @@ public class PetJDBCDAO implements PetDAO_interface{
 	String userid = "CA105G5";
 	String password = "123456"; 
 	
-	private static final String INSERT_STMT="INSERT INTO PET_DATA (pet_id,pet_name,memb_id,pet_gender,pet_birth,pet_descr,pet_death,pet_microchip,pet_type) VALUES ('PT'||lpad(to_char(pet_data_seq.nextval), 8, '0'),?,?,?,?,?,?,?,?)";
-	private static final String UPDATE_STMT="UPDATE PET_DATA set pet_name=?, memb_id=?,pet_gender=?,pet_birth=?,pet_descr=?,pet_status=?,pet_death=?, pet_microchip=?, pet_type=? where pet_id=?";
+	private static final String INSERT_STMT="INSERT INTO PET_DATA (pet_id,pet_name,memb_id,pet_gender,pet_birth,pet_descr,pet_death,pet_microchip,pet_type,pet_photo) VALUES ('PT'||lpad(to_char(pet_data_seq.nextval), 8, '0'),?,?,?,?,?,?,?,?,?)";
+	private static final String UPDATE_STMT="UPDATE PET_DATA set pet_name=?, memb_id=?,pet_gender=?,pet_birth=?,pet_descr=?,pet_status=?,pet_death=?, pet_microchip=?, pet_type=?, pet_photo=? where pet_id=?";
 	private static final String DELETE_STMT="DELETE FROM PET_DATA where pet_id=?";
 	private static final String GET_ONE_STMT="SELECT * FROM PET_DATA where pet_id=?";
 	private static final String GET_ALL_STMT="SELECT * FROM PET_DATA order by pet_id";
@@ -28,62 +32,77 @@ public class PetJDBCDAO implements PetDAO_interface{
 		//checked
 		PetJDBCDAO dao = new PetJDBCDAO();
 		//insert
-		PetVO petVO1 = new PetVO();
-		petVO1.setPet_name("lucky");
-		petVO1.setMemb_id("M000000001");
-		dao.insert(petVO1);
-		System.out.println("新增成功");
-		System.out.println("===========");
+//		PetVO petVO1 = new PetVO();
+//		petVO1.setPet_name("lucky");
+//		petVO1.setMemb_id("M000000001");
+//		
+//		try {
+//		byte[] pic1 = getPictureByteArray("C:\\專題\\假資料\\寵物照片\\p1.jpg");
+//		petVO1.setPet_photo(pic1);
+//	} catch (IOException e) {
+//		e.printStackTrace();
+//	}
+//		dao.insert(petVO1);
+//		System.out.println("新增成功");
+//		System.out.println("===========");
 		
-		//update
-		PetVO petVO2 = new PetVO();
-		petVO2.setPet_id("PT00000007");
-		petVO2.setMemb_id("M000000001");
-		petVO2.setPet_name("lovely");
-		dao.update(petVO2);
-		System.out.println("修改成功");
-		System.out.println("===========");
-		
-		//delete
-		dao.delete("PT00000007");
-		System.out.println("刪除成功");
-		System.out.println("===========");
-		
-		//findByPrimaryKey
-		PetVO petVO3 = dao.findByPrimaryKey("PT00000001");
-		System.out.println(petVO3.getPet_id());
-		System.out.println(petVO3.getPet_name());
-		System.out.println(petVO3.getMemb_id());
-		System.out.println(petVO3.getPet_gender());
-		System.out.println(petVO3.getPet_birth());
-		System.out.println(petVO3.getPet_descr());
-		System.out.println(petVO3.getPet_status());
-		System.out.println(petVO3.getPet_death());
-		System.out.println(petVO3.getPet_microchip());
-		System.out.println(petVO3.getPet_type());
-		System.out.println("==========================");
-		System.out.println("單一資料查詢成功");
-		System.out.println("===========");
-		
-		
-		//getAll
-		
-		List<PetVO> list = dao.getAll();
-		for(PetVO aPet : list) {
-			System.out.println(aPet.getPet_id());
-			System.out.println(aPet.getPet_name());
-			System.out.println(aPet.getMemb_id());
-			System.out.println(aPet.getPet_gender());
-			System.out.println(aPet.getPet_birth());
-			System.out.println(aPet.getPet_descr());
-			System.out.println(aPet.getPet_status());
-			System.out.println(aPet.getPet_death());
-			System.out.println(aPet.getPet_microchip());
-			System.out.println(aPet.getPet_type());
-			System.out.println("~~~~~~~~~~~~~~~~~~~~~~");
-		}
-		System.out.println("多筆資料查詢成功");
-		System.out.println("===========");
+//		//update
+//		PetVO petVO2 = new PetVO();
+//		petVO2.setPet_id("PT00000007");
+//		petVO2.setMemb_id("M000000001");
+//		petVO2.setPet_name("lovely");
+//		try {
+//		byte[] pic2 = getPictureByteArray("C:\\專題\\假資料\\寵物照片\\p2.jpg");
+//		petVO2.setPet_photo(pic2);
+//	} catch (IOException e) {
+//		e.printStackTrace();
+//	}	
+//		dao.update(petVO2);
+//		System.out.println("修改成功");
+//		System.out.println("===========");
+//		
+//		//delete
+//		dao.delete("PT00000007");
+//		System.out.println("刪除成功");
+//		System.out.println("===========");
+//		
+//		//findByPrimaryKey
+//		PetVO petVO3 = dao.findByPrimaryKey("PT00000001");
+//		System.out.println(petVO3.getPet_id());
+//		System.out.println(petVO3.getPet_name());
+//		System.out.println(petVO3.getMemb_id());
+//		System.out.println(petVO3.getPet_gender());
+//		System.out.println(petVO3.getPet_birth());
+//		System.out.println(petVO3.getPet_descr());
+//		System.out.println(petVO3.getPet_status());
+//		System.out.println(petVO3.getPet_death());
+//		System.out.println(petVO3.getPet_microchip());
+//		System.out.println(petVO3.getPet_type());
+//		System.out.println(petVO3.getPet_photo());
+//		System.out.println("==========================");
+//		System.out.println("單一資料查詢成功");
+//		System.out.println("===========");
+//		
+//		
+//		//getAll
+//		
+//		List<PetVO> list = dao.getAll();
+//		for(PetVO aPet : list) {
+//			System.out.println(aPet.getPet_id());
+//			System.out.println(aPet.getPet_name());
+//			System.out.println(aPet.getMemb_id());
+//			System.out.println(aPet.getPet_gender());
+//			System.out.println(aPet.getPet_birth());
+//			System.out.println(aPet.getPet_descr());
+//			System.out.println(aPet.getPet_status());
+//			System.out.println(aPet.getPet_death());
+//			System.out.println(aPet.getPet_microchip());
+//			System.out.println(aPet.getPet_type());
+//		    System.out.println(aPet.getPet_photo());
+//			System.out.println("~~~~~~~~~~~~~~~~~~~~~~");
+//		}
+//		System.out.println("多筆資料查詢成功");
+//		System.out.println("===========");
 		
 
 	}
@@ -107,7 +126,7 @@ public class PetJDBCDAO implements PetDAO_interface{
 			pstmt.setDate(6,petVO.getPet_death());
 			pstmt.setString(7,petVO.getPet_microchip());
 			pstmt.setString(8,petVO.getPet_type());
-			
+			pstmt.setBytes(9, petVO.getPet_photo());
 			pstmt.executeUpdate();
 			
 			
@@ -154,7 +173,8 @@ public class PetJDBCDAO implements PetDAO_interface{
 			pstmt.setDate(7,petVO.getPet_death());
 			pstmt.setString(8,petVO.getPet_microchip());
 			pstmt.setString(9,petVO.getPet_type());
-			pstmt.setString(10,petVO.getPet_id());
+			pstmt.setBytes(10,petVO.getPet_photo());
+			pstmt.setString(11,petVO.getPet_id());
 			pstmt.executeUpdate();
 			
 	
@@ -248,6 +268,7 @@ public class PetJDBCDAO implements PetDAO_interface{
 				petVO.setPet_death(rs.getDate("pet_death"));
 				petVO.setPet_microchip(rs.getString("pet_microchip"));
 				petVO.setPet_type(rs.getString("pet_type"));
+				petVO.setPet_photo(rs.getBytes("pet_photo"));
 			}
 			
 			
@@ -309,6 +330,7 @@ public class PetJDBCDAO implements PetDAO_interface{
 				petVO.setPet_death(rs.getDate("pet_death"));
 				petVO.setPet_microchip(rs.getString("pet_microchip"));
 				petVO.setPet_type(rs.getString("pet_type"));
+				petVO.setPet_photo(rs.getBytes("pet_photo"));
 				list.add(petVO);
 			}
 			
@@ -345,5 +367,18 @@ public class PetJDBCDAO implements PetDAO_interface{
 		}
 		return list;
 	}
+	public static byte[] getPictureByteArray(String path) throws IOException {
+		File file = new File(path);
+		FileInputStream fis = new FileInputStream(file);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] buffer = new byte[8192];	//設定每次讀取的大小
+		int i;
+		while ((i = fis.read(buffer)) != -1) {
+			baos.write(buffer, 0, i);
+		}
+		baos.close();
+		fis.close();
 
+		return baos.toByteArray();	//將ByteArrayOutputStream轉成ByteArray
+	}
 }
