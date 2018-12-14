@@ -10,6 +10,7 @@ public class RscMsgVO implements java.io.Serializable{
 	private Timestamp rsc_msg_time;
 	private String rsc_msg_comm;
 	private String rsc_msg_status;
+	
 	public String getRsc_msg_id() {
 		return rsc_msg_id;
 	}

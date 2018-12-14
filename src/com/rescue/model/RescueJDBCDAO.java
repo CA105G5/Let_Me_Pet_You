@@ -15,8 +15,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "test2";
-	String passwd = "111";
+	String userid = "CA105G5";
+	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO RESCUE (rsc_id,rsc_name,rsc_add,rsc_des,rsc_img,rsc_sponsor,vlt_id,rsc_lat,rsc_lon,rsc_sta,rsc_stm_time,rsc_stm_url,rsc_stm_sta,rsc_btime,rsc_coin,rsc_etime,rsc_reg,rsc_rt_status,ntf_vlt_dt,ntf_vlt_link,ntf_vlt_sta,ntf_vlt_time) VALUES ('R'||LPAD(to_char(volunteer_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";

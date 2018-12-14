@@ -13,8 +13,8 @@ import java.util.List;
 public class RegionJDBCDAO implements RegionDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "test2";
-	String passwd = "111";
+	String userid = "CA105G5";
+	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO REGION (reg_id,reg_name) VALUES ('REG'||LPAD(to_char(region_seq.NEXTVAL), 7, '0'), ?)";

@@ -12,8 +12,8 @@ import java.util.List;
 public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "test2";
-	String passwd = "111";
+	String userid = "CA105G5";
+	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO VOLUNTEER (vlt_id,vlt_name,vlt_mail,vlt_pw,vlt_gender,vlt_tel,vlt_img,vlt_add,vlt_registerdate,vlt_duty_day,vlt_sta,vlt_reg) VALUES ('V'||LPAD(to_char(volunteer_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?)";
