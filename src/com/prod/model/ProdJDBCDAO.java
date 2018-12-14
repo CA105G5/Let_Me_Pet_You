@@ -1,5 +1,9 @@
 package com.prod.model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +19,7 @@ import com.prod.model.ProdVO;
 public class ProdJDBCDAO implements ProdDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "Jen";
+	String userid = "CA105G5";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO product (PROD_ID, MEMB_ID, PROD_TYPE_ID, PROD_ANI_TYPE_ID, PROD_NAME, PROD_DES, PROD_INFO, PROD_QTY, PROD_STOCK, PROD_DATE, PROD_REVIEW, PROD_REVIEW_DES, PROD_STATUS, PROD_PRICE) VALUES ('P'||LPAD(to_char(prod_id_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -39,7 +43,7 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 			pstmt.setString(2, prodVO.getProd_type_id());
 			pstmt.setString(3, prodVO.getProd_ani_type_id());
 			pstmt.setString(4, prodVO.getProd_name());
-			pstmt.setString(5, prodVO.getProd_des());
+//			pstmt.setString(5, prodVO.getProd_des());
 			pstmt.setString(6, prodVO.getProd_info());
 			pstmt.setInt(7, prodVO.getProd_qty());
 			pstmt.setInt(8, prodVO.getProd_stock());
@@ -48,6 +52,10 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 			pstmt.setString(11, prodVO.getProd_review_des());
 			pstmt.setString(12, prodVO.getProd_status());
 			pstmt.setInt(13, prodVO.getProd_price());
+			
+			Clob clob = con.createClob(); //使用連線connection建立clob
+			clob.setString(1, prodVO.getProd_des()); // 括號內第一個數字1是指放置在clob的位置。 str - the string to be written to the CLOBvalue that this Clob designates，
+			pstmt.setClob(5, clob);
 
 			int rowsUpdated = pstmt.executeUpdate();
 			System.out.println("Changed " + rowsUpdated + "rows");
@@ -93,7 +101,7 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 			pstmt.setString(2, prodVO.getProd_type_id());
 			pstmt.setString(3, prodVO.getProd_ani_type_id());
 			pstmt.setString(4, prodVO.getProd_name());
-			pstmt.setString(5, prodVO.getProd_des());
+//			pstmt.setString(5, prodVO.getProd_des());
 			pstmt.setString(6, prodVO.getProd_info());
 			pstmt.setInt(7, prodVO.getProd_qty());
 			pstmt.setInt(8, prodVO.getProd_stock());
@@ -103,6 +111,10 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 			pstmt.setString(12, prodVO.getProd_status());
 			pstmt.setInt(13, prodVO.getProd_price());
 			pstmt.setString(14, prodVO.getProd_id());
+			
+			Clob clob = con.createClob(); //使用連線connection建立clob
+			clob.setString(1, prodVO.getProd_des()); // 括號內第一個數字1是指放置在clob的位置。 str - the string to be written to the CLOBvalue that this Clob designates，
+			pstmt.setClob(5, clob);
 
 			int rowsUpdated = pstmt.executeUpdate();
 
@@ -159,7 +171,7 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 				prodVO.setProd_type_id(rs.getString("prod_type_id"));
 				prodVO.setProd_ani_type_id(rs.getString("prod_ani_type_id"));
 				prodVO.setProd_name(rs.getString("prod_name"));
-				prodVO.setProd_des(rs.getString("prod_des"));
+				prodVO.setProd_des(readString(rs.getClob("prod_des")));
 				prodVO.setProd_info(rs.getString("prod_info"));
 				prodVO.setProd_qty(rs.getInt("prod_qty"));
 				prodVO.setProd_stock(rs.getInt("prod_stock"));
@@ -177,6 +189,8 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
+		} catch (IOException e) {
+			e.printStackTrace();
 		} finally {
 			if (rs != null) {
 				try {
@@ -228,7 +242,7 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 				prodVO.setProd_type_id(rs.getString("prod_type_id"));
 				prodVO.setProd_ani_type_id(rs.getString("prod_ani_type_id"));
 				prodVO.setProd_name(rs.getString("prod_name"));
-				prodVO.setProd_des(rs.getString("prod_des"));
+				prodVO.setProd_des(readString(rs.getClob("prod_des")));
 				prodVO.setProd_info(rs.getString("prod_info"));
 				prodVO.setProd_qty(rs.getInt("prod_qty"));
 				prodVO.setProd_stock(rs.getInt("prod_stock"));
@@ -247,6 +261,8 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
+		} catch (IOException e) {
+			e.printStackTrace();
 		} finally {
 			if (rs != null) {
 				try {
@@ -315,6 +331,32 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 			}
 		}
 	}
+	
+	public static String readString(Clob clob) throws IOException, SQLException {
+		StringBuilder sb = new StringBuilder();
+		BufferedReader br = new BufferedReader(clob.getCharacterStream());
+		String str;
+		while((str = br.readLine()) != null) {
+			sb.append(str);
+			sb.append("\n");
+		}
+		br.close();
+
+		return sb.toString();
+	}
+	
+	public static String getLongString(String path) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(path));
+		StringBuilder sb = new StringBuilder(); // StringBuffer is thread-safe!
+		String str;
+		while ((str = br.readLine()) != null) {
+			sb.append(str);
+			sb.append("\n");
+		}
+		br.close();
+
+		return sb.toString();
+	}
 
 	public static void main(String[] args) {
 
@@ -326,8 +368,7 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 //		prodVO1.setMemb_id("M000000001");
 //		prodVO1.setProd_type_id("玩具");
 //		prodVO1.setProd_ani_type_id("貓");
-//		prodVO1.setProd_name("擬真鮭魚抱枕");
-//		prodVO1.setProd_des("Test");
+//		prodVO1.setProd_name("擬真鮭魚抱枕22");
 //		prodVO1.setProd_info("Test");
 //		prodVO1.setProd_qty(10);
 //		prodVO1.setProd_stock(0);
@@ -336,31 +377,44 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 //		prodVO1.setProd_review_des("Test");
 //		prodVO1.setProd_status("Test");
 //		prodVO1.setProd_price(10);
+//		
+//		try {
+//			String str = getLongString("C:\\專題\\假資料\\表格假資料_20181206.docx");
+//			prodVO1.setProd_des(str);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 //		dao.insert(prodVO1);
 
 		// 修改
-		ProdVO prodVO2 = new ProdVO();
-		prodVO2.setProd_id("P000000016");
-		prodVO2.setMemb_id("M000000002");
-		prodVO2.setProd_type_id("玩具");
-		prodVO2.setProd_ani_type_id("貓");
-		prodVO2.setProd_name("擬真鮭魚抱枕2");
-		prodVO2.setProd_des("Test2");
-		prodVO2.setProd_info("Test2");
-		prodVO2.setProd_qty(20);
-		prodVO2.setProd_stock(10);
-		prodVO2.setProd_date(new Timestamp(new Date().getTime()));
-		prodVO2.setProd_review("未審核");
-		prodVO2.setProd_review_des("Test");
-		prodVO2.setProd_status("Test");
-		prodVO2.setProd_price(10);
-		dao.update(prodVO2);
+//		ProdVO prodVO2 = new ProdVO();
+//		prodVO2.setProd_id("P000000014");
+//		prodVO2.setMemb_id("M000000002");
+//		prodVO2.setProd_type_id("玩具");
+//		prodVO2.setProd_ani_type_id("貓");
+//		prodVO2.setProd_name("擬真鮭魚抱枕2");
+//		prodVO2.setProd_info("Test2");
+//		prodVO2.setProd_qty(20);
+//		prodVO2.setProd_stock(10);
+//		prodVO2.setProd_date(new Timestamp(new Date().getTime()));
+//		prodVO2.setProd_review("未審核");
+//		prodVO2.setProd_review_des("Test");
+//		prodVO2.setProd_status("Test");
+//		prodVO2.setProd_price(10);
+//		
+//		try {
+//			String str = getLongString("C:\\Users\\Jen\\Desktop\\專題頁面列表.txt");
+//			prodVO2.setProd_des(str);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		dao.update(prodVO2);
 
-//		// 刪除
-		dao.delete("P000000016");
+		// 刪除
+//		dao.delete("P000000014");
 
 		// 查詢
-		ProdVO prodVO3 = dao.findByPrimaryKey("P000000001");
+		ProdVO prodVO3 = dao.findByPrimaryKey("P000000014");
 		System.out.print(prodVO3.getProd_id() + ",");
 		System.out.print(prodVO3.getMemb_id() + ",");
 		System.out.print(prodVO3.getProd_type_id() + ",");
@@ -371,24 +425,24 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 		System.out.println("---------------------");
 
 		// 查詢
-		List<ProdVO> list = dao.getAll();
-		for (ProdVO aProd : list) {
-			System.out.print(aProd.getProd_id() + ",");
-			System.out.print(aProd.getMemb_id() + ",");
-			System.out.print(aProd.getProd_type_id() + ",");
-			System.out.print(aProd.getProd_ani_type_id() + ",");
-			System.out.print(aProd.getProd_name() + ",");
-			System.out.print(aProd.getProd_des() + ",");
-			System.out.print(aProd.getProd_info() + ",");
-			System.out.print(aProd.getProd_qty() + ",");
-			System.out.print(aProd.getProd_stock() + ",");
-			System.out.print(aProd.getProd_date() + ",");
-			System.out.print(aProd.getProd_review() + ",");
-			System.out.print(aProd.getProd_review_des() + ",");
-			System.out.print(aProd.getProd_status() + ",");
-			System.out.println(aProd.getProd_price());
-			System.out.println();
-		}
+//		List<ProdVO> list = dao.getAll();
+//		for (ProdVO aProd : list) {
+//			System.out.print(aProd.getProd_id() + ",");
+//			System.out.print(aProd.getMemb_id() + ",");
+//			System.out.print(aProd.getProd_type_id() + ",");
+//			System.out.print(aProd.getProd_ani_type_id() + ",");
+//			System.out.print(aProd.getProd_name() + ",");
+//			System.out.print(aProd.getProd_des() + ",");
+//			System.out.print(aProd.getProd_info() + ",");
+//			System.out.print(aProd.getProd_qty() + ",");
+//			System.out.print(aProd.getProd_stock() + ",");
+//			System.out.print(aProd.getProd_date() + ",");
+//			System.out.print(aProd.getProd_review() + ",");
+//			System.out.print(aProd.getProd_review_des() + ",");
+//			System.out.print(aProd.getProd_status() + ",");
+//			System.out.println(aProd.getProd_price());
+//			System.out.println();
+//		}
 	}
 
 }

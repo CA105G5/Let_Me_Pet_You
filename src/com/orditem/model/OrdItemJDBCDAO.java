@@ -15,7 +15,7 @@ import com.orditem.model.OrdItemVO;
 public class OrdItemJDBCDAO implements OrdItemDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "Jen";
+	String userid = "CA105G5";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO ORD_ITEM (PROD_ID, ORD_ID, ORD_ITEM_QTY, ORD_ITEM_SP_STATUS, ORD_ITEM_SP_DATE, ORD_ITEM_RC_STATUS, ORD_ITEM_RC_DATE, ORD_ITEM_COIN_ST, ORD_ITEM_RT_STATUS, ord_item_rt_date, ord_item_rt_comm, ord_item_review, ord_item_rv_des) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

@@ -13,7 +13,7 @@ import java.util.List;
 public class BankJDBCDAO implements BankDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "Jen";
+	String userid = "CA105G5";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO bank (bank_id, bank_name) VALUES (?, ?)";

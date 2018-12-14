@@ -13,7 +13,7 @@ import java.util.List;
 public class DonateJDBCDAO implements DonateDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "Jen";
+	String userid = "CA105G5";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO donate (DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS) VALUES ('D'||LPAD(to_char(donate_id_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -337,17 +337,17 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 //		dao.update(donateVO2);
 
 		// 刪除
-		dao.delete("D000000011");
+//		dao.delete("D000000011");
 
 		// 查詢
-		DonateVO donateVO3 = dao.findByPrimaryKey("D000000010");
-		System.out.print(donateVO3.getDonate_id() + ",");
-		System.out.print(donateVO3.getMemb_id() + ",");
-		System.out.print(donateVO3.getDonate_amount() + ",");
-		System.out.print(donateVO3.getDonate_date() + ",");
-		System.out.print(donateVO3.getDonate_src() + ",");
-		System.out.println(donateVO3.getDonate_status());
-		System.out.println("---------------------");
+//		DonateVO donateVO3 = dao.findByPrimaryKey("D000000010");
+//		System.out.print(donateVO3.getDonate_id() + ",");
+//		System.out.print(donateVO3.getMemb_id() + ",");
+//		System.out.print(donateVO3.getDonate_amount() + ",");
+//		System.out.print(donateVO3.getDonate_date() + ",");
+//		System.out.print(donateVO3.getDonate_src() + ",");
+//		System.out.println(donateVO3.getDonate_status());
+//		System.out.println("---------------------");
 
 		// 查詢
 		List<DonateVO> list = dao.getAll();

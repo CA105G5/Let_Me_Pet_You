@@ -15,7 +15,7 @@ import com.ord.model.OrdVO;
 public class OrdJDBCDAO implements OrdDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "Jen";
+	String userid = "CA105G5";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO ord (ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM) VALUES ('O'|| to_char(sysdate,'yyyymmdd')||'-'||LPAD(to_char(ORD_id_seq.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?, ?, ?)";
@@ -324,16 +324,16 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 //		dao.delete("O20181212-007");
 //
 //		// 查詢
-		OrdVO ordVO3 = dao.findByPrimaryKey("O20181212-008");
-		System.out.print(ordVO3.getOrd_id() + ",");
-		System.out.print(ordVO3.getMemb_id() + ",");
-		System.out.print(ordVO3.getOrd_date() + ",");
-		System.out.print(ordVO3.getOrd_total() + ",");
-		System.out.print(ordVO3.getOrd_receiver() + ",");
-		System.out.print(ordVO3.getOrd_rc_tel() + ",");
-		System.out.print(ordVO3.getOrd_rc_add() + ",");
-		System.out.println(ordVO3.getOrd_rc_comm());
-		System.out.println("---------------------");
+//		OrdVO ordVO3 = dao.findByPrimaryKey("O20181212-008");
+//		System.out.print(ordVO3.getOrd_id() + ",");
+//		System.out.print(ordVO3.getMemb_id() + ",");
+//		System.out.print(ordVO3.getOrd_date() + ",");
+//		System.out.print(ordVO3.getOrd_total() + ",");
+//		System.out.print(ordVO3.getOrd_receiver() + ",");
+//		System.out.print(ordVO3.getOrd_rc_tel() + ",");
+//		System.out.print(ordVO3.getOrd_rc_add() + ",");
+//		System.out.println(ordVO3.getOrd_rc_comm());
+//		System.out.println("---------------------");
 
 //		// 查詢
 		List<OrdVO> list = dao.getAll();

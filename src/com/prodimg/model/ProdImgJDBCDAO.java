@@ -14,12 +14,13 @@ import java.util.List;
 public class ProdImgJDBCDAO implements ProdImgDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "Jen";
+	String userid = "CA105G5";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO PROD_IMG (prod_img_id, prod_id, prod_img) VALUES (LPAD(to_char(prod_img_id_seq.NEXTVAL), 10, '0'), ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT prod_img_id, prod_id, prod_img FROM PROD_IMG order by prod_img_id";
 	private static final String GET_ONE_STMT = "SELECT prod_img_id, prod_id, prod_img FROM PROD_IMG where prod_id = ?";
+	private static final String GET_ONE_STMT2 = "SELECT prod_img_id, prod_id, prod_img FROM PROD_IMG where prod_img_id =?";
 	private static final String DELETE = "DELETE FROM PROD_IMG where prod_img_id = ?";
 	private static final String UPDATE = "UPDATE PROD_IMG set prod_id=?, prod_img=? where prod_img_id=?";
 
@@ -171,6 +172,66 @@ public class ProdImgJDBCDAO implements ProdImgDAO_interface {
 		return list;
 
 	}
+	
+	@Override
+	public ProdImgVO findByPrimaryKey2(String prod_img_id) {
+
+		ProdImgVO prodImgVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_STMT2);
+
+			pstmt.setString(1,  prod_img_id);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// prodVo 也稱為 Domain objects
+				prodImgVO = new ProdImgVO();
+				prodImgVO.setProd_img_id(prod_img_id);
+				prodImgVO.setProd_id(rs.getString("prod_id"));
+				prodImgVO.setProd_img(rs.getBytes("prod_img"));
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return prodImgVO;
+	}
+
 
 	@Override
 	public List<ProdImgVO> getAll() {
@@ -340,4 +401,5 @@ public class ProdImgJDBCDAO implements ProdImgDAO_interface {
 		return baos.toByteArray();	//將ByteArrayOutputStream轉成ByteArray
 	}
 
+	
 }

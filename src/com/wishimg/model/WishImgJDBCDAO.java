@@ -14,7 +14,7 @@ import java.util.List;
 public class WishImgJDBCDAO implements WishImgDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "Jen";
+	String userid = "CA105G5";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO WISH_IMG (wish_img_id, wish_id, wish_img) VALUES (LPAD(to_char(wish_img_id_seq.NEXTVAL), 10, '0'), ?, ?)";
@@ -307,13 +307,13 @@ public class WishImgJDBCDAO implements WishImgDAO_interface {
 //		dao.delete("0000000039");
 
 		// 查詢
-//		List<WishImgVO> list = dao.findByPrimaryKey("W000000001");
-//		for (WishImgVO aWishImg1 : list) {
-//			System.out.print(aWishImg1.getWish_img_id() + ",");
-//			System.out.print(aWishImg1.getWish_id() + ",");
-//			System.out.println(aWishImg1.getWish_img() + ",");
-//			System.out.println("---------------------");
-//		}
+		List<WishImgVO> list = dao.findByPrimaryKey("W000000001");
+		for (WishImgVO aWishImg1 : list) {
+			System.out.print(aWishImg1.getWish_img_id() + ",");
+			System.out.print(aWishImg1.getWish_id() + ",");
+			System.out.println(aWishImg1.getWish_img() + ",");
+			System.out.println("---------------------");
+		}
 
 		// 查詢
 //		List<WishImgVO> list = dao.getAll();
@@ -330,7 +330,7 @@ public class WishImgJDBCDAO implements WishImgDAO_interface {
 		FileInputStream fis = new FileInputStream(file);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		byte[] buffer = new byte[8192];	//設定每次讀取的大小
-		int i;
+		int i; 
 		while ((i = fis.read(buffer)) != -1) {
 			baos.write(buffer, 0, i);
 		}

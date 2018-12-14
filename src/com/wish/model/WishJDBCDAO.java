@@ -13,7 +13,7 @@ import java.util.List;
 public class WishJDBCDAO implements WishDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "Jen";
+	String userid = "CA105G5";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO wish (WISH_ID, WISH_NAME, WISH_DES, WISH_QTY, WISH_STOCK, WISH_DATE, WISH_STATUS, WISH_COIN) VALUES ('W'||LPAD(to_char(wish_id_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?)";

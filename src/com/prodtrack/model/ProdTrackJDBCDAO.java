@@ -13,7 +13,7 @@ import java.util.List;
 public class ProdTrackJDBCDAO implements ProdTrackDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "Jen";
+	String userid = "CA105G5";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO prod_track (PROD_ID, MEMB_ID) VALUES (?, ?)";
@@ -275,10 +275,10 @@ public class ProdTrackJDBCDAO implements ProdTrackDAO_interface {
 		ProdTrackJDBCDAO dao = new ProdTrackJDBCDAO();
 
 		// 新增
-		ProdTrackVO prodTrackVO1 = new ProdTrackVO();
-		prodTrackVO1.setProd_id("P000000001");
-		prodTrackVO1.setMemb_id("M000000001");
-		dao.insert(prodTrackVO1);
+//		ProdTrackVO prodTrackVO1 = new ProdTrackVO();
+//		prodTrackVO1.setProd_id("P000000001");
+//		prodTrackVO1.setMemb_id("M000000001");
+//		dao.insert(prodTrackVO1);
 
 		// 修改(其實不需要這個，因為兩個都是主鍵)
 //		ProdTrackVO prodTrackVO2 = new ProdTrackVO();
@@ -287,13 +287,13 @@ public class ProdTrackJDBCDAO implements ProdTrackDAO_interface {
 //		dao.update(prodTrackVO2);
 //
 		// 刪除
-		dao.delete("P000000001","M000000001");
+//		dao.delete("P000000001","M000000001");
 
 		// 查詢
-		ProdTrackVO prodTrackVO3 = dao.findByPrimaryKey("M000000001");
-		System.out.print(prodTrackVO3.getProd_id() + ",");
-		System.out.print(prodTrackVO3.getMemb_id() + ",");
-		System.out.println("---------------------");
+//		ProdTrackVO prodTrackVO3 = dao.findByPrimaryKey("M000000001");
+//		System.out.print(prodTrackVO3.getProd_id() + ",");
+//		System.out.print(prodTrackVO3.getMemb_id() + ",");
+//		System.out.println("---------------------");
 
 		// 查詢
 		List<ProdTrackVO> list = dao.getAll();
