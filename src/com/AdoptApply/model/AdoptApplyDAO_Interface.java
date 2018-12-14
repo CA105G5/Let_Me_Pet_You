@@ -8,7 +8,7 @@ public interface AdoptApplyDAO_Interface {
 	public void update(AdoptApplyVO adoptApplyVO);
 	public void delete(String memb_id, String adopt_id);
 	public List<AdoptApplyVO> findByPrimaryKey(String memb_id, String adopt_id);
-	public List<AdoptApplyVO> FindbyMember(String memb_id);
+	public List<AdoptApplyVO> getAll();
 	
 
 }

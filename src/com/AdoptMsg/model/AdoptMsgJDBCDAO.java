@@ -3,6 +3,7 @@ package com.AdoptMsg.model;
 import java.util.*;
 
 import com.AdoptMsg.*;
+import com.Adoption.model.AdoptionJDBCDAO;
 import com.Adoption.model.AdoptionVO;
 import com.mysql.jdbc.Driver;
 import java.sql.*;
@@ -11,19 +12,19 @@ public class AdoptMsgJDBCDAO implements AdoptMsgDAO_Interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String user = "G5";
-	String password = "g5";
+	String user = "CA105G5";
+	String password = "123456";
 	
 	private static final String INSERT_ADOPT_MSG = 
-			"INSERT INTO ADOPT_MSG (ADOPT_MSG_ID,ADOPT_ID,ADOPT_MSG_SPER) values ('AM'||LPAD(to_char(adopt_msg_seq.NEXTVAL),8,'0'),?,?)";
+			"INSERT INTO ADOPT_MSG (ADOPT_MSG_ID,ADOPT_ID,ADOPT_MSG_SPER,ADOPT_MSG_COMM) values ('AM'||LPAD(to_char(adopt_msg_seq.NEXTVAL),8,'0'),?,?,?)";
 	private static final String GET_ONE_ADOPT_MSG =
 			"SELECT * FROM ADOPT_MSG WHERE ADOPT_MSG_ID=?";
 	private static final String GET_ALL_ADOPT_MSG =
-			"SELECT * FROM ADOPT_MSG ORDER BY ADOPT_MSG_ID=?";
+			"SELECT * FROM ADOPT_MSG ORDER BY ADOPT_MSG_ID";
 	private static final String DELETE = 
-			"DELET FROM ADOPT_MSG WHERE ADOPT_MSG_ID=?";
+			"DELETE FROM ADOPT_MSG WHERE ADOPT_MSG_ID=?";
 	private static final String UPDATE =
-			"UPDATE ADOPT_MSG SET ADOPT_ID=?,ADOPT_MSG_SPER=?,ADOPT_MSG_TIME=?,ADOPT_MSG_COMM=?";
+			"UPDATE ADOPT_MSG SET ADOPT_ID=?,ADOPT_MSG_SPER=?,ADOPT_MSG_TIME=?,ADOPT_MSG_COMM=? WHERE ADOPT_MSG_ID=?";
 
 	public AdoptMsgJDBCDAO() {
 		
@@ -44,8 +45,7 @@ public class AdoptMsgJDBCDAO implements AdoptMsgDAO_Interface{
 			
 			pstmt.setString(1, adoptMsgVO.getAdopt_id());
 			pstmt.setString(2, adoptMsgVO.getAdopt_msg_sper());
-			pstmt.setTimestamp(3, adoptMsgVO.getAdopt_msg_time());
-			pstmt.setString(4, adoptMsgVO.getAdopt_msg_comm());
+			pstmt.setString(3, adoptMsgVO.getAdopt_msg_comm());
 			
 			pstmt.executeUpdate();
 				
@@ -91,6 +91,7 @@ public class AdoptMsgJDBCDAO implements AdoptMsgDAO_Interface{
 			pstmt.setTimestamp(3, adoptMsgVO.getAdopt_msg_time());
 			pstmt.setString(4, adoptMsgVO.getAdopt_msg_comm());
 			pstmt.setString(5, adoptMsgVO.getAdopt_msg_id());
+		
 			
 
 			pstmt.executeUpdate();
@@ -180,10 +181,11 @@ public class AdoptMsgJDBCDAO implements AdoptMsgDAO_Interface{
 			
 			while (rs.next()) {
 				adoptMsgVO = new AdoptMsgVO();
+				adoptMsgVO.setAdopt_msg_id(rs.getString("adopt_msg_id"));
 				adoptMsgVO.setAdopt_id(rs.getString("adopt_id"));
 				adoptMsgVO.setAdopt_msg_sper(rs.getString("adopt_msg_sper"));
 				adoptMsgVO.setAdopt_msg_time(rs.getTimestamp("adopt_msg_time"));
-				adoptMsgVO.setAdopt_msg_comm(rs.getString("adiot_msg_comm"));
+				adoptMsgVO.setAdopt_msg_comm(rs.getString("adopt_msg_comm"));
 				
 						
 			}
@@ -243,10 +245,11 @@ public class AdoptMsgJDBCDAO implements AdoptMsgDAO_Interface{
 			while (rs.next()) {
 				
 				adoptMsgVO = new AdoptMsgVO();
+				adoptMsgVO.setAdopt_msg_id(rs.getString("adopt_msg_id"));
 				adoptMsgVO.setAdopt_id(rs.getString("adopt_id"));
 				adoptMsgVO.setAdopt_msg_sper(rs.getString("adopt_msg_sper"));
 				adoptMsgVO.setAdopt_msg_time(rs.getTimestamp("adopt_msg_time"));
-				adoptMsgVO.setAdopt_msg_comm(rs.getString("adiot_msg_comm"));
+				adoptMsgVO.setAdopt_msg_comm(rs.getString("adopt_msg_comm"));
 				list.add(adoptMsgVO);
 			}
 			
@@ -285,6 +288,43 @@ public class AdoptMsgJDBCDAO implements AdoptMsgDAO_Interface{
 		return list;
 	}
 	
+	public static void main(String[] args) {
+		
+		AdoptMsgJDBCDAO dao = new AdoptMsgJDBCDAO();
+		
+//		//新增
+//		AdoptMsgVO adoptMsgVO1 = new AdoptMsgVO();
+//		adoptMsgVO1.setAdopt_id("A000000007");
+//		adoptMsgVO1.setAdopt_msg_sper("M000000002");
+//		adoptMsgVO1.setAdopt_msg_comm("留言描述");
+//		dao.insert(adoptMsgVO1);
+//		System.out.println("新增成功");
+		
+//		//刪除
+//		dao.delete("AM00000007");
 	
+//		//查一筆
+//		AdoptMsgVO adoptMsgVO2 = dao.findByPrimaryKey("AM00000001");
+//		System.out.println(adoptMsgVO2.getAdopt_msg_id() + ",");
+//		System.out.println(adoptMsgVO2.getAdopt_id() + ",");
+//		System.out.println(adoptMsgVO2.getAdopt_msg_sper() + ",");
+//		System.out.println(adoptMsgVO2.getAdopt_msg_time() + ",");
+//		System.out.println(adoptMsgVO2.getAdopt_msg_comm() + ",");
+//		System.out.println("---------------------------");
+//		System.out.println("查一筆成功");
+	
+		
+//		//查全部
+//		List<AdoptMsgVO> list = dao.getAll();
+//		for (AdoptMsgVO mymsg : list) {
+//			System.out.println(mymsg.getAdopt_msg_id() + ",");
+//			System.out.println(mymsg.getAdopt_id() + ",");
+//			System.out.println(mymsg.getAdopt_msg_sper() + ",");
+//			System.out.println(mymsg.getAdopt_msg_time() + ",");
+//			System.out.println(mymsg.getAdopt_msg_comm() + ",");
+//			System.out.println("---------------------------");
+//		}
+//		
+	}	
 
 }

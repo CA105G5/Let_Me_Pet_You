@@ -9,17 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.AdoptMsg.model.AdoptMsgVO;
+import com.Adoption.model.AdoptionVO;
 import com.donate.model.DonateVO;
 
 public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String user = "G5";
-	String password = "g5";
+	String user = "CA105G5";
+	String password = "123456";
 	
 	private static final String INSERT_ADOPT_APPLY =
-			"INSERT INTO ADOPT_APPLY (MEMB_ID,ADOPT_ID,ADOPT_DES,ADOPT_ID_STATUS) values (?,?,?,?)";
+			"INSERT INTO ADOPT_APPLY (MEMB_ID,ADOPT_ID,ADOPT_DES) values (?,?,?)";
 	private static final String UPDATE_STATUS =
 			"UPDATE ADOPT_APPLY SET ADOPT_ID_STATUS=? WHERE ADOPT_ID=?";
 	
@@ -30,7 +31,7 @@ public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 			"SELECT * FROM ADOPT_APPLY WHERE MEMB_ID=? AND ADOPT_ID=?";
 	
 	private static final String GET_ALL_ADOPT_APPLY =
-			"SELECT * FROM ADOPT_APPLY WHERE MEMB_ID =?";
+			"SELECT * FROM ADOPT_APPLY ORDER BY ADOPT_ID";
 	
 	public AdoptApplyJDBCDAO() {
 		
@@ -50,7 +51,6 @@ public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 			pstmt.setString(1, adoptApplyVO.getMemb_id());
 			pstmt.setString(2, adoptApplyVO.getAdopt_id());
 			pstmt.setString(3, adoptApplyVO.getAdopt_des());
-			pstmt.setString(4, adoptApplyVO.getAdopt_id_status());
 			
 			pstmt.executeUpdate();
 				
@@ -231,7 +231,7 @@ public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 				adoptApplyVO.setMemb_id(rs.getString("memb_id"));
 				adoptApplyVO.setAdopt_id(rs.getString("adopt_id"));
 				adoptApplyVO.setAdopt_des(rs.getString("adopt_des"));
-				adoptApplyVO.setAdopt_id_status(rs.getString("adiot_id_status"));
+				adoptApplyVO.setAdopt_id_status(rs.getString("adopt_id_status"));
 				list.add(adoptApplyVO);
 						
 			}
@@ -271,7 +271,7 @@ public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 	}
 	//查全部
 	@Override
-	public List<AdoptApplyVO> FindbyMember(String memb_id) {
+	public List<AdoptApplyVO> getAll() {
 		List<AdoptApplyVO> list = new ArrayList<AdoptApplyVO>();
 		AdoptApplyVO adoptApplyVO = null;
 		
@@ -286,19 +286,15 @@ public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(GET_ALL_ADOPT_APPLY);
-			
-			pstmt.setString(1, memb_id);
-			System.out.println(memb_id);
 			rs = pstmt.executeQuery();
-			System.out.println(rs);
+			
 			
 			while (rs.next()) {
 				adoptApplyVO = new AdoptApplyVO();
 				adoptApplyVO.setMemb_id(rs.getString("memb_id"));
 				adoptApplyVO.setAdopt_id(rs.getString("adopt_id"));
 				adoptApplyVO.setAdopt_des(rs.getString("adopt_des"));
-				adoptApplyVO.setAdopt_id_status(rs.getString("adiot_id_status"));
-				System.out.println(rs.getString("memb_id"));
+				adoptApplyVO.setAdopt_id_status(rs.getString("adopt_id_status"));
 				list.add(adoptApplyVO);
 			}
 			
@@ -342,41 +338,46 @@ public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 		
 		AdoptApplyJDBCDAO dao = new AdoptApplyJDBCDAO();
 		
-		// 新增
+//		//新增
 //		AdoptApplyVO adoptApplyVO1 = new AdoptApplyVO();
-//		adoptApplyVO1.setMemb_id("M000000003");
+//		adoptApplyVO1.setMemb_id("M000000002");
 //		adoptApplyVO1.setAdopt_id("A000000003");
-//		adoptApplyVO1.setAdopt_des("我愛寵物給 全心全意無時無刻");
-//		adoptApplyVO1.setAdopt_id_status("未審核");
+//		adoptApplyVO1.setAdopt_des("認養案例描述");
 //		dao.insert(adoptApplyVO1);
-
-//		// 修改
+//		System.out.println("新增成功");
+			
+//		//修改
 //		AdoptApplyVO adoptApplyVO2 = new AdoptApplyVO();
-//		adoptApplyVO2.setAdopt_id("A000000003");
+//		adoptApplyVO2.setAdopt_id("A000000002");
 //		adoptApplyVO2.setAdopt_id_status("已審核");
 //		dao.update(adoptApplyVO2);
-//
-//		// 刪除
-//		dao.delete("A000000003","M000000003");
-
-		// 查詢
-//		List<AdoptApplyVO> adpotvo = dao.findByPrimaryKey("M000000003", "A000000003");
-//		for(AdoptApplyVO listfindone : adpotvo) {
-//		System.out.print(listfindone.getAdopt_id() + ",");
-//		System.out.print(listfindone.getMemb_id() + ",");
-//		System.out.print(listfindone.getAdopt_des() + ",");
-//		System.out.print(listfindone.getAdopt_id_status() + ",");
-//		System.out.println("---------------------");
+//		System.out.println("修改成功");
+			
+		
+		
+//		//查一筆
+//		List<AdoptApplyVO> adoptApplyVO3 = dao.findByPrimaryKey("M000000001","A000000001");
+//		for (AdoptApplyVO apply : adoptApplyVO3) {
+//		System.out.println(apply.getMemb_id() + ",");
+//		System.out.println(apply.getAdopt_id() + ",");
+//		System.out.println(apply.getAdopt_des() + ",");
+//		System.out.println(apply.getAdopt_id_status() + ",");
+//		System.out.println("---------------------------");
+//		System.out.println("查一筆成功");
 //		}
-		// 查詢
-		List<AdoptApplyVO> list = dao.FindbyMember("M000000001");
-		for (AdoptApplyVO aApply : list) {
-			System.out.print(aApply.getAdopt_id() + ",");
-			System.out.print(aApply.getMemb_id() + ",");
-			System.out.print(aApply.getAdopt_des() + ",");
-			System.out.print(aApply.getAdopt_id_status() + ",");
-			System.out.println("---------------------");
-		}
+
+//		//刪除
+//		dao.delete("M000000001","A000000001");
+		
+//		//查全部
+//		List<AdoptApplyVO> AdoptApplyVO4 = dao.getAll();
+//		for (AdoptApplyVO myapply2 : AdoptApplyVO4) {
+//		System.out.println(myapply2.getMemb_id() + ",");
+//		System.out.println(myapply2.getAdopt_id() + ",");
+//		System.out.println(myapply2.getAdopt_des() + ",");
+//		System.out.println(myapply2.getAdopt_id_status() + ",");
+//		System.out.println("---------------------------");
+//		}
 		
 	}
 
