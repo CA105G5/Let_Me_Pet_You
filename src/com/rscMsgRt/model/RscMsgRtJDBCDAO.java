@@ -5,9 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.rscRt.model.RscRtJDBCDAO;
 import com.rscRt.model.RscRtVO;
 
 public class RscMsgRtJDBCDAO implements RscMsgRtDAO_interface {
@@ -25,7 +28,7 @@ public class RscMsgRtJDBCDAO implements RscMsgRtDAO_interface {
 	private static final String DELETE = 
 			"DELETE FROM RSC_MSG_RT where rsc_msg_rt_id = ?";
 	private static final String UPDATE = 
-			"UPDATE RSC_MSG_RT set rsc_msg_id = ?,memb_id = ?,rs_msgc_rt_time = ?,rsc_msg_rt_comm = ?,rsc_msg_rv_des = ?,rsc_msg_rt_status = ? where rsc_msg_rt_id = ?";
+			"UPDATE RSC_MSG_RT set rsc_msg_id = ?,memb_id = ?,rsc_msg_rt_time = ?,rsc_msg_rt_comm = ?,rsc_msg_rv_des = ?,rsc_msg_rt_status = ? where rsc_msg_rt_id = ?";
 	
 	@Override
 	public void insert(RscMsgRtVO rscMsgRtVO) {
@@ -195,13 +198,13 @@ public class RscMsgRtJDBCDAO implements RscMsgRtDAO_interface {
 			while (rs.next()) {
 				// regionVo 嘿 Domain objects
 				rscMsgRtVO = new RscMsgRtVO();
-				rscMsgRtVO.setRsc_msg_rt_id(rs.getString("rsc_rt_id"));
-				rscMsgRtVO.setRsc_msg_id(rs.getString("rsc_id"));
+				rscMsgRtVO.setRsc_msg_rt_id(rs.getString("rsc_msg_rt_id"));
+				rscMsgRtVO.setRsc_msg_id(rs.getString("rsc_msg_id"));
 				rscMsgRtVO.setMemb_id(rs.getString("memb_id"));
-				rscMsgRtVO.setRsc_msg_rt_time(rs.getTimestamp("rsc_rt_time"));
-				rscMsgRtVO.setRsc_msg_rt_comm(rs.getString("rsc_rt_comm"));
-				rscMsgRtVO.setRsc_msg_rv_des(rs.getString("rsc_rv_des"));
-				rscMsgRtVO.setRsc_msg_rt_status(rs.getString("rsc_rt_status"));
+				rscMsgRtVO.setRsc_msg_rt_time(rs.getTimestamp("rsc_msg_rt_time"));
+				rscMsgRtVO.setRsc_msg_rt_comm(rs.getString("rsc_msg_rt_comm"));
+				rscMsgRtVO.setRsc_msg_rv_des(rs.getString("rsc_msg_rv_des"));
+				rscMsgRtVO.setRsc_msg_rt_status(rs.getString("rsc_msg_rt_status"));
 				
 				
 			}
@@ -260,12 +263,12 @@ public class RscMsgRtJDBCDAO implements RscMsgRtDAO_interface {
 			while (rs.next()) {
 				// empVO 嘿 Domain objects
 				rscMsgRtVO = new RscMsgRtVO();
-				rscMsgRtVO.setRsc_msg_rt_id(rs.getString("rsc_rt_id"));
-				rscMsgRtVO.setRsc_msg_id(rs.getString("rsc_id"));
+				rscMsgRtVO.setRsc_msg_rt_id(rs.getString("rsc_msg_rt_id"));
+				rscMsgRtVO.setRsc_msg_id(rs.getString("rsc_msg_id"));
 				rscMsgRtVO.setMemb_id(rs.getString("memb_id"));
-				rscMsgRtVO.setRsc_msg_rt_time(rs.getTimestamp("rsc_rt_time"));
-				rscMsgRtVO.setRsc_msg_rt_comm(rs.getString("rsc_rt_comm"));
-				rscMsgRtVO.setRsc_msg_rv_des(rs.getString("rsc_rv_des"));
+				rscMsgRtVO.setRsc_msg_rt_time(rs.getTimestamp("rsc_msg_rt_time"));
+				rscMsgRtVO.setRsc_msg_rt_comm(rs.getString("rsc_msg_rt_comm"));
+				rscMsgRtVO.setRsc_msg_rv_des(rs.getString("rsc_msg_rv_des"));
 				list.add(rscMsgRtVO); // Store the row in the list
 			}
 
@@ -302,6 +305,60 @@ public class RscMsgRtJDBCDAO implements RscMsgRtDAO_interface {
 			}
 		}
 		return list;
+	}
+	public static void main(String[] args) {
+
+		RscMsgRtJDBCDAO dao = new RscMsgRtJDBCDAO();
+
+		 //新增
+//		RscMsgRtVO rscMsgRtVO1 = new RscMsgRtVO();
+//
+//		rscMsgRtVO1.setRsc_msg_id("RM0000000000003");
+//		rscMsgRtVO1.setMemb_id("M000000001");
+//		rscMsgRtVO1.setRsc_msg_rt_time(new Timestamp(new Date().getTime()));
+//		rscMsgRtVO1.setRsc_msg_rt_comm("XXX");
+//		rscMsgRtVO1.setRsc_msg_rv_des("XXX");
+//		rscMsgRtVO1.setRsc_msg_rt_status("XXX");
+//		dao.insert(rscMsgRtVO1);
+
+		// 修改
+//		RscMsgRtVO rscMsgRtVO2 = new RscMsgRtVO();
+//		rscMsgRtVO2.setRsc_msg_rt_id("RMR000000000003");
+//		rscMsgRtVO2.setRsc_msg_id("RM0000000000003");
+//		rscMsgRtVO2.setMemb_id("M000000008");
+//		rscMsgRtVO2.setRsc_msg_rt_comm("XXXX");
+//		rscMsgRtVO2.setRsc_msg_rv_des("XXXX");
+//		rscMsgRtVO2.setRsc_msg_rt_status("XXXX");
+//		dao.update(rscMsgRtVO2);
+
+		// 刪除
+//		dao.delete("RMR000000000003");
+
+		// 查詢
+		RscMsgRtVO rscMsgRtVO3 = dao.findByPrimaryKey("RMR000000000001");
+		System.out.print(rscMsgRtVO3.getRsc_msg_rt_id() + ",");
+		System.out.print(rscMsgRtVO3.getMemb_id() + ",");
+		System.out.print(rscMsgRtVO3.getRsc_msg_rt_time() + ",");
+		System.out.print(rscMsgRtVO3.getRsc_msg_rt_comm() + ",");
+		System.out.print(rscMsgRtVO3.getRsc_msg_rv_des() + ",");
+		System.out.print(rscMsgRtVO3.getRsc_msg_rt_status() + ",");
+		System.out.println(rscMsgRtVO3.getRsc_msg_rt_id()+ ",");
+		System.out.println("---------------------");
+
+		// 查詢
+		List<RscMsgRtVO> list = dao.getAll();
+		for (RscMsgRtVO aRscMsgRt : list) {
+			System.out.print(aRscMsgRt.getRsc_msg_rt_id() + ",");
+			System.out.print(aRscMsgRt.getRsc_msg_id()+ ",");
+			System.out.print(aRscMsgRt.getMemb_id() + ",");
+			System.out.print(aRscMsgRt.getRsc_msg_rt_time() + ",");
+			System.out.print(aRscMsgRt.getRsc_msg_rt_comm() + ",");
+			System.out.print(aRscMsgRt.getRsc_msg_rv_des() + ",");
+			System.out.print(aRscMsgRt.getRsc_msg_rt_status() + ",");
+			
+			System.out.println();
+			
+		}
 	}
 
 }
