@@ -8,14 +8,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.missingTrace.model.missingTraceVO;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-public class foundApplyJDBCDAO implements foundApplyDAO_interface {
+public class foundApplyJNDIDAO implements foundApplyDAO_interface {
 
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA105G5";
-	String passwd = "123456";
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = "INSERT INTO found_Apply(fd_case_id,memb_id,fd_apply_status,fd_apply_des,fd_apply_rv_des) values (?,?,?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT fd_case_id,memb_id,fd_apply_status,fd_apply_des,fd_apply_rv_des FROM found_apply where fd_case_id =? ";
@@ -30,8 +38,7 @@ public class foundApplyJDBCDAO implements foundApplyDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, foundApplyVO.getFd_case_id());
@@ -41,9 +48,6 @@ public class foundApplyJDBCDAO implements foundApplyDAO_interface {
 			pstmt.setString(5, foundApplyVO.getFd_apply_rv_des());
 
 			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -74,8 +78,7 @@ public class foundApplyJDBCDAO implements foundApplyDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, fd_case_id);
@@ -83,8 +86,6 @@ public class foundApplyJDBCDAO implements foundApplyDAO_interface {
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -117,8 +118,7 @@ public class foundApplyJDBCDAO implements foundApplyDAO_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 
 			pstmt.setString(1, fd_case_id);
@@ -135,8 +135,6 @@ public class foundApplyJDBCDAO implements foundApplyDAO_interface {
 				list.add(foundApplyVO);
 
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -165,34 +163,5 @@ public class foundApplyJDBCDAO implements foundApplyDAO_interface {
 			}
 		}
 		return list;
-	}
-
-	public static void main(String[] args) {
-		foundApplyJDBCDAO dao = new foundApplyJDBCDAO();
-
-		// 新增
-//		foundApplyVO foundApplyVO1 = new foundApplyVO();
-//		foundApplyVO1.setFd_case_id("F000000003");
-//		foundApplyVO1.setMemb_id("M000000008");
-//		foundApplyVO1.setFd_apply_status("F0");
-//		foundApplyVO1.setFd_apply_des("那是我的狗");
-//		foundApplyVO1.setFd_apply_rv_des("恭喜申請成功");
-//		dao.insert(foundApplyVO1);
-
-		// 刪除
-//		foundApplyVO foundApplyVO2 =  new foundApplyVO();
-//		dao.delete("F000000003","M000000008");
-
-		// 查詢
-		List<foundApplyVO> list = dao.findByCase("F000000001");
-		for (foundApplyVO fa : list) {
-			System.out.print(fa.getFd_case_id() + ",");
-			System.out.print(fa.getMemb_id() + ",");
-			System.out.print(fa.getFd_apply_status() + ",");
-			System.out.print(fa.getFd_apply_des() + ",");
-			System.out.print(fa.getFd_apply_rv_des() + ",");
-			System.out.println();
-		}
-
 	}
 }

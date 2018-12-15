@@ -8,13 +8,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.missingCase.model.missingCaseVO;
 
-public class missingMsgJDBCDAO implements missingMsgDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA105G5";
-	String passwd = "123456";
+public class missingMsgJNDIDAO implements missingMsgDAO_interface {
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = "INSERT INTO missing_msg(missing_msg_id,missing_case_id,memb_id,missing_msg_date,missing_msg_cont) VALUES ('SM'||LPAD(to_char(missing_msg_seq.NEXTVAL), 8, '0'), ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT missing_msg_id,missing_case_id,memb_id,to_char(missing_msg_date,'yyyy-mm-dd hh24:mi:ss')missing_msg_date,missing_msg_cont FROM missing_msg order by missing_msg_id";
@@ -31,8 +41,7 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, missingMsgVO.getMissing_case_id());
@@ -41,9 +50,6 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 			pstmt.setString(4, missingMsgVO.getMissing_msg_cont());
 
 			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -75,8 +81,7 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, missingMsgVO.getMissing_case_id());
@@ -87,8 +92,6 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -118,18 +121,13 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, missing_msg_id);
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -164,8 +162,7 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, missing_msg_id);
@@ -180,9 +177,6 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 				missingMsgVO.setMissing_msg_date(rs.getTimestamp("missing_msg_date"));
 				missingMsgVO.setMissing_msg_cont(rs.getString("missing_msg_cont"));
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -224,8 +218,7 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -238,9 +231,6 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 				missingMsgVO.setMissing_msg_cont(rs.getString("missing_msg_cont"));
 				list.add(missingMsgVO);
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -268,48 +258,5 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 			}
 		}
 		return list;
-	}
-
-	public static void main(String[] args) {
-		missingMsgJDBCDAO dao = new missingMsgJDBCDAO();
-
-		// 新增
-//		missingMsgVO missingMsgVO1 = new missingMsgVO();
-//		missingMsgVO1.setMissing_case_id("S000000001");
-//		missingMsgVO1.setMemb_id("M000000005");
-//		missingMsgVO1.setMissing_msg_date(java.sql.Timestamp.valueOf("1995-03-15 16:00:00"));
-//		missingMsgVO1.setMissing_msg_cont("好可愛的示威");
-//		dao.insert(missingMsgVO1);
-
-		// 修改
-//		missingMsgVO missingMsgVO2 = new missingMsgVO();
-//		missingMsgVO2.setMissing_case_id("S000000003");
-//		missingMsgVO2.setMemb_id("M000000003");
-//		missingMsgVO2.setMissing_msg_date(java.sql.Timestamp.valueOf("1995-03-15 16:00:00"));
-//		missingMsgVO2.setMissing_msg_cont("幹什麼");
-//		missingMsgVO2.setMissing_msg_id("SM00000002");
-//		dao.update(missingMsgVO2);
-
-		// 刪除
-//		dao.delete("SM00000003");
-
-		// 單獨查詢
-//		missingMsgVO missingMsgVO3 = dao.findByPrimaryKey("SM00000002");
-//		System.out.print(missingMsgVO3.getMissing_msg_id() + ",");
-//		System.out.print(missingMsgVO3.getMissing_case_id() + ",");
-//		System.out.print(missingMsgVO3.getMemb_id() + ",");
-//		System.out.print(missingMsgVO3.getMissing_msg_date() + ",");
-//		System.out.println(missingMsgVO3.getMissing_msg_cont());
-//		System.out.println();
-
-		// 查全部
-		List<missingMsgVO> list = dao.getAll();
-		for (missingMsgVO msg : list) {
-			System.out.print(msg.getMissing_msg_id() + ",");
-			System.out.print(msg.getMissing_case_id() + ",");
-			System.out.print(msg.getMemb_id() + ",");
-			System.out.print(msg.getMissing_msg_date() + ",");
-			System.out.println(msg.getMissing_msg_cont());
-		}
 	}
 }

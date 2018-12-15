@@ -13,6 +13,15 @@ public class foundCaseVO {
 	private String fd_loc;
 	private String fd_status_shelve;
 	private Timestamp fd_etime;
+	private byte[] fd_photo;
+
+	public byte[] getFd_photo() {
+		return fd_photo;
+	}
+
+	public void setFd_case_photo(byte[] fd_photo) {
+		this.fd_photo = fd_photo;
+	}
 
 	public String getFd_case_id() {
 		return fd_case_id;

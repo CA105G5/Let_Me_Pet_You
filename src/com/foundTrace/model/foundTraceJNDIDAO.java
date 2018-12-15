@@ -8,12 +8,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class foundTraceJDBCDAO implements foundTraceDAO_interface {
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA105G5";
-	String passwd = "123456";
+public class foundTraceJNDIDAO implements foundTraceDAO_interface {
+
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = "INSERT INTO found_trace(fd_case_id,memb_id) values (?,?)";
 	private static final String GET_ALL_STMT = "SELECT fd_case_id,memb_id FROM found_trace where memb_id =? ";
@@ -28,17 +38,13 @@ public class foundTraceJDBCDAO implements foundTraceDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, foundTraceVO.getFd_case_id());
 			pstmt.setString(2, foundTraceVO.getMemb_id());
 
 			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -69,17 +75,13 @@ public class foundTraceJDBCDAO implements foundTraceDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, fd_case_id);
 			pstmt.setString(2, memb_id);
 
 			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -111,8 +113,7 @@ public class foundTraceJDBCDAO implements foundTraceDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, fd_case_id);
@@ -120,9 +121,6 @@ public class foundTraceJDBCDAO implements foundTraceDAO_interface {
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -156,8 +154,7 @@ public class foundTraceJDBCDAO implements foundTraceDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 
 			pstmt.setString(1, memb_id);
@@ -170,9 +167,6 @@ public class foundTraceJDBCDAO implements foundTraceDAO_interface {
 				foundTraceVO.setMemb_id(rs.getString("memb_id"));
 				list.add(foundTraceVO);
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -202,30 +196,5 @@ public class foundTraceJDBCDAO implements foundTraceDAO_interface {
 		return list;
 
 	}
-	
-	public static void main(String[] args) {
-		foundTraceJDBCDAO dao = new foundTraceJDBCDAO();
-		
-		//新增
-//		foundTraceVO foundTraceVO1 = new foundTraceVO();
-//		foundTraceVO1.setFd_case_id("F000000001");
-//		foundTraceVO1.setMemb_id("M000000008");
-//		dao.insert(foundTraceVO1);
-		
-		//新增
-//		dao.insert("F000000001", "M000000009");
-		
-		//刪除
-//		foundTraceVO foundTraceVO2 = new foundTraceVO();
-//		dao.delete("F000000001", "M000000009");
-		
-		//查詢
-//		List<foundTraceVO> list = dao.findByMember("M000000008");
-//		for (foundTraceVO ft : list) {
-//			System.out.print(ft.getFd_case_id()+",");
-//			System.out.println(ft.getMemb_id());
-//			System.out.println("-----------------------------------------");
-//		}
-	}
-	
+
 }

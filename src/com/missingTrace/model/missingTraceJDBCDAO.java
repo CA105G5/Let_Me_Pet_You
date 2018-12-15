@@ -12,7 +12,7 @@ public class missingTraceJDBCDAO implements missingTraceDAO_interface {
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "juber";
+	String userid = "CA105G5";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO missing_trace(missing_case_id,memb_id) values (?,?)";

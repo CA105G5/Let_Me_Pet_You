@@ -8,13 +8,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.missingMsg.model.missingMsgVO;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-public class foundMsgJDBCDAO implements foundMsgDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA105G5";
-	String passwd = "123456";
+public class foundMsgJNDIDAO implements foundMsgDAO_interface {
+
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = "INSERT INTO found_msg(fd_msg_id,fd_case_id,memb_id,fd_msg_date,fd_msg_cont) VALUES ('FM'||LPAD(to_char(found_msg_seq.NEXTVAL), 8, '0'), ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT fd_msg_id,fd_case_id,memb_id,to_char(fd_msg_date,'yyyy-mm-dd hh24:mi:ss')fd_msg_date,fd_msg_cont FROM found_msg order by fd_msg_id";
@@ -31,8 +40,7 @@ public class foundMsgJDBCDAO implements foundMsgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, foundMsgVO.getFd_case_id());
@@ -41,9 +49,6 @@ public class foundMsgJDBCDAO implements foundMsgDAO_interface {
 			pstmt.setString(4, foundMsgVO.getFd_msg_cont());
 
 			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -75,8 +80,7 @@ public class foundMsgJDBCDAO implements foundMsgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, foundMsgVO.getFd_case_id());
@@ -87,8 +91,6 @@ public class foundMsgJDBCDAO implements foundMsgDAO_interface {
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -118,17 +120,13 @@ public class foundMsgJDBCDAO implements foundMsgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, fd_msg_id);
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -164,8 +162,7 @@ public class foundMsgJDBCDAO implements foundMsgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, fd_msg_id);
@@ -180,8 +177,6 @@ public class foundMsgJDBCDAO implements foundMsgDAO_interface {
 				foundMsgVO.setFd_msg_date(rs.getTimestamp("fd_msg_date"));
 				foundMsgVO.setFd_msg_cont(rs.getString("fd_msg_cont"));
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -224,8 +219,7 @@ public class foundMsgJDBCDAO implements foundMsgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -238,8 +232,6 @@ public class foundMsgJDBCDAO implements foundMsgDAO_interface {
 				foundMsgVO.setFd_msg_cont(rs.getString("fd_msg_cont"));
 				list.add(foundMsgVO);
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -270,48 +262,4 @@ public class foundMsgJDBCDAO implements foundMsgDAO_interface {
 		return list;
 	}
 
-	public static void main(String[] args) {
-		foundMsgJDBCDAO dao = new foundMsgJDBCDAO();
-		
-		//新增
-//		foundMsgVO foundMsgVO1 = new foundMsgVO();
-//		foundMsgVO1.setFd_case_id("F000000001");
-//		foundMsgVO1.setMemb_id("M000000005");
-//		foundMsgVO1.setFd_msg_date(java.sql.Timestamp.valueOf("1995-03-15 16:00:00"));
-//		foundMsgVO1.setFd_msg_cont("好可愛的示威");
-//		dao.insert(foundMsgVO1);
-		
-		//修改
-//		foundMsgVO foundMsgVO2 = new foundMsgVO();
-//		foundMsgVO2.setFd_case_id("F000000002");
-//		foundMsgVO2.setMemb_id("M000000005");
-//		foundMsgVO2.setFd_msg_date(java.sql.Timestamp.valueOf("1995-03-15 16:00:00"));
-//		foundMsgVO2.setFd_msg_cont("好可愛的示威");
-//		foundMsgVO2.setFd_msg_id("FM00000002");
-//		dao.update(foundMsgVO2);
-		
-		//刪除
-//		dao.delete("FM00000002");
-		
-		//單獨查詢
-//		foundMsgVO foundMsgVO3 = dao.findByPrimaryKey("FM00000003");
-//		System.out.print(foundMsgVO3.getFd_msg_id() + ",");
-//		System.out.print(foundMsgVO3.getFd_case_id() + ",");
-//		System.out.print(foundMsgVO3.getMemb_id() + ",");
-//		System.out.print(foundMsgVO3.getFd_msg_date() + ",");
-//		System.out.println(foundMsgVO3.getFd_msg_cont());
-//		System.out.println();
-
-		//查全部
-		List<foundMsgVO> list = dao.getAll();
-		for (foundMsgVO fm : list) {
-			System.out.print(fm.getFd_msg_id() + ",");
-			System.out.print(fm.getFd_case_id() + ",");
-			System.out.print(fm.getMemb_id() + ",");
-			System.out.print(fm.getFd_msg_date() + ",");
-			System.out.println(fm.getFd_msg_cont());
-			System.out.println();
-
-		}
-	}
 }
