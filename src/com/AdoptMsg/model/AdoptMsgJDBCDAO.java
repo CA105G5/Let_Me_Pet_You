@@ -8,7 +8,7 @@ import com.Adoption.model.AdoptionVO;
 import com.mysql.jdbc.Driver;
 import java.sql.*;
 
-public class AdoptMsgJDBCDAO implements AdoptMsgDAO_Interface{ 
+public class AdoptMsgJDBCDAO implements AdoptMsgDAO_Interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";

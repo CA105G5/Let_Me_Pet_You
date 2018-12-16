@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.*;
 
 
-public class AdoptionJDBCDAO implements AdoptionDAO_Interface{ 
+public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user = "CA105G5";

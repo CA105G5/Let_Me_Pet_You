@@ -11,7 +11,7 @@ import java.util.List;
 import com.AdoptMsg.model.AdoptMsgJDBCDAO;
 import com.AdoptMsg.model.AdoptMsgVO;
 
-public class AdoptTrackJDBCDAO implements AdoptTrackDAO_Interface{ 
+public class AdoptTrackJDBCDAO implements AdoptTrackDAO_Interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
