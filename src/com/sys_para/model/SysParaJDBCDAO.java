@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.CurrencyDetail.model.CurDtVO;
+
 
 public class SysParaJDBCDAO implements SysParaDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";

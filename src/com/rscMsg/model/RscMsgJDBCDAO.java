@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.CurrencyDetail.model.CurDtVO;
+
 import com.rscMsgRt.model.RscMsgRtJDBCDAO;
 
 
