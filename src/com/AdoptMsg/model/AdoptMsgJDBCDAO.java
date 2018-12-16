@@ -12,7 +12,7 @@ public class AdoptMsgJDBCDAO implements AdoptMsgDAO_Interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String user = "CA105G5"; 
+	String user = "CA105G5";
 	String password = "123456";
 	
 	private static final String INSERT_ADOPT_MSG = 
