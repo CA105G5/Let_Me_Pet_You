@@ -12,7 +12,7 @@ import com.AdoptMsg.model.AdoptMsgVO;
 import com.Adoption.model.AdoptionVO;
 import com.donate.model.DonateVO;
 
-public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
+public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface { 
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
