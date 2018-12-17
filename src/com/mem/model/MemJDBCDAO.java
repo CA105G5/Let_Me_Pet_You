@@ -116,18 +116,18 @@ public class MemJDBCDAO implements MemDAO_interface {
 //		System.out.println("===========");
 //		
 //		//getAll
-//		List <MemVO> list = dao.getAll();
-//		for(MemVO aMem : list) {
-//			System.out.println(aMem.getMemb_acc());
-//			System.out.println(aMem.getMemb_psw());
-//			System.out.println(aMem.getMemb_name());
-//			System.out.println(aMem.getMemb_nick());
-//			System.out.println(aMem.getMemb_email());
-//			System.out.println(aMem.getMemb_photo());
-//			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
-//		}
-//		System.out.println("多筆資料查詢成功");
-//		System.out.println("===========");
+		List <MemVO> list = dao.getAll();
+		for(MemVO aMem : list) {
+			System.out.println(aMem.getMemb_acc());
+			System.out.println(aMem.getMemb_psw());
+			System.out.println(aMem.getMemb_name());
+			System.out.println(aMem.getMemb_nick());
+			System.out.println(aMem.getMemb_email());
+			System.out.println(aMem.getMemb_photo());
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+		}
+		System.out.println("多筆資料查詢成功");
+		System.out.println("===========");
 	}
 
 	@Override
