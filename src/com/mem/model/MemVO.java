@@ -126,7 +126,7 @@ public class MemVO implements java.io.Serializable {
 		this.memb_fb_login = memb_fb_login;
 	}
 	public String getMemb_google_login() {
-		return memb_google_login;
+		return memb_google_login; 
 	}
 	public void setMemb_google_login(String memb_google_login) {
 		this.memb_google_login = memb_google_login;

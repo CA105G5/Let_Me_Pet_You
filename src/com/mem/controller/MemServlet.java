@@ -28,7 +28,7 @@ public class MemServlet extends HttpServlet {
 			
 			try {
 				/*************************接收請求參數輸入格式錯誤處理*********************/
-				String str = req.getParameter("memb_id");
+				String str = req.getParameter("memb_id"); 
 				if(str == null || str.trim().length() == 0) {
 						errorMsgs.add("請輸入會員編號");
 				}

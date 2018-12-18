@@ -6,7 +6,7 @@
   MemVO memVO = (MemVO) request.getAttribute("memVO"); //MemServlet.java(Concroller), 存入req的memVO物件
 %>
 
-<html>
+<html> 
 <head>
 <title>會員資料 - listOneMem.jsp</title>
 

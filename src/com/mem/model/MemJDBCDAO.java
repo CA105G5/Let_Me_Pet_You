@@ -11,7 +11,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G5";
-	String password = "123456"; 
+	String password = "123456";  
 	
 	private static final String INSERT_STMT="INSERT INTO MEMBERS "
 			+ "(memb_id,memb_acc,memb_psw,memb_name,memb_nick,memb_email,memb_cellphone,memb_gender,memb_cre_type,memb_cre_name,memb_cre_year,memb_cre_month,memb_photo,memb_fb_login,memb_google_login) "

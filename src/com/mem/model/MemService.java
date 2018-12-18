@@ -3,7 +3,7 @@ package com.mem.model;
 import java.util.List;
 
 public class MemService {
-	private MemDAO_interface dao;
+	private MemDAO_interface dao; 
 	public MemService() {
 		dao = new MemJDBCDAO();
 	}
