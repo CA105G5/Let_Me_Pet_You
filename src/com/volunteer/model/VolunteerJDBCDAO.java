@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -23,8 +24,10 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 			"SELECT vlt_id,vlt_name,vlt_mail,vlt_pw,vlt_gender,vlt_tel,vlt_img,to_char(vlt_registerdate,'yyyy-mm-dd') vlt_registerdate,vlt_duty_day,vlt_sta,vlt_reg FROM VOLUNTEER where vlt_id = ?";
 	private static final String DELETE = 
 			"DELETE FROM VOLUNTEER where vlt_id = ?";
-	private static final String UPDATE = 
+	private static final String MANAGER_UPDATE_STMT = 
 			"UPDATE VOLUNTEER set vlt_name =?,vlt_mail =?,vlt_pw =?,vlt_gender =?,vlt_tel =?,vlt_duty_day =?,vlt_sta =?,vlt_reg =? where vlt_id = ?";
+	private static final String VOLUNTEER_UPDATE_STMT = 
+			"UPDATE VOLUNTEER set vlt_pw =?,vlt_tel =?,vlt_img =?,vlt_duty_day =? where vlt_id = ?";
 	
 	
 	
@@ -84,7 +87,7 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 	}
 
 	@Override
-	public void update(VolunteerVO volunteerVO) {
+	public void updateForManager(VolunteerVO volunteerVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -92,19 +95,17 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE);
+			pstmt = con.prepareStatement(MANAGER_UPDATE_STMT);
 
 			pstmt.setString(1, volunteerVO.getVlt_name());
 			pstmt.setString(2, volunteerVO.getVlt_mail());
 			pstmt.setString(3, volunteerVO.getVlt_pw());
 			pstmt.setString(4, volunteerVO.getVlt_gender());
 			pstmt.setString(5, volunteerVO.getVlt_tel());
-			pstmt.setBytes(6, volunteerVO.getVlt_img());
-			pstmt.setDate(7, volunteerVO.getVlt_registerdate());
-			pstmt.setString(8, volunteerVO.getVlt_duty_day());
-			pstmt.setString(9, volunteerVO.getVlt_sta());
-			pstmt.setString(10, volunteerVO.getVlt_reg());
-			pstmt.setString(11, volunteerVO.getVlt_id());
+			pstmt.setString(6, volunteerVO.getVlt_duty_day());
+			pstmt.setString(7, volunteerVO.getVlt_sta());
+			pstmt.setString(8, volunteerVO.getVlt_reg());
+			pstmt.setString(9, volunteerVO.getVlt_id());
 
 			int rowsUpdated = pstmt.executeUpdate();
 			System.out.println("Changed " + rowsUpdated + "rows");
@@ -137,7 +138,54 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 
 		
 	}
+	@Override
+	public void updateForVolunteer(VolunteerVO volunteerVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
 
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(VOLUNTEER_UPDATE_STMT);
+
+			pstmt.setString(1, volunteerVO.getVlt_pw());
+			pstmt.setString(2, volunteerVO.getVlt_tel());
+			pstmt.setBytes(3, volunteerVO.getVlt_img());
+			pstmt.setString(4, volunteerVO.getVlt_duty_day());
+			pstmt.setString(5, volunteerVO.getVlt_id());
+
+			int rowsUpdated = pstmt.executeUpdate();
+			System.out.println("Changed " + rowsUpdated + "rows");
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		
+	}
 	@Override
 	public void delete(String vlt_id) {
 		Connection con = null;
@@ -331,30 +379,39 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 		VolunteerVO volunteerVO1 = new VolunteerVO();
 
 		
-//		volunteerVO1.setVlt_name("");
+//		volunteerVO1.setVlt_name("豪豪");
 //		volunteerVO1.setVlt_mail("w121212w00@gmail.com");
 //		volunteerVO1.setVlt_pw("123");
+//		volunteerVO1.setVlt_gender("M");
 //		volunteerVO1.setVlt_tel("0958-514661");
-//		volunteerVO1.setVlt_registerdate(java.sql.Date.valueOf("2018-12-10"));
-//		volunteerVO1.setVlt_duty_day("");
-//		volunteerVO1.setVlt_sta("");
+//		volunteerVO1.setVlt_registerdate(new java.sql.Date(new Date().getTime()));
+//		volunteerVO1.setVlt_duty_day("每日");
+//		volunteerVO1.setVlt_sta("在職志工");
 //		volunteerVO1.setVlt_reg("REG0000004");
 //		dao.insert(volunteerVO1);
 //
 //		// 
 //		VolunteerVO volunteerVO2 = new VolunteerVO();
 //		volunteerVO2.setVlt_id("V000000006");
-//		volunteerVO2.setVlt_name("");
+//		volunteerVO2.setVlt_name("豪豪");
 //		volunteerVO2.setVlt_mail("w121212w00@gmail.com");
 //		volunteerVO2.setVlt_pw("123");
+//		volunteerVO1.setVlt_gender("M");
 //		volunteerVO2.setVlt_tel("0958-514661");
-//		volunteerVO2.setVlt_registerdate(java.sql.Date.valueOf("2018-12-10"));
-//		volunteerVO2.setVlt_duty_day("");
-//		volunteerVO2.setVlt_sta("");
+//		volunteerVO2.setVlt_duty_day("每日");
+//		volunteerVO2.setVlt_sta("在職志工");
 //		volunteerVO2.setVlt_reg("REG0000003");
-//		dao.update(volunteerVO2);
+//		dao.updateForManager(volunteerVO2);
 
-//		// 
+//		//
+//		VolunteerVO volunteerVO3 = new VolunteerVO();
+//		volunteerVO3.setVlt_id("V000000006");
+//		volunteerVO3.setVlt_pw("123456");
+//		volunteerVO3.setVlt_tel("0958-514661");
+//		volunteerVO3.setVlt_duty_day("每日");
+//		dao.updateForVolunteer(volunteerVO3);
+
+//		// 
 //		dao.delete("V000000006");
 //
 //		// 
@@ -375,9 +432,11 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 //			System.out.print(aVol.getVlt_id() + ",");
 //			System.out.print(aVol.getVlt_name() + ",");
 //			System.out.print(aVol.getVlt_mail() + ",");
+//			System.out.print(aVol.getVlt_gender() + ",");
 //			System.out.print(aVol.getVlt_pw() + ",");
 //			System.out.print(aVol.getVlt_tel() + ",");
 //			System.out.print(aVol.getVlt_img() + ",");			
+//			System.out.print(aVol.getVlt_registerdate() + ",");			
 //			System.out.print(aVol.getVlt_duty_day() + ",");
 //			System.out.print(aVol.getVlt_sta()+ ",");
 //			System.out.print(aVol.getVlt_reg());
