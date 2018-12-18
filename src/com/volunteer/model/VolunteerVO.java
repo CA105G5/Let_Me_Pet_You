@@ -9,12 +9,10 @@ public class VolunteerVO implements java.io.Serializable{
 	private String vlt_gender;
 	private String vlt_tel;
 	private byte[] vlt_img;
-	private String vlt_add;
 	private java.sql.Date vlt_registerdate;
 	private String vlt_duty_day;
 	private String vlt_sta;
 	private String vlt_reg;
-	
 	public String getVlt_id() {
 		return vlt_id;
 	}
@@ -57,12 +55,6 @@ public class VolunteerVO implements java.io.Serializable{
 	public void setVlt_img(byte[] vlt_img) {
 		this.vlt_img = vlt_img;
 	}
-	public String getVlt_add() {
-		return vlt_add;
-	}
-	public void setVlt_add(String vlt_add) {
-		this.vlt_add = vlt_add;
-	}
 	public java.sql.Date getVlt_registerdate() {
 		return vlt_registerdate;
 	}
@@ -87,5 +79,6 @@ public class VolunteerVO implements java.io.Serializable{
 	public void setVlt_reg(String vlt_reg) {
 		this.vlt_reg = vlt_reg;
 	}
+	
 	
 }
