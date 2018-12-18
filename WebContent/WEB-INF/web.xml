@@ -32,5 +32,13 @@
     <servlet-name>PhotoReaderId</servlet-name>
     <url-pattern>/util/PhotoReaderId</url-pattern>
   </servlet-mapping>
+  <servlet>
+		<servlet-name>MemServlet</servlet-name>
+		<servlet-class>com.mem.controller.MemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemServlet</servlet-name>
+		<url-pattern>/back-end/members/mem.do</url-pattern>
+	</servlet-mapping>
   
 </web-app>
