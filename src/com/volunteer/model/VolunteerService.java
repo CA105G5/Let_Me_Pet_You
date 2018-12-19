@@ -26,5 +26,7 @@ public class VolunteerService {
 		
 		return volunteerVO;
 	}
+	
+
 
 }
