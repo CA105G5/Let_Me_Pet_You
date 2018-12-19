@@ -51,6 +51,14 @@
 		<servlet-name>VolunteerServlet</servlet-name>
 		<url-pattern>/back-end/volunteer/volunteer.do</url-pattern>
 	</servlet-mapping>
+		<servlet>
+		<servlet-name>VolunteerImgServlet</servlet-name>
+		<servlet-class>com.volunteer.controller.VolunteerImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VolunteerImgServlet</servlet-name>
+		<url-pattern>/back-end/volunteer/volunteerImg.do</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>PicReader</servlet-name>
 		<servlet-class>util.PicReader</servlet-class>

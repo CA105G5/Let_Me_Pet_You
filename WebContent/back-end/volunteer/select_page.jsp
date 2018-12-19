@@ -48,7 +48,7 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllEmp.jsp'>List</a> all Volunteers.  <br><br></li>
+  <li><a href='listAllVolunteer.jsp'>List</a> all Volunteers.  <br><br></li>
   
   
   <li>
@@ -76,11 +76,11 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="emp.do" >
+     <FORM METHOD="post" ACTION="volunteer.do" >
        <b>選擇員工姓名:</b>
-       <select size="1" name="empno">
-         <c:forEach var="empVO" items="${empSvc.all}" > 
-          <option value="${empVO.empno}">${empVO.ename}
+       <select size="1" name="volunteer">
+         <c:forEach var="volunteerVO" items="${volunteerSvc.all}" > 
+          <option value="${volunteerVO.vlt_id}">${volunteerVO.vlt_name}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -93,7 +93,7 @@
 <h3>員工管理</h3>
 
 <ul>
-  <li><a href='addEmp.jsp'>Add</a> a new Emp.</li>
+  <li><a href='addVolunteer.jsp'>Add</a> a new volunteer.</li>
 </ul>
 
 </body>
