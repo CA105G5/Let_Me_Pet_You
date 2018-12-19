@@ -48,4 +48,75 @@
 		<servlet-name>VolunteerServlet</servlet-name>
 		<url-pattern>/back-end/volunteer/volunteer.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+    <servlet-name>PhotoReader</servlet-name>
+    <servlet-class>util.PhotoReader</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PhotoReader</servlet-name>
+    <url-pattern>/util/PhotoReader</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PhotoReaderId</servlet-name>
+    <servlet-class>util.PhotoReaderId</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PhotoReaderId</servlet-name>
+    <url-pattern>/util/PhotoReaderId</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PicReader</servlet-name>
+    <servlet-class>util.PicReader</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PicReader</servlet-name>
+    <url-pattern>/util/PicReader</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PicReader2</servlet-name>
+    <servlet-class>util.PicReader2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PicReader2</servlet-name>
+    <url-pattern>/util/PicReader2</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PicReaderId</servlet-name>
+    <servlet-class>util.PicReaderId</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PicReaderId</servlet-name>
+    <url-pattern>/util/PicReaderId</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CKEditor_Servlet</servlet-name>
+    <servlet-class>CKEditor_Servlet</servlet-class> 
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CKEditor_Servlet</servlet-name>
+    <url-pattern>/CKEditor.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ProdServlet_test</servlet-name>
+    <servlet-class>ProdServlet_test</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProdServlet_test</servlet-name>
+    <url-pattern>/prod_test.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ProdServlet</servlet-name>
+    <servlet-class>com.prod.controller.ProdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProdServlet</servlet-name>
+    <url-pattern>/prod/prod.do</url-pattern>
+  </servlet-mapping>
 </web-app>
