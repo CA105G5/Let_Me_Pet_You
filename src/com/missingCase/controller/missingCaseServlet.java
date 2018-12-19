@@ -140,7 +140,7 @@ public class missingCaseServlet extends HttpServlet {
 
 				Part part = req.getPart("upfile");
 				if (part.getSubmittedFileName().equals(null) && part.getSubmittedFileName().trim().length() == 0) {
-					errorMsgs.add("請上傳寵照片");
+					errorMsgs.add("請上傳寵物照片");
 				}
 				InputStream is = part.getInputStream();
 				byte[] missing_photo = transbyte(is);
@@ -154,7 +154,7 @@ public class missingCaseServlet extends HttpServlet {
 				missingCaseVO.setMissing_status_shelve(missing_status_shelve);
 				missingCaseVO.setMissing_photo(missing_photo);
 
-//					// Send the use back to the form, if there were errors
+					// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("missingCaseVO", missingCaseVO); // 含有輸入格式錯誤的missingCaseVO物件,也存入req
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/missingCase/addMissing.jsp");
