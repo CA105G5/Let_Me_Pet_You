@@ -283,21 +283,21 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 		missingCaseJDBCDAO dao = new missingCaseJDBCDAO();
 
 		// 新增
-		missingCaseVO missingCaseVO1 = new missingCaseVO();
-		missingCaseVO1.setMemb_id("M000000002");
-		missingCaseVO1.setMissing_date(java.sql.Timestamp.valueOf("1995-03-15 16:00:00"));
-		missingCaseVO1.setMissing_name("周伯");
-		missingCaseVO1.setMissing_des("哈囉大家好");
-		missingCaseVO1.setMissing_loc("中壢資策會");
-		missingCaseVO1.setMissing_status_shelve("M1");
-		
-		try {
-			byte[] pic1 = getPictureByteArray("C:\\Users\\Java\\Desktop\\上課講義\\專題\\假資料\\MARU.jpg");
-			missingCaseVO1.setMissing_photo(pic1);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		dao.insert(missingCaseVO1);
+//		missingCaseVO missingCaseVO1 = new missingCaseVO();
+//		missingCaseVO1.setMemb_id("M000000002");
+//		missingCaseVO1.setMissing_date(java.sql.Timestamp.valueOf("1995-03-15 16:00:00"));
+//		missingCaseVO1.setMissing_name("周伯");
+//		missingCaseVO1.setMissing_des("哈囉大家好");
+//		missingCaseVO1.setMissing_loc("中壢資策會");
+//		missingCaseVO1.setMissing_status_shelve("M1");
+//		
+//		try {
+//			byte[] pic1 = getPictureByteArray("C:\\Users\\Java\\Desktop\\上課講義\\專題\\假資料\\MARU.jpg");
+//			missingCaseVO1.setMissing_photo(pic1);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		dao.insert(missingCaseVO1);
 
 		// 修改
 //		missingCaseVO missingCaseVO2 = new missingCaseVO();
@@ -314,15 +314,16 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 //		dao.delete("S000000008");
 
 		// 單獨查詢
-//		missingCaseVO missingCaseVO3 = dao.findByPrimaryKey("S000000007");
-//		System.out.print(missingCaseVO3.getMissing_case_id()+",");
-//		System.out.print(missingCaseVO3.getMemb_id()+",");
-//		System.out.print(missingCaseVO3.getMissing_date()+",");
-//		System.out.print(missingCaseVO3.getMissing_name()+",");
-//		System.out.print(missingCaseVO3.getMissing_des()+",");
-//		System.out.print(missingCaseVO3.getMissing_loc()+",");
-//		System.out.println(missingCaseVO3.getMissing_status_shelve());
-//		System.out.println("---------------------------------------------------------------------");
+		missingCaseVO missingCaseVO3 = dao.findByPrimaryKey("S000000001");
+		System.out.print(missingCaseVO3.getMissing_case_id()+",");
+		System.out.print(missingCaseVO3.getMemb_id()+",");
+		System.out.print(missingCaseVO3.getMissing_date()+",");
+		System.out.print(missingCaseVO3.getMissing_name()+",");
+		System.out.print(missingCaseVO3.getMissing_des()+",");
+		System.out.print(missingCaseVO3.getMissing_loc()+",");
+		System.out.println(missingCaseVO3.getMissing_status_shelve());
+		System.out.println(missingCaseVO3.getMissing_photo());
+		System.out.println("---------------------------------------------------------------------");
 
 		// 查全部
 //		List<missingCaseVO> list = dao.getAll();

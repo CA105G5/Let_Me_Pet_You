@@ -179,7 +179,7 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 				missingCaseVO.setMissing_des(rs.getString("missing_des"));
 				missingCaseVO.setMissing_loc(rs.getString("missing_loc"));
 				missingCaseVO.setMissing_status_shelve(rs.getString("missing_status_shelve"));
-//				missingCaseVO.setMissing_photo(rs.getBytes("missing_photo"));
+				missingCaseVO.setMissing_photo(rs.getBytes("missing_photo"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());

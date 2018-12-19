@@ -22,7 +22,8 @@ public class missingCaseService {
 		missingCaseVO.setMissing_loc(missing_loc);
 		missingCaseVO.setMissing_status_shelve(missing_status_shelve);
 		missingCaseVO.setMissing_photo(missing_photo);
-
+		dao.insert(missingCaseVO);
+		
 		return missingCaseVO;
 	}
 
@@ -38,6 +39,7 @@ public class missingCaseService {
 		missingCaseVO.setMissing_loc(missing_loc);
 		missingCaseVO.setMissing_status_shelve(missing_status_shelve);
 		missingCaseVO.setMissing_photo(missing_photo);
+		dao.update(missingCaseVO);
 
 		return missingCaseVO;
 

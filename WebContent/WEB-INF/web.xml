@@ -120,4 +120,23 @@
 		<servlet-name>ProdServlet</servlet-name>
 		<url-pattern>/prod/prod.do</url-pattern>
 	</servlet-mapping>
+	
+	 <servlet>
+    <servlet-name>missingCaseImgServlet</servlet-name>
+    <servlet-class>com.missingCase.controller.missingCaseImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>missingCaseImgServlet</servlet-name>
+    <url-pattern>/missingcase/missingcase.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>missingCaseServlet</servlet-name>
+    <servlet-class>com.missingCase.controller.missingCaseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>missingCaseServlet</servlet-name>
+    <url-pattern>/front-end/missingCase/miss.do</url-pattern>
+  </servlet-mapping>
 </web-app>

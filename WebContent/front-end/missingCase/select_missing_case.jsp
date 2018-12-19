@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=BIG5" pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
 
 <html>
 <head>
@@ -53,9 +52,9 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="missingCase.do" >
+    <FORM METHOD="post" ACTION="miss.do" >
         <b>輸入案例編號 (如S000000001):</b>
-        <input type="text" name="empno">
+        <input type="text" name="missing_case_id">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
     </FORM>
@@ -64,11 +63,11 @@
   <jsp:useBean id="missingCaseSvc" scope="page" class="com.missingCase.model.missingCaseService" />
    
   <li>
-     <FORM METHOD="post" ACTION="missingCase.do" >
+     <FORM METHOD="post" ACTION="miss.do" >
        <b>選擇案例編號:</b>
        <select size="1" name="missing_case_id">
-         <c:forEach var="empVO" items="${empSvc.all}" > 
-          <option value="${empVO.empno}">${empVO.empno}
+         <c:forEach var="missingCaseVO" items="${missingCaseSvc.all}" > 
+          <option value="${missingCaseVO.missing_case_id}">${missingCaseVO.missing_case_id}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -77,11 +76,11 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="emp.do" >
-       <b>選擇員工姓名:</b>
-       <select size="1" name="empno">
-         <c:forEach var="empVO" items="${empSvc.all}" > 
-          <option value="${empVO.empno}">${empVO.ename}
+     <FORM METHOD="post" ACTION="miss.do" >
+       <b>選擇失蹤寵物名稱:</b>
+       <select size="1" name="missing_case_id">
+         <c:forEach var="missingCaseVO" items="${missingCaseSvc.all}" > 
+          <option value="${missingCaseVO.missing_case_id}">${missingCaseVO.missing_name}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -94,7 +93,7 @@
 <h3>員工管理</h3>
 
 <ul>
-  <li><a href='addEmp.jsp'>Add</a> a new Emp.</li>
+  <li><a href='addMissing.jsp'>Add</a> a new Emp.</li>
 </ul>
 
 </body>
