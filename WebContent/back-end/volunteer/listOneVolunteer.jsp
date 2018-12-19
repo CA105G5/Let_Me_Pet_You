@@ -53,7 +53,6 @@
 </head>
 <body bgcolor='white'>
 
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
 		 <h3>志工資料</h3>
@@ -80,7 +79,7 @@
 		<td><%=volunteerVO.getVlt_pw()%></td>
 		<td><%=volunteerVO.getVlt_gender()%></td>
 		<td><%=volunteerVO.getVlt_tel()%></td>
-		<td><img src="<%=request.getContextPath()%>/volunteer/volunteerImg.do?vlt_id=${volunteer.vlt_id}"/></td>
+		<td><img src="<%=request.getContextPath()%>/back-end/volunteer/volunteerImg.do?vlt_id=${volunteerVO.vlt_id}"/></td>
 		<td><%=volunteerVO.getVlt_registerdate()%></td>
 		<td><%=volunteerVO.getVlt_duty_day()%></td>
 		<td><%=volunteerVO.getVlt_sta()%></td>

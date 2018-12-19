@@ -22,7 +22,7 @@ public class VolunteerImgServlet extends HttpServlet{
 		
 		ServletOutputStream out = res.getOutputStream();
 		res.setContentLength(pic.length);
-		res.setContentType("image/*");
+		res.setContentType("image/gif");
 		out.write(pic);
 		out.close();
 		
