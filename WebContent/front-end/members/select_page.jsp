@@ -34,7 +34,6 @@
 
 <p>Let me pet you</p>
 
-<h3>資料查詢:</h3>
 	
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -52,7 +51,7 @@
   
   <li>
     <FORM METHOD="post" ACTION="mem.do" >
-        <b>修改會員資料</b>
+        <b>修改會員資料</b><br>
         <b>輸入會員帳號 :</b>
         <input type="text" name="memb_acc"> 
         <input type="hidden" name="action" value="updateFromClient">

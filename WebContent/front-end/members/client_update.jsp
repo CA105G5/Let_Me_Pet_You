@@ -5,6 +5,7 @@
 <%
   MemVO memVO = (MemVO) request.getAttribute("memVO"); 
 %>
+<%-- <%= memVO==null %>> --%>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>

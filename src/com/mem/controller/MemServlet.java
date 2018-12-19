@@ -151,6 +151,15 @@ public class MemServlet extends HttpServlet {
 				
 				/***************************1.接收請求參數****************************************/
 				String memb_acc = req.getParameter("memb_acc");
+				if(memb_acc == null || memb_acc.trim().length() == 0) {
+					errorMsgs.add("請輸入會員帳號");
+				}
+				if(!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = 
+					req.getRequestDispatcher("/front-end/members/select_page.jsp");
+					failureView.forward(req, res);
+					return;
+				}
 				
 				/***************************2.開始查詢資料****************************************/
 				MemService memSvc = new MemService();
@@ -162,7 +171,7 @@ public class MemServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 client_update.jsp
 				successView.forward(req, res);
 			}catch(Exception e) {
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				errorMsgs.add("查無此帳號");
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/members/select_page.jsp");
 				failureView.forward(req, res);
@@ -177,9 +186,21 @@ public class MemServlet extends HttpServlet {
 				String memb_id = req.getParameter("memb_id");
 				String memb_acc = req.getParameter("memb_acc");
 				String memb_psw = req.getParameter("memb_psw");
+				if(memb_psw == null || memb_psw.trim().length() == 0) {
+					errorMsgs.add("密碼不得為空");
+				}
 				String memb_name = req.getParameter("memb_name");
+				if(memb_name == null || memb_name.trim().length() == 0) {
+					errorMsgs.add("姓名不得為空");
+				}
 				String memb_nick = req.getParameter("memb_nick");
+				if(memb_nick == null || memb_nick.trim().length() == 0) {
+					errorMsgs.add("暱稱不得為空");
+				}
 				String memb_email = req.getParameter("memb_email");
+				if(memb_email == null || memb_email.trim().length() == 0) {
+					errorMsgs.add("信箱不得為空");
+				}
 				String memb_cellphone = req.getParameter("memb_cellphone");
 				String memb_gender = req.getParameter("memb_gender");
 				String memb_cre_type = req.getParameter("memb_cre_type");
@@ -191,7 +212,25 @@ public class MemServlet extends HttpServlet {
 				MemVO memVO = new MemVO();
 				memVO.setMemb_id(memb_id);
 				memVO.setMemb_acc(memb_acc);
-				
+				memVO.setMemb_psw(memb_psw);
+				memVO.setMemb_name(memb_name);
+				memVO.setMemb_nick(memb_nick);
+				memVO.setMemb_email(memb_email);
+				memVO.setMemb_cellphone(memb_cellphone);
+				memVO.setMemb_gender(memb_gender);
+				memVO.setMemb_cre_type(memb_cre_type);
+				memVO.setMemb_cre_name(memb_cre_name);
+				memVO.setMemb_cre_year(memb_cre_year);
+				memVO.setMemb_cre_month(memb_cre_month);
+				memVO.setMemb_photo(memb_photo);
+
+				if(!errorMsgs.isEmpty()) {
+					req.setAttribute("memVO", memVO);
+					RequestDispatcher failureView = 
+					req.getRequestDispatcher("/front-end/members/client_update.jsp");
+					failureView.forward(req, res);
+					return;
+				}
 				/***************************2.開始修改資料*****************************************/
 				MemService memSvc = new MemService();
 				memVO = memSvc
@@ -205,15 +244,13 @@ public class MemServlet extends HttpServlet {
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
-				
-				
-				
-				
 			}catch(Exception e) {
 				errorMsgs.add("無法修改資料:" + e.getMessage());
+				e.printStackTrace();
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/members/client_update.jsp");
 				failureView.forward(req, res);
+				
 			}
 			
 		}
@@ -223,10 +260,25 @@ public class MemServlet extends HttpServlet {
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String memb_acc = req.getParameter("memb_acc");
+				if(memb_acc == null || memb_acc.trim().length() == 0) {
+					errorMsgs.add("帳號不得為空");
+				}
 				String memb_psw = req.getParameter("memb_psw");
+				if(memb_psw == null || memb_psw.trim().length() == 0) {
+					errorMsgs.add("密碼不得為空");
+				}
 				String memb_name = req.getParameter("memb_name");
+				if(memb_name == null || memb_name.trim().length() == 0) {
+					errorMsgs.add("姓名不得為空");
+				}
 				String memb_nick = req.getParameter("memb_nick");
+				if(memb_nick == null || memb_nick.trim().length() == 0) {
+					errorMsgs.add("暱稱不得為空");
+				}
 				String memb_email = req.getParameter("memb_email");
+				if(memb_email == null || memb_email.trim().length() == 0) {
+					errorMsgs.add("信箱不得為空");
+				}
 				String memb_cellphone = req.getParameter("memb_cellphone");
 				String memb_gender = req.getParameter("memb_gender");
 				String memb_cre_type = req.getParameter("memb_cre_type");
@@ -237,6 +289,26 @@ public class MemServlet extends HttpServlet {
 				String memb_fb_login="";
 				String memb_google_login="";
 				MemVO memVO = new MemVO();
+				memVO.setMemb_acc(memb_acc);
+				memVO.setMemb_psw(memb_psw);
+				memVO.setMemb_name(memb_name);
+				memVO.setMemb_nick(memb_nick);
+				memVO.setMemb_email(memb_email);
+				memVO.setMemb_cellphone(memb_cellphone);
+				memVO.setMemb_gender(memb_gender);
+				memVO.setMemb_cre_type(memb_cre_type);
+				memVO.setMemb_cre_name(memb_cre_name);
+				memVO.setMemb_cre_year(memb_cre_year);
+				memVO.setMemb_cre_month(memb_cre_month);
+				memVO.setMemb_photo(memb_photo);
+
+				if(!errorMsgs.isEmpty()) {
+					req.setAttribute("memVO", memVO);
+					RequestDispatcher failureView = 
+					req.getRequestDispatcher("/front-end/members/addMembers.jsp");
+					failureView.forward(req, res);
+					return;
+				}
 				
 				/***************************2.開始新增資料*****************************************/
 				MemService memSvc = new MemService();
