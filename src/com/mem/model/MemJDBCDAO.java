@@ -19,7 +19,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	private static final 
 	String UPDATE_STMT="UPDATE MEMBERS set memb_sta=?, memb_acc=?, memb_psw=?, memb_name=?, memb_nick=?, memb_email=?, memb_cellphone=?, memb_gender=?, memb_balance=?, memb_cre_type=?, memb_cre_name=?, memb_cre_year=?, memb_cre_month=?, memb_vio_times=?, memb_photo=? where memb_id=?";
 	private static final 
-	String CLIENT_UPDATE_STMT="UPDATE MEMBERS set memb_psw=?, memb_name=?, memb_nick=?, memb_email=?, memb_cellphone=?, memb_gender=?, memb_cre_type=?, memb_cre_name=?, memb_cre_year=?, memb_cre_month=?, memb_photo=? where memb_id=?";
+	String CLIENT_UPDATE_STMT="UPDATE MEMBERS set memb_psw=?, memb_name=?, memb_nick=?, memb_email=?, memb_cellphone=?, memb_gender=?, memb_cre_type=?, memb_cre_name=?, memb_cre_year=?, memb_cre_month=?, memb_photo=?, memb_acc=? where memb_id=?";
 	private static final 
 	String MANAGER_UPDATE_STMT="UPDATE MEMBERS set memb_sta=?, memb_vio_times=? where memb_id=?";
 	private static final String DELETE_STMT="DELETE FROM MEMBERS where memb_id=?";
@@ -76,6 +76,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 //		//updateFromClient
 //		MemVO memVO2 = new MemVO();
 //		memVO2.setMemb_id("M000000011");
+//		memVO2.setMemb_acc("a111");
 //		memVO2.setMemb_psw("54321");
 //		memVO2.setMemb_name("修豪許");
 //		memVO2.setMemb_nick("修修");
@@ -271,7 +272,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 			pstmt.setString(9,memVO.getMemb_cre_year());
 			pstmt.setString(10,memVO.getMemb_cre_month());
 			pstmt.setBytes(11, memVO.getMemb_photo());
-			pstmt.setString(12,memVO.getMemb_id());
+			pstmt.setString(12,memVO.getMemb_acc());
+			pstmt.setString(13,memVO.getMemb_id());
 			
 			pstmt.executeUpdate();
 			

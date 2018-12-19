@@ -92,32 +92,27 @@
 	</tr>
 	<tr>
 		<td>會員手機:</td>
-		<td><input type="TEXT" name="memb_cellphone" size="45" value="<%=memVO.getMemb_cellphone()%>" /></td>
+		<td><input type="TEXT" name="memb_cellphone" size="45" value="<%=(memVO.getMemb_cellphone()==null)? "" : memVO.getMemb_cellphone()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員性別:</td>
-		<td><input type="TEXT" name="memb_gender" size="45" value="<%=memVO.getMemb_gender()%>" /></td>
+		<td><input type="TEXT" name="memb_gender" size="45" value="<%=(memVO.getMemb_gender()==null)? "" : memVO.getMemb_gender()%>" /></td>
 	</tr>
 	<tr>
 		<td>信用卡類型:</td>
-		<td><input type="TEXT" name="memb_cre_type" size="45" value="<%=memVO.getMemb_cre_type()%>" /></td>
+		<td><input type="TEXT" name="memb_cre_type" size="45" value="<%=(memVO.getMemb_cre_type()==null)? "" : memVO.getMemb_cre_type()%>" /></td>
 	</tr>
 	<tr>
 		<td>持卡人:</td>
-		<td><input type="TEXT" name="memb_cre_name" size="45" value="<%=memVO.getMemb_cre_name()%>" /></td>
+		<td><input type="TEXT" name="memb_cre_name" size="45" value="<%=(memVO.getMemb_cre_name()==null)? "" : memVO.getMemb_cre_name()%>" /></td>
 	</tr>
 	<tr>
 		<td>信用卡到期年:</td>
-		<td><input type="TEXT" name="memb_cre_year" size="45" value="<%=memVO.getMemb_cre_year()%>" /></td>
+		<td><input type="TEXT" name="memb_cre_year" size="45" value="<%=(memVO.getMemb_cre_year()==null)? "" : memVO.getMemb_cre_year()%>" /></td>
 	</tr>
 	<tr>
 		<td>信用卡到期月:</td>
-		<td><input type="TEXT" name="memb_cre_month" size="45" value="<%=memVO.getMemb_cre_month()%>" /></td>
-	</tr>
-
-	<tr>
-		<td>會員照片:</td>
-		<td><input type="TEXT" name="memb_photo" size="45" value="<%=memVO.getMemb_photo()%>" /></td>
+		<td><input type="TEXT" name="memb_cre_month" size="45" value="<%=(memVO.getMemb_cre_month()==null)? "" : memVO.getMemb_cre_month()%>" /></td>
 	</tr>
 
 
@@ -125,6 +120,7 @@
 <br>
 <input type="hidden" name="action" value="client_update">
 <input type="hidden" name="memb_id" value="<%=memVO.getMemb_id()%>">
+<input type="hidden" name="memb_acc" value="<%=memVO.getMemb_acc()%>">
 <input type="submit" value="送出修改"></FORM>
 </body>
 

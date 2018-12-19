@@ -75,7 +75,8 @@ public class MemService {
 		dao.update(memVO);
 		return memVO;
 	}
-	public MemVO clientUpdateMem( String memb_id,  
+	public MemVO clientUpdateMem( String memb_id,
+								String memb_acc,
 								String memb_psw,
 								String memb_name, 
 								String memb_nick, 
@@ -100,6 +101,7 @@ public class MemService {
 		memVO.setMemb_cre_year(memb_cre_year);
 		memVO.setMemb_cre_month(memb_cre_month);
 		memVO.setMemb_photo(memb_photo);
+		memVO.setMemb_acc(memb_acc);
 		dao.updateFromClient(memVO);
 		return memVO;
 	}
