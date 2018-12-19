@@ -137,6 +137,7 @@
 		<url-pattern>/prod/prod.do</url-pattern>
 	</servlet-mapping>
 	
+<<<<<<< Upstream, based on branch 'master' of https://github.com/CA105G5/Let_Me_Pet_You.git
 	 <servlet>
     <servlet-name>missingCaseImgServlet</servlet-name>
     <servlet-class>com.missingCase.controller.missingCaseImgServlet</servlet-class>
@@ -155,4 +156,16 @@
     <servlet-name>missingCaseServlet</servlet-name>
     <url-pattern>/front-end/missingCase/miss.do</url-pattern>
   </servlet-mapping>
+=======
+	<servlet>
+		<servlet-name>AndroidMemServlet</servlet-name>
+		<servlet-class>com.android.mem.controller.MemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidMemServlet</servlet-name>
+		<url-pattern>/mem/MemServlet.do</url-pattern>
+	</servlet-mapping>
+	
+	
+>>>>>>> b8515f6 android
 </web-app>
