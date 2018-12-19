@@ -77,7 +77,7 @@
 	</tr>
 </table>
 <br>
-<input type="hidden" name="action" value="update">
+<input type="hidden" name="action" value="mamager_update">
 <input type="hidden" name="memb_id" value="<%=memVO.getMemb_id()%>">
 <input type="submit" value="°e¥X­×§ï"></FORM>
 </body>

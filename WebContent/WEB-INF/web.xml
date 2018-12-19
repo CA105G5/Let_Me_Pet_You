@@ -44,6 +44,14 @@
 		<url-pattern>/back-end/members/mem.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>MemServlet2</servlet-name>
+		<servlet-class>com.mem.controller.MemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemServlet2</servlet-name>
+		<url-pattern>/front-end/members/mem.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>VolunteerServlet</servlet-name>
 		<servlet-class>com.volunteer.controller.VolunteerServlet</servlet-class>
 	</servlet>

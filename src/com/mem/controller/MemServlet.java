@@ -107,13 +107,14 @@ public class MemServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}	
 		}
-		if("update".equals(action)) {
+		if("mamager_update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String memb_id = req.getParameter("memb_id");
+				
 				String memb_sta= req.getParameter("memb_sta");
 				Integer memb_vio_times=new Integer(req.getParameter("memb_vio_times"));
 				MemVO memVO = new MemVO();
@@ -143,8 +144,80 @@ public class MemServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
-		
-		
+		if("updateFromClient".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				
+				/***************************1.接收請求參數****************************************/
+				String memb_acc = req.getParameter("memb_acc");
+				
+				/***************************2.開始查詢資料****************************************/
+				MemService memSvc = new MemService();
+				MemVO memVO = memSvc.getMemSelf(memb_acc);
+								
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("memVO", memVO);         // 資料庫取出的empVO物件,存入req
+				String url = "/front-end/members/client_update.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 client_update.jsp
+				successView.forward(req, res);
+			}catch(Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/members/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		if("client_update".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String memb_id = req.getParameter("memb_id");
+				String memb_psw = req.getParameter("memb_psw");
+				String memb_name = req.getParameter("memb_name");
+				String memb_nick = req.getParameter("memb_nick");
+				String memb_email = req.getParameter("memb_email");
+				String memb_cellphone = req.getParameter("memb_cellphone");
+				String memb_gender = req.getParameter("memb_gender");
+				String memb_cre_type = req.getParameter("memb_cre_type");
+				String memb_cre_name = req.getParameter("memb_cre_name");
+				String memb_cre_year = req.getParameter("memb_cre_year");
+				String memb_cre_month = req.getParameter("memb_cre_month");
+				byte[] memb_photo = null;
+				
+				MemVO memVO = new MemVO();
+				memVO.setMemb_id(memb_id);
+				
+				/***************************2.開始修改資料*****************************************/
+				MemService memSvc = new MemService();
+				memVO = memSvc
+						.clientUpdateMem(memb_id, memb_psw, memb_name, memb_nick, memb_email, 
+								memb_cellphone, memb_gender, memb_cre_type, memb_cre_name, 
+								memb_cre_year, memb_cre_month, memb_photo);
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("memVO", memVO);
+				String url = "/front-end/members/listOneMember.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理*************************************/
+				
+				
+				
+				
+			}catch(Exception e) {
+				errorMsgs.add("無法修改資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/members/manager_update.jsp");
+				failureView.forward(req, res);
+			}
+			
+		}
+		if("insert".equals(action)) {
+			
+			
+		}
 	}
 }

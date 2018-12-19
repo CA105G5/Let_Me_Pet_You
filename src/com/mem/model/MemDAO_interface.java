@@ -9,6 +9,7 @@ public interface MemDAO_interface {
 	public void  updateFromClient(MemVO memVO);
 	public void updateFromManager(MemVO memVO);
 	public MemVO findByPrimaryKey(String memb_id);
+	public MemVO findByAccount(String memb_acc);
 	public List<MemVO> getAll();
 	
 	

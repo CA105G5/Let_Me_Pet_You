@@ -25,6 +25,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	private static final String DELETE_STMT="DELETE FROM MEMBERS where memb_id=?";
 	private static final String GET_ONE_STMT="SELECT * FROM MEMBERS where memb_id=?";
 	private static final String GET_ALL_STMT="SELECT * FROM MEMBERS order by memb_id";
+	private static final String CLIENT_SEARCH_STMT="SELECT * FROM MEMBERS where memb_acc=?";
 
 	public static void main(String[] args) {
 		//checked
@@ -114,20 +115,33 @@ public class MemJDBCDAO implements MemDAO_interface {
 //		System.out.println("==========================");
 //		System.out.println("單一資料查詢成功");
 //		System.out.println("===========");
+		
+//		//findByAccount
+//		MemVO memVO5 = dao.findByAccount("aaa");
+//		System.out.println(memVO5.getMemb_acc());
+//		System.out.println(memVO5.getMemb_psw());
+//		System.out.println(memVO5.getMemb_name());
+//		System.out.println(memVO5.getMemb_nick());
+//		System.out.println(memVO5.getMemb_email());
+//		System.out.println(memVO5.getMemb_photo());
+//		System.out.println("==========================");
+//		System.out.println("單一資料查詢成功");
+//		System.out.println("===========");
+		
 //		
 //		//getAll
-		List <MemVO> list = dao.getAll();
-		for(MemVO aMem : list) {
-			System.out.println(aMem.getMemb_acc());
-			System.out.println(aMem.getMemb_psw());
-			System.out.println(aMem.getMemb_name());
-			System.out.println(aMem.getMemb_nick());
-			System.out.println(aMem.getMemb_email());
-			System.out.println(aMem.getMemb_photo());
-			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
-		}
-		System.out.println("多筆資料查詢成功");
-		System.out.println("===========");
+//		List <MemVO> list = dao.getAll();
+//		for(MemVO aMem : list) {
+//			System.out.println(aMem.getMemb_acc());
+//			System.out.println(aMem.getMemb_psw());
+//			System.out.println(aMem.getMemb_name());
+//			System.out.println(aMem.getMemb_nick());
+//			System.out.println(aMem.getMemb_email());
+//			System.out.println(aMem.getMemb_photo());
+//			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+//		}
+//		System.out.println("多筆資料查詢成功");
+//		System.out.println("===========");
 	}
 
 	@Override
@@ -515,5 +529,73 @@ public class MemJDBCDAO implements MemDAO_interface {
 		fis.close();
 
 		return baos.toByteArray();	//將ByteArrayOutputStream轉成ByteArray
+	}
+
+	@Override
+	public MemVO findByAccount(String memb_acc) {
+		MemVO memVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(CLIENT_SEARCH_STMT);
+			
+			pstmt.setString(1,memb_acc);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				memVO = new MemVO();
+				memVO.setMemb_id(rs.getString("memb_id"));
+				memVO.setMemb_sta(rs.getString("memb_sta"));
+				memVO.setMemb_acc(rs.getString("memb_acc"));
+				memVO.setMemb_psw(rs.getString("memb_psw"));
+				memVO.setMemb_name(rs.getString("memb_name"));
+				memVO.setMemb_nick(rs.getString("memb_nick"));
+				memVO.setMemb_email(rs.getString("memb_email"));
+				memVO.setMemb_cellphone(rs.getString("memb_cellphone"));
+				memVO.setMemb_gender(rs.getString("memb_gender"));
+				memVO.setMemb_balance(rs.getInt("memb_balance"));
+				memVO.setMemb_cre_type(rs.getString("memb_cre_type"));
+				memVO.setMemb_cre_name(rs.getString("memb_cre_name"));
+				memVO.setMemb_cre_year(rs.getString("memb_cre_year"));
+				memVO.setMemb_cre_month(rs.getString("memb_cre_month"));
+				memVO.setMemb_vio_times(rs.getInt("memb_vio_times"));
+				memVO.setMemb_photo(rs.getBytes("memb_photo"));
+			}
+			
+			
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return memVO;
 	}
 }

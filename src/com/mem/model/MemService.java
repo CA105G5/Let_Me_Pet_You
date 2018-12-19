@@ -119,6 +119,9 @@ public class MemService {
 	public MemVO getOneMem(String memb_id) {
 		return dao.findByPrimaryKey(memb_id);
 	}
+	public MemVO getMemSelf(String memb_acc) {
+		return dao.findByAccount(memb_acc);
+	}
 	public List<MemVO> getAll(){
 		return dao.getAll();
 	}
