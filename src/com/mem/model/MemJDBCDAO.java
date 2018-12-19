@@ -11,11 +11,11 @@ public class MemJDBCDAO implements MemDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G5";
-	String password = "123456"; 
+	String password = "123456";  
 	
 	private static final String INSERT_STMT="INSERT INTO MEMBERS "
-			+ "(memb_id,memb_acc,memb_psw,memb_name,memb_nick,memb_email,memb_cellphone,memb_gender,memb_cre_type,memb_cre_name,memb_cre_year,memb_cre_month,memb_photo) "
-			+ "VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?,?)";
+			+ "(memb_id,memb_acc,memb_psw,memb_name,memb_nick,memb_email,memb_cellphone,memb_gender,memb_cre_type,memb_cre_name,memb_cre_year,memb_cre_month,memb_photo,memb_fb_login,memb_google_login) "
+			+ "VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final 
 	String UPDATE_STMT="UPDATE MEMBERS set memb_sta=?, memb_acc=?, memb_psw=?, memb_name=?, memb_nick=?, memb_email=?, memb_cellphone=?, memb_gender=?, memb_balance=?, memb_cre_type=?, memb_cre_name=?, memb_cre_year=?, memb_cre_month=?, memb_vio_times=?, memb_photo=? where memb_id=?";
 	private static final 
@@ -153,6 +153,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 			pstmt.setString(10,memVO.getMemb_cre_year());
 			pstmt.setString(11,memVO.getMemb_cre_month());
 			pstmt.setBytes(12,memVO.getMemb_photo());
+			pstmt.setString(13, memVO.getMemb_fb_login());
+			pstmt.setString(14, memVO.getMemb_google_login());
 			pstmt.executeUpdate();
 			
 			

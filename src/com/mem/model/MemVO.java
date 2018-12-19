@@ -20,6 +20,8 @@ public class MemVO implements java.io.Serializable {
 	private String memb_cre_year;
 	private String memb_cre_month;
 	private Integer memb_vio_times;
+	private String memb_fb_login;
+	private String memb_google_login;
 	
 	public String getMemb_id() {
 		return memb_id;
@@ -116,6 +118,18 @@ public class MemVO implements java.io.Serializable {
 	}
 	public void setMemb_vio_times(Integer memb_vio_times) {
 		this.memb_vio_times = memb_vio_times;
+	}
+	public String getMemb_fb_login() {
+		return memb_fb_login;
+	}
+	public void setMemb_fb_login(String memb_fb_login) {
+		this.memb_fb_login = memb_fb_login;
+	}
+	public String getMemb_google_login() {
+		return memb_google_login; 
+	}
+	public void setMemb_google_login(String memb_google_login) {
+		this.memb_google_login = memb_google_login;
 	}
 	
 	
