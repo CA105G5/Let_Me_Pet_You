@@ -99,15 +99,15 @@
 			<td>${volunteerVO.vlt_sta}</td>
 			<td>${volunteerVO.vlt_reg}</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>back-end/volunteer/volunteer.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/volunteer/volunteer.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="­×§ï">
-			     <input type="hidden" name="empno"  value="${volunteerVO.vlt_id}">
+			     <input type="hidden" name="vlt_id"  value="${volunteerVO.vlt_id}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>back-end/vlounteer/volunteer.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/volunteer/volunteer.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="§R°£">
-			     <input type="hidden" name="empno"  value="${volunteerVO.vlt_id}">
+			     <input type="hidden" name="vlt_id"  value="${volunteerVO.vlt_id}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>

@@ -3,13 +3,13 @@
 <%@ page import="com.volunteer.model.*"%>
 
 <%
-  VolunteerVO volunteerVO = (VolunteerVO) request.getAttribute("volunteerVO");
+  VolunteerVO volunteerVO = (VolunteerVO) request.getAttribute("volunteerVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>志工資料新增 </title>
+<title>志工資料修改</title>
 
 <style>
   table#table-1 {
@@ -48,12 +48,12 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>志工資料新增</h3></td><td>
-		 <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
+		 <h3>志工資料修改</h3>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
-<h3>資料新增:</h3>
+<h3>資料修改:</h3>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -68,25 +68,42 @@
 <FORM METHOD="post" ACTION="volunteer.do" name="form1">
 <table>
 	<tr>
+		<td>志工編號:<font color=red><b>*</b></font></td>
+		<td><%=volunteerVO.getVlt_id()%></td>
+	</tr>
+	<tr>
 		<td>志工姓名:</td>
 		<td><input type="TEXT" name="vlt_name" size="45" 
-			 value="<%= (volunteerVO==null)? "鳴鳴" : volunteerVO.getVlt_name()%>" /></td>
+			 value="<%=volunteerVO.getVlt_name()%>" /></td>
+	</tr>
+	<tr>
+		<td>照片:</td>
+		<td><img src="<%=request.getContextPath()%>/back-end/volunteer/volunteerImg.do?vlt_id=${volunteerVO.vlt_id}"/></td>
 	</tr>
 	<tr>
 		<td>e-mail(帳號):</td>
 		<td><input type="TEXT" name="vlt_mail" size="45"
-			 value="<%= (volunteerVO==null)? "jjuies424@gmail.com" : volunteerVO.getVlt_mail()%>" /></td>
+			 value="<%=volunteerVO.getVlt_mail()%>" /></td>
+	</tr>
+	<tr>
+		<td>密碼:</td>
+		<td><input type="TEXT" name="vlt_pw" size="45"
+			 value="<%=volunteerVO.getVlt_pw()%>" /></td>
 	</tr>
 
 	<tr>
 		<td>性別:</td>
-		<td><input type="RADIO" name="vlt_gender" value="M" ${(volunteerVO.vlt_gender=='M')? 'checked':'' }/>男
-			<input type="RADIO" name="vlt_gender" value="F" ${(volunteerVO.vlt_gender=='F')? 'checked':'' }/>女</td>
+		<td><input type="RADIO" name="vlt_gender" value="M" ${(volunteerVO.vlt_gender=="M")? "checked":'' }/>男
+			<input type="RADIO" name="vlt_gender" value="F" ${(volunteerVO.vlt_gender=="F")? "checked":'' }/>女</td>
 	</tr>
 	<tr>
 		<td>手機號碼:</td>
 		<td><input type="TEXT" name="vlt_tel" size="45"
-			 value="<%= (volunteerVO==null)? "0939-393570" : volunteerVO.getVlt_tel()%>" /></td>
+			 value="<%=volunteerVO.getVlt_tel()%>" /></td>
+	</tr>
+	<tr>
+		<td>加入日期:</td>
+		<td><%=volunteerVO.getVlt_registerdate()%></td>
 	</tr>
 
 	<tr>
@@ -108,10 +125,19 @@
 			</c:forEach>
 		</select></td>
 	</tr>
+		<tr>
+		<td>志工狀態:<font color=red><b>*</b></font></td>
+		<td><select size="1" name="vlt_sta">
+				<option value="離職志工" ${(volunteerVO.vlt_sta=='離職志工')? 'selected':'' }>離職志工
+				<option value="救援中" ${(volunteerVO.vlt_sta=='救援中')? 'selected':'' }>救援中
+				<option value="在職志工" ${(volunteerVO.vlt_sta=='在職志工')? 'selected':'' }>在職志工
+		</select></td>
+	</tr>
 
 </table>
 <br>
-<input type="hidden" name="action" value="insert">
-<input type="submit" value="送出新增"></FORM>
+<input type="hidden" name="action" value="updatebymanager">
+<input type="hidden" name="vlt_id" value="<%=volunteerVO.getVlt_id()%>">
+<input type="submit" value="送出修改"></FORM>
 </body>
 </html>
