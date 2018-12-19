@@ -100,7 +100,7 @@ public class MemService {
 		memVO.setMemb_cre_year(memb_cre_year);
 		memVO.setMemb_cre_month(memb_cre_month);
 		memVO.setMemb_photo(memb_photo);
-		dao.update(memVO);
+		dao.updateFromClient(memVO);
 		return memVO;
 	}
 	public MemVO managerUpdateMem( String memb_id, 
@@ -110,7 +110,7 @@ public class MemService {
 		memVO.setMemb_id(memb_id);
 		memVO.setMemb_sta(memb_sta);
 		memVO.setMemb_vio_times(memb_vio_times);
-		dao.update(memVO);
+		dao.updateFromManager(memVO);
 		return memVO;
 	}
 	public void deleteMem(String memb_id) {

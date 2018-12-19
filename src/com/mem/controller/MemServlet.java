@@ -78,30 +78,72 @@ public class MemServlet extends HttpServlet {
 			
 			
 		}
-		if("getALL".equals("action")) {
-			
-			
-			
-			
+		if("getAll".equals(action)) {
+			RequestDispatcher successView = 
+					req.getRequestDispatcher("/back-end/members/listAllMembers.jsp");
+			successView.forward(req, res);
 		}
-		if("insert".equals("action")) {
-			
-			
-			
-			
+		if("updateFromManager".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				
+				/***************************1.接收請求參數****************************************/
+				String memb_id = req.getParameter("memb_id");
+				
+				/***************************2.開始查詢資料****************************************/
+				MemService memSvc = new MemService();
+				MemVO memVO = memSvc.getOneMem(memb_id);
+								
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("memVO", memVO);         // 資料庫取出的empVO物件,存入req
+				String url = "/back-end/members/manager_update.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				successView.forward(req, res);
+			}catch(Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/members/listAllMembers.jsp");
+				failureView.forward(req, res);
+			}	
 		}
-		if("update".equals("action")) {
-			
-			
-			
-			
+		if("update".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String memb_id = req.getParameter("memb_id");
+				String memb_sta= req.getParameter("memb_sta");
+				Integer memb_vio_times=new Integer(req.getParameter("memb_vio_times"));
+				MemVO memVO = new MemVO();
+				memVO.setMemb_id(memb_id);
+				memVO.setMemb_sta(memb_sta);
+				memVO.setMemb_vio_times(memb_vio_times);
+				
+				/***************************2.開始修改資料*****************************************/
+				MemService memSvc = new MemService();
+				memVO = memSvc.managerUpdateMem(memb_id, memb_sta, memb_vio_times);
+				
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("memVO", memVO);
+				String url = "/back-end/members/listAllMembers.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理*************************************/
+				
+				
+				
+				
+			}catch(Exception e) {
+				errorMsgs.add("無法修改資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/members/manager_update.jsp");
+				failureView.forward(req, res);
+			}
 		}
-		if("delete".equals("action")) {
-			
-			
-			
-			
-		}
+		
 		
 		
 	}

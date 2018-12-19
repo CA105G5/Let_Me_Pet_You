@@ -48,12 +48,18 @@
 </c:if>
 
 <ul>
-
-  
+<li><a href='listAllMembers.jsp'>List all members.</a>  <br><br></li>
+  <li>
+    <FORM METHOD="post" ACTION="mem.do" >
+        <b>查詢全部會員</b>
+        <input type="hidden" name="action" value="getAll">
+        <input type="submit" value="開始查">
+    </FORM>
+  </li>
   
   <li>
     <FORM METHOD="post" ACTION="mem.do" >
-        <b>輸入員工編號 (如M000000001):</b>
+        <b>輸入會員編號 (如M000000001):</b>
         <input type="text" name="memb_id">
         <input type="hidden" name="action" value="getOne">
         <input type="submit" value="送出">
@@ -61,7 +67,18 @@
   </li>
 
   <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
-   
+   <li>
+     <FORM METHOD="post" ACTION="mem.do" >
+       <b>選擇會員編號:</b>
+       <select size="1" name="memb_id">
+         <c:forEach var="memVO" items="${memSvc.all}" > 
+          <option value="${memVO.memb_id}">${memVO.memb_id}
+         </c:forEach>   
+       </select>
+       <input type="hidden" name="action" value="getOne">
+       <input type="submit" value="送出">
+    </FORM>
+  </li>
 
 </ul>
 
