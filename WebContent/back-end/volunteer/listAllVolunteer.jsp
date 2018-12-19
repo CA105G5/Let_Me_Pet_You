@@ -89,15 +89,15 @@
 		
 		<tr>
 			<td>${volunteerVO.vlt_id}</td>
-			<td>${empVO.vllt_name}</td>
-			<td>${empVO.vlt_pw}</td>
-			<td>${empVO.vlt_gender}</td>
-			<td>${empVO.vlt_tel}</td>
+			<td>${volunteerVO.vlt_name}</td>
+			<td>${volunteerVO.vlt_pw}</td>
+			<td>${volunteerVO.vlt_gender}</td>
+			<td>${volunteerVO.vlt_tel}</td>
 			<td><img src="<%=request.getContextPath()%>/back-end/volunteer/volunteerImg.do?vlt_id=${volunteerVO.vlt_id}"/></td> 
-			<td>${empVO.vlt_reggisterdate}</td>
-			<td>${empVO.vlt_duty_day}</td>
-			<td>${empVO.vlt_sta}</td>
-			<td>${empVO.vlt_reg}</td>
+			<td>${volunteerVO.vlt_registerdate}</td>
+			<td>${volunteerVO.vlt_duty_day}</td>
+			<td>${volunteerVO.vlt_sta}</td>
+			<td>${volunteerVO.vlt_reg}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>back-end/volunteer/volunteer.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="н╫зя">
