@@ -10,7 +10,7 @@ public class VolunteerService {
 		dao = new VolunteerJDBCDAO();
 	}
 	
-	public VolunteerVO addVolunteer(String vlt_id,String vlt_name,String vlt_mail,String vlt_pw,String vlt_gender,String vlt_tel,byte[] vlt_img,java.sql.Date vlt_registerdate,String vlt_duty_day,String vlt_sta,String vlt_reg) {
+	public VolunteerVO addVolunteer(String vlt_name,String vlt_mail,String vlt_pw,String vlt_gender,String vlt_tel,byte[] vlt_img,java.sql.Date vlt_registerdate,String vlt_duty_day,String vlt_sta,String vlt_reg) {
 		
 		VolunteerVO volunteerVO = new VolunteerVO();
 		
