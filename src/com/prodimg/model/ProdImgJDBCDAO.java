@@ -174,6 +174,65 @@ public class ProdImgJDBCDAO implements ProdImgDAO_interface {
 	}
 	
 	@Override
+	public ProdImgVO findByPrimaryKey1(String prod_id) {
+		ProdImgVO prodImgVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+
+			pstmt.setString(1,  prod_id);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				// prodVo 也稱為 Domain objects
+				prodImgVO = new ProdImgVO();
+				prodImgVO.setProd_img_id(rs.getString("prod_img_id"));
+				prodImgVO.setProd_id(prod_id);
+				prodImgVO.setProd_img(rs.getBytes("prod_img"));
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return prodImgVO;
+	}
+
+	
+	@Override
 	public ProdImgVO findByPrimaryKey2(String prod_img_id) {
 
 		ProdImgVO prodImgVO = null;
@@ -368,22 +427,22 @@ public class ProdImgJDBCDAO implements ProdImgDAO_interface {
 //		dao.delete("0000000043");
 
 		// 查詢
-//		List<ProdImgVO> list = dao.findByPrimaryKey("P000000001");
-//		for (ProdImgVO aProdImg1 : list) {
-//			System.out.print(aProdImg1.getProd_img_id() + ",");
-//			System.out.print(aProdImg1.getProd_id() + ",");
-//			System.out.println(aProdImg1.getProd_img() + ",");
-//			System.out.println("---------------------");
-//		}
+		List<ProdImgVO> list = dao.findByPrimaryKey("P000000001");
+		for (ProdImgVO aProdImg1 : list) {
+			System.out.print(aProdImg1.getProd_img_id() + ",");
+			System.out.print(aProdImg1.getProd_id() + ",");
+			System.out.println(aProdImg1.getProd_img() + ",");
+			System.out.println("---------------------");
+		}
 
 		// 查詢
-		List<ProdImgVO> list = dao.getAll();
-		for (ProdImgVO aProdImg : list) {
-			System.out.print(aProdImg.getProd_img_id() + ",");
-			System.out.print(aProdImg.getProd_id() + ",");
-			System.out.println(aProdImg.getProd_img() + ",");
-			System.out.println();
-		}
+//		List<ProdImgVO> list = dao.getAll();
+//		for (ProdImgVO aProdImg : list) {
+//			System.out.print(aProdImg.getProd_img_id() + ",");
+//			System.out.print(aProdImg.getProd_id() + ",");
+//			System.out.println(aProdImg.getProd_img() + ",");
+//			System.out.println();
+//		}
 	}
 	
 	public static byte[] getPictureByteArray(String path) throws IOException {
@@ -400,6 +459,7 @@ public class ProdImgJDBCDAO implements ProdImgDAO_interface {
 
 		return baos.toByteArray();	//將ByteArrayOutputStream轉成ByteArray
 	}
+
 
 	
 }

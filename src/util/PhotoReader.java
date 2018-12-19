@@ -56,7 +56,7 @@ public class PhotoReader extends HttpServlet {
 	public void init() throws ServletException {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "juber", "123456");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "Jen", "123456");
 		} catch (ClassNotFoundException e) {
 			throw new UnavailableException("Couldn't load JdbcOdbcDriver");
 		} catch (SQLException e) {

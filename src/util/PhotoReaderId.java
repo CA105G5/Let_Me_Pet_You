@@ -29,9 +29,9 @@ public class PhotoReaderId extends HttpServlet {
 		try {
 			System.out.println("aaa");
 			Statement stmt = con.createStatement();
-			String pro_id = req.getParameter("wish_id");
+			String wish_id = req.getParameter("wish_id");
 			System.out.println("aaa");
-			ResultSet rs = stmt.executeQuery("select wish_IMG_ID from wish_IMG where wish_ID = '" + pro_id + "'");
+			ResultSet rs = stmt.executeQuery("select wish_IMG_ID from wish_IMG where wish_ID = '" + wish_id + "'");
 			System.out.println("aaa");
 
 			while (rs.next()) {

@@ -17,10 +17,10 @@ public class PhotoWriter2 {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String url = "jdbc:oracle:thin:@localhost:1521:XE";
-		String userid = "Jen";
+		String userid = "CA105G5";
 		String passwd = "123456";
 
-		File dir = new File("C:\\專題\\假資料\\WISH_餵假資料用");
+		File dir = new File("D:\\專題\\假資料\\wish_餵假資料用");
 		String contents[] = dir.list(); // list() 取得目錄中的目錄、檔案，回傳字串陣列
 		System.out.println(contents.length);
 		try {
@@ -28,18 +28,18 @@ public class PhotoWriter2 {
 			for (int i = 1; i < contents.length; i++) {
 
 				// 用InputStream送
-				File dir2 = new File("C:\\專題\\假資料\\WISH_餵假資料用\\" + i);
+				File dir2 = new File("D:\\專題\\假資料\\wish_餵假資料用\\" + i);
 				String contents2[] = dir2.list();
 				System.out.println(contents2.length);
 				for (int j = 1; j <= contents2.length; j++) {
 
 					try {
         	    	System.out.println(contents2.length);
-			        File pic = new File(dir2, Integer.toString(j)+".png"); 
+			        File pic = new File(dir2, Integer.toString(j)+".PNG"); 
 			        
 			        InputStream fin = new FileInputStream(pic);  
 			        
-			        pstmt = con.prepareStatement("insert into WISH_IMG (WISH_IMG_ID, WISH_ID, WISH_IMG) values(LPAD(to_char(WISH_img_id_seq.NEXTVAL), 10,'0'), ?, ?)");
+			        pstmt = con.prepareStatement("insert into wish_IMG (wish_IMG_ID, wish_ID, wish_IMG) values(LPAD(to_char(wish_img_id_seq.NEXTVAL), 10,'0'), ?, ?)");
 			        if (i<=9)
 			        	pstmt.setString(1, "W00000000"+i);
 			        else

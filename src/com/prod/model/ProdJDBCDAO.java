@@ -26,7 +26,7 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT PROD_ID,MEMB_ID, PROD_TYPE_ID, PROD_ANI_TYPE_ID, PROD_NAME, PROD_DES, PROD_INFO, PROD_QTY, PROD_STOCK, to_char(PROD_DATE,'YYYY-MM-DD HH24:MI:SS')PROD_DATE, PROD_REVIEW, PROD_REVIEW_DES, PROD_STATUS, PROD_PRICE FROM product order by PROD_ID";
 	private static final String GET_ONE_STMT = "SELECT PROD_ID,MEMB_ID, PROD_TYPE_ID, PROD_ANI_TYPE_ID, PROD_NAME, PROD_DES, PROD_INFO, PROD_QTY, PROD_STOCK, to_char(PROD_DATE,'YYYY-MM-DD HH24:MI:SS')PROD_DATE, PROD_REVIEW, PROD_REVIEW_DES, PROD_STATUS, PROD_PRICE FROM product where PROD_ID = ?";
 	private static final String DELETE = "DELETE FROM product where PROD_ID = ?";
-	private static final String UPDATE = "UPDATE product set memb_id=?, PROD_TYPE_ID=?, PROD_ANI_TYPE_ID=?, PROD_NAME=?, PROD_DES=?, PROD_INFO=?, PROD_QTY=?, PROD_STOCK=?, PROD_DATE=?, PROD_REVIEW=?, PROD_REVIEW_DES=?, PROD_STATUS=?, PROD_PRICE=? where PROD_ID = ?";
+	private static final String UPDATE = "UPDATE product set PROD_TYPE_ID=?, PROD_ANI_TYPE_ID=?, PROD_NAME=?, PROD_DES=?, PROD_INFO=?, PROD_QTY=?, PROD_STOCK=?, PROD_DATE=?, PROD_REVIEW=?, PROD_REVIEW_DES=?, PROD_STATUS=?, PROD_PRICE=? where PROD_ID = ?";
 
 	@Override
 	public void insert(ProdVO prodVO) {
@@ -97,24 +97,23 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, prodVO.getMemb_id());
-			pstmt.setString(2, prodVO.getProd_type_id());
-			pstmt.setString(3, prodVO.getProd_ani_type_id());
-			pstmt.setString(4, prodVO.getProd_name());
-//			pstmt.setString(5, prodVO.getProd_des());
-			pstmt.setString(6, prodVO.getProd_info());
-			pstmt.setInt(7, prodVO.getProd_qty());
-			pstmt.setInt(8, prodVO.getProd_stock());
-			pstmt.setTimestamp(9, prodVO.getProd_date());
-			pstmt.setString(10, prodVO.getProd_review());
-			pstmt.setString(11, prodVO.getProd_review_des());
-			pstmt.setString(12, prodVO.getProd_status());
-			pstmt.setInt(13, prodVO.getProd_price());
-			pstmt.setString(14, prodVO.getProd_id());
+			pstmt.setString(1, prodVO.getProd_type_id());
+			pstmt.setString(2, prodVO.getProd_ani_type_id());
+			pstmt.setString(3, prodVO.getProd_name());
+//			pstmt.setString(4, prodVO.getProd_des());
+			pstmt.setString(5, prodVO.getProd_info());
+			pstmt.setInt(6, prodVO.getProd_qty());
+			pstmt.setInt(7, prodVO.getProd_stock());
+			pstmt.setTimestamp(8, prodVO.getProd_date());
+			pstmt.setString(9, prodVO.getProd_review());
+			pstmt.setString(10, prodVO.getProd_review_des());
+			pstmt.setString(11, prodVO.getProd_status());
+			pstmt.setInt(12, prodVO.getProd_price());
+			pstmt.setString(13, prodVO.getProd_id());
 			
 			Clob clob = con.createClob(); //使用連線connection建立clob
 			clob.setString(1, prodVO.getProd_des()); // 括號內第一個數字1是指放置在clob的位置。 str - the string to be written to the CLOBvalue that this Clob designates，
-			pstmt.setClob(5, clob);
+			pstmt.setClob(4, clob);
 
 			int rowsUpdated = pstmt.executeUpdate();
 
