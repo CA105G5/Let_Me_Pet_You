@@ -135,7 +135,7 @@ div {
 							</table>
 							<br> <input type="hidden" name="action" value="update">
 							<input type="hidden" name="membno" value="<%=missingCaseVO.getMemb_id()%>">
-							<input type="hidden" name="missing_case_id" value=<%=missingCaseVO.getMissing_case_id() %>">
+							<input type="hidden" name="missing_case_id" value=<%=missingCaseVO.getMissing_case_id() %>>
 							<input type="submit" value="°e¥X·s¼W">
 						</FORM>
 
