@@ -283,14 +283,16 @@ public class VolunteerServlet extends HttpServlet{
 					errorMsgs.add("志工密碼: 只能是中、英文字母、數字和_ , 且長度必需在2到8之間");
 	            }
 				//照片
-				Part part = req.getPart("upfile");
+				
+				
 				byte[] vlt_img = null;
-				if(part == null) {
+				Part part = req.getPart("upfile");
+				InputStream is = part.getInputStream();
+				if(is.available()==0) {
 					VolunteerService volunteerSvc = new VolunteerService();
-					 vlt_img = volunteerSvc.getOneVolunteer(vlt_id).getVlt_img();
+					vlt_img = volunteerSvc.getOneVolunteer(vlt_id).getVlt_img();
 				}else {
-					InputStream is = part.getInputStream();
-					 vlt_img = getPictureByteArray(is);
+					vlt_img = getPictureByteArray(is);
 				}
 				
 				
