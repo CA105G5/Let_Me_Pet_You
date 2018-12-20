@@ -226,7 +226,9 @@ public class MemServlet extends HttpServlet {
 				String memb_cre_name = req.getParameter("memb_cre_name");
 				String memb_cre_year = req.getParameter("memb_cre_year");
 				String memb_cre_month = req.getParameter("memb_cre_month");
-				byte[] memb_photo=null;
+				Part part = req.getPart("upfile");
+				InputStream is = part.getInputStream();
+				byte[] memb_photo = transbyte(is);
 				
 				MemVO memVO = new MemVO();
 				memVO.setMemb_id(memb_id);
@@ -256,6 +258,7 @@ public class MemServlet extends HttpServlet {
 						.clientUpdateMem(memb_id,memb_acc, memb_psw, memb_name, memb_nick, memb_email, 
 								memb_cellphone, memb_gender, memb_cre_type, memb_cre_name, 
 								memb_cre_year, memb_cre_month, memb_photo);
+				memVO= memSvc.getMemSelf(memb_acc);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memVO", memVO);
 				String url = "/front-end/members/listOneMember.jsp";
@@ -337,6 +340,7 @@ public class MemServlet extends HttpServlet {
 						memb_email, memb_cellphone, memb_gender, 
 						memb_cre_type, memb_cre_name, memb_cre_year, memb_cre_month, 
 						memb_photo, memb_fb_login, memb_google_login);
+				memVO= memSvc.getMemSelf(memb_acc);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memVO", memVO);
 				String url = "/front-end/members/becomeNewMember.jsp";
