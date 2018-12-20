@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.volunteer.model.VolunteerService;
 
 import util.ImageUtil;
-
+ 
 public class VolunteerImgServlet extends HttpServlet{
 
 	@Override
