@@ -39,7 +39,7 @@ public class MemServlet extends HttpServlet {
 			String memb_id = jsonObject.get("memb_id").getAsString();
 			String memb_psw = jsonObject.get("memb_psw").getAsString();
 			writeText(res,	String.valueOf(MemDao.isMemID(memb_id, memb_psw)));
-		} else if ("isMemACC".equals(action)) {
+		} else if ("isMemACC".equals(action)) { 
 			String memb_acc = jsonObject.get("memb_acc").getAsString();
 			String memb_psw = jsonObject.get("memb_psw").getAsString();
 			writeText(res,	String.valueOf(MemDao.isMemACC(memb_acc, memb_psw)));

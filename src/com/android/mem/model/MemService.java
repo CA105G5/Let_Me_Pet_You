@@ -6,7 +6,7 @@ public class MemService {
 	private MemDAO_interface dao; 
 	public MemService() {
 		dao = new MemJDBCDAO();
-	}
+	} 
 	public MemVO addMem(String memb_acc, 
 						String memb_psw,
 						String memb_name, 

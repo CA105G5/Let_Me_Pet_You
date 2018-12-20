@@ -3,7 +3,7 @@ package com.android.mem.model;
 public class MemVO implements java.io.Serializable {
 	
 	private static final long serialVersionUID = -554825475600104306L;
-	
+	 
 	private String memb_id;  
 	private String memb_sta;
 	private String memb_acc;

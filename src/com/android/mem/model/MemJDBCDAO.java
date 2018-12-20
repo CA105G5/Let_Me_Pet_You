@@ -133,7 +133,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 		System.out.println("多筆資料查詢成功");
 		System.out.println("===========");
 	}
-	
+	 
 	@Override
 	public boolean isMemID(String memb_id, String memb_psw) {
 		Connection con = null;

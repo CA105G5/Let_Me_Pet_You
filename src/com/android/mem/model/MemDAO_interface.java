@@ -1,5 +1,5 @@
 package com.android.mem.model;
-
+ 
 import java.util.List;
 
 public interface MemDAO_interface {
