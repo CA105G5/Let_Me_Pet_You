@@ -299,7 +299,7 @@ public class RescueCoinJDBCDAO implements RescueCoinDAO_interface {
 		// 刪除
 //		dao.delete("R000000005","M000000001");
 
-//		// 查詢(其實不需要這個，因為兩個都是主鍵)
+//		// 查詢
 //		RescueCoinVO rescueCoinVO3 = dao.findByPrimaryKey("R000000001");
 //		System.out.print(rescueCoinVO3.getRsc_id() + ",");
 //		System.out.println(rescueCoinVO3.getRsc_coin_mem() + ",");
