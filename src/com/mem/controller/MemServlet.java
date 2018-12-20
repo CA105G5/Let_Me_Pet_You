@@ -1,18 +1,23 @@
 package com.mem.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.mem.model.MemService;
 import com.mem.model.MemVO;
 
+@MultipartConfig
 public class MemServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -116,11 +121,25 @@ public class MemServlet extends HttpServlet {
 				String memb_id = req.getParameter("memb_id");
 				
 				String memb_sta= req.getParameter("memb_sta");
-				Integer memb_vio_times=new Integer(req.getParameter("memb_vio_times"));
+				Integer memb_vio_times=null;
+				try {
+					memb_vio_times=new Integer(req.getParameter("memb_vio_times"));
+				}catch(Exception e) {
+					memb_vio_times=0;
+					errorMsgs.add("會員違規次數請填正整數");
+				}
+				
 				MemVO memVO = new MemVO();
 				memVO.setMemb_id(memb_id);
 				memVO.setMemb_sta(memb_sta);
 				memVO.setMemb_vio_times(memb_vio_times);
+				if(!errorMsgs.isEmpty()) {
+					req.setAttribute("memVO", memVO);
+					RequestDispatcher failureView = 
+					req.getRequestDispatcher("/back-end/members/manager_update.jsp");
+					failureView.forward(req, res);
+					return;
+				}
 				
 				/***************************2.開始修改資料*****************************************/
 				MemService memSvc = new MemService();
@@ -285,7 +304,9 @@ public class MemServlet extends HttpServlet {
 				String memb_cre_name = req.getParameter("memb_cre_name");
 				String memb_cre_year = req.getParameter("memb_cre_year");
 				String memb_cre_month = req.getParameter("memb_cre_month");
-				byte[] memb_photo=null;
+				Part part = req.getPart("upfile");
+				InputStream is = part.getInputStream();
+				byte[] memb_photo = transbyte(is);
 				String memb_fb_login="";
 				String memb_google_login="";
 				MemVO memVO = new MemVO();
@@ -330,5 +351,16 @@ public class MemServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+	}
+	public static final byte[] transbyte(InputStream inStream) throws IOException {
+		ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
+		byte[] buff = new byte[100];
+		int rc = 0;
+		while ((rc = inStream.read(buff, 0, 100)) > 0) {
+			swapStream.write(buff, 0, rc);
+		}
+		byte[] in2b = swapStream.toByteArray();
+		return in2b;
 	}
 }

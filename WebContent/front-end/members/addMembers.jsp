@@ -67,7 +67,9 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="mem.do" name="form1">
+<FORM METHOD="post" ACTION="mem.do" name="form1" enctype="multipart/form-data">
+選擇照片
+<input type="file" name="upfile" id="file01">
 <table>
 	<tr>
 		<td>會員帳號:</td>
