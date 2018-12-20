@@ -300,18 +300,18 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 //		dao.insert(missingCaseVO1);
 
 		// 修改
-//		missingCaseVO missingCaseVO2 = new missingCaseVO();
-//		missingCaseVO2.setMemb_id("M000000003");
-//		missingCaseVO2.setMissing_date(java.sql.Timestamp.valueOf("1999-07-20 14:24:00"));
-//		missingCaseVO2.setMissing_name("示威");
-//		missingCaseVO2.setMissing_des("阿囉哈");
-//		missingCaseVO2.setMissing_loc("台中");
-//		missingCaseVO2.setMissing_status_shelve("M1");
-//		missingCaseVO2.setMissing_case_id("S000000007");
-//		dao.update(missingCaseVO2);
+		missingCaseVO missingCaseVO2 = new missingCaseVO();
+		missingCaseVO2.setMemb_id("M000000003");
+		missingCaseVO2.setMissing_date(java.sql.Timestamp.valueOf("1999-07-20 14:24:00"));
+		missingCaseVO2.setMissing_name("示威");
+		missingCaseVO2.setMissing_des("阿囉哈");
+		missingCaseVO2.setMissing_loc("台中");
+		missingCaseVO2.setMissing_status_shelve("M1");
+		missingCaseVO2.setMissing_case_id("S000000001");
+		dao.update(missingCaseVO2);
 
 		// 刪除
-		dao.delete("S000000004");
+//		dao.delete("S000000004");
 
 		// 單獨查詢
 //		missingCaseVO missingCaseVO3 = dao.findByPrimaryKey("S000000001");

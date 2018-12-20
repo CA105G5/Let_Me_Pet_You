@@ -103,11 +103,12 @@ div {
 								</c:if>
 						</FORM>
 						<FORM action="miss.do" method=post enctype="multipart/form-data">
-						<input type="file" name="upfile" id="file01">
 							<table>
 								<tr>
 									<td>圖片預覽:</td>
-									<td><img class="preview" src="<%=request.getContextPath()%>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id}"/></td>
+									<td><img class="preview" src="<%=request.getContextPath()%>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id}"/>
+									<input type="file" name="upfile" id="file01">
+									</td>
 								</tr>
 								<tr>
 									<td>會員編號:</td>
@@ -132,7 +133,9 @@ div {
 									<td><input type="TEXT" name="loc" size="45"
 										value="<%=missingCaseVO.getMissing_loc()%>" /></td>
 							</table>
-							<br> <input type="hidden" name="action" value="insert">
+							<br> <input type="hidden" name="action" value="update">
+							<input type="hidden" name="membno" value="<%=missingCaseVO.getMemb_id()%>">
+							<input type="hidden" name="missing_case_id" value=<%=missingCaseVO.getMissing_case_id() %>">
 							<input type="submit" value="送出新增">
 						</FORM>
 

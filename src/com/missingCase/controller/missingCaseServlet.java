@@ -213,11 +213,11 @@ public class missingCaseServlet extends HttpServlet {
 
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			try {
+//			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
 				String missing_case_id = req.getParameter("missing_case_id");
-
+				System.out.println(missing_case_id);
 				String membno = req.getParameter("membno");
 
 				String membnoReg = "^[M][0-9]{9}$";
@@ -283,19 +283,21 @@ public class missingCaseServlet extends HttpServlet {
 				missingCaseService missingCaseSvc = new missingCaseService();
 				missingCaseVO = missingCaseSvc.updateMissingCase(missing_case_id, membno, hiredate, missingDes,
 						missingName, loc, missing_status_shelve, missing_photo);
-
+				
+				
+				missingCaseVO = missingCaseSvc.getOneMissingCase(missing_case_id);
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("missingCaseVO", missingCaseVO);
 				String url = "/front-end/missingCase/listOneMissingCase.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				/*************************** 其他可能的錯誤處理 *************************************/
-			} catch (Exception e) {
-				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/missingCase/update_missing_case.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add("修改資料失敗:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/missingCase/update_missing_case.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 
 		if ("delete".equals(action)) {
@@ -327,7 +329,7 @@ public class missingCaseServlet extends HttpServlet {
 
 	public static final byte[] transbyte(InputStream inStream) throws IOException {
 		ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
-		byte[] buff = new byte[100];
+		byte[] buff = new byte[8192];
 		int rc = 0;
 		while ((rc = inStream.read(buff, 0, 100)) > 0) {
 			swapStream.write(buff, 0, rc);
