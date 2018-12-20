@@ -8,6 +8,7 @@
 
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>志工資料修改</title>
 
@@ -49,7 +50,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>志工資料修改</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="index_Volunteer.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -68,7 +69,7 @@
 <FORM METHOD="post" ACTION="volunteer.do" name="form1" enctype="multipart/form-data">
 <table>
 	<tr>
-		<td>志工編號:<font color=red><b>*</b></font></td>
+		<td>志工編號:</td>
 		<td><%=volunteerVO.getVlt_id()%></td>
 	</tr>
 	<tr>
@@ -76,16 +77,19 @@
 		<td><%=volunteerVO.getVlt_name()%></td>
 	</tr>
 	<tr>
-		<td>照片:</td>
-		<td><img src="<%=request.getContextPath()%>/back-end/volunteer/volunteerImg.do?vlt_id=${volunteerVO.vlt_id}"/>
-		<input type="file" name="upfile" id="file01"></td>
+		<td>照片:<font color=red><b>*</b></font></td>
+		<td>
+		<img class="preview" src="<%=request.getContextPath()%>/back-end/volunteer/volunteerImg.do?vlt_id=${volunteerVO.vlt_id}"/>
+		 <div class="size"></div>
+		<input type="file" class="upl" name="upfile" id="file01">
+		</td>
 	</tr>
 	<tr>
 		<td>e-mail(帳號):</td>
 		<td><%=volunteerVO.getVlt_mail()%></td>
 	</tr>
 	<tr>
-		<td>密碼:</td>
+		<td>密碼:<font color=red><b>*</b></font></td>
 		<td><input type="TEXT" name="vlt_pw" size="45"
 			 value="<%=volunteerVO.getVlt_pw()%>" /></td>
 	</tr>
@@ -95,7 +99,7 @@
 		<td><%=volunteerVO.getVlt_gender()%></td>
 	</tr>
 	<tr>
-		<td>手機號碼:</td>
+		<td>手機號碼:<font color=red><b>*</b></font></td>
 		<td><input type="TEXT" name="vlt_tel" size="45"
 			 value="<%=volunteerVO.getVlt_tel()%>" /></td>
 	</tr>
@@ -124,5 +128,35 @@
 <input type="hidden" name="action" value="updatebyvolunteer">
 <input type="hidden" name="vlt_id" value="<%=volunteerVO.getVlt_id()%>">
 <input type="submit" value="送出修改"></FORM>
+<script>
+$(function (){
+	 
+    function format_float(num, pos)
+    {
+        var size = Math.pow(10, pos);
+        return Math.round(num * size) / size;
+    }
+ 
+    function preview(input) {
+ 
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('.preview').attr('src', e.target.result);
+                var KB = format_float(e.total / 1024, 2);
+                $('.size').text("檔案大小：" + KB + " KB");
+            }
+ 
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+ 
+    $("body").on("change", ".upl", function (){
+        preview(this);
+    })
+    
+})
+</script>
 </body>
 </html>
