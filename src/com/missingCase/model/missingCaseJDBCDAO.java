@@ -311,19 +311,19 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 //		dao.update(missingCaseVO2);
 
 		// 刪除
-//		dao.delete("S000000008");
+		dao.delete("S000000004");
 
 		// 單獨查詢
-		missingCaseVO missingCaseVO3 = dao.findByPrimaryKey("S000000001");
-		System.out.print(missingCaseVO3.getMissing_case_id()+",");
-		System.out.print(missingCaseVO3.getMemb_id()+",");
-		System.out.print(missingCaseVO3.getMissing_date()+",");
-		System.out.print(missingCaseVO3.getMissing_name()+",");
-		System.out.print(missingCaseVO3.getMissing_des()+",");
-		System.out.print(missingCaseVO3.getMissing_loc()+",");
-		System.out.println(missingCaseVO3.getMissing_status_shelve());
-		System.out.println(missingCaseVO3.getMissing_photo());
-		System.out.println("---------------------------------------------------------------------");
+//		missingCaseVO missingCaseVO3 = dao.findByPrimaryKey("S000000001");
+//		System.out.print(missingCaseVO3.getMissing_case_id()+",");
+//		System.out.print(missingCaseVO3.getMemb_id()+",");
+//		System.out.print(missingCaseVO3.getMissing_date()+",");
+//		System.out.print(missingCaseVO3.getMissing_name()+",");
+//		System.out.print(missingCaseVO3.getMissing_des()+",");
+//		System.out.print(missingCaseVO3.getMissing_loc()+",");
+//		System.out.println(missingCaseVO3.getMissing_status_shelve());
+//		System.out.println(missingCaseVO3.getMissing_photo());
+//		System.out.println("---------------------------------------------------------------------");
 
 		// 查全部
 //		List<missingCaseVO> list = dao.getAll();
