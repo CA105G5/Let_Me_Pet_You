@@ -228,7 +228,16 @@ public class MemServlet extends HttpServlet {
 				String memb_cre_month = req.getParameter("memb_cre_month");
 				Part part = req.getPart("upfile");
 				InputStream is = part.getInputStream();
-				byte[] memb_photo = transbyte(is);
+				
+				byte[] memb_photo =null;
+				if(is.available() == 0) {
+					MemService memSvc = new MemService();
+					memb_photo = memSvc.getMemSelf(memb_acc).getMemb_photo();
+				}else {
+					memb_photo = transbyte(is);
+				}
+				
+				
 				
 				MemVO memVO = new MemVO();
 				memVO.setMemb_id(memb_id);
