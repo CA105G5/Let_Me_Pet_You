@@ -8,6 +8,7 @@
 <%-- <%= memVO==null %>> --%>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>會員資料修改 - client_update.jsp</title>
 
@@ -65,7 +66,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="mem.do" name="form1">
+<FORM METHOD="post" ACTION="mem.do" name="form1" enctype="multipart/form-data">
 <table>
 	<tr>
 		<td>會員編號:<font color=red><b>*</b></font></td>
@@ -115,14 +116,55 @@
 		<td>信用卡到期月:</td>
 		<td><input type="TEXT" name="memb_cre_month" size="45" value="<%=(memVO.getMemb_cre_month()==null)? "" : memVO.getMemb_cre_month()%>" /></td>
 	</tr>
-
-
+	<tr>
+		<td>會員照片:</td>
+		<td>
+		<img class="preview" src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/>
+		 <div class="size"></div>
+		 選擇照片
+		<input type="file" class="upl" name="upfile" id="file01">
+		</td>
+	</tr>
 </table>
+	
+
 <br>
 <input type="hidden" name="action" value="client_update">
 <input type="hidden" name="memb_id" value="<%=memVO.getMemb_id()%>">
 <input type="hidden" name="memb_acc" value="<%=memVO.getMemb_acc()%>">
 <input type="submit" value="送出修改"></FORM>
+
+
+<script>
+$(function (){
+	 
+    function format_float(num, pos)
+    {
+        var size = Math.pow(10, pos);
+        return Math.round(num * size) / size;
+    }
+ 
+    function preview(input) {
+ 
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('.preview').attr('src', e.target.result);
+                var KB = format_float(e.total / 1024, 2);
+                $('.size').text("檔案大小：" + KB + " KB");
+            }
+ 
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+ 
+    $("body").on("change", ".upl", function (){
+        preview(this);
+    })
+    
+})
+</script>
 </body>
 
 

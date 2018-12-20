@@ -8,6 +8,7 @@
 %>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>會員資料新增 - addMembers.jsp</title>
 
@@ -68,8 +69,10 @@
 </c:if>
 
 <FORM METHOD="post" ACTION="mem.do" name="form1" enctype="multipart/form-data">
-選擇照片
-<input type="file" name="upfile" id="file01">
+<img class="preview" src=""/>
+		 <div class="size"></div>
+		 選擇照片
+		<input type="file" class="upl" name="upfile" id="file01">
 <table>
 	<tr>
 		<td>會員帳號:</td>
@@ -133,6 +136,36 @@
 <br>
 <input type="hidden" name="action" value="insert">
 <input type="submit" value="送出新增"></FORM>
+<script>
+$(function (){
+	 
+    function format_float(num, pos)
+    {
+        var size = Math.pow(10, pos);
+        return Math.round(num * size) / size;
+    }
+ 
+    function preview(input) {
+ 
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('.preview').attr('src', e.target.result);
+                var KB = format_float(e.total / 1024, 2);
+                $('.size').text("檔案大小：" + KB + " KB");
+            }
+ 
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+ 
+    $("body").on("change", ".upl", function (){
+        preview(this);
+    })
+    
+})
+</script>
 </body>
 
 

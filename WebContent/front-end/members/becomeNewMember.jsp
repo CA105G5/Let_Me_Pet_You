@@ -6,7 +6,7 @@
   MemVO memVO = (MemVO) request.getAttribute("memVO"); //MemServlet.java(Concroller), 存入req的memVO物件
   pageContext.setAttribute("memVO", memVO);
 %>
-<%= memVO==null %>
+<%--<%= memVO==null %>--%>
 
 <html> 
 <head>
