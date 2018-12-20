@@ -62,7 +62,7 @@
 		<th>會員密碼</th>
 		<th>會員姓名</th>
 		<th>會員暱稱</th>
-		<th>會員Email</th>
+		<th>會員Email</th> 
 		<th>會員照片</th>
 	</tr>
 	<tr>

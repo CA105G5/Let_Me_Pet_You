@@ -87,7 +87,7 @@
 			<td>${memVO.memb_nick}</td> 
 			<td>${memVO.memb_email}</td>
 			<td>${memVO.memb_vio_times}</td>
-			<td><img src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td>
+			<td><img src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td> 
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/members/mem.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="н╫зя">
