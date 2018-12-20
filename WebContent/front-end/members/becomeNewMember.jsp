@@ -4,7 +4,9 @@
 
 <%
   MemVO memVO = (MemVO) request.getAttribute("memVO"); //MemServlet.java(Concroller), 存入req的memVO物件
+  pageContext.setAttribute("memVO", memVO);
 %>
+<%= memVO==null %>
 
 <html> 
 <head>
@@ -80,7 +82,7 @@
 		<td><%=memVO.getMemb_cre_name()%></td>
 		<td><%=memVO.getMemb_cre_year()%></td>
 		<td><%=memVO.getMemb_cre_month()%></td>
-		<td><%=memVO.getMemb_photo()%></td>
+		<td><img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td>
 	</tr>
 </table>
 

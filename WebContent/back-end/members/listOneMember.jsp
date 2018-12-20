@@ -63,6 +63,7 @@
 		<th>會員姓名</th>
 		<th>會員暱稱</th>
 		<th>會員Email</th>
+		<th>會員照片</th>
 	</tr>
 	<tr>
 		<td><%=memVO.getMemb_id()%></td>
@@ -72,6 +73,7 @@
 		<td><%=memVO.getMemb_name()%></td>
 		<td><%=memVO.getMemb_nick()%></td>
 		<td><%=memVO.getMemb_email()%></td>
+		<td><img src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td>
 	</tr>
 </table>
 
