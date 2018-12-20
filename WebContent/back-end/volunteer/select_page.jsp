@@ -64,7 +64,7 @@
    
   <li>
      <FORM METHOD="post" ACTION="volunteer.do" >
-       <b>選擇員工編號:</b>
+       <b>選擇志工編號:</b>
        <select size="1" name="volunteer">
          <c:forEach var="volunteerVO" items="${volunteerSvc.all}" > 
           <option value="${volunteerVO.vlt_id}">${volunteerVO.vlt_id}
@@ -77,7 +77,7 @@
   
   <li>
      <FORM METHOD="post" ACTION="volunteer.do" >
-       <b>選擇員工姓名:</b>
+       <b>選擇志工姓名:</b>
        <select size="1" name="volunteer">
          <c:forEach var="volunteerVO" items="${volunteerSvc.all}" > 
           <option value="${volunteerVO.vlt_id}">${volunteerVO.vlt_name}
@@ -90,7 +90,7 @@
 </ul>
 
 
-<h3>員工管理</h3>
+<h3>志工管理</h3>
 
 <ul>
   <li><a href='addVolunteer.jsp'>Add</a> a new volunteer.</li>
