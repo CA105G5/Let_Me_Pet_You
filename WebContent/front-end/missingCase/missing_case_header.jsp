@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
 <!-- Mobile Specific Meta -->
@@ -60,12 +61,13 @@
 </style>
 </head>
 <body>
+
 	<header id="header" id="home">
 		<div class="container">
 			<div class="row header-top align-items-center">
 				<div class="col-lg-4 col-sm-4 menu-top-left">
 					<a href="index.html"> <img class="img-fluid"
-						src="img/logo2.png" width="200" alt="">
+						src="<%=request.getContextPath()%>/front-end/product/img/logo2.png" width="200" alt="">
 					</a>
 				</div>
 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex">
@@ -90,22 +92,18 @@
 			<div class="row align-items-center justify-content-center d-flex">
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="select_missing_case.jsp">首頁</a></li>
+						<li><a href="index.html">首頁</a></li>
 						<li><a href="about.html">救援</a></li>
 						<li><a href="service.html">認養</a></li>
-						<li class="menu-has-children"><a href="training.html">失蹤</a>
-							<ul>
-								<li><a href="listAllMissingCase.jsp">查看案例詳情</a></li>
-								<li><a href="addMissing.jsp">新增失蹤案例</a></li>
-							</ul></li>
+						<li><a href="training.html">失蹤</a></li>
 						<li><a href="events.html">協尋</a></li>
-						<li><a href="pricing.html">捐贈</a>
-							<ul>
-								<li><a href="blog-home.html">愛心捐款</a></li>
-								<li><a href="blog-single.html">愛心物資捐贈</a></li>
-								<li><a href="blog-single.html">許願物資捐贈</a></li>
-							</ul></li>
-						<li class="menu-has-children menu-active"><a href="">商城</a></li>
+						<li class="menu-has-children"><a href="pricing.html">捐贈</a></li>
+						<ul>
+							<li><a href="blog-home.html">愛心捐款</a></li>
+							<li><a href="blog-single.html">愛心商品捐贈</a></li>
+							<li><a href="blog-single.html">許願物資捐贈</a></li>
+						</ul>
+						<li class="menu-active"><a href="">商城</a></li>
 						<li><a href="contact.html">關於我們</a></li>
 						<li><a href="elements.html">常見問題</a></li>
 					</ul>
@@ -113,21 +111,104 @@
 				<!-- #nav-menu-container -->
 			</div>
 		</div>
-	</header>
+		
+		<div class="container">
+			<div class="row">
 
-	<section class="banner-area relative" id="home">
+			<!-- 左側邊list-group -->
+		</div>
+	</div>
+
+<!-- 		<div class="container"> -->
+<!-- 			<div class="row"> -->
+
+<!-- 				左側邊list-group -->
+<!-- 				<div class="col-xs-12 col-sm-3 sidebar"> -->
+<!-- 					<div class="single-widget category-widget"> -->
+<!-- 						<h4 class="title">商品分類</h4> -->
+<!-- 						<ul> -->
+<!-- 							<li><a -->
+<%-- 								href="<%=request.getContextPath()%>/prod/prod.do?action=getAll_For_Display&type=1" --%>
+<!-- 								class="justify-content-between align-items-center d-flex"><h6>&nbsp&nbsp&nbsp貓咪</h6> -->
+<!-- 									<span></span></a></li> -->
+<!-- 							<li><a -->
+<%-- 								href="<%=request.getContextPath()%>/prod/prod.do?action=getAll_For_Display&type=2" --%>
+<!-- 								class="justify-content-between align-items-center d-flex"><h6>&nbsp&nbsp&nbsp狗狗</h6> -->
+<!-- 									<span></span></a></li> -->
+<!-- 							<li><a -->
+<%-- 								href="<%=request.getContextPath()%>/prod/prod.do?action=getAll_For_Display&type=3" --%>
+<!-- 								class="justify-content-between align-items-center d-flex"><h6>&nbsp&nbsp&nbsp飛禽</h6> -->
+<!-- 									<span></span></a></li> -->
+<!-- 							<li><a -->
+<%-- 								href="<%=request.getContextPath()%>/prod/prod.do?action=getAll_For_Display&type=4" --%>
+<!-- 								class="justify-content-between align-items-center d-flex"><h6>&nbsp&nbsp&nbsp兔子</h6> -->
+<!-- 									<span></span></a></li> -->
+<!-- 							<li><a -->
+<%-- 								href="<%=request.getContextPath()%>/prod/prod.do?action=getAll_For_Display&type=5" --%>
+<!-- 								class="justify-content-between align-items-center d-flex"><h6>&nbsp&nbsp&nbsp其他</h6> -->
+<!-- 									<span></span></a></li> -->
+<!-- 						</ul> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+	</header>
+	<!-- #header -->
+
+	<br>
+	<br>
+
+	<br>
+	<br>
+
+	<br>
+	<br>
+
+	<!-- 	starting side-bar -->
+	
+	<!-- 	end side-bar -->
+
+	<!-- start banner Area -->
+	<!-- 12/16加上style="display: none" 移除封面 -->
+	<section class="banner-area relative" id="home" style="display: none">
 		<div class="overlay overlay-bg"></div>
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">失蹤案例</h1>
+					<h1 class="text-white">Training Programs</h1>
 					<p class="text-white link-nav">
-						<a href="select_missing_case.jsp">Home </a> <span class="lnr lnr-arrow-right"></span> <a
-							href="#">失蹤案例</a>
+						<a href="index.html">Home </a> <span class="lnr lnr-arrow-right"></span>
+						<a href="training.html"> Training Programs</a>
 					</p>
 				</div>
 			</div>
 		</div>
 	</section>
+
+	<script src="<%=request.getContextPath()%>/front-end/product/js/vendor/jquery-2.2.4.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/vendor/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/easing.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/hoverIntent.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/superfish.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.ajaxchimp.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.magnific-popup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.sticky.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.nice-select.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/parallax.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/waypoints.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.counterup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/mail-script.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/product/js/main.js"></script>
 </body>
 </html>
+
+
+

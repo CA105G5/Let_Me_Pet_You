@@ -6,9 +6,10 @@
 	missingCaseVO missingCaseVO = (missingCaseVO) request.getAttribute("missingCaseVO");
 %>
 
+
+
 <html>
 <head>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <!-- Mobile Specific Meta -->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -61,7 +62,7 @@
 	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
 	crossorigin="anonymous">
-
+<script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
 <style type="text/css">
 p {
 	　 font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
@@ -72,79 +73,89 @@ div {
 	font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
 		monospace;
 }
-
+</style>
+<style>
+</style>
 </head>
 <body>
-
 
 	<jsp:include page="/front-end/missingCase/missing_case_header.jsp"
 		flush="true" />
 
-	<div class="container">
-		<div class="row">
-			<!-- 左側邊 -->
-			<div class="col-xs-12 col-sm-3">
-				<div class="list-group">
-					<a href="listAllMissingCase.jsp" class="list-group-item ">失蹤案例總覽</a>
-					<a href="addMissing.jsp" class="list-group-item active">失蹤案例新增</a>
+	<section class="service-page-area section-gap">
+		<div class="container">
+			<div class="row d-flex justify-content-center">
+				<div class="col-md-9 pb-40 header-text text-center">
+					<h1 class="pb-10">失蹤案例瀏覽</h1>
+					<p>hello.</p>
 				</div>
 			</div>
+			<div class="row">
+				<!-- 左側邊 -->
+				<div class="col-xs-12 col-sm-3">
+					<div class="list-group">
+						<a href="listAllMissingCase.jsp" class="list-group-item ">失蹤案例總覽</a>
+						<a href="addMissing.jsp" class="list-group-item active">失蹤案例新增</a>
+					</div>
+				</div>
 
-			<!-- 右邊內容區 -->
-			<div class="col-xs-12 col-sm-9">
-				<p>
-				<FORM METHOD="post" ACTION="miss.do">
-					<div class="form-group">
-						<c:if test="${not empty errorMsgs}">
-							<font style="color: red">請修正以下錯誤:</font>
-							<ul>
-								<c:forEach var="message" items="${errorMsgs}">
-									<label style="color: red">${message}</label>
-								</c:forEach>
-							</ul>
-						</c:if>
-				</FORM>
-				<FORM action="miss.do" method=post enctype="multipart/form-data">
-					<input type="file" name="upfile" id="file01">
-					<table>
-						<tr>
-							<td>圖片預覽:</td>
-							<td><img id="pre01"></td>
-						</tr>
-						<tr>
-							<td>會員編號:</td>
-							<td><input type="TEXT" name="membno" size="45"
-								value="<%=(missingCaseVO == null) ? "ex.M000000001" : missingCaseVO.getMemb_id()%>" /></td>
-						</tr>
-						<tr>
-							<td>寵物名稱:</td>
-							<td><input type="TEXT" name="missingName" size="45"
-								value="<%=(missingCaseVO == null) ? "你的寵物" : missingCaseVO.getMissing_name()%>" /></td>
-						</tr>
-						<tr>
-							<td>失蹤日期:</td>
-							<td><input name="hiredate" id="m_date1" type="text"></td>
-						</tr>
-						<tr>
-							<td>內容描述:</td>
-							<td><input type="TEXT" size="45" name="missingDes"
-								value="<%=(missingCaseVO == null) ? "內容描述" : missingCaseVO.getMissing_des()%>" /></td>
-						</tr>
-						<tr>
-							<td>地點</td>
-							<td><input type="TEXT" name="loc" size="45"
-								value="<%=(missingCaseVO == null) ? "失蹤地點" : missingCaseVO.getMissing_loc()%>" /></td>
-					</table>
-					<br> <input type="hidden" name="action" value="insert">
-					<input type="submit" value="送出新增">
-				</FORM>
+				<!-- 右邊內容區 -->
+				<div class="col-xs-12 col-sm-9">
+					<p>
+					<FORM METHOD="post" ACTION="miss.do">
+						<div class="form-group">
+							<c:if test="${not empty errorMsgs}">
+								<font style="color: red">請修正以下錯誤:</font>
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<label style="color: red">${message}</label>
+									</c:forEach>
+								</ul>
+							</c:if>
+					</FORM>
 
+					<FORM action="miss.do" method=post enctype="multipart/form-data">
+						<input type="file" name="upfile" id="file01">
+						<table>
+							<tr>
+								<td>圖片預覽:</td>
+								<td><img id="pre01"></td>
+							</tr>
+							<tr>
+								<td>會員編號:</td>
+								<td><input type="TEXT" name="membno" size="45"
+									value="<%=(missingCaseVO == null) ? "ex.M000000001" : missingCaseVO.getMemb_id()%>" /></td>
+							</tr>
+							<tr>
+								<td>寵物名稱:</td>
+								<td><input type="TEXT" name="missingName" size="45"
+									value="<%=(missingCaseVO == null) ? "你的寵物" : missingCaseVO.getMissing_name()%>" /></td>
+							</tr>
+							<tr>
+								<td>內容描述:</td>
+								<td><textarea name="missingDes">
+									<%=(missingCaseVO == null) ? "內容描述" : missingCaseVO.getMissing_des()%></textarea></td>
+							</tr>
+							<tr>
+								<td>失蹤日期:</td>
+								<td><input name="hiredate" id="m_date1" type="text"></td>
+							</tr>
+							<tr>
+								<td>地點</td>
+								<td><input type="TEXT" name="loc" size="45"
+									value="<%=(missingCaseVO == null) ? "失蹤地點" : missingCaseVO.getMissing_loc()%>" /></td>
+						</table>
+						<br> <input type="hidden" name="action" value="insert">
+						<input type="submit" value="送出新增">
+					</FORM>
+				</div>
 			</div>
 		</div>
-	</div>
+	</section>
 
 
-
+	
+	<script>CKEDITOR.replace("missingDes");</script>
 	<script src="js/vendor/jquery-2.2.4.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -169,58 +180,38 @@ div {
 	<script src="js/main.js"></script>
 </body>
 
-
-
-<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
-
-<% 
-  java.sql.Timestamp hiredate = null;
-  try {
-	    hiredate = missingCaseVO.getMissing_date();
-   } catch (Exception e) {
-	    hiredate = new java.sql.Timestamp(System.currentTimeMillis());
-   }
-%>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-
-<style>
-  .xdsoft_datetimepicker .xdsoft_datepicker {
-           width:  300px;   /* width:  300px; */
-  }
-  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-           height: 151px;   /* height:  151px; */
-  }
-</style>
+	<% 
+	  java.sql.Timestamp hiredate = null;
+	  try {
+		    hiredate = missingCaseVO.getMissing_date();
+	   } catch (Exception e) {
+		    hiredate = new java.sql.Timestamp(System.currentTimeMillis());
+	   }
+	%>
 <script>
-$(function() {  //將圖片預覽
-    $('input[type=file]').change(function() {
-      var input = $(this);
-      if(!!this.files && !!this.files[0]) {
-        var reader = new FileReader();
-         reader.onload = function(e) {
-          $('#pre' + input.prop('id').substr(4,2)).prop('src', e.target.result);
-         }
-         reader.readAsDataURL(this.files[0]);
-       }
-     });
-   });
-</script>
-<script>
-        $.datetimepicker.setLocale('zh');
-        $('#f_date1').datetimepicker({
-	       theme: '',              //theme: 'dark',
-	       timepicker:false,       //timepicker:true,
-	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
-	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		   value: '<%=hiredate%>', // value:   new Date(),
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-           //startDate:	            '2017/07/10',  // 起始日
-           //minDate:               '-1970-01-01', // 去除今日(不含)之前
-           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-        });
-        
-        </script>
-
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<script>
+	  $.datetimepicker.setLocale('zh');
+		        $('#m_date1').datetimepicker({
+			       theme: '',              //theme: 'dark',
+			       timepicker:false,       //timepicker:true,
+			       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+			       format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
+				   value: '<%=hiredate%>', // value:   new Date(),
+		           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+		           //startDate:	            '2017/07/10',  // 起始日
+		           //minDate:               '-1970-01-01', // 去除今日(不含)之前
+		           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+		        });
+	</script>
+	<style>
+	  .xdsoft_datetimepicker .xdsoft_datepicker {
+	           width:  300px;   /* width:  300px; */
+	  }
+	  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	           height: 151px;   /* height:  151px; */
+	  }
+	</style>
 </html>

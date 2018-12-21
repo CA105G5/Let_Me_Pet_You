@@ -34,18 +34,16 @@
 <!--
 			CSS
 			============================================= -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/linearicons.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/bootstrap.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/magnific-popup.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/nice-select.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/animate.min.css">
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet"
@@ -76,43 +74,6 @@ div {
 		monospace;
 }
 </style>
-<style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-
-<style>
-table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
-
-th, td {
-	padding: 5px;
-	text-align: center;
-}
-</style>
-
 </head>
 <body>
 
@@ -123,10 +84,10 @@ th, td {
 		<div class="container">
 			<div class="row d-flex justify-content-center">
 				<div class="col-md-9 pb-40 header-text text-center">
-					<h1 class="pb-10">失蹤案例瀏覽</h1>
 					<p>hello.</p>
 				</div>
 			</div>
+						<!-- 左側邊 -->
 			<div class="col-xs-12 col-sm-3">
 				<div class="list-group">
 					<a href="listAllMissingCase.jsp" class="list-group-item ">失蹤案例總覽</a>
@@ -221,29 +182,29 @@ th, td {
 --%>
 
 
-
-
-	<script src="js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
-	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="js/easing.min.js"></script>
-	<script src="js/hoverIntent.js"></script>
-	<script src="js/superfish.min.js"></script>
-	<script src="js/jquery.ajaxchimp.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.sticky.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<script src="js/parallax.min.js"></script>
-	<script src="js/waypoints.min.js"></script>
-	<script src="js/jquery.counterup.min.js"></script>
-	<script src="js/mail-script.js"></script>
-	<script src="js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+
+	
 </body>
 </html>

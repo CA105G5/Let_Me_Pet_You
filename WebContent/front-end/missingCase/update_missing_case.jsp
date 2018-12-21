@@ -4,6 +4,7 @@
 
 <%
 	missingCaseVO missingCaseVO = (missingCaseVO) request.getAttribute("missingCaseVO");
+
 %>
 
 <html>
@@ -31,24 +32,16 @@
 <!--
 			CSS
 			============================================= -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/linearicons.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/bootstrap.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/magnific-popup.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/nice-select.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/animate.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/owl.carousel.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/main.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -102,12 +95,12 @@ div {
 									</ul>
 								</c:if>
 						</FORM>
-						<FORM action="miss.do" method=post enctype="multipart/form-data">
+						<FORM action="miss.do" name="form1" method="post" enctype="multipart/form-data">
 							<table>
 								<tr>
 									<td>圖片預覽:</td>
-									<td><img class="preview" src="<%=request.getContextPath()%>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id}"/>
-									<input type="file" name="upfile" id="file01">
+									<td><img id="img" class="preview" src="<%=request.getContextPath()%>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id}"/>
+									<div class="size"></div><input type="file" class="upl" name="upfile" id="file01">
 									</td>
 								</tr>
 								<tr>
@@ -142,66 +135,30 @@ div {
 					</div>
 				</div>
 			</div>
-
-
-
-
-
-
+			
 			<script src="js/vendor/jquery-2.2.4.min.js"></script>
-			<script
-				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-				integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-				crossorigin="anonymous"></script>
-			<script src="js/vendor/bootstrap.min.js"></script>
-			<script type="text/javascript"
-				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-			<script src="js/easing.min.js"></script>
-			<script src="js/hoverIntent.js"></script>
-			<script src="js/superfish.min.js"></script>
-			<script src="js/jquery.ajaxchimp.min.js"></script>
-			<script src="js/jquery.magnific-popup.min.js"></script>
-			<script src="js/owl.carousel.min.js"></script>
-			<script src="js/jquery.sticky.js"></script>
-			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-			<script src="js/jquery.nice-select.min.js"></script>
-			<script src="js/parallax.min.js"></script>
-			<script src="js/waypoints.min.js"></script>
-			<script src="js/jquery.counterup.min.js"></script>
-			<script src="js/mail-script.js"></script>
-			<script src="js/main.js"></script>
-			
-<script>
-$(function (){
-	 
-    function format_float(num, pos)
-    {
-        var size = Math.pow(10, pos);
-        return Math.round(num * size) / size;
-    }
- 
-    function preview(input) {
- 
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            
-            reader.onload = function (e) {
-                $('.preview').attr('src', e.target.result);
-                var KB = format_float(e.total / 1024, 2);
-                $('.size').text("檔案大小：" + KB + " KB");
-            }
- 
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
- 
-    $("body").on("change", ".upl", function (){
-        preview(this);
-    })
-    
-})
-</script>
-			
+<!-- 			<script -->
+<!-- 				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" -->
+<!-- 				integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" -->
+<!-- 				crossorigin="anonymous"></script> -->
+<!-- 			<script src="js/vendor/bootstrap.min.js"></script> -->
+<!-- 			<script type="text/javascript" -->
+<!-- 				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script> -->
+<!-- 			<script src="js/easing.min.js"></script> -->
+<!-- 			<script src="js/hoverIntent.js"></script> -->
+<!-- 			<script src="js/superfish.min.js"></script> -->
+<!-- 			<script src="js/jquery.ajaxchimp.min.js"></script> -->
+<!-- 			<script src="js/jquery.magnific-popup.min.js"></script> -->
+<!-- 			<script src="js/owl.carousel.min.js"></script> -->
+<!-- 			<script src="js/jquery.sticky.js"></script> -->
+<!-- 			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+<!-- 			<script src="js/jquery.nice-select.min.js"></script> -->
+<!-- 			<script src="js/parallax.min.js"></script> -->
+<!-- 			<script src="js/waypoints.min.js"></script> -->
+<!-- 			<script src="js/jquery.counterup.min.js"></script> -->
+<!-- 			<script src="js/mail-script.js"></script> -->
+<!-- 			<script src="js/main.js"></script> -->
+						
 </body>
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 	<% 
@@ -212,35 +169,7 @@ $(function (){
 		    hiredate = new java.sql.Timestamp(System.currentTimeMillis());
 	   }
 	%>
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-		<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-		<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-
-	<style>
-	  .xdsoft_datetimepicker .xdsoft_datepicker {
-	           width:  300px;   /* width:  300px; */
-	  }
-	  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-	           height: 151px;   /* height:  151px; */
-	  }
-	</style>
-
-	<script>
-	        $.datetimepicker.setLocale('zh');
-	        $('#f_date1').datetimepicker({
-		       theme: '',              //theme: 'dark',
-		       timepicker:false,       //timepicker:true,
-		       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
-		       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-			   value: '<%=hiredate%>', // value:   new Date(),
-	           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-	           //startDate:	            '2017/07/10',  // 起始日
-	           //minDate:               '-1970-01-01', // 去除今日(不含)之前
-	           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-	        });
-	        
-	        
-	   
+<script>
 	        // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
 
 	        //      1.以下為某一天之前的日期無法選擇
@@ -289,6 +218,54 @@ $(function (){
 	        //              return [true, ""];
 	        //      }});
 	        
+</script>
+<script>
+$(function (){
+    function format_float(num, pos)
+    {
+        var size = Math.pow(10, pos);
+        return Math.round(num * size) / size;
+    }
+    function preview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img').attr('src', e.target.result);
+                var KB = format_float(e.total / 1024, 2);
+                $('.size').text("檔案大小：" + KB + " KB");
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("body").on("change", ".upl", function (){
+        preview(this);
+    })
+    
+})
+</script>
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<script>
+	  $.datetimepicker.setLocale('zh');
+		        $('#m_date1').datetimepicker({
+			       theme: '',              //theme: 'dark',
+			       timepicker:false,       //timepicker:true,
+			       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+			       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+				   value: '<%=hiredate%>', // value:   new Date(),
+		           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+		           //startDate:	            '2017/07/10',  // 起始日
+		           //minDate:               '-1970-01-01', // 去除今日(不含)之前
+		           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+		        });
 	</script>
-
+	<style>
+	  .xdsoft_datetimepicker .xdsoft_datepicker {
+	           width:  300px;   /* width:  300px; */
+	  }
+	  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	           height: 151px;   /* height:  151px; */
+	  }
+	</style>
 </html>
