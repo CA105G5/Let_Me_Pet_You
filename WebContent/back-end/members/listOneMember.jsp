@@ -64,6 +64,12 @@
 		<th>會員暱稱</th>
 		<th>會員Email</th> 
 		<th>會員照片</th>
+		<th>會員手機</th>
+		<th>會員性別</th>
+		<th>信用卡類型</th>
+		<th>持卡人</th>
+		<th>信用卡到期年</th>
+		<th>信用卡到期月</th>
 	</tr>
 	<tr>
 		<td><%=memVO.getMemb_id()%></td>
@@ -74,6 +80,12 @@
 		<td><%=memVO.getMemb_nick()%></td>
 		<td><%=memVO.getMemb_email()%></td>
 		<td><img src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td>
+		<td><%=memVO.getMemb_cellphone()%></td>
+		<td><%=memVO.getMemb_gender()%></td>
+		<td><%=memVO.getMemb_cre_type()%></td>
+		<td><%=memVO.getMemb_cre_name()%></td>
+		<td><%=memVO.getMemb_cre_year()%></td>
+		<td><%=memVO.getMemb_cre_month()%></td>
 	</tr>
 </table>
 

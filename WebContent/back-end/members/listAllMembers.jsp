@@ -72,6 +72,12 @@
 		<th>會員姓名</th>
 		<th>會員暱稱</th>
 		<th>會員Email</th>
+		<th>會員手機</th>
+		<th>會員性別</th>
+		<th>信用卡類型</th>
+		<th>持卡人</th>
+		<th>信用卡到期年</th>
+		<th>信用卡到期月</th>
 		<th>會員違規次數</th>
 		<th>會員照片</th>
 	</tr>
@@ -86,6 +92,12 @@
 			<td>${memVO.memb_name}</td>
 			<td>${memVO.memb_nick}</td> 
 			<td>${memVO.memb_email}</td>
+			<td>${memVO.memb_cellphone}</td>
+			<td>${memVO.memb_gender}</td>
+			<td>${memVO.memb_cre_type}</td>
+			<td>${memVO.memb_cre_name}</td>
+			<td>${memVO.memb_cre_year}</td>
+			<td>${memVO.memb_cre_month}</td>
 			<td>${memVO.memb_vio_times}</td>
 			<td><img src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td> 
 			<td>

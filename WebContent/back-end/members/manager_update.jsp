@@ -69,7 +69,11 @@
 	</tr>
 	<tr>
 		<td>會員狀態:</td>
-		<td><input type="TEXT" name="memb_sta" size="45" value="<%=memVO.getMemb_sta()%>" /></td>
+		<td><select name="memb_sta" size="1">
+		<option value="正常" ${(memVO.memb_sta =='正常')? 'selected':''}>正常
+		<option value="停權" ${(memVO.memb_sta =="停權")? "selected":""}>停權
+		   </select>
+		</td>
 	</tr>
 	<tr>
 		<td>會員違規次數:</td>
