@@ -1,10 +1,9 @@
-<%@page import="com.prodimg.model.ProdImgService"%>
-<%@page import="com.prodimg.model.ProdImgVO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page import="com.prodimg.model.ProdImgService"%>
+<%@ page import="com.prodimg.model.ProdImgVO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<
+
 <%@ page import="java.util.*"%>
 <%@ page import="com.prod.model.ProdService"%>
 <%@ page import="com.prod.model.ProdVO"%>
@@ -19,6 +18,7 @@
 	}
 %>
 
+<!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
 <!-- Mobile Specific Meta -->
@@ -43,16 +43,16 @@
 <!--
 			CSS
 			============================================= -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/linearicons.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/font-awesome.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/bootstrap.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/magnific-popup.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/nice-select.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/animate.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/owl.carousel.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/main.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -84,14 +84,13 @@ div {
 
 	<section class="training-area section-gap">
 		<div class="container">
-			<div id="sider" class="n-browse-nav m-sticky-on"
-				style="top: 180px; bottom: auto;">
+			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
 				<div class="row">
-					<div class="col-lg-3 cl-md-3" style="top: 180px; bottom: auto;"></div> <!-- position: fixed -->
-					<div class="col-xs-12 col-sm-9">
+					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;"></div> <!-- position: fixed -->
+					<div class="col-xs-12 col-sm-10">
 						<div class="row">
 							<c:forEach var="prodVO" items="${list}">
-<%-- 								<c:if test="${prodVO.prod_status == '上架'}" var="condition" scope="page"> --%>
+<%-- 								<c:if test="${'上架'.equals(prodVO.prod_status)}" var="condition" scope="page"> --%>
 									<div class="col-lg-3 cl-md-3">
 										<div class="single-training">
 											<div class="thumb relative">
@@ -103,7 +102,7 @@ div {
 											</div>
 											<div class="details">
 												<div class="title justify-content-between d-flex">
-													<a href="<%=request.getContextPath()%>/prod/prod.do?action=getOne_For_Display&prod_id=${prodVO.prod_id}"><h5>${prodVO.prod_name}</h5></a>
+													<a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${prodVO.prod_id}"><h5>${prodVO.prod_name}</h5></a>
 													<p class="price">$${prodVO.prod_price}</p>
 												</div>
 											</div>
@@ -118,32 +117,31 @@ div {
 			</div>
 		</div>
 	</section>
+	
 
 
-
-
-	<script src="<%=request.getContextPath()%>/front-end/product/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/vendor/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/easing.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/hoverIntent.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/superfish.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.ajaxchimp.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.magnific-popup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/owl.carousel.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.sticky.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.nice-select.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/parallax.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/waypoints.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.counterup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/mail-script.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 </body>
 </html>
 
