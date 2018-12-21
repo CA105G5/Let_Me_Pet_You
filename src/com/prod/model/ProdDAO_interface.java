@@ -5,7 +5,7 @@ import java.util.List;
 import com.prod.model.ProdVO;
 
 public interface ProdDAO_interface {
-	public void insert(ProdVO prodVO);
+	public String insert(ProdVO prodVO);
 	public void update(ProdVO prodVO);
 	public void delete(String prod_id);
 	public ProdVO findByPrimaryKey(String prod_id);

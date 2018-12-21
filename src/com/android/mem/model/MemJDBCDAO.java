@@ -16,7 +16,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	private static final String CHECK_ID_EXIST = "SELECT memb_id FROM MEMBERS WHERE memb_id = ?";
 	private static final String CHECK_ACCOUNT_EXIST = "SELECT memb_acc FROM MEMBERS WHERE memb_acc = ?";
 	private static final String FIND_BY_ID_PASWD = "SELECT * FROM MEMBERS WHERE memb_email = ? AND memb_psw = ?";
-	private static final String FIND_BY_ACCOUNT_PASWD = "SELECT * FROM MEMBERS WHERE memb_acc AND memb_psw =  ?";
+	private static final String FIND_BY_ACCOUNT_PASWD = "SELECT * FROM MEMBERS WHERE memb_acc=? AND memb_psw =  ?";
 	private static final String INSERT_STMT="INSERT INTO MEMBERS "
 			+ "(memb_id,memb_acc,memb_psw,memb_name,memb_nick,memb_email,memb_cellphone,memb_gender,memb_cre_type,memb_cre_name,memb_cre_year,memb_cre_month,memb_photo,memb_fb_login,memb_google_login) "
 			+ "VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -33,6 +33,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	public static void main(String[] args) {
 		//checked
 		MemJDBCDAO dao = new MemJDBCDAO();
+		System.out.println(dao.isMemACC("aaa", "123"));
 		
 //		//insert
 //		MemVO memVO1 = new MemVO();
@@ -120,18 +121,18 @@ public class MemJDBCDAO implements MemDAO_interface {
 //		System.out.println("===========");
 //		
 //		//getAll
-		List <MemVO> list = dao.getAll();
-		for(MemVO aMem : list) {
-			System.out.println(aMem.getMemb_acc());
-			System.out.println(aMem.getMemb_psw());
-			System.out.println(aMem.getMemb_name());
-			System.out.println(aMem.getMemb_nick());
-			System.out.println(aMem.getMemb_email());
-			System.out.println(aMem.getMemb_photo());
-			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
-		}
-		System.out.println("多筆資料查詢成功");
-		System.out.println("===========");
+//		List <MemVO> list = dao.getAll();
+//		for(MemVO aMem : list) {
+//			System.out.println(aMem.getMemb_acc());
+//			System.out.println(aMem.getMemb_psw());
+//			System.out.println(aMem.getMemb_name());
+//			System.out.println(aMem.getMemb_nick());
+//			System.out.println(aMem.getMemb_email());
+//			System.out.println(aMem.getMemb_photo());
+//			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+//		}
+//		System.out.println("多筆資料查詢成功");
+//		System.out.println("===========");
 	}
 	 
 	@Override

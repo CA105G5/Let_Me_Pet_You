@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,10 +35,19 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
+			Timestamp date = donateVO.getDonate_date();
+			if (date==null) {
+				date = new Timestamp(new Date().getTime());
+			} else {
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String time = df.format(date);
+				date = Timestamp.valueOf(time);
+			}
+			
 			pstmt.setString(1, donateVO.getMemb_id());
 			pstmt.setString(2, donateVO.getBank_id());
 			pstmt.setInt(3, donateVO.getDonate_amount());
-			pstmt.setTimestamp(4, donateVO.getDonate_date());
+			pstmt.setTimestamp(4, date);
 			pstmt.setInt(5, donateVO.getDonate_coin());
 			pstmt.setString(6, donateVO.getDonate_private());
 			pstmt.setString(7, donateVO.getDonate_src());

@@ -8,7 +8,7 @@ public class ProdService {
 	private ProdDAO_interface dao;
 
 	public ProdService() {
-		dao = new ProdJDBCDAO();
+		dao = new ProdJNDIDAO();
 	}
 
 	public ProdVO addProd(String memb_id, String prod_type_id, String prod_ani_type_id, String prod_name,
@@ -34,6 +34,12 @@ public class ProdService {
 
 		return prodVO;
 	}
+	
+	public String addProd(ProdVO prodVO) {
+		String str = dao.insert(prodVO);
+		System.out.println(str);
+		return str;
+	}
 
 	public ProdVO updateProd(String prod_id, String memb_id, String prod_type_id, String prod_ani_type_id, String prod_name,
 			String prod_des, String prod_info, Integer prod_qty, Integer prod_stock, Timestamp prod_date, String prod_review,
@@ -58,6 +64,10 @@ public class ProdService {
 		dao.update(prodVO);
 		
 		return prodVO;
+	}
+	
+	public void updateProd(ProdVO prodVO) {
+		dao.update(prodVO);
 	}
 
 	public void deleteProd(String prod_id) {

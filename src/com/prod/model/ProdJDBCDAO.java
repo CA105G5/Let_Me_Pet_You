@@ -29,15 +29,17 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 	private static final String UPDATE = "UPDATE product set PROD_TYPE_ID=?, PROD_ANI_TYPE_ID=?, PROD_NAME=?, PROD_DES=?, PROD_INFO=?, PROD_QTY=?, PROD_STOCK=?, PROD_DATE=?, PROD_REVIEW=?, PROD_REVIEW_DES=?, PROD_STATUS=?, PROD_PRICE=? where PROD_ID = ?";
 
 	@Override
-	public void insert(ProdVO prodVO) {
+	public String insert(ProdVO prodVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String str = null;
 
 		try {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt = con.prepareStatement(INSERT_STMT, new String[]{"prod_id"});
 
 			pstmt.setString(1, prodVO.getMemb_id());
 			pstmt.setString(2, prodVO.getProd_type_id());
@@ -47,7 +49,7 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 			pstmt.setString(6, prodVO.getProd_info());
 			pstmt.setInt(7, prodVO.getProd_qty());
 			pstmt.setInt(8, prodVO.getProd_stock());
-			pstmt.setTimestamp(9, prodVO.getProd_date());
+			pstmt.setTimestamp(9, new Timestamp(new Date().getTime()));
 			pstmt.setString(10, prodVO.getProd_review());
 			pstmt.setString(11, prodVO.getProd_review_des());
 			pstmt.setString(12, prodVO.getProd_status());
@@ -59,6 +61,12 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 
 			int rowsUpdated = pstmt.executeUpdate();
 			System.out.println("Changed " + rowsUpdated + "rows");
+			
+			rs = pstmt.getGeneratedKeys();
+
+			if (rs.next()) {
+			    str = rs.getString(1);
+			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -68,6 +76,13 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -83,7 +98,8 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 				}
 			}
 		}
-
+		System.out.println(str);
+		return str;
 	}
 
 	@Override
@@ -412,16 +428,16 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 		// 刪除
 //		dao.delete("P000000014");
 
-		// 查詢
-		ProdVO prodVO3 = dao.findByPrimaryKey("P000000014");
-		System.out.print(prodVO3.getProd_id() + ",");
-		System.out.print(prodVO3.getMemb_id() + ",");
-		System.out.print(prodVO3.getProd_type_id() + ",");
-		System.out.print(prodVO3.getProd_ani_type_id() + ",");
-		System.out.print(prodVO3.getProd_name() + ",");
-		System.out.print(prodVO3.getProd_des() + ",");
-		System.out.println(prodVO3.getProd_qty());
-		System.out.println("---------------------");
+//		// 查詢
+//		ProdVO prodVO3 = dao.findByPrimaryKey("P000000014");
+//		System.out.print(prodVO3.getProd_id() + ",");
+//		System.out.print(prodVO3.getMemb_id() + ",");
+//		System.out.print(prodVO3.getProd_type_id() + ",");
+//		System.out.print(prodVO3.getProd_ani_type_id() + ",");
+//		System.out.print(prodVO3.getProd_name() + ",");
+//		System.out.print(prodVO3.getProd_des() + ",");
+//		System.out.println(prodVO3.getProd_qty());
+//		System.out.println("---------------------");
 
 		// 查詢
 //		List<ProdVO> list = dao.getAll();

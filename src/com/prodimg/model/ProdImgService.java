@@ -21,6 +21,12 @@ public class ProdImgService {
 
 		return prodImgVO;
 	}
+	
+	public void addProdImg(ProdImgVO prodImgVO) {
+		
+		dao.insert(prodImgVO);
+		
+	}
 
 	public ProdImgVO updateProdImg(String prod_img_id, String prod_id, byte[] prod_img) {
 

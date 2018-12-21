@@ -366,7 +366,7 @@ public class ProdImgJDBCDAO implements ProdImgDAO_interface {
 
 			int rowsUpdated = pstmt.executeUpdate();
 
-			System.out.println("Changed " + rowsUpdated + "rows");
+			System.out.println("Deleted " + rowsUpdated + "pictures");
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -427,13 +427,13 @@ public class ProdImgJDBCDAO implements ProdImgDAO_interface {
 //		dao.delete("0000000043");
 
 		// 查詢
-		List<ProdImgVO> list = dao.findByPrimaryKey("P000000001");
-		for (ProdImgVO aProdImg1 : list) {
-			System.out.print(aProdImg1.getProd_img_id() + ",");
-			System.out.print(aProdImg1.getProd_id() + ",");
-			System.out.println(aProdImg1.getProd_img() + ",");
-			System.out.println("---------------------");
-		}
+//		List<ProdImgVO> list = dao.findByPrimaryKey("P000000001");
+//		for (ProdImgVO aProdImg1 : list) {
+//			System.out.print(aProdImg1.getProd_img_id() + ",");
+//			System.out.print(aProdImg1.getProd_id() + ",");
+//			System.out.println(aProdImg1.getProd_img() + ",");
+//			System.out.println("---------------------");
+//		}
 
 		// 查詢
 //		List<ProdImgVO> list = dao.getAll();
