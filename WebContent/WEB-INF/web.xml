@@ -128,14 +128,14 @@
 		<url-pattern>/prod_test.do</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>ProdServlet</servlet-name>
-		<servlet-class>com.prod.controller.ProdServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ProdServlet</servlet-name>
-		<url-pattern>/prod/prod.do</url-pattern>
-	</servlet-mapping>
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>ProdServlet</servlet-name> -->
+<!-- 		<servlet-class>com.prod.controller.ProdServlet</servlet-class> -->
+<!-- 	</servlet> -->
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>ProdServlet</servlet-name> -->
+<!-- 		<url-pattern>/prod/prod.do</url-pattern> -->
+<!-- 	</servlet-mapping> -->
 	
  <servlet>
     <servlet-name>missingCaseImgServlet</servlet-name>
@@ -164,6 +164,15 @@
 		<servlet-name>AndroidMemServlet</servlet-name>
 		<url-pattern>/mem/MemServlet.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+    	<servlet-name>DonateServlet</servlet-name>
+    	<servlet-class>com.donate.controller.DonateServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+   		<servlet-name>DonateServlet</servlet-name>
+    	<url-pattern>/donate/donate.do</url-pattern>
+  	</servlet-mapping>
 	
 	
 
