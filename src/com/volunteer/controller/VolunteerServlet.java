@@ -397,7 +397,7 @@ public class VolunteerServlet extends HttpServlet{
 				String vlt_sta = "在職志工";
 				//新增時還未有圖片
 				ServletContext context = getServletContext();
-				byte[] vlt_img = getPictureByteArray(context.getResourceAsStream("/back-end/volunteer/images/volunteerdefault.jpg"));
+				byte[] vlt_img = getPictureByteArray(context.getResourceAsStream("/back-end/volunteer/images/volunteerdefault1.jpg"));
 		        //日期取加入的當下
 				java.sql.Date vlt_registerdate = new java.sql.Date(new Date().getTime());
 			
