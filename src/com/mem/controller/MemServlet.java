@@ -175,7 +175,7 @@ public class MemServlet extends HttpServlet {
 				}
 				if(!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = 
-					req.getRequestDispatcher("/front-end/members/select_page.jsp");
+					req.getRequestDispatcher("/front-end/members/index.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -192,7 +192,7 @@ public class MemServlet extends HttpServlet {
 			}catch(Exception e) {
 				errorMsgs.add("查無此帳號");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/members/select_page.jsp");
+						.getRequestDispatcher("/front-end/members/index.jsp");
 				failureView.forward(req, res);
 			}
 		}

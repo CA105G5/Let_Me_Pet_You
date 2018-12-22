@@ -46,7 +46,7 @@
     text-align: center;
   }
 </style>
-<body bgcolor='orange'>
+<body bgcolor='white'>
 <table id="table-1">
 	<tr><td>
 		 <h3>所有會員資料 - listAllMembers.jsp</h3>
