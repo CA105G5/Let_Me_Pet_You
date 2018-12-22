@@ -50,7 +50,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>會員資料修改 - client_update.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="index.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -98,7 +98,12 @@
 	</tr>
 	<tr>
 		<td>會員性別:</td>
-		<td><input type="TEXT" name="memb_gender" size="45" value="<%=(memVO.getMemb_gender()==null)? "" : memVO.getMemb_gender()%>" /></td>
+		<td><input type="RADIO" name="memb_gender" size="45" 
+			 value="M" ${(memVO.memb_gender=='M')? 'checked':'' }/>男
+				 
+			 
+		<input type="RADIO" name="memb_gender" size="45" 
+			 value="F" ${(memVO.memb_gender=='F')? 'checked':'' }/>女</td>
 	</tr>
 	<tr>
 		<td>信用卡類型:</td>
@@ -110,11 +115,37 @@
 	</tr>
 	<tr>
 		<td>信用卡到期年:</td>
-		<td><input type="TEXT" name="memb_cre_year" size="45" value="<%=(memVO.getMemb_cre_year()==null)? "" : memVO.getMemb_cre_year()%>" /></td>
+		<td><select name="memb_cre_year" size="1">
+		<option value="" ${(memVO.memb_cre_year =='')? 'selected':''}>請選擇年份
+		<option value="2019" ${(memVO.memb_cre_year =="2019")? "selected":""}>2019
+		<option value="2020" ${(memVO.memb_cre_year =='2020')? 'selected':''}>2020
+		<option value="2021" ${(memVO.memb_cre_year =='2021')? 'selected':''}>2021
+		<option value="2022" ${(memVO.memb_cre_year =='2022')? 'selected':''}>2022
+		<option value="2023" ${(memVO.memb_cre_year =='2023')? 'selected':''}>2023
+		<option value="2024" ${(memVO.memb_cre_year =='2024')? 'selected':''}>2024
+		<option value="2025" ${(memVO.memb_cre_year =='2025')? 'selected':''}>2025
+		<option value="2026" ${(memVO.memb_cre_year =='2026')? 'selected':''}>2026
+		    </select>年
+		</td>
 	</tr>
 	<tr>
 		<td>信用卡到期月:</td>
-		<td><input type="TEXT" name="memb_cre_month" size="45" value="<%=(memVO.getMemb_cre_month()==null)? "" : memVO.getMemb_cre_month()%>" /></td>
+		<td><select name="memb_cre_month" size="1">
+		<option value="" ${(memVO.memb_cre_month =='')? 'selected':''}>請選擇月份
+		<option value="1" ${(memVO.memb_cre_month =='1')? 'selected':''}>1
+		<option value="2" ${(memVO.memb_cre_month =='2')? 'selected':''}>2
+		<option value="3" ${(memVO.memb_cre_month =='3')? 'selected':''}>3
+		<option value="4" ${(memVO.memb_cre_month =='4')? 'selected':''}>4
+		<option value="5" ${(memVO.memb_cre_month =='5')? 'selected':''}>5
+		<option value="6" ${(memVO.memb_cre_month =='6')? 'selected':''}>6
+		<option value="7" ${(memVO.memb_cre_month =='7')? 'selected':''}>7
+		<option value="8" ${(memVO.memb_cre_month =='8')? 'selected':''}>8
+		<option value="9" ${(memVO.memb_cre_month =='9')? 'selected':''}>9
+		<option value="10" ${(memVO.memb_cre_month =='10')? 'selected':''}>10
+		<option value="11" ${(memVO.memb_cre_month =='11')? 'selected':''}>11
+		<option value="12" ${(memVO.memb_cre_month =='12')? 'selected':''}>12
+		    </select>月
+		</td>
 	</tr>
 	<tr>
 		<td>會員照片:</td>

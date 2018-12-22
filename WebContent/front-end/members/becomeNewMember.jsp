@@ -51,7 +51,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>歡迎成為新會員 - becomeNewMember.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="index.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
