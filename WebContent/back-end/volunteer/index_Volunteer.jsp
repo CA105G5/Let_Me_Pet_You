@@ -13,7 +13,7 @@
 	VolunteerVO volunteerVO = volunteerSvc.getOneVolunteer("V000000001"); //EmpServlet.java(Concroller), 存入req的empVO物件
   	session.setAttribute("volunteerVO", volunteerVO);
 %>
-
+<jsp:useBean id="regionSvc" scope="page" class="com.region.model.RegionService"/>
 <html>
 <head>
 <title>志工個人資料</title>
@@ -84,7 +84,8 @@
 		<td><%=volunteerVO.getVlt_registerdate()%></td>
 		<td><%=volunteerVO.getVlt_duty_day()%></td>
 		<td><%=volunteerVO.getVlt_sta()%></td>
-		<td><%=volunteerVO.getVlt_reg()%></td>
+<%-- 		<td><%=volunteerVO.getVlt_reg()%></td> --%>
+		<td>${regionSvc.getOneRegion(volunteerVO.vlt_reg).reg_name}</td>
 		<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/volunteer/volunteer.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
