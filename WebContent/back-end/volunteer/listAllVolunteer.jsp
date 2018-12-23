@@ -10,7 +10,7 @@
     pageContext.setAttribute("list",list);
 %>
 
-
+<jsp:useBean id="regionSvc" scope="page" class="com.region.model.RegionService" />
 <html>
 <head>
 <title>所有志工資料</title>
@@ -97,7 +97,17 @@
 			<td>${volunteerVO.vlt_registerdate}</td>
 			<td>${volunteerVO.vlt_duty_day}</td>
 			<td>${volunteerVO.vlt_sta}</td>
-			<td>${volunteerVO.vlt_reg}</td>
+<%-- 			<td>${volunteerVO.vlt_reg}</td> --%>
+			<td>
+<%-- 				<c:forEach var="regionVO" items="${regionSvc.all}"> --%>
+<%--                     <c:if test="${volunteerVO.vlt_reg==regionVO.reg_id}"> --%>
+<%-- 	                    ${regionVO.reg_id}【${regionVO.reg_name}】 --%>
+<%--                     </c:if> --%>
+<%--                 </c:forEach> --%>
+				${regionSvc.getOneRegion(volunteerVO.vlt_reg).reg_name}
+			</td>
+			
+			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/volunteer/volunteer.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">

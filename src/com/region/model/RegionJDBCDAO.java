@@ -294,21 +294,21 @@ public class RegionJDBCDAO implements RegionDAO_interface{
 		RegionJDBCDAO dao = new RegionJDBCDAO();
 
 		// 新增
-		RegionVO regionVO1 = new RegionVO();
-		
-		regionVO1.setReg_name("綠島");
-		
-		dao.insert(regionVO1);
-
-		// 修改
-		RegionVO regionVO2 = new RegionVO();
-		regionVO2.setReg_id("REG0000023");
-		regionVO2.setReg_name("小硫球");
-		
-		dao.update(regionVO2);
-
-		// 刪除
-		dao.delete("REG0000023");
+//		RegionVO regionVO1 = new RegionVO();
+//		
+//		regionVO1.setReg_name("綠島");
+//		
+//		dao.insert(regionVO1);
+//
+//		// 修改
+//		RegionVO regionVO2 = new RegionVO();
+//		regionVO2.setReg_id("REG0000023");
+//		regionVO2.setReg_name("小硫球");
+//		
+//		dao.update(regionVO2);
+//
+//		// 刪除
+//		dao.delete("REG0000023");
 
 		// 查詢
 		RegionVO regionVO3 = dao.findByPrimaryKey("REG0000001");

@@ -32,11 +32,11 @@ public class RegionService {
 		
 	}
 	
-	public void deleteVolunteer(String reg_id) {
+	public void deleteRegion(String reg_id) {
 		dao.delete(reg_id);
 	}
 	
-	public RegionVO getOneVolunteer(String reg_id) {
+	public RegionVO getOneRegion(String reg_id) {
 		return dao.findByPrimaryKey(reg_id);
 	}
 	
