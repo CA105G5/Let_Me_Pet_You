@@ -97,7 +97,7 @@ div {
 												<div class="overlay-bg"></div>
 												<img class="img-fluid"
 													src="<%=request.getContextPath()%>/util/PicReader?prod_id=${prodVO.prod_id}"
-													alt="">
+													alt="" height="200" width="200">
 												<!-- 												<a class="admission-btn" href="#">Admission	Going on</a> -->
 											</div>
 											<div class="details">

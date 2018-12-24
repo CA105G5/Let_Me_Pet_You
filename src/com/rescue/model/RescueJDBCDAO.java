@@ -379,17 +379,17 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		RescueJDBCDAO dao = new RescueJDBCDAO();
 
 		// 新增
-//		RescueVO rescueVO1 = new RescueVO();
+		RescueVO rescueVO1 = new RescueVO();
 //
-//		rescueVO1.setRsc_name("有貓卡樹上");
-//		rescueVO1.setRsc_add("326桃園市楊梅區中山北路一段390巷41號");
-//		rescueVO1.setRsc_sponsor("M000000003");
-//		rescueVO1.setRsc_lat(new Double(24.9460628));
-//		rescueVO1.setRsc_lon(new Double(121.1992745));
-//		rescueVO1.setRsc_btime(new Timestamp(new Date().getTime()));
-//		rescueVO1.setRsc_coin(new Integer(500));
-//		rescueVO1.setRsc_reg("REG0000004");
-//		dao.insert(rescueVO1);
+		rescueVO1.setRsc_name("有貓卡樹上");
+		rescueVO1.setRsc_add("326桃園市楊梅區中山北路一段390巷41號");
+		rescueVO1.setRsc_sponsor("M000000003");
+		rescueVO1.setRsc_lat(new Double(24.9460628));
+		rescueVO1.setRsc_lon(new Double(121.1992745));
+		rescueVO1.setRsc_btime(new Timestamp(new Date().getTime()));
+		rescueVO1.setRsc_coin(new Integer(500));
+		rescueVO1.setRsc_reg("REG0000004");
+		dao.insert(rescueVO1);
 
 //		// 修改
 //		RescueVO rescueVO2 = new RescueVO();
