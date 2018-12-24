@@ -1,14 +1,10 @@
 package com.volunteer.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
+
+import java.sql.*;
 
 
 public class VolunteerJDBCDAO implements VolunteerDAO_interface {
@@ -374,8 +370,72 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 	
 	@Override
 	public List<VolunteerVO> getAll(Map<String, String[]> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<VolunteerVO> list = new ArrayList<VolunteerVO>();
+		VolunteerVO volunteerVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+
+			String finalSQL = "select * from volunteer "
+		          + jdbcUtil_CompositeQuery_Volunteer.get_WhereCondition(map)
+		          + "order by vlt_id";
+			pstmt = con.prepareStatement(finalSQL);
+			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				volunteerVO = new VolunteerVO();
+				volunteerVO.setVlt_id(rs.getString("vlt_id"));
+				volunteerVO.setVlt_name(rs.getString("vlt_name"));
+				volunteerVO.setVlt_mail(rs.getString("vlt_mail"));
+				volunteerVO.setVlt_pw(rs.getString("vlt_pw"));
+				volunteerVO.setVlt_gender(rs.getString("vlt_gender"));
+				volunteerVO.setVlt_tel(rs.getString("vlt_tel"));
+				volunteerVO.setVlt_img(rs.getBytes("vlt_img"));
+				volunteerVO.setVlt_registerdate(rs.getDate("vlt_registerdate"));
+				volunteerVO.setVlt_duty_day(rs.getString("vlt_duty_day"));
+				volunteerVO.setVlt_sta(rs.getString("vlt_sta"));
+				volunteerVO.setVlt_reg(rs.getString("vlt_reg"));
+				list.add(volunteerVO); // Store the row in the List
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}		
+		}
+		return list;
 	}
 
 	public static void main(String[] args) {
