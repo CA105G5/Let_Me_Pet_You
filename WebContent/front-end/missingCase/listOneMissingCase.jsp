@@ -66,7 +66,7 @@
 								<p>
 									${missingCaseVO.missing_des}
 								</p>
-								<a class="primary-btn text-uppercase" href="#">查看詳情</a>
+								<a class="genric-btn primary small" href="#">我要檢舉</a>
 							</div>
 						</div>
 					</div>
@@ -120,5 +120,6 @@
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

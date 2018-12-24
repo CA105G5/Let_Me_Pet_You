@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="com.missingCase.model.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="BIG5"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	missingCaseService missingCaseSvc = new missingCaseService();
@@ -34,30 +34,32 @@
 <!--
 			CSS
 			============================================= -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 <link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/owl.carousel.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/main.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- ­Y­n¨Ï¥Îfai¨ºª©¥~±¾icon¡A­nimport CDN¡A§Ö±¶Áäfacdn=>tab -->
+<!-- è‹¥è¦ä½¿ç”¨faié‚£ç‰ˆå¤–æ›iconï¼Œè¦import CDNï¼Œå¿«æ·éµfacdn=>tab -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-<!-- https://fontawesome.com/ ¦Û¤vªºcss-->
+<!-- https://fontawesome.com/ è‡ªå·±çš„css-->
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
@@ -65,11 +67,16 @@
 
 <style type="text/css">
 p {
-	¡@ font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
+	ã€€ font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
 		monospace;
 }
 
 div {
+	font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
+		monospace;
+}
+
+h4 {
 	font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
 		monospace;
 }
@@ -80,24 +87,59 @@ div {
 	<jsp:include page="/front-end/missingCase/missing_case_header.jsp"
 		flush="true" />
 
-	<section class="service-page-area section-gap">
+	<section class="service-page-area section-gap ">
 		<div class="container">
 			<div class="row d-flex justify-content-center">
-				<div class="col-md-9 pb-40 header-text text-center">
-					<p>hello.</p>
+				<div class="pb-40 header-text text-center">
+					<div id="carousel-id" class="carousel slide" data-ride="carousel">
+						<!-- å¹»ç‡ˆç‰‡å°åœ“é»å€ -->
+						<ol class="carousel-indicators">
+							<li data-target="#carousel-id" data-slide-to="0" class="active"></li>
+							<li data-target="#carousel-id" data-slide-to="1" class=""></li>
+						</ol>
+						<!-- å¹»ç‡ˆç‰‡ä¸»åœ–å€ -->
+						<div class="carousel-inner">
+							<div class="item active">
+								<img src="https://api.fnkr.net/testimg/2800x700/aaaaaa" alt=""
+									id="hello">
+								<div class="container">
+									<div class="carousel-caption"></div>
+								</div>
+							</div>
+							<div class="item">
+								<img src="https://api.fnkr.net/testimg/2800x700/aaaaaa" alt="">
+								<div class="container">
+									<div class="carousel-caption"></div>
+								</div>
+							</div>
+						</div>
+						<!-- ä¸Šä¸‹é æ§åˆ¶å€ -->
+						<a class="left carousel-control" href="#carousel-id"
+							data-slide="prev"><span
+							class="glyphicon glyphicon-chevron-left"></span></a> <a
+							class="right carousel-control" href="#carousel-id"
+							data-slide="next"><span
+							class="glyphicon glyphicon-chevron-right"></span></a>
+					</div>
 				</div>
 			</div>
-						<!-- ¥ª°¼Ãä -->
+			<!-- å·¦å´é‚Š -->
 			<div class="col-xs-12 col-sm-3">
 				<div class="list-group">
-					<a href="listAllMissingCase.jsp" class="list-group-item ">¥¢ÂÜ®×¨ÒÁ`Äı</a>
-					<a href="addMissing.jsp" class="list-group-item ">¥¢ÂÜ®×¨Ò·s¼W</a>
+					<a href="listAllMissingCase.jsp" class="list-group-item ">å¤±è¹¤æ¡ˆä¾‹ç¸½è¦½</a>
+					<a href="addMissing.jsp" class="list-group-item ">å¤±è¹¤æ¡ˆä¾‹æ–°å¢</a>
 				</div>
 			</div>
+
+
+
+			<!-- å³é‚Š -->
 			<div class="row">
-				<c:forEach var="missingCaseVO" items="${list}">
+				<%@ include file="page1.file"%>
+				<c:forEach var="missingCaseVO" items="${list}"
+					begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 					<div class="col-lg-4 col-md-6">
-						<div class="single-training">
+						<div class="single-service-page">
 							<div class="thumbs relative">
 								<div class="overlay-bg"></div>
 								<img class="img-fluid"
@@ -105,42 +147,47 @@ div {
 									alt="">
 							</div>
 							<div class="details">
-								<a href="#">${missingCaseVO.missing_name}</a>
-								<p>${missingCaseVO.missing_des}</p>
+								<h2>${missingCaseVO.missing_name}</h2>
+								<p>${missingCaseVO.missing_date}</p>
+								<a
+									href="<%=request.getContextPath()%>/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id=${missingCaseVO.missing_case_id}"
+									class="genric-btn info-border circle">æŸ¥çœ‹è©³æƒ…</a>
 							</div>
-							
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/front-end/missingCase/miss.do"
-						style="margin-bottom: 0px;">
-						<button type="submit" class="btn btn-primary">­×§ï</button><input type="hidden"
-							name="missing_case_id" value="${missingCaseVO.missing_case_id}">
-						<input type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/front-end/missingCase/miss.do"
-						style="margin-bottom: 0px;">
-						<input type="hidden" name="missing_case_id"
-							value="${missingCaseVO.missing_case_id}"> <input
-							type="hidden" name="action" value="delete">
-								<button type="submit" class="btn btn-primary">§R°£</button>
-					</FORM>		
-							
+
+							<!-- 					<FORM METHOD="post" -->
+							<%-- 						ACTION="<%=request.getContextPath()%>/front-end/missingCase/miss.do" --%>
+							<!-- 						style="margin-bottom: 0px;"> -->
+							<!-- 						<button type="submit" class="btn btn-primary">ä¿®æ”¹</button><input type="hidden" -->
+							<%-- 							name="missing_case_id" value="${missingCaseVO.missing_case_id}"> --%>
+							<!-- 						<input type="hidden" name="action" value="getOne_For_Update"> -->
+							<!-- 					</FORM> -->
+							<!-- 					<FORM METHOD="post" -->
+							<%-- 						ACTION="<%=request.getContextPath()%>/front-end/missingCase/miss.do" --%>
+							<!-- 						style="margin-bottom: 0px;"> -->
+							<!-- 						<input type="hidden" name="missing_case_id" -->
+							<%-- 							value="${missingCaseVO.missing_case_id}"> <input --%>
+							<!-- 							type="hidden" name="action" value="delete"> -->
+							<!-- 								<button type="submit" class="btn btn-primary">åˆªé™¤</button> -->
+							<!-- 					</FORM>		 -->
+
 						</div>
 					</div>
 				</c:forEach>
+				
 			</div>
+			<%@ include file="page2.file"%>
 		</div>
 	</section>
-<%-- 
+	<%-- 
 	<table>
 		<tr>
-			<th>®×¨Ò½s¸¹</th>
-			<th>·|­û½s¸¹</th>
-			<th>¥¢ÂÜ¤é´Á</th>
-			<th>¥¢ÂÜ¤º®e´y­z</th>
-			<th>¥¢ÂÜ°Êª«¦WºÙ</th>
-			<th>¥¢ÂÜ¦aÂI</th>
-			<th>¥¢ÂÜ®×¨Ò¤W¬[ª¬ºA</th>
+			<th>æ¡ˆä¾‹ç·¨è™Ÿ</th>
+			<th>æœƒå“¡ç·¨è™Ÿ</th>
+			<th>å¤±è¹¤æ—¥æœŸ</th>
+			<th>å¤±è¹¤å…§å®¹æè¿°</th>
+			<th>å¤±è¹¤å‹•ç‰©åç¨±</th>
+			<th>å¤±è¹¤åœ°é»</th>
+			<th>å¤±è¹¤æ¡ˆä¾‹ä¸Šæ¶ç‹€æ…‹</th>
 		</tr>
 		<%@ include file="page1.file"%>
 		<c:forEach var="missingCaseVO" items="${list}" begin="<%=pageIndex%>"
@@ -159,7 +206,7 @@ div {
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front-end/missingCase/miss.do"
 						style="margin-bottom: 0px;">
-						<input type="submit" value="­×§ï"> <input type="hidden"
+						<input type="submit" value="ä¿®æ”¹"> <input type="hidden"
 							name="missing_case_id" value="${missingCaseVO.missing_case_id}">
 						<input type="hidden" name="action" value="getOne_For_Update">
 					</FORM>
@@ -171,7 +218,7 @@ div {
 						<input type="hidden" name="missing_case_id"
 							value="${missingCaseVO.missing_case_id}"> <input
 							type="hidden" name="action" value="delete"> <input
-							type="submit" value="§R°£">
+							type="submit" value="åˆªé™¤">
 					</FORM>
 				</td>
 			</tr>
@@ -181,30 +228,32 @@ div {
 
 --%>
 
-
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/vendor/jquery-2.2.4.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
+	<script src="js/vendor/bootstrap.min.js"></script>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
+	<script src="js/easing.min.js"></script>
+	<script src="js/hoverIntent.js"></script>
+	<script src="js/superfish.min.js"></script>
+	<script src="js/jquery.ajaxchimp.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.sticky.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+	<script src="js/jquery.nice-select.min.js"></script>
+	<script src="js/parallax.min.js"></script>
+	<script src="js/waypoints.min.js"></script>
+	<script src="js/jquery.counterup.min.js"></script>
+	<script src="js/mail-script.js"></script>
+	<script src="js/main.js"></script>
 
-	
+
 </body>
 </html>

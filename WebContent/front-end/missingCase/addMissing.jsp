@@ -86,7 +86,7 @@ div {
 		<div class="container">
 			<div class="row d-flex justify-content-center">
 				<div class="col-md-9 pb-40 header-text text-center">
-					<h1 class="pb-10">失蹤案例瀏覽</h1>
+					<h1 class="pb-10">失蹤案例新增</h1>
 					<p>hello.</p>
 				</div>
 			</div>
@@ -101,7 +101,6 @@ div {
 
 				<!-- 右邊內容區 -->
 				<div class="col-xs-12 col-sm-9">
-					<p>
 					<FORM METHOD="post" ACTION="miss.do">
 						<div class="form-group">
 							<c:if test="${not empty errorMsgs}">
@@ -114,47 +113,100 @@ div {
 							</c:if>
 					</FORM>
 
-					<FORM action="miss.do" method=post enctype="multipart/form-data">
-						<input type="file" name="upfile" id="file01">
-						<table>
-							<tr>
-								<td>圖片預覽:</td>
-								<td><img id="pre01"></td>
-							</tr>
-							<tr>
-								<td>會員編號:</td>
-								<td><input type="TEXT" name="membno" size="45"
-									value="<%=(missingCaseVO == null) ? "ex.M000000001" : missingCaseVO.getMemb_id()%>" /></td>
-							</tr>
-							<tr>
-								<td>寵物名稱:</td>
-								<td><input type="TEXT" name="missingName" size="45"
-									value="<%=(missingCaseVO == null) ? "你的寵物" : missingCaseVO.getMissing_name()%>" /></td>
-							</tr>
-							<tr>
-								<td>內容描述:</td>
-								<td><textarea name="missingDes">
-									<%=(missingCaseVO == null) ? "內容描述" : missingCaseVO.getMissing_des()%></textarea></td>
-							</tr>
-							<tr>
-								<td>失蹤日期:</td>
-								<td><input name="hiredate" id="m_date1" type="text"></td>
-							</tr>
-							<tr>
-								<td>地點</td>
-								<td><input type="TEXT" name="loc" size="45"
-									value="<%=(missingCaseVO == null) ? "失蹤地點" : missingCaseVO.getMissing_loc()%>" /></td>
-						</table>
-						<br> <input type="hidden" name="action" value="insert">
-						<input type="submit" value="送出新增">
-					</FORM>
+					<!-- 					<FORM action="miss.do" method=post enctype="multipart/form-data"> -->
+					<!-- 						<input type="file" name="upfile" id="file01"> -->
+					<!-- 						<table> -->
+					<!-- 							<tr> -->
+					<!-- 								<td>圖片預覽:</td> -->
+					<!-- 								<td><img id="pre01"></td> -->
+					<!-- 							</tr> -->
+					<!-- 							<tr> -->
+					<!-- 								<td>會員編號:</td> -->
+					<!-- 								<td><input type="TEXT" name="membno" size="45" -->
+					<%-- 									value="<%=(missingCaseVO == null) ? "ex.M000000001" : missingCaseVO.getMemb_id()%>" /></td> --%>
+					<!-- 							</tr> -->
+					<!-- 							<tr> -->
+					<!-- 								<td>寵物名稱:</td> -->
+					<!-- 								<td><input type="TEXT" name="missingName" size="45" -->
+					<%-- 									value="<%=(missingCaseVO == null) ? "你的寵物" : missingCaseVO.getMissing_name()%>" /></td> --%>
+					<!-- 							</tr> -->
+					<!-- 							<tr> -->
+					<!-- 								<td>內容描述:</td> -->
+					<!-- 								<td><textarea name="missingDes"> -->
+					<%-- 									<%=(missingCaseVO == null) ? "內容描述" : missingCaseVO.getMissing_des()%></textarea></td> --%>
+					<!-- 							</tr> -->
+					<!-- 							<tr> -->
+					<!-- 								<td>失蹤日期:</td> -->
+					<!-- 								<td><input name="hiredate" id="m_date1" type="text"></td> -->
+					<!-- 							</tr> -->
+					<!-- 							<tr> -->
+					<!-- 								<td>地點</td> -->
+					<!-- 								<td><input type="TEXT" name="loc" size="45" -->
+					<%-- 									value="<%=(missingCaseVO == null) ? "失蹤地點" : missingCaseVO.getMissing_loc()%>" /></td> --%>
+					<!-- 						</table> -->
+					<!-- 						<br> <input type="hidden" name="action" value="insert"> -->
+					<!-- 						<input type="submit" value="送出新增"> -->
+					<!-- 					</FORM> -->
+					<form class="form-area " id="myForm" action="mail.php"
+						method="post" class="contact-form text-right">
+						<div class="row">
+							<div class="col-lg-4 form-group">
+							<div class="single-element-widget mt-30">
+									<h5 class="mb-30">失蹤寵物種類：</h5>
+									<div class="default-select" id="default-select"">
+										<select>
+											<option value="1">貓</option>
+											<option value="2">狗</option>
+											<option value="1">其他</option>
+										</select>
+									</div>
+								</div>
+							
+								<h5>寵物名稱：</h5>
+								<input name="missingName" placeholder="Enter your name"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Enter your name'"
+									class="common-input mb-20 form-control" required="" type="text">
+								<h5>會員編號：</h5>
+								<input name="membno" placeholder="Enter your membno"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Enter your membno'"
+									class="common-input mb-20 form-control" required="" type="text">
+								<h5>失蹤日期：</h5>
+								<input name="missingDate" placeholder="Enter your date"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Enter your date'"
+									class="common-input mb-20 form-control" required="" type="text">
+								<h5>失蹤地點：</h5>	
+									<input name="loc" placeholder="Enter your location"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Enter your location'"
+									class="common-input mb-20 form-control" required="" type="text">
+								<div class="mt-20 alert-msg" style="text-align: left;"></div>
+								<h5>內容描述：</h5>
+							</div>
+							<div class="col-lg-8 form-group">
+								<h6>圖片預覽：</h6>
+								<div class="upcoming-left">
+									<img id="img" class="preview" src="img/g1.jpg" />
+								</div>
+								<div style="text-align:center">
+								<input type="file" class="upl custom-file-input" name="upfile" id="file01">
+								<label class="genric-btn info circle small" for="file01" >選擇圖片</label>
+								</div>
+							</div>
+								<textarea class="single-textarea form-group"
+									name="missingDes" placeholder="Messege"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Messege'"></textarea>
+					</form>
 				</div>
 			</div>
 		</div>
 	</section>
 
 
-	
+
 	<script>CKEDITOR.replace("missingDes");</script>
 	<script src="js/vendor/jquery-2.2.4.min.js"></script>
 	<script
@@ -180,7 +232,7 @@ div {
 	<script src="js/main.js"></script>
 </body>
 
-	<% 
+<% 
 	  java.sql.Timestamp hiredate = null;
 	  try {
 		    hiredate = missingCaseVO.getMissing_date();
@@ -191,8 +243,9 @@ div {
 <script>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-	<script>
+<script
+	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script>
 	  $.datetimepicker.setLocale('zh');
 		        $('#m_date1').datetimepicker({
 			       theme: '',              //theme: 'dark',
@@ -206,12 +259,13 @@ div {
 		           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
 		        });
 	</script>
-	<style>
-	  .xdsoft_datetimepicker .xdsoft_datepicker {
-	           width:  300px;   /* width:  300px; */
-	  }
-	  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-	           height: 151px;   /* height:  151px; */
-	  }
-	</style>
+<style>
+.xdsoft_datetimepicker .xdsoft_datepicker {
+	width: 300px; /* width:  300px; */
+}
+
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	height: 151px; /* height:  151px; */
+}
+</style>
 </html>
