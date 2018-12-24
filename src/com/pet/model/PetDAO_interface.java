@@ -7,5 +7,5 @@ public interface PetDAO_interface {
 	public void update(PetVO petVO);
 	public void delete(String pet_id);
 	public PetVO findByPrimaryKey(String pet_id);
-	public List<PetVO> getAll();
+	public List<PetVO> getAllPetsFromSameMember(String memb_id);
 }

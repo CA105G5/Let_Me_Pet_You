@@ -136,7 +136,7 @@
 
 
 
-<br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -257,6 +257,27 @@
 <br>
 <input type="hidden" name="action" value="insert">
 <div align="center"><input type="submit" value="送出新增"></div></FORM>
+
+
+<ul>
+  
+  
+  
+  <li>
+    <FORM METHOD="post" ACTION="mem.do" >
+        <b>修改會員資料</b><br>
+        <b>輸入會員帳號 :</b>
+        <input type="text" name="memb_acc"> 
+        <input type="hidden" name="action" value="updateFromClient">
+        <input type="submit" value="送出">
+    </FORM>
+  </li>
+
+
+</ul>
+
+
+
 <%-- 模板script --%>
 <script src="js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

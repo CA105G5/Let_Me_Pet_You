@@ -173,26 +173,29 @@ public class MemServlet extends HttpServlet {
 				if(memb_acc == null || memb_acc.trim().length() == 0) {
 					errorMsgs.add("請輸入會員帳號");
 				}
-				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = 
-					req.getRequestDispatcher("/front-end/members/index.jsp");
-					failureView.forward(req, res);
-					return;
-				}
+				
 				
 				/***************************2.開始查詢資料****************************************/
 				MemService memSvc = new MemService();
 				MemVO memVO = memSvc.getMemSelf(memb_acc);
-								
+				if(memVO == null) {
+					errorMsgs.add("查無此帳號");
+				}
+				if(!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = 
+					req.getRequestDispatcher("/front-end/members/addMembers.jsp");
+					failureView.forward(req, res);
+					return;
+				}
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("memVO", memVO);         // 資料庫取出的empVO物件,存入req
 				String url = "/front-end/members/client_update.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 client_update.jsp
 				successView.forward(req, res);
 			}catch(Exception e) {
-				errorMsgs.add("查無此帳號");
+				errorMsgs.add("有Exception");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/members/index.jsp");
+						.getRequestDispatcher("/front-end/members/addMembers.jsp");
 				failureView.forward(req, res);
 			}
 		}

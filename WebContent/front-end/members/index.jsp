@@ -83,7 +83,7 @@
 					</div>
 				</div>
 				<div class="col-lg-4 col-sm-4 menu-top-right">
-				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a>
+				<a href="addMembers.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a>
 					
 				</div>
 			</div>
@@ -286,32 +286,7 @@
 
 
 	
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-	    <c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
 
-<ul>
-  <li><a href='addMembers.jsp'>Become a new member!!!</a>  <br><br></li>
-  
-  
-  <li>
-    <FORM METHOD="post" ACTION="mem.do" >
-        <b>修改會員資料</b><br>
-        <b>輸入會員帳號 :</b>
-        <input type="text" name="memb_acc"> 
-        <input type="hidden" name="action" value="updateFromClient">
-        <input type="submit" value="送出">
-    </FORM>
-  </li>
-
-
-</ul>
 <%-- 移動照片區 --%>
 <center><h1>官方製作團隊</h1></center>
 	<section class="gallery-area">
