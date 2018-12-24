@@ -128,6 +128,7 @@ div {
 					</div>
 				</div>
 			</div>
+			</div>
 			<!-- 左側邊 -->
 			<div class="col-xs-12 col-sm-3">
 				<div class="list-group">
@@ -137,9 +138,9 @@ div {
 			</div>
 
 			<!-- 右邊內容區 -->
-			<div class="col-xs-12 col-sm-9">
-				<p>
-				<FORM METHOD="post" ACTION="miss.do">
+ 			<div class="col-xs-12 col-sm-9"> 
+ 				<p> 
+ 				<FORM METHOD="post" ACTION="miss.do"> 
 					<div class="form-group">
 						<c:if test="${not empty errorMsgs}">
 							<font style="color: red">請修正以下錯誤:</font>
@@ -156,7 +157,7 @@ div {
 					</div>
 				</FORM>
 				<jsp:useBean id="missingCaseSvc" scope="page"
-					class="com.missingCase.model.missingCaseService" />
+ 					class="com.missingCase.model.missingCaseService" /> 
 				<FORM METHOD="post" ACTION="miss.do">
 					<label>選擇案例編號</label> <select size="1" name="missing_case_id">
 						<c:forEach var="missingCaseVO" items="${missingCaseSvc.all}">
@@ -166,9 +167,6 @@ div {
 					<input type="submit" value="送出">
 				</FORM>
 				<li><a href='addMissing.jsp'>新增失蹤案例</a></li>
-
-
-
 			</div>
 		</div>
 	</section>
