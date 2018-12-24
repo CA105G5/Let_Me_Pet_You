@@ -1,6 +1,6 @@
 package com.volunteer.model;
 
-import java.util.List;
+import java.util.*;
 
 
 public interface VolunteerDAO_interface {
@@ -11,5 +11,5 @@ public interface VolunteerDAO_interface {
     public VolunteerVO findByPrimaryKey(String vlt_id);
     public List<VolunteerVO> getAll();
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
-//  public List<VolunteerVO> getAll(Map<String, String[]> map); 
+    public List<VolunteerVO> getAll(Map<String, String[]> map); 
 }

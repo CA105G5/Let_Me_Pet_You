@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 public class VolunteerJDBCDAO implements VolunteerDAO_interface {
@@ -370,6 +371,12 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<VolunteerVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public static void main(String[] args) {
 
@@ -443,4 +450,6 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 //			System.out.println();
 //		}
 	}
+
+
 }
