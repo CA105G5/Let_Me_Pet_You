@@ -85,11 +85,11 @@
 		<td><input type="TEXT" name="vlt_mail" size="45"
 			 value="<%=volunteerVO.getVlt_mail()%>" /></td>
 	</tr>
-	<tr>
-		<td>±K½X:</td>
-		<td><input type="TEXT" name="vlt_pw" size="45"
-			 value="<%=volunteerVO.getVlt_pw()%>" /></td>
-	</tr>
+<!-- 	<tr> -->
+<!-- 		<td>±K½X:</td> -->
+<!-- 		<td><input type="TEXT" name="vlt_pw" size="45" -->
+<%-- 			 value="<%=volunteerVO.getVlt_pw()%>" /></td> --%>
+<!-- 	</tr> -->
 
 	<tr>
 		<td>©Ê§O:</td>

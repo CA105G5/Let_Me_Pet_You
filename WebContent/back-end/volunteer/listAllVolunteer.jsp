@@ -73,7 +73,7 @@
 	<tr>
 		<th>志工編號</th>
 		<th>姓名</th>
-		<th>密碼</th>
+		
 		<th>性別</th>
 		<th>電話</th>
 		<th>照片</th>
@@ -90,7 +90,7 @@
 		<tr>
 			<td>${volunteerVO.vlt_id}</td>
 			<td>${volunteerVO.vlt_name}</td>
-			<td>${volunteerVO.vlt_pw}</td>
+		
 			<td>${volunteerVO.vlt_gender}</td>
 			<td>${volunteerVO.vlt_tel}</td>
 			<td><img src="<%=request.getContextPath()%>/back-end/volunteer/volunteerImg.do?vlt_id=${volunteerVO.vlt_id}"/></td> 
