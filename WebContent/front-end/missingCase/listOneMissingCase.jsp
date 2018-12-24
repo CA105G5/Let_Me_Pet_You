@@ -55,10 +55,10 @@
 				</div>
 			</div>							
 		<div class="row align-items-center upcoming-wrap">
-							<div class="col-lg-6 upcoming-left">
+							<div class="col-sm-6 upcoming-left">
 								<img class="img-fluid" src="<%=request.getContextPath() %>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id}" alt="">
 							</div>
-							<div class="col-lg-6 upcoming-right">
+							<div class="col-sm-6 upcoming-right">
 								<p class="meta">
 									<span>${missingCaseVO.missing_name}</span>
 									${missingCaseVO.missing_date}
@@ -68,35 +68,69 @@
 								</p>
 								<a class="genric-btn primary small" href="#">我要檢舉</a>
 							</div>
+							<div class="row flex-column">
+                                        <h5 class="text-uppercase pb-80">05 Comments</h5>
+                                        <div class="comment-list comment-sec-area">
+                                            <div class="single-comment justify-content-between d-flex">
+                                                <div class="user justify-content-between d-flex">
+                                                    <div class="thumb">
+                                                        <img src="img/blog/c1.jpg" alt="">
+                                                    </div>
+                                                    <div class="desc">
+                                                        <h5><a href="#">Emilly Blunt</a></h5>
+                                                        <p class="date">December 4, 2017 at 3:12 pm </p>
+                                                        <p class="comment">
+                                                            Never say goodbye till the end comes!
+                                                        </p>
+                                                    </div>
+                                                </div> 
+                                                <div class="reply-btn small">
+                                                       <a href="" class="btn-danger text-uppercase">檢舉</a> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="comment-list comment-sec-area">
+                                            <div class="single-comment justify-content-between d-flex">
+                                                <div class="user justify-content-between d-flex">
+                                                    <div class="thumb">
+                                                        <img src="img/blog/c4.jpg" alt="">
+                                                    </div>
+                                                    <div class="desc">
+                                                        <h5><a href="#">Emilly Blunt</a></h5>
+                                                        <p class="date">December 4, 2017 at 3:12 pm </p>
+                                                        <p class="comment">
+                                                            Never say goodbye till the end comes!
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="reply-btn">
+                                                       <a href="" class="btn-reply text-uppercase">reply</a> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="comment-list comment-sec-area">
+                                            <div class="single-comment justify-content-between d-flex">
+                                                <div class="user justify-content-between d-flex">
+                                                    <div class="thumb">
+                                                        <img src="img/blog/c5.jpg" alt="">
+                                                    </div>
+                                                    <div class="desc">
+                                                        <h5><a href="#">Emilly Blunt</a></h5>
+                                                        <p class="date">December 4, 2017 at 3:12 pm </p>
+                                                        <p class="comment">
+                                                            Never say goodbye till the end comes!
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="reply-btn">
+                                                       <a href="" class="btn-reply text-uppercase">reply</a> 
+                                                </div>
+                                            </div>
+                                        </div>                                                                                                                                                                
+                                    </div>
 						</div>
 					</div>
 				</section>
-
-<%-- <table>
-	<tr>
-		<th>案例編號</th>
-		<th>會員編號</th>
-		<th>失蹤日期</th>
-		<th>失蹤內容描述</th>
-		<th>失蹤動物名稱</th>
-		<th>失蹤地點</th>
-		<th>失蹤案例上架狀態</th>
-	</tr>
-	<tr>
-			<td>${missingCaseVO.missing_case_id}</td>
-			<td>${missingCaseVO.memb_id}</td>
-			<td>${missingCaseVO.missing_date}</td>
-			<td>${missingCaseVO.missing_des}</td>
-			<td>${missingCaseVO.missing_name}</td>
-			<td>${missingCaseVO.missing_loc}</td> 
-			<td><img src="<%=request.getContextPath() %>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id }"></td>
-	</tr>
-</table>
-
---%>
-
-
-
 
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 	<script
