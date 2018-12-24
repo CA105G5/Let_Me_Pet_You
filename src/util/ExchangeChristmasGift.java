@@ -13,8 +13,7 @@ public class ExchangeChristmasGift {
 		String [] player= {"A","B","C","D","E","F","G"};
 		Set set = new HashSet();
 		while(set.size()<player.length) {
-			int index = (int)(Math.random()*(player.length));
-			set.add(index);
+			set.add(set.size());
 			
 		}
 		Scanner sc = new Scanner(System.in);
