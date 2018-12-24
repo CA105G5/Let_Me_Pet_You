@@ -16,6 +16,9 @@ public class DonateVO implements Serializable {
 	private	String		donate_src_cre;
 	private	String		donate_src_trn;
 	private	String		donate_status;
+	private	String		donate_name;
+	private	String		donate_phone;
+	private	String		donate_mail;
 	
 	public String getDonate_id() {
 		return donate_id;
@@ -82,6 +85,24 @@ public class DonateVO implements Serializable {
 	}
 	public void setDonate_status(String donate_status) {
 		this.donate_status = donate_status;
+	}
+	public String getDonate_name() {
+		return donate_name;
+	}
+	public void setDonate_name(String donate_name) {
+		this.donate_name = donate_name;
+	}
+	public String getDonate_phone() {
+		return donate_phone;
+	}
+	public void setDonate_phone(String donate_phone) {
+		this.donate_phone = donate_phone;
+	}
+	public String getDonate_mail() {
+		return donate_mail;
+	}
+	public void setDonate_mail(String donate_mail) {
+		this.donate_mail = donate_mail;
 	}
 
 	

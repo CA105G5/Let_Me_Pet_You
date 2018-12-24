@@ -228,6 +228,8 @@ public class ProdServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			System.out.println("ProdServlet.java得到從listAllProdDon.jsp設定的屬性"+req.getAttribute("Test"));
+			System.out.println("ProdServlet.java得到從listAllProdDon.jsp傳過來的請求參數值"+req.getParameter("whichPage"));
+			System.out.println("ProdServlet.java得到從listAllProdDon.jsp傳過來的請求參數值"+req.getParameter("prod_id"));
 			
 			try {
 				/***************************1.接收請求參數****************************************/
@@ -284,10 +286,10 @@ public class ProdServlet extends HttpServlet {
 				String prod_info = req.getParameter("prod_info");
 				String prod_qty = req.getParameter("prod_qty");
 				String prod_price = req.getParameter("prod_price");
-				String prod_review = req.getParameter("prod_review");
+				String prod_review = null;
 				System.out.println(prod_review);
-				String prod_review_des = req.getParameter("prod_review_des");
-				String prod_status = req.getParameter("prod_status");
+				String prod_review_des = null;
+				String prod_status = null;
 //				Integer prod_stock = new Integer(req.getParameter("prod_stock"));
 //				DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Timestamp prod_date = new java.sql.Timestamp(new java.util.Date().getTime()); 
@@ -370,11 +372,11 @@ public class ProdServlet extends HttpServlet {
 				prodVO.setProd_des(prod_des);
 				prodVO.setProd_info(prod_info);
 				prodVO.setProd_qty(prod_qty_int);
-//				prodVO.setProd_stock(prod_stock); //庫存量為後端系統作業，不能被修改，先預設而已(not null >=0)
+				prodVO.setProd_stock(prod_qty_int); //庫存量為後端系統作業，不能被修改，先預設而已(not null >=0)
 				prodVO.setProd_date(prod_date);
-//				prodVO.setProd_review(prod_review);
-//				prodVO.setProd_review_des(prod_review_des);
-//				prodVO.setProd_status(prod_status);
+				prodVO.setProd_review(prod_review);
+				prodVO.setProd_review_des(prod_review_des);
+				prodVO.setProd_status(prod_status);
 				prodVO.setProd_price(prod_price_int);
 				
 				
@@ -457,10 +459,11 @@ public class ProdServlet extends HttpServlet {
 				System.out.println("prodImgList length="+ prodImgList.size());
 					
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				
 				req.setAttribute("prodVO", prodVO); // 資料庫update成功後,正確的的prodVO物件,存入req
 				req.setAttribute("prodImgList", prodImgList);
 				System.out.println("size of prodImgList= " + prodImgList.size());
-				String url = "/front-end/product/listOneProd.jsp";
+				String url = "/front-end/donate/listAllProdDon.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneProd.jsp
 				System.out.println("$$$$$$$$$$");
 				successView.forward(req, res);
@@ -710,8 +713,53 @@ public class ProdServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-	}
 	
+		//下架商品
+		if ("off".equals(action)) { // 來自listAllProd.jsp
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			System.out.println("ProdServlet.java得到從listAllProdDon.jsp設定的屬性"+req.getAttribute("Test"));
+			
+			try {
+				/***************************1.接收請求參數****************************************/
+				String prod_id = req.getParameter("prod_id");
+				
+				/***************************2.開始查詢資料****************************************/
+				ProdService prodSvc = new ProdService();
+				ProdVO prodVO = prodSvc.getOneProd(prod_id);
+				prodVO.setProd_status("下架");
+				prodSvc.updateProd(prodVO);
+				
+//				ProdImgService prodImgSvc = new ProdImgService();
+//				List<ProdImgVO> prodImgList = prodImgSvc.getOneProdImg(prod_id);
+	
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				String tab = req.getParameter("tab");
+				System.out.println("tab=" + tab);
+				req.setAttribute("tab", tab);
+				
+				String location = req.getParameter("location");
+				String url;
+				if (location.equals("back")) {
+					url = "/back-end/product/back_listAllProdDon.jsp";
+				} else {
+					url = "/front-end/donate/listAllProdDon.jsp";
+				}
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_prod_input.jsp
+				successView.forward(req, res);
+		
+					/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/donate/listAllProdDon.jsp");
+				failureView.forward(req, res);
+			}
+		}
+	}
+
 	public static byte[] getPictureByteArray(Part part) throws IOException {
 		InputStream in = part.getInputStream();
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();

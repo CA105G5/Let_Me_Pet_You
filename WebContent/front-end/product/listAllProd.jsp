@@ -76,11 +76,49 @@ div {
 	font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
 		monospace;
 }
+
+#scroll {
+    position:fixed;
+    right:10px;
+    bottom:10px;
+    cursor:pointer;
+    width:40px;
+    height:40px;
+    background-color:#3498db;
+    text-indent:-9999px;
+    display:none;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+    border-radius:20px;
+}
+#scroll span {
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-left:-8px;
+    margin-top:-12px;
+    height:0;
+    width:0;
+    border:8px solid transparent;
+    border-bottom-color:#ffffff
+}
+#scroll:hover {
+    background-color:#e74c3c;
+    opacity:1;
+    filter:"alpha(opacity=100)";
+    -ms-filter:"alpha(opacity=100)";
+}
+
 </style>
 </head>
 <body>
 
 	<jsp:include page="/front-end/product/prod_list_Header.jsp" flush="true" />
+	
+	<!-- BackToTop Button -->
+	<a href="javascript:void(0);" id="scroll" title="Scroll to Top" style="display: none;">Top<span></span></a>
+
+	<!-- ++++++++++++ Page Content Goes Here ++++++++++++ -->
 
 	<section class="training-area section-gap">
 		<div class="container">
@@ -97,7 +135,7 @@ div {
 												<div class="overlay-bg"></div>
 												<img class="img-fluid"
 													src="<%=request.getContextPath()%>/util/PicReader?prod_id=${prodVO.prod_id}"
-													alt="" height="200" width="200">
+													alt="">
 												<!-- 												<a class="admission-btn" href="#">Admission	Going on</a> -->
 											</div>
 											<div class="details">
@@ -142,6 +180,22 @@ div {
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    $(window).scroll(function(){
+		        if($(this).scrollTop() > 100){
+		            $('#scroll').fadeIn();
+		        }else{
+		            $('#scroll').fadeOut();
+		        }
+		    });
+		    $('#scroll').click(function(){
+		        $("html, body").animate({ scrollTop: 0 }, 600);
+		        return false;
+		    });
+		});
+	</script>
 </body>
 </html>
 

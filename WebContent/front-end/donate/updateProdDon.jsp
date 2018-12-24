@@ -115,7 +115,7 @@ div {
 								<div class="input-group">
 									<label class="input-group-addon" style="width: 150px;">愛心商品種類</label>
 <!-- 						  			<input type="text" class="form-control" placeholder="愛心商品種類" id="prod_type_id" name="prod_type_id" style="width: 500px;"> -->
-									<select class="form-control custom-control" id="prod_type_id" name="prod_type_id" style="width: 500px;">
+									<select class="form-control custom-control" id="prod_type_id" name="prod_type_id" style="width: 500px; height:32px;">
 									
 									    <option value="食" ${ updateprodVO.prod_type_id.equals("食")? "selected":""}>食</option>
 									    <option value="衣" ${ updateprodVO.prod_type_id.equals("衣")? "selected":""}>衣</option>
@@ -129,7 +129,7 @@ div {
 								<div class="input-group">
 									<label class="input-group-addon" style="width: 150px;">愛心商品使用對象</label>
 <!-- 						  			<input type="text" class="form-control" placeholder="愛心商品使用對象" id="prod_ani_type_id" name="prod_ani_type_id" style="width: 500px;"> -->
-									<select class="form-control custom-control" id="prod_ani_type_id" name="prod_ani_type_id" style="width: 500px;">
+									<select class="form-control custom-control" id="prod_ani_type_id" name="prod_ani_type_id" style="width: 500px; height:32px;">
 									    <option value="貓" ${ updateprodVO.prod_ani_type_id.equals("貓")? "selected":""}>貓</option>
 									    <option value="狗" ${ updateprodVO.prod_ani_type_id.equals("狗")? "selected":""}>狗</option>
 									    <option value="飛禽" ${ updateprodVO.prod_ani_type_id.equals("飛禽")? "selected":""}>飛禽</option>
@@ -188,7 +188,7 @@ div {
 								</div>
 								<br>
 									<input type="hidden" name="action" value="update">
-			            			<input type = "submit" value = "更新" style="text-align:center;">
+			            			<input type = "submit" value = "確認" style="text-align:center;">
 								<br>
 							</form>
 						</div>
