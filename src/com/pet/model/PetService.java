@@ -33,7 +33,7 @@ public class PetService {
 	}
 	public PetVO clientUpdatePet(String pet_name,
 								 String memb_id,
-								 String pet_gender,
+								 String pet_gender, 
 								 Date pet_birth,
 								 String pet_descr,
 								 String pet_status,

@@ -16,7 +16,7 @@ public class ExchangeChristmasGift {
 			set.add(set.size());
 			
 		}
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in); 
 		
 		while(set.size()>0) {
 			int number =(int)(Math.random()*(player.length));
