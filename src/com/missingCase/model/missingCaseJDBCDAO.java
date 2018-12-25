@@ -13,11 +13,11 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 	String userid = "CA105G5";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO missing_case(missing_case_id,memb_id,missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo) VALUES ('S'||LPAD(to_char(missing_case_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT missing_case_id,memb_id,to_char(missing_date,'yyyy-mm-dd hh24:mi:ss')missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo FROM missing_case order by missing_case_id";
-	private static final String GET_ONE_STMT = "SELECT missing_case_id,memb_id,to_char(missing_date,'yyyy-mm-dd hh24:mi:ss')missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo FROM missing_case where missing_case_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO missing_case(missing_case_id,memb_id,missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo,missing_type) VALUES ('S'||LPAD(to_char(missing_case_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT missing_case_id,memb_id,to_char(missing_date,'yyyy-mm-dd hh24:mi:ss')missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo,missing_type FROM missing_case order by missing_case_id";
+	private static final String GET_ONE_STMT = "SELECT missing_case_id,memb_id,to_char(missing_date,'yyyy-mm-dd hh24:mi:ss')missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo,missing_type FROM missing_case where missing_case_id = ?";
 	private static final String DELETE = "DELETE FROM missing_case where missing_case_id = ?";
-	private static final String UPDATE = "UPDATE missing_case set memb_id=?, missing_date=?, missing_name=?, missing_des=?, missing_loc=?, missing_status_shelve=?, missing_photo=? where missing_case_id = ?";
+	private static final String UPDATE = "UPDATE missing_case set memb_id=?, missing_date=?, missing_name=?, missing_des=?, missing_loc=?, missing_status_shelve=?, missing_photo=?, missing_type=? where missing_case_id = ?";
 
 	// 新增
 	@Override
@@ -39,6 +39,7 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 			pstmt.setString(5, missingCaseVO.getMissing_loc());
 			pstmt.setString(6, missingCaseVO.getMissing_status_shelve());
 			pstmt.setBytes(7, missingCaseVO.getMissing_photo());
+			pstmt.setString(8, missingCaseVO.getMissing_type());
 
 			pstmt.executeUpdate();
 
@@ -86,7 +87,8 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 			pstmt.setString(5, missingCaseVO.getMissing_loc());
 			pstmt.setString(6, missingCaseVO.getMissing_status_shelve());
 			pstmt.setBytes(7, missingCaseVO.getMissing_photo());
-			pstmt.setString(8, missingCaseVO.getMissing_case_id());
+			pstmt.setString(8, missingCaseVO.getMissing_type());
+			pstmt.setString(9, missingCaseVO.getMissing_case_id());
 
 			pstmt.executeUpdate();
 
@@ -185,6 +187,7 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 				missingCaseVO.setMissing_loc(rs.getString("missing_loc"));
 				missingCaseVO.setMissing_status_shelve(rs.getString("missing_status_shelve"));
 				missingCaseVO.setMissing_photo(rs.getBytes("missing_photo"));
+				missingCaseVO.setMissing_type(rs.getString("missing_type"));
 			}
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -245,6 +248,7 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 				missingCaseVO.setMissing_loc(rs.getString("missing_loc"));
 				missingCaseVO.setMissing_status_shelve(rs.getString("missing_status_shelve"));
 				missingCaseVO.setMissing_photo(rs.getBytes("missing_photo"));
+				missingCaseVO.setMissing_type(rs.getString("missing_type"));
 				list.add(missingCaseVO);
 			}
 		} catch (ClassNotFoundException e) {
@@ -300,15 +304,15 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 //		dao.insert(missingCaseVO1);
 
 		// 修改
-		missingCaseVO missingCaseVO2 = new missingCaseVO();
-		missingCaseVO2.setMemb_id("M000000003");
-		missingCaseVO2.setMissing_date(java.sql.Timestamp.valueOf("1999-07-20 14:24:00"));
-		missingCaseVO2.setMissing_name("示威");
-		missingCaseVO2.setMissing_des("阿囉哈");
-		missingCaseVO2.setMissing_loc("台中");
-		missingCaseVO2.setMissing_status_shelve("M1");
-		missingCaseVO2.setMissing_case_id("S000000001");
-		dao.update(missingCaseVO2);
+//		missingCaseVO missingCaseVO2 = new missingCaseVO();
+//		missingCaseVO2.setMemb_id("M000000003");
+//		missingCaseVO2.setMissing_date(java.sql.Timestamp.valueOf("1999-07-20 14:24:00"));
+//		missingCaseVO2.setMissing_name("示威");
+//		missingCaseVO2.setMissing_des("阿囉哈");
+//		missingCaseVO2.setMissing_loc("台中");
+//		missingCaseVO2.setMissing_status_shelve("M1");
+//		missingCaseVO2.setMissing_case_id("S000000001");
+//		dao.update(missingCaseVO2);
 
 		// 刪除
 //		dao.delete("S000000004");
@@ -326,17 +330,18 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 //		System.out.println("---------------------------------------------------------------------");
 
 		// 查全部
-//		List<missingCaseVO> list = dao.getAll();
-//		for (missingCaseVO mCase : list) {
-//			System.out.print(mCase.getMissing_case_id() + ",");
-//			System.out.print(mCase.getMemb_id() + ",");
-//			System.out.print(mCase.getMissing_date() + ",");
-//			System.out.print(mCase.getMissing_name() + ",");
-//			System.out.print(mCase.getMissing_des() + ",");
-//			System.out.print(mCase.getMissing_loc() + ",");
-//			System.out.println(mCase.getMissing_status_shelve());
-//			System.out.println();
-//		}
+		List<missingCaseVO> list = dao.getAll();
+		for (missingCaseVO mCase : list) {
+			System.out.print(mCase.getMissing_case_id() + ",");
+			System.out.print(mCase.getMemb_id() + ",");
+			System.out.print(mCase.getMissing_date() + ",");
+			System.out.print(mCase.getMissing_name() + ",");
+			System.out.print(mCase.getMissing_des() + ",");
+			System.out.print(mCase.getMissing_loc() + ",");
+			System.out.print(mCase.getMissing_status_shelve() + ",");
+			System.out.println(mCase.getMissing_type());
+			System.out.println();
+		}
 	}
 
 	public static byte[] getPictureByteArray(String path) throws IOException {

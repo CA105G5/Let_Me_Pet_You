@@ -66,10 +66,10 @@
 								<p>
 									${missingCaseVO.missing_des}
 								</p>
-								<a class="genric-btn primary small" href="#">我要檢舉</a>
+								<a class="genric-btn primary small" href="#">我要留言</a>
 							</div>
 							<div class="row flex-column">
-                                        <h5 class="text-uppercase pb-80">05 Comments</h5>
+                                        <h6 class="text-uppercase pb-80">05 Comments</h6>
                                         <div class="comment-list comment-sec-area">
                                             <div class="single-comment justify-content-between d-flex">
                                                 <div class="user justify-content-between d-flex">
@@ -104,7 +104,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="reply-btn">
-                                                       <a href="" class="btn-reply text-uppercase">reply</a> 
+                                                        <a href="" class="btn-danger text-uppercase">檢舉</a> 
                                                 </div>
                                             </div>
                                         </div>
@@ -123,7 +123,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="reply-btn">
-                                                       <a href="" class="btn-reply text-uppercase">reply</a> 
+                                                        <a href="" class="btn-danger text-uppercase">檢舉</a> 
                                                 </div>
                                             </div>
                                         </div>                                                                                                                                                                

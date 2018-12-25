@@ -12,6 +12,15 @@ public class missingCaseVO {
 	private String missing_loc;
 	private String missing_status_shelve;
 	private byte[] missing_photo;
+	private String missing_type;
+	
+	public String getMissing_type() {
+		return missing_type;
+	}
+
+	public void setMissing_type(String missing_type) {
+		this.missing_type = missing_type;
+	}
 
 	public String getMissing_case_id() {
 		return missing_case_id;

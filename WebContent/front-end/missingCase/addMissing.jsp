@@ -33,23 +33,23 @@
 			CSS
 			============================================= -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/linearicons.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/font-awesome.min.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/bootstrap.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/magnific-popup.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/nice-select.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/animate.min.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/owl.carousel.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/main.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -62,7 +62,9 @@
 	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
 	crossorigin="anonymous">
-<script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+	
+<script defer src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
 <style type="text/css">
 p {
 	　 font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
@@ -84,7 +86,7 @@ div {
 
 	<section class="service-page-area section-gap">
 		<div class="container">
-			<div class="row d-flex justify-content-center">
+			<div class="row d-flex justify-content-center ">
 				<div class="col-md-9 pb-40 header-text text-center">
 					<h1 class="pb-10">失蹤案例新增</h1>
 					<p>hello.</p>
@@ -173,7 +175,7 @@ div {
 									onblur="this.placeholder = 'Enter your membno'"
 									class="common-input mb-20 form-control" required="" type="text">
 								<h5>失蹤日期：</h5>
-								<input name="missingDate" placeholder="Enter your date"
+								<input name="m_date1" placeholder="Enter your date"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'Enter your date'"
 									class="common-input mb-20 form-control" required="" type="text">
@@ -208,28 +210,28 @@ div {
 
 
 	<script>CKEDITOR.replace("missingDes");</script>
-	<script src="js/vendor/jquery-2.2.4.min.js"></script>
-	<script
+	<script defer src="js/vendor/jquery-2.2.4.min.js"></script>
+	<script defer
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
-	<script src="js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript"
+	<script defer src="js/vendor/bootstrap.min.js"></script>
+	<script defer type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="js/easing.min.js"></script>
-	<script src="js/hoverIntent.js"></script>
-	<script src="js/superfish.min.js"></script>
-	<script src="js/jquery.ajaxchimp.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.sticky.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<script src="js/parallax.min.js"></script>
-	<script src="js/waypoints.min.js"></script>
-	<script src="js/jquery.counterup.min.js"></script>
-	<script src="js/mail-script.js"></script>
-	<script src="js/main.js"></script>
+	<script defer src="js/easing.min.js"></script>
+	<script defer src="js/hoverIntent.js"></script>
+	<script defer src="js/superfish.min.js"></script>
+	<script defer src="js/jquery.ajaxchimp.min.js"></script>
+	<script defer src="js/jquery.magnific-popup.min.js"></script>
+	<script defer src="js/owl.carousel.min.js"></script>
+	<script defer src="js/jquery.sticky.js"></script>
+	<script defer src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script defer src="js/jquery.nice-select.min.js"></script>
+	<script defer src="js/parallax.min.js"></script>
+	<script defer src="js/waypoints.min.js"></script>
+	<script defer src="js/jquery.counterup.min.js"></script>
+	<script defer src="js/mail-script.js"></script>
+	<script defer src="js/main.js"></script>
 </body>
 
 <% 
@@ -240,8 +242,6 @@ div {
 		    hiredate = new java.sql.Timestamp(System.currentTimeMillis());
 	   }
 	%>
-<script>
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 <script
 	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
