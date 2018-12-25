@@ -1,6 +1,6 @@
 package com.rescuing.model;
 
-import java.util.List;
+import java.util.*;
 
 
 public interface RescuingDAO_interface {
@@ -10,5 +10,5 @@ public interface RescuingDAO_interface {
     public RescuingVO findByPrimaryKey(String rsc_id);
     public List<RescuingVO> getAll();
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
-//  public List<RescuingVO> getAll(Map<String, String[]> map); 
+  public List<RescuingVO> getAll(Map<String, String[]> map); 
 }
