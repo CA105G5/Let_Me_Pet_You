@@ -159,7 +159,7 @@
 	<!-- 安卓的註冊 -->
 	<servlet>
 		<servlet-name>AndroidMemServlet</servlet-name>
-		<servlet-class>com.android.mem.controller.MemServlet</servlet-class>
+		<servlet-class>com.mem.android.controller.MemServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AndroidMemServlet</servlet-name>

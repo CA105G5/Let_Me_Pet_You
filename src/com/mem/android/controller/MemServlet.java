@@ -1,4 +1,4 @@
-package com.android.mem.controller;
+package com.mem.android.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
