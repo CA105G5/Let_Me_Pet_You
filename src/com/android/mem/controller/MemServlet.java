@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.android.mem.model.MemDAO_interface;
-import com.android.mem.model.MemJDBCDAO;
-import com.android.mem.model.MemVO;
+import com.mem.model.MemDAO_interface;
+import com.mem.model.MemJDBCDAO;
+import com.mem.model.MemVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -35,20 +35,17 @@ public class MemServlet extends HttpServlet {
 		JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
 		String action = jsonObject.get("action").getAsString();
 
-		if ("isMemID".equals(action)) {
-			String memb_id = jsonObject.get("memb_id").getAsString();
-			String memb_psw = jsonObject.get("memb_psw").getAsString();
-			writeText(res,	String.valueOf(MemDao.isMemID(memb_id, memb_psw)));
-		} else if ("isMemACC".equals(action)) { 
+		
+		if ("isMemACC".equals(action)) { 
 			String memb_acc = jsonObject.get("memb_acc").getAsString();
 			String memb_psw = jsonObject.get("memb_psw").getAsString();
-			writeText(res,	String.valueOf(MemDao.isMemACC(memb_acc, memb_psw)));
-		} else if ("isMembIdExist".equals(action)) {
+			writeText(res,	String.valueOf(MemDao.isMemAcc(memb_acc, memb_psw)));
+		} else if ("isMembExist".equals(action)) {
 			String memb_id = jsonObject.get("memb_id").getAsString();
-			writeText(res, String.valueOf(MemDao.isMembIdExist(memb_id)));
-		}else if ("isMembAccExist".equals(action)) {
-			String memb_acc = jsonObject.get("memb_acc").getAsString();
-			writeText(res, String.valueOf(MemDao.isMembAccExist(memb_acc)));
+			writeText(res, String.valueOf(MemDao.isMembExist(memb_id)));
+//		}else if ("isMembAccExist".equals(action)) {
+//			String memb_acc = jsonObject.get("memb_acc").getAsString();
+//			writeText(res, String.valueOf(MemDao.isMembAccExist(memb_acc)));
 //		} else if (action.equals("insert")) {
 //			MemVO memVO = gson.fromJson(jsonObject.get("memVO").getAsString(), MemVO.class);
 //			writeText(res, String.valueOf(MemDao.insert(memVO)));

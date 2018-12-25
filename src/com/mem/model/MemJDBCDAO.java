@@ -13,6 +13,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	String userid = "CA105G5";
 	String password = "123456";  
 	
+	
 	private static final String INSERT_STMT="INSERT INTO MEMBERS "
 			+ "(memb_id,memb_acc,memb_psw,memb_name,memb_nick,memb_email,memb_cellphone,memb_gender,memb_cre_type,memb_cre_name,memb_cre_year,memb_cre_month,memb_photo,memb_fb_login,memb_google_login) "
 			+ "VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -26,10 +27,18 @@ public class MemJDBCDAO implements MemDAO_interface {
 	private static final String GET_ONE_STMT="SELECT * FROM MEMBERS where memb_id=?";
 	private static final String GET_ALL_STMT="SELECT * FROM MEMBERS order by memb_id";
 	private static final String CLIENT_SEARCH_STMT="SELECT * FROM MEMBERS where memb_acc=?";
+	//安卓SQL指令
+	private static final String FIND_BY_ID_PASWD = "SELECT * FROM MEMBERS WHERE memb_acc = ? AND memb_psw = ?";
+	private static final String CHECK_ID_EXIST = "SELECT memb_acc FROM MEMBERS WHERE memb_acc = ?";
+	
+	
 
 	public static void main(String[] args) {
 		//checked
 		MemJDBCDAO dao = new MemJDBCDAO();
+		
+		//安卓測試
+	
 		
 //		//insert
 //		MemVO memVO1 = new MemVO();
@@ -532,7 +541,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 		return baos.toByteArray();	//將ByteArrayOutputStream轉成ByteArray
 	}
-
+	
 	@Override
 	public MemVO findByAccount(String memb_acc) {
 		MemVO memVO = null;
@@ -600,4 +609,78 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 		return memVO;
 	}
+
+	//安卓確認會員帳密
+	@Override
+	public boolean isMemAcc(String memb_acc, String memb_psw) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean isMember = false;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(FIND_BY_ID_PASWD);
+			pstmt.setString(1,memb_acc);
+			pstmt.setString(2,memb_psw);
+			ResultSet rs = pstmt.executeQuery();
+			isMember = rs.next();
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}return isMember;
+	}
+
+	@Override
+	public boolean isMembExist(String memb_acc) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean isMemberExist = false;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(FIND_BY_ID_PASWD);
+			pstmt.setString(1,memb_acc);
+			
+			ResultSet rs = pstmt.executeQuery();
+			isMemberExist = rs.next();
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}return isMemberExist;
+	}
+
 }
