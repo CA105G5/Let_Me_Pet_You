@@ -9,6 +9,13 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+
+
+
+import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_RscRt;
 
 
 
@@ -314,6 +321,74 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 		}
 		return list;
 	}
+	
+	@Override
+	public List<RscRtVO> getAll(Map<String, String[]> map) {
+		List<RscRtVO> list = new ArrayList<RscRtVO>();
+		RscRtVO rscRtVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+
+			String finalSQL = "select * from rsc_rt "
+			          + jdbcUtil_CompositeQuery_RscRt.get_WhereCondition(map)
+			          + "order by rsc_rt_id";
+			pstmt = con.prepareStatement(finalSQL);
+			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				rscRtVO = new RscRtVO();
+				rscRtVO.setRsc_id(rs.getString("rsc_id"));
+				rscRtVO = new RscRtVO();
+				rscRtVO.setRsc_rt_id(rs.getString("rsc_rt_id"));
+				rscRtVO.setRsc_id(rs.getString("rsc_id"));
+				rscRtVO.setMemb_id(rs.getString("memb_id"));
+				rscRtVO.setRsc_rt_time(rs.getTimestamp("rsc_rt_time"));
+				rscRtVO.setRsc_rt_comm(rs.getString("rsc_rt_comm"));
+				rscRtVO.setRsc_rv_des(rs.getString("rsc_rv_des"));
+				rscRtVO.setRsc_rt_status(rs.getString("rsc_rt_status"));
+				list.add(rscRtVO); // Store the row in the List
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}		
+		}
+		return list;
+	}
 	public static void main(String[] args) {
 
 		RscRtJDBCDAO dao = new RscRtJDBCDAO();
@@ -354,7 +429,25 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 //		System.out.println("---------------------");
 //
 		// 查詢
-		List<RscRtVO> list = dao.getAll();
+//		List<RscRtVO> list = dao.getAll();
+//		for (RscRtVO aRsc : list) {
+//			System.out.print(aRsc.getRsc_id() + ",");
+//			System.out.print(aRsc.getMemb_id() + ",");
+//			System.out.print(aRsc.getRsc_rt_time() + ",");
+//			System.out.print(aRsc.getRsc_rt_comm() + ",");
+//			System.out.print(aRsc.getRsc_rv_des() + ",");
+//			System.out.print(aRsc.getRsc_rt_status() + ",");
+//			System.out.print(aRsc.getRsc_rt_id()+ ",");
+//			System.out.println();
+//			
+//		}
+		
+	//複合查詢
+		
+		Map<String, String[]> map = new TreeMap<String, String[]>();
+		map.put("rsc_rt_id", new String[] { "RR0000000000001" });
+		map.put("action", new String[] { "getXXX" });
+		List<RscRtVO> list = dao.getAll(map);
 		for (RscRtVO aRsc : list) {
 			System.out.print(aRsc.getRsc_id() + ",");
 			System.out.print(aRsc.getMemb_id() + ",");
@@ -364,7 +457,8 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 			System.out.print(aRsc.getRsc_rt_status() + ",");
 			System.out.print(aRsc.getRsc_rt_id()+ ",");
 			System.out.println();
-			
 		}
 	}
+
+
 }
