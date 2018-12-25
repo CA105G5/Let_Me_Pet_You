@@ -9,6 +9,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+
+
+import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
 
 
 public class RescueJDBCDAO implements RescueDAO_interface{
@@ -374,6 +379,87 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		return list;
 	}
+	
+	@Override
+	public List<RescueVO> getAll(Map<String, String[]> map) {
+		List<RescueVO> list = new ArrayList<RescueVO>();
+		RescueVO rescueVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+
+			String finalSQL = "select * from volunteer "
+		          + jdbcUtil_CompositeQuery_Volunteer.get_WhereCondition(map)
+		          + "order by vlt_id";
+			pstmt = con.prepareStatement(finalSQL);
+			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				rescueVO = new RescueVO();
+				rescueVO.setRsc_id(rs.getString("rsc_id"));
+				rescueVO.setRsc_name(rs.getString("rsc_name"));
+				rescueVO.setRsc_add(rs.getString("rsc_add"));
+				rescueVO.setRsc_des(rs.getString("rsc_des"));
+				rescueVO.setRsc_img(rs.getBytes("rsc_img"));
+				rescueVO.setRsc_sponsor(rs.getString("rsc_sponsor"));
+				rescueVO.setVlt_id(rs.getString("vlt_id"));
+				rescueVO.setRsc_lat(rs.getDouble("rsc_lat"));
+				rescueVO.setRsc_lon(rs.getDouble("rsc_lon"));
+				rescueVO.setRsc_sta(rs.getString("rsc_sta"));
+				rescueVO.setRsc_stm_time(rs.getTimestamp("rsc_stm_time"));
+				rescueVO.setRsc_stm_url(rs.getString("rsc_stm_url"));
+				rescueVO.setRsc_stm_sta(rs.getString("rsc_stm_sta"));
+				rescueVO.setRsc_btime(rs.getTimestamp("rsc_btime"));
+				rescueVO.setRsc_coin(rs.getInt("rsc_coin"));
+				rescueVO.setRsc_etime(rs.getTimestamp("rsc_etime"));
+				rescueVO.setRsc_reg(rs.getString("rsc_reg"));
+				rescueVO.setRsc_rt_status(rs.getString("rsc_rt_status"));
+				rescueVO.setNtf_vlt_dt(rs.getString("ntf_vlt_dt"));
+				rescueVO.setNtf_vlt_link(rs.getString("ntf_vlt_link"));
+				rescueVO.setNtf_vlt_sta(rs.getString("ntf_vlt_sta"));
+				rescueVO.setNtf_vlt_time(rs.getTimestamp("ntf_vlt_time"));
+				list.add(rescueVO); // Store the row in the List
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}		
+		}
+		return list;
+	}
 	public static void main(String[] args) {
 
 		RescueJDBCDAO dao = new RescueJDBCDAO();
@@ -432,4 +518,6 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			System.out.println();
 		}
 	}
+
+
 }
