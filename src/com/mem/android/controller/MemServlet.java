@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.mem.model.MemDAO_interface;
 import com.mem.model.MemJDBCDAO;
 import com.mem.model.MemVO;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 public class MemServlet extends HttpServlet {
 	private final static String CONTENT_TYPE = "text/html; charset=UTF-8";
@@ -43,6 +47,14 @@ public class MemServlet extends HttpServlet {
 		} else if ("isMemExist".equals(action)) {
 			String memb_acc = jsonObject.get("memb_acc").getAsString();
 			writeText(res, String.valueOf(MemDao.isMemExist(memb_acc)));
+		}else if ("findByAccount".equals(action)) {
+			String memb_acc = jsonObject.get("memb_acc").getAsString();
+//			writeText(res, memb_acc == null ? "" : gson.toJson(memb_acc));
+			writeText(res, gson.toJson(MemDao.findByAccount(memb_acc)));//將DAO的findByAccount(欄位)包成gson
+//			Type allinfo = TypeToken<List<MemVO>>(){
+//			}
+//			List<MemVO> list = gson.fromJson(jsonObject.get(a).getAsString(), Member.class)
+//			writeText(res, gson.toJson(list));
 //		}else if ("isMembAccExist".equals(action)) {
 //			String memb_acc = jsonObject.get("memb_acc").getAsString();
 //			writeText(res, String.valueOf(MemDao.isMembAccExist(memb_acc)));

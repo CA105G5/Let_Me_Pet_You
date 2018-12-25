@@ -10,5 +10,8 @@ public interface RescuingDAO_interface {
     public RescuingVO findByPrimaryKey(String rsc_id);
     public List<RescuingVO> getAll();
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
-  public List<RescuingVO> getAll(Map<String, String[]> map); 
+  public List<RescuingVO> getAll(Map<String, String[]> map);
+  
+  	//安卓功能
+  
 }
