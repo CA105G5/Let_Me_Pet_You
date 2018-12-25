@@ -15,7 +15,7 @@ public class RscRtService {
 	public void addRscRt(RscRtVO rscRtVO) {
 		dao.insert(rscRtVO);
 	}
-	public void updateRescuing(RscRtVO rscRtVO) {
+	public void updateRscRt(RscRtVO rscRtVO) {
 		
 		dao.update(rscRtVO);
 	}
@@ -23,7 +23,7 @@ public class RscRtService {
 		dao.delete(rsc_rt_id);
 	}
 	
-	public RscRtVO getOneRescuing(String rsc_rt_id) {
+	public RscRtVO getOneRscRt(String rsc_rt_id) {
 		return dao.findByPrimaryKey(rsc_rt_id);
 	}
 	
