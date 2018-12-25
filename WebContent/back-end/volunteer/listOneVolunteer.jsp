@@ -79,8 +79,7 @@
 		<td><%=volunteerVO.getVlt_gender()%></td>
 		<td><%=volunteerVO.getVlt_tel()%></td>
 		<td><img src="<%=request.getContextPath()%>/back-end/volunteer/volunteerImg.do?vlt_id=${volunteerVO.vlt_id}"/></td>
-		<jsp:useBean id="volunteerSvc" scope="page" class="com.volunteer.model.VolunteerService" />
-		<td><%=volunteerVO.getVlt_registerdate()%>${volunteerSVC.getOneVolunteer(vlt_id).vlt_registerdate }</td>
+		<td><%=volunteerVO.getVlt_registerdate()%></td>
 		<td><%=volunteerVO.getVlt_duty_day()%></td>
 		<td><%=volunteerVO.getVlt_sta()%></td>
 		<td><%=volunteerVO.getVlt_reg()%></td>

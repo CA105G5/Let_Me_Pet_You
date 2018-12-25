@@ -170,7 +170,7 @@ public class VolunteerServlet extends HttpServlet{
 				//志工狀態
 				String vlt_sta = req.getParameter("vlt_sta").trim();
 				java.sql.Date vlt_registerdate = java.sql.Date.valueOf(req.getParameter("vlt_registerdate").trim());
-				
+				System.out.println(vlt_registerdate);
 				VolunteerVO volunteerVO = new VolunteerVO();
 				volunteerVO.setVlt_id(vlt_id);
 				volunteerVO.setVlt_name(vlt_name);
@@ -180,7 +180,7 @@ public class VolunteerServlet extends HttpServlet{
 				volunteerVO.setVlt_duty_day(vlt_duty_day);
 				volunteerVO.setVlt_sta(vlt_sta);
 				volunteerVO.setVlt_reg(vlt_reg);
-				volunteerVO.setVlt_registerdate(vlt_registerdate);
+				
 				
 				
 
@@ -199,7 +199,7 @@ public class VolunteerServlet extends HttpServlet{
 				/***************************2.開始修改資料*****************************************/
 				VolunteerService volunteerSvc = new VolunteerService();
 				volunteerVO = volunteerSvc.updateForManager(vlt_id,vlt_name, vlt_mail,vlt_gender, vlt_tel,vlt_duty_day,vlt_sta,vlt_reg);
-				
+				volunteerVO.setVlt_registerdate(vlt_registerdate);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("volunteerVO", volunteerVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				String url = "/back-end/volunteer/listOneVolunteer.jsp";
