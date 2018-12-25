@@ -29,6 +29,12 @@ public class VolunteerService {
 		return volunteerVO;
 	}
 	
+	public void addVolunteer(VolunteerVO volunteerVO) {
+		
+		dao.insert(volunteerVO);
+		
+	}
+	
 
 	public VolunteerVO updateForManager(String vlt_id,String vlt_name,String vlt_mail,String vlt_gender,String vlt_tel,String vlt_duty_day,String vlt_sta,String vlt_reg){
 		
@@ -44,6 +50,11 @@ public class VolunteerService {
 		volunteerVO.setVlt_reg(vlt_reg);
 		dao.updateForManager(volunteerVO);
 		return volunteerVO;
+	}
+	
+	public void updateForManager(VolunteerVO volunteerVO){
+		
+		dao.updateForManager(volunteerVO);
 	}
 	
 	public VolunteerVO updateForVolunteer(String vlt_id,String vlt_pw,String vlt_tel,byte[] vlt_img,String vlt_duty_day){
