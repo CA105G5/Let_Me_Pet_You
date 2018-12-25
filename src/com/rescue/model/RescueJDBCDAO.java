@@ -17,7 +17,7 @@ import com.rescueCoin.model.RescueCoinVO;
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Rescue;
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
 
-
+ 
 public class RescueJDBCDAO implements RescueDAO_interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";

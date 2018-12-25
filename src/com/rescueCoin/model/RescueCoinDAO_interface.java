@@ -2,7 +2,7 @@ package com.rescueCoin.model;
 
 import java.util.*;
 
-
+ 
 
 public interface RescueCoinDAO_interface {
 	public void insert(RescueCoinVO rescueCoinVO);

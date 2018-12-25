@@ -1,6 +1,6 @@
 package com.rescuing.model;
 
-import java.util.*;
+import java.util.*; 
 
 
 public interface RescuingDAO_interface {

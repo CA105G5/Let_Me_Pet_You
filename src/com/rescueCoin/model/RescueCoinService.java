@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.rescuing.model.RescuingVO;
-
+ 
 public class RescueCoinService {
 	
 	private RescueCoinDAO_interface dao;

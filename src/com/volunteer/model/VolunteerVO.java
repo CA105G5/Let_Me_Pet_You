@@ -1,7 +1,7 @@
 package com.volunteer.model;
 
 public class VolunteerVO implements java.io.Serializable{
-
+ 
 	private String vlt_id;
 	private String vlt_name;
 	private String vlt_mail;

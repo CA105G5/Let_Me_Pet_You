@@ -2,7 +2,7 @@ package com.rescue.model;
 
 import java.util.*;
 
-
+ 
 public interface RescueDAO_interface {
     public void insert(RescueVO rescueVO);
     public void update(RescueVO rescueVO);

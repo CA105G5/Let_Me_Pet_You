@@ -4,7 +4,7 @@ public class jdbcUtil_CompositeQuery_Rescue {
 
 	public static String get_aCondition_For_Oracle(String columnName, String value) {
 
-		String aCondition = null;
+		String aCondition = null; 
 
 //		if ( "vlt_duty_day".equals(columnName) || "vlt_sta".equals(columnName) || "vlt_reg".equals(columnName)) // 用於其他
 //			aCondition = columnName + "=" + value;

@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_RescueCoin;
 
-
+ 
 
 
 public class RescueCoinJDBCDAO implements RescueCoinDAO_interface {

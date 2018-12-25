@@ -4,7 +4,7 @@ import java.util.List;
 
 public class VolunteerService {
 	
-	private VolunteerDAO_interface dao;
+	private VolunteerDAO_interface dao; 
 	
 	public VolunteerService() {
 		dao = new VolunteerJDBCDAO();

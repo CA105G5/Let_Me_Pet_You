@@ -3,7 +3,7 @@ package com.rescuing.model;
 import java.util.List;
 import java.util.Map;
 
-
+ 
 
 public class RescuingService {
 	

@@ -7,7 +7,7 @@ import java.util.TreeMap;
 public class jdbcUtil_CompositeQuery_Rescuing {
 	public static String get_aCondition_For_Oracle(String columnName, String value) {
 
-		String aCondition = null;
+		String aCondition = null; 
 
 		if("rscing_lat".equals(columnName) || "rscing_lon".equals(columnName)) //其它
 			aCondition = columnName + "=" + value;		//用於varchar

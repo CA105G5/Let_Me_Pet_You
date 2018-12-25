@@ -1,7 +1,7 @@
 ﻿package com.rescue.model;
 
 import java.sql.Timestamp;
-
+ 
 public class RescueVO implements java.io.Serializable{
 	
 	private String rsc_id;
