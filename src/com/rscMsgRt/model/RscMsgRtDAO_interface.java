@@ -1,6 +1,7 @@
 package com.rscMsgRt.model;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface RscMsgRtDAO_interface {
@@ -10,5 +11,5 @@ public interface RscMsgRtDAO_interface {
     public RscMsgRtVO findByPrimaryKey(String rsc_msg_rt_id);
     public List<RscMsgRtVO> getAll();
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
-//  public List<RscMsgRtVO> getAll(Map<String, String[]> map); 
+    public List<RscMsgRtVO> getAll(Map<String, String[]> map); 
 }

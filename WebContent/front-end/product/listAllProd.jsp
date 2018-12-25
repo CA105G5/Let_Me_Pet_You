@@ -11,11 +11,14 @@
 <%
 	List<ProdVO> list;
 	list = (List) request.getAttribute("list");
+	System.out.println("list="+list);
 	if (list==null){
 		ProdService prodSvc = new ProdService(); 
 		list = prodSvc.getAll();
 		pageContext.setAttribute("list", list);
 	}
+	
+	
 %>
 
 <!DOCTYPE html>
@@ -65,6 +68,7 @@
 	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
 	crossorigin="anonymous">
+	
 
 <style type="text/css">
 p {
@@ -125,17 +129,17 @@ div {
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
 				<div class="row">
 					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;"></div> <!-- position: fixed -->
-					<div class="col-xs-12 col-sm-10">
+					<div class="col-xs-12 col-sm-10" >
 						<div class="row">
-							<c:forEach var="prodVO" items="${list}">
+						<%@ include file="/front-end/product/pages/page1.file" %> 
+							<c:forEach var="prodVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 <%-- 								<c:if test="${'上架'.equals(prodVO.prod_status)}" var="condition" scope="page"> --%>
 									<div class="col-lg-3 cl-md-3">
 										<div class="single-training">
 											<div class="thumb relative">
 												<div class="overlay-bg"></div>
 												<img class="img-fluid"
-													src="<%=request.getContextPath()%>/util/PicReader?prod_id=${prodVO.prod_id}"
-													alt="">
+													src="<%=request.getContextPath()%>/util/PicReader?prod_id=${prodVO.prod_id}" alt="">
 												<!-- 												<a class="admission-btn" href="#">Admission	Going on</a> -->
 											</div>
 											<div class="details">
@@ -148,13 +152,19 @@ div {
 									</div>
 <%-- 								</c:if> --%>
 							</c:forEach>
+							<br>
+							<br>
+							
+							
 						</div>
+						<div style="float:center"><%@ include file="/front-end/product/pages/page2.file" %></div>
 					</div>
 
 				</div>
 			</div>
 		</div>
 	</section>
+	
 	
 
 
@@ -180,6 +190,8 @@ div {
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -196,6 +208,18 @@ div {
 		    });
 		});
 	</script>
+	
+<!-- 	分頁點擊 -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    $(".pagination").click(function(e){
+		        $("ul.pagination li").attr("class", "");
+		        $(e.target).attr("class", "active");
+		    });
+		});
+	</script>
+	
+	
 </body>
 </html>
 

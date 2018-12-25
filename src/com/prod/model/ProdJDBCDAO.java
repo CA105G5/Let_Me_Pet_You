@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.prod.model.ProdVO;
 
@@ -304,6 +305,13 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 		return list;
 
 	}
+	
+	@Override
+	public List<ProdVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 	@Override
 	public void delete(String prod_id) {
@@ -459,5 +467,7 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 //			System.out.println();
 //		}
 	}
+
+	
 
 }
