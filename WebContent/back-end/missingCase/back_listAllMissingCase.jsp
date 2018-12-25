@@ -119,7 +119,7 @@
                                                 <tr>
                                                     <td class="serial"><%=++x %></td>
                                                     <td class="avatar">
-                                                      ${missingCaseVO.missing_case_id}
+                                                      <a href="<%=request.getContextPath()%>/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id=${missingCaseVO.missing_case_id}">${missingCaseVO.missing_case_id}</a>
                                                     </td>
                                                     <td>${missingCaseVO.missing_name}</td>
                                                     <td>  <span class="name">${missingCaseVO.memb_id}</span> </td>
