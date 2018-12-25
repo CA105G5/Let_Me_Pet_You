@@ -231,7 +231,8 @@ div {
 										<option value="4">4</option>
 									</select>
 								</div>
-							</div>
+							</div> <span style="inline">
+<%-- 							</span>庫存: ${prodVO.prod_stock} --%>
 									
 							<div style="text-align:right;">
 								<a href="#" class="genric-btn primary-border circle" style="width: 120px;"> 加入購物車</a>							

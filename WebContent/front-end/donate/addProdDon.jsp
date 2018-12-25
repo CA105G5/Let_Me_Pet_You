@@ -51,7 +51,7 @@
 	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
 	crossorigin="anonymous">
-<script src="<%=request.getContextPath()%>/ckeditor2/ckeditor.js"></script>
+<script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 
 <style type="text/css">
 p {

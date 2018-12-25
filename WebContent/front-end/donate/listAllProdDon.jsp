@@ -132,11 +132,11 @@ div {
 													<thead>
 														<tr class="success">
 															<th style="width: 30px">序號</th>
-															<th style="width: 30px">照片</th>
+															<th style="width: 50px">照片</th>
 															<th>商品編號</th>
 															<th>商品名稱</th>
 															<th>適用動物</th>
-<!-- 															<th>商品種類</th> -->
+															<th>商品種類</th>
 															<th>價格</th>
 															<th>捐贈數量</th>
 															<th>申請日期</th>
@@ -156,7 +156,7 @@ div {
 																	<td style=" margin-bottom: auto">${prodVO.prod_id}</td>
 																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${prodVO.prod_id}">${prodVO.prod_name}</a></td>
 																	<td style=" margin-bottom: auto">${prodVO.prod_ani_type_id}</td>
-<%-- 																	<td style=" margin-bottom: auto">${prodVO.prod_type_id}</td> --%>
+																	<td style=" margin-bottom: auto">${prodVO.prod_type_id}</td>
 																	<td style=" margin-bottom: auto">$${prodVO.prod_price}</td>
 																	<td style=" margin-bottom: auto">${prodVO.prod_qty}</td>
 																	<td style=" margin-bottom: auto"><fmt:formatDate value="${prodVO.prod_date}" pattern="yyyy-MM-dd"/></td>
@@ -183,11 +183,11 @@ div {
 													<thead>
 														<tr class="success">
 															<th style="width: 30px">序號</th>
-															<th style="width: 30px">照片</th>
+															<th style="width: 50px">照片</th>
 															<th>商品編號</th>
 															<th>商品名稱</th>
 															<th>適用動物</th>
-<!-- 															<th>商品種類</th> -->
+															<th>商品種類</th>
 															<th>價格</th>
 															<th>捐贈數量</th>
 															<th>庫存量</th>
@@ -208,7 +208,7 @@ div {
 																	<td style=" margin-bottom: auto">${prodVO.prod_id}</td>
 																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${prodVO.prod_id}">${prodVO.prod_name}</a></td>
 																	<td style=" margin-bottom: auto">${prodVO.prod_ani_type_id}</td>
-<%-- 																	<td style=" margin-bottom: auto">${prodVO.prod_type_id}</td> --%>
+																	<td style=" margin-bottom: auto">${prodVO.prod_type_id}</td>
 																	<td style=" margin-bottom: auto">$${prodVO.prod_price}</td>
 																	<td style=" margin-bottom: auto">${prodVO.prod_qty}</td>
 																	<td style=" margin-bottom: auto">${prodVO.prod_stock}</td>
@@ -236,11 +236,11 @@ div {
 													<thead>
 														<tr class="success">
 															<th style="width: 30px">序號</th>
-															<th style="width: 30px">照片</th>
+															<th style="width: 50px">照片</th>
 															<th>商品編號</th>
 															<th>商品名稱</th>
 															<th>適用動物</th>
-<!-- 															<th>商品種類</th> -->
+															<th>商品種類</th>
 															<th>價格</th>
 															<th>捐贈數量</th>
 															<th>庫存量</th>
@@ -261,7 +261,7 @@ div {
 																	<td style=" margin-bottom: auto">${prodVO.prod_id}</td>
 																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${prodVO.prod_id}">${prodVO.prod_name}</a></td>
 																	<td style=" margin-bottom: auto">${prodVO.prod_ani_type_id}</td>
-<%-- 																	<td style=" margin-bottom: auto">${prodVO.prod_type_id}</td> --%>
+																	<td style=" margin-bottom: auto">${prodVO.prod_type_id}</td>
 																	<td style=" margin-bottom: auto">$${prodVO.prod_price}</td>
 																	<td style=" margin-bottom: auto">${prodVO.prod_qty}</td>
 																	<td style=" margin-bottom: auto">${prodVO.prod_stock}</td>
@@ -289,11 +289,11 @@ div {
 													<thead>
 														<tr class="success">
 															<th style="width: 30px">序號</th>
-															<th style="width: 30px">照片</th>
+															<th style="width: 50px">照片</th>
 															<th>商品編號</th>
 															<th>商品名稱</th>
 															<th>適用動物</th>
-<!-- 															<th>商品種類</th> -->
+															<th>商品種類</th>
 															<th>價格</th>
 															<th>捐贈數量</th>
 															<th>申請日期</th>
@@ -314,7 +314,7 @@ div {
 																	<td style=" margin-bottom: auto">${prodVO.prod_id}</td>
 																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${prodVO.prod_id}">${prodVO.prod_name}</a></td>
 																	<td style=" margin-bottom: auto">${prodVO.prod_ani_type_id}</td>
-<%-- 																	<td style=" margin-bottom: auto">${prodVO.prod_type_id}</td> --%>
+																	<td style=" margin-bottom: auto">${prodVO.prod_type_id}</td>
 																	<td style=" margin-bottom: auto">$${prodVO.prod_price}</td>
 																	<td style=" margin-bottom: auto">${prodVO.prod_qty}</td>
 																	<td style=" margin-bottom: auto"><fmt:formatDate value="${prodVO.prod_date}" pattern="yyyy-MM-dd"/></td>
