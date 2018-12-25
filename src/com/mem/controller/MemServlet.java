@@ -20,6 +20,7 @@ import com.mem.model.MemVO;
 
 @MultipartConfig
 public class MemServlet extends HttpServlet {
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		doPost(req, res);
@@ -28,6 +29,7 @@ public class MemServlet extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
 		if("getOne".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -398,9 +400,8 @@ public class MemServlet extends HttpServlet {
 						//登入成功
 						HttpSession session = req.getSession();
 						session.setAttribute("memVO", memVO);
-						RequestDispatcher successView = req
-								.getRequestDispatcher("/front-end/members/index.jsp");
-						successView.forward(req, res);
+						res.sendRedirect(req.getContextPath()+"/front-end/members/index.jsp");
+						return;
 					}else {
 						//登入失敗
 						errorMsgs.add("輸入的密碼錯誤");

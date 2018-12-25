@@ -1,6 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.mem.model.*"%>
+<%
 
+  MemVO memVO = (MemVO) session.getAttribute("memVO");
+%>
 <html>
 <head>
 <%-- Mobile Specific Meta --%>
@@ -61,7 +65,14 @@
 					</div>
 				</div>
 				<div class="col-lg-4 col-sm-4 menu-top-right">
-				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a>
+				<% if(memVO == null){ %>
+				<a href="login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a>
+				<%}else{ 
+					out.print(memVO.getMemb_nick()+"，你好");
+				%>
+				<a href="index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出" onclick="logout();"></a>
+				<a href="updateMembers.jsp">修改會員資料</a>
+				<%}%>
 					
 				</div>
 			</div>
@@ -153,5 +164,12 @@
 <%-- RWD--%>
 <script src="https://code.jquery.com/jquery.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function logout(){
+	<% session.setAttribute("memVO",null); %>
+	
+}
+
+</script>
 </body>
 </html>
