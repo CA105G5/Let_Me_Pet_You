@@ -5,8 +5,6 @@ import java.util.Map;
 
 
 
-
-
 public class RscRtService {
 	public RscRtDAO_interface dao;
 	

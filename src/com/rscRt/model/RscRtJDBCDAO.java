@@ -345,8 +345,7 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 			rs = pstmt.executeQuery();
 	
 			while (rs.next()) {
-				rscRtVO = new RscRtVO();
-				rscRtVO.setRsc_id(rs.getString("rsc_id"));
+
 				rscRtVO = new RscRtVO();
 				rscRtVO.setRsc_rt_id(rs.getString("rsc_rt_id"));
 				rscRtVO.setRsc_id(rs.getString("rsc_id"));
