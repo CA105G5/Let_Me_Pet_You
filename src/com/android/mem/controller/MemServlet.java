@@ -36,13 +36,13 @@ public class MemServlet extends HttpServlet {
 		String action = jsonObject.get("action").getAsString();
 
 		
-		if ("isMemACC".equals(action)) { 
+		if ("isMemAcc".equals(action)) { 
 			String memb_acc = jsonObject.get("memb_acc").getAsString();
 			String memb_psw = jsonObject.get("memb_psw").getAsString();
 			writeText(res,	String.valueOf(MemDao.isMemAcc(memb_acc, memb_psw)));
-		} else if ("isMembExist".equals(action)) {
+		} else if ("isMemExist".equals(action)) {
 			String memb_acc = jsonObject.get("memb_acc").getAsString();
-			writeText(res, String.valueOf(MemDao.isMembExist(memb_acc)));
+			writeText(res, String.valueOf(MemDao.isMemExist(memb_acc)));
 //		}else if ("isMembAccExist".equals(action)) {
 //			String memb_acc = jsonObject.get("memb_acc").getAsString();
 //			writeText(res, String.valueOf(MemDao.isMembAccExist(memb_acc)));
