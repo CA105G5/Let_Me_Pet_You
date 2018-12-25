@@ -11,8 +11,9 @@
 <%
   VolunteerVO volunteerVO = (VolunteerVO) request.getAttribute("volunteerVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
   pageContext.setAttribute("volunteerVO", volunteerVO);
+  
 %>
-
+	
 <html>
 <head>
 <title>志工資料</title>
@@ -64,7 +65,6 @@
 	<tr>
 		<th>志工編號</th>
 		<th>姓名</th>
-		<th>密碼</th>
 		<th>性別</th>
 		<th>電話</th>
 		<th>照片</th>
@@ -76,11 +76,11 @@
 	<tr>
 		<td><%=volunteerVO.getVlt_id()%></td>
 		<td><%=volunteerVO.getVlt_name()%></td>
-		<td><%=volunteerVO.getVlt_pw()%></td>
 		<td><%=volunteerVO.getVlt_gender()%></td>
 		<td><%=volunteerVO.getVlt_tel()%></td>
 		<td><img src="<%=request.getContextPath()%>/back-end/volunteer/volunteerImg.do?vlt_id=${volunteerVO.vlt_id}"/></td>
-		<td><%=volunteerVO.getVlt_registerdate()%></td>
+		<jsp:useBean id="volunteerSvc" scope="page" class="com.volunteer.model.VolunteerService" />
+		<td><%=volunteerVO.getVlt_registerdate()%>${volunteerSVC.getOneVolunteer(vlt_id).vlt_registerdate }</td>
 		<td><%=volunteerVO.getVlt_duty_day()%></td>
 		<td><%=volunteerVO.getVlt_sta()%></td>
 		<td><%=volunteerVO.getVlt_reg()%></td>

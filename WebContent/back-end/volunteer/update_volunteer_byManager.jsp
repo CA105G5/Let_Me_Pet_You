@@ -138,6 +138,7 @@
 <br>
 <input type="hidden" name="action" value="updatebymanager">
 <input type="hidden" name="vlt_id" value="<%=volunteerVO.getVlt_id()%>">
+<input type="hidden" name="vlt_registerdate" value="<%=volunteerVO.getVlt_registerdate()%>">
 <input type="submit" value="°e¥X­×§ï"></FORM>
 </body>
 </html>

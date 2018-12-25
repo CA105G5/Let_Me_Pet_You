@@ -169,6 +169,7 @@ public class VolunteerServlet extends HttpServlet{
 			
 				//志工狀態
 				String vlt_sta = req.getParameter("vlt_sta").trim();
+				java.sql.Date vlt_registerdate = java.sql.Date.valueOf(req.getParameter("vlt_registerdate").trim());
 				
 				VolunteerVO volunteerVO = new VolunteerVO();
 				volunteerVO.setVlt_id(vlt_id);
@@ -179,6 +180,8 @@ public class VolunteerServlet extends HttpServlet{
 				volunteerVO.setVlt_duty_day(vlt_duty_day);
 				volunteerVO.setVlt_sta(vlt_sta);
 				volunteerVO.setVlt_reg(vlt_reg);
+				volunteerVO.setVlt_registerdate(vlt_registerdate);
+				
 				
 
 				
