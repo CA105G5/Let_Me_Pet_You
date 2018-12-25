@@ -36,7 +36,7 @@ public class MemServlet extends HttpServlet {
 		String action = jsonObject.get("action").getAsString();
 
 		
-		if ("isMemAcc".equals(action)) { 
+		if ("isMemAcc".equals(action)) {  
 			String memb_acc = jsonObject.get("memb_acc").getAsString();
 			String memb_psw = jsonObject.get("memb_psw").getAsString();
 			writeText(res,	String.valueOf(MemDao.isMemAcc(memb_acc, memb_psw)));
