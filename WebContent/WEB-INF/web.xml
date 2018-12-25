@@ -168,11 +168,11 @@
 	
 	<servlet>
 		<servlet-name>AndroidVolunteerServlet</servlet-name>
-		<servlet-class>com.android.Volunteer.controller.VolunteerServlet</servlet-class>
+		<servlet-class>com.volunteer.android.controller.VolunteerServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AndroidVolunteerServlet</servlet-name>
-		<url-pattern>/Volunteer/VolunteerServlet.do</url-pattern>
+		<url-pattern>/volunteer/VolunteerServlet.do</url-pattern>
 	</servlet-mapping>
 	<!-- 結束 -->
 	
