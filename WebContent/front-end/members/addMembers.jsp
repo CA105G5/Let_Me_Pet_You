@@ -28,19 +28,16 @@
 			<%--
 			CSS
 			============================================= --%>
-			<link rel="stylesheet" href="css/linearicons.css">
-			<link rel="stylesheet" href="css/font-awesome.min.css">
-			<link rel="stylesheet" href="css/bootstrap.css">
-			<link rel="stylesheet" href="css/magnific-popup.css">
-			<link rel="stylesheet" href="css/nice-select.css">					
-			<link rel="stylesheet" href="css/animate.min.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">					
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
 			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">	
-			<link rel="stylesheet" href="css/owl.carousel.css">
-			<link rel="stylesheet" href="css/main.css">
-			<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="css/owl.carousel.css">
-<link rel="stylesheet" href="css/main.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
+			
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -80,7 +77,7 @@
   }
 </style>
 
-</head>
+
 
 </head>
 <body bgcolor='white'>
@@ -89,7 +86,7 @@
 			<div class="row header-top align-items-center">
 				<div class="col-lg-4 col-sm-4 menu-top-left">
 					<a href="index.jsp"> <img class="img-fluid"
-						src="img/logo2.png" width="200" alt="">
+						src="images/logo2.png" width="200" alt="">
 					</a>
 				</div>
 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex">
@@ -136,7 +133,7 @@
 
 
 
-<br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -257,25 +254,38 @@
 <br>
 <input type="hidden" name="action" value="insert">
 <div align="center"><input type="submit" value="送出新增"></div></FORM>
+
+
+<ul>
+  
+  
+  
+
+
+
+</ul>
+
+
+
 <%-- 模板script --%>
-<script src="js/vendor/jquery-2.2.4.min.js"></script>
+<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-			<script src="js/vendor/bootstrap.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>			
 			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-  			<script src="js/easing.min.js"></script>			
-			<script src="js/hoverIntent.js"></script>
-			<script src="js/superfish.min.js"></script>	
-			<script src="js/jquery.ajaxchimp.min.js"></script>
-			<script src="js/jquery.magnific-popup.min.js"></script>	
-			<script src="js/owl.carousel.min.js"></script>			
-			<script src="js/jquery.sticky.js"></script>
+  			<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>	
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>	
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
 			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>				
-			<script src="js/jquery.nice-select.min.js"></script>			
-			<script src="js/parallax.min.js"></script>	
-			<script src="js/waypoints.min.js"></script>
-			<script src="js/jquery.counterup.min.js"></script>			
-			<script src="js/mail-script.js"></script>	
-			<script src="js/main.js"></script>
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>	
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 			<script src="https://code.jquery.com/jquery.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>

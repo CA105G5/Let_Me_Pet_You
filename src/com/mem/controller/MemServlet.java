@@ -12,6 +12,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.mem.model.MemService;
@@ -19,6 +20,8 @@ import com.mem.model.MemVO;
 
 @MultipartConfig
 public class MemServlet extends HttpServlet {
+	
+	private static final long serialVersionUID = 3510764506563638117L;
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		doPost(req, res);
@@ -27,6 +30,7 @@ public class MemServlet extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
 		if("getOne".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -173,26 +177,29 @@ public class MemServlet extends HttpServlet {
 				if(memb_acc == null || memb_acc.trim().length() == 0) {
 					errorMsgs.add("請輸入會員帳號");
 				}
-				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = 
-					req.getRequestDispatcher("/front-end/members/index.jsp");
-					failureView.forward(req, res);
-					return;
-				}
+				
 				
 				/***************************2.開始查詢資料****************************************/
 				MemService memSvc = new MemService();
 				MemVO memVO = memSvc.getMemSelf(memb_acc);
-								
+				if(memVO == null) {
+					errorMsgs.add("查無此帳號");
+				}
+				if(!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = 
+					req.getRequestDispatcher("/front-end/members/addMembers.jsp");
+					failureView.forward(req, res);
+					return;
+				}
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("memVO", memVO);         // 資料庫取出的empVO物件,存入req
 				String url = "/front-end/members/client_update.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 client_update.jsp
 				successView.forward(req, res);
 			}catch(Exception e) {
-				errorMsgs.add("查無此帳號");
+				errorMsgs.add("有Exception");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/members/index.jsp");
+						.getRequestDispatcher("/front-end/members/addMembers.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -364,7 +371,65 @@ public class MemServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
+		if("login".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				String memb_acc = req.getParameter("memb_acc");
+				if(memb_acc == null || memb_acc.trim().length() == 0) {
+					errorMsgs.add("請輸入帳號");
+				}
+				String memb_psw = req.getParameter("memb_psw");
+				if(memb_psw == null || memb_psw.trim().length() == 0) {
+					errorMsgs.add("請輸入密碼");
+				}
+				MemVO memVO = new MemVO();
+				memVO.setMemb_acc(memb_acc);
+				memVO.setMemb_psw(memb_psw);
+				if(!errorMsgs.isEmpty()) {
+					req.setAttribute("memVO", memVO);
+					RequestDispatcher failureView = 
+					req.getRequestDispatcher("/front-end/members/login.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				try {
+					MemService memSvc = new MemService();
+					memVO = memSvc.getMemSelf(memb_acc);
+					if(memb_psw.equals(memVO.getMemb_psw())) {
+						//登入成功
+						HttpSession session = req.getSession();
+						session.setAttribute("memVO", memVO);
+						res.sendRedirect(req.getContextPath()+"/front-end/members/index.jsp");
+						return;
+					}else {
+						//登入失敗
+						errorMsgs.add("輸入的密碼錯誤");
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("/front-end/members/login.jsp");
+						failureView.forward(req, res);
+					}
+					
+				}catch(Exception e) {
+					if(memVO == null) {
+						errorMsgs.add("查無此帳號");
+					}else {
+						errorMsgs.add("資料庫的例外");
+					}
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/members/login.jsp");
+					failureView.forward(req, res);
+					
+					
+				}
+			}catch(Exception e) {
+				errorMsgs.add("發生其他例外:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/members/login.jsp");
+				failureView.forward(req, res);
+			}
+		}
 	}
 	public static final byte[] transbyte(InputStream inStream) throws IOException {
 		ByteArrayOutputStream swapStream = new ByteArrayOutputStream();

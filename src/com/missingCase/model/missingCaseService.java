@@ -11,7 +11,7 @@ public class missingCaseService {
 	}
 
 	public missingCaseVO addMissingCase(String memb_id, Timestamp missing_date, String missing_des, String missing_name,
-			String missing_loc, String missing_status_shelve, byte[] missing_photo) {
+			String missing_loc, String missing_status_shelve, byte[] missing_photo, String missing_type) {
 
 		missingCaseVO missingCaseVO = new missingCaseVO();
 
@@ -22,6 +22,7 @@ public class missingCaseService {
 		missingCaseVO.setMissing_loc(missing_loc);
 		missingCaseVO.setMissing_status_shelve(missing_status_shelve);
 		missingCaseVO.setMissing_photo(missing_photo);
+		missingCaseVO.setMissing_type(missing_type);
 		dao.insert(missingCaseVO);
 		
 		return missingCaseVO;
@@ -29,7 +30,7 @@ public class missingCaseService {
 
 	public missingCaseVO updateMissingCase(String missing_case_id, String memb_id, Timestamp missing_date,
 			String missing_des, String missing_name, String missing_loc, String missing_status_shelve,
-			byte[] missing_photo) {
+			byte[] missing_photo, String missing_type) {
 		missingCaseVO missingCaseVO = new missingCaseVO();
 		missingCaseVO.setMissing_case_id(missing_case_id);
 		missingCaseVO.setMemb_id(memb_id);
@@ -39,6 +40,7 @@ public class missingCaseService {
 		missingCaseVO.setMissing_loc(missing_loc);
 		missingCaseVO.setMissing_status_shelve(missing_status_shelve);
 		missingCaseVO.setMissing_photo(missing_photo);
+		missingCaseVO.setMissing_type(missing_type);
 		dao.update(missingCaseVO);
 
 		return missingCaseVO;

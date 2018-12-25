@@ -85,11 +85,11 @@
 		<td><input type="TEXT" name="vlt_mail" size="45"
 			 value="<%=volunteerVO.getVlt_mail()%>" /></td>
 	</tr>
-	<tr>
-		<td>密碼:</td>
-		<td><input type="TEXT" name="vlt_pw" size="45"
-			 value="<%=volunteerVO.getVlt_pw()%>" /></td>
-	</tr>
+<!-- 	<tr> -->
+<!-- 		<td>密碼:</td> -->
+<!-- 		<td><input type="TEXT" name="vlt_pw" size="45" -->
+<%-- 			 value="<%=volunteerVO.getVlt_pw()%>" /></td> --%>
+<!-- 	</tr> -->
 
 	<tr>
 		<td>性別:</td>
@@ -138,6 +138,7 @@
 <br>
 <input type="hidden" name="action" value="updatebymanager">
 <input type="hidden" name="vlt_id" value="<%=volunteerVO.getVlt_id()%>">
+<input type="hidden" name="vlt_registerdate" value="<%=volunteerVO.getVlt_registerdate()%>">
 <input type="submit" value="送出修改"></FORM>
 </body>
 </html>

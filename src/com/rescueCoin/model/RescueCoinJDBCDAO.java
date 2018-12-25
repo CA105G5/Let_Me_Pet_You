@@ -7,7 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
+import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_RescueCoin;
+
+ 
 
 
 public class RescueCoinJDBCDAO implements RescueCoinDAO_interface {
@@ -279,6 +284,68 @@ public class RescueCoinJDBCDAO implements RescueCoinDAO_interface {
 		return list;
 
 	}
+	
+	@Override
+	public List<RescueCoinVO> getAll(Map<String, String[]> map) {
+		
+		List<RescueCoinVO> list = new ArrayList<RescueCoinVO>();
+		RescueCoinVO rescueCoinVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+
+			String finalSQL = "select * from rescue_coin "
+		          + jdbcUtil_CompositeQuery_RescueCoin.get_WhereCondition(map)
+		          + "order by rsc_id";
+			pstmt = con.prepareStatement(finalSQL);
+			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				rescueCoinVO = new RescueCoinVO();
+				rescueCoinVO.setRsc_id(rs.getString("rsc_id"));
+				rescueCoinVO.setRsc_coin_mem(rs.getString("rsc_coin_mem"));
+				list.add(rescueCoinVO); // Store the row in the List
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}		
+		}
+		return list;
+	}
 
 	public static void main(String[] args) {
 
@@ -312,5 +379,18 @@ public class RescueCoinJDBCDAO implements RescueCoinDAO_interface {
 //			System.out.print(aRscCoin.getRsc_coin_mem() + ",");
 //			System.out.println();
 //		}
+//		複合查詢
+		
+		Map<String, String[]> map = new TreeMap<String, String[]>();
+		map.put("rsc_id", new String[] { "R000000001" });
+		map.put("rsc_coin_mem", new String[] { "M000000006" });
+		map.put("action", new String[] { "getXXX" });
+		List<RescueCoinVO> list = dao.getAll(map);
+		for (RescueCoinVO aRscCoin : list) {
+			System.out.print(aRscCoin.getRsc_id() + ",");
+			System.out.print(aRscCoin.getRsc_coin_mem() + ",");
+			System.out.println();
+		}
+
 	}
 }

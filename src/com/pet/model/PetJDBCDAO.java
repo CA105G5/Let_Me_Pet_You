@@ -26,12 +26,12 @@ public class PetJDBCDAO implements PetDAO_interface{
 	private static final String UPDATE_STMT="UPDATE PET_DATA set pet_name=?, memb_id=?,pet_gender=?,pet_birth=?,pet_descr=?,pet_status=?,pet_death=?, pet_microchip=?, pet_type=?, pet_photo=? where pet_id=?";
 	private static final String DELETE_STMT="DELETE FROM PET_DATA where pet_id=?";
 	private static final String GET_ONE_STMT="SELECT * FROM PET_DATA where pet_id=?";
-	private static final String GET_ALL_STMT="SELECT * FROM PET_DATA order by pet_id";
+	private static final String GET_ALL_STMT="SELECT * FROM PET_DATA where memb_id=?";
 
 	public static void main(String[] args) {
 		//checked
 		PetJDBCDAO dao = new PetJDBCDAO();
-		//insert
+//		//insert
 //		PetVO petVO1 = new PetVO();
 //		petVO1.setPet_name("lucky");
 //		petVO1.setMemb_id("M000000001");
@@ -60,12 +60,12 @@ public class PetJDBCDAO implements PetDAO_interface{
 //		dao.update(petVO2);
 //		System.out.println("修改成功");
 //		System.out.println("===========");
-//		
+		
 //		//delete
 //		dao.delete("PT00000007");
 //		System.out.println("刪除成功");
 //		System.out.println("===========");
-//		
+		
 //		//findByPrimaryKey
 //		PetVO petVO3 = dao.findByPrimaryKey("PT00000001");
 //		System.out.println(petVO3.getPet_id());
@@ -84,9 +84,9 @@ public class PetJDBCDAO implements PetDAO_interface{
 //		System.out.println("===========");
 //		
 //		
-//		//getAll
+//		//getAllPetsFromSameMember
 //		
-//		List<PetVO> list = dao.getAll();
+//		List<PetVO> list = dao.getAllPetsFromSameMember("M000000003");
 //		for(PetVO aPet : list) {
 //			System.out.println(aPet.getPet_id());
 //			System.out.println(aPet.getPet_name());
@@ -304,7 +304,7 @@ public class PetJDBCDAO implements PetDAO_interface{
 	}
 
 	@Override
-	public List<PetVO> getAll() {
+	public List<PetVO> getAllPetsFromSameMember(String memb_id) {
 		List<PetVO> list = new ArrayList<PetVO>();
 		PetVO petVO = null;
 		Connection con = null;
@@ -315,6 +315,7 @@ public class PetJDBCDAO implements PetDAO_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, password);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
+			pstmt.setString(1,memb_id);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

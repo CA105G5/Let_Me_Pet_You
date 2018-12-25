@@ -7,6 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import com.rescueCoin.model.RescueCoinVO;
+
+import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_RscTrack;
+
+
+
+
 
 
 
@@ -278,6 +288,68 @@ public class RscTrackJDBCDAO implements RscTrackDAO_interface{
 		}
 		return list;
 	}
+	
+	@Override
+	public List<RscTrackVO> getAll(Map<String, String[]> map) {
+		
+		List<RscTrackVO> list = new ArrayList<RscTrackVO>();
+		RscTrackVO rscTrackVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+
+			String finalSQL = "select * from rsc_track "
+			          + jdbcUtil_CompositeQuery_RscTrack.get_WhereCondition(map)
+			          + "order by rsc_id";
+			pstmt = con.prepareStatement(finalSQL);
+			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				rscTrackVO = new RscTrackVO();
+				rscTrackVO.setRsc_id(rs.getString("rsc_id"));
+				rscTrackVO.setMemb_id(rs.getString("memb_id"));
+				list.add(rscTrackVO); // Store the row in the List
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}		
+		}
+		return list;
+	}
 	public static void main(String[] args) {
 
 		RscTrackJDBCDAO dao = new RscTrackJDBCDAO();
@@ -289,26 +361,41 @@ public class RscTrackJDBCDAO implements RscTrackDAO_interface{
 //		dao.insert(rscTrackVO1);
 
 		// 修改(其實不需要這個，因為兩個都是主鍵)
-//		RscTrackVO rescueCoinVO2 = new RscTrackVO();
-//		rescueCoinVO2.setRsc_id("R000000001");
-//		rescueCoinVO2.setMemb_id("M000000005");
-//		dao.update(rescueCoinVO2);
+//		RscTrackVO rscTrackVO2 = new RscTrackVO();
+//		rscTrackVO2.setRsc_id("R000000001");
+//		rscTrackVO2.setMemb_id("M000000005");
+//		dao.update(rscTrackVO2);
 //
 		// 刪除
 //		dao.delete("R000000001","M000000005");
 //
 ////		// 查詢(其實不需要這個，因為兩個都是主鍵)
-//		RscTrackVO rescueCoinVO3 = dao.findByPrimaryKey("R000000004");
-//		System.out.print(rescueCoinVO3.getRsc_id() + ",");
-//		System.out.println(rescueCoinVO3.getMemb_id() + ",");
+//		RscTrackVO rscTrackVO3 = dao.findByPrimaryKey("R000000004");
+//		System.out.print(rscTrackVO3.getRsc_id() + ",");
+//		System.out.println(rscTrackVO3.getMemb_id() + ",");
 //		System.out.println("---------------------");
 //
 ////		 查詢
 //		List<RscTrackVO> list = dao.getAll();
-//		for (RscTrackVO aRscCoin : list) {
-//			System.out.print(aRscCoin.getRsc_id() + ",");
-//			System.out.print(aRscCoin.getMemb_id() + ",");
+//		for (RscTrackVO aRscTrack : list) {
+//			System.out.print(aRscTrack.getRsc_id() + ",");
+//			System.out.print(aRscTrack.getMemb_id() + ",");
+//			System.out.println();
+//		}
+		
+//		複合查詢
+		
+//		Map<String, String[]> map = new TreeMap<String, String[]>();
+//		map.put("rsc_id", new String[] { "R000000003" });
+//		
+//		map.put("action", new String[] { "getXXX" });
+//		List<RscTrackVO> list = dao.getAll(map);
+//		for (RscTrackVO aRscTrack : list) {
+//			System.out.print(aRscTrack.getRsc_id() + ",");
+//			System.out.print(aRscTrack.getMemb_id() + ",");
 //			System.out.println();
 //		}
 	}
+
+
 }

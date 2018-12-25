@@ -17,7 +17,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>Horse Club</title>
 
 <link
@@ -113,7 +113,7 @@ div {
 								<div class="input-group">
 									<label class="input-group-addon" style="width: 150px;">愛心商品種類</label>
 <!-- 						  			<input type="text" class="form-control" placeholder="愛心商品種類" id="prod_type_id" name="prod_type_id" style="width: 500px;"> -->
-									<select class="form-control custom-control" id="prod_type_id" name="prod_type_id" style="width: 500px;">
+									<select class="form-control custom-control" id="prod_type_id" name="prod_type_id" style="width: 500px; height:32px;">
 									
 									    <option value="食" ${ prodVO.prod_type_id.equals("食")? "selected":""}>食</option>
 									    <option value="衣" ${ prodVO.prod_type_id.equals("衣")? "selected":""}>衣</option>
@@ -127,7 +127,7 @@ div {
 								<div class="input-group">
 									<label class="input-group-addon" style="width: 150px;">愛心商品使用對象</label>
 <!-- 						  			<input type="text" class="form-control" placeholder="愛心商品使用對象" id="prod_ani_type_id" name="prod_ani_type_id" style="width: 500px;"> -->
-									<select class="form-control custom-control" id="prod_ani_type_id" name="prod_ani_type_id" style="width: 500px;">
+									<select class="form-control custom-control" id="prod_ani_type_id" name="prod_ani_type_id" style="width: 500px; height:32px;">
 									    <option value="貓" ${ prodVO.prod_ani_type_id.equals("貓")? "selected":""}>貓</option>
 									    <option value="狗" ${ prodVO.prod_ani_type_id.equals("狗")? "selected":""}>狗</option>
 									    <option value="飛禽" ${ prodVO.prod_ani_type_id.equals("飛禽")? "selected":""}>飛禽</option>
@@ -150,7 +150,7 @@ div {
 						  			<br>
 						  			<br>
 						  			<br>
-						  			<DIV id="preview"></DIV>
+						  			<DIV id="preview"><img src="<%=request.getContextPath()%>/front-end/donate/noPic.png" width="100px" style="bottom-padding: 50px"></DIV>
 <!-- 						  			<input type="file" class="form-control" id="prod_ani_type_id" name="prod_ani_type_id" style="margin-left:150px;"> -->
 <!-- 									<label class="form-control" for="prod_ani_type_id" style="text-align:center; ">選擇檔案</label> -->
 								</div>

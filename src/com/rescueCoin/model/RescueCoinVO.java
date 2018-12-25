@@ -1,7 +1,7 @@
 package com.rescueCoin.model;
 
 public class RescueCoinVO implements java.io.Serializable{
-	
+	 
 	private String rsc_id;
 	private String rsc_coin_mem;
 	public String getRsc_id() {

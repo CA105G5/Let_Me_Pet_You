@@ -19,11 +19,11 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 			e.printStackTrace();
 		}
 	}
-	private static final String INSERT_STMT = "INSERT INTO missing_case(missing_case_id,memb_id,missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo) VALUES ('S'||LPAD(to_char(missing_case_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT missing_case_id,memb_id,to_char(missing_date,'yyyy-mm-dd hh24:mi:ss')missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo FROM missing_case order by missing_case_id";
-	private static final String GET_ONE_STMT = "SELECT missing_case_id,memb_id,to_char(missing_date,'yyyy-mm-dd hh24:mi:ss')missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo FROM missing_case where missing_case_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO missing_case(missing_case_id,memb_id,missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo,missing_type) VALUES ('S'||LPAD(to_char(missing_case_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT missing_case_id,memb_id,to_char(missing_date,'yyyy-mm-dd hh24:mi:ss')missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo,missing_type FROM missing_case order by missing_case_id";
+	private static final String GET_ONE_STMT = "SELECT missing_case_id,memb_id,to_char(missing_date,'yyyy-mm-dd hh24:mi:ss')missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo,missing_type FROM missing_case where missing_case_id = ?";
 	private static final String DELETE = "DELETE FROM missing_case where missing_case_id = ?";
-	private static final String UPDATE = "UPDATE missing_case set memb_id=?, missing_date=?, missing_name=?, missing_des=?, missing_loc=?, missing_status_shelve=?, missing_photo=? where missing_case_id = ?";
+	private static final String UPDATE = "UPDATE missing_case set memb_id=?, missing_date=?, missing_name=?, missing_des=?, missing_loc=?, missing_status_shelve=?, missing_photo=?, missing_type=? where missing_case_id = ?";
 
 	// 新增
 	@Override
@@ -44,6 +44,7 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 			pstmt.setString(5, missingCaseVO.getMissing_loc());
 			pstmt.setString(6, missingCaseVO.getMissing_status_shelve());
 			pstmt.setBytes(7, missingCaseVO.getMissing_photo());
+			pstmt.setString(8, missingCaseVO.getMissing_type());
 
 			pstmt.executeUpdate();
 
@@ -88,7 +89,8 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 			pstmt.setString(5, missingCaseVO.getMissing_loc());
 			pstmt.setString(6, missingCaseVO.getMissing_status_shelve());
 			pstmt.setBytes(7, missingCaseVO.getMissing_photo());
-			pstmt.setString(8, missingCaseVO.getMissing_case_id());
+			pstmt.setString(8, missingCaseVO.getMissing_type());
+			pstmt.setString(9, missingCaseVO.getMissing_case_id());
 
 			pstmt.executeUpdate();
 
@@ -180,6 +182,7 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 				missingCaseVO.setMissing_loc(rs.getString("missing_loc"));
 				missingCaseVO.setMissing_status_shelve(rs.getString("missing_status_shelve"));
 				missingCaseVO.setMissing_photo(rs.getBytes("missing_photo"));
+				missingCaseVO.setMissing_type(rs.getString("missing_type"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -236,6 +239,7 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 				missingCaseVO.setMissing_loc(rs.getString("missing_loc"));
 				missingCaseVO.setMissing_status_shelve(rs.getString("missing_status_shelve"));
 				missingCaseVO.setMissing_photo(rs.getBytes("missing_photo"));
+				missingCaseVO.setMissing_type(rs.getString("missing_type"));
 				list.add(missingCaseVO);
 			}
 		} catch (SQLException se) {

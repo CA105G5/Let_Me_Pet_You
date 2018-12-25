@@ -1,6 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page import="com.mem.model.*"%>
+<%
+  MemVO memVO = (MemVO) session.getAttribute("memVO");
+  
+%>
 <html>
 <head>
 <%-- Mobile Specific Meta --%>
@@ -21,19 +25,15 @@
 			<%--
 			CSS
 			============================================= --%>
-			<link rel="stylesheet" href="css/linearicons.css">
-			<link rel="stylesheet" href="css/font-awesome.min.css">
-			<link rel="stylesheet" href="css/bootstrap.css">
-			<link rel="stylesheet" href="css/magnific-popup.css">
-			<link rel="stylesheet" href="css/nice-select.css">					
-			<link rel="stylesheet" href="css/animate.min.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">					
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
 			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">	
-			<link rel="stylesheet" href="css/owl.carousel.css">
-			<link rel="stylesheet" href="css/main.css">
-			<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="css/owl.carousel.css">
-<link rel="stylesheet" href="css/main.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -69,7 +69,7 @@
 			<div class="row header-top align-items-center">
 				<div class="col-lg-4 col-sm-4 menu-top-left">
 					<a href="index.jsp"> <img class="img-fluid"
-						src="img/logo2.png" width="200" alt="">
+						src="images/logo2.png" width="200" alt="">
 					</a>
 				</div>
 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex">
@@ -83,8 +83,14 @@
 					</div>
 				</div>
 				<div class="col-lg-4 col-sm-4 menu-top-right">
-				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a>
-					
+				<% if(memVO == null){ %>
+				<a href="login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a>
+				<%}else{ 
+					out.print(memVO.getMemb_nick()+"，你好");
+				%>
+				<a href="index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出" onclick="logout();"></a>
+				<a href="updateMembers.jsp">修改會員資料</a>
+				<%}%>
 				</div>
 			</div>
 		</div>
@@ -286,32 +292,7 @@
 
 
 	
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-	    <c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
 
-<ul>
-  <li><a href='addMembers.jsp'>Become a new member!!!</a>  <br><br></li>
-  
-  
-  <li>
-    <FORM METHOD="post" ACTION="mem.do" >
-        <b>修改會員資料</b><br>
-        <b>輸入會員帳號 :</b>
-        <input type="text" name="memb_acc"> 
-        <input type="hidden" name="action" value="updateFromClient">
-        <input type="submit" value="送出">
-    </FORM>
-  </li>
-
-
-</ul>
 <%-- 移動照片區 --%>
 <center><h1>官方製作團隊</h1></center>
 	<section class="gallery-area">
@@ -320,42 +301,42 @@
 						<div class="active-gallery">
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="img/m1.jpg" alt="" height="300px">
+							        <img src="images/m1.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="img/m2.jpg" alt="" height="300px">
+							        <img src="images/m2.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="img/m3.jpg" alt="" height="300px">
+							        <img src="images/m3.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="img/m4.jpg" alt="" height="300px">
+							        <img src="images/m4.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="img/m5.jpg" alt="" height="300px">
+							        <img src="images/m5.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="img/g6.jpg" alt="" height="300px">
+							        <img src="images/g6.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
@@ -369,24 +350,31 @@
 
 
 <%-- 模板script --%>
-<script src="js/vendor/jquery-2.2.4.min.js"></script>
+<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-			<script src="js/vendor/bootstrap.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>			
 			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-  			<script src="js/easing.min.js"></script>			
-			<script src="js/hoverIntent.js"></script>
-			<script src="js/superfish.min.js"></script>	
-			<script src="js/jquery.ajaxchimp.min.js"></script>
-			<script src="js/jquery.magnific-popup.min.js"></script>	
-			<script src="js/owl.carousel.min.js"></script>			
-			<script src="js/jquery.sticky.js"></script>
+  			<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>	
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>	
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
 			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>				
-			<script src="js/jquery.nice-select.min.js"></script>			
-			<script src="js/parallax.min.js"></script>	
-			<script src="js/waypoints.min.js"></script>
-			<script src="js/jquery.counterup.min.js"></script>			
-			<script src="js/mail-script.js"></script>	
-			<script src="js/main.js"></script>
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>	
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+<script type="text/javascript">
+function logout(){
+	<% session.setAttribute("memVO",null); %>
+	
+}
+
+</script>	
 </body>
 
 

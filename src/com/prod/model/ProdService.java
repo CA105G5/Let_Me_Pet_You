@@ -2,6 +2,7 @@ package com.prod.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 public class ProdService {
 
@@ -80,5 +81,9 @@ public class ProdService {
 
 	public List<ProdVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public List<ProdVO> getAll(Map<String, String[]> map) {
+		return dao.getAll(map);
 	}
 }

@@ -99,7 +99,7 @@ public class missingCaseServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-//					/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+					/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				String membno = req.getParameter("membno");
 
 				String membnoReg = "^[M][0-9]{9}$";
@@ -154,6 +154,8 @@ public class missingCaseServlet extends HttpServlet {
 				missingCaseVO.setMissing_status_shelve(missing_status_shelve);
 				missingCaseVO.setMissing_photo(missing_photo);
 
+				String missing_type = req.getParameter("missing_type");
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("missingCaseVO", missingCaseVO); // 含有輸入格式錯誤的missingCaseVO物件,也存入req
@@ -165,7 +167,7 @@ public class missingCaseServlet extends HttpServlet {
 				/*************************** 2.開始新增資料 ***************************************/
 				missingCaseService missingCaseSvc = new missingCaseService();
 				missingCaseVO = missingCaseSvc.addMissingCase(membno, hiredate, missingDes, missingName, loc, null,
-						missing_photo);
+						missing_photo, missing_type);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				String url = "/front-end/missingCase/listAllMissingCase.jsp";
@@ -213,7 +215,7 @@ public class missingCaseServlet extends HttpServlet {
 
 			req.setAttribute("errorMsgs", errorMsgs);
 
-//			try {
+			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
 				String missing_case_id = req.getParameter("missing_case_id");
@@ -249,7 +251,7 @@ public class missingCaseServlet extends HttpServlet {
 					errorMsgs.add("失蹤地點請勿空白");
 				}
 				String missing_status_shelve = null;
-
+				String missing_type = null;
 				//照片
 				byte[] missing_photo = null;
 				Part part = req.getPart("upfile");
@@ -270,6 +272,7 @@ public class missingCaseServlet extends HttpServlet {
 				missingCaseVO.setMissing_loc(loc);
 				missingCaseVO.setMissing_status_shelve(missing_status_shelve);
 				missingCaseVO.setMissing_photo(missing_photo);
+				missingCaseVO.setMissing_type(missing_type);
 
 //					// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -282,7 +285,7 @@ public class missingCaseServlet extends HttpServlet {
 				/*************************** 2.開始修改資料 *****************************************/
 				missingCaseService missingCaseSvc = new missingCaseService();
 				missingCaseVO = missingCaseSvc.updateMissingCase(missing_case_id, membno, hiredate, missingDes,
-						missingName, loc, missing_status_shelve, missing_photo);
+						missingName, loc, missing_status_shelve, missing_photo, missing_type);
 				
 				
 				missingCaseVO = missingCaseSvc.getOneMissingCase(missing_case_id);
@@ -292,12 +295,12 @@ public class missingCaseServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				/*************************** 其他可能的錯誤處理 *************************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("修改資料失敗:" + e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/front-end/missingCase/update_missing_case.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/missingCase/update_missing_case.jsp");
+				failureView.forward(req, res);
+			}
 		}
 
 		if ("delete".equals(action)) {

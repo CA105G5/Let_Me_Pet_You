@@ -23,11 +23,11 @@ public class missingCaseImgServlet extends HttpServlet {
 		String missingcaseno = req.getParameter("missingcaseno");
 		missingCaseService missingCaseSvc = new missingCaseService();
 		byte[] pic = missingCaseSvc.getOneMissingCase(missingcaseno).getMissing_photo();
-		if(pic != null) {
-			pic = ImageUtil.shrink(pic, 200);
-			res.setContentType("image/gif");
-			res.setContentLength(pic.length);
-		}
+//		if(pic != null) {
+//			pic = ImageUtil.shrink(pic, 200);
+//			res.setContentType("image/gif");
+//			res.setContentLength(pic.length);
+//		}
 		
 		out.write(pic);
 		out.close();

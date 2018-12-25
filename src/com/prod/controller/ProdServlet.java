@@ -108,7 +108,7 @@ public class ProdServlet extends HttpServlet {
 			}
 		}
 		
-		if ("getAll_For_Display".equals(action)) { // 來自select_page.jsp的請求
+		if ("getOneModal_For_Display".equals(action)) { // 來自select_page.jsp的請求
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -117,97 +117,19 @@ public class ProdServlet extends HttpServlet {
 			
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				
-//				if (str == null || (str.trim()).length() == 0) {
-//					errorMsgs.add("請輸入產品編號");
-//				}
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/prod/select_page.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
-//				
-//				String prod_id = null;
-//				try {
-//					prod_id = new Integer(str);
-//				} catch (Exception e) {
-//					errorMsgs.add("員工編號格式不正確");
-//				}
-				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/prod/select_page.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
+				String prod_id = req.getParameter("prod_id");
 				
 				/***************************2.開始查詢資料*****************************************/
-				ProdService prodSvc = new ProdService(); //用介面ProdService來宣告，降低與DAO的相依性
-				List<ProdVO> list = prodSvc.getAll();
+				ProdService prodSvc = new ProdService();
+				ProdVO prodVO = prodSvc.getOneProd(prod_id);
 				
-				System.out.println(req.getParameter("type"));
-				Iterator<ProdVO> iter = list.iterator();
-				switch(req.getParameter("type")){
-					case "貓":
-						while (iter.hasNext()) {
-					    	ProdVO prodVO = iter.next();
-					        if(! "貓".equals(prodVO.getProd_ani_type_id())) {
-						        System.out.println(prodVO.getProd_ani_type_id());
-						        System.out.println(prodVO.getProd_id());
-						        iter.remove();
-					        }
-					    }
-						break;
-					case "狗":
-						while (iter.hasNext()) {
-					    	ProdVO prodVO = iter.next();
-					        if(! "狗".equals(prodVO.getProd_ani_type_id())) {
-					        	 iter.remove();
-					        }
-					    }
-						break;
-					case "飛禽":
-						while (iter.hasNext()) {
-							ProdVO prodVO = iter.next();
-							if(! "飛禽".equals(prodVO.getProd_ani_type_id())) {
-								iter.remove();
-							}
-						}
-						break;
-					case "兔":
-						while (iter.hasNext()) {
-							ProdVO prodVO = iter.next();
-							if(! "兔".equals(prodVO.getProd_ani_type_id())) {
-								iter.remove();
-							}
-						}
-						break;
-					case "其他":
-						while (iter.hasNext()) {
-							ProdVO prodVO = iter.next();
-							if(! "其他".equals(prodVO.getProd_ani_type_id())) {
-								iter.remove();
-							}
-						}
-						break;
-				}
-//				if (prodVO == null) {
-//					errorMsgs.add("查無資料");
-//				}
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/prod/select_page.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
+				ProdImgService prodImgSvc = new ProdImgService();
+				List<ProdImgVO> prodImgList = prodImgSvc.getOneProdImg(prod_id);
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("list", list); // 資料庫取出的prodVO物件,存入req
-				System.out.println("list長度= "+list.size());
-				String url = "/front-end/product/listAllProd.jsp";
+				req.setAttribute("prodVO", prodVO); // 資料庫取出的prodVO物件,存入req
+				req.setAttribute("prodImgList", prodImgList);
+				String url = "/front-end/product/listOneProdModal.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneProd.jsp
 				successView.forward(req, res);
 				
@@ -220,6 +142,156 @@ public class ProdServlet extends HttpServlet {
 			}
 		}
 		
+//		if ("getAll_For_Display".equals(action)) { // 來自select_page.jsp的請求
+//			
+//			List<String> errorMsgs = new LinkedList<String>();
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			req.setAttribute("errorMsgs", errorMsgs);
+//			
+//			try {
+//				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+//				
+////				if (str == null || (str.trim()).length() == 0) {
+////					errorMsgs.add("請輸入產品編號");
+////				}
+////				// Send the use back to the form, if there were errors
+////				if (!errorMsgs.isEmpty()) {
+////					RequestDispatcher failureView = req
+////							.getRequestDispatcher("/prod/select_page.jsp");
+////					failureView.forward(req, res);
+////					return;//程式中斷
+////				}
+////				
+////				String prod_id = null;
+////				try {
+////					prod_id = new Integer(str);
+////				} catch (Exception e) {
+////					errorMsgs.add("員工編號格式不正確");
+////				}
+//				// Send the use back to the form, if there were errors
+////				if (!errorMsgs.isEmpty()) {
+////					RequestDispatcher failureView = req
+////							.getRequestDispatcher("/prod/select_page.jsp");
+////					failureView.forward(req, res);
+////					return;//程式中斷
+////				}
+//				
+//				/***************************2.開始查詢資料*****************************************/
+//				ProdService prodSvc = new ProdService(); //用介面ProdService來宣告，降低與DAO的相依性
+//				List<ProdVO> list = prodSvc.getAll();
+//				
+//				System.out.println(req.getParameter("type"));
+//				Iterator<ProdVO> iter = list.iterator();
+//				switch(req.getParameter("type")){
+//					case "貓":
+//						while (iter.hasNext()) {
+//					    	ProdVO prodVO = iter.next();
+//					        if(! "貓".equals(prodVO.getProd_ani_type_id())) {
+//						        System.out.println(prodVO.getProd_ani_type_id());
+//						        System.out.println(prodVO.getProd_id());
+//						        iter.remove();
+//					        }
+//					    }
+//						break;
+//					case "狗":
+//						while (iter.hasNext()) {
+//					    	ProdVO prodVO = iter.next();
+//					        if(! "狗".equals(prodVO.getProd_ani_type_id())) {
+//					        	 iter.remove();
+//					        }
+//					    }
+//						break;
+//					case "飛禽":
+//						while (iter.hasNext()) {
+//							ProdVO prodVO = iter.next();
+//							if(! "飛禽".equals(prodVO.getProd_ani_type_id())) {
+//								iter.remove();
+//							}
+//						}
+//						break;
+//					case "兔":
+//						while (iter.hasNext()) {
+//							ProdVO prodVO = iter.next();
+//							if(! "兔".equals(prodVO.getProd_ani_type_id())) {
+//								iter.remove();
+//							}
+//						}
+//						break;
+//					case "其他":
+//						while (iter.hasNext()) {
+//							ProdVO prodVO = iter.next();
+//							if(! "其他".equals(prodVO.getProd_ani_type_id())) {
+//								iter.remove();
+//							}
+//						}
+//						break;
+//				}
+////				if (prodVO == null) {
+////					errorMsgs.add("查無資料");
+////				}
+////				// Send the use back to the form, if there were errors
+////				if (!errorMsgs.isEmpty()) {
+////					RequestDispatcher failureView = req
+////							.getRequestDispatcher("/prod/select_page.jsp");
+////					failureView.forward(req, res);
+////					return;//程式中斷
+////				}
+//				
+//				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+//				req.setAttribute("list", list); // 資料庫取出的prodVO物件,存入req
+//				System.out.println("list長度= "+list.size());
+//				String url = "/front-end/product/listAllProd.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneProd.jsp
+//				successView.forward(req, res);
+//				
+//				/***************************其他可能的錯誤處理*************************************/
+//			} catch (Exception e) {
+//				errorMsgs.add("無法取得資料:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/product/listAllProd.jsp");
+//				failureView.forward(req, res);
+//			}
+//		}
+		
+		
+		if ("listAll_ByCompositeQuery".equals(action)) { // 來自select_page.jsp的複合查詢請求
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+//			try {
+				
+				/***************************1.將輸入資料轉為Map**********************************/ 
+				//採用Map<String,String[]> getParameterMap()的方法 
+				//注意:an immutable java.util.Map 
+				Map<String, String[]> map = req.getParameterMap();
+				System.out.println("map size=" + map.size());
+				System.out.println("map.keySet()=" + map.keySet());
+				System.out.println("map.get('prod_ani_type_id')=" + Arrays.toString(map.get("prod_ani_type_id")));
+				req.setAttribute("map", map);
+				
+				/***************************2.開始複合查詢***************************************/
+				ProdService prodSvc = new ProdService(); //用介面ProdService來宣告，降低與DAO的相依性
+				List<ProdVO> list = prodSvc.getAll(map);
+				System.out.println("list=" + list);
+				System.out.println("=======list==null=======" + (list==null));
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				session.setAttribute("listAllProd_ByCompositeQuery", list); // 資料庫取出的list物件,存入request
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/listAllProd_ByCompositeQuery.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+//			} catch (Exception e) {
+//				errorMsgs.add(e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/product/listAllProd.jsp");
+//				failureView.forward(req, res);
+//			}
+		}	
+		
 		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllProd.jsp的請求
 
@@ -228,6 +300,8 @@ public class ProdServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			System.out.println("ProdServlet.java得到從listAllProdDon.jsp設定的屬性"+req.getAttribute("Test"));
+			System.out.println("ProdServlet.java得到從listAllProdDon.jsp傳過來的請求參數值"+req.getParameter("whichPage"));
+			System.out.println("ProdServlet.java得到從listAllProdDon.jsp傳過來的請求參數值"+req.getParameter("prod_id"));
 			
 			try {
 				/***************************1.接收請求參數****************************************/
@@ -284,10 +358,10 @@ public class ProdServlet extends HttpServlet {
 				String prod_info = req.getParameter("prod_info");
 				String prod_qty = req.getParameter("prod_qty");
 				String prod_price = req.getParameter("prod_price");
-				String prod_review = req.getParameter("prod_review");
+				String prod_review = null;
 				System.out.println(prod_review);
-				String prod_review_des = req.getParameter("prod_review_des");
-				String prod_status = req.getParameter("prod_status");
+				String prod_review_des = null;
+				String prod_status = null;
 //				Integer prod_stock = new Integer(req.getParameter("prod_stock"));
 //				DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Timestamp prod_date = new java.sql.Timestamp(new java.util.Date().getTime()); 
@@ -370,11 +444,11 @@ public class ProdServlet extends HttpServlet {
 				prodVO.setProd_des(prod_des);
 				prodVO.setProd_info(prod_info);
 				prodVO.setProd_qty(prod_qty_int);
-//				prodVO.setProd_stock(prod_stock); //庫存量為後端系統作業，不能被修改，先預設而已(not null >=0)
+				prodVO.setProd_stock(prod_qty_int); //庫存量為後端系統作業，不能被修改，先預設而已(not null >=0)
 				prodVO.setProd_date(prod_date);
-//				prodVO.setProd_review(prod_review);
-//				prodVO.setProd_review_des(prod_review_des);
-//				prodVO.setProd_status(prod_status);
+				prodVO.setProd_review(prod_review);
+				prodVO.setProd_review_des(prod_review_des);
+				prodVO.setProd_status(prod_status);
 				prodVO.setProd_price(prod_price_int);
 				
 				
@@ -457,10 +531,11 @@ public class ProdServlet extends HttpServlet {
 				System.out.println("prodImgList length="+ prodImgList.size());
 					
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				
 				req.setAttribute("prodVO", prodVO); // 資料庫update成功後,正確的的prodVO物件,存入req
 				req.setAttribute("prodImgList", prodImgList);
 				System.out.println("size of prodImgList= " + prodImgList.size());
-				String url = "/front-end/product/listOneProd.jsp";
+				String url = "/front-end/donate/listAllProdDon.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneProd.jsp
 				System.out.println("$$$$$$$$$$");
 				successView.forward(req, res);
@@ -710,8 +785,53 @@ public class ProdServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-	}
 	
+		//下架商品
+		if ("off".equals(action)) { // 來自listAllProd.jsp
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			System.out.println("ProdServlet.java得到從listAllProdDon.jsp設定的屬性"+req.getAttribute("Test"));
+			
+			try {
+				/***************************1.接收請求參數****************************************/
+				String prod_id = req.getParameter("prod_id");
+				
+				/***************************2.開始查詢資料****************************************/
+				ProdService prodSvc = new ProdService();
+				ProdVO prodVO = prodSvc.getOneProd(prod_id);
+				prodVO.setProd_status("下架");
+				prodSvc.updateProd(prodVO);
+				
+//				ProdImgService prodImgSvc = new ProdImgService();
+//				List<ProdImgVO> prodImgList = prodImgSvc.getOneProdImg(prod_id);
+	
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				String tab = req.getParameter("tab");
+				System.out.println("tab=" + tab);
+				req.setAttribute("tab", tab);
+				
+				String location = req.getParameter("location");
+				String url;
+				if (location.equals("back")) {
+					url = "/back-end/product/back_listAllProdDon.jsp";
+				} else {
+					url = "/front-end/donate/listAllProdDon.jsp";
+				}
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_prod_input.jsp
+				successView.forward(req, res);
+		
+					/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/donate/listAllProdDon.jsp");
+				failureView.forward(req, res);
+			}
+		}
+	}
+
 	public static byte[] getPictureByteArray(Part part) throws IOException {
 		InputStream in = part.getInputStream();
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();

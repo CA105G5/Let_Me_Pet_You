@@ -18,11 +18,11 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 	String userid = "CA105G5";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO donate (DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS) VALUES ('D'||LPAD(to_char(donate_id_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS FROM donate order by donate_ID";
-	private static final String GET_ONE_STMT = "SELECT DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS FROM donate where donate_ID = ?";
+	private static final String INSERT_STMT = "INSERT INTO donate (DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS, donate_name, donate_phone, donate_mail) VALUES ('D'||LPAD(to_char(donate_id_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS, donate_name, donate_phone, donate_mail FROM donate order by donate_ID";
+	private static final String GET_ONE_STMT = "SELECT DONATE_ID, MEMB_ID, BANK_ID, DONATE_AMOUNT, DONATE_DATE, DONATE_COIN, DONATE_PRIVATE, DONATE_SRC, DONATE_SRC_CRE, DONATE_SRC_TRN, DONATE_STATUS, donate_name, donate_phone, donate_mail FROM donate where donate_ID = ?";
 	private static final String DELETE = "DELETE FROM donate where donate_ID = ?";
-	private static final String UPDATE = "UPDATE donate set MEMB_ID=?, BANK_ID=?, DONATE_AMOUNT=?, DONATE_DATE=?, DONATE_COIN=?, DONATE_PRIVATE=?, DONATE_SRC=?, DONATE_SRC_CRE=?, DONATE_SRC_TRN=?, DONATE_STATUS=? where donate_ID = ?";
+	private static final String UPDATE = "UPDATE donate set MEMB_ID=?, BANK_ID=?, DONATE_AMOUNT=?, DONATE_DATE=?, DONATE_COIN=?, DONATE_PRIVATE=?, DONATE_SRC=?, DONATE_SRC_CRE=?, DONATE_SRC_TRN=?, DONATE_STATUS=?, donate_name=?, donate_phone=?, donate_mail=? where donate_ID = ?";
 
 	@Override
 	public void insert(DonateVO donateVO) {
@@ -54,6 +54,9 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 			pstmt.setString(8, donateVO.getDonate_src_cre());
 			pstmt.setString(9, donateVO.getDonate_src_trn());
 			pstmt.setString(10, donateVO.getDonate_status());
+			pstmt.setString(10, donateVO.getDonate_name());
+			pstmt.setString(10, donateVO.getDonate_phone());
+			pstmt.setString(10, donateVO.getDonate_mail());
 
 			int rowsUpdated = pstmt.executeUpdate();
 			System.out.println("Changed " + rowsUpdated + "rows");
@@ -106,6 +109,9 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 			pstmt.setString(8, donateVO.getDonate_src_cre());
 			pstmt.setString(9, donateVO.getDonate_src_trn());
 			pstmt.setString(10, donateVO.getDonate_status());
+			pstmt.setString(11, donateVO.getDonate_name());
+			pstmt.setString(12, donateVO.getDonate_phone());
+			pstmt.setString(13, donateVO.getDonate_mail());
 
 			int rowsUpdated = pstmt.executeUpdate();
 
@@ -168,6 +174,9 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 				donateVO.setDonate_src_cre(rs.getString("donate_src_cre"));
 				donateVO.setDonate_src_trn(rs.getString("donate_src_trn"));
 				donateVO.setDonate_status(rs.getString("donate_status"));
+				donateVO.setDonate_status(rs.getString("donate_name"));
+				donateVO.setDonate_status(rs.getString("donate_phone"));
+				donateVO.setDonate_status(rs.getString("donate_mail"));
 			}
 
 			// Handle any driver errors
@@ -234,6 +243,9 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 				donateVO.setDonate_src_cre(rs.getString("donate_src_cre"));
 				donateVO.setDonate_src_trn(rs.getString("donate_src_trn"));
 				donateVO.setDonate_status(rs.getString("donate_status"));
+				donateVO.setDonate_status(rs.getString("donate_name"));
+				donateVO.setDonate_status(rs.getString("donate_phone"));
+				donateVO.setDonate_status(rs.getString("donate_mail"));
 				list.add(donateVO); // Store the row in the list
 			}
 

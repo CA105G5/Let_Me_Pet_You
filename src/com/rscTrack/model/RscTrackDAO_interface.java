@@ -1,6 +1,6 @@
 package com.rscTrack.model;
 
-import java.util.List;
+import java.util.*;
 
 
 public interface RscTrackDAO_interface {
@@ -10,5 +10,5 @@ public interface RscTrackDAO_interface {
     public RscTrackVO findByPrimaryKey(String rsc_id);
     public List<RscTrackVO> getAll();
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
-//  public List<RscTrackVO> getAll(Map<String, String[]> map); 
+    public List<RscTrackVO> getAll(Map<String, String[]> map); 
 }

@@ -33,23 +33,23 @@
 			CSS
 			============================================= -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/linearicons.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/font-awesome.min.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/bootstrap.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/magnific-popup.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/nice-select.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/animate.min.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/owl.carousel.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/product/css/main.css">
+	href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -62,7 +62,9 @@
 	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
 	crossorigin="anonymous">
-<script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+	
+<script defer src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
 <style type="text/css">
 p {
 	　 font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
@@ -84,9 +86,9 @@ div {
 
 	<section class="service-page-area section-gap">
 		<div class="container">
-			<div class="row d-flex justify-content-center">
+			<div class="row d-flex justify-content-center ">
 				<div class="col-md-9 pb-40 header-text text-center">
-					<h1 class="pb-10">失蹤案例瀏覽</h1>
+					<h1 class="pb-10">失蹤案例新增</h1>
 					<p>hello.</p>
 				</div>
 			</div>
@@ -101,7 +103,6 @@ div {
 
 				<!-- 右邊內容區 -->
 				<div class="col-xs-12 col-sm-9">
-					<p>
 					<FORM METHOD="post" ACTION="miss.do">
 						<div class="form-group">
 							<c:if test="${not empty errorMsgs}">
@@ -114,73 +115,126 @@ div {
 							</c:if>
 					</FORM>
 
-					<FORM action="miss.do" method=post enctype="multipart/form-data">
-						<input type="file" name="upfile" id="file01">
-						<table>
-							<tr>
-								<td>圖片預覽:</td>
-								<td><img id="pre01"></td>
-							</tr>
-							<tr>
-								<td>會員編號:</td>
-								<td><input type="TEXT" name="membno" size="45"
-									value="<%=(missingCaseVO == null) ? "ex.M000000001" : missingCaseVO.getMemb_id()%>" /></td>
-							</tr>
-							<tr>
-								<td>寵物名稱:</td>
-								<td><input type="TEXT" name="missingName" size="45"
-									value="<%=(missingCaseVO == null) ? "你的寵物" : missingCaseVO.getMissing_name()%>" /></td>
-							</tr>
-							<tr>
-								<td>內容描述:</td>
-								<td><textarea name="missingDes">
-									<%=(missingCaseVO == null) ? "內容描述" : missingCaseVO.getMissing_des()%></textarea></td>
-							</tr>
-							<tr>
-								<td>失蹤日期:</td>
-								<td><input name="hiredate" id="m_date1" type="text"></td>
-							</tr>
-							<tr>
-								<td>地點</td>
-								<td><input type="TEXT" name="loc" size="45"
-									value="<%=(missingCaseVO == null) ? "失蹤地點" : missingCaseVO.getMissing_loc()%>" /></td>
-						</table>
-						<br> <input type="hidden" name="action" value="insert">
-						<input type="submit" value="送出新增">
-					</FORM>
+					<!-- 					<FORM action="miss.do" method=post enctype="multipart/form-data"> -->
+					<!-- 						<input type="file" name="upfile" id="file01"> -->
+					<!-- 						<table> -->
+					<!-- 							<tr> -->
+					<!-- 								<td>圖片預覽:</td> -->
+					<!-- 								<td><img id="pre01"></td> -->
+					<!-- 							</tr> -->
+					<!-- 							<tr> -->
+					<!-- 								<td>會員編號:</td> -->
+					<!-- 								<td><input type="TEXT" name="membno" size="45" -->
+					<%-- 									value="<%=(missingCaseVO == null) ? "ex.M000000001" : missingCaseVO.getMemb_id()%>" /></td> --%>
+					<!-- 							</tr> -->
+					<!-- 							<tr> -->
+					<!-- 								<td>寵物名稱:</td> -->
+					<!-- 								<td><input type="TEXT" name="missingName" size="45" -->
+					<%-- 									value="<%=(missingCaseVO == null) ? "你的寵物" : missingCaseVO.getMissing_name()%>" /></td> --%>
+					<!-- 							</tr> -->
+					<!-- 							<tr> -->
+					<!-- 								<td>內容描述:</td> -->
+					<!-- 								<td><textarea name="missingDes"> -->
+					<%-- 									<%=(missingCaseVO == null) ? "內容描述" : missingCaseVO.getMissing_des()%></textarea></td> --%>
+					<!-- 							</tr> -->
+					<!-- 							<tr> -->
+					<!-- 								<td>失蹤日期:</td> -->
+					<!-- 								<td><input name="hiredate" id="m_date1" type="text"></td> -->
+					<!-- 							</tr> -->
+					<!-- 							<tr> -->
+					<!-- 								<td>地點</td> -->
+					<!-- 								<td><input type="TEXT" name="loc" size="45" -->
+					<%-- 									value="<%=(missingCaseVO == null) ? "失蹤地點" : missingCaseVO.getMissing_loc()%>" /></td> --%>
+					<!-- 						</table> -->
+					<!-- 						<br> <input type="hidden" name="action" value="insert"> -->
+					<!-- 						<input type="submit" value="送出新增"> -->
+					<!-- 					</FORM> -->
+					<form class="form-area " id="myForm" action="mail.php"
+						method="post" class="contact-form text-right">
+						<div class="row">
+							<div class="col-lg-4 form-group">
+							<div class="single-element-widget mt-30">
+									<h5 class="mb-30">失蹤寵物種類：</h5>
+									<div class="default-select" id="default-select"">
+										<select>
+											<option value="1">貓</option>
+											<option value="2">狗</option>
+											<option value="1">其他</option>
+										</select>
+									</div>
+								</div>
+							
+								<h5>寵物名稱：</h5>
+								<input name="missingName" placeholder="Enter your name"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Enter your name'"
+									class="common-input mb-20 form-control" required="" type="text">
+								<h5>會員編號：</h5>
+								<input name="membno" placeholder="Enter your membno"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Enter your membno'"
+									class="common-input mb-20 form-control" required="" type="text">
+								<h5>失蹤日期：</h5>
+								<input name="m_date1" placeholder="Enter your date"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Enter your date'"
+									class="common-input mb-20 form-control" required="" type="text">
+								<h5>失蹤地點：</h5>	
+									<input name="loc" placeholder="Enter your location"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Enter your location'"
+									class="common-input mb-20 form-control" required="" type="text">
+								<div class="mt-20 alert-msg" style="text-align: left;"></div>
+								<h5>內容描述：</h5>
+							</div>
+							<div class="col-lg-8 form-group">
+								<h6>圖片預覽：</h6>
+								<div class="upcoming-left">
+									<img id="img" class="preview" src="img/g1.jpg" />
+								</div>
+								<div style="text-align:center">
+								<input type="file" class="upl custom-file-input" name="upfile" id="file01">
+								<label class="genric-btn info circle small" for="file01" >選擇圖片</label>
+								</div>
+							</div>
+								<textarea class="single-textarea form-group"
+									name="missingDes" placeholder="Messege"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Messege'"></textarea>
+					</form>
 				</div>
 			</div>
 		</div>
 	</section>
 
 
-	
+
 	<script>CKEDITOR.replace("missingDes");</script>
-	<script src="js/vendor/jquery-2.2.4.min.js"></script>
-	<script
+	<script defer src="js/vendor/jquery-2.2.4.min.js"></script>
+	<script defer
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
-	<script src="js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript"
+	<script defer src="js/vendor/bootstrap.min.js"></script>
+	<script defer type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="js/easing.min.js"></script>
-	<script src="js/hoverIntent.js"></script>
-	<script src="js/superfish.min.js"></script>
-	<script src="js/jquery.ajaxchimp.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.sticky.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<script src="js/parallax.min.js"></script>
-	<script src="js/waypoints.min.js"></script>
-	<script src="js/jquery.counterup.min.js"></script>
-	<script src="js/mail-script.js"></script>
-	<script src="js/main.js"></script>
+	<script defer src="js/easing.min.js"></script>
+	<script defer src="js/hoverIntent.js"></script>
+	<script defer src="js/superfish.min.js"></script>
+	<script defer src="js/jquery.ajaxchimp.min.js"></script>
+	<script defer src="js/jquery.magnific-popup.min.js"></script>
+	<script defer src="js/owl.carousel.min.js"></script>
+	<script defer src="js/jquery.sticky.js"></script>
+	<script defer src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script defer src="js/jquery.nice-select.min.js"></script>
+	<script defer src="js/parallax.min.js"></script>
+	<script defer src="js/waypoints.min.js"></script>
+	<script defer src="js/jquery.counterup.min.js"></script>
+	<script defer src="js/mail-script.js"></script>
+	<script defer src="js/main.js"></script>
 </body>
 
-	<% 
+<% 
 	  java.sql.Timestamp hiredate = null;
 	  try {
 		    hiredate = missingCaseVO.getMissing_date();
@@ -188,11 +242,10 @@ div {
 		    hiredate = new java.sql.Timestamp(System.currentTimeMillis());
 	   }
 	%>
-<script>
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-	<script>
+<script
+	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script>
 	  $.datetimepicker.setLocale('zh');
 		        $('#m_date1').datetimepicker({
 			       theme: '',              //theme: 'dark',
@@ -206,12 +259,13 @@ div {
 		           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
 		        });
 	</script>
-	<style>
-	  .xdsoft_datetimepicker .xdsoft_datepicker {
-	           width:  300px;   /* width:  300px; */
-	  }
-	  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-	           height: 151px;   /* height:  151px; */
-	  }
-	</style>
+<style>
+.xdsoft_datetimepicker .xdsoft_datepicker {
+	width: 300px; /* width:  300px; */
+}
+
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	height: 151px; /* height:  151px; */
+}
+</style>
 </html>

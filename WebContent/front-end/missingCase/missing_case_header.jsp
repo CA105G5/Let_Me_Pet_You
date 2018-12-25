@@ -25,16 +25,16 @@
 <!--
 			CSS
 			============================================= -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/linearicons.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/font-awesome.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/bootstrap.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/magnific-popup.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/nice-select.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/animate.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/owl.carousel.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/product/css/main.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -62,25 +62,51 @@
 </head>
 <body>
 
-	<header id="header" id="home">
+	<header id="header" id="home" height="100">
 		<div class="container">
 			<div class="row header-top align-items-center">
-				<div class="col-lg-4 col-sm-4 menu-top-left">
+				<div class="col-lg-3 col-sm-3 menu-top-left">
 					<a href="index.html"> <img class="img-fluid"
 						src="<%=request.getContextPath()%>/horse_UI_template/img/logo2.png" width="200" alt="">
 					</a>
 				</div>
-				<div class="col-lg-4 menu-top-middle justify-content-center d-flex">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="請輸入關鍵字">
-						<span class="input-group-btn">
-							<button class="btn btn-info" type="button">
-								<i class="glyphicon glyphicon-search"></i>
-							</button>
-						</span>
-					</div>
+<!-- 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex"> -->
+<!-- 					<div class="input-group"> -->
+<!-- 						<input type="text" class="form-control" placeholder="請輸入關鍵字"> -->
+<!-- 						<span class="input-group-btn"> -->
+<!-- 							<button class="btn btn-info" type="button"> -->
+<!-- 								<i class="glyphicon glyphicon-search"></i> -->
+<!-- 							</button> -->
+<!-- 						</span> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+				<div class="col-lg-6 menu-top-middle justify-content-center d-flex"> 
+<!-- 					<div class="row align-items-center justify-content-center d-flex"> -->
+<!-- 						<nav id="nav-menu-container"> -->
+							<ul class="nav-menu">
+						    	<li><a href="index.html">首頁</a></li>
+						       	<li><a href="about.html">救援</a></li>
+						        <li><a href="service.html">認養</a></li>				          
+						        <li><a href="training.html">失蹤</a></li>
+						        <li><a href="events.html">協尋</a></li>
+						        <li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a>
+							      	<ul>
+								    	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">許願物資捐贈</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></li>
+								    </ul>
+								</li>
+								<li class="menu-active"><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li>
+								<li><a href="contact.html">關於我們</a></li>
+								<li><a href="elements.html">常見問題</a></li>
+							</ul>
+<!-- 						</nav>#nav-menu-container		    		 -->
+<!-- 					</div> -->
 				</div>
-				<div class="col-lg-4 col-sm-4 menu-top-right">
+
+				<div class="col-lg-3 col-sm-3 menu-top-right">
 					<a class="tel">會員登入/ 註冊</a> <a href="#"><span
 						class="fa fa-user"></span></a>
 					<!-- style="font-size: 1.5rem;" -->
@@ -88,37 +114,7 @@
 			</div>
 		</div>
 		<hr>
-		<div class="container">
-			<div class="row align-items-center justify-content-center d-flex">
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<li><a href="index.html">首頁</a></li>
-						<li><a href="about.html">救援</a></li>
-						<li><a href="service.html">認養</a></li>
-						<li><a href="training.html">失蹤</a></li>
-						<li><a href="events.html">協尋</a></li>
-						<li class="menu-has-children"><a href="pricing.html">捐贈</a></li>
-						<ul>
-							<li><a href="blog-home.html">愛心捐款</a></li>
-							<li><a href="blog-single.html">愛心商品捐贈</a></li>
-							<li><a href="blog-single.html">許願物資捐贈</a></li>
-						</ul>
-						<li class="menu-active"><a href="">商城</a></li>
-						<li><a href="contact.html">關於我們</a></li>
-						<li><a href="elements.html">常見問題</a></li>
-					</ul>
-				</nav>
-				<!-- #nav-menu-container -->
-			</div>
-		</div>
 		
-		<div class="container">
-			<div class="row">
-
-			<!-- 左側邊list-group -->
-		</div>
-	</div>
-
 <!-- 		<div class="container"> -->
 <!-- 			<div class="row"> -->
 
@@ -155,15 +151,6 @@
 	</header>
 	<!-- #header -->
 
-	<br>
-	<br>
-
-	<br>
-	<br>
-
-	<br>
-	<br>
-
 	<!-- 	starting side-bar -->
 	
 	<!-- 	end side-bar -->
@@ -185,28 +172,28 @@
 		</div>
 	</section>
 
-	<script src="<%=request.getContextPath()%>/front-end/product/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/vendor/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/easing.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/hoverIntent.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/superfish.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.ajaxchimp.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.magnific-popup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/owl.carousel.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.sticky.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.nice-select.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/parallax.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/waypoints.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/jquery.counterup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/mail-script.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/product/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 </body>
 </html>
 
