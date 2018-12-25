@@ -1,6 +1,7 @@
 package com.pet.model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class PetService {
 	private PetDAO_interface dao;
@@ -57,4 +58,14 @@ public class PetService {
 		dao.update(petVO);
 		return petVO;
 	}
+	public void deletePet(String pet_id) {
+		dao.delete(pet_id);
+	}
+	public PetVO getOnePet(String pet_id) {
+		return dao.findByPrimaryKey(pet_id);
+	}
+	public List<PetVO> getAllPetsFromSameMember(String memb_id){
+		return dao.getAllPetsFromSameMember(memb_id);
+	}
+	
 }

@@ -21,6 +21,7 @@ import com.mem.model.MemVO;
 @MultipartConfig
 public class MemServlet extends HttpServlet {
 	
+	private static final long serialVersionUID = 3510764506563638117L;
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		doPost(req, res);
