@@ -166,14 +166,7 @@ public class VolunteerServlet extends HttpServlet{
 				String vlt_duty_day = req.getParameter("vlt_duty_day").trim();
 				String vlt_reg = req.getParameter("reg_id").trim();
 				//密碼
-				String vlt_pw = req.getParameter("vlt_pw").trim();
-//				String pwReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,8}$";
-//				if (vlt_pw == null || vlt_pw.trim().length() == 0) {
-//					errorMsgs.add("志工密碼: 請勿空白");
-//				} else if(!vlt_pw.trim().matches(pwReg)) { //以下練習正則(規)表示式(regular-expression)
-//					errorMsgs.add("志工密碼: 只能是中、英文字母、數字和_ , 且長度必需在2到8之間");
-//	            }
-				
+			
 				//志工狀態
 				String vlt_sta = req.getParameter("vlt_sta").trim();
 				
@@ -181,7 +174,6 @@ public class VolunteerServlet extends HttpServlet{
 				volunteerVO.setVlt_id(vlt_id);
 				volunteerVO.setVlt_name(vlt_name);
 				volunteerVO.setVlt_mail(vlt_mail);
-				volunteerVO.setVlt_pw(vlt_pw);
 				volunteerVO.setVlt_gender(vlt_gender);
 				volunteerVO.setVlt_tel(vlt_tel);
 				volunteerVO.setVlt_duty_day(vlt_duty_day);
@@ -203,7 +195,7 @@ public class VolunteerServlet extends HttpServlet{
 				
 				/***************************2.開始修改資料*****************************************/
 				VolunteerService volunteerSvc = new VolunteerService();
-				volunteerVO = volunteerSvc.updateForManager(vlt_id,vlt_name, vlt_mail, vlt_pw, vlt_gender, vlt_tel,vlt_duty_day,vlt_sta,vlt_reg);
+				volunteerVO = volunteerSvc.updateForManager(vlt_id,vlt_name, vlt_mail,vlt_gender, vlt_tel,vlt_duty_day,vlt_sta,vlt_reg);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("volunteerVO", volunteerVO); // 資料庫update成功後,正確的的empVO物件,存入req

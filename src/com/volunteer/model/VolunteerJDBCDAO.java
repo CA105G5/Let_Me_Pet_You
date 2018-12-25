@@ -22,7 +22,7 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 	private static final String DELETE = 
 			"DELETE FROM VOLUNTEER where vlt_id = ?";
 	private static final String MANAGER_UPDATE_STMT = 
-			"UPDATE VOLUNTEER set vlt_name =?,vlt_mail =?,vlt_pw =?,vlt_gender =?,vlt_tel =?,vlt_duty_day =?,vlt_sta =?,vlt_reg =? where vlt_id = ?";
+			"UPDATE VOLUNTEER set vlt_name =?,vlt_mail =?,vlt_gender =?,vlt_tel =?,vlt_duty_day =?,vlt_sta =?,vlt_reg =? where vlt_id = ?";
 	private static final String VOLUNTEER_UPDATE_STMT = 
 			"UPDATE VOLUNTEER set vlt_pw =?,vlt_tel =?,vlt_img =?,vlt_duty_day =? where vlt_id = ?";
 	
@@ -96,13 +96,12 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 
 			pstmt.setString(1, volunteerVO.getVlt_name());
 			pstmt.setString(2, volunteerVO.getVlt_mail());
-			pstmt.setString(3, volunteerVO.getVlt_pw());
-			pstmt.setString(4, volunteerVO.getVlt_gender());
-			pstmt.setString(5, volunteerVO.getVlt_tel());
-			pstmt.setString(6, volunteerVO.getVlt_duty_day());
-			pstmt.setString(7, volunteerVO.getVlt_sta());
-			pstmt.setString(8, volunteerVO.getVlt_reg());
-			pstmt.setString(9, volunteerVO.getVlt_id());
+			pstmt.setString(3, volunteerVO.getVlt_gender());
+			pstmt.setString(4, volunteerVO.getVlt_tel());
+			pstmt.setString(5, volunteerVO.getVlt_duty_day());
+			pstmt.setString(6, volunteerVO.getVlt_sta());
+			pstmt.setString(7, volunteerVO.getVlt_reg());
+			pstmt.setString(8, volunteerVO.getVlt_id());
 
 			int rowsUpdated = pstmt.executeUpdate();
 			System.out.println("Changed " + rowsUpdated + "rows");
@@ -462,7 +461,7 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 //		volunteerVO2.setVlt_id("V000000006");
 //		volunteerVO2.setVlt_name("豪豪");
 //		volunteerVO2.setVlt_mail("w121212w00@gmail.com");
-//		volunteerVO2.setVlt_pw("123");
+//		
 //		volunteerVO1.setVlt_gender("M");
 //		volunteerVO2.setVlt_tel("0958-514661");
 //		volunteerVO2.setVlt_duty_day("每日");
