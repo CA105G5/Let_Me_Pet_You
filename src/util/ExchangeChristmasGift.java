@@ -10,8 +10,9 @@ public class ExchangeChristmasGift {
 		ecg.exchange();
 	}
 	public void exchange() {
-		String [] player= {"A","B","C","D","E","F","G"};
+		String [] player= {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"};
 		Set set = new HashSet();
+		
 		while(set.size()<player.length) {
 			set.add(set.size());
 			
@@ -32,7 +33,7 @@ public class ExchangeChristmasGift {
 					System.out.println(following);
 					System.out.println(following+"的聖誕禮物來自: ");
 					timeout = sc.nextLine();
-					
+					System.out.println(firstone);
 				}else {
 					following = player[number];
 					System.out.println(following);
@@ -42,7 +43,7 @@ public class ExchangeChristmasGift {
 				set.remove(number);
 			}
 		}
-		System.out.println(firstone);
+		
 		sc.close();
 	}
 }

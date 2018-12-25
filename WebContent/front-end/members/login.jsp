@@ -1,14 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-<%@ page import="com.mem.model.*"%>
-<%-- 此頁暫練習採用 Script 的寫法取值 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%
-  MemVO memVO = (MemVO) request.getAttribute("memVO"); //MemServlet.java(Concroller), 存入req的memVO物件
-%>
-
-<html> 
+<html>
 <head>
-
 <%-- Mobile Specific Meta --%>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
@@ -22,9 +16,8 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-
-<title>會員更新後資料 - listOneMember.jsp</title>
-
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<title>登入畫面</title>
 <%-- 放自己css前 --%>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<%--
@@ -39,7 +32,6 @@
 			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">	
 			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
 			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
-			
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -47,42 +39,9 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 600px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
 
 </head>
-<body bgcolor='white'>
-
+<body>
 <header id="header" id="home">
 				<div class="container">
 			<div class="row header-top align-items-center">
@@ -132,34 +91,45 @@
 			</div>
 		</div>
 			  </header><!-- #header -->
+			  
+			  <br><br><br><br><br><br><br><br><br>
 
-
-
-<br><br><br><br><br><br><br><br><br>
-
-<div class="container">
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
+    <FORM METHOD="post" ACTION="mem.do" >
+        <div class="container">
 			<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">請確認您的資料</h1>
+			  <h1 align="center">請輸入帳號密碼</h1>
 			</div>
-
-<table class="table table-bordered table-striped table-hover table-condensed">
-	<tr><td>會員帳號</td><td><%=memVO.getMemb_acc()%></td></tr>
-	<tr><td>會員密碼</td><td><%=memVO.getMemb_psw()%></td></tr>
-	<tr><td>會員姓名</td><td><%=memVO.getMemb_name()%></td></tr>
-	<tr><td>會員暱稱</td><td><%=memVO.getMemb_nick()%></td></tr>
-	<tr><td>會員Email</td><td><%=memVO.getMemb_email()%></td></tr>
-	<tr><td>會員手機</td><td><%=memVO.getMemb_cellphone()%></td></tr>
-	<tr><td>會員性別</td><td><%=memVO.getMemb_gender()%></td></tr>
-	<tr><td>信用卡類型</td><td><%=memVO.getMemb_cre_type()%></td></tr>
-	<tr><td>持卡人</td><td><%=memVO.getMemb_cre_name()%></td></tr>
-	<tr><td>信用卡到期年</td><td><%=memVO.getMemb_cre_year()%></td></tr>
-	<tr><td>信用卡到期月</td><td><%=memVO.getMemb_cre_month()%></td></tr>
-	<tr><td>會員照片</td><td><img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td></tr>
-</table>
-</div>
-
+			<table class="table table-bordered table-striped table-hover table-condensed">
+			<tr><td>帳號:</td><td><input type="text" name="memb_acc"></td></tr>
+			<tr><td>密碼:</td><td><input type="password" name="memb_psw"></td></tr>
+			
+   
+ 
+        
+        
+        </table>
+        </div>
+        <br>
+        <input type="hidden" name="action" value="login">
+        <div align="center"><input type="submit" value="登入">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="addMembers.jsp">註冊成為新會員</a></div>
+        
+    </FORM>
+ 		  
+			  
+			  
+			  
 <%-- 模板後script 加在自己的script前--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -183,6 +153,5 @@
 <%-- RWD--%>
 <script src="https://code.jquery.com/jquery.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 </body>
 </html>
