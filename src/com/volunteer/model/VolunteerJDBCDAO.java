@@ -383,8 +383,8 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 
 			String finalSQL = "select * from volunteer "
-		          + jdbcUtil_CompositeQuery_Volunteer.get_WhereCondition(map)
-		          + "order by vlt_id";
+			          + jdbcUtil_CompositeQuery_Volunteer.get_WhereCondition(map)
+			          + "order by vlt_id";
 			pstmt = con.prepareStatement(finalSQL);
 			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
 			rs = pstmt.executeQuery();
@@ -508,6 +508,26 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 //			System.out.print(aVol.getVlt_reg());
 //			System.out.println();
 //		}
+		
+//		複合查詢
+		Map<String, String[]> map = new TreeMap<String, String[]>();
+		map.put("vlt_id", new String[] { "V000000001" });
+		map.put("action", new String[] { "getXXX" }); // 注意Map裡面會含有action的key
+		List<VolunteerVO> list = dao.getAll(map);
+		for (VolunteerVO aVol : list) {
+			System.out.print(aVol.getVlt_id() + ",");
+			System.out.print(aVol.getVlt_name() + ",");
+			System.out.print(aVol.getVlt_mail() + ",");
+			System.out.print(aVol.getVlt_gender() + ",");
+			System.out.print(aVol.getVlt_pw() + ",");
+			System.out.print(aVol.getVlt_tel() + ",");
+			System.out.print(aVol.getVlt_img() + ",");			
+			System.out.print(aVol.getVlt_registerdate() + ",");			
+			System.out.print(aVol.getVlt_duty_day() + ",");
+			System.out.print(aVol.getVlt_sta()+ ",");
+			System.out.print(aVol.getVlt_reg());
+			System.out.println();
+		}
 	}
 
 

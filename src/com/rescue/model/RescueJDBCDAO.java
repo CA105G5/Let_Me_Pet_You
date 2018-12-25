@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
+import com.rescueCoin.model.RescueCoinVO;
 
-
+import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Rescue;
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
 
 
@@ -395,9 +397,9 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 
-			String finalSQL = "select * from volunteer "
-		          + jdbcUtil_CompositeQuery_Volunteer.get_WhereCondition(map)
-		          + "order by vlt_id";
+			String finalSQL = "select * from rescue "
+			          + jdbcUtil_CompositeQuery_Rescue.get_WhereCondition(map)
+			          + "order by rsc_id";
 			pstmt = con.prepareStatement(finalSQL);
 			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
 			rs = pstmt.executeQuery();
@@ -505,7 +507,25 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 //		System.out.println("---------------------");
 //
 		// 查詢
-		List<RescueVO> list = dao.getAll();
+//		List<RescueVO> list = dao.getAll();
+//		for (RescueVO aRsc : list) {
+//			System.out.print(aRsc.getVlt_id() + ",");
+//			System.out.print(aRsc.getRsc_name() + ",");
+//			System.out.print(aRsc.getRsc_add() + ",");
+//			System.out.print(aRsc.getRsc_sponsor() + ",");
+//			System.out.print(aRsc.getRsc_lat() + ",");
+//			System.out.print(aRsc.getRsc_lon() + ",");
+//			System.out.print(aRsc.getRsc_coin()+ ",");
+//			System.out.print(aRsc.getRsc_reg());
+//			System.out.println();
+//		}
+		
+//		複合查詢
+		
+		Map<String, String[]> map = new TreeMap<String, String[]>();
+		map.put("rsc_id", new String[] { "R000000001" });
+		map.put("action", new String[] { "getXXX" });
+		List<RescueVO> list = dao.getAll(map);
 		for (RescueVO aRsc : list) {
 			System.out.print(aRsc.getVlt_id() + ",");
 			System.out.print(aRsc.getRsc_name() + ",");
