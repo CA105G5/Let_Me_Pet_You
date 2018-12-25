@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PetService {
 	private PetDAO_interface dao;
-	public PetService() {
+	public PetService() { 
 		dao = new PetJDBCDAO();
 	}
 	public PetVO addPet(String pet_name,

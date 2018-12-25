@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class PetServlet extends HttpServlet{
+public class PetServlet extends HttpServlet{ 
 	private static final long serialVersionUID = -1115382316914923109L;
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
