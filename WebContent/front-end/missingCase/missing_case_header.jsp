@@ -67,7 +67,7 @@
 			<div class="row header-top align-items-center">
 				<div class="col-lg-4 col-sm-4 menu-top-left">
 					<a href="index.html"> <img class="img-fluid"
-						src="<%=request.getContextPath()%>/front-end/product/img/logo2.png" width="200" alt="">
+						src="<%=request.getContextPath()%>/horse_UI_template/img/logo2.png" width="200" alt="">
 					</a>
 				</div>
 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex">
