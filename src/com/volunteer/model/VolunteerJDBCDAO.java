@@ -25,7 +25,9 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 			"UPDATE VOLUNTEER set vlt_name =?,vlt_mail =?,vlt_gender =?,vlt_tel =?,vlt_duty_day =?,vlt_sta =?,vlt_reg =? where vlt_id = ?";
 	private static final String VOLUNTEER_UPDATE_STMT = 
 			"UPDATE VOLUNTEER set vlt_pw =?,vlt_tel =?,vlt_img =?,vlt_duty_day =? where vlt_id = ?";
-	
+	//安卓指令
+	private static final String FIND_BY_EMAIL_PASWD = "SELECT * FROM VOLUNTEER WHERE vlt_mail = ? AND vlt_pw = ?";
+	private static final String CHECK_EMAIL_EXIST = "SELECT vlt_mail FROM VOLUNTEER WHERE vlt_mail = ?";
 	
 	
 
@@ -441,6 +443,11 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 
 		VolunteerJDBCDAO dao = new VolunteerJDBCDAO();
 
+		//安卓Test
+		System.out.println(dao.isVltExist("s8780015@gmail.com"));
+		System.out.println(dao.isVltMail("s8780015@gmail.com", "123"));
+		
+		
 		// 
 		VolunteerVO volunteerVO1 = new VolunteerVO();
 
@@ -528,6 +535,78 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 			System.out.print(aVol.getVlt_reg());
 			System.out.println();
 		}
+	}
+
+	@Override
+	public boolean isVltMail(String vlt_mail, String vlt_psw) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean isVolunteer = false;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FIND_BY_EMAIL_PASWD);
+			pstmt.setString(1,vlt_mail);
+			pstmt.setString(2,vlt_psw);
+			ResultSet rs = pstmt.executeQuery();
+			isVolunteer = rs.next();
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}return isVolunteer;
+	}
+
+	@Override
+	public boolean isVltExist(String vlt_mail) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean isVolunteerExist = false;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(CHECK_EMAIL_EXIST);
+			pstmt.setString(1,vlt_mail);
+			
+			ResultSet rs = pstmt.executeQuery();
+			isVolunteerExist = rs.next();
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}return isVolunteerExist;
 	}
 
 

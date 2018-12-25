@@ -38,6 +38,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 		MemJDBCDAO dao = new MemJDBCDAO();
 		
 		//安卓測試
+		System.out.println(dao.isMemAcc("aaa", "123"));
+		System.out.println(dao.isMemExist("bbb"));
 	
 		
 //		//insert
@@ -648,7 +650,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	}
 
 	@Override
-	public boolean isMembExist(String memb_acc) {
+	public boolean isMemExist(String memb_acc) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean isMemberExist = false;
@@ -656,7 +658,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, password);
-			pstmt = con.prepareStatement(FIND_BY_ID_PASWD);
+			pstmt = con.prepareStatement(CHECK_ID_EXIST);
 			pstmt.setString(1,memb_acc);
 			
 			ResultSet rs = pstmt.executeQuery();

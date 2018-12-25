@@ -156,14 +156,26 @@
     <url-pattern>/front-end/missingCase/miss.do</url-pattern>
   </servlet-mapping>
 
+	<!-- 安卓的註冊 -->
 	<servlet>
 		<servlet-name>AndroidMemServlet</servlet-name>
-		<servlet-class>com.mem.controller.MemServlet</servlet-class>
+		<servlet-class>com.mem.android.controller.MemServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AndroidMemServlet</servlet-name>
 		<url-pattern>/mem/MemServlet.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidVolunteerServlet</servlet-name>
+		<servlet-class>com.volunteer.android.controller.VolunteerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidVolunteerServlet</servlet-name>
+		<url-pattern>/volunteer/VolunteerServlet.do</url-pattern>
+	</servlet-mapping>
+	<!-- 結束 -->
+	
 	
 	<servlet>
     	<servlet-name>DonateServlet</servlet-name>
