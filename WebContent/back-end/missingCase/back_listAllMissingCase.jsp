@@ -226,7 +226,7 @@
 		 $('#status').change(function(){
 			 $.ajax({
 			 type: "GET",
-			 url: "missingCaseAjax.do",
+			 url: "/missingCaseAjax.do",
 			 data:changeStatus($(this).val(),$(this).text()),
 			 datatype:"json",
 			 error: function(){alert("AJAX-grade發生錯誤囉!")}
@@ -235,7 +235,7 @@
 	})
 	
 	function changeStatus(missing_case_id,status){
-		var cStatus = {"action":"getChange","missing_case_id":missing_case_id, };
+		var cStatus = {"action":"getChange","missing_case_id":missing_case_id,"status":status};
 		return cStatus;
 	}
 

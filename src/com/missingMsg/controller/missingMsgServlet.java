@@ -77,7 +77,7 @@ public class missingMsgServlet extends HttpServlet {
 			}
 
 		}
-		if ("getOne_For_Update".equals(action)) { // 來自listAllMissingCase.jsp的請求
+		if ("update".equals(action)) { // 來自listAllMissingCase.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -85,9 +85,17 @@ public class missingMsgServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				String missing_msg_id = req.getParameter("missing_msg_id");
+				String missing_case_id = req.getParameter("missing_case_id");
+				String memb_id = req.getParameter("memb_id");
+				java.sql.Timestamp missing_msg_date = java.sql.Timestamp.valueOf(req.getParameter("missing_msg_date").trim());
+				String missing_msg_cont = req.getParameter("missing_msg_cont");				
+				
+				
+				
+				
 				/*************************** 2.開始查詢資料 ****************************************/
 				missingMsgService missingMsgSvc = new missingMsgService();
-				missingMsgVO missingMsgVO = missingMsgSvc.getOneMissingMsg(missing_msg_id);
+				missingMsgVO missingMsgVO = missingMsgSvc.updateMissingMsg(missing_msg_id, missing_case_id, memb_id, missing_msg_date, missing_msg_cont);
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("missingMsgVO", missingMsgVO);
 				String url = "/front-end/missingCase/update_missing_msg.jsp";
@@ -140,7 +148,7 @@ public class missingMsgServlet extends HttpServlet {
 				missingMsgVO = missingMsgSvc.updateMissingMsg(missing_msg_id, missing_case_id, memb_id,
 						missing_msg_date, missing_msg_cont);
 
-				missingMsgVO = missingMsgSvc.getOneMissingMsg(missing_msg_id);
+				missingMsgVO = missingMsgSvc.findByCase(missing_case_id);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("missingMsgVO", missingMsgVO);
@@ -155,6 +163,8 @@ public class missingMsgServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		
 	}
 
 }

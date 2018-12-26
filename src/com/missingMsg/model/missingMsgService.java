@@ -36,7 +36,7 @@ public class missingMsgService {
 
 	}
 
-	public missingMsgVO getOneMissingMsg(String missing_msg_id) {
-		return dao.findByPrimaryKey(missing_msg_id);
+	public missingMsgVO findByCase(String missing_case_id) {
+		return dao.findByCase(missing_case_id);
 	}
 }

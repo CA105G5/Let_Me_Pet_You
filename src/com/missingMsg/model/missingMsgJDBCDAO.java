@@ -18,7 +18,7 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO missing_msg(missing_msg_id,missing_case_id,memb_id,missing_msg_date,missing_msg_cont) VALUES ('SM'||LPAD(to_char(missing_msg_seq.NEXTVAL), 8, '0'), ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT missing_msg_id,missing_case_id,memb_id,to_char(missing_msg_date,'yyyy-mm-dd hh24:mi:ss')missing_msg_date,missing_msg_cont FROM missing_msg order by missing_msg_id";
-	private static final String GET_ONE_STMT = "SELECT missing_msg_id,missing_case_id,memb_id,to_char(missing_msg_date,'yyyy-mm-dd hh24:mi:ss')missing_msg_date,missing_msg_cont FROM missing_msg where missing_msg_id = ?";
+	private static final String GET_ONE_STMT = "SELECT missing_msg_id,missing_case_id,memb_id,to_char(missing_msg_date,'yyyy-mm-dd hh24:mi:ss')missing_msg_date,missing_msg_cont FROM missing_msg where missing_case_id = ?";
 	private static final String DELETE = "DELETE FROM missing_msg where missing_msg_id = ?";
 	private static final String UPDATE = "UPDATE missing_msg set missing_case_id=?, memb_id=?, missing_msg_date=?, missing_msg_cont=? where missing_msg_id = ?";
 
@@ -155,7 +155,7 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 
 	// 單獨查詢
 	@Override
-	public missingMsgVO findByPrimaryKey(String missing_msg_id) {
+	public missingMsgVO findByCase(String missing_case_id) {
 
 		missingMsgVO missingMsgVO = null;
 		Connection con = null;
@@ -168,7 +168,7 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setString(1, missing_msg_id);
+			pstmt.setString(1, missing_case_id);
 
 			rs = pstmt.executeQuery();
 
@@ -294,22 +294,22 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 //		dao.delete("SM00000003");
 
 		// 單獨查詢
-//		missingMsgVO missingMsgVO3 = dao.findByPrimaryKey("SM00000002");
-//		System.out.print(missingMsgVO3.getMissing_msg_id() + ",");
-//		System.out.print(missingMsgVO3.getMissing_case_id() + ",");
-//		System.out.print(missingMsgVO3.getMemb_id() + ",");
-//		System.out.print(missingMsgVO3.getMissing_msg_date() + ",");
-//		System.out.println(missingMsgVO3.getMissing_msg_cont());
-//		System.out.println();
+		missingMsgVO missingMsgVO3 = dao.findByCase("S000000002");
+		System.out.print(missingMsgVO3.getMissing_msg_id() + ",");
+		System.out.print(missingMsgVO3.getMissing_case_id() + ",");
+		System.out.print(missingMsgVO3.getMemb_id() + ",");
+		System.out.print(missingMsgVO3.getMissing_msg_date() + ",");
+		System.out.println(missingMsgVO3.getMissing_msg_cont());
+		System.out.println();
 
 		// 查全部
-		List<missingMsgVO> list = dao.getAll();
-		for (missingMsgVO msg : list) {
-			System.out.print(msg.getMissing_msg_id() + ",");
-			System.out.print(msg.getMissing_case_id() + ",");
-			System.out.print(msg.getMemb_id() + ",");
-			System.out.print(msg.getMissing_msg_date() + ",");
-			System.out.println(msg.getMissing_msg_cont());
-		}
+//		List<missingMsgVO> list = dao.getAll();
+//		for (missingMsgVO msg : list) {
+//			System.out.print(msg.getMissing_msg_id() + ",");
+//			System.out.print(msg.getMissing_case_id() + ",");
+//			System.out.print(msg.getMemb_id() + ",");
+//			System.out.print(msg.getMissing_msg_date() + ",");
+//			System.out.println(msg.getMissing_msg_cont());
+//		}
 	}
 }
