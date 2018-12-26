@@ -3,7 +3,8 @@
 <%@ page import="com.mem.model.*"%>
 <%
   MemVO memVO = (MemVO) session.getAttribute("memVO");
-  
+System.out.println("111111111111111111111111111="+session.getId());
+System.out.println( memVO == null);
 %>
 <html>
 <head>
@@ -88,8 +89,13 @@
 				<%}else{ 
 					out.print(memVO.getMemb_nick()+"，你好");
 				%>
+<<<<<<< HEAD
 				<a href="<%=request.getContextPath()%>/front-end/members/index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出" onclick="logout();"></a>
 				<a href="<%=request.getContextPath()%>/front-end/members/updateMembers.jsp">修改會員資料</a>
+=======
+				<a href="index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出" ></a>
+				<a href="updateMembers.jsp">修改會員資料</a>
+>>>>>>> refs/remotes/origin/master
 				<%}%>
 				</div>
 			</div>
@@ -368,13 +374,7 @@
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>			
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
-<script type="text/javascript">
-function logout(){
-	<% session.setAttribute("memVO",null); %>
 	
-}
-
-</script>	
 </body>
 
 
