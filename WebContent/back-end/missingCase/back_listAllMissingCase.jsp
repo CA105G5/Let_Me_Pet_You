@@ -155,7 +155,7 @@
 												class="form-control form-control-sm" id="status"><option
 														value="上架中">上架中</option>
 													<option value="50">下架中</option>
-													</select></td>
+											</select></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -224,22 +224,24 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		 $('#status').change(function(){
+			 $.ajax({
 			 type: "GET",
-			 url: "",
-			 data:,
+			 url: "missingCaseAjax.do",
+			 data:changeStatus($(this).val()),
 			 datatype:"json",
-			 success: function()
-			 
-		 }
+			 error: function(){alert("AJAX-grade發生錯誤囉!")}
+		 	})
+		})
+	})
+	
+	function changeStatus(status){
+		var cStatus = {"action":"getChange","status":status};
+		return cStatus;
 	}
-	
-	
-	
-	
-	
+
 	</script>
-	
-	
+
+
 	<script>
 		jQuery(document)
 				.ready(

@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
 @WebServlet("/missingCaseAjax")
 public class missingCaseAjax extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -14,7 +16,14 @@ public class missingCaseAjax extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		String action = req.getParameter("action");
+		String status = req.getParameter("status");
+		
+		if("getChange".equals(action)) {
+			JSONArray array = new JSONArray();
+			
+			
+		}
 		
 		
 	}
