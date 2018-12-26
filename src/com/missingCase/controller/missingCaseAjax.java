@@ -12,7 +12,7 @@ import org.json.JSONArray;
 import com.missingCase.model.*;
 
 
-@WebServlet("/missingCaseAjax")
+
 public class missingCaseAjax extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

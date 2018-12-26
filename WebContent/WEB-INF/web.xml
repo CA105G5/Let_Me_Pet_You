@@ -165,6 +165,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>missingCaseAjax</servlet-name>
-    <url-pattern>missingCaseAjax.do</url-pattern>
+    <url-pattern>/missingCaseAjax.do</url-pattern>
   </servlet-mapping>
 </web-app>
