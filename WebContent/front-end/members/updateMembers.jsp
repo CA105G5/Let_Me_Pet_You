@@ -2,16 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mem.model.*"%>
 <%
-
-<<<<<<< HEAD
   MemVO memVO = (MemVO) session.getAttribute("memVO");
-  
-=======
-MemVO memVO = (MemVO) session.getAttribute("memVO");
 System.out.println("222222222222222222222="+session.getId());
 System.out.println( memVO == null);
 System.out.println("222222222222222222222");
->>>>>>> refs/remotes/origin/master
 %>
 <html>
 <head>
@@ -172,12 +166,6 @@ System.out.println("222222222222222222222");
 <%-- RWD--%>
 <script src="https://code.jquery.com/jquery.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-function logout(){
-	<% session.setAttribute("memVO",null); %>
-	
-}
 
-</script>
 </body>
 </html>

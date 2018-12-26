@@ -89,13 +89,10 @@ System.out.println( memVO == null);
 				<%}else{ 
 					out.print(memVO.getMemb_nick()+"，你好");
 				%>
-<<<<<<< HEAD
-				<a href="<%=request.getContextPath()%>/front-end/members/index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出" onclick="logout();"></a>
+
+				<a href="<%=request.getContextPath()%>/front-end/members/index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出"></a>
 				<a href="<%=request.getContextPath()%>/front-end/members/updateMembers.jsp">修改會員資料</a>
-=======
-				<a href="index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出" ></a>
-				<a href="updateMembers.jsp">修改會員資料</a>
->>>>>>> refs/remotes/origin/master
+
 				<%}%>
 				</div>
 			</div>
