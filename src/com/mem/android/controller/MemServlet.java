@@ -2,6 +2,7 @@ package com.mem.android.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.mem.model.MemDAO_interface;
 import com.mem.model.MemJDBCDAO;
 import com.mem.model.MemVO;
+
+import com.android.main.*;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -51,10 +54,22 @@ public class MemServlet extends HttpServlet {
 			String memb_acc = jsonObject.get("memb_acc").getAsString();
 //			writeText(res, memb_acc == null ? "" : gson.toJson(memb_acc));
 			writeText(res, gson.toJson(MemDao.findByAccount(memb_acc)));//將DAO的findByAccount(欄位)包成gson
-//			Type allinfo = TypeToken<List<MemVO>>(){
-//			}
-//			List<MemVO> list = gson.fromJson(jsonObject.get(a).getAsString(), Member.class)
-//			writeText(res, gson.toJson(list));
+		}else if ("getImage".equals(action)) {
+			OutputStream os = res.getOutputStream();
+			String isbn = jsonObject.get("memb_photo").getAsString();
+			int imageSize = jsonObject.get("imageSize").getAsInt();
+			byte[] image = MemDao.getImage(isbn);
+			if (image != null) {
+				// 縮圖 in server side
+				image = ImageUtil.shrink(image, imageSize);
+				res.setContentType("image/jpeg");
+				res.setContentLength(image.length);
+			}
+			os.write(image);
+		} else {
+			writeText(res,"");
+		}
+	}
 //		}else if ("isMembAccExist".equals(action)) {
 //			String memb_acc = jsonObject.get("memb_acc").getAsString();
 //			writeText(res, String.valueOf(MemDao.isMembAccExist(memb_acc)));
@@ -71,9 +86,8 @@ public class MemServlet extends HttpServlet {
 //		} else if (action.equals("delete")) {
 //			String memb_id = jsonObject.get("memb_id").getAsString();
 //			writeText(res, String.valueOf(MemDao.delete(memb_id)));
-		}
-	}
-
+		
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
