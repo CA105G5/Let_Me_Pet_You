@@ -60,7 +60,7 @@ public class MemServlet extends HttpServlet {
 			int imageSize = jsonObject.get("imageSize").getAsInt();
 			byte[] image = MemDao.getImage(memphoto);
 			if (image != null) {
-				// 縮圖 in server side
+				// 縮圖 in server side 
 				image = ImageUtil.shrink(image, imageSize);
 				res.setContentType("image/jpeg");
 				res.setContentLength(image.length);

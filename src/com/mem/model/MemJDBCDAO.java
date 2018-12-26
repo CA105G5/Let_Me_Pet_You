@@ -701,7 +701,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 			rs = pstmt.executeQuery();
 			
 		if (rs.next()) {
-			picture = rs.getBytes(1);
+			picture = rs.getBytes(1); 
 		}
 			
 		}catch(ClassNotFoundException ce){
