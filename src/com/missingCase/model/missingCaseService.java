@@ -24,7 +24,7 @@ public class missingCaseService {
 		missingCaseVO.setMissing_photo(missing_photo);
 		missingCaseVO.setMissing_type(missing_type);
 		dao.insert(missingCaseVO);
-		
+
 		return missingCaseVO;
 	}
 
@@ -42,6 +42,16 @@ public class missingCaseService {
 		missingCaseVO.setMissing_photo(missing_photo);
 		missingCaseVO.setMissing_type(missing_type);
 		dao.update(missingCaseVO);
+
+		return missingCaseVO;
+
+	}
+
+	public missingCaseVO updateStatus(String missing_case_id, String missing_status_shelve) {
+		missingCaseVO missingCaseVO = new missingCaseVO();
+		missingCaseVO.setMissing_case_id(missing_case_id);
+		missingCaseVO.setMissing_status_shelve(missing_status_shelve);
+		dao.updateStatus(missingCaseVO);
 
 		return missingCaseVO;
 

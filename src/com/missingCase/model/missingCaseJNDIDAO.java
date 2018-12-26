@@ -9,7 +9,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class missingCaseJNDIDAO implements missingCaseDAO_interface {
-	
+
 	private static DataSource ds = null;
 	static {
 		try {
@@ -47,7 +47,6 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 			pstmt.setString(8, missingCaseVO.getMissing_type());
 
 			pstmt.executeUpdate();
-
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -91,6 +90,40 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 			pstmt.setBytes(7, missingCaseVO.getMissing_photo());
 			pstmt.setString(8, missingCaseVO.getMissing_type());
 			pstmt.setString(9, missingCaseVO.getMissing_case_id());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	public void updateStatus(missingCaseVO missingCaseVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE);
+
+			pstmt.setString(1, missingCaseVO.getMissing_status_shelve());
+			pstmt.setString(2, missingCaseVO.getMissing_case_id());
 
 			pstmt.executeUpdate();
 

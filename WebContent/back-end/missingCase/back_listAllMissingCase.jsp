@@ -153,8 +153,8 @@
 											<td><select name="bootstrap-data-table_length"
 												aria-controls="bootstrap-data-table"
 												class="form-control form-control-sm" id="status"><option
-														value="上架中">上架中</option>
-													<option value="50">下架中</option>
+														value="${missingCaseVO.missing_case_id}">上架中</option>
+													<option value="${missingCaseVO.missing_case_id}">下架中</option>
 											</select></td>
 										</tr>
 									</c:forEach>
@@ -227,15 +227,15 @@
 			 $.ajax({
 			 type: "GET",
 			 url: "missingCaseAjax.do",
-			 data:changeStatus($(this).val()),
+			 data:changeStatus($(this).val(),$(this).text()),
 			 datatype:"json",
 			 error: function(){alert("AJAX-grade發生錯誤囉!")}
 		 	})
 		})
 	})
 	
-	function changeStatus(status){
-		var cStatus = {"action":"getChange","status":status};
+	function changeStatus(missing_case_id,status){
+		var cStatus = {"action":"getChange","missing_case_id":missing_case_id, };
 		return cStatus;
 	}
 
