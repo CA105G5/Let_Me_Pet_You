@@ -68,59 +68,60 @@ System.out.println( memVO == null);
 <header id="header" id="home">
 				<div class="container">
 			<div class="row header-top align-items-center">
-				<div class="col-lg-4 col-sm-4 menu-top-left">
+				<div class="col-lg-3 col-sm-3 menu-top-left">
 					<a href="<%=request.getContextPath()%>/front-end/members/index.jsp"> <img class="img-fluid"
-						src="images/logo2.png" width="200" alt="">
+						src="<%=request.getContextPath()%>/front-end/members/images/logo2.png" width="200" alt="">
 					</a>
 				</div>
-				<div class="col-lg-4 menu-top-middle justify-content-center d-flex">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="請輸入關鍵字">
-						<span class="input-group-btn">
-							<button class="btn btn-info" type="button">
-								<i class="glyphicon glyphicon-search"></i>
-							</button>
-						</span>
-					</div>
+				<div class="col-lg-6 menu-top-middle justify-content-center d-flex">
+					<div class="container">
+			<div class="row align-items-center justify-content-center d-flex">
+				<nav id="nav-menu-container">
+					<ul class="nav-menu">
+						<li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">首頁</a></li>
+						<li><a href="<%=request.getContextPath()%>/front-end/members/updateMembers.jsp">會員資料</a></li>
+						<li><a href="about.html">救援</a></li>
+						<li><a href="service.html">認養</a></li>
+						<li><a href="training.html">失蹤</a>
+						     <ul>
+								<li><a href="<%=request.getContextPath()%>/front-end/missingCase/addMissing.jsp">新增失蹤案例</a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤案例瀏覽</a></li>
+							</ul>
+						</li>
+						<li><a href="events.html">協尋</a></li>
+						<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a>
+							      	<ul>
+								    	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">許願物資捐贈</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></li>
+								    </ul>
+						</li>
+						<li class="menu-has-children menu-active"><a href="">商城</a></li>
+<!-- 						<li><a href="contact.html">關於我們</a></li> -->
+<!-- 						<li><a href="elements.html">常見問題</a></li> -->
+					</ul>
+				</nav>
+				<%-- #nav-menu-container --%>
+			</div>
+		</div>
 				</div>
-				<div class="col-lg-4 col-sm-4 menu-top-right">
+				<div class="col-lg-3 col-sm-3 menu-top-right">
 				<% if(memVO == null){ %>
-				<a href="login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a>
+				<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a>
 				<%}else{ 
 					out.print(memVO.getMemb_nick()+"，你好");
 				%>
 
 				<a href="<%=request.getContextPath()%>/front-end/members/index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出"></a>
-				<a href="<%=request.getContextPath()%>/front-end/members/updateMembers.jsp">修改會員資料</a>
+				
 
 				<%}%>
 				</div>
 			</div>
 		</div>
 		<hr>
-			    <div class="container">
-			<div class="row align-items-center justify-content-center d-flex">
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<li><a href="index.jsp">首頁</a></li>
-						<li><a href="about.html">救援</a></li>
-						<li><a href="service.html">認養</a></li>
-						<li><a href="training.html">失蹤</a></li>
-						<li><a href="events.html">協尋</a></li>
-						<li><a href="pricing.html">捐贈</a>
-							<ul>
-								<li><a href="blog-home.html">愛心捐款</a></li>
-								<li><a href="blog-single.html">愛心物資捐贈</a></li>
-								<li><a href="blog-single.html">許願物資捐贈</a></li>
-							</ul></li>
-						<li class="menu-has-children menu-active"><a href="">商城</a></li>
-						<li><a href="contact.html">關於我們</a></li>
-						<li><a href="elements.html">常見問題</a></li>
-					</ul>
-				</nav>
-				<%-- #nav-menu-container --%>
-			</div>
-		</div>
+			    
 			  </header><!-- #header -->
 			  
 			  

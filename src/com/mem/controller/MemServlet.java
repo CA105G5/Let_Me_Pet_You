@@ -401,7 +401,18 @@ public class MemServlet extends HttpServlet {
 						//登入成功
 						HttpSession session = req.getSession();
 						session.setAttribute("memVO", memVO);
-						res.sendRedirect(req.getContextPath()+"/front-end/members/index.jsp");
+						
+						try {                                                        
+					         String location = (String) session.getAttribute("location");
+					         if (location != null) {
+					           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+					           res.sendRedirect(location);            
+					           return;
+					         }
+					       }catch (Exception ignored) { 
+					    	   
+					       }
+					      res.sendRedirect(req.getContextPath()+"/front-end/members/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 						return;
 					}else {
 						//登入失敗
