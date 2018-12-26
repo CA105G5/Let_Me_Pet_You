@@ -222,7 +222,16 @@
 
 	<!--Local Stuff-->
 	<script type="text/javascript">
-	
+	$(document).ready(function(){
+		 $('#status').change(function(){
+			 type: "GET",
+			 url: "",
+			 data:,
+			 datatype:"json",
+			 success: function()
+			 
+		 }
+	}
 	
 	
 	
