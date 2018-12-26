@@ -3,7 +3,10 @@
 <%@ page import="com.mem.model.*"%>
 <%
 
-  MemVO memVO = (MemVO) session.getAttribute("memVO");
+MemVO memVO = (MemVO) session.getAttribute("memVO");
+System.out.println("222222222222222222222="+session.getId());
+System.out.println( memVO == null);
+System.out.println("222222222222222222222");
 %>
 <html>
 <head>
