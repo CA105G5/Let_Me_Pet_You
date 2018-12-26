@@ -56,9 +56,9 @@ public class MemServlet extends HttpServlet {
 			writeText(res, gson.toJson(MemDao.findByAccount(memb_acc)));//將DAO的findByAccount(欄位)包成gson
 		}else if ("getImage".equals(action)) {
 			OutputStream os = res.getOutputStream();
-			String isbn = jsonObject.get("memb_photo").getAsString();
+			String memphoto = jsonObject.get("memb_acc").getAsString();
 			int imageSize = jsonObject.get("imageSize").getAsInt();
-			byte[] image = MemDao.getImage(isbn);
+			byte[] image = MemDao.getImage(memphoto);
 			if (image != null) {
 				// 縮圖 in server side
 				image = ImageUtil.shrink(image, imageSize);

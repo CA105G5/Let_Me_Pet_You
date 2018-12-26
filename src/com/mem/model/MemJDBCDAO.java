@@ -686,7 +686,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	}
 
 	@Override
-	public byte[] getImage(String memb_photo) {
+	public byte[] getImage(String memb_acc) {
 		byte[] picture = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -697,9 +697,12 @@ public class MemJDBCDAO implements MemDAO_interface {
 			con = DriverManager.getConnection(url, userid, password);
 			pstmt = con.prepareStatement(FIND_PHOTO_BY_MEMACC);
 			
-			pstmt.setString(1,memb_photo);
+			pstmt.setString(1,memb_acc);
 			rs = pstmt.executeQuery();
+			
+		if (rs.next()) {
 			picture = rs.getBytes(1);
+		}
 			
 		}catch(ClassNotFoundException ce){
 			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
