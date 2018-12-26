@@ -112,8 +112,7 @@ System.out.println( memVO == null);
 				<%}else{ 
 					out.print(memVO.getMemb_nick()+"，你好");
 				%>
-
-				<a href="<%=request.getContextPath()%>/front-end/members/index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出"></a>
+				<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出"></a>
 				
 
 				<%}%>

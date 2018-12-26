@@ -441,6 +441,12 @@ public class MemServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		if("logout".equals(action)) {
+			HttpSession session = req.getSession();
+			session.setAttribute("memVO", null);
+			res.sendRedirect(req.getContextPath()+"/front-end/members/index.jsp");
+			return;
+		}
 	}
 	public static final byte[] transbyte(InputStream inStream) throws IOException {
 		ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
