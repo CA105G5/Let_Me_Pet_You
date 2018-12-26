@@ -115,7 +115,7 @@ public class MemServlet extends HttpServlet {
 						.getRequestDispatcher("/back-end/members/listAllMembers.jsp");
 				failureView.forward(req, res);
 			}	
-		}
+		}	//媽媽ger是什麼職業呢?
 		if("mamager_update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
