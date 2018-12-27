@@ -11,6 +11,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
+import com.mem.model.MemService;
+import com.mem.model.MemVO;
 import com.volunteer.model.*;
 @MultipartConfig
 public class VolunteerServlet extends HttpServlet{
@@ -466,6 +468,77 @@ public class VolunteerServlet extends HttpServlet{
 			}
 		}
 		 
+		
+		if("login".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				String vlt_mail = req.getParameter("vlt_mail");
+				if(vlt_mail == null || vlt_mail.trim().length() == 0) {
+					errorMsgs.add("請輸入帳號");
+				}
+				String vlt_pw = req.getParameter("vlt_pw");
+				if(vlt_pw == null || vlt_pw.trim().length() == 0) {
+					errorMsgs.add("請輸入密碼");
+				}
+				VolunteerVO volunteerVO = new VolunteerVO();
+				volunteerVO.setVlt_mail(vlt_mail);
+				volunteerVO.setVlt_pw(vlt_pw);
+				if(!errorMsgs.isEmpty()) {
+					req.setAttribute("volunteerVO", volunteerVO);
+					RequestDispatcher failureView = 
+					req.getRequestDispatcher("/front-end/volunteer/volunteer_login.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				try {
+					VolunteerService volunteerSvc = new VolunteerService();
+					volunteerVO = volunteerSvc.getVolunteerSelf(vlt_mail);
+					if(vlt_pw.equals(volunteerVO.getVlt_pw())) {
+						//登入成功
+						HttpSession session = req.getSession();
+						session.setAttribute("volunteerVO", volunteerVO);
+						
+						try {                                                        
+					         String location = (String) session.getAttribute("location");
+					         if (location != null) {
+					           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+					           res.sendRedirect(location);            
+					           return;
+					         }
+					       }catch (Exception ignored) { 
+					    	   
+					       }
+					      res.sendRedirect(req.getContextPath()+"/front-end/volunteer/volunteer_index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+						return;
+					}else {
+						//登入失敗
+						errorMsgs.add("輸入的密碼錯誤");
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("/front-end/volunteer/volunteer_login.jsp");
+						failureView.forward(req, res);
+					}
+					
+				}catch(Exception e) {
+					if(volunteerVO == null) {
+						errorMsgs.add("查無此帳號");
+					}else {
+						errorMsgs.add("資料庫的例外");
+					}
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/volunteer/volunteer_login.jsp");
+					failureView.forward(req, res);
+					
+					
+				}
+			}catch(Exception e) {
+				errorMsgs.add("發生其他例外:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/volunteer/volunteer_login.jsp");
+				failureView.forward(req, res);
+			}
+		}
 		
 	}
 	public static byte[] getPictureByteArray(InputStream is) throws IOException {
