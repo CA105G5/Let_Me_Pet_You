@@ -470,16 +470,16 @@ public class VolunteerServlet extends HttpServlet{
 		 
 		
 		if("login".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				String vlt_mail = req.getParameter("vlt_mail");
 				if(vlt_mail == null || vlt_mail.trim().length() == 0) {
-					errorMsgs.add("請輸入帳號");
+					errorMsgs.put("vlt_mail","請輸入正確的帳號");
 				}
 				String vlt_pw = req.getParameter("vlt_pw");
 				if(vlt_pw == null || vlt_pw.trim().length() == 0) {
-					errorMsgs.add("請輸入密碼");
+					errorMsgs.put("vlt_pw","請輸入正確的密碼");
 				}
 				VolunteerVO volunteerVO = new VolunteerVO();
 				volunteerVO.setVlt_mail(vlt_mail);
@@ -514,7 +514,7 @@ public class VolunteerServlet extends HttpServlet{
 						return;
 					}else {
 						//登入失敗
-						errorMsgs.add("輸入的密碼錯誤");
+						errorMsgs.put("vlt_pw","輸入的密碼錯誤");
 						RequestDispatcher failureView = req
 								.getRequestDispatcher("/front-end/volunteer/volunteer_login.jsp");
 						failureView.forward(req, res);
@@ -522,9 +522,9 @@ public class VolunteerServlet extends HttpServlet{
 					
 				}catch(Exception e) {
 					if(volunteerVO == null) {
-						errorMsgs.add("查無此帳號");
+						errorMsgs.put("vlt_mail","查無此帳號");
 					}else {
-						errorMsgs.add("資料庫的例外");
+						errorMsgs.put("vlt_mail","資料庫的例外");
 					}
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/volunteer/volunteer_login.jsp");
@@ -533,7 +533,7 @@ public class VolunteerServlet extends HttpServlet{
 					
 				}
 			}catch(Exception e) {
-				errorMsgs.add("發生其他例外:" + e.getMessage());
+				errorMsgs.put("發生其他例外:",e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/volunteer/volunteer_login.jsp");
 				failureView.forward(req, res);

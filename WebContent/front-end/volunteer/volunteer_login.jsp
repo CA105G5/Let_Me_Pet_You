@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.volunteer.model.*"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 	<head>
@@ -60,19 +61,19 @@
 						
 			<%-- 錯誤表列 --%>
 			<c:if test="${not empty errorMsgs}">
-				<font style="color:red">請修正以下錯誤:</font>
-				<ul>
-					<c:forEach var="message" items="${errorMsgs}">
-						<li style="color:red">${message}</li>
-					</c:forEach>
-				</ul>
+<!-- 				<font style="color:red">請修正以下錯誤:</font> -->
+<!-- 				<ul> -->
+<%-- 					<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 						<li style="color:red">${message}</li> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</ul> -->
 			</c:if>
     
  		    <div class="col-lg-4 col-md-6 booking-right">
 				<h3 class="mb-20" align="center">請輸入帳號密碼</h3>
 					<form METHOD="post" ACTION="volunteer.do" >
-						帳號：<input class="form-control" type="email" name="vlt_mail" placeholder="Email Address" required="">
-						密碼：<input class="form-control" type="password" name="vlt_pw" placeholder="password" required="">
+					<div>帳號：<input class="form-control" type="email" name="vlt_mail" placeholder="Email Address" value="${param.vlt_mail}" required=""><p style="color:red">${errorMsgs.vlt_mail}</p></div>
+					<div>密碼：<input class="form-control" type="password" name="vlt_pw" placeholder="password" "required=""><p style="color:red">${errorMsgs.vlt_pw}</p></div>
 						<input type="hidden" name="action" value="login">
 						<button class="btn btn-default btn-lg btn-block text-center">登入</button>
 					</form>
