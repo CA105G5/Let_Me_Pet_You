@@ -278,7 +278,7 @@ public class MemServlet extends HttpServlet {
 				memVO= memSvc.getMemSelf(memb_acc);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				session.setAttribute("memVO", memVO);
-				String url = "/front-end/members/listOneMember.jsp";
+				String url = "/front-end/members/after_update.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 

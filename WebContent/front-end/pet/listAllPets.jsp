@@ -1,9 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.mem.model.*"%>
+<%@ page import="com.pet.model.*"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-  MemVO memVO = (MemVO) session.getAttribute("memVO"); //MemServlet.java(Concroller), 存入req的memVO物件
+  MemVO memVO = (MemVO) session.getAttribute("memVO");
+  PetVO petVO = (PetVO) session.getAttribute("petVO");
 %>
 
 <html> 
@@ -23,7 +25,7 @@
 		<meta charset="UTF-8">
 		<!-- Site Title -->
 
-<title>會員資料 - listOneMember.jsp</title>
+<title>寵物資料 - listAllPets.jsp</title>
 
 <%-- 放自己css前 --%>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
@@ -141,7 +143,7 @@
 			<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">會員資料</h1>
+			  <h1 align="center">寵物資料 - listAllPets.jsp</h1>
 			</div>
 
 <table class="table table-bordered table-striped table-hover table-condensed">

@@ -79,7 +79,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
 						<li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">首頁</a></li>
-						<li><a href="<%=request.getContextPath()%>/front-end/members/updateMembers.jsp">會員</a>
+						<li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">會員</a>
 							<ul>
 								    	<li><a href="<%=request.getContextPath()%>/front-end/members/listOneMember.jsp">查看會員資料</a></li>
 								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的寵物資料</a></li>
@@ -118,11 +118,11 @@ System.out.println( "是否登入:"+ (memVO != null));
 				</div>
 				<div class="col-lg-3 col-sm-3 menu-top-right">
 				<% if(memVO == null){ %>
-				<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a>
+				<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊">登入/註冊</a>
 				<%}else{ 
 					out.print(memVO.getMemb_nick()+"，你好");
 				%>
-				<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出"></a>
+				<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a>
 				
 
 				<%}%>

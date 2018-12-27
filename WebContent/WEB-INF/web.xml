@@ -64,6 +64,14 @@
     <url-pattern>/front-end/members/memImg.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>PetServlet</servlet-name>
+    <servlet-class>com.pet.controller.PetServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PetServlet</servlet-name>
+    <url-pattern>/front-end/pet/pet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>VolunteerServlet</servlet-name>
     <servlet-class>com.volunteer.controller.VolunteerServlet</servlet-class>
   </servlet>

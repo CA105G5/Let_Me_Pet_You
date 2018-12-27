@@ -141,7 +141,7 @@
 			<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">會員資料</h1>
+			  <h1 align="center">請確認會員資料</h1>
 			</div>
 
 <table class="table table-bordered table-striped table-hover table-condensed">
@@ -158,7 +158,7 @@
 	<tr><td>信用卡到期月</td><td><%=memVO.getMemb_cre_month()%></td></tr>
 	<tr><td>會員照片</td><td><img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td></tr>
 </table>
-<div align="center"><a href="<%=request.getContextPath()%>/front-end/members/client_update.jsp">修改資料</a></div>
+<div align="center"><a href="<%=request.getContextPath()%>/front-end/members/client_update.jsp">重新修改資料</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/front-end/members/index.jsp">回首頁</a></div>
 </div>
 
 <%-- 模板後script 加在自己的script前--%>

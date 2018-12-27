@@ -254,7 +254,7 @@
 <input type="hidden" name="action" value="client_update">
 <input type="hidden" name="memb_id" value="<%=memVO.getMemb_id()%>">
 <input type="hidden" name="memb_acc" value="<%=memVO.getMemb_acc()%>">
-<input type="submit" value="送出修改"></FORM>
+<div align="center"><input type="submit" value="送出修改"></div></FORM>
 
 
 <%-- 模板後script 加在自己的script前--%>
