@@ -1,10 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mem.model.*"%>
 <%
   MemVO memVO = (MemVO) session.getAttribute("memVO");
 System.out.println("111111111111111111111111111="+session.getId());
-System.out.println( memVO == null);
+System.out.println( "æ˜¯å¦ç™»å…¥:"+ (memVO != null));
 %>
 <html>
 <head>
@@ -21,7 +21,7 @@ System.out.println( memVO == null);
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-<title>·|­û«eºİ­¶­±</title>
+<title>æœƒå“¡å‰ç«¯é é¢</title>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<%--
 			CSS
@@ -38,7 +38,7 @@ System.out.println( memVO == null);
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
-<%-- ­Y­n¨Ï¥Îfai¨ºª©¥~±¾icon¡A­nimport CDN¡A§Ö±¶Áäfacdn=>tab --%>
+<%-- è‹¥è¦ä½¿ç”¨faié‚£ç‰ˆå¤–æ›iconï¼Œè¦import CDNï¼Œå¿«æ·éµfacdn=>tab --%>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 			
@@ -78,28 +78,38 @@ System.out.println( memVO == null);
 			<div class="row align-items-center justify-content-center d-flex">
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">­º­¶</a></li>
-						<li><a href="<%=request.getContextPath()%>/front-end/members/updateMembers.jsp">·|­û¸ê®Æ</a></li>
-						<li><a href="about.html">±Ï´©</a></li>
-						<li><a href="service.html">»{¾i</a></li>
-						<li><a href="training.html">¥¢ÂÜ</a>
+						<li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">é¦–é </a></li>
+						<li><a href="<%=request.getContextPath()%>/front-end/members/updateMembers.jsp">æœƒå“¡</a>
+							<ul>
+								    	<li><a href="<%=request.getContextPath()%>/front-end/members/listOneMember.jsp">æŸ¥çœ‹æœƒå“¡è³‡æ–™</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">æŸ¥çœ‹æˆ‘çš„å¯µç‰©è³‡æ–™</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">æŸ¥çœ‹æˆ‘çš„æ•‘æ´æ¡ˆä¾‹</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">æŸ¥çœ‹æˆ‘çš„èªé¤Šæ¡ˆä¾‹</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">æŸ¥çœ‹æˆ‘çš„å¤±è¹¤å¯µç‰©</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">æŸ¥çœ‹æˆ‘çš„æè´ˆç´€éŒ„</a></li>
+							</ul>
+						
+						</li>
+						<li><a href="about.html">æ•‘æ´</a></li>
+						<li><a href="service.html">èªé¤Š</a></li>
+						<li><a href="training.html">å¤±è¹¤</a>
 						     <ul>
-								<li><a href="<%=request.getContextPath()%>/front-end/missingCase/addMissing.jsp">·s¼W¥¢ÂÜ®×¨Ò</a></li>
-								<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">¥¢ÂÜ®×¨ÒÂsÄı</a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/missingCase/addMissing.jsp">æ–°å¢å¤±è¹¤æ¡ˆä¾‹</a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">å¤±è¹¤æ¡ˆä¾‹ç€è¦½</a></li>
 							</ul>
 						</li>
-						<li><a href="events.html">¨ó´M</a></li>
-						<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">®½ÃØ</a>
+						<li><a href="events.html">å”å°‹</a></li>
+						<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">æè´ˆ</a>
 							      	<ul>
-								    	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">·R¤ß®½´Ú</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">·R¤ß°Ó«~®½ÃØ</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">³\Ä@ª«¸ê®½ÃØ</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">·R¤ß°Ó«~®½ÃØ¬ö¿ı¦Cªí</a></li>
+								    	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">æ„›å¿ƒææ¬¾</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">æ„›å¿ƒå•†å“æè´ˆ</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">è¨±é¡˜ç‰©è³‡æè´ˆ</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">æ„›å¿ƒå•†å“æè´ˆç´€éŒ„åˆ—è¡¨</a></li>
 								    </ul>
 						</li>
-						<li class="menu-has-children menu-active"><a href="">°Ó«°</a></li>
-<!-- 						<li><a href="contact.html">Ãö©ó§Ú­Ì</a></li> -->
-<!-- 						<li><a href="elements.html">±`¨£°İÃD</a></li> -->
+						<li class="menu-has-children menu-active"><a href="">å•†åŸ</a></li>
+<!-- 						<li><a href="contact.html">é—œæ–¼æˆ‘å€‘</a></li> -->
+<!-- 						<li><a href="elements.html">å¸¸è¦‹å•é¡Œ</a></li> -->
 					</ul>
 				</nav>
 				<%-- #nav-menu-container --%>
@@ -108,11 +118,11 @@ System.out.println( memVO == null);
 				</div>
 				<div class="col-lg-3 col-sm-3 menu-top-right">
 				<% if(memVO == null){ %>
-				<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="µn¤J/µù¥U"></a>
+				<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="ç™»å…¥/è¨»å†Š"></a>
 				<%}else{ 
-					out.print(memVO.getMemb_nick()+"¡A§A¦n");
+					out.print(memVO.getMemb_nick()+"ï¼Œä½ å¥½");
 				%>
-				<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="µn¥X"></a>
+				<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="ç™»å‡º"></a>
 				
 
 				<%}%>
@@ -124,7 +134,7 @@ System.out.println( memVO == null);
 			  </header><!-- #header -->
 			  
 			  
-	<%-- ¶Â©³logo°Ï --%>			  
+	<%-- é»‘åº•logoå€ --%>			  
 <section class="banner-area relative" id="home">	
 				<div class="overlay overlay-bg"></div>
 				<div class="container">				
@@ -133,7 +143,7 @@ System.out.println( memVO == null);
 							<h6 class="text-white" >Respect All Lifes</h6>
 							<span class="bar"></span>
 							<h1 class="text-white">
-								®ö§Ú³­§A <br>
+								æµªæˆ‘é™ªä½  <br>
 								LET ME PET YOU
 							</h1>
 							<a href="#" class="genric-btn">Book Consultancy</a>
@@ -143,7 +153,7 @@ System.out.println( memVO == null);
 			</section>
 		<section id="sp-main-top-wrapper" class=" "><div class="row-fluid" id="main-top">
 	
-<%-- ¹ªÀy±Ï´©°Ï --%>			
+<%-- é¼“å‹µæ•‘æ´å€ --%>			
 			<section class="about-video-area section-gap">
 			
 				<div class="container">
@@ -151,8 +161,8 @@ System.out.println( memVO == null);
 						<div class="col-lg-6 about-video-left">
 							<h6 class="text-uppercase">Latest video that needs your help</h6>
 							<h1>
-								§Y¨è±Ï´© <br>
-								¥@¬É¦]§A¦ÓÅÜ 
+								å³åˆ»æ•‘æ´ <br>
+								ä¸–ç•Œå› ä½ è€Œè®Š 
 							</h1>
 							<p>
 								<span>We are here to listen from you deliver exellence</span>
@@ -168,12 +178,12 @@ System.out.println( memVO == null);
 					</div>
 				</div>	
 			</section>
-	<%-- ¥¢ÂÜ¨ó´M°Ï --%>	
+	<%-- å¤±è¹¤å”å°‹å€ --%>	
 	<section class="home-about-area section-gap">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 home-about-left">
-							<img class="mx-auto d-block img-fluid" src="img/about-img.png" alt="">
+							<img class="mx-auto d-block img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/about-img.png" alt="">
 						</div>
 						<div class="col-lg-6 home-about-right">
 							<h6 class="text-uppercase">Brand new app to blow your mind</h6>
@@ -192,13 +202,13 @@ System.out.println( memVO == null);
 			</section>	
 			
 			
-	<%-- ¹ªÀy®½ÃØ°Ï --%>		
+	<%-- é¼“å‹µæè´ˆå€ --%>		
 				<section class="price-area section-gap">
 				<div class="container">
 					<div class="row d-flex justify-content-center">
 						<div class="menu-content pb-70 col-lg-8">
 							<div class="title text-center">
-								<h1 class="mb-10">¿ï¾Ü¾A¦X±zªº®½ÃØ¤è®×</h1>
+								<h1 class="mb-10">é¸æ“‡é©åˆæ‚¨çš„æè´ˆæ–¹æ¡ˆ</h1>
 								<p>Choose the best donation that suits you</p>
 							</div>
 						</div>
@@ -219,7 +229,7 @@ System.out.println( memVO == null);
 									</ul>
 								</div>
 								<div class="bottom-part">
-									<h1>¢G199.00</h1>
+									<h1>Â£199.00</h1>
 									<a class="price-btn text-uppercase" href="#">Purchase</a>
 								</div>								
 							</div>
@@ -239,7 +249,7 @@ System.out.println( memVO == null);
 									</ul>
 								</div>
 								<div class="bottom-part">
-									<h1>¢G299.00</h1>
+									<h1>Â£299.00</h1>
 									<a class="price-btn text-uppercase" href="#">Purchase</a>
 								</div>								
 							</div>
@@ -259,7 +269,7 @@ System.out.println( memVO == null);
 									</ul>
 								</div>
 								<div class="bottom-part">
-									<h1>¢G399.00</h1>
+									<h1>Â£399.00</h1>
 									<a class="price-btn text-uppercase" href="#">Purchase</a>
 								</div>								
 							</div>
@@ -279,7 +289,7 @@ System.out.println( memVO == null);
 									</ul>
 								</div>
 								<div class="bottom-part">
-									<h1>¢G499.00</h1>
+									<h1>Â£499.00</h1>
 									<a class="price-btn text-uppercase" href="#">Purchase</a>
 								</div>								
 							</div>
@@ -296,50 +306,50 @@ System.out.println( memVO == null);
 
 	
 
-<%-- ²¾°Ê·Ó¤ù°Ï --%>
-<center><h1>©x¤è»s§@¹Î¶¤</h1></center>
+<%-- ç§»å‹•ç…§ç‰‡å€ --%>
+<center><h1>å®˜æ–¹è£½ä½œåœ˜éšŠ</h1></center>
 	<section class="gallery-area">
 				<div class="container-fluid">
 					<div class="row no-padding">
 						<div class="active-gallery">
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="images/m1.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m1.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="images/m2.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m2.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="images/m3.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m3.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="images/m4.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m4.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="images/m5.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m5.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="images/g6.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/g6.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
@@ -352,7 +362,7 @@ System.out.println( memVO == null);
 
 
 
-<%-- ¼ÒªOscript --%>
+<%-- æ¨¡æ¿script --%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>			
