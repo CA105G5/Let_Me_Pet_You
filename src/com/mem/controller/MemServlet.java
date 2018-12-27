@@ -167,45 +167,46 @@ public class MemServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		if("updateFromClient".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			try {
-				
-				/***************************1.接收請求參數****************************************/
-				String memb_acc = req.getParameter("memb_acc");
-				if(memb_acc == null || memb_acc.trim().length() == 0) {
-					errorMsgs.add("請輸入會員帳號");
-				}
-				
-				
-				/***************************2.開始查詢資料****************************************/
-				MemService memSvc = new MemService();
-				MemVO memVO = memSvc.getMemSelf(memb_acc);
-				if(memVO == null) {
-					errorMsgs.add("查無此帳號");
-				}
-				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = 
-					req.getRequestDispatcher("/front-end/members/addMembers.jsp");
-					failureView.forward(req, res);
-					return;
-				}
-				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-				req.setAttribute("memVO", memVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/front-end/members/client_update.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 client_update.jsp
-				successView.forward(req, res);
-			}catch(Exception e) {
-				errorMsgs.add("有Exception");
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/members/addMembers.jsp");
-				failureView.forward(req, res);
-			}
-		}
+//		if("updateFromClient".equals(action)) {
+//			List<String> errorMsgs = new LinkedList<String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+//			try {
+//				
+//				/***************************1.接收請求參數****************************************/
+//				String memb_acc = req.getParameter("memb_acc");
+//				if(memb_acc == null || memb_acc.trim().length() == 0) {
+//					errorMsgs.add("請輸入會員帳號");
+//				}
+//				
+//				
+//				/***************************2.開始查詢資料****************************************/
+//				MemService memSvc = new MemService();
+//				MemVO memVO = memSvc.getMemSelf(memb_acc);
+//				if(memVO == null) {
+//					errorMsgs.add("查無此帳號");
+//				}
+//				if(!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = 
+//					req.getRequestDispatcher("/front-end/members/addMembers.jsp");
+//					failureView.forward(req, res);
+//					return;
+//				}
+//				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+//				req.setAttribute("memVO", memVO);         // 資料庫取出的empVO物件,存入req
+//				String url = "/front-end/members/client_update.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 client_update.jsp
+//				successView.forward(req, res);
+//			}catch(Exception e) {
+//				errorMsgs.add("有Exception");
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/members/addMembers.jsp");
+//				failureView.forward(req, res);
+//			}
+//		}
 		if("client_update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			HttpSession session = req.getSession();
 			try {
 				
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
@@ -262,7 +263,7 @@ public class MemServlet extends HttpServlet {
 				memVO.setMemb_photo(memb_photo);
 
 				if(!errorMsgs.isEmpty()) {
-					req.setAttribute("memVO", memVO);
+					session.setAttribute("memVO", memVO);
 					RequestDispatcher failureView = 
 					req.getRequestDispatcher("/front-end/members/client_update.jsp");
 					failureView.forward(req, res);
@@ -276,7 +277,7 @@ public class MemServlet extends HttpServlet {
 								memb_cre_year, memb_cre_month, memb_photo);
 				memVO= memSvc.getMemSelf(memb_acc);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("memVO", memVO);
+				session.setAttribute("memVO", memVO);
 				String url = "/front-end/members/listOneMember.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);

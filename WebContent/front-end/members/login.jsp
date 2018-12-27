@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
@@ -17,8 +17,8 @@
 		<meta charset="UTF-8">
 		<!-- Site Title -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>µn¤Jµe­±</title>
-<%-- ©ñ¦Û¤vcss«e --%>
+<title>ç™»å…¥ç•«é¢</title>
+<%-- æ”¾è‡ªå·±csså‰ --%>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<%--
 			CSS
@@ -35,7 +35,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
-<%-- ­Y­n¨Ï¥Îfai¨ºª©¥~±¾icon¡A­nimport CDN¡A§Ö±¶Áäfacdn=>tab --%>
+<%-- è‹¥è¦ä½¿ç”¨faié‚£ç‰ˆå¤–æŽ›iconï¼Œè¦import CDNï¼Œå¿«æ·éµfacdn=>tab --%>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
@@ -52,7 +52,7 @@
 				</div>
 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="½Ð¿é¤JÃöÁä¦r">
+						<input type="text" class="form-control" placeholder="è«‹è¼¸å…¥é—œéµå­—">
 						<span class="input-group-btn">
 							<button class="btn btn-info" type="button">
 								<i class="glyphicon glyphicon-search"></i>
@@ -61,7 +61,7 @@
 					</div>
 				</div>
 				<div class="col-lg-4 col-sm-4 menu-top-right">
-				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="µn¤J/µù¥U"></a>
+				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="ç™»å…¥/è¨»å†Š"></a>
 					
 				</div>
 			</div>
@@ -71,20 +71,20 @@
 			<div class="row align-items-center justify-content-center d-flex">
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="index.jsp">­º­¶</a></li>
-						<li><a href="about.html">±Ï´©</a></li>
-						<li><a href="service.html">»{¾i</a></li>
-						<li><a href="training.html">¥¢ÂÜ</a></li>
-						<li><a href="events.html">¨ó´M</a></li>
-						<li><a href="pricing.html">®½ÃØ</a>
+						<li><a href="index.jsp">é¦–é </a></li>
+						<li><a href="about.html">æ•‘æ´</a></li>
+						<li><a href="service.html">èªé¤Š</a></li>
+						<li><a href="training.html">å¤±è¹¤</a></li>
+						<li><a href="events.html">å”å°‹</a></li>
+						<li><a href="pricing.html">æè´ˆ</a>
 							<ul>
-								<li><a href="blog-home.html">·R¤ß®½´Ú</a></li>
-								<li><a href="blog-single.html">·R¤ßª«¸ê®½ÃØ</a></li>
-								<li><a href="blog-single.html">³\Ä@ª«¸ê®½ÃØ</a></li>
+								<li><a href="blog-home.html">æ„›å¿ƒææ¬¾</a></li>
+								<li><a href="blog-single.html">æ„›å¿ƒç‰©è³‡æè´ˆ</a></li>
+								<li><a href="blog-single.html">è¨±é¡˜ç‰©è³‡æè´ˆ</a></li>
 							</ul></li>
-						<li class="menu-has-children menu-active"><a href="">°Ó«°</a></li>
-						<li><a href="contact.html">Ãö©ó§Ú­Ì</a></li>
-						<li><a href="elements.html">±`¨£°ÝÃD</a></li>
+						<li class="menu-has-children menu-active"><a href="">å•†åŸŽ</a></li>
+						<li><a href="contact.html">é—œæ–¼æˆ‘å€‘</a></li>
+						<li><a href="elements.html">å¸¸è¦‹å•é¡Œ</a></li>
 					</ul>
 				</nav>
 				<%-- #nav-menu-container --%>
@@ -94,9 +94,9 @@
 			  
 			  <br><br><br><br><br><br><br><br><br>
 
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ð­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -108,11 +108,11 @@
 			<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">½Ð¿é¤J±b¸¹±K½X</h1>
+			  <h1 align="center">è«‹è¼¸å…¥å¸³è™Ÿå¯†ç¢¼</h1>
 			</div>
 			<table class="table table-bordered table-striped table-hover table-condensed">
-			<tr><td>±b¸¹:</td><td><input type="text" name="memb_acc"></td></tr>
-			<tr><td>±K½X:</td><td><input type="password" name="memb_psw"></td></tr>
+			<tr><td>å¸³è™Ÿ:</td><td><input type="text" name="memb_acc"></td></tr>
+			<tr><td>å¯†ç¢¼:</td><td><input type="password" name="memb_psw"></td></tr>
 			
    
  
@@ -122,15 +122,15 @@
         </div>
         <br>
         <input type="hidden" name="action" value="login">
-        <div align="center"><input type="submit" value="µn¤J">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="addMembers.jsp">µù¥U¦¨¬°·s·|­û</a></div>
+        <div align="center"><input type="submit" value="ç™»å…¥">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/front-end/members/addMembers.jsp">è¨»å†Šæˆç‚ºæ–°æœƒå“¡</a></div>
         
     </FORM>
  		  
 			  
 			  
 			  
-<%-- ¼ÒªO«áscript ¥[¦b¦Û¤vªºscript«e--%>
+<%-- æ¨¡æ¿å¾Œscript åŠ åœ¨è‡ªå·±çš„scriptå‰--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>			

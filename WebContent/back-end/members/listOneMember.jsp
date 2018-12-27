@@ -1,14 +1,14 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.mem.model.*"%>
-<%-- ¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È --%>
+<%-- æ­¤é æš«ç·´ç¿’æ¡ç”¨ Script çš„å¯«æ³•å–å€¼ --%>
 
 <%
-  MemVO memVO = (MemVO) request.getAttribute("memVO"); //MemServlet.java(Concroller), ¦s¤JreqªºmemVOª«¥ó
+  MemVO memVO = (MemVO) request.getAttribute("memVO"); //MemServlet.java(Concroller), å­˜å…¥reqçš„memVOç‰©ä»¶
 %>
 
 <html> 
 <head>
-<title>·|­û¸ê®Æ - listOneMem.jsp</title>
+<title>æœƒå“¡è³‡æ–™ - listOneMem.jsp</title>
 
 <style>
   table#table-1 {
@@ -46,30 +46,30 @@
 </head>
 <body bgcolor='white'>
 
-<h4>¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È:</h4>
+<h4>æ­¤é æš«ç·´ç¿’æ¡ç”¨ Script çš„å¯«æ³•å–å€¼:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>­û¤u¸ê®Æ - ListOneMember.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		 <h3>å“¡å·¥è³‡æ–™ - ListOneMember.jsp</h3>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>·|­û½s¸¹</th>
-		<th>·|­ûª¬ºA</th>
-		<th>·|­û±b¸¹</th>
-		<th>·|­û±K½X</th>
-		<th>·|­û©m¦W</th>
-		<th>·|­û¼ÊºÙ</th>
-		<th>·|­ûEmail</th> 
-		<th>·|­û·Ó¤ù</th>
-		<th>·|­û¤â¾÷</th>
-		<th>·|­û©Ê§O</th>
-		<th>«H¥Î¥dÃş«¬</th>
-		<th>«ù¥d¤H</th>
-		<th>«H¥Î¥d¨ì´Á¦~</th>
-		<th>«H¥Î¥d¨ì´Á¤ë</th>
+		<th>æœƒå“¡ç·¨è™Ÿ</th>
+		<th>æœƒå“¡ç‹€æ…‹</th>
+		<th>æœƒå“¡å¸³è™Ÿ</th>
+		<th>æœƒå“¡å¯†ç¢¼</th>
+		<th>æœƒå“¡å§“å</th>
+		<th>æœƒå“¡æš±ç¨±</th>
+		<th>æœƒå“¡Email</th> 
+		<th>æœƒå“¡ç…§ç‰‡</th>
+		<th>æœƒå“¡æ‰‹æ©Ÿ</th>
+		<th>æœƒå“¡æ€§åˆ¥</th>
+		<th>ä¿¡ç”¨å¡é¡å‹</th>
+		<th>æŒå¡äºº</th>
+		<th>ä¿¡ç”¨å¡åˆ°æœŸå¹´</th>
+		<th>ä¿¡ç”¨å¡åˆ°æœŸæœˆ</th>
 	</tr>
 	<tr>
 		<td><%=memVO.getMemb_id()%></td>

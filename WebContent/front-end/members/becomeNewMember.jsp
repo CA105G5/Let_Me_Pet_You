@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.mem.model.*"%>
-<%-- ¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È --%>
+<%-- æ­¤é æš«ç·´ç¿’æŽ¡ç”¨ Script çš„å¯«æ³•å–å€¼ --%>
 
 <%
-  MemVO memVO = (MemVO) request.getAttribute("memVO"); //MemServlet.java(Concroller), ¦s¤JreqªºmemVOª«¥ó
+  MemVO memVO = (MemVO) request.getAttribute("memVO"); //MemServlet.java(Concroller), å­˜å…¥reqçš„memVOç‰©ä»¶
   pageContext.setAttribute("memVO", memVO);
 %>
 <%--<%= memVO==null %>--%>
@@ -23,7 +23,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-<title>Åwªï¦¨¬°·s·|­û - becomeNewMember.jsp</title>
+<title>æ­¡è¿Žæˆç‚ºæ–°æœƒå“¡ - becomeNewMember.jsp</title>
 
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<%--
@@ -42,7 +42,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
-<%-- ­Y­n¨Ï¥Îfai¨ºª©¥~±¾icon¡A­nimport CDN¡A§Ö±¶Áäfacdn=>tab --%>
+<%-- è‹¥è¦ä½¿ç”¨faié‚£ç‰ˆå¤–æŽ›iconï¼Œè¦import CDNï¼Œå¿«æ·éµfacdn=>tab --%>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
@@ -92,7 +92,7 @@
 				</div>
 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="½Ð¿é¤JÃöÁä¦r">
+						<input type="text" class="form-control" placeholder="è«‹è¼¸å…¥é—œéµå­—">
 						<span class="input-group-btn">
 							<button class="btn btn-info" type="button">
 								<i class="glyphicon glyphicon-search"></i>
@@ -101,7 +101,7 @@
 					</div>
 				</div>
 				<div class="col-lg-4 col-sm-4 menu-top-right">
-				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="µn¤J/µù¥U"></a>
+				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="ç™»å…¥/è¨»å†Š"></a>
 					
 				</div>
 			</div>
@@ -111,20 +111,20 @@
 			<div class="row align-items-center justify-content-center d-flex">
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="index.jsp">­º­¶</a></li>
-						<li><a href="about.html">±Ï´©</a></li>
-						<li><a href="service.html">»{¾i</a></li>
-						<li><a href="training.html">¥¢ÂÜ</a></li>
-						<li><a href="events.html">¨ó´M</a></li>
-						<li><a href="pricing.html">®½ÃØ</a>
+						<li><a href="index.jsp">é¦–é </a></li>
+						<li><a href="about.html">æ•‘æ´</a></li>
+						<li><a href="service.html">èªé¤Š</a></li>
+						<li><a href="training.html">å¤±è¹¤</a></li>
+						<li><a href="events.html">å”å°‹</a></li>
+						<li><a href="pricing.html">æè´ˆ</a>
 							<ul>
-								<li><a href="blog-home.html">·R¤ß®½´Ú</a></li>
-								<li><a href="blog-single.html">·R¤ßª«¸ê®½ÃØ</a></li>
-								<li><a href="blog-single.html">³\Ä@ª«¸ê®½ÃØ</a></li>
+								<li><a href="blog-home.html">æ„›å¿ƒææ¬¾</a></li>
+								<li><a href="blog-single.html">æ„›å¿ƒç‰©è³‡æè´ˆ</a></li>
+								<li><a href="blog-single.html">è¨±é¡˜ç‰©è³‡æè´ˆ</a></li>
 							</ul></li>
-						<li class="menu-has-children menu-active"><a href="">°Ó«°</a></li>
-						<li><a href="contact.html">Ãö©ó§Ú­Ì</a></li>
-						<li><a href="elements.html">±`¨£°ÝÃD</a></li>
+						<li class="menu-has-children menu-active"><a href="">å•†åŸŽ</a></li>
+						<li><a href="contact.html">é—œæ–¼æˆ‘å€‘</a></li>
+						<li><a href="elements.html">å¸¸è¦‹å•é¡Œ</a></li>
 					</ul>
 				</nav>
 				<%-- #nav-menu-container --%>
@@ -140,30 +140,30 @@
 			<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">®¥³ß¦¨¬°·s·|­û</h1>
+			  <h1 align="center">æ­å–œæˆç‚ºæ–°æœƒå“¡</h1>
 			</div>
 
 <table class="table table-bordered table-striped table-hover table-condensed">
-	<tr><td>·|­û±b¸¹</td><td><%=memVO.getMemb_acc()%></td></tr>
-	<tr><td>·|­û±K½X</td><td><%=memVO.getMemb_psw()%></td></tr>
-	<tr><td>·|­û©m¦W</td><td><%=memVO.getMemb_name()%></td></tr>
-	<tr><td>·|­û¼ÊºÙ</td><td><%=memVO.getMemb_nick()%></td></tr>
-	<tr><td>·|­ûEmail</td><td><%=memVO.getMemb_email()%></td></tr>
-	<tr><td>·|­û¤â¾÷</td><td><%=memVO.getMemb_cellphone()%></td></tr>
-	<tr><td>·|­û©Ê§O</td><td><%=memVO.getMemb_gender()%></td></tr>
-	<tr><td>«H¥Î¥dÃþ«¬</td><td><%=memVO.getMemb_cre_type()%></td></tr>
-	<tr><td>«ù¥d¤H</td><td><%=memVO.getMemb_cre_name()%></td></tr>
-	<tr><td>«H¥Î¥d¨ì´Á¦~</td><td><%=memVO.getMemb_cre_year()%></td></tr>
-	<tr><td>«H¥Î¥d¨ì´Á¤ë</td><td><%=memVO.getMemb_cre_month()%></td></tr>
-	<tr><td>·|­û·Ó¤ù</td><td><img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td></tr>
+	<tr><td>æœƒå“¡å¸³è™Ÿ</td><td><%=memVO.getMemb_acc()%></td></tr>
+	<tr><td>æœƒå“¡å¯†ç¢¼</td><td><%=memVO.getMemb_psw()%></td></tr>
+	<tr><td>æœƒå“¡å§“å</td><td><%=memVO.getMemb_name()%></td></tr>
+	<tr><td>æœƒå“¡æš±ç¨±</td><td><%=memVO.getMemb_nick()%></td></tr>
+	<tr><td>æœƒå“¡Email</td><td><%=memVO.getMemb_email()%></td></tr>
+	<tr><td>æœƒå“¡æ‰‹æ©Ÿ</td><td><%=memVO.getMemb_cellphone()%></td></tr>
+	<tr><td>æœƒå“¡æ€§åˆ¥</td><td><%=memVO.getMemb_gender()%></td></tr>
+	<tr><td>ä¿¡ç”¨å¡é¡žåž‹</td><td><%=memVO.getMemb_cre_type()%></td></tr>
+	<tr><td>æŒå¡äºº</td><td><%=memVO.getMemb_cre_name()%></td></tr>
+	<tr><td>ä¿¡ç”¨å¡åˆ°æœŸå¹´</td><td><%=memVO.getMemb_cre_year()%></td></tr>
+	<tr><td>ä¿¡ç”¨å¡åˆ°æœŸæœˆ</td><td><%=memVO.getMemb_cre_month()%></td></tr>
+	<tr><td>æœƒå“¡ç…§ç‰‡</td><td><img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td></tr>
 	
 </table>
 </div>
-<a href="login.jsp">«e©¹µn¤J­¶­±</a>
+<a href="login.jsp">å‰å¾€ç™»å…¥é é¢</a>
 
 
 
-<%-- ¼ÒªO«áscript ¥[¦b¦Û¤vªºscript«e--%>
+<%-- æ¨¡æ¿å¾Œscript åŠ åœ¨è‡ªå·±çš„scriptå‰--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>			

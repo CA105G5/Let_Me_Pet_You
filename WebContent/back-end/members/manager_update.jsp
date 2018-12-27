@@ -1,14 +1,14 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mem.model.*"%>
 
 <%
-  MemVO memVO = (MemVO) request.getAttribute("memVO"); //EmpServlet.java (Concroller) ¦s¤JreqªºempVOª«¥ó (¥]¬AÀ°¦£¨ú¥XªºempVO, ¤]¥]¬A¿é¤J¸ê®Æ¿ù»~®ÉªºempVOª«¥ó)
+  MemVO memVO = (MemVO) request.getAttribute("memVO"); //EmpServlet.java (Concroller) å­˜å…¥reqçš„empVOç‰©ä»¶ (åŒ…æ‹¬å¹«å¿™å–å‡ºçš„empVO, ä¹ŸåŒ…æ‹¬è¼¸å…¥è³‡æ–™éŒ¯èª¤æ™‚çš„empVOç‰©ä»¶)
 %>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>·|­û¸ê®Æ­×§ï - manager_update.jsp</title>
+<title>æœƒå“¡è³‡æ–™ä¿®æ”¹ - manager_update.jsp</title>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -44,16 +44,16 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>­û¤u¸ê®Æ­×§ï - update_emp_input.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		 <h3>å“¡å·¥è³‡æ–™ä¿®æ”¹ - update_emp_input.jsp</h3>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 
-<h3>¸ê®Æ­×§ï:</h3>
+<h3>è³‡æ–™ä¿®æ”¹:</h3>
 
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -64,26 +64,26 @@
 <FORM METHOD="post" ACTION="mem.do" name="form1">
 <table>
 	<tr>
-		<td>·|­û½s¸¹:<font color=red><b>*</b></font></td>
+		<td>æœƒå“¡ç·¨è™Ÿ:<font color=red><b>*</b></font></td>
 		<td><%=memVO.getMemb_id()%></td>
 	</tr>
 	<tr>
-		<td>·|­ûª¬ºA:</td>
+		<td>æœƒå“¡ç‹€æ…‹:</td>
 		<td><select name="memb_sta" size="1">
-		<option value="¥¿±`" ${(memVO.memb_sta =='¥¿±`')? 'selected':''}>¥¿±`
-		<option value="°±Åv" ${(memVO.memb_sta =="°±Åv")? "selected":""}>°±Åv
+		<option value="æ­£å¸¸" ${(memVO.memb_sta =='æ­£å¸¸')? 'selected':''}>æ­£å¸¸
+		<option value="åœæ¬Š" ${(memVO.memb_sta =="åœæ¬Š")? "selected":""}>åœæ¬Š
 		   </select>
 		</td>
 	</tr>
 	<tr>
-		<td>·|­û¹H³W¦¸¼Æ:</td>
+		<td>æœƒå“¡é•è¦æ¬¡æ•¸:</td>
 		<td><input type="TEXT" name="memb_vio_times" size="45"	value="<%=memVO.getMemb_vio_times()%>" /></td>
 	</tr>
 </table>
 <br>
 <input type="hidden" name="action" value="mamager_update">
 <input type="hidden" name="memb_id" value="<%=memVO.getMemb_id()%>">
-<input type="submit" value="°e¥X­×§ï"></FORM>
+<input type="submit" value="é€å‡ºä¿®æ”¹"></FORM>
 </body>
 
 </html>

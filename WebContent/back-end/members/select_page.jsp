@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
@@ -35,11 +35,11 @@
 
 <p>This is the Home page for Members</p>
 
-<h3>¸ê®Æ¬d¸ß:</h3>
+<h3>è³‡æ–™æŸ¥è©¢:</h3>
 	
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -51,39 +51,39 @@
 <li><a href='listAllMembers.jsp'>List all members.</a>  <br><br></li>
   <li>
     <FORM METHOD="post" ACTION="mem.do" >
-        <b>¬d¸ß¥ş³¡·|­û</b>
+        <b>æŸ¥è©¢å…¨éƒ¨æœƒå“¡</b>
         <input type="hidden" name="action" value="getAll">
-        <input type="submit" value="¶}©l¬d">
+        <input type="submit" value="é–‹å§‹æŸ¥">
     </FORM>
   </li>
   
   <li>
     <FORM METHOD="post" ACTION="mem.do" >
-        <b>¿é¤J·|­û½s¸¹ (¦pM000000001):</b>
+        <b>è¼¸å…¥æœƒå“¡ç·¨è™Ÿ (å¦‚M000000001):</b>
         <input type="text" name="memb_id">
         <input type="hidden" name="action" value="getOne">
-        <input type="submit" value="°e¥X">
+        <input type="submit" value="é€å‡º">
     </FORM>
   </li>
 
   <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
    <li>
      <FORM METHOD="post" ACTION="mem.do" >
-       <b>¿ï¾Ü·|­û½s¸¹:</b>
+       <b>é¸æ“‡æœƒå“¡ç·¨è™Ÿ:</b>
        <select size="1" name="memb_id">
          <c:forEach var="memVO" items="${memSvc.all}" > 
           <option value="${memVO.memb_id}">${memVO.memb_id}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne">
-       <input type="submit" value="°e¥X">
+       <input type="submit" value="é€å‡º">
     </FORM>
   </li>
 
 </ul>
 
 
-<h3>·|­ûºŞ²z</h3>
+<h3>æœƒå“¡ç®¡ç†</h3>
 
 
 

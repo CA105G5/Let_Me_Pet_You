@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
@@ -12,7 +12,7 @@
 
 <html>
 <head>
-<title>©Ò¦³·|­û¸ê®Æ - listAllMembers.jsp</title>
+<title>æ‰€æœ‰æœƒå“¡è³‡æ–™ - listAllMembers.jsp</title>
 
 <style>
   table#table-1 {
@@ -49,14 +49,14 @@
 <body bgcolor='white'>
 <table id="table-1">
 	<tr><td>
-		 <h3>©Ò¦³·|­û¸ê®Æ - listAllMembers.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		 <h3>æ‰€æœ‰æœƒå“¡è³‡æ–™ - listAllMembers.jsp</h3>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -65,21 +65,21 @@
 </c:if>
 <table>
 	<tr>
-		<th>·|­û½s¸¹</th>
-		<th>·|­ûª¬ºA</th>
-		<th>·|­û±b¸¹</th>
-		<th>·|­û±K½X</th>
-		<th>·|­û©m¦W</th>
-		<th>·|­û¼ÊºÙ</th>
-		<th>·|­ûEmail</th>
-		<th>·|­û¤â¾÷</th>
-		<th>·|­û©Ê§O</th>
-		<th>«H¥Î¥dÃş«¬</th>
-		<th>«ù¥d¤H</th>
-		<th>«H¥Î¥d¨ì´Á¦~</th>
-		<th>«H¥Î¥d¨ì´Á¤ë</th>
-		<th>·|­û¹H³W¦¸¼Æ</th>
-		<th>·|­û·Ó¤ù</th>
+		<th>æœƒå“¡ç·¨è™Ÿ</th>
+		<th>æœƒå“¡ç‹€æ…‹</th>
+		<th>æœƒå“¡å¸³è™Ÿ</th>
+		<th>æœƒå“¡å¯†ç¢¼</th>
+		<th>æœƒå“¡å§“å</th>
+		<th>æœƒå“¡æš±ç¨±</th>
+		<th>æœƒå“¡Email</th>
+		<th>æœƒå“¡æ‰‹æ©Ÿ</th>
+		<th>æœƒå“¡æ€§åˆ¥</th>
+		<th>ä¿¡ç”¨å¡é¡å‹</th>
+		<th>æŒå¡äºº</th>
+		<th>ä¿¡ç”¨å¡åˆ°æœŸå¹´</th>
+		<th>ä¿¡ç”¨å¡åˆ°æœŸæœˆ</th>
+		<th>æœƒå“¡é•è¦æ¬¡æ•¸</th>
+		<th>æœƒå“¡ç…§ç‰‡</th>
 	</tr>
 	<%@ include file="page1.file" %>
 	<c:forEach var="memVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -102,7 +102,7 @@
 			<td><img src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td> 
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/members/mem.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="­×§ï">
+			     <input type="submit" value="ä¿®æ”¹">
 			     <input type="hidden" name="memb_id"  value="${memVO.memb_id}">
 			     <input type="hidden" name="action"	value="updateFromManager"></FORM>
 			</td>
