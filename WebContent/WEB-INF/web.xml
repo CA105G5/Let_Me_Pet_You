@@ -77,7 +77,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>VolunteerServlet2</servlet-name>
-    <url-pattern>/back-end/volunteer/volunteer.do</url-pattern>
+    <url-pattern>/front-end/volunteer/volunteer.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>VolunteerImgServlet</servlet-name>
