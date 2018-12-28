@@ -82,7 +82,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 						<li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">會員</a>
 							<ul>
 								    	<li><a href="<%=request.getContextPath()%>/front-end/members/listOneMember.jsp">查看會員資料</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的寵物資料</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/pet/pet.do?action=select_pet">查看我的寵物資料</a></li>
 								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的救援案例</a></li>
 								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的認養案例</a></li>
 								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的失蹤寵物</a></li>
