@@ -24,11 +24,13 @@ public class missingCaseAjax extends HttpServlet {
 		String status = req.getParameter("status");
 		if ("getChange".equals(action)) {
 			JSONArray array = new JSONArray();
-
+//新增
+			//回傳全部的留言
 			if ("上架".equals(status)) {
 				missingCaseVO missingCaseVO = new missingCaseVO();
 				missingCaseVO.setMissing_status_shelve(status);
-
+				
+				
 				missingCaseService missingCaseSvc = new missingCaseService();
 				missingCaseVO = missingCaseSvc.updateStatus(missing_case_id, status);
 
@@ -36,6 +38,8 @@ public class missingCaseAjax extends HttpServlet {
 				missingCaseVO missingCaseVO = new missingCaseVO();
 				missingCaseVO.setMissing_status_shelve(status);
 
+				System.out.println(status);
+				
 				missingCaseService missingCaseSvc = new missingCaseService();
 				missingCaseVO = missingCaseSvc.updateStatus(missing_case_id, status);
 

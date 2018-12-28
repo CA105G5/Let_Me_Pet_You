@@ -196,4 +196,14 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
+  
+  <servlet>
+    <servlet-name>missingMsgServlet</servlet-name>
+    <servlet-class>com.missingMsg.controller.missingMsgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>missingMsgServlet</servlet-name>
+    <url-pattern>/missingMsg/missingMsg.do</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

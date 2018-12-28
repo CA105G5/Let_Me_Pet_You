@@ -1,9 +1,20 @@
+<%@page import="com.mem.model.MemVO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.missingMsg.model.*"%>
 <%@page import="com.missingCase.model.*"%>
 <%@ page language="java" contentType="text/html; charset=BIG5"
 	pageEncoding="BIG5"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	missingCaseVO missingCaseVO = (missingCaseVO) request.getAttribute("missingCaseVO");
+	String missing_case_id = request.getParameter("missing_case_id");
+	missingMsgService missingMsgSvc = new missingMsgService();
+	List<missingMsgVO> list = missingMsgSvc.findByCase(missing_case_id);
+	pageContext.setAttribute("list", list);
+	
+	MemVO str = (MemVO)session.getAttribute("memVO");
+	System.out.println(str.getMemb_id());
 %>
 <html>
 <head>
@@ -78,7 +89,8 @@
 								<p>${missingCaseVO.missing_des}</p>
 							</div>
 						</div>
-						<section class="nav-area pt-50 pb-100">
+						<section class="nav-area pt-50 pb-100"
+							style="padding-top: 50px; padding-bottom: 50px;">
 							<div class="row justify-content-between">
 								<div class="col-sm-12 nav-right justify-content-end d-flex">
 									<div class="post-details">
@@ -95,27 +107,42 @@
 
 						</section>
 						<div class="comment-sec-area">
-							<h3 class="text-uppercase pb-80" style="color: red">留言區</h3>
-							<div class="comment-list">
-								<div class="single-comment justify-content-between d-flex">
-									<div class="user justify-content-between d-flex">
-										<div class="thumb">
-											<img src="img/blog/c1.jpg" alt="">
+							<h3 class="text-uppercase" style="color: red">留言區</h3>
+							<br>
+							<h4 class="pb50">Leave a Reply...</h4>
+							<form action="miss.do" method=post>
+							<textarea class="form-control mb-10" name="message"
+								placeholder="Messege" onfocus="this.placeholder = ''"
+								onblur="this.placeholder = 'Messege'"></textarea>
+							<a href="#"
+								class="genric-btn danger circle arrow col-offset-md-6"
+								style="margin-left: 731px">送出</a>
+							</form>
+							<c:forEach var="missingMsgVO" items="${list}">
+								<div class="comment-list">
+									<div class="single-comment justify-content-between d-flex">
+										<div class="user justify-content-between d-flex">
+											<div class="thumb">
+												<img src="img/blog/c1.jpg" alt="">
+											</div>
+											<div class="desc">
+												<h5>
+													<a href="#">Emilly Blunt</a>
+												</h5>
+												<p class="date">
+													<fmt:formatDate value="${missingMsgVO.missing_msg_date}"
+														pattern="yyyy-MM-dd" />
+												</p>
+												<p class="comment">${missingMsgVO.missing_msg_cont}</p>
+											</div>
 										</div>
-										<div class="desc">
-											<h5>
-												<a href="#">Emilly Blunt</a>
-											</h5>
-											<p class="date">December 4, 2017 at 3:12 pm</p>
-											<p class="comment">Never say goodbye till the end comes!
-											</p>
+										<div class="reply-btn">
+											<a href="#" class="genric-btn primary-border small"
+												style="margin-top: 20px">檢舉</a>
 										</div>
-									</div>
-									<div class="reply-btn">
-										<a href="" class="btn-reply text-uppercase">reply</a>
 									</div>
 								</div>
-							</div>
+							</c:forEach>
 						</div>
 
 					</div>

@@ -148,10 +148,10 @@ public class missingMsgServlet extends HttpServlet {
 				missingMsgVO = missingMsgSvc.updateMissingMsg(missing_msg_id, missing_case_id, memb_id,
 						missing_msg_date, missing_msg_cont);
 
-				missingMsgVO = missingMsgSvc.findByCase(missing_case_id);
+				List<missingMsgVO> MissingMsgList = missingMsgSvc.findByCase(missing_case_id);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("missingMsgVO", missingMsgVO);
+				req.setAttribute("MissingMsgList", MissingMsgList);
 				String url = "/front-end/missingCase/listOneMissingCase.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);

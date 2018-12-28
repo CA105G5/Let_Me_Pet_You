@@ -78,7 +78,7 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE_STATUS);
+			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, missingCaseVO.getMemb_id());
 			pstmt.setTimestamp(2, missingCaseVO.getMissing_date());
@@ -123,7 +123,7 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 			
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE);
+			pstmt = con.prepareStatement(UPDATE_STATUS);
 			
 			pstmt.setString(1, missingCaseVO.getMissing_status_shelve());
 			pstmt.setString(2, missingCaseVO.getMissing_case_id());

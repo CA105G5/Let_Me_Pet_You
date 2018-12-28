@@ -153,8 +153,9 @@ public class missingMsgJNDIDAO implements missingMsgDAO_interface {
 
 	// 單獨查詢
 	@Override
-	public missingMsgVO findByCase(String missing_case_id) {
+	public List<missingMsgVO> findByCase(String missing_case_id) {
 
+		List<missingMsgVO> list = new ArrayList<missingMsgVO>();
 		missingMsgVO missingMsgVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -176,6 +177,7 @@ public class missingMsgJNDIDAO implements missingMsgDAO_interface {
 				missingMsgVO.setMemb_id(rs.getString("memb_id"));
 				missingMsgVO.setMissing_msg_date(rs.getTimestamp("missing_msg_date"));
 				missingMsgVO.setMissing_msg_cont(rs.getString("missing_msg_cont"));
+				list.add(missingMsgVO);
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -203,7 +205,7 @@ public class missingMsgJNDIDAO implements missingMsgDAO_interface {
 				}
 			}
 		}
-		return missingMsgVO;
+		return list;
 	}
 
 	// 查全部

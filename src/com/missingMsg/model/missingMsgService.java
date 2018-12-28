@@ -1,6 +1,7 @@
 package com.missingMsg.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class missingMsgService {
 	private missingMsgDAO_interface dao;
@@ -36,7 +37,7 @@ public class missingMsgService {
 
 	}
 
-	public missingMsgVO findByCase(String missing_case_id) {
+	public List<missingMsgVO> findByCase(String missing_case_id) {
 		return dao.findByCase(missing_case_id);
 	}
 }
