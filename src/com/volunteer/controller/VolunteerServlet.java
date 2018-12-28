@@ -540,6 +540,13 @@ public class VolunteerServlet extends HttpServlet{
 			}
 		}
 		
+		if("logout".equals(action)) {
+			HttpSession session = req.getSession();
+			session.setAttribute("volunteerVO", null);
+			res.sendRedirect(req.getContextPath()+"/front-end/volunteer/volunteer_login.jsp");
+			return;
+		}
+		
 	}
 	public static byte[] getPictureByteArray(InputStream is) throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();

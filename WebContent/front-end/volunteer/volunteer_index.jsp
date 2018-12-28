@@ -1,6 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.volunteer.model.VolunteerService"%>
+<%@ page import="com.volunteer.model.VolunteerVO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.volunteer.model.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.util.*"%>
+<%
+VolunteerVO volunteerVO = (VolunteerVO) session.getAttribute("volunteerVO");
+System.out.println("111111111111111111111111111="+session.getId());
+
+%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 	<head>
@@ -51,7 +59,8 @@
 				<div class="col-xs-12 col-sm-3"></div>
 				<div class="col-xs-12 col-sm-9">
 					<div class="row d-flex justify-content-end ">
-						<a href="index_volunteer.html">
+					<h2>${volunteerVO.vlt_name},您好</h2>
+						<a href="<%=request.getContextPath()%>/front-end/volunteer/volunteer.do?action=logout">
 							<img style="width:60px;height:60px;"class="img img-fluid" src="images/logout.png" title="登出">
 						</a>
 					</div>
@@ -68,7 +77,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 home-about-left">
-							<a href="volunteer_info.html">
+							<a href="volunteer_info.jsp">
 							<img style="width:80%;height:80%;"class="mx-auto d-block img-fluid img" src="images/volunteer1.png" alt=""title="個人資料專區">
 							</a>
 						</div>

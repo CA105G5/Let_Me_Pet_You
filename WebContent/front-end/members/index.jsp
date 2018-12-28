@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mem.model.*"%>
 <%
-  MemVO memVO = (MemVO) session.getAttribute("memVO");
+MemVO memVO = (MemVO) session.getAttribute("memVO");
 System.out.println("111111111111111111111111111="+session.getId());
 System.out.println( "是否登入:"+ (memVO != null));
 %>
