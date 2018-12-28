@@ -9,7 +9,6 @@ VolunteerVO volunteerVO = (VolunteerVO) session.getAttribute("volunteerVO");
 System.out.println("111111111111111111111111111="+session.getId());
 
 %>
-<jsp:useBean id="regionSvc" scope="page" class="com.region.model.RegionService"/>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 	<head>
@@ -48,18 +47,10 @@ System.out.println("111111111111111111111111111="+session.getId());
 			font-family:Georgia,Microsoft JhengHei,sans-serif;
 		
 		}
-		.booking-right table th{
-			color: #fff;
-			font-size:25px;
-			padding-bottom: 6px;
-    		padding-top: 6px;
 		
-		}
-		.booking-right table td{
-			color:black;
-			font-size:25px;
-    		padding-bottom: 6px;
-    		padding-top: 6px;
+		.booking-right label{
+			color: #fff;
+			font-size:16px;
 		
 		
 		}
@@ -76,9 +67,9 @@ System.out.println("111111111111111111111111111="+session.getId());
 		}
 		
  			
- 		.booking-area .overlay-bg {
-    		background-color: rgba(0, 0, 0, 0.4);
-		}	
+ 	/*	.booking-area .overlay-bg {
+    		background-color: rgba(0, 0, 0, 0.5);
+		}*/	
 
  		</style>	
 
@@ -96,7 +87,7 @@ System.out.println("111111111111111111111111111="+session.getId());
 				</div>
 				<div class="col-xs-12 col-sm-2"style="padding-right: 30px;">
 					<div style="justify-content:flex-end;align-items:center" class="row" >
-					<h3 style="color:deeppink;font-family:Georgia,Microsoft JhengHei,sans-serif">${volunteerVO.vlt_name},您好</h3>
+					<h3 style="color:deeppink">${volunteerVO.vlt_name},您好</h3>
 						<a href="<%=request.getContextPath()%>/front-end/volunteer/volunteer.do?action=logout">
 							<img style="width:60px;height:60px"class="img img-fluid " src="images/logout.png" title="登出">
 						</a>
@@ -117,20 +108,12 @@ System.out.println("111111111111111111111111111="+session.getId());
 						
 						<div style="background-color: rgba(0, 0, 0, 0.5);" class="col-xs-12 col-sm-6 booking-right">
 
-								<h4 style="font-family:Georgia,Microsoft JhengHei,sans-serif;font-size:30px" class="mb-20">志工個人基本資料</h4>
+								<h4 style="font-family:Georgia,Microsoft JhengHei,sans-serif" class="mb-20">志工個人基本資料</h4>
 								<form action="#">
-								
-								<table>
-								<tr><th>志工編號：</th><td>${volunteerVO.vlt_id}</td></tr>
-								<tr><th>志工姓名：</th><td>${volunteerVO.vlt_name}</td></tr>
-								<tr><th>志工性別：</th><td>${volunteerVO.vlt_gender}</td></tr>
-								<tr><th>志工電話：</th><td>${volunteerVO.vlt_tel}</td></tr>
-								<tr><th>加入日期：</th><td>${volunteerVO.vlt_registerdate}</td></tr>
-								<tr><th>可值勤日：</th><td>${volunteerVO.vlt_duty_day}</td></tr>
-								<tr><th>服務區域：</th><td>${regionSvc.getOneRegion(volunteerVO.vlt_reg).reg_name}</td></tr>
-
-								
-								</table>
+								<div class="form-group">
+									<label>志工編號：</label>
+									<input type="text"class="form-control" name="vlt_id" value="${volunteerVO.vlt_id}">
+								</div>
 								
 								
 								
@@ -138,7 +121,17 @@ System.out.println("111111111111111111111111111="+session.getId());
 								
 								
 								
-									
+								
+									<input class="form-control" type="text" name="name" placeholder="Your name" required>
+									<input class="form-control" type="email" name="email" placeholder="Email Address" required>
+									<input class="form-control" type="text" name="phone" placeholder="Phone Number" required>
+									<div class="input-group dates-wrap">                                          
+										<input id="datepicker" class="dates form-control" id="exampleAmount" placeholder="Date & time" type="text">                        
+										<div class="input-group-prepend">
+											<span  class="input-group-text"><span class="lnr lnr-calendar-full"></span></span>
+										</div>											
+									</div>
+									<textarea class="common-textarea form-control mt-10" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'"></textarea>
 									<button  class="btn btn-default btn-lg btn-block text-center">Book Now!</button>
 								</form>
 						</div>
