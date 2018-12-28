@@ -203,7 +203,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>missingMsgServlet</servlet-name>
-    <url-pattern>/missingMsg/missingMsg.do</url-pattern>
+    <url-pattern>/front-end/missingMsg/missingMsg.do</url-pattern>
   </servlet-mapping>
   
 </web-app>

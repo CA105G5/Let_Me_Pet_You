@@ -1,3 +1,4 @@
+<%@page import="java.sql.Timestamp"%>
 <%@page import="com.mem.model.MemVO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.missingMsg.model.*"%>
@@ -13,8 +14,9 @@
 	List<missingMsgVO> list = missingMsgSvc.findByCase(missing_case_id);
 	pageContext.setAttribute("list", list);
 	
-	MemVO str = (MemVO)session.getAttribute("memVO");
-	System.out.println(str.getMemb_id());
+	MemVO membVO = (MemVO)session.getAttribute("memVO");
+	Timestamp missing_msg_date = new Timestamp(System.currentTimeMillis()); 
+	System.out.println(request.getServletPath());
 %>
 <html>
 <head>
@@ -110,14 +112,22 @@
 							<h3 class="text-uppercase" style="color: red">留言區</h3>
 							<br>
 							<h4 class="pb50">Leave a Reply...</h4>
-							<form action="miss.do" method=post>
-							<textarea class="form-control mb-10" name="message"
+							
+							
+							<form action="<%=request.getContextPath() %>/front-end/missingMsg/missingMsg.do" method="post">
+							<textarea class="form-control mb-10" name="missing_msg_cont"
 								placeholder="Messege" onfocus="this.placeholder = ''"
 								onblur="this.placeholder = 'Messege'"></textarea>
-							<a href="#"
-								class="genric-btn danger circle arrow col-offset-md-6"
-								style="margin-left: 731px">送出</a>
+							<input type="hidden" name="memb_id" value="<%=membVO.getMemb_id()%>">
+							<input type="hidden" name="missing_case_id" value="<%=request.getParameter("missing_case_id")%>">
+							<input type="hidden" name="missing_msg_date" value="<%=missing_msg_date%>">
+							<input type="hidden" name="action" value="insert">
+							<input type="submit" class="genric-btn danger circle arrow col-offset-md-6"
+								style="margin-left: 731px" value="送出">
+							
 							</form>
+							
+							
 							<c:forEach var="missingMsgVO" items="${list}">
 								<div class="comment-list">
 									<div class="single-comment justify-content-between d-flex">
