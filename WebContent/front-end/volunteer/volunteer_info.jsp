@@ -108,7 +108,15 @@ System.out.println("111111111111111111111111111="+session.getId());
 
 			
 			<section style="padding-top: 50px; class=" booking-area section-gap relative" id="consultancy">
-
+				<%-- 錯誤表列 --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color:red">請修正以下錯誤:</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color:red">${message}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
 				<form METHOD="post" ACTION="volunteer.do" name="form1" enctype="multipart/form-data">
 				<div class="container">
 				
@@ -145,7 +153,12 @@ System.out.println("111111111111111111111111111="+session.getId());
 								</table>
 								<br>
 								<input type="hidden" name="action" value="updatebyvolunteer">
-
+                                <input type="hidden" name="vlt_id" value="<%=volunteerVO.getVlt_id()%>">
+                                <input type="hidden" name="vlt_registerdate" value="<%=volunteerVO.getVlt_registerdate()%>">
+                                <input type="hidden" name="vlt_reg" value="<%=volunteerVO.getVlt_reg()%>">
+                                <input type="hidden" name="vlt_name" value="<%=volunteerVO.getVlt_name()%>">
+                                <input type="hidden" name="vlt_gender" value="<%=volunteerVO.getVlt_gender()%>">
+                                <input type="hidden" name="vlt_mail" value="<%=volunteerVO.getVlt_mail()%>">
 									
 								<button  class="btn btn-default btn-lg btn-block text-center">修改/儲存</button>
 								

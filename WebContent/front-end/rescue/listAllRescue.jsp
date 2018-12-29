@@ -132,18 +132,19 @@ div {
 						
 						
 							<c:forEach var="rescueVO" items="${listAllRescue_ByCompositeQuery}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-<%-- 								<c:if test="${'上架'.equals(prodVO.prod_status)}" var="condition" scope="page"> --%>
+
 									<div class="col-lg-3 cl-md-3">
 										<div class="single-training">
 											<div class="thumb relative">
 												<div class="overlay-bg"></div>
 												<img class="img-fluid"
 													src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="">
-												<!-- 												<a class="admission-btn" href="#">Admission	Going on</a> -->
+												
 											</div>
 											<div class="details">
 												<div class="title justify-content-between d-flex">
-													<a href="<%=request.getContextPath()%>/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}"><h5>${rescueVO.rsc_name}</h5></a>
+													<a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">
+													<h5>${rescueVO.rsc_name}</h5></a>
 													<p> </p>
 												</div>
 											</div>
