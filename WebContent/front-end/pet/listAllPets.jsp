@@ -154,6 +154,7 @@
 		<th>寵物姓名</th>
 		<th>寵物性別</th>
 		<th>出生日期</th>
+		<th>死亡日期</th>
 		<th>寵物描述</th>
 		<th>寵物狀態</th>
 		<th>寵物類型</th>
@@ -166,10 +167,11 @@
 			<td>${petVO.pet_name}</td>
 			<td>${petVO.pet_gender}</td>
 			<td>${petVO.pet_birth}</td>
+			<td>${petVO.pet_death}</td>
 			<td>${petVO.pet_descr}</td>
 			<td>${petVO.pet_status}</td>
 			<td>${petVO.pet_type}</td>
-			<td>${petVO.pet_photo}</td>
+			<td><img src="<%=request.getContextPath()%>/front-end/pet/petImg.do?pet_id=${petVO.pet_id}"/></td>
 			 <td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/pet/pet.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
@@ -181,6 +183,7 @@
 	</c:forEach>
 
 </table>
+<div align="center"><a href="<%=request.getContextPath()%>/front-end/pet/addPets.jsp">增加一筆寵物資料</a></div>
 </div>
 <%@ include file="page2.file" %>
 
