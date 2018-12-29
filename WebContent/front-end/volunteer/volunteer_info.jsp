@@ -135,6 +135,7 @@ System.out.println("111111111111111111111111111="+session.getId());
 								<table>
 								<tr><th>志工編號：</th><td>${volunteerVO.vlt_id}</td></tr>
 								<tr><th>志工姓名：</th><td>${volunteerVO.vlt_name}</td></tr>
+								<tr><th>志工性別：</th><td>${volunteerVO.vlt_gender}</td></tr>
 								<tr><th>e-mail(帳號):</th><td>${volunteerVO.vlt_mail}</td></tr>
 								<tr><th>志工密碼:</th><td><input type="password" class="form-control" name="vlt_pw" placeholder="PassWord" required value="${volunteerVO.vlt_pw}"></td></tr>
 								<tr><th>志工電話：</th><td><input type="text"class="form-control" name="vlt_tel" placeholder="Phone Number" required value="${volunteerVO.vlt_tel}"></td></tr>
@@ -152,6 +153,10 @@ System.out.println("111111111111111111111111111="+session.getId());
 								<br>
 								<input type="hidden" name="action" value="updatebyvolunteer">
 								<input type="hidden" name="vlt_id" value="<%=volunteerVO.getVlt_id()%>">
+								<input type="hidden" name="vlt_name" value="<%=volunteerVO.getVlt_name()%>">
+								<input type="hidden" name="vlt_mail" value="<%=volunteerVO.getVlt_mail()%>">
+								<input type="hidden" name="vlt_registerdate" value="<%=volunteerVO.getVlt_registerdate()%>">
+								<input type="hidden" name="vlt_gender" value="<%=volunteerVO.getVlt_gender()%>">
 									
 								<button  class="btn btn-default btn-lg btn-block text-center">修改/儲存</button>
 								
