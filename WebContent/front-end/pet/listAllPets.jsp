@@ -154,7 +154,10 @@
 		<th>寵物姓名</th>
 		<th>寵物性別</th>
 		<th>出生日期</th>
+		<th>寵物描述</th>
 		<th>寵物狀態</th>
+		<th>寵物類型</th>
+		<th>寵物照片</th>
 	</tr>
 	<%@ include file="page1.file" %>
 	<c:forEach var="petVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -163,7 +166,10 @@
 			<td>${petVO.pet_name}</td>
 			<td>${petVO.pet_gender}</td>
 			<td>${petVO.pet_birth}</td>
+			<td>${petVO.pet_descr}</td>
 			<td>${petVO.pet_status}</td>
+			<td>${petVO.pet_type}</td>
+			<td>${petVO.pet_photo}</td>
 			 <td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/pet/pet.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">

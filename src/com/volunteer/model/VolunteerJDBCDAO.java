@@ -545,9 +545,9 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 //		volunteerVO2.setVlt_reg("REG0000003");
 //		dao.updateForManager(volunteerVO2);
 
-//		//
+		//
 //		VolunteerVO volunteerVO3 = new VolunteerVO();
-//		volunteerVO3.setVlt_id("V000000006");
+//		volunteerVO3.setVlt_id("V000000001");
 //		volunteerVO3.setVlt_pw("123456");
 //		volunteerVO3.setVlt_tel("0958-514661");
 //		volunteerVO3.setVlt_duty_day("每日");

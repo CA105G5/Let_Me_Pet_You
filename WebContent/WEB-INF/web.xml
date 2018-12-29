@@ -72,6 +72,14 @@
     <url-pattern>/front-end/pet/pet.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>PetImgServlet</servlet-name>
+    <servlet-class>com.pet.controller.PetImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PetImgServlet</servlet-name>
+    <url-pattern>/front-end/pet/petImg.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>VolunteerServlet</servlet-name>
     <servlet-class>com.volunteer.controller.VolunteerServlet</servlet-class>
   </servlet>
