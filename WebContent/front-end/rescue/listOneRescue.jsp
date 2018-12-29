@@ -8,13 +8,15 @@
 
 <%
 	RescueVO rescueVO  = (RescueVO) request.getAttribute("rescueVO");
+System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
+System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("rsc_id"));
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Horse Club</title>
+<title>救援案例</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
@@ -64,10 +66,10 @@ div {
 </head>
 <body>
 
-
-
 	<jsp:include page="/front-end/rescue/rescue_header.jsp" flush="true" />
-	
+		
+		
+
 	
 	
 
