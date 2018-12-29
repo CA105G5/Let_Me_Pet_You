@@ -182,7 +182,6 @@ public class VolunteerServlet extends HttpServlet{
 				volunteerVO.setVlt_duty_day(vlt_duty_day);
 				volunteerVO.setVlt_sta(vlt_sta);
 				volunteerVO.setVlt_reg(vlt_reg);
-				
 				volunteerVO.setVlt_registerdate(vlt_registerdate);
 				
 				
@@ -234,7 +233,7 @@ public class VolunteerServlet extends HttpServlet{
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("volunteerVO", volunteerVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/back-end/volunteer/update_volunteer_byVolunteer.jsp";
+				String url = "/front-end/volunteer/volunteer_info.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 
@@ -242,7 +241,7 @@ public class VolunteerServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/volunteer/index_Volunteer.jsp");
+						.getRequestDispatcher("/front-end/volunteer/volunteer_info.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -258,8 +257,12 @@ public class VolunteerServlet extends HttpServlet{
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String vlt_id = req.getParameter("vlt_id").trim();
+				String vlt_name = req.getParameter("vlt_name");
+				String vlt_mail = req.getParameter("vlt_mail");
+				String vlt_gender = req.getParameter("vlt_gender");
+				java.sql.Date vlt_registerdate = java.sql.Date.valueOf(req.getParameter("vlt_registerdate").trim());
 				
-				
+				String vlt_reg = req.getParameter("reg_id").trim();
 				//手機號碼
 				String vlt_tel = req.getParameter("vlt_tel");
 				String  telReg = "^09[0-9]{2}-[0-9]{6}$";
@@ -273,6 +276,7 @@ public class VolunteerServlet extends HttpServlet{
 			
 				//密碼
 				String vlt_pw = req.getParameter("vlt_pw");
+				System.out.println(vlt_pw);
 				String pwReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,8}$";
 				if (vlt_pw == null || vlt_pw.trim().length() == 0) {
 					errorMsgs.add("志工密碼: 請勿空白");
@@ -295,18 +299,22 @@ public class VolunteerServlet extends HttpServlet{
 				
 				VolunteerVO volunteerVO = new VolunteerVO();
 				volunteerVO.setVlt_id(vlt_id);
+				volunteerVO.setVlt_id(vlt_name);
+				volunteerVO.setVlt_mail(vlt_mail);
+				volunteerVO.setVlt_gender(vlt_gender);
 				volunteerVO.setVlt_pw(vlt_pw);
 				volunteerVO.setVlt_tel(vlt_tel);
 				volunteerVO.setVlt_img(vlt_img);
 				volunteerVO.setVlt_duty_day(vlt_duty_day);
-
+				volunteerVO.setVlt_reg(vlt_reg);
+				volunteerVO.setVlt_registerdate(vlt_registerdate);
 
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("volunteerVO", volunteerVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/volunteer/update_volunteer_byManager.jsp");
+							.getRequestDispatcher("/front-end/volunteer/volunteer_info.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -317,7 +325,7 @@ public class VolunteerServlet extends HttpServlet{
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("volunteerVO", volunteerVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/back-end/volunteer/index_Volunteer.jsp";
+				String url = "/front-end/volunteer/volunteer_info.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -325,7 +333,7 @@ public class VolunteerServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/volunteer/update_volunteer_byVolunteer.jsp");
+						.getRequestDispatcher("/front-end/volunteer/volunteer_info.jsp");
 				failureView.forward(req, res);
 			}
 		}

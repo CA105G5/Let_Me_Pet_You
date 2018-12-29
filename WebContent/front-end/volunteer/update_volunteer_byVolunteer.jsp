@@ -110,9 +110,10 @@ System.out.println("111111111111111111111111111="+session.getId());
 
 								<h4 style="font-family:Georgia,Microsoft JhengHei,sans-serif" class="mb-20">志工個人基本資料</h4>
 								<form action="#">
+								
 								<div class="form-group">
-									<label>志工編號：</label>
-									<input type="text"class="form-control" name="vlt_id" value="${volunteerVO.vlt_id}">
+									<label>志工姓名：</label>
+									<input type="text"class="form-control" name="vlt_name" value="${volunteerVO.vlt_name}">
 								</div>
 								
 								

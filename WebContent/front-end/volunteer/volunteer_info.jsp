@@ -1,11 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.volunteer.model.VolunteerService"%>
-<%@ page import="com.volunteer.model.VolunteerVO"%>
+<%@ page import="com.volunteer.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%
 VolunteerVO volunteerVO = (VolunteerVO) session.getAttribute("volunteerVO");
+
 System.out.println("111111111111111111111111111="+session.getId());
 
 %>
@@ -81,7 +81,7 @@ System.out.println("111111111111111111111111111="+session.getId());
 		}	
 
  		</style>	
-
+        <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 		</head>
 		<body background="images/volunteerbkk.jpg" style="background-repeat: repeat;">
 			<div class="container">
@@ -103,54 +103,65 @@ System.out.println("111111111111111111111111111="+session.getId());
 					</div>
 				</div>
 			</div>
-
+        </div>
 			
 
 			
 			<section style="padding-top: 50px; class=" booking-area section-gap relative" id="consultancy">
-				
+				<form METHOD="post" ACTION="volunteer.do" name="form1" enctype="multipart/form-data">
 				<div class="container">
+				
 					<div class="row justify-content-between align-items-center">
+					<c:if test="${not empty errorMsgs}">
+<!-- 				<font style="color:red">請修正以下錯誤:</font> -->
+<!-- 				<ul> -->
+<%-- 					<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 						<li style="color:red">${message}</li> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</ul> -->
+					</c:if>
 						<div class="col-xs-12 col-sm-6 booking-left">
-						<img style="width:400px;height:400px"class="img-fluid" src="<%=request.getContextPath()%>/back-end/volunteer/volunteerImg.do?vlt_id=${volunteerVO.vlt_id}">
+						<img  style="width:400px;height:400px" class="preview img-fluid" src="<%=request.getContextPath()%>/back-end/volunteer/volunteerImg.do?vlt_id=${volunteerVO.vlt_id}"/>
+		 				<div class="size"></div>
+						<input type="file" class="upl" name="upfile" id="file01">
 				        </div>
 						
 						<div style="background-color: rgba(0, 0, 0, 0.5);" class="col-xs-12 col-sm-6 booking-right">
 
 								<h4 style="font-family:Georgia,Microsoft JhengHei,sans-serif;font-size:30px" class="mb-20">志工個人基本資料</h4>
-								<form action="#">
+								
 								
 								<table>
 								<tr><th>志工編號：</th><td>${volunteerVO.vlt_id}</td></tr>
 								<tr><th>志工姓名：</th><td>${volunteerVO.vlt_name}</td></tr>
+								<tr><th>e-mail(帳號):</th><td>${volunteerVO.vlt_mail}</td></tr>
+								<tr><th>志工密碼:</th><td><input type="password" class="form-control" name="vlt_pw" placeholder="PassWord" required value="${volunteerVO.vlt_pw}"><p style="color:red">${errorMsgs.vlt_pw}</p></td></tr>
 								<tr><th>志工性別：</th><td>${volunteerVO.vlt_gender}</td></tr>
-								<tr><th>志工電話：</th><td>${volunteerVO.vlt_tel}</td></tr>
+								<tr><th>志工電話：</th><td><input type="text"class="form-control" name="vlt_tel" placeholder="Phone Number" required value="${volunteerVO.vlt_tel}"><p style="color:red">${errorMsgs.vlt_tel}</p></td></tr>
 								<tr><th>加入日期：</th><td>${volunteerVO.vlt_registerdate}</td></tr>
-								<tr><th>可值勤日：</th><td>${volunteerVO.vlt_duty_day}</td></tr>
+								<tr><th>可值勤日：</th><td><select size="1" name="vlt_duty_day">
+														<option value="平日" ${(volunteerVO.vlt_duty_day=='平日')? 'selected':'' }>平日
+														<option value="假日" ${(volunteerVO.vlt_duty_day=='假日')? 'selected':'' }>假日
+														<option value="每日" ${(volunteerVO.vlt_duty_day=='每日')? 'selected':'' }>每日
+													
+												</select></td></tr>
 								<tr><th>服務區域：</th><td>${regionSvc.getOneRegion(volunteerVO.vlt_reg).reg_name}</td></tr>
 
 								
 								</table>
-								
-								
-								
-								
-								
-								
-								
+								<br>
+								<input type="hidden" name="action" value="updatebyvolunteer">
+								<input type="hidden" name="vlt_id" value="<%=volunteerVO.getVlt_id()%>">
 									
-									<button  class="btn btn-default btn-lg btn-block text-center">Book Now!</button>
-								</form>
+								<button  class="btn btn-default btn-lg btn-block text-center">修改/儲存</button>
+								
 						</div>
-						<div class="col-xs-12 col-sm-2">
-					
-				        </div>
+						
 					</div>
 				</div>	
 
-
-
-
+			
+			</form>
 			</section>
 
 
@@ -161,6 +172,36 @@ System.out.println("111111111111111111111111111="+session.getId());
 		
 
 			<!-- End -->
+			<script>
+			$(function (){
+				 
+			    function format_float(num, pos)
+			    {
+			        var size = Math.pow(10, pos);
+			        return Math.round(num * size) / size;
+			    }
+			 
+			    function preview(input) {
+			 
+			        if (input.files && input.files[0]) {
+			            var reader = new FileReader();
+			            
+			            reader.onload = function (e) {
+			                $('.preview').attr('src', e.target.result);
+			                var KB = format_float(e.total / 1024, 2);
+			                $('.size').text("檔案大小：" + KB + " KB");
+			            }
+			 
+			            reader.readAsDataURL(input.files[0]);
+			        }
+			    }
+			 
+			    $("body").on("change", ".upl", function (){
+			        preview(this);
+			    })
+			    
+			})
+</script>
 
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
