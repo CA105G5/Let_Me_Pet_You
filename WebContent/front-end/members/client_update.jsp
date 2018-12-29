@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mem.model.*"%>
 
 <%
-  MemVO memVO = (MemVO) request.getAttribute("memVO"); 
+  MemVO memVO = (MemVO) session.getAttribute("memVO"); 
 %>
 <%-- <%= memVO==null %>> --%>
 <html>
@@ -26,7 +26,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
 
-<title>·|­û¸ê®Æ­×§ï - client_update.jsp</title>
+<title>æœƒå“¡è³‡æ–™ä¿®æ”¹ - client_update.jsp</title>
 
 
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
@@ -46,7 +46,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
-<%-- ­Y­n¨Ï¥Îfai¨ºª©¥~±¾icon¡A­nimport CDN¡A§Ö±¶Áäfacdn=>tab --%>
+<%-- è‹¥è¦ä½¿ç”¨faié‚£ç‰ˆå¤–æŽ›iconï¼Œè¦import CDNï¼Œå¿«æ·éµfacdn=>tab --%>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	
@@ -96,7 +96,7 @@
 				</div>
 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="½Ð¿é¤JÃöÁä¦r">
+						<input type="text" class="form-control" placeholder="è«‹è¼¸å…¥é—œéµå­—">
 						<span class="input-group-btn">
 							<button class="btn btn-info" type="button">
 								<i class="glyphicon glyphicon-search"></i>
@@ -105,7 +105,7 @@
 					</div>
 				</div>
 				<div class="col-lg-4 col-sm-4 menu-top-right">
-				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="µn¤J/µù¥U"></a>
+				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="ç™»å…¥/è¨»å†Š"></a>
 					
 				</div>
 			</div>
@@ -115,20 +115,20 @@
 			<div class="row align-items-center justify-content-center d-flex">
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="index.jsp">­º­¶</a></li>
-						<li><a href="about.html">±Ï´©</a></li>
-						<li><a href="service.html">»{¾i</a></li>
-						<li><a href="training.html">¥¢ÂÜ</a></li>
-						<li><a href="events.html">¨ó´M</a></li>
-						<li><a href="pricing.html">®½ÃØ</a>
+						<li><a href="index.jsp">é¦–é </a></li>
+						<li><a href="about.html">æ•‘æ´</a></li>
+						<li><a href="service.html">èªé¤Š</a></li>
+						<li><a href="training.html">å¤±è¹¤</a></li>
+						<li><a href="events.html">å”å°‹</a></li>
+						<li><a href="pricing.html">æè´ˆ</a>
 							<ul>
-								<li><a href="blog-home.html">·R¤ß®½´Ú</a></li>
-								<li><a href="blog-single.html">·R¤ßª«¸ê®½ÃØ</a></li>
-								<li><a href="blog-single.html">³\Ä@ª«¸ê®½ÃØ</a></li>
+								<li><a href="blog-home.html">æ„›å¿ƒææ¬¾</a></li>
+								<li><a href="blog-single.html">æ„›å¿ƒç‰©è³‡æè´ˆ</a></li>
+								<li><a href="blog-single.html">è¨±é¡˜ç‰©è³‡æè´ˆ</a></li>
 							</ul></li>
-						<li class="menu-has-children menu-active"><a href="">°Ó«°</a></li>
-						<li><a href="contact.html">Ãö©ó§Ú­Ì</a></li>
-						<li><a href="elements.html">±`¨£°ÝÃD</a></li>
+						<li class="menu-has-children menu-active"><a href="">å•†åŸŽ</a></li>
+						<li><a href="contact.html">é—œæ–¼æˆ‘å€‘</a></li>
+						<li><a href="elements.html">å¸¸è¦‹å•é¡Œ</a></li>
 					</ul>
 				</nav>
 				<%-- #nav-menu-container --%>
@@ -139,9 +139,9 @@
 
 
 <br><br><br><br><br><br><br><br><br>
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ð­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -154,60 +154,60 @@
 			<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">½Ð­×§ï±zªº¸ê®Æ</h1>
+			  <h1 align="center">è«‹ä¿®æ”¹æ‚¨çš„è³‡æ–™</h1>
 			</div>
 
 
 <table class="table table-bordered table-striped table-hover table-condensed">
 	<tr>
-		<td>·|­û½s¸¹:<font color=red><b>*µLªk­×§ï</b></font></td>
+		<td>æœƒå“¡ç·¨è™Ÿ:<font color=red><b>*ç„¡æ³•ä¿®æ”¹</b></font></td>
 		<td><%=memVO.getMemb_id()%></td>
 	</tr>
 	<tr>
-		<td>·|­û±b¸¹:<font color=red><b>*µLªk­×§ï</b></font></td>
+		<td>æœƒå“¡å¸³è™Ÿ:<font color=red><b>*ç„¡æ³•ä¿®æ”¹</b></font></td>
 		<td><%=memVO.getMemb_acc()%></td>
 	</tr>
 	<tr>
-		<td>·|­û±K½X:<font color=red><b>*¥²¶ñ</b></font></td>
+		<td>æœƒå“¡å¯†ç¢¼:<font color=red><b>*å¿…å¡«</b></font></td>
 		<td><input type="TEXT" name="memb_psw" size="45" value="<%=memVO.getMemb_psw()%>" /></td>
 	</tr>
 	<tr>
-		<td>·|­û©m¦W:<font color=red><b>*¥²¶ñ</b></font></td>
+		<td>æœƒå“¡å§“å:<font color=red><b>*å¿…å¡«</b></font></td>
 		<td><input type="TEXT" name="memb_name" size="45" value="<%=memVO.getMemb_name()%>" /></td>
 	</tr>
 	<tr>
-		<td>·|­û¼ÊºÙ:<font color=red><b>*¥²¶ñ</b></font></td>
+		<td>æœƒå“¡æš±ç¨±:<font color=red><b>*å¿…å¡«</b></font></td>
 		<td><input type="TEXT" name="memb_nick" size="45" value="<%=memVO.getMemb_nick()%>" /></td>
 	</tr>
 	<tr>
-		<td>·|­û«H½c:<font color=red><b>*¥²¶ñ</b></font></td>
+		<td>æœƒå“¡ä¿¡ç®±:<font color=red><b>*å¿…å¡«</b></font></td>
 		<td><input type="TEXT" name="memb_email" size="45" value="<%=memVO.getMemb_email()%>" /></td>
 	</tr>
 	<tr>
-		<td>·|­û¤â¾÷:</td>
+		<td>æœƒå“¡æ‰‹æ©Ÿ:</td>
 		<td><input type="TEXT" name="memb_cellphone" size="45" value="<%=(memVO.getMemb_cellphone()==null)? "" : memVO.getMemb_cellphone()%>" /></td>
 	</tr>
 	<tr>
-		<td>·|­û©Ê§O:</td>
+		<td>æœƒå“¡æ€§åˆ¥:</td>
 		<td><input type="RADIO" name="memb_gender" size="45" 
-			 value="M" ${(memVO.memb_gender=='M')? 'checked':'' }/>¨k
+			 value="M" ${(memVO.memb_gender=='M')? 'checked':'' }/>ç”·
 				 
 			 
 		<input type="RADIO" name="memb_gender" size="45" 
-			 value="F" ${(memVO.memb_gender=='F')? 'checked':'' }/>¤k</td>
+			 value="F" ${(memVO.memb_gender=='F')? 'checked':'' }/>å¥³</td>
 	</tr>
 	<tr>
-		<td>«H¥Î¥dÃþ«¬:</td>
+		<td>ä¿¡ç”¨å¡é¡žåž‹:</td>
 		<td><input type="TEXT" name="memb_cre_type" size="45" value="<%=(memVO.getMemb_cre_type()==null)? "" : memVO.getMemb_cre_type()%>" /></td>
 	</tr>
 	<tr>
-		<td>«ù¥d¤H:</td>
+		<td>æŒå¡äºº:</td>
 		<td><input type="TEXT" name="memb_cre_name" size="45" value="<%=(memVO.getMemb_cre_name()==null)? "" : memVO.getMemb_cre_name()%>" /></td>
 	</tr>
 	<tr>
-		<td>«H¥Î¥d¨ì´Á¦~:</td>
+		<td>ä¿¡ç”¨å¡åˆ°æœŸå¹´:</td>
 		<td><select name="memb_cre_year" size="1">
-		<option value="" ${(memVO.memb_cre_year =='')? 'selected':''}>½Ð¿ï¾Ü¦~¥÷
+		<option value="" ${(memVO.memb_cre_year =='')? 'selected':''}>è«‹é¸æ“‡å¹´ä»½
 		<option value="2019" ${(memVO.memb_cre_year =="2019")? "selected":""}>2019
 		<option value="2020" ${(memVO.memb_cre_year =='2020')? 'selected':''}>2020
 		<option value="2021" ${(memVO.memb_cre_year =='2021')? 'selected':''}>2021
@@ -216,13 +216,13 @@
 		<option value="2024" ${(memVO.memb_cre_year =='2024')? 'selected':''}>2024
 		<option value="2025" ${(memVO.memb_cre_year =='2025')? 'selected':''}>2025
 		<option value="2026" ${(memVO.memb_cre_year =='2026')? 'selected':''}>2026
-		    </select>¦~
+		    </select>å¹´
 		</td>
 	</tr>
 	<tr>
-		<td>«H¥Î¥d¨ì´Á¤ë:</td>
+		<td>ä¿¡ç”¨å¡åˆ°æœŸæœˆ:</td>
 		<td><select name="memb_cre_month" size="1">
-		<option value="" ${(memVO.memb_cre_month =='')? 'selected':''}>½Ð¿ï¾Ü¤ë¥÷
+		<option value="" ${(memVO.memb_cre_month =='')? 'selected':''}>è«‹é¸æ“‡æœˆä»½
 		<option value="1" ${(memVO.memb_cre_month =='1')? 'selected':''}>1
 		<option value="2" ${(memVO.memb_cre_month =='2')? 'selected':''}>2
 		<option value="3" ${(memVO.memb_cre_month =='3')? 'selected':''}>3
@@ -235,15 +235,15 @@
 		<option value="10" ${(memVO.memb_cre_month =='10')? 'selected':''}>10
 		<option value="11" ${(memVO.memb_cre_month =='11')? 'selected':''}>11
 		<option value="12" ${(memVO.memb_cre_month =='12')? 'selected':''}>12
-		    </select>¤ë
+		    </select>æœˆ
 		</td>
 	</tr>
 	<tr>
-		<td>·|­û·Ó¤ù:</td>
+		<td>æœƒå“¡ç…§ç‰‡:</td>
 		<td>
 		<img class="preview" src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/>
 		 <div class="size"></div>
-		 ¿ï¾Ü·Ó¤ù
+		 é¸æ“‡ç…§ç‰‡
 		<input type="file" class="upl" name="upfile" id="file01">
 		</td>
 	</tr>
@@ -254,10 +254,10 @@
 <input type="hidden" name="action" value="client_update">
 <input type="hidden" name="memb_id" value="<%=memVO.getMemb_id()%>">
 <input type="hidden" name="memb_acc" value="<%=memVO.getMemb_acc()%>">
-<input type="submit" value="°e¥X­×§ï"></FORM>
+<div align="center"><input type="submit" value="é€å‡ºä¿®æ”¹"></div></FORM>
 
 
-<%-- ¼ÒªO«áscript ¥[¦b¦Û¤vªºscript«e--%>
+<%-- æ¨¡æ¿å¾Œscript åŠ åœ¨è‡ªå·±çš„scriptå‰--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>			
@@ -298,7 +298,7 @@ $(function (){
             reader.onload = function (e) {
                 $('.preview').attr('src', e.target.result);
                 var KB = format_float(e.total / 1024, 2);
-                $('.size').text("ÀÉ®×¤j¤p¡G" + KB + " KB");
+                $('.size').text("æª”æ¡ˆå¤§å°ï¼š" + KB + " KB");
             }
  
             reader.readAsDataURL(input.files[0]);

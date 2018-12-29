@@ -1,5 +1,16 @@
-	<!DOCTYPE html>
-	<html lang="zxx" class="no-js">
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.volunteer.model.VolunteerService"%>
+<%@ page import="com.volunteer.model.VolunteerVO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.util.*"%>
+<%
+VolunteerVO volunteerVO = (VolunteerVO) session.getAttribute("volunteerVO");
+System.out.println("111111111111111111111111111="+session.getId());
+
+%>
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
 	<head>
 		<!-- Mobile Specific Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -36,7 +47,7 @@
             transform: scale(1.2);
         }
         .section-gap {
-            padding: 50px 0;
+            padding: 150px 0;
         }
 		
 
@@ -47,8 +58,9 @@
 			<div class="container-fuild">
 				<div class="col-xs-12 col-sm-3"></div>
 				<div class="col-xs-12 col-sm-9">
-					<div class="row d-flex justify-content-end ">
-						<a href="index_volunteer.html">
+					<div class="row d-flex justify-content-end " style="align-items:center">
+					<h2 style="color:deeppink">${volunteerVO.vlt_name},您好</h2>
+						<a href="<%=request.getContextPath()%>/front-end/volunteer/volunteer.do?action=logout">
 							<img style="width:60px;height:60px;"class="img img-fluid" src="images/logout.png" title="登出">
 						</a>
 					</div>
@@ -65,7 +77,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 home-about-left">
-							<a href="volunteer_info.html">
+							<a href="volunteer_info.jsp">
 							<img style="width:80%;height:80%;"class="mx-auto d-block img-fluid img" src="images/volunteer1.png" alt=""title="個人資料專區">
 							</a>
 						</div>
@@ -86,27 +98,24 @@
 
 			<!-- End -->
 
-			<script src="js/vendor/jquery-2.2.4.min.js"></script>
+<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-			<script src="js/vendor/bootstrap.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>			
 			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-  			<script src="js/easing.min.js"></script>			
-			<script src="js/hoverIntent.js"></script>
-			<script src="js/superfish.min.js"></script>	
-			<script src="js/jquery.ajaxchimp.min.js"></script>
-			<script src="js/jquery.magnific-popup.min.js"></script>	
-			<script src="js/owl.carousel.min.js"></script>			
-			<script src="js/jquery.sticky.js"></script>
+  			<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>	
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>	
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
 			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>				
-			<script src="js/jquery.nice-select.min.js"></script>			
-			<script src="js/parallax.min.js"></script>	
-			<script src="js/waypoints.min.js"></script>
-			<script src="js/jquery.counterup.min.js"></script>			
-			<script src="js/mail-script.js"></script>	
-			<script src="js/main.js"></script>
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>	
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>			
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
+			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 			
 		</body>
 	</html>
-
-
-

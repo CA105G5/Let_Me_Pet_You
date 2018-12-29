@@ -2,6 +2,8 @@ package com.volunteer.model;
 
 import java.util.List;
 
+import com.mem.model.MemVO;
+
 public class VolunteerService {
 	
 	private VolunteerDAO_interface dao; 
@@ -82,7 +84,9 @@ public class VolunteerService {
 		return dao.getAll();
 	}
 	
-	
+	public VolunteerVO getVolunteerSelf(String vlt_mail) {
+		return dao.findByAccount(vlt_mail);
+	}
 
 
 }

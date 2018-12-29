@@ -65,25 +65,24 @@
 	<tr>
 		<th>志工編號</th>
 		<th>姓名</th>
-		<th>密碼</th>
 		<th>性別</th>
 		<th>電話</th>
 		<th>照片</th>
 		<th>加入日期</th>
 		<th>可值勤日</th>
-		<th>志工狀態</th>
+
 		<th>服務區域</th>
 	</tr>
 	<tr>
 		<td><%=volunteerVO.getVlt_id()%></td>
 		<td><%=volunteerVO.getVlt_name()%></td>
-		<td><%=volunteerVO.getVlt_pw()%></td>
+	
 		<td><%=volunteerVO.getVlt_gender()%></td>
 		<td><%=volunteerVO.getVlt_tel()%></td>
 		<td><img src="<%=request.getContextPath()%>/back-end/volunteer/volunteerImg.do?vlt_id=${volunteerVO.vlt_id}"/></td>
 		<td><%=volunteerVO.getVlt_registerdate()%></td>
+
 		<td><%=volunteerVO.getVlt_duty_day()%></td>
-		<td><%=volunteerVO.getVlt_sta()%></td>
 <%-- 		<td><%=volunteerVO.getVlt_reg()%></td> --%>
 		<td>${regionSvc.getOneRegion(volunteerVO.vlt_reg).reg_name}</td>
 		<td>

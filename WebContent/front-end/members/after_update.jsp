@@ -3,13 +3,12 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-  MemVO memVO = (MemVO) request.getAttribute("memVO"); //MemServlet.java(Concroller), 存入req的memVO物件
-  pageContext.setAttribute("memVO", memVO);
+  MemVO memVO = (MemVO) session.getAttribute("memVO"); //MemServlet.java(Concroller), 存入req的memVO物件
 %>
-<%--<%= memVO==null %>--%>
 
 <html> 
 <head>
+
 <%-- Mobile Specific Meta --%>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
@@ -23,8 +22,10 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-<title>歡迎成為新會員 - becomeNewMember.jsp</title>
 
+<title>會員資料 - listOneMember.jsp</title>
+
+<%-- 放自己css前 --%>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<%--
 			CSS
@@ -140,7 +141,7 @@
 			<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">恭喜成為新會員</h1>
+			  <h1 align="center">請確認會員資料</h1>
 			</div>
 
 <table class="table table-bordered table-striped table-hover table-condensed">
@@ -150,18 +151,15 @@
 	<tr><td>會員暱稱</td><td><%=memVO.getMemb_nick()%></td></tr>
 	<tr><td>會員Email</td><td><%=memVO.getMemb_email()%></td></tr>
 	<tr><td>會員手機</td><td><%=memVO.getMemb_cellphone()%></td></tr>
-	<tr><td>會員性別</td><td><%=memVO.getMemb_gender()%></td></tr>
+	<tr><td>會員性別</td><td><% if ("M".equals(memVO.getMemb_gender())){out.println("男");}else if ("F".equals(memVO.getMemb_gender())){out.println("女");}else{out.println("未填");};%></td></tr>
 	<tr><td>信用卡類型</td><td><%=memVO.getMemb_cre_type()%></td></tr>
 	<tr><td>持卡人</td><td><%=memVO.getMemb_cre_name()%></td></tr>
 	<tr><td>信用卡到期年</td><td><%=memVO.getMemb_cre_year()%></td></tr>
 	<tr><td>信用卡到期月</td><td><%=memVO.getMemb_cre_month()%></td></tr>
 	<tr><td>會員照片</td><td><img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td></tr>
-	
 </table>
+<div align="center"><a href="<%=request.getContextPath()%>/front-end/members/client_update.jsp">重新修改資料</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/front-end/members/index.jsp">回首頁</a></div>
 </div>
-<a href="login.jsp">前往登入頁面</a>
-
-
 
 <%-- 模板後script 加在自己的script前--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>

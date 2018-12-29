@@ -1,5 +1,7 @@
 package com.mem.model;
 
+import java.util.List;
+
 public class MemVO implements java.io.Serializable {
 	
 	private static final long serialVersionUID = -554825475600104306L;
@@ -130,6 +132,10 @@ public class MemVO implements java.io.Serializable {
 	}
 	public void setMemb_google_login(String memb_google_login) {
 		this.memb_google_login = memb_google_login;
+	}
+	public static List<MemVO> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

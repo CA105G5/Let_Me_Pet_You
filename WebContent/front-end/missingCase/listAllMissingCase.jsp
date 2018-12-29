@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	missingCaseService missingCaseSvc = new missingCaseService();
 	List<missingCaseVO> list = missingCaseSvc.getAll();
@@ -60,10 +61,6 @@
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 <!-- https://fontawesome.com/ 自己的css-->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
-	crossorigin="anonymous">
 
 <style type="text/css">
 p {
@@ -148,7 +145,10 @@ h4 {
 							</div>
 							<div class="details">
 								<h2>${missingCaseVO.missing_name}</h2>
-								<p>${missingCaseVO.missing_date}</p>
+								<p>
+									<fmt:formatDate value="${missingCaseVO.missing_date}"
+										pattern="yyyy-MM-dd" />
+								</p>
 								<a
 									href="<%=request.getContextPath()%>/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id=${missingCaseVO.missing_case_id}"
 									class="genric-btn info-border circle">查看詳情</a>
@@ -173,7 +173,7 @@ h4 {
 						</div>
 					</div>
 				</c:forEach>
-				
+
 			</div>
 			<%@ include file="page2.file"%>
 		</div>

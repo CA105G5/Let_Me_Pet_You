@@ -2,8 +2,11 @@ package com.mem.android.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,8 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.mem.model.MemDAO_interface;
 import com.mem.model.MemJDBCDAO;
 import com.mem.model.MemVO;
+
+import com.android.main.*;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 public class MemServlet extends HttpServlet {
 	private final static String CONTENT_TYPE = "text/html; charset=UTF-8";
@@ -43,6 +50,26 @@ public class MemServlet extends HttpServlet {
 		} else if ("isMemExist".equals(action)) {
 			String memb_acc = jsonObject.get("memb_acc").getAsString();
 			writeText(res, String.valueOf(MemDao.isMemExist(memb_acc)));
+		}else if ("findByAccount".equals(action)) {
+			String memb_acc = jsonObject.get("memb_acc").getAsString();
+//			writeText(res, memb_acc == null ? "" : gson.toJson(memb_acc));
+			writeText(res, gson.toJson(MemDao.findByAccount(memb_acc)));//將DAO的findByAccount(欄位)包成gson
+		}else if ("getImage".equals(action)) {
+			OutputStream os = res.getOutputStream();
+			String memphoto = jsonObject.get("memb_acc").getAsString();
+			int imageSize = jsonObject.get("imageSize").getAsInt();
+			byte[] image = MemDao.getImage(memphoto);
+			if (image != null) {
+				// 縮圖 in server side 
+				image = ImageUtil.shrink(image, imageSize);
+				res.setContentType("image/jpeg");
+				res.setContentLength(image.length);
+			}
+			os.write(image);
+		} else {
+			writeText(res,"");
+		}
+	}
 //		}else if ("isMembAccExist".equals(action)) {
 //			String memb_acc = jsonObject.get("memb_acc").getAsString();
 //			writeText(res, String.valueOf(MemDao.isMembAccExist(memb_acc)));
@@ -59,9 +86,8 @@ public class MemServlet extends HttpServlet {
 //		} else if (action.equals("delete")) {
 //			String memb_id = jsonObject.get("memb_id").getAsString();
 //			writeText(res, String.valueOf(MemDao.delete(memb_id)));
-		}
-	}
-
+		
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);

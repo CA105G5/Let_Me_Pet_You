@@ -1,15 +1,21 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mem.model.*"%>
+<%@ page import="com.pet.model.*"%>
+<%@ page import="java.util.*"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-  MemVO memVO = (MemVO) request.getAttribute("memVO"); //MemServlet.java(Concroller), 存入req的memVO物件
-  pageContext.setAttribute("memVO", memVO);
+  MemVO memVO = (MemVO) session.getAttribute("memVO");
+  String memb_id = memVO.getMemb_id();
+  PetService petSvc = new PetService();
+  List<PetVO> list = petSvc.getAllPetsFromSameMember(memb_id);
+  pageContext.setAttribute("list",list);
 %>
-<%--<%= memVO==null %>--%>
 
 <html> 
 <head>
+
 <%-- Mobile Specific Meta --%>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
@@ -23,8 +29,10 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-<title>歡迎成為新會員 - becomeNewMember.jsp</title>
 
+<title>寵物資料 - listAllPets.jsp</title>
+
+<%-- 放自己css前 --%>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<%--
 			CSS
@@ -135,33 +143,40 @@
 
 
 <br><br><br><br><br><br><br><br><br>
-
 <div class="container">
 			<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">恭喜成為新會員</h1>
+			  <h1 align="center">寵物資料</h1>
 			</div>
-
 <table class="table table-bordered table-striped table-hover table-condensed">
-	<tr><td>會員帳號</td><td><%=memVO.getMemb_acc()%></td></tr>
-	<tr><td>會員密碼</td><td><%=memVO.getMemb_psw()%></td></tr>
-	<tr><td>會員姓名</td><td><%=memVO.getMemb_name()%></td></tr>
-	<tr><td>會員暱稱</td><td><%=memVO.getMemb_nick()%></td></tr>
-	<tr><td>會員Email</td><td><%=memVO.getMemb_email()%></td></tr>
-	<tr><td>會員手機</td><td><%=memVO.getMemb_cellphone()%></td></tr>
-	<tr><td>會員性別</td><td><%=memVO.getMemb_gender()%></td></tr>
-	<tr><td>信用卡類型</td><td><%=memVO.getMemb_cre_type()%></td></tr>
-	<tr><td>持卡人</td><td><%=memVO.getMemb_cre_name()%></td></tr>
-	<tr><td>信用卡到期年</td><td><%=memVO.getMemb_cre_year()%></td></tr>
-	<tr><td>信用卡到期月</td><td><%=memVO.getMemb_cre_month()%></td></tr>
-	<tr><td>會員照片</td><td><img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td></tr>
-	
+	<tr>
+		<th>寵物姓名</th>
+		<th>寵物性別</th>
+		<th>出生日期</th>
+		<th>寵物狀態</th>
+	</tr>
+	<%@ include file="page1.file" %>
+	<c:forEach var="petVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+		
+		<tr>
+			<td>${petVO.pet_name}</td>
+			<td>${petVO.pet_gender}</td>
+			<td>${petVO.pet_birth}</td>
+			<td>${petVO.pet_status}</td>
+			 <td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/pet/pet.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="pet_id"  value="${petVO.pet_id}">
+			     <input type="hidden" name="action"	value="updatePet"></FORM>
+			</td>
+			
+		</tr>
+	</c:forEach>
+
 </table>
 </div>
-<a href="login.jsp">前往登入頁面</a>
-
-
+<%@ include file="page2.file" %>
 
 <%-- 模板後script 加在自己的script前--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>

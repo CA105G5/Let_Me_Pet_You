@@ -8,4 +8,5 @@ public interface missingCaseDAO_interface {
     public void delete(String missing_case_id);
     public missingCaseVO findByPrimaryKey(String missing_case_id);
     public List<missingCaseVO> getAll();
+    public void updateStatus(missingCaseVO missingCaseVO);
 }

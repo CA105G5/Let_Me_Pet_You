@@ -115,7 +115,7 @@ public class MemServlet extends HttpServlet {
 						.getRequestDispatcher("/back-end/members/listAllMembers.jsp");
 				failureView.forward(req, res);
 			}	
-		}
+		}	//媽媽ger是什麼職業呢?
 		if("mamager_update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -167,45 +167,46 @@ public class MemServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		if("updateFromClient".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			try {
-				
-				/***************************1.接收請求參數****************************************/
-				String memb_acc = req.getParameter("memb_acc");
-				if(memb_acc == null || memb_acc.trim().length() == 0) {
-					errorMsgs.add("請輸入會員帳號");
-				}
-				
-				
-				/***************************2.開始查詢資料****************************************/
-				MemService memSvc = new MemService();
-				MemVO memVO = memSvc.getMemSelf(memb_acc);
-				if(memVO == null) {
-					errorMsgs.add("查無此帳號");
-				}
-				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = 
-					req.getRequestDispatcher("/front-end/members/addMembers.jsp");
-					failureView.forward(req, res);
-					return;
-				}
-				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-				req.setAttribute("memVO", memVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/front-end/members/client_update.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 client_update.jsp
-				successView.forward(req, res);
-			}catch(Exception e) {
-				errorMsgs.add("有Exception");
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/members/addMembers.jsp");
-				failureView.forward(req, res);
-			}
-		}
+//		if("updateFromClient".equals(action)) {
+//			List<String> errorMsgs = new LinkedList<String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+//			try {
+//				
+//				/***************************1.接收請求參數****************************************/
+//				String memb_acc = req.getParameter("memb_acc");
+//				if(memb_acc == null || memb_acc.trim().length() == 0) {
+//					errorMsgs.add("請輸入會員帳號");
+//				}
+//				
+//				
+//				/***************************2.開始查詢資料****************************************/
+//				MemService memSvc = new MemService();
+//				MemVO memVO = memSvc.getMemSelf(memb_acc);
+//				if(memVO == null) {
+//					errorMsgs.add("查無此帳號");
+//				}
+//				if(!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = 
+//					req.getRequestDispatcher("/front-end/members/addMembers.jsp");
+//					failureView.forward(req, res);
+//					return;
+//				}
+//				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+//				req.setAttribute("memVO", memVO);         // 資料庫取出的empVO物件,存入req
+//				String url = "/front-end/members/client_update.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 client_update.jsp
+//				successView.forward(req, res);
+//			}catch(Exception e) {
+//				errorMsgs.add("有Exception");
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/members/addMembers.jsp");
+//				failureView.forward(req, res);
+//			}
+//		}
 		if("client_update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			HttpSession session = req.getSession();
 			try {
 				
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
@@ -262,7 +263,7 @@ public class MemServlet extends HttpServlet {
 				memVO.setMemb_photo(memb_photo);
 
 				if(!errorMsgs.isEmpty()) {
-					req.setAttribute("memVO", memVO);
+					session.setAttribute("memVO", memVO);
 					RequestDispatcher failureView = 
 					req.getRequestDispatcher("/front-end/members/client_update.jsp");
 					failureView.forward(req, res);
@@ -276,8 +277,8 @@ public class MemServlet extends HttpServlet {
 								memb_cre_year, memb_cre_month, memb_photo);
 				memVO= memSvc.getMemSelf(memb_acc);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("memVO", memVO);
-				String url = "/front-end/members/listOneMember.jsp";
+				session.setAttribute("memVO", memVO);
+				String url = "/front-end/members/after_update.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -401,7 +402,18 @@ public class MemServlet extends HttpServlet {
 						//登入成功
 						HttpSession session = req.getSession();
 						session.setAttribute("memVO", memVO);
-						res.sendRedirect(req.getContextPath()+"/front-end/members/index.jsp");
+						
+						try {                                                        
+					         String location = (String) session.getAttribute("location");
+					         if (location != null) {
+					           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+					           res.sendRedirect(location);            
+					           return;
+					         }
+					       }catch (Exception ignored) { 
+					    	   
+					       }
+					      res.sendRedirect(req.getContextPath()+"/front-end/members/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 						return;
 					}else {
 						//登入失敗
@@ -429,6 +441,12 @@ public class MemServlet extends HttpServlet {
 						.getRequestDispatcher("/front-end/members/login.jsp");
 				failureView.forward(req, res);
 			}
+		}
+		if("logout".equals(action)) {
+			HttpSession session = req.getSession();
+			session.setAttribute("memVO", null);
+			res.sendRedirect(req.getContextPath()+"/front-end/members/index.jsp");
+			return;
 		}
 	}
 	public static final byte[] transbyte(InputStream inStream) throws IOException {

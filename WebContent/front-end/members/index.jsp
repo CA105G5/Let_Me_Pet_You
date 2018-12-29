@@ -1,9 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mem.model.*"%>
 <%
-  MemVO memVO = (MemVO) session.getAttribute("memVO");
-  
+MemVO memVO = (MemVO) session.getAttribute("memVO");
+System.out.println("111111111111111111111111111="+session.getId());
+System.out.println( "是否登入:"+ (memVO != null));
 %>
 <html>
 <head>
@@ -20,7 +21,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-<title>�|���e�ݭ���</title>
+<title>會員前端頁面</title>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<%--
 			CSS
@@ -37,7 +38,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
-<%-- �Y�n�ϥ�fai�����~��icon�A�nimport CDN�A�ֱ���facdn=>tab --%>
+<%-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab --%>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 			
@@ -67,61 +68,73 @@
 <header id="header" id="home">
 				<div class="container">
 			<div class="row header-top align-items-center">
-				<div class="col-lg-4 col-sm-4 menu-top-left">
-					<a href="index.jsp"> <img class="img-fluid"
-						src="images/logo2.png" width="200" alt="">
+				<div class="col-lg-3 col-sm-3 menu-top-left">
+					<a href="<%=request.getContextPath()%>/front-end/members/index.jsp"> <img class="img-fluid"
+						src="<%=request.getContextPath()%>/front-end/members/images/logo2.png" width="200" alt="">
 					</a>
 				</div>
-				<div class="col-lg-4 menu-top-middle justify-content-center d-flex">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="�п�J����r">
-						<span class="input-group-btn">
-							<button class="btn btn-info" type="button">
-								<i class="glyphicon glyphicon-search"></i>
-							</button>
-						</span>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-4 menu-top-right">
-				<% if(memVO == null){ %>
-				<a href="login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="�n�J/���U"></a>
-				<%}else{ 
-					out.print(memVO.getMemb_nick()+"�A�A�n");
-				%>
-				<a href="index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="�n�X" onclick="logout();"></a>
-				<a href="updateMembers.jsp">�ק�|�����</a>
-				<%}%>
-				</div>
-			</div>
-		</div>
-		<hr>
-			    <div class="container">
+				<div class="col-lg-6 menu-top-middle justify-content-center d-flex">
+					<div class="container">
 			<div class="row align-items-center justify-content-center d-flex">
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="index.jsp">����</a></li>
-						<li><a href="about.html">�ϴ�</a></li>
-						<li><a href="service.html">�{�i</a></li>
-						<li><a href="training.html">����</a></li>
-						<li><a href="events.html">��M</a></li>
-						<li><a href="pricing.html">����</a>
+						<li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">首頁</a></li>
+						<li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">會員</a>
 							<ul>
-								<li><a href="blog-home.html">�R�߮���</a></li>
-								<li><a href="blog-single.html">�R�ߪ��ꮽ��</a></li>
-								<li><a href="blog-single.html">�\�@���ꮽ��</a></li>
-							</ul></li>
-						<li class="menu-has-children menu-active"><a href="">�ӫ�</a></li>
-						<li><a href="contact.html">����ڭ�</a></li>
-						<li><a href="elements.html">�`�����D</a></li>
+								    	<li><a href="<%=request.getContextPath()%>/front-end/members/listOneMember.jsp">查看會員資料</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/pet/pet.do?action=select_pet">查看我的寵物資料</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的救援案例</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的認養案例</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的失蹤寵物</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的捐贈紀錄</a></li>
+							</ul>
+						
+						</li>
+						<li><a href="about.html">救援</a></li>
+						<li><a href="service.html">認養</a></li>
+						<li><a href="training.html">失蹤</a>
+						     <ul>
+								<li><a href="<%=request.getContextPath()%>/front-end/missingCase/addMissing.jsp">新增失蹤案例</a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤案例瀏覽</a></li>
+							</ul>
+						</li>
+						<li><a href="events.html">協尋</a></li>
+						<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a>
+							      	<ul>
+								    	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">許願物資捐贈</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></li>
+								    </ul>
+						</li>
+						<li class="menu-has-children menu-active"><a href="">商城</a></li>
+<!-- 						<li><a href="contact.html">關於我們</a></li> -->
+<!-- 						<li><a href="elements.html">常見問題</a></li> -->
 					</ul>
 				</nav>
 				<%-- #nav-menu-container --%>
 			</div>
 		</div>
+				</div>
+				<div class="col-lg-3 col-sm-3 menu-top-right">
+				<% if(memVO == null){ %>
+				<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊">登入/註冊</a>
+				<%}else{ 
+					out.print(memVO.getMemb_nick()+"，你好");
+				%>
+				<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a>
+				
+
+				<%}%>
+				</div>
+			</div>
+		</div>
+		<hr>
+			    
 			  </header><!-- #header -->
 			  
 			  
-	<%-- �©�logo�� --%>			  
+	<%-- 黑底logo區 --%>			  
 <section class="banner-area relative" id="home">	
 				<div class="overlay overlay-bg"></div>
 				<div class="container">				
@@ -130,7 +143,7 @@
 							<h6 class="text-white" >Respect All Lifes</h6>
 							<span class="bar"></span>
 							<h1 class="text-white">
-								���ڳ��A <br>
+								浪我陪你 <br>
 								LET ME PET YOU
 							</h1>
 							<a href="#" class="genric-btn">Book Consultancy</a>
@@ -140,7 +153,7 @@
 			</section>
 		<section id="sp-main-top-wrapper" class=" "><div class="row-fluid" id="main-top">
 	
-<%-- ���y�ϴ��� --%>			
+<%-- 鼓勵救援區 --%>			
 			<section class="about-video-area section-gap">
 			
 				<div class="container">
@@ -148,8 +161,8 @@
 						<div class="col-lg-6 about-video-left">
 							<h6 class="text-uppercase">Latest video that needs your help</h6>
 							<h1>
-								�Y��ϴ� <br>
-								�@�ɦ]�A���� 
+								即刻救援 <br>
+								世界因你而變 
 							</h1>
 							<p>
 								<span>We are here to listen from you deliver exellence</span>
@@ -165,12 +178,12 @@
 					</div>
 				</div>	
 			</section>
-	<%-- ���ܨ�M�� --%>	
+	<%-- 失蹤協尋區 --%>	
 	<section class="home-about-area section-gap">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 home-about-left">
-							<img class="mx-auto d-block img-fluid" src="img/about-img.png" alt="">
+							<img class="mx-auto d-block img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/about-img.png" alt="">
 						</div>
 						<div class="col-lg-6 home-about-right">
 							<h6 class="text-uppercase">Brand new app to blow your mind</h6>
@@ -189,13 +202,13 @@
 			</section>	
 			
 			
-	<%-- ���y���ذ� --%>		
+	<%-- 鼓勵捐贈區 --%>		
 				<section class="price-area section-gap">
 				<div class="container">
 					<div class="row d-flex justify-content-center">
 						<div class="menu-content pb-70 col-lg-8">
 							<div class="title text-center">
-								<h1 class="mb-10">��ܾA�X�z�����ؤ��</h1>
+								<h1 class="mb-10">選擇適合您的捐贈方案</h1>
 								<p>Choose the best donation that suits you</p>
 							</div>
 						</div>
@@ -216,7 +229,7 @@
 									</ul>
 								</div>
 								<div class="bottom-part">
-									<h1>�G199.00</h1>
+									<h1>£199.00</h1>
 									<a class="price-btn text-uppercase" href="#">Purchase</a>
 								</div>								
 							</div>
@@ -236,7 +249,7 @@
 									</ul>
 								</div>
 								<div class="bottom-part">
-									<h1>�G299.00</h1>
+									<h1>£299.00</h1>
 									<a class="price-btn text-uppercase" href="#">Purchase</a>
 								</div>								
 							</div>
@@ -256,7 +269,7 @@
 									</ul>
 								</div>
 								<div class="bottom-part">
-									<h1>�G399.00</h1>
+									<h1>£399.00</h1>
 									<a class="price-btn text-uppercase" href="#">Purchase</a>
 								</div>								
 							</div>
@@ -276,7 +289,7 @@
 									</ul>
 								</div>
 								<div class="bottom-part">
-									<h1>�G499.00</h1>
+									<h1>£499.00</h1>
 									<a class="price-btn text-uppercase" href="#">Purchase</a>
 								</div>								
 							</div>
@@ -293,50 +306,50 @@
 
 	
 
-<%-- ���ʷӤ��� --%>
-<center><h1>�x��s�@�ζ�</h1></center>
+<%-- 移動照片區 --%>
+<center><h1>官方製作團隊</h1></center>
 	<section class="gallery-area">
 				<div class="container-fluid">
 					<div class="row no-padding">
 						<div class="active-gallery">
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="images/m1.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m1.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="images/m2.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m2.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="images/m3.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m3.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="images/m4.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m4.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="images/m5.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m5.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="images/g6.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/g6.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
@@ -349,7 +362,7 @@
 
 
 
-<%-- �ҪOscript --%>
+<%-- 模板script --%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>			
@@ -368,13 +381,7 @@
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>			
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
-<script type="text/javascript">
-function logout(){
-	<% session.setAttribute("memVO",null); %>
 	
-}
-
-</script>	
 </body>
 
 

@@ -2,6 +2,8 @@ package com.volunteer.model;
 
 import java.util.*;
 
+import com.mem.model.MemVO;
+
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
 
 import java.sql.*;
@@ -25,6 +27,7 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 			"UPDATE VOLUNTEER set vlt_name =?,vlt_mail =?,vlt_gender =?,vlt_tel =?,vlt_duty_day =?,vlt_sta =?,vlt_reg =? where vlt_id = ?";
 	private static final String VOLUNTEER_UPDATE_STMT = 
 			"UPDATE VOLUNTEER set vlt_pw =?,vlt_tel =?,vlt_img =?,vlt_duty_day =? where vlt_id = ?";
+	private static final String VOLUNTEER_SEARCH_STMT="SELECT * FROM VOLUNTEER where vlt_mail=?";
 	//安卓指令
 	private static final String FIND_BY_EMAIL_PASWD = "SELECT * FROM VOLUNTEER WHERE vlt_mail = ? AND vlt_pw = ?";
 	private static final String CHECK_EMAIL_EXIST = "SELECT vlt_mail FROM VOLUNTEER WHERE vlt_mail = ?";
@@ -438,6 +441,72 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public VolunteerVO findByAccount(String vlt_mail) {
+		
+		VolunteerVO volunteerVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(VOLUNTEER_SEARCH_STMT);
+			
+			pstmt.setString(1,vlt_mail);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				volunteerVO = new VolunteerVO();
+				volunteerVO.setVlt_id(rs.getString("vlt_id"));
+				volunteerVO.setVlt_name(rs.getString("vlt_name"));
+				volunteerVO.setVlt_mail(rs.getString("vlt_mail"));
+				volunteerVO.setVlt_pw(rs.getString("vlt_pw"));
+				volunteerVO.setVlt_gender(rs.getString("vlt_gender"));
+				volunteerVO.setVlt_tel(rs.getString("vlt_tel"));
+				volunteerVO.setVlt_img(rs.getBytes("vlt_img"));
+				volunteerVO.setVlt_registerdate(rs.getDate("vlt_registerdate"));
+				volunteerVO.setVlt_duty_day(rs.getString("vlt_duty_day"));
+				volunteerVO.setVlt_sta(rs.getString("vlt_sta"));
+				volunteerVO.setVlt_reg(rs.getString("vlt_reg"));
+			}
+			
+			
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return volunteerVO;
+		
+	}
+
 
 	public static void main(String[] args) {
 
@@ -608,6 +677,7 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 			}
 		}return isVolunteerExist;
 	}
+
 
 
 	

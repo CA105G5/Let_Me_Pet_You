@@ -28,7 +28,7 @@ public class missingMsgJNDIDAO implements missingMsgDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO missing_msg(missing_msg_id,missing_case_id,memb_id,missing_msg_date,missing_msg_cont) VALUES ('SM'||LPAD(to_char(missing_msg_seq.NEXTVAL), 8, '0'), ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT missing_msg_id,missing_case_id,memb_id,to_char(missing_msg_date,'yyyy-mm-dd hh24:mi:ss')missing_msg_date,missing_msg_cont FROM missing_msg order by missing_msg_id";
-	private static final String GET_ONE_STMT = "SELECT missing_msg_id,missing_case_id,memb_id,to_char(missing_msg_date,'yyyy-mm-dd hh24:mi:ss')missing_msg_date,missing_msg_cont FROM missing_msg where missing_msg_id = ?";
+	private static final String GET_ONE_STMT = "SELECT missing_msg_id,missing_case_id,memb_id,to_char(missing_msg_date,'yyyy-mm-dd hh24:mi:ss')missing_msg_date,missing_msg_cont FROM missing_msg where missing_case_id = ?";
 	private static final String DELETE = "DELETE FROM missing_msg where missing_msg_id = ?";
 	private static final String UPDATE = "UPDATE missing_msg set missing_case_id=?, memb_id=?, missing_msg_date=?, missing_msg_cont=? where missing_msg_id = ?";
 
@@ -153,8 +153,9 @@ public class missingMsgJNDIDAO implements missingMsgDAO_interface {
 
 	// 單獨查詢
 	@Override
-	public missingMsgVO findByPrimaryKey(String missing_msg_id) {
+	public List<missingMsgVO> findByCase(String missing_case_id) {
 
+		List<missingMsgVO> list = new ArrayList<missingMsgVO>();
 		missingMsgVO missingMsgVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -165,7 +166,7 @@ public class missingMsgJNDIDAO implements missingMsgDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setString(1, missing_msg_id);
+			pstmt.setString(1, missing_case_id);
 
 			rs = pstmt.executeQuery();
 
@@ -176,6 +177,7 @@ public class missingMsgJNDIDAO implements missingMsgDAO_interface {
 				missingMsgVO.setMemb_id(rs.getString("memb_id"));
 				missingMsgVO.setMissing_msg_date(rs.getTimestamp("missing_msg_date"));
 				missingMsgVO.setMissing_msg_cont(rs.getString("missing_msg_cont"));
+				list.add(missingMsgVO);
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -203,7 +205,7 @@ public class missingMsgJNDIDAO implements missingMsgDAO_interface {
 				}
 			}
 		}
-		return missingMsgVO;
+		return list;
 	}
 
 	// 查全部

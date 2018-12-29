@@ -30,7 +30,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	//安卓SQL指令
 	private static final String FIND_BY_ID_PASWD = "SELECT * FROM MEMBERS WHERE memb_acc = ? AND memb_psw = ?";
 	private static final String CHECK_ID_EXIST = "SELECT memb_acc FROM MEMBERS WHERE memb_acc = ?";
-	
+	private static final String FIND_PHOTO_BY_MEMACC = "SELECT memb_photo FROM MEMBERS WHERE memb_acc = ?";
 	
 
 	public static void main(String[] args) {
@@ -685,4 +685,44 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}return isMemberExist;
 	}
 
+	@Override
+	public byte[] getImage(String memb_acc) {
+		byte[] picture = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(FIND_PHOTO_BY_MEMACC);
+			
+			pstmt.setString(1,memb_acc);
+			rs = pstmt.executeQuery();
+			
+		if (rs.next()) {
+			picture = rs.getBytes(1); 
+		}
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		} return picture;
+	}
 }

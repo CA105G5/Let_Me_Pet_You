@@ -43,10 +43,6 @@
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 <!-- https://fontawesome.com/ 自己的css-->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
-	crossorigin="anonymous">
 
 <style type="text/css">
 	p {
@@ -88,8 +84,13 @@
 						    	<li><a href="index.html">首頁</a></li>
 						       	<li><a href="about.html">救援</a></li>
 						        <li><a href="service.html">認養</a></li>				          
-						        <li><a href="training.html">失蹤</a></li>
-						        <li><a href="events.html">協尋</a></li>
+						        <li><a href="training.html">協尋</a></li>
+						        <li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤</a>
+							      	<ul>
+								    	<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤案例柳覽</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/missingCase/addMissing.jsp">新增失蹤案例</a></li>
+								    </ul>
+								</li>
 						        <li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a>
 							      	<ul>
 								    	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li>
@@ -100,7 +101,6 @@
 								</li>
 								<li class="menu-active"><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li>
 								<li><a href="contact.html">關於我們</a></li>
-								<li><a href="elements.html">常見問題</a></li>
 							</ul>
 <!-- 						</nav>#nav-menu-container		    		 -->
 <!-- 					</div> -->
