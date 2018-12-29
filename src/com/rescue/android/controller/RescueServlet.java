@@ -86,5 +86,5 @@ public class RescueServlet extends HttpServlet {
 		RescueDAO_interface rescueDao = new RescueJDBCDAO();
 		List<RescueVO> rescuecase = rescueDao.getAll();
 		writeText(res, new Gson().toJson(rescuecase));
-	}
+	} 
 }

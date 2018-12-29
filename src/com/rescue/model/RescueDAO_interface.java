@@ -1,7 +1,7 @@
 package com.rescue.model;
 
 import java.util.*;
-
+ 
 
  
 public interface RescueDAO_interface {

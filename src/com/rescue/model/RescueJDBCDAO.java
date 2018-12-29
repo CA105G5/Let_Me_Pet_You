@@ -662,7 +662,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		try {
 
 			Class.forName(driver);
-	
+	 
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_RESCUE_CASE);
 
