@@ -23,8 +23,8 @@ public class missingMsgService {
 		return missingMsgVO;
 	}
 
-	public missingMsgVO updateMissingMsg(String missing_msg_id ,String missing_case_id, String memb_id, Timestamp missing_msg_date,
-			String missing_msg_cont) {
+	public missingMsgVO updateMissingMsg(String missing_msg_id, String missing_case_id, String memb_id,
+			Timestamp missing_msg_date, String missing_msg_cont) {
 
 		missingMsgVO missingMsgVO = new missingMsgVO();
 		missingMsgVO.setMissing_case_id(missing_case_id);

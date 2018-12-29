@@ -50,6 +50,12 @@
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="css/owl.carousel.css">
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="js/jquery-1.12.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 </head>
 <body>
@@ -82,9 +88,9 @@
 							<ul class="tags">
 								<li><fmt:formatDate
 											value="${missingCaseVO.missing_date}" pattern="yyyy-MM-dd" />
-								<a href="#" class="genric-btn primary small"style="margin-left: 670px;">檢舉</a>
 								</li>
 							</ul>
+								<a href="#" class="genric-btn primary small"style="margin-left: 670px;" id="report">檢舉</a>
 							<a href="#">
 								<h3>${missingCaseVO.missing_name}</h3>
 							</a>
@@ -227,8 +233,40 @@
 // 	}
 
 // function clearMsg(){
-// 	$('#contentdiv').empty();
 // }
+$("#report").on('click', function(){
+	swal({
+		showCancelButton: true, 
+		title: '請輸入檢舉原因:  ',
+		type: "warning",
+		html:'<input id="swal-input1" class="swal2-input">',
+		preconfirm: function(){
+		return new Promise(function (resolve, reject) {
+			var data = {};
+			data.action = "insert";
+			data.report_missing_cont = $('#swal-input1').val();
+			data.missing_case_id = $('#missing_case_id').val();
+			data.memb_id = $('memb_id').val();
+			data.report_missing_time = $.now();
+			if(!data.report_missing_cont) reject('請輸入原因!');
+			else{
+				$.ajax({
+					 type: "POST",
+					 url: "validator.do",
+					 
+					 
+				})
+			}
+		})
+			
+		}
+		
+		
+	})
+	
+	})
+}
+
 
 </script>		
 		

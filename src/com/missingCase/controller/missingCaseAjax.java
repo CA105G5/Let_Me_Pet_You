@@ -22,6 +22,8 @@ import org.json.JSONObject;
 import com.missingCase.model.*;
 import com.missingMsg.model.missingMsgService;
 import com.missingMsg.model.missingMsgVO;
+import com.reportMissing.model.ReportMissingService;
+import com.reportMissing.model.ReportMissingVO;
 
 public class missingCaseAjax extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -47,8 +49,6 @@ public class missingCaseAjax extends HttpServlet {
 			} else if ("下架".equals(status)) {
 				missingCaseVO missingCaseVO = new missingCaseVO();
 				missingCaseVO.setMissing_status_shelve(status);
-
-				System.out.println(status);
 
 				missingCaseService missingCaseSvc = new missingCaseService();
 				missingCaseVO = missingCaseSvc.updateStatus(missing_case_id, status);
@@ -117,6 +117,26 @@ public class missingCaseAjax extends HttpServlet {
 			out.write(array.toString());
 			out.flush();
 			out.close();
+		}
+
+		if ("changeStatus".equals(action)) {
+			String report_missing_sta = req.getParameter("report_missing_sta");
+			String report_missing_id = req.getParameter("report_missing_id");
+			if ("通過".equals(report_missing_sta)) {
+				ReportMissingVO reportMissingVO = new ReportMissingVO();
+				reportMissingVO.setReport_missing_sta(report_missing_sta);
+
+				ReportMissingService reportMissingSvc = new ReportMissingService();
+				reportMissingVO = reportMissingSvc.updateStatus(report_missing_sta, report_missing_id);
+			}
+			if ("不通過".equals(report_missing_sta)) {
+				ReportMissingVO reportMissingVO = new ReportMissingVO();
+				reportMissingVO.setReport_missing_sta(report_missing_sta);
+
+				ReportMissingService reportMissingSvc = new ReportMissingService();
+				reportMissingVO = reportMissingSvc.updateStatus(report_missing_sta, report_missing_id);
+			}
+
 		}
 	}
 
