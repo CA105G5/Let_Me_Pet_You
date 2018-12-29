@@ -3,8 +3,8 @@
 <%@page import="java.util.List"%>
 <%@page import="com.missingMsg.model.*"%>
 <%@page import="com.missingCase.model.*"%>
-<%@ page language="java" contentType="text/html; charset=BIG5"
-	pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -16,7 +16,6 @@
 	
 	MemVO membVO = (MemVO)session.getAttribute("memVO");
 	Timestamp missing_msg_date = new Timestamp(System.currentTimeMillis()); 
-	System.out.println(request.getServletPath());
 %>
 <html>
 <head>
@@ -69,8 +68,8 @@
 			</div>
 			<div class="col-xs-12 col-sm-3">
 				<div class="list-group">
-					<a href="listAllMissingCase.jsp" class="list-group-item ">¥¢ÂÜ®×¨ÒÁ`Äı</a>
-					<a href="addMissing.jsp" class="list-group-item ">¥¢ÂÜ®×¨Ò·s¼W</a>
+					<a href="listAllMissingCase.jsp" class="list-group-item ">å¤±è¹¤æ¡ˆä¾‹ç¸½è¦½</a>
+					<a href="addMissing.jsp" class="list-group-item ">å¤±è¹¤æ¡ˆä¾‹æ–°å¢</a>
 				</div>
 			</div>
 			<div class="container">
@@ -96,9 +95,9 @@
 							<div class="row justify-content-between">
 								<div class="col-sm-12 nav-right justify-content-end d-flex">
 									<div class="post-details">
-										<p>³sµ¸¥¢¥D</p>
+										<p>é€£çµ¡å¤±ä¸»</p>
 										<h4 class="text-uppercase">
-											<a href="#">¥¢ÂÜªº¤H</a>
+											<a href="#">å¤±è¹¤çš„äºº</a>
 										</h4>
 									</div>
 									<div class="thumb">
@@ -109,27 +108,28 @@
 
 						</section>
 						<div class="comment-sec-area">
-							<h3 class="text-uppercase" style="color: red">¯d¨¥°Ï</h3>
+							<h3 class="text-uppercase" style="color: red">ç•™è¨€å€</h3>
 							<br>
 							<h4 class="pb50">Leave a Reply...</h4>
 							
 							
-							<form action="<%=request.getContextPath() %>/front-end/missingMsg/missingMsg.do" method="post">
-							<textarea class="form-control mb-10" name="missing_msg_cont"
+							<form action="<%=(membVO==null)? request.getContextPath() + "/front-end/members/login.jsp" : request.getContextPath() + "/front-end/missingMsg/missingMsg.do" %>" method="post">
+							<textarea class="form-control mb-10" name="missing_msg_cont" id="missing_msg_cont"
 								placeholder="Messege" onfocus="this.placeholder = ''"
 								onblur="this.placeholder = 'Messege'"></textarea>
-							<input type="hidden" name="memb_id" value="<%=membVO.getMemb_id()%>">
-							<input type="hidden" name="missing_case_id" value="<%=request.getParameter("missing_case_id")%>">
-							<input type="hidden" name="missing_msg_date" value="<%=missing_msg_date%>">
+							<input type="hidden" name="missing_case_id" id="missing_case_id" value="<%=request.getParameter("missing_case_id")%>">
+							<input type="hidden" name="missing_msg_date" id="missing_msg_date" value="<%=missing_msg_date%>">
+							<input type="hidden" name="memb_id" id="memb_id" value="<%=(membVO==null)? "" : membVO.getMemb_id()%>">
+							<input type="hidden" name="URL" value="<%=request.getRequestURL()%>">
 							<input type="hidden" name="action" value="insert">
-							<input type="submit" class="genric-btn danger circle arrow col-offset-md-6"
-								style="margin-left: 731px" value="°e¥X">
+							<input type="submit" id="submit"class="genric-btn danger circle arrow col-offset-md-6"
+								style="margin-left: 731px" value="é€å‡º">
 							
 							</form>
 							
 							
 							<c:forEach var="missingMsgVO" items="${list}">
-								<div class="comment-list">
+								<div class="comment-list" id="contentdiv">
 									<div class="single-comment justify-content-between d-flex">
 										<div class="user justify-content-between d-flex">
 											<div class="thumb">
@@ -148,7 +148,7 @@
 										</div>
 										<div class="reply-btn">
 											<a href="#" class="genric-btn primary-border small"
-												style="margin-top: 20px">ÀËÁ|</a>
+												style="margin-top: 20px">æª¢èˆ‰</a>
 										</div>
 									</div>
 								</div>
@@ -200,5 +200,39 @@
 		src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="jquery-3.3.1.min.js"></script>
+		
+<script type="text/javascript">
+// 	$(document).ready(function(){	
+// 		 $('#submit').click(function(){
+// // 		alert($("option:selected", this).text())
+// 			 $.ajax({
+// 			 type: "POST",
+<%-- 		 url: "<%=request.getContextPath() %>/missingCaseAjax.do", --%>
+// 			 data:addMsg($('#missing_case_id').val(),$('#missing_msg_date').val(),$('#memb_id').val(),$('#missing_msg_cont').val()),
+// 			 datatype:"json",
+// 			 success:function(){alert("88!")},
+// 				 function(data){
+// 				 clearMsg();
+// 				 $.each(data, function(i, item){
+// 					 $('#contentdiv').append("<div class='single-comment justify-content-between d-flex'><div class='user justify-content-between d-flex'><div class='thumb'><img src='img/blog/c1.jpg'></div><div class='desc'><h5><a href='#'>Emilly Blunt</a></h5><p class='date'>"+data[i].missing_msg_date+"</p><p class='comment'>"+data[i].missing_msg_cont+"</p></div></div><div class='reply-btn'><a href='#' class='genric-btn primary-border small' style='margin-top: 20px'>æª¢èˆ‰</a></div>	</div>")
+// 				 });
+// 			 error: function(){alert("AJAX-gradeç™¼ç”ŸéŒ¯èª¤å›‰!")}
+// 		})
+// 	})
+// 		 })
+
+// function addMsg(missing_case_id,missing_msg_date,memb_id,missing_msg_cont){
+// 		var add = {"action":"addMsg","missing_case_id":missing_case_id,"missing_msg_date":missing_msg_date,"memb_id":memb_id,"missing_msg_cont":missing_msg_cont};
+// 		return add;
+// 	}
+
+// function clearMsg(){
+// 	$('#contentdiv').empty();
+// }
+
+</script>		
+		
+		
 </body>
 </html>

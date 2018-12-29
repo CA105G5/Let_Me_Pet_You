@@ -245,8 +245,7 @@
 		return cStatus;
 	}
 
-	</script>
-	<script>
+	
 		jQuery(document)
 				.ready(
 						function($) {
@@ -490,11 +489,8 @@
 							});
 							// Bar Chart #flotBarChart End
 						});
-	</script>
-
-
-	<!-- w3 css tab -->
-	<script>
+	
+		
 		function openTab(evt, cityName) {
 			var i, x, tablinks;
 			x = document.getElementsByClassName("city");
@@ -511,7 +507,6 @@
 			evt.currentTarget.firstElementChild.className += " w3-border-red";
 		}
 	</script>
-	<!-- w3 css tab -->
 
 </body>
 </html>

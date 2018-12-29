@@ -28,9 +28,7 @@ public class missingMsgServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-
 		if ("insert".equals(action)) {
-			System.out.println("123");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
@@ -63,9 +61,10 @@ public class missingMsgServlet extends HttpServlet {
 				missingMsgVO = missingMsgSvc.addMissingMsg(missing_case_id, memb_id, missing_msg_date,
 						missing_msg_cont);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id="+missing_case_id;
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listOneMissingCase.jsp
-				successView.forward(req, res);
+				String url = "http://localhost:8081/CA105G5/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id="+missing_case_id;
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listOneMissingCase.jsp
+//				successView.forward(req, res);
+				res.sendRedirect(url);
 				return;
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
