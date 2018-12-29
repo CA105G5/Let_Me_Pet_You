@@ -108,18 +108,19 @@ System.out.println("111111111111111111111111111="+session.getId());
 
 			
 			<section style="padding-top: 50px; class=" booking-area section-gap relative" id="consultancy">
+			<c:if test="${not empty errorMsgs}">
+				<font style="color:red">請修正以下錯誤:</font>
+				<ul>
+					<c:forEach var="message" items="${errorMsgs}">
+						<li style="color:red">${message}</li>
+					</c:forEach>
+				</ul>
+			</c:if>
 				<form METHOD="post" ACTION="volunteer.do" name="form1" enctype="multipart/form-data">
 				<div class="container">
 				
 					<div class="row justify-content-between align-items-center">
-					<c:if test="${not empty errorMsgs}">
-<!-- 				<font style="color:red">請修正以下錯誤:</font> -->
-<!-- 				<ul> -->
-<%-- 					<c:forEach var="message" items="${errorMsgs}"> --%>
-<%-- 						<li style="color:red">${message}</li> --%>
-<%-- 					</c:forEach> --%>
-<!-- 				</ul> -->
-					</c:if>
+					
 						<div class="col-xs-12 col-sm-6 booking-left">
 						<img  style="width:400px;height:400px" class="preview img-fluid" src="<%=request.getContextPath()%>/back-end/volunteer/volunteerImg.do?vlt_id=${volunteerVO.vlt_id}"/>
 		 				<div class="size"></div>
@@ -135,9 +136,8 @@ System.out.println("111111111111111111111111111="+session.getId());
 								<tr><th>志工編號：</th><td>${volunteerVO.vlt_id}</td></tr>
 								<tr><th>志工姓名：</th><td>${volunteerVO.vlt_name}</td></tr>
 								<tr><th>e-mail(帳號):</th><td>${volunteerVO.vlt_mail}</td></tr>
-								<tr><th>志工密碼:</th><td><input type="password" class="form-control" name="vlt_pw" placeholder="PassWord" required value="${volunteerVO.vlt_pw}"><p style="color:red">${errorMsgs.vlt_pw}</p></td></tr>
-								<tr><th>志工性別：</th><td>${volunteerVO.vlt_gender}</td></tr>
-								<tr><th>志工電話：</th><td><input type="text"class="form-control" name="vlt_tel" placeholder="Phone Number" required value="${volunteerVO.vlt_tel}"><p style="color:red">${errorMsgs.vlt_tel}</p></td></tr>
+								<tr><th>志工密碼:</th><td><input type="password" class="form-control" name="vlt_pw" placeholder="PassWord" required value="${volunteerVO.vlt_pw}"></td></tr>
+								<tr><th>志工電話：</th><td><input type="text"class="form-control" name="vlt_tel" placeholder="Phone Number" required value="${volunteerVO.vlt_tel}"></td></tr>
 								<tr><th>加入日期：</th><td>${volunteerVO.vlt_registerdate}</td></tr>
 								<tr><th>可值勤日：</th><td><select size="1" name="vlt_duty_day">
 														<option value="平日" ${(volunteerVO.vlt_duty_day=='平日')? 'selected':'' }>平日

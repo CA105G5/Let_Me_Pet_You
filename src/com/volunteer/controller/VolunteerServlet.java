@@ -276,7 +276,6 @@ public class VolunteerServlet extends HttpServlet{
 			
 				//密碼
 				String vlt_pw = req.getParameter("vlt_pw");
-				System.out.println(vlt_pw);
 				String pwReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,8}$";
 				if (vlt_pw == null || vlt_pw.trim().length() == 0) {
 					errorMsgs.add("志工密碼: 請勿空白");
@@ -321,7 +320,7 @@ public class VolunteerServlet extends HttpServlet{
 				
 				/***************************2.開始修改資料*****************************************/
 				VolunteerService volunteerSvc = new VolunteerService();
-				volunteerVO = volunteerSvc.updateForVolunteer(vlt_id, vlt_pw, vlt_tel,vlt_img,vlt_duty_day);
+				volunteerSvc.updateForManager(volunteerVO);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("volunteerVO", volunteerVO); // 資料庫update成功後,正確的的empVO物件,存入req
