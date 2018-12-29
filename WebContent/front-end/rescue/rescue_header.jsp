@@ -6,8 +6,8 @@
 <!-- Mobile Specific Meta -->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- Favicon-->
-<link rel="shortcut icon" href="img/fav.png">
+<!-- <!-- Favicon--> -->
+<!-- <link rel="shortcut icon" href="img/fav.png"> -->
 <!-- Author Meta -->
 <meta name="author" content="codepixer">
 <!-- Meta Description -->
@@ -82,8 +82,13 @@
 <!-- 						<nav id="nav-menu-container"> -->
 							<ul class="nav-menu">
 						    	<li><a href="index.html">首頁</a></li>
-						       	<li><a href="about.html">救援</a></li>
-						        <li><a href="service.html">認養</a></li>				          
+						       	<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">救援</a>
+						       		<ul>
+								    	<li><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援案例</a></li>
+								    </ul>
+								 </li> 
+						        <li><a href="service.html">認養</a></li>	          
 						        <li><a href="training.html">協尋</a></li>
 						        <li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤</a>
 							      	<ul>
@@ -115,37 +120,26 @@
 		</div>
 		<hr>
 		
-<!-- 		<div class="container"> -->
-<!-- 			<div class="row"> -->
+		<div class="container">
+			<div class="row">
 
 <!-- 				左側邊list-group -->
-<!-- 				<div class="col-xs-12 col-sm-3 sidebar"> -->
-<!-- 					<div class="single-widget category-widget"> -->
-<!-- 						<h4 class="title">商品分類</h4> -->
-<!-- 						<ul> -->
-<!-- 							<li><a -->
-<%-- 								href="<%=request.getContextPath()%>/prod/prod.do?action=getAll_For_Display&type=1" --%>
-<!-- 								class="justify-content-between align-items-center d-flex"><h6>&nbsp&nbsp&nbsp貓咪</h6> -->
-<!-- 									<span></span></a></li> -->
-<!-- 							<li><a -->
-<%-- 								href="<%=request.getContextPath()%>/prod/prod.do?action=getAll_For_Display&type=2" --%>
-<!-- 								class="justify-content-between align-items-center d-flex"><h6>&nbsp&nbsp&nbsp狗狗</h6> -->
-<!-- 									<span></span></a></li> -->
-<!-- 							<li><a -->
-<%-- 								href="<%=request.getContextPath()%>/prod/prod.do?action=getAll_For_Display&type=3" --%>
-<!-- 								class="justify-content-between align-items-center d-flex"><h6>&nbsp&nbsp&nbsp飛禽</h6> -->
-<!-- 									<span></span></a></li> -->
-<!-- 							<li><a -->
-<%-- 								href="<%=request.getContextPath()%>/prod/prod.do?action=getAll_For_Display&type=4" --%>
-<!-- 								class="justify-content-between align-items-center d-flex"><h6>&nbsp&nbsp&nbsp兔子</h6> -->
-<!-- 									<span></span></a></li> -->
-<!-- 							<li><a -->
-<%-- 								href="<%=request.getContextPath()%>/prod/prod.do?action=getAll_For_Display&type=5" --%>
-<!-- 								class="justify-content-between align-items-center d-flex"><h6>&nbsp&nbsp&nbsp其他</h6> -->
-<!-- 									<span></span></a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
+ 				<div class="col-xs-12 col-sm-3">
+				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
+					<h3>救援</h3>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
+					<hr>
+
+					
+				</div>
+			</div>
+		</div>
+	</div>
 <!-- 			</div> -->
 <!-- 		</div> -->
 	</header>

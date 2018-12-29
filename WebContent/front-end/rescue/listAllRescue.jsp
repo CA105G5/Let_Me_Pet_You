@@ -23,8 +23,8 @@
 <!-- Mobile Specific Meta -->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- Favicon-->
-<link rel="shortcut icon" href="img/fav.png">
+<!-- <!-- Favicon--> -->
+<!-- <link rel="shortcut icon" href="img/fav.png"> -->
 <!-- Author Meta -->
 <meta name="author" content="codepixer">
 <!-- Meta Description -->
@@ -34,7 +34,7 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>Horse Club</title>
+<title>Let Me Pet You</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
@@ -138,13 +138,13 @@ div {
 											<div class="thumb relative">
 												<div class="overlay-bg"></div>
 												<img class="img-fluid"
-													src="<%=request.getContextPath()%>/util/PicReader?prod_id=${prodVO.prod_id}" alt="">
+													src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="">
 												<!-- 												<a class="admission-btn" href="#">Admission	Going on</a> -->
 											</div>
 											<div class="details">
 												<div class="title justify-content-between d-flex">
-													<a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${prodVO.prod_id}"><h5>${prodVO.prod_name}</h5></a>
-													<p class="price">$${prodVO.prod_price}</p>
+													<a href="<%=request.getContextPath()%>/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}"><h5>${rescueVO.rsc_name}</h5></a>
+													<p> </p>
 												</div>
 											</div>
 										</div>
@@ -173,8 +173,9 @@ div {
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+<!-- 	<script type="text/javascript" -->
+<!-- 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKTq4JnBzGP4UWtr5xe0c_wDQlWUbVrXU&callback=initMap"></script> -->
+		
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
