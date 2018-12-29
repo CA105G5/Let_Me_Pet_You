@@ -103,6 +103,22 @@
     <servlet-name>VolunteerImgServlet</servlet-name>
     <url-pattern>/back-end/volunteer/volunteerImg.do</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>RescueServlet</servlet-name>
+    <servlet-class>com.rescue.controller.RescueServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RescueServlet</servlet-name>
+    <url-pattern>/front-end/rescue/rescue.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RescueImgServlet</servlet-name>
+    <servlet-class>com.rescue.controller.RescueImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RescueImgServlet</servlet-name>
+    <url-pattern>/back-end/rescue/rescueImg.do</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>PicReader</servlet-name>
     <servlet-class>util.PicReader</servlet-class>
