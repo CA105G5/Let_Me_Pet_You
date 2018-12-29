@@ -13,7 +13,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class reportMissingJNDIDAO implements reportMissingDAO_interface {
+public class ReportMissingJNDIDAO implements ReportMissingDAO_interface {
 
 	private static DataSource ds = null;
 	static {
@@ -30,10 +30,11 @@ public class reportMissingJNDIDAO implements reportMissingDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT report_missing_id,missing_case_id,memb_id,report_missing_cont,report_missing_sta,to_char(report_missing_time,'yyyy-mm-dd hh24:mi:ss')report_missing_time FROM report_missing where report_missing_id = ?";
 	private static final String DELETE = "DELETE FROM  report_missing where  report_missing_id = ?";
 	private static final String UPDATE = "UPDATE  report_missing set missing_case_id=?, memb_id=?, report_missing_cont=?, report_missing_sta=?, report_missing_time=? where report_missing_id = ?";
+	private static final String UPDATE_STATUS = "UPDATE report_missing set report_missing_sta=? where report_missing_id=?";
 
 	// 新增
 	@Override
-	public void insert(reportMissingVO reportMissingVO) {
+	public void insert(ReportMissingVO reportMissingVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -73,7 +74,7 @@ public class reportMissingJNDIDAO implements reportMissingDAO_interface {
 
 	// 修改
 	@Override
-	public void update(reportMissingVO reportMissingVO) {
+	public void update(ReportMissingVO reportMissingVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -112,6 +113,43 @@ public class reportMissingJNDIDAO implements reportMissingDAO_interface {
 		}
 	}
 
+	//修改狀態
+	public void updateStatus(ReportMissingVO reportMissingVO) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+			
+			pstmt.setString(1, reportMissingVO.getReport_missing_sta());
+			pstmt.setString(2, reportMissingVO.getReport_missing_id());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	
 	// 刪除
 	@Override
 	public void delete(String report_missing_id) {
@@ -153,9 +191,9 @@ public class reportMissingJNDIDAO implements reportMissingDAO_interface {
 
 	// 單獨查詢
 	@Override
-	public reportMissingVO findByPrimaryKey(String report_missing_id) {
+	public ReportMissingVO findByPrimaryKey(String report_missing_id) {
 
-		reportMissingVO reportMissingVO = null;
+		ReportMissingVO reportMissingVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -170,7 +208,7 @@ public class reportMissingJNDIDAO implements reportMissingDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				reportMissingVO = new reportMissingVO();
+				reportMissingVO = new ReportMissingVO();
 				reportMissingVO.setReport_missing_id(rs.getString("report_missing_id"));
 				reportMissingVO.setMissing_case_id(rs.getString("missing_case_id"));
 				reportMissingVO.setMemb_id(rs.getString("memb_id"));
@@ -209,9 +247,9 @@ public class reportMissingJNDIDAO implements reportMissingDAO_interface {
 
 	// 查全部
 	@Override
-	public List<reportMissingVO> getAll() {
-		List<reportMissingVO> list = new ArrayList<reportMissingVO>();
-		reportMissingVO reportMissingVO = null;
+	public List<ReportMissingVO> getAll() {
+		List<ReportMissingVO> list = new ArrayList<ReportMissingVO>();
+		ReportMissingVO reportMissingVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -224,7 +262,7 @@ public class reportMissingJNDIDAO implements reportMissingDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				reportMissingVO = new reportMissingVO();
+				reportMissingVO = new ReportMissingVO();
 				reportMissingVO.setReport_missing_id(rs.getString("report_missing_id"));
 				reportMissingVO.setMissing_case_id(rs.getString("missing_case_id"));
 				reportMissingVO.setMemb_id(rs.getString("memb_id"));

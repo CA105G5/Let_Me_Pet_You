@@ -80,8 +80,10 @@
 								src="<%=request.getContextPath() %>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id}"
 								alt="">
 							<ul class="tags">
-								<li><a href="#"><fmt:formatDate
-											value="${missingCaseVO.missing_date}" pattern="yyyy-MM-dd" /></a></li>
+								<li><fmt:formatDate
+											value="${missingCaseVO.missing_date}" pattern="yyyy-MM-dd" />
+								<a href="#" class="genric-btn primary small"style="margin-left: 670px;">檢舉</a>
+								</li>
 							</ul>
 							<a href="#">
 								<h3>${missingCaseVO.missing_name}</h3>
@@ -137,7 +139,8 @@
 											</div>
 											<div class="desc">
 												<h5>
-													<a href="#">Emilly Blunt</a>
+													<a href="#">Emilly Blunt</a><a href="#" style="margin-top: 20px">
+													<i class="fa fa-plane"></i></a>
 												</h5>
 												<p class="date">
 													<fmt:formatDate value="${missingMsgVO.missing_msg_date}"
@@ -145,10 +148,6 @@
 												</p>
 												<p class="comment">${missingMsgVO.missing_msg_cont}</p>
 											</div>
-										</div>
-										<div class="reply-btn">
-											<a href="#" class="genric-btn primary-border small"
-												style="margin-top: 20px">檢舉</a>
 										</div>
 									</div>
 								</div>

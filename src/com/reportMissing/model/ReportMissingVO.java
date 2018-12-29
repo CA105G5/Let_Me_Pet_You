@@ -2,7 +2,7 @@ package com.reportMissing.model;
 
 import java.sql.Timestamp;
 
-public class reportMissingVO {
+public class ReportMissingVO {
 	private String report_missing_id;
 	private String missing_case_id;
 	private String memb_id;

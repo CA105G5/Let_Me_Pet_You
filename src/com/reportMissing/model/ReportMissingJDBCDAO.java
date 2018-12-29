@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class reportMissingJDBCDAO implements reportMissingDAO_interface {
+import com.missingCase.model.missingCaseVO;
+
+public class ReportMissingJDBCDAO implements ReportMissingDAO_interface {
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -20,10 +22,12 @@ public class reportMissingJDBCDAO implements reportMissingDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT report_missing_id,missing_case_id,memb_id,report_missing_cont,report_missing_sta,to_char(report_missing_time,'yyyy-mm-dd hh24:mi:ss')report_missing_time FROM report_missing where report_missing_id = ?";
 	private static final String DELETE = "DELETE FROM  report_missing where  report_missing_id = ?";
 	private static final String UPDATE = "UPDATE  report_missing set missing_case_id=?, memb_id=?, report_missing_cont=?, report_missing_sta=?, report_missing_time=? where report_missing_id = ?";
+	private static final String UPDATE_STATUS = "UPDATE report_missing set report_missing_sta=? where report_missing_id=?";
 
+	
 	// 新增
 	@Override
-	public void insert(reportMissingVO reportMissingVO) {
+	public void insert(ReportMissingVO reportMissingVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -67,7 +71,7 @@ public class reportMissingJDBCDAO implements reportMissingDAO_interface {
 
 	// 修改
 	@Override
-	public void update(reportMissingVO reportMissingVO) {
+	public void update(ReportMissingVO reportMissingVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -152,11 +156,51 @@ public class reportMissingJDBCDAO implements reportMissingDAO_interface {
 
 	}
 
+	//修改狀態
+	public void updateStatus(ReportMissingVO reportMissingVO) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+			
+			pstmt.setString(1, reportMissingVO.getReport_missing_sta());
+			pstmt.setString(2, reportMissingVO.getReport_missing_id());
+			
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	
 	// 單獨查詢
 	@Override
-	public reportMissingVO findByPrimaryKey(String report_missing_id) {
+	public ReportMissingVO findByPrimaryKey(String report_missing_id) {
 
-		reportMissingVO reportMissingVO = null;
+		ReportMissingVO reportMissingVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -172,7 +216,7 @@ public class reportMissingJDBCDAO implements reportMissingDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				reportMissingVO = new reportMissingVO();
+				reportMissingVO = new ReportMissingVO();
 				reportMissingVO.setReport_missing_id(rs.getString("report_missing_id"));
 				reportMissingVO.setMissing_case_id(rs.getString("missing_case_id"));
 				reportMissingVO.setMemb_id(rs.getString("memb_id"));
@@ -214,9 +258,9 @@ public class reportMissingJDBCDAO implements reportMissingDAO_interface {
 
 	// 查全部
 	@Override
-	public List<reportMissingVO> getAll() {
-		List<reportMissingVO> list = new ArrayList<reportMissingVO>();
-		reportMissingVO reportMissingVO = null;
+	public List<ReportMissingVO> getAll() {
+		List<ReportMissingVO> list = new ArrayList<ReportMissingVO>();
+		ReportMissingVO reportMissingVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -230,7 +274,7 @@ public class reportMissingJDBCDAO implements reportMissingDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				reportMissingVO = new reportMissingVO();
+				reportMissingVO = new ReportMissingVO();
 				reportMissingVO.setReport_missing_id(rs.getString("report_missing_id"));
 				reportMissingVO.setMissing_case_id(rs.getString("missing_case_id"));
 				reportMissingVO.setMemb_id(rs.getString("memb_id"));
@@ -273,7 +317,7 @@ public class reportMissingJDBCDAO implements reportMissingDAO_interface {
 	}
 
 	public static void main(String[] args) {
-		reportMissingJDBCDAO dao = new reportMissingJDBCDAO();
+		ReportMissingJDBCDAO dao = new ReportMissingJDBCDAO();
 
 		// 新增
 //		reportMissingVO reportMissingVO1 = new reportMissingVO();
