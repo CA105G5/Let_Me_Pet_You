@@ -321,9 +321,9 @@ public class VolunteerServlet extends HttpServlet{
 				/***************************2.開始修改資料*****************************************/
 				VolunteerService volunteerSvc = new VolunteerService();
 				volunteerSvc.updateForManager(volunteerVO);
-				
+				VolunteerVO volunteerVO1 = volunteerSvc.getOneVolunteer(vlt_id);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("volunteerVO", volunteerVO); // 資料庫update成功後,正確的的empVO物件,存入req
+				req.setAttribute("volunteerVO", volunteerVO1); // 資料庫update成功後,正確的的empVO物件,存入req
 				String url = "/front-end/volunteer/volunteer_info.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
