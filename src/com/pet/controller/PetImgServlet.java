@@ -1,4 +1,4 @@
-package com.mem.controller;
+package com.pet.controller;
 
 import java.io.IOException;
 
@@ -8,18 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mem.model.MemService;
+import com.pet.model.PetService;
 
 import util.ImageUtil;
 
-public class MemImgServlet extends HttpServlet {
-	private static final long serialVersionUID = -7556418336636447483L;
+public class PetImgServlet extends HttpServlet {
+	private static final long serialVersionUID = 8796416148021671346L;
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		ServletOutputStream out = res.getOutputStream();
-		String memb_id = req.getParameter("memb_id");
-		MemService memsvc = new MemService();
-		byte[] pic = memsvc.getOneMem(memb_id).getMemb_photo();
+		String pet_id = req.getParameter("pet_id");
+		PetService petSvc = new PetService();
+		byte[] pic = petSvc.getOnePet(pet_id).getPet_photo();
 		if(pic != null) {
 			pic = ImageUtil.shrink(pic,200);	
 			res.setContentType("image/gif");
@@ -27,6 +27,7 @@ public class MemImgServlet extends HttpServlet {
 		}
 		out.write(pic);
 		out.close();
-		
+	
 	}
+	
 }
