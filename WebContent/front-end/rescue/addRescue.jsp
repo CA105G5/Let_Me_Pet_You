@@ -87,7 +87,7 @@ div {
 									</ul>
 								</div>
 							</c:if>
-							<form METHOD="post" ACTION="<%=request.getContextPath()%>/rescue/rescue.do" enctype="multipart/form-data">
+							<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/rescue/rescue.do" enctype="multipart/form-data">
 								<div class="input-group">
 									<label class="input-group-addon" style="width: 150px;">救援案例名稱</label>
 						  			<input type="text" class="form-control" placeholder="救援案例名稱" 

@@ -120,7 +120,7 @@ div {
 
 	<!-- ++++++++++++ Page Content Goes Here ++++++++++++ -->
 
-	<section class="training-area section-gap">
+	<section class="service-page-area section-gap">
 		<div class="container">
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
 				<div class="row">
@@ -134,10 +134,10 @@ div {
 							<c:forEach var="rescueVO" items="${listAllRescue_ByCompositeQuery}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
 									<div class="col-lg-3 cl-md-3">
-										<div class="single-training">
+										<div class="single-service-page">
 											<div class="thumb relative">
 												<div class="overlay-bg"></div>
-												<img class="img-fluid"
+												<img style="width:250px;height:250px;" class="img-fluid"
 													src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="">
 												
 											</div>
@@ -150,7 +150,7 @@ div {
 											</div>
 										</div>
 									</div>
-<%-- 								</c:if> --%>
+
 							</c:forEach>
 							<br>
 							<br>
