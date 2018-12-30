@@ -254,10 +254,10 @@ public class VolunteerServlet extends HttpServlet{
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 		
-//			try {
+			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 			   
-			    
+			
 			    
 				String vlt_id = req.getParameter("vlt_id").trim();
 				String vlt_name = req.getParameter("vlt_name");
@@ -311,7 +311,7 @@ public class VolunteerServlet extends HttpServlet{
 				
 				VolunteerVO volunteerVO = new VolunteerVO();
 				volunteerVO.setVlt_id(vlt_id);
-				volunteerVO.setVlt_id(vlt_name);
+				volunteerVO.setVlt_name(vlt_name);
 				volunteerVO.setVlt_mail(vlt_mail);
 				volunteerVO.setVlt_gender(vlt_gender);
 				volunteerVO.setVlt_pw(vlt_pw);
@@ -342,12 +342,12 @@ public class VolunteerServlet extends HttpServlet{
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("修改資料失敗:"+e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/front-end/volunteer/volunteer_info.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/volunteer/volunteer_info.jsp");
+				failureView.forward(req, res);
+			}
 		}
 
         if ("insert".equals(action)) { // 來自addEmp.jsp的請求  

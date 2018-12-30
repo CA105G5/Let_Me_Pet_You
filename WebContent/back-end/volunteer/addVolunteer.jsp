@@ -80,8 +80,8 @@
 
 	<tr>
 		<td>性別:</td>
-		<td><input type="RADIO" name="vlt_gender" value="M" ${(volunteerVO.vlt_gender=='M')? 'checked':'' }/>男
-			<input type="RADIO" name="vlt_gender" value="F" ${(volunteerVO.vlt_gender=='F')? 'checked':'' }/>女</td>
+		<td><input type="RADIO" name="vlt_gender" value="男" ${(volunteerVO.vlt_gender=='M')? 'checked':'' }/>男
+			<input type="RADIO" name="vlt_gender" value="女" ${(volunteerVO.vlt_gender=='F')? 'checked':'' }/>女</td>
 	</tr>
 	<tr>
 		<td>手機號碼:</td>
