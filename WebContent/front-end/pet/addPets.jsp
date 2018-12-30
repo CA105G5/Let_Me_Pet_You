@@ -9,13 +9,10 @@
   MemVO memVO = (MemVO) session.getAttribute("memVO");
   String memb_id = memVO.getMemb_id();
   PetVO petVO = (PetVO) request.getAttribute("petVO");
-  System.out.println("1");
   java.sql.Date pet_birth = null;
   try {
-	  System.out.println("2");
 	  pet_birth = petVO.getPet_birth();
    } catch (Exception e) {
-	   System.out.println("3");
 	   pet_birth = new java.sql.Date(System.currentTimeMillis());
    }
 %>
@@ -162,7 +159,6 @@
 </c:if>
 
 <FORM METHOD="post" ACTION="pet.do" name="form1" enctype="multipart/form-data">
-<%System.out.println("4");%>
 <div class="container">
 			<div class="h1"></div>
 			
@@ -189,9 +185,10 @@
 		<td>出生日期:</td>
 		<td><input  type="text" name="pet_birth" id="f_date1" value="<%= (petVO==null)? "" : petVO.getPet_birth()%>"></td>
 	</tr>
+	
 	<tr>
 		<td>寵物描述:</td>
-		<td><input  type="text" name="pet_descr" size="45" value="<%= (petVO==null)? "" : petVO.getPet_descr()%>">
+		<td><textarea name="pet_descr" rows="5" cols="80"><%= (petVO==null)? "" : petVO.getPet_descr()%></textarea>
 		</td>
 	</tr>
 	<tr>
@@ -217,7 +214,6 @@
 <input type="hidden" name="action" value="addPet">
 <input type="hidden" name="memb_id" value="${memVO.memb_id}">
 <div align="center"><input type="submit" value="送出新增"></div></FORM>
-<%System.out.println("5");%>
 <%-- 模板後script 加在自己的script前--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

@@ -168,7 +168,7 @@
 			<td>${petVO.pet_gender}</td>
 			<td>${petVO.pet_birth}</td>
 			<td>${petVO.pet_death}</td>
-			<td>${petVO.pet_descr}</td>
+			<td><textarea name="pet_descr" rows="5" cols="10">${petVO.pet_descr}</textarea></td>
 			<td>${petVO.pet_status}</td>
 			<td>${petVO.pet_type}</td>
 			<td><img src="<%=request.getContextPath()%>/front-end/pet/petImg.do?pet_id=${petVO.pet_id}"/></td>
@@ -176,7 +176,7 @@
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/pet/pet.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="pet_id"  value="${petVO.pet_id}">
-			     <input type="hidden" name="action"	value="updatePet"></FORM>
+			     <input type="hidden" name="action"	value="updatePetFromlistAll"></FORM>
 			</td>
 			
 		</tr>
