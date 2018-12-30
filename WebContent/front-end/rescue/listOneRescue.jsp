@@ -2,7 +2,7 @@
 <%@ page import="com.rescue.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ page import="com.mem.model.*"%>
 <%@ page import="java.util.*"%>
 
 
@@ -10,8 +10,13 @@
 RescueVO rescueVO  = (RescueVO) request.getAttribute("rescueVO");
 System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
 System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("rsc_id"));
+MemService memSvc1 = new MemService();
+MemVO memVO = memSvc1.getOneMem("M000000001");
+session.setAttribute("memVO",memVO);
+
 %>
 <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService"/>
+<jsp:useBean id="rescuingSvc" scope="page" class="com.rescuing.model.RescuingService"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,8 +113,10 @@ div {
 									<div class="user-details row align-items-center">
 										<div class="comment-wrap col-sm-8">
 											<ul>
-												<li><a href="#"><span class="lnr lnr-heart"></span>	4 likes</a></li>
-												<li><a href="#"><span class="lnr lnr-bubble"></span> 06 Comments</a></li>
+										
+											<c:if test="${rescueingSvc.findself(rescueVO.rsc_id,memVO.mdmb_id) == null}">
+												<a href="#" class="genric-btn primary">加入救援</a>
+											</c:if>
 											</ul>
 										</div>
 <!-- 										<div class="social-wrap col-lg-6"> -->
