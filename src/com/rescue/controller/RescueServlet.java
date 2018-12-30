@@ -13,11 +13,12 @@ import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import com.rescue.model.*;
 
 
-
+@MultipartConfig
 public class RescueServlet extends HttpServlet{
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -132,7 +133,7 @@ public class RescueServlet extends HttpServlet{
 				// Store this set in the request scope, in case we need to
 				// send the ErrorPage view.
 				req.setAttribute("errorMsgs", errorMsgs);
-				System.out.println("000");
+				
 
 				try {
 					/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
@@ -147,9 +148,9 @@ public class RescueServlet extends HttpServlet{
 					//地區
 					String rsc_reg = req.getParameter("reg_id").trim();
 					//地點(利用map取到經緯度)
-					String rsc_add = req.getParameter("vlt_add");
+					String rsc_add = req.getParameter("rsc_add");
 					if (rsc_add == null || rsc_add.trim().length() == 0) {
-						errorMsgs.add("e-mail請勿空白");
+						errorMsgs.add("地點請勿空白");
 //					}else if(!rsc_add.trim().matches(mailReg)) {
 //						errorMsgs.add("請輸入正確的地址");
 					}
@@ -167,14 +168,15 @@ public class RescueServlet extends HttpServlet{
 			        //日期取加入的當下
 					java.sql.Timestamp rsc_btime = new Timestamp(new Date().getTime());
 				    //發起者
-					String rsc_sponsor = req.getParameter("memb_id");
+					String rsc_sponsor = req.getParameter("rsc_sponsor");
+					System.out.println(rsc_sponsor);
 					//描述
 					String rsc_des = req.getParameter("rsc_des");
 					if (rsc_des == null || rsc_des.trim().length() == 0) {
 						errorMsgs.add("描述請勿空白");
 					}
 					
-					
+					System.out.println("000");
 					       RescueVO rescueVO = new RescueVO();
 					
 							rescueVO.setRsc_name(rsc_name);
@@ -187,6 +189,7 @@ public class RescueServlet extends HttpServlet{
 							rescueVO.setRsc_reg(rsc_reg);
 							rescueVO.setRsc_img(rsc_img);
 							rescueVO.setRsc_des(rsc_des);
+							rescueVO.setRsc_sta("待救援");
 
 					
 
@@ -204,6 +207,9 @@ public class RescueServlet extends HttpServlet{
 					rescueSvc.addRescue(rescueVO);
 					
 					/***************************3.新增完成,準備轉交(Send the Success view)***********/
+					List<RescueVO> list = rescueSvc.getAll();
+					HttpSession session = req.getSession();
+					session.setAttribute("listAllRescue_ByCompositeQuery", list);
 					String url = "/front-end/rescue/listAllRescue.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 					successView.forward(req, res);				
