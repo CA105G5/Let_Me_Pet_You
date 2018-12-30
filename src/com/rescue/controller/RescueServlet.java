@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -124,12 +126,13 @@ public class RescueServlet extends HttpServlet{
 		}
 		
 		  if ("insert".equals(action)) { // 來自addEmp.jsp的請求  
-				System.out.println(".............................................");
+				
 
 				List<String> errorMsgs = new LinkedList<String>();
 				// Store this set in the request scope, in case we need to
 				// send the ErrorPage view.
 				req.setAttribute("errorMsgs", errorMsgs);
+				System.out.println("000");
 
 				try {
 					/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
@@ -152,7 +155,7 @@ public class RescueServlet extends HttpServlet{
 					}
 
 					
-					//新增時還未有圖片
+					//圖片
 						byte[] rsc_img = null;
 						Part part = req.getPart("rsc_img");
 						InputStream is = part.getInputStream();
@@ -166,7 +169,7 @@ public class RescueServlet extends HttpServlet{
 				    //發起者
 					String rsc_sponsor = req.getParameter("memb_id");
 					//描述
-					String rsc_des = req.getParameter("vlt_add");
+					String rsc_des = req.getParameter("rsc_des");
 					if (rsc_des == null || rsc_des.trim().length() == 0) {
 						errorMsgs.add("描述請勿空白");
 					}
@@ -210,13 +213,48 @@ public class RescueServlet extends HttpServlet{
 					errorMsgs.add(e.getMessage());
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/rescue/addRescue.jsp");
-					failureView.forward(req, res);
-
-					
+					failureView.forward(req, res);	
 				}
 			}
 			
-	       
+			
+			if ("listRescue_ByCompositeQuery".equals(action)) { // 來自select_page.jsp的複合查詢請求
+				List<String> errorMsgs = new LinkedList<String>();
+				// Store this set in the request scope, in case we need to
+				// send the ErrorPage view.
+				req.setAttribute("errorMsgs", errorMsgs);
+
+				try {
+					
+					/***************************1.將輸入資料轉為Map**********************************/ 
+					//採用Map<String,String[]> getParameterMap()的方法 
+					//注意:an immutable java.util.Map 
+					//Map<String, String[]> map = req.getParameterMap();
+					HttpSession session = req.getSession();
+					Map<String, String[]> map = (Map<String, String[]>)session.getAttribute("map");
+					if (req.getParameter("whichPage") == null){
+						HashMap<String, String[]> map1 = new HashMap<String, String[]>(req.getParameterMap());
+						session.setAttribute("map",map1);
+						map = map1;
+					} 
+					
+					/***************************2.開始複合查詢***************************************/
+					RescueService rescueSvc = new RescueService();
+					List<RescueVO> list  = rescueSvc.getAll(map);
+					
+					/***************************3.查詢完成,準備轉交(Send the Success view)************/
+					req.setAttribute("listRescue_ByCompositeQuery", list); // 資料庫取出的list物件,存入request
+					RequestDispatcher successView = req.getRequestDispatcher("back-end/rescue/listRescue_ByCompositeQuery.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+					successView.forward(req, res);
+					
+					/***************************其他可能的錯誤處理**********************************/
+				} catch (Exception e) {
+					errorMsgs.add(e.getMessage());
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/rescue/listAllRescue.jsp");
+					failureView.forward(req, res);
+				}
+			}   
 		
 		
 		

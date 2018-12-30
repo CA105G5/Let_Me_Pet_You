@@ -2,12 +2,15 @@
 <%@ page import="com.rescue.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ page import="com.mem.model.*"%>
 <%@ page import="java.util.*"%>
 
 
 <%
 	RescueVO rescueVO  = (RescueVO) request.getAttribute("rescueVO");
+	MemService memSvc = new MemService();
+	MemVO memVO = memSvc.getOneMem("M000000001");
+	session.setAttribute("memVO",memVO);
 %>
 
 <!DOCTYPE html>
@@ -131,6 +134,7 @@ div {
 			            			<br>
 								</div>
 								<br>
+									<input type="hidden" name="rsc_sponsor" value="${memVO.memb_id}">
 									<input type="hidden" name="action" value="insert">
 			            			<input type = "submit" value = "新增" style="text-align:center;">
 								<br>

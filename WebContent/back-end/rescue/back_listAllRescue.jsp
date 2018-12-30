@@ -12,7 +12,7 @@
 %>
 
 
-
+<jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService"/>
 <jsp:useBean id="regionSvc" scope="page" class="com.region.model.RegionService"/>
 <!doctype html>
 <html class="no-js" lang="">
@@ -119,7 +119,7 @@
 			<div class="col-xl-12">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="box-title">救援案例管理</h4>
+						<h4 class="box-title">救援案例列表</h4>
 					</div>
 					<div class="card-body--">
 						<div class="table-stats order-table ov-h">
@@ -145,11 +145,11 @@
 												href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">${rescueVO.rsc_id}</a>
 											</td>
 											<td>${rescueVO.rsc_name}</td>
-											<td><span class="name">${rescueVO.rsc_sponsor}</span></td>
+											<td><div class="name">${rescueVO.rsc_sponsor}<br>暱稱：${memSvc.getOneMem(rescueVO.rsc_sponsor).memb_nick}</div></td>
 											<td><span class="product">${regionSvc.getOneRegion(rescueVO.rsc_reg).reg_name}</span>
 											</td>
 											<td><span class=""><fmt:formatDate
-														value="${rescueVO.rsc_btime}" pattern="yyyy-MM-dd" /></span></td>
+														value="${rescueVO.rsc_btime}" type="both" /></span></td>
 <!-- 											<td><select name="bootstrap-data-table_length" -->
 <!-- 												aria-controls="bootstrap-data-table" -->
 <!-- 												class="form-control form-control-sm status"><option -->

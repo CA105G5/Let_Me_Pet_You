@@ -77,13 +77,13 @@
                    
                     <li class="menu-title active"><a href="index.html">後台管理</a></li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>救援</a>
-                        <ul class="sub-menu children dropdown-menu">                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Buttons</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
-                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
-
-                            <li><i class="fa fa-id-card-o"></i><a href="ui-cards.html">Cards</a></li>
-                            <li><i class="fa fa-exclamation-triangle"></i><a href="ui-alerts.html">Alerts</a></li>
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-plus-square"></i>救援</a>
+                        <ul class="sub-menu children dropdown-menu">                            
+                        	<li><i class="fa fa-list-ul"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_listAllRescue.jsp">救援案例列表</a></li>
+                            <li><i class="fa fa-exclamation-circle"></i><a href="ui-badges.html">逾時案例列表</a></li>
+                            <li><i class="fa fa-wpforms"></i><a href="ui-tabs.html">完成的救援審核</a></li>
+                            <li><i class="fa fa-flag"></i><a href="ui-cards.html">救援檢舉審核</a></li>
+                            <li><i class="fa fa-comments"></i><a href="ui-alerts.html">救援留言審核</a></li>
                             <li><i class="fa fa-spinner"></i><a href="ui-progressbar.html">Progress Bars</a></li>
                             <li><i class="fa fa-fire"></i><a href="ui-modals.html">Modals</a></li>
                             <li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
@@ -397,7 +397,8 @@
         <!-- /.site-footer -->
     </div>
     <!-- /#right-panel -->
-
+		<script src="https://code.jquery.com/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
@@ -617,5 +618,7 @@
     </script>
 </body>
 </html>
+
+
 
 
