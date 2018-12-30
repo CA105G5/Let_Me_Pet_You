@@ -19,6 +19,8 @@ public class ManagerJDBCDAO implements ManagerDAO_interface{
 	private static final String DELETE_STMT="DELETE FROM MANAGER_ACCOUNT where ma_id=?";
 	private static final String GET_ONE_STMT="SELECT * FROM MANAGER_ACCOUNT where ma_id=?";
 	private static final String GET_ALL_STMT="SELECT * FROM MANAGER_ACCOUNT order by ma_id";
+	
+	
 
 	public static void main(String[] args) {
 		//checked

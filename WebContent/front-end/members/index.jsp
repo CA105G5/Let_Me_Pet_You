@@ -122,10 +122,10 @@ System.out.println( "是否登入:"+ (memVO != null));
 				<%}else{ 
 					out.print(memVO.getMemb_nick()+"，你好");
 				%>
-				<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a>
+				<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a><br>
 				
-
-				<%}%>
+				<a href="<%=request.getContextPath()%>/front-end/members/index.jsp">愛心幣餘額</a>
+				<% out.print("尚有:    "+memVO.getMemb_balance()+"元");}%>
 				</div>
 			</div>
 		</div>
