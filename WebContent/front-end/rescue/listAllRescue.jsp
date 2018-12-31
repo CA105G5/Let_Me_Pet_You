@@ -144,9 +144,9 @@ div {
 											<div class="details">
 												<div class="title justify-content-between d-flex">
 													<a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">
-													<h5>${rescueVO.rsc_name}</h5></a>
-													<p> </p>
+													<h4>${rescueVO.rsc_name}</h4></a>
 												</div>
+												<div>狀態：${rescueVO.rsc_sta}</div>
 											</div>
 										</div>
 									</div>

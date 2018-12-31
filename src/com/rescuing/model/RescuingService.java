@@ -25,8 +25,8 @@ public RescuingDAO_interface dao;
 	public void deleteRescuing(String rsc_id,String rsc_coin_mem) {
 		dao.delete(rsc_id,rsc_coin_mem);
 	}
-	public RescuingVO findself(String rsc_id,String rsc_coin_mem) {
-		return dao.findself(rsc_id,rsc_coin_mem);
+	public RescuingVO findself(String rsc_id,String rscing_ptcp) {
+		return dao.findself(rsc_id,rscing_ptcp);
 	}
 	
 	public RescuingVO getOneRescuing(String rsc_id) {
