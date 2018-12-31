@@ -118,7 +118,7 @@ public class CurDtJDBCDAO implements CurDtDAO_interface {
 			
 			pstmt.setString(1,curdtVO.getMemb_id());
 			pstmt.setString(2,curdtVO.getCur_src_id());
-			pstmt.setString(3,curdtVO.getCur_dt());
+			pstmt.setString(3,curdtVO.getCur_dt()); 
 			
 			int rowsUpdated = pstmt.executeUpdate();
 			System.out.println("Changed " + rowsUpdated + "rows");
