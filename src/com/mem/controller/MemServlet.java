@@ -370,7 +370,7 @@ public class MemServlet extends HttpServlet {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/members/addMembers.jsp");
 				failureView.forward(req, res);
-			} 
+			}
 		}
 		if("login".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
