@@ -250,11 +250,11 @@
     <url-pattern>/front-end/missingMsg/missingMsg.do</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>ReportMissingServlet</servlet-name>
-    <servlet-class>com.reportMissing.controller.ReportMissingServlet</servlet-class>
+    <servlet-name>reportMissingServlet</servlet-name>
+    <servlet-class>com.reportMissing.controller.reportMissingServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ReportMissingServlet</servlet-name>
+    <servlet-name>reportMissingServlet</servlet-name>
     <url-pattern>/front-end/missingCase/reportMissing.do</url-pattern>
   </servlet-mapping>
 </web-app>

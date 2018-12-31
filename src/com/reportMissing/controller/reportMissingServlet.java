@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.reportMissing.model.ReportMissingService;
-import com.reportMissing.model.ReportMissingVO;
+import com.reportMissing.model.reportMissingService;
+import com.reportMissing.model.reportMissingVO;
 
-public class ReportMissingServlet extends HttpServlet {
+public class reportMissingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -49,7 +49,7 @@ public class ReportMissingServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 
-				ReportMissingVO reportMissingVO = new ReportMissingVO();
+				reportMissingVO reportMissingVO = new reportMissingVO();
 				reportMissingVO.setMissing_case_id(missing_case_id);
 				reportMissingVO.setMemb_id(memb_id);
 				reportMissingVO.setReport_missing_cont(report_missing_cont);
@@ -65,7 +65,7 @@ public class ReportMissingServlet extends HttpServlet {
 					return;
 				}
 				/*************************** 2.開始新增資料 ***************************************/
-				ReportMissingService reportMissingSvc = new ReportMissingService();
+				reportMissingService reportMissingSvc = new reportMissingService();
 				reportMissingVO = reportMissingSvc.addReportMissing(missing_case_id, memb_id, report_missing_cont,
 						report_missing_sta, report_missing_time);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
