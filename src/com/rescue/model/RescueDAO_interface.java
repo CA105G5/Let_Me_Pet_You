@@ -7,7 +7,7 @@ import java.util.*;
 public interface RescueDAO_interface {
     public void insert(RescueVO rescueVO);
     public void update(RescueVO rescueVO);
-    public void updateRscSta(String rsc_id,String rsc_sta);
+    public void updateRscSta(String rsc_id, java.sql.Connection con);
     public void delete(String rsc_id);
     public RescueVO findByPrimaryKey(String rsc_id);
     public List<RescueVO> getAll();

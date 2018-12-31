@@ -3,6 +3,8 @@ package com.rescuing.model;
 import java.util.List;
 import java.util.Map;
 
+import com.rescue.model.RescueVO;
+
  
 
 public class RescuingService {
