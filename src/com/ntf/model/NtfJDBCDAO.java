@@ -23,7 +23,7 @@ public class NtfJDBCDAO implements NtfDAO_interface{
 	private static final String DELETE_STMT="DELETE FROM NOTIFICATIONS where ntf_id=?";
 	private static final String GET_ONE_STMT="SELECT * FROM NOTIFICATIONS where ntf_id=?";
 	private static final String GET_ALL_STMT="SELECT * FROM NOTIFICATIONS order by ntf_id";
-
+	private static final String MEMBER_GET_ALL_STMT="SELECT * FROM NOTIFICATIONS where memb_id =? order by ntf_id desc";
 	public static void main(String[] args) {
 		//checked
 		NtfJDBCDAO dao = new NtfJDBCDAO();
@@ -62,9 +62,24 @@ public class NtfJDBCDAO implements NtfDAO_interface{
 //		System.out.println("單一資料查詢成功");
 //		System.out.println("===========");
 		
+//		//getAll
+//		List<NtfVO> list = dao.getAll();
+//		for(NtfVO aNtf : list) {
+//			System.out.println(aNtf.getNtf_id());
+//			System.out.println(aNtf.getMemb_id());
+//			System.out.println(aNtf.getNtf_src_id());
+//			System.out.println(aNtf.getNtf_dt());
+//			System.out.println(aNtf.getNtf_link());
+//			System.out.println(aNtf.getNtf_sta());
+//			System.out.println(aNtf.getNtf_time());
+//			System.out.println("~~~~~~~~~~~~~~~~~~~~~~");
+//		}
+//		System.out.println("多筆資料查詢成功");
+//		System.out.println("===========");
+		
 		//getAll
-		List<NtfVO> list = dao.getAll();
-		for(NtfVO aNtf : list) {
+		List<NtfVO> list2 = dao.getAllNtfsFromSameMember("M000000004");
+		for(NtfVO aNtf : list2) {
 			System.out.println(aNtf.getNtf_id());
 			System.out.println(aNtf.getMemb_id());
 			System.out.println(aNtf.getNtf_src_id());
@@ -229,7 +244,7 @@ public class NtfJDBCDAO implements NtfDAO_interface{
 				ntfVO.setNtf_src_id(rs.getString("ntf_src_id"));
 				ntfVO.setNtf_dt(rs.getString("ntf_dt"));
 				ntfVO.setNtf_link(rs.getString("ntf_link"));
-				ntfVO.setNtf_sta(rs.getString("ntf_link"));
+				ntfVO.setNtf_sta(rs.getString("ntf_sta"));
 				ntfVO.setNtf_time(rs.getTimestamp("ntf_time"));
 			}
 			
@@ -286,7 +301,68 @@ public class NtfJDBCDAO implements NtfDAO_interface{
 				ntfVO.setNtf_src_id(rs.getString("ntf_src_id"));
 				ntfVO.setNtf_dt(rs.getString("ntf_dt"));
 				ntfVO.setNtf_link(rs.getString("ntf_link"));
-				ntfVO.setNtf_sta(rs.getString("ntf_link"));
+				ntfVO.setNtf_sta(rs.getString("ntf_sta"));
+				ntfVO.setNtf_time(rs.getTimestamp("ntf_time"));
+				list.add(ntfVO);
+			}
+			
+			
+			
+			
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<NtfVO> getAllNtfsFromSameMember(String memb_id) {
+		List<NtfVO> list = new ArrayList<NtfVO>();
+		NtfVO ntfVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(MEMBER_GET_ALL_STMT);
+			pstmt.setString(1,memb_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ntfVO = new NtfVO();
+				ntfVO.setNtf_id(rs.getString("ntf_id"));
+				ntfVO.setMemb_id(rs.getString("memb_id"));
+				ntfVO.setNtf_src_id(rs.getString("ntf_src_id"));
+				ntfVO.setNtf_dt(rs.getString("ntf_dt"));
+				ntfVO.setNtf_link(rs.getString("ntf_link"));
+				ntfVO.setNtf_sta(rs.getString("ntf_sta"));
 				ntfVO.setNtf_time(rs.getTimestamp("ntf_time"));
 				list.add(ntfVO);
 			}

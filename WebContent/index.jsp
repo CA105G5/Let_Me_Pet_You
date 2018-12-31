@@ -98,7 +98,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 								<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤案例瀏覽</a></li>
 							</ul>
 						</li>
-						<li><a href="events.html">協尋</a></li>
+						
 						<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a>
 							      	<ul>
 								    	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li>
@@ -119,13 +119,18 @@ System.out.println( "是否登入:"+ (memVO != null));
 				<div class="col-lg-3 col-sm-3 menu-top-right">
 				<% if(memVO == null){ %>
 				<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊">登入/註冊</a>
-				<%}else{ 
+				<%}else{ %>
+				<div align="center">
+				<a href="<%=request.getContextPath()%>/front-end/members/listAllNtfs.jsp"><i class="fa fa-bell"></i></a>
+				
+				<%
 					out.print(memVO.getMemb_nick()+"，你好");
 				%>
 				<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a><br>
 				
-				<a href="<%=request.getContextPath()%>/index.jsp">愛心幣餘額</a>
+				<a href="<%=request.getContextPath()%>/front-end/members/cur_dt.jsp">愛心幣餘額</a>
 				<% out.print("尚有:    "+memVO.getMemb_balance()+"元");}%>
+				</div>
 				</div>
 			</div>
 		</div>

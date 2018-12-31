@@ -1,5 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.mem.model.*"%>
+<%@ page import="com.ntf.model.*"%>
+<%@ page import="java.util.*"%>
+
+<%
+MemVO memVO = (MemVO) session.getAttribute("memVO");
+String memb_id = memVO.getMemb_id();
+NtfService ntfSvc = new NtfService();
+List<NtfVO> list = ntfSvc.getAllNtfsFromSameMember(memb_id);
+pageContext.setAttribute("list",list);
+%>
 
 <html>
 <head>
@@ -15,9 +26,7 @@
 		<meta name="keywords" content="">
 		<!-- meta character set -->
 		<meta charset="UTF-8">
-		<!-- Site Title -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>登入畫面</title>
+<title>所有通知</title>
 <%-- 放自己css前 --%>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<%--
@@ -32,6 +41,7 @@
 			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">	
 			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
 			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
+			
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -39,7 +49,38 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
+<style>
+  table#table-1 {
+	background-color: #CCCCFF;
+    border: 2px solid black;
+    text-align: center;
+  }
+  table#table-1 h4 {
+    color: red;
+    display: block;
+    margin-bottom: 1px;
+  }
+  h4 {
+    color: blue;
+    display: inline;
+  }
+</style>
 
+<style>
+  table {
+	width: 600px;
+	background-color: white;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  }
+  table, th, td {
+    border: 1px solid #CCCCFF;
+  }
+  th, td {
+    padding: 5px;
+    text-align: center;
+  }
+</style>
 </head>
 <body>
 <header id="header" id="home">
@@ -49,6 +90,8 @@
 					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid"
 						src="images/logo2.png" width="200" alt="">
 					</a>
+					
+					
 				</div>
 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex">
 					<div class="input-group">
@@ -91,45 +134,39 @@
 			</div>
 		</div>
 			  </header><!-- #header -->
-			  
-			  <br><br><br><br><br><br><br><br><br>
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-    <FORM METHOD="post" ACTION="mem.do" >
-        <div class="container">
+
+
+<br><br><br><br><br><br><br><br><br>
+<div class="container">
 			<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">請輸入帳號密碼</h1>
+			  <h1 align="center">所有通知</h1>
 			</div>
-			<table class="table table-bordered table-striped table-hover table-condensed" style="width:500px" align="center">
-			<tr align="center"><td>帳號:</td><td width="50%"><input type="text" name="memb_acc"></td></tr>
-			<tr align="center"><td>密碼:</td><td width="50%"><input type="password" name="memb_psw"></td></tr>
+<table class="table table-bordered table-striped table-hover table-condensed">
+	<tr>
+		<th>通知來源編號</th>
+		<th>通知詳情</th>
+		<th>通知時間</th>
+		
+	</tr>
+	<%@ include file="page1.file" %>
+	<c:forEach var="ntfVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+		
+		<tr>
+			<td>${ntfVO.ntf_src_id}</td>
+			<td>${ntfVO.ntf_dt}</td>
+			<td>${ntfVO.ntf_time}</td>
 			
-    
- 
-        
-        
-        </table>
-        </div>
-        <br>
-        <input type="hidden" name="action" value="login">
-        <div align="center"><input type="submit" value="登入">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/front-end/members/addMembers.jsp">註冊成為新會員</a></div>
-        
-    </FORM>
- 		  
-			  
-			  
-			  
+			
+		</tr>
+	</c:forEach>
+
+</table>
+</div>
+<%@ include file="page2.file" %>
+
 <%-- 模板後script 加在自己的script前--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
