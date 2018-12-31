@@ -11,6 +11,6 @@ public class CurDtService {
 		dao = new CurDtJDBCDAO();
 	}
 	public List<CurDtVO> getAllCurDtsFromSameMember(String memb_id){
-		return dao.getAllCurDtsFromSameMember(memb_id);
+		return dao.getAllCurDtsFromSameMember(memb_id); 
 	}
 }

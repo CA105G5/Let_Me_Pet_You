@@ -314,7 +314,7 @@ public class CurDtJDBCDAO implements CurDtDAO_interface {
 				}
 			}
 		}
-		return list;
+		return list; 
 		
 	}
 
