@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.rescue.model.RescueJDBCDAO;
+import com.rescue.model.RescueVO;
+
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Rescuing;
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
 
@@ -52,6 +55,11 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			Class.forName(driver);
 	
 			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+    		
+    		//先新增rescuing
+    		
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, rescuingVO.getRsc_id());
@@ -66,7 +74,15 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			pstmt.setString(10, rescuingVO.getRscing_rv_des());
 
 			int rowsUpdated =pstmt.executeUpdate();
-			System.out.println("Changed " + rowsUpdated + "rows");
+//			System.out.println("Changed " + rowsUpdated + "rows");
+			
+			//同時改變rescue的rsc_sta為救援中
+			RescueJDBCDAO dao = new RescueJDBCDAO();
+			dao.updateRscSta(rescuingVO.getRsc_id(), con);
+			// 2●設定於 pstm.executeUpdate()之後
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("新增"+rowsUpdated+"筆rescuing，同時改變rescue為救援中");
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -74,6 +90,17 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources

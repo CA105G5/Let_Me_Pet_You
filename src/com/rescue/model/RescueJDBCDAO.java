@@ -36,7 +36,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 	private static final String UPDATE = 
 			"UPDATE RESCUE set rsc_name=?,rsc_add=?,rsc_des=?,rsc_img=?,rsc_sponsor=?,vlt_id=?,rsc_lat=?,rsc_lon=?,rsc_sta=?,rsc_stm_time=?,rsc_stm_url=?,rsc_stm_sta=?,rsc_btime=?,rsc_coin=?,rsc_etime=?,rsc_reg=?,rsc_rt_status=?,ntf_vlt_dt=?,ntf_vlt_link=?,ntf_vlt_sta=?,ntf_vlt_time=? where rsc_id = ?";
 	private static final String UPDATE_RSC_STA =
-			"UPDATE RESCUE set rsc_sta where rsc_id = ?";
+			"UPDATE RESCUE set rsc_sta=? where rsc_id = ?";
 	
 	//安卓指令
 	private static final String FIND_PHOTO_BY_RSCID = 
@@ -471,29 +471,33 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		return list;
 	}
 	@Override
-	public void updateRscSta(String rsc_id,String rsc_sta) {
-		Connection con = null;
+	public void updateRscSta(String rsc_id,Connection con) {
+		
 		PreparedStatement pstmt = null;
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE_RSC_STA);
-
 			
-			pstmt.setString(1,rsc_id);			
-			pstmt.setString(2,rsc_sta);
+			pstmt.setString(1,new String("救援中"));
+			pstmt.setString(2,rsc_id);
 
 			int rowsUpdated = pstmt.executeUpdate();
 			System.out.println("Changed " + rowsUpdated + "rows");
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -503,13 +507,6 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 					pstmt.close();
 				} catch (SQLException se) {
 					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
 				}
 			}
 		}

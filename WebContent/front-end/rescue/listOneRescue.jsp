@@ -11,9 +11,8 @@ RescueVO rescueVO  = (RescueVO) request.getAttribute("rescueVO");
 System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
 System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("rsc_id"));
 MemService memSvc1 = new MemService();
-MemVO memVO = memSvc1.getOneMem("M000000001");
+MemVO memVO = memSvc1.getOneMem("M000000005");
 session.setAttribute("memVO",memVO);
-
 %>
 <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService"/>
 <jsp:useBean id="rescuingSvc" scope="page" class="com.rescuing.model.RescuingService"/>
@@ -114,7 +113,7 @@ div {
 										<div class="comment-wrap col-sm-8">
 											<ul>
 										
-											<c:if test="${rescueingSvc.findself(rescueVO.rsc_id,memVO.mdmb_id) == null}">
+											<c:if test="${rescueVO.rsc_sta=='待救援' or rescueVO.rsc_sta=='救援中'}">
 												<a href="#" class="genric-btn primary">加入救援</a>
 											</c:if>
 											</ul>
