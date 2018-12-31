@@ -1,6 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page import="com.manager.model.*"%>
+<%
+ManagerVO managerVO = (ManagerVO) session.getAttribute("managerVO");
+System.out.println("111111111111111111111111111="+session.getId());
+System.out.println( "是否登入:"+ (managerVO != null));
+%>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -247,7 +252,11 @@
                     </div>
 
                     <div class="user-area dropdown float-right">
-
+						
+				<% 
+					out.print(managerVO.getMa_name()+"，你好");
+				%>
+				<a href="<%=request.getContextPath()%>/back-end/manager/manager.do?action=logout">登出</a>
                     </div>
 
                 </div>

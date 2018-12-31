@@ -7,6 +7,7 @@ public interface ManagerDAO_interface {
 	public void update(ManagerVO managerVO);
 	public void delete(String ma_id);
 	public ManagerVO findByPrimaryKey(String ma_id);
+	public ManagerVO findByManagerAccount(String ma_acc);
 	public List<ManagerVO> getAll();
 
 }
