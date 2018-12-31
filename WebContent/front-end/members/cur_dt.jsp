@@ -7,7 +7,7 @@
   MemVO memVO = (MemVO) session.getAttribute("memVO");
   String memb_id = memVO.getMemb_id();
   CurDtService curdtSvc = new CurDtService();
-  List<CurDtVO> list=curdtSvc.getAllCurDtsFromSameMember(memb_id);
+  List<CurDtVO> list=curdtSvc.getAllCurdtsFromSameMember(memb_id);
   pageContext.setAttribute("list",list);
 %>
 
