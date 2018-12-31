@@ -13,10 +13,10 @@
 	missingMsgService missingMsgSvc = new missingMsgService();
 	List<missingMsgVO> list = missingMsgSvc.findByCase(missing_case_id);
 	pageContext.setAttribute("list", list);
-	
-	MemVO membVO = (MemVO)session.getAttribute("memVO");
-	Timestamp missing_msg_date = new Timestamp(System.currentTimeMillis()); 
-	Timestamp report_missing_time = new Timestamp(System.currentTimeMillis()); 
+
+	MemVO membVO = (MemVO) session.getAttribute("memVO");
+	Timestamp missing_msg_date = new Timestamp(System.currentTimeMillis());
+	Timestamp report_missing_time = new Timestamp(System.currentTimeMillis());
 %>
 <html>
 <head>
@@ -49,9 +49,11 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
 <script src="js/jquery-1.12.3.min.js"></script>
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -111,28 +113,30 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										<div class="input-group mb-3">
-											<input type="text" class="form-control"
-												name="report_missing_cont" aria-label="Default"
-												aria-describedby="inputGroup-sizing-default">
-										</div>
-									</div>
-									<div class="modal-footer">
 										<form METHOD="post"
-											ACTION="<%=(membVO==null)? request.getContextPath() + "/front-end/members/login.jsp" : request.getContextPath() + "/front-end/missingCase/reportMissing.do" %>">
+											ACTION="<%=(membVO == null)
+					? request.getContextPath() + "/front-end/members/login.jsp"
+					: "http://localhost:8081/CA105G5/front-end/missingCase/reportMissing.do"%>">
+											<div class="input-group mb-3">
+												<input type="text" class="form-control"
+													name="report_missing_cont" aria-label="Default"
+													aria-describedby="inputGroup-sizing-default">
+											</div>
 											<input type="hidden" name="missing_case_id"
 												value="<%=request.getParameter("missing_case_id")%>">
 											<input type="hidden" name="memb_id"
-												value="<%=(membVO==null)? "" : membVO.getMemb_id()%>">
-							<input type="hidden" name="report_missing_sta" value="待審核">
-							<input type="hidden" name="report_missing_time" value="<%= report_missing_time%>">
-											<input type="hidden" name="action" value="insert">
-
-											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">取消</button>
-											<button type="submit" class="btn btn-primary">送出</button>
-										</form>
+												value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
+											<input type="hidden" name="report_missing_sta" value="待審核">
+											<input type="hidden" name="report_missing_time"
+												value="<%=report_missing_time%>"> <input
+												type="hidden" name="action" value="insert">
 									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">取消</button>
+										<input type="submit" class="btn btn-primary" value="送出">
+									</div>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -162,7 +166,9 @@
 
 
 							<form
-								action="<%=(membVO==null)? request.getContextPath() + "/front-end/members/login.jsp" : request.getContextPath() + "/front-end/missingMsg/missingMsg.do" %>"
+								action="<%=(membVO == null)
+					? request.getContextPath() + "/front-end/members/login.jsp"
+					: request.getContextPath() + "/front-end/missingMsg/missingMsg.do"%>"
 								method="post">
 								<textarea class="form-control mb-10" name="missing_msg_cont"
 									id="missing_msg_cont" placeholder="Messege"
@@ -173,7 +179,7 @@
 									type="hidden" name="missing_msg_date" id="missing_msg_date"
 									value="<%=missing_msg_date%>"> <input type="hidden"
 									name="memb_id" id="memb_id"
-									value="<%=(membVO==null)? "" : membVO.getMemb_id()%>">
+									value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
 								<input type="hidden" name="URL"
 									value="<%=request.getRequestURL()%>"> <input
 									type="hidden" name="action" value="insert"> <input
@@ -251,17 +257,7 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="js/jquery-1.12.3.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-		crossorigin="anonymous"></script>
+
 
 	// $(document).ready(function(){ // $('#submit').click(function(){ //
 	// alert($("option:selected", this).text()) // $.ajax({ // type:

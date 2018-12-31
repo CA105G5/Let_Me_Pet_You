@@ -265,4 +265,12 @@
     <servlet-name>reportMissingServlet</servlet-name>
     <url-pattern>/front-end/missingCase/reportMissing.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>missingMsgReportServlet</servlet-name>
+    <servlet-class>com.reportMissing.controller.missingMsgReportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>missingMsgReportServlet</servlet-name>
+    <url-pattern>/front-end/missingCase/missingMsgReport.do</url-pattern>
+  </servlet-mapping>
 </web-app>

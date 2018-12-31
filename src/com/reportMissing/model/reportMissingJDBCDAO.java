@@ -320,13 +320,13 @@ public class reportMissingJDBCDAO implements reportMissingDAO_interface {
 		reportMissingJDBCDAO dao = new reportMissingJDBCDAO();
 
 		// 新增
-//		reportMissingVO reportMissingVO1 = new reportMissingVO();
-//		reportMissingVO1.setMissing_case_id("S000000001");
-//		reportMissingVO1.setMemb_id("M000000005");
-//		reportMissingVO1.setReport_missing_cont("圖文不符");
-//		reportMissingVO1.setReport_missing_sta("R1");
-//		reportMissingVO1.setReport_missing_time(java.sql.Timestamp.valueOf("1995-03-15 16:00:00"));
-//		dao.insert(reportMissingVO1);
+		reportMissingVO reportMissingVO1 = new reportMissingVO();
+		reportMissingVO1.setMissing_case_id("S000000001");
+		reportMissingVO1.setMemb_id("M000000005");
+		reportMissingVO1.setReport_missing_cont("圖文不符");
+		reportMissingVO1.setReport_missing_sta("R1");
+		reportMissingVO1.setReport_missing_time(java.sql.Timestamp.valueOf("1995-03-15 16:00:00"));
+		dao.insert(reportMissingVO1);
 
 		// 修改
 //		reportMissingVO reportMissingVO2 = new reportMissingVO();

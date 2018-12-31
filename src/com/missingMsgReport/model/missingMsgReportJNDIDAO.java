@@ -30,6 +30,7 @@ public class missingMsgReportJNDIDAO implements missingMsgReportDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT missing_msg_rt_id,missing_msg_id,memb_id,missing_msg_rt_cont,missing_msg_rt_sta,to_char(missing_msg_rt_time,'yyyy-mm-dd hh24:mi:ss')missing_msg_rt_time FROM missing_msg_rt where missing_msg_rt_id = ?";
 	private static final String DELETE = "DELETE FROM missing_msg_rt where missing_msg_rt_id = ?";
 	private static final String UPDATE = "UPDATE missing_msg_rt set missing_msg_id=?, memb_id=?, missing_msg_rt_cont=?, missing_msg_rt_sta=?, missing_msg_rt_time=? where missing_msg_rt_id = ?";
+	private static final String UPDATE_STATUS = "UPDATE missing_msg_rt set missing_msg_rt_sta=? where missing_msg_rt_id=?";
 
 	// 新增
 	@Override
@@ -151,6 +152,42 @@ public class missingMsgReportJNDIDAO implements missingMsgReportDAO_interface {
 
 		}
 
+	}
+
+	// 修改狀態
+	public void updateStatus(missingMsgReportVO missingMsgReportVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+
+			pstmt.setString(1, missingMsgReportVO.getMissing_msg_rt_sta());
+			pstmt.setString(2, missingMsgReportVO.getMissing_msg_rt_id());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 	// 單獨查詢

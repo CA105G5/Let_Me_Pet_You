@@ -9,4 +9,5 @@ public interface missingMsgReportDAO_interface {
     public void delete(String missing_msg_rt_id);
     public missingMsgReportVO findByPrimaryKey(String missing_msg_rt_id);
     public List<missingMsgReportVO> getAll();
+    public void updateStatus(missingMsgReportVO missingMsgReportVO);
 }
