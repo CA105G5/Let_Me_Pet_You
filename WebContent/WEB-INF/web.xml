@@ -32,6 +32,14 @@
     <url-pattern>/util/PhotoReaderId</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>ManagerServlet</servlet-name>
+    <servlet-class>com.manager.controller.ManagerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ManagerServlet</servlet-name>
+    <url-pattern>/back-end/manager/manager.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>MemServlet</servlet-name>
     <servlet-class>com.mem.controller.MemServlet</servlet-class>
   </servlet>
@@ -208,12 +216,25 @@
     <url-pattern>/missingCaseAjax.do</url-pattern>
   </servlet-mapping>
   <filter>
-    <filter-name>loginFilter</filter-name>
+    <filter-name>LoginFilter</filter-name>
     <filter-class>filters.LoginFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>loginFilter</filter-name>
+    <filter-name>LoginFilter</filter-name>
     <url-pattern>/front-end/missingCase/addMissing.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  <filter>
+    <filter-name>ManagerLoginFilter</filter-name>
+    <filter-class>filters.ManagerLoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ManagerLoginFilter</filter-name>
+    <url-pattern>/back-end/manager/back_end_index.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
