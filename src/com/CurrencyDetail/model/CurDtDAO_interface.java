@@ -1,8 +1,6 @@
 package com.CurrencyDetail.model;
 
-import java.util.List; 
-
-import com.pet.model.PetVO;
+import java.util.List;
 
 public interface CurDtDAO_interface {
 	public void insert(CurDtVO curdtVO);
@@ -10,5 +8,4 @@ public interface CurDtDAO_interface {
 	public void delete(String cur_dt_id);
 	public CurDtVO findByPrimaryKey(String cur_dt_id);
 	public List<CurDtVO> getAll();
-	public List<CurDtVO> getAllCurDtsFromSameMember(String memb_id);
 }

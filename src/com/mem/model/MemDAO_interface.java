@@ -1,10 +1,14 @@
 package com.mem.model;
 
+import java.sql.Connection;
 import java.util.List;
+
+import com.CurrencyDetail.model.CurDtVO;
 
 public interface MemDAO_interface {
 	public void insert(MemVO memVO); 
 	public void update(MemVO memVO);
+	public void updateMemWithOrdItemAndCurDt(MemVO memVO, CurDtVO curDTVO, Connection con);
 	public void delete(String memb_id);
 	public void  updateFromClient(MemVO memVO);
 	public void updateFromManager(MemVO memVO);

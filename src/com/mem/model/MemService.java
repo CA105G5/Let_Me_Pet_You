@@ -1,6 +1,10 @@
 package com.mem.model;
 
+import java.sql.Connection;
 import java.util.List;
+
+import com.CurrencyDetail.model.CurDtVO;
+import com.orditem.model.OrdItemVO;
 
 public class MemService {
 	private MemDAO_interface dao; 
@@ -126,5 +130,10 @@ public class MemService {
 	}
 	public List<MemVO> getAll(){
 		return dao.getAll();
+	}
+	
+	
+	public void updateMem(MemVO memVO, CurDtVO curDTVO, Connection con) {
+		dao.updateMemWithOrdItemAndCurDt(memVO, curDTVO, con);
 	}
 }
