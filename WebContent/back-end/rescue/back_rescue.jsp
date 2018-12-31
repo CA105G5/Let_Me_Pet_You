@@ -200,7 +200,7 @@
 								
 														<% int no=0;%>
 														<c:forEach var="rescueVO" items="${rescueReviewList}">
-															<c:if test="${rescueVO.rsc_sta.equals('待救援')}" var="condition" scope="page">
+															<c:if test="${rescueVO.rsc_sta =='待救援' or rescueVO.rsc_sta == '救援中'}" var="condition" scope="page">
 																<% no++; %>
 																<tr>
 																	<td><%=no %></td>
@@ -215,7 +215,7 @@
 <!-- 																	<td> -->
 <%-- 																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto"> --%>
 <!-- 																		<input type="submit" value="審核" id="review"> -->
-<%-- <%-- 																		<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%> --%>
+<%-- 																		<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%>
 <%-- 																		<input type="hidden" name="prod_id"  value="${prodVO.prod_id}"> --%>
 <!-- 																		<input type="hidden" name="tab"  value="1"> -->
 <!-- 																		<input type="hidden" name="location"  value="back"> -->
@@ -227,9 +227,9 @@
 													</tbody>
 												</table>
 												
-												<div id="dialog" title="Dialog box">
-												<%=request.getContextPath()%>/product/product_upload.do?action=getOneModal_For_Display&prod_id=${prodVO.prod_id}
-<%-- 													<jsp:include page="/front-end/product/listOneProd.jsp" flush="true" /> --%>
+<!-- 												<div id="dialog" title="Dialog box"> -->
+<%-- 												<%=request.getContextPath()%>/product/product_upload.do?action=getOneModal_For_Display&prod_id=${prodVO.prod_id} --%>
+<%-- 												<jsp:include page="/front-end/product/listOneProd.jsp" flush="true" /> --%>
 												
 												</div>
   </div>
@@ -241,43 +241,30 @@
 														<tr class="success">
 															<th style="width: 30px">序號</th>
 															<th style="width: 100px">照片</th>
-															<th>商品編號</th>
-															<th>商品名稱</th>
-															<th>適用動物</th>
-															<th>商品種類</th>
-															<th>價格</th>
-															<th>捐贈數量</th>
-															<th>申請日期</th>
-															<th>狀態</th>
-															<th>下架</th>
+															<th>案例編號</th>
+															<th>案例名稱</th>
+															<th>發起會員</th>
+															<th>案例地區</th>
+															<th>發起時間</th>
+															<th>案例狀態</th>
 														</tr>
 													</thead>
 													<tbody>
 								
 														<% int no1=0;%>
-														<c:forEach var="prodVO" items="${prodReviewList}">
-															<c:if test="${prodVO.prod_status.equals('上架')}" var="condition" scope="page">
+														<c:forEach var="rescueVO" items="${rescueReviewList}">
+															<c:if test="${rescueVO.rsc_sta =='完成救援' or rescueVO.rsc_sta == '志工已完成'}" var="condition" scope="page">
 																<% no1++; %>
 																<tr>
 																	<td><%=no1 %></td>
-																	<td><img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${prodVO.prod_id}" alt="" style="margin-bottom: auto"></td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_id}</td>
-																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${prodVO.prod_id}">${prodVO.prod_name}</a></td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_ani_type_id}</td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_type_id}</td>
-																	<td style=" margin-bottom: auto">$${prodVO.prod_price}</td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_qty}</td>
-																	<td style=" margin-bottom: auto"><fmt:formatDate value="${prodVO.prod_date}" pattern="yyyy-MM-dd"/></td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_status}</td>
-																	<td>
-																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto">
-																		<input type="submit" value="下架">
-<%-- 																		<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%>
-																		<input type="hidden" name="prod_id"  value="${prodVO.prod_id}">
-																		<input type="hidden" name="location"  value="back">
-																		<input type="hidden" name="tab"  value="2">
-																		<input type="hidden" name="action"	value="off"></FORM>
-																	</td>
+																	<td><img class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="" style="margin-bottom: auto"></td>
+																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">${rescueVO.rsc_id}</a></td>
+																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">${rescueVO.rsc_name}</a></td>
+																	<td style=" margin-bottom: auto">${rescueVO.rsc_sponsor}<br>暱稱：${memSvc.getOneMem(rescueVO.rsc_sponsor).memb_nick}</td>
+																	<td style=" margin-bottom: auto">${regionSvc.getOneRegion(rescueVO.rsc_reg).reg_name}</td>
+																	<td style=" margin-bottom: auto"><fmt:formatDate value="${rescueVO.rsc_btime}" type="both" /></td>
+																	<td style=" margin-bottom: auto">${rescueVO.rsc_sta}</td>
+																	
 																</tr>
 															</c:if>
 														</c:forEach>

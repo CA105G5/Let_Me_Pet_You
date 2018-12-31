@@ -18,6 +18,9 @@ public class RescueService {
 		
 		dao.update(rescueVO);
 	}
+	public void updateRscSta(String rsc_id,java.sql.Connection con) {
+		dao.updateRscSta(rsc_id, con);
+	}
 	public void deleteRescue(String rsc_id) {
 		dao.delete(rsc_id);
 	}

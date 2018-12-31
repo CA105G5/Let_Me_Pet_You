@@ -37,6 +37,12 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			"UPDATE RESCUE set rsc_name=?,rsc_add=?,rsc_des=?,rsc_img=?,rsc_sponsor=?,vlt_id=?,rsc_lat=?,rsc_lon=?,rsc_sta=?,rsc_stm_time=?,rsc_stm_url=?,rsc_stm_sta=?,rsc_btime=?,rsc_coin=?,rsc_etime=?,rsc_reg=?,rsc_rt_status=?,ntf_vlt_dt=?,ntf_vlt_link=?,ntf_vlt_sta=?,ntf_vlt_time=? where rsc_id = ?";
 	private static final String UPDATE_RSC_STA =
 			"UPDATE RESCUE set rsc_sta=? where rsc_id = ?";
+	private static final String UPDATE_BY_MANAGER =
+			"UPDATE RESCUE set vlt_id=?,rsc_sta=?,ntf_vlt_dt=?,ntf_vlt_link=?,ntf_vlt_sta=?,ntf_vlt_time=? where rsc_id = ?";
+	private static final String UPDATE_NTF_VLT_STA =
+			"UPDATE RESCUE set ntf_vlt_sta=? where rsc_id = ?";
+	private static final String UPDATE_RSC_STA_BY_VLT =
+			"UPDATE RESCUE set rsc_sta=? where rsc_id = ?";
 	
 	//安卓指令
 	private static final String FIND_PHOTO_BY_RSCID = 
@@ -513,6 +519,57 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 		
 	}
+	
+	@Override
+	public void updateByManager(RescueVO rescueVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_BY_MANAGER);
+
+			
+			pstmt.setString(1, rescueVO.getVlt_id());
+		    pstmt.setString(2, rescueVO.getRsc_sta());
+			pstmt.setString(3, rescueVO.getNtf_vlt_dt());
+			pstmt.setString(4, rescueVO.getNtf_vlt_link());
+			pstmt.setString(5, rescueVO.getNtf_vlt_sta());
+			pstmt.setTimestamp(6, rescueVO.getNtf_vlt_time());
+			pstmt.setString(7, rescueVO.getRsc_id());
+
+			int rowsUpdated = pstmt.executeUpdate();
+			System.out.println("Changed " + rowsUpdated + "rows");
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
 	public static void main(String[] args) {
 
 		RescueJDBCDAO dao = new RescueJDBCDAO();
@@ -764,6 +821,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		return isAddRescueCase;
 	}
+
+
 
 
 }
