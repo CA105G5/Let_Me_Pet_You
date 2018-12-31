@@ -174,10 +174,10 @@
 
   <div class="w3-row">
     <a href="javascript:void(0)" onclick="openTab(event, 'toBeReviewed');">
-      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding w3-border-red"><h4>未完成救援</h4></div>
+      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding w3-border-red"><h4>未分配的救援</h4></div>
     </a>
     <a href="javascript:void(0)" onclick="openTab(event, 'reviewed');">
-      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"><h4>完成救援</h4></div>
+      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"><h4>已分配的救援</h4></div>
     </a>
   </div>
 
@@ -194,13 +194,14 @@
 															<th>案例地區</th>
 															<th>發起時間</th>
 															<th>案例狀態</th>
+															<th>時間</th>
 														</tr>
 													</thead>
 													<tbody>
-								
+								                       
 														<% int no=0;%>
 														<c:forEach var="rescueVO" items="${rescueReviewList}">
-															<c:if test="${rescueVO.rsc_sta =='待救援' or rescueVO.rsc_sta == '救援中'}" var="condition" scope="page">
+															<c:if test="${(rescueVO.rsc_sta =='待救援' or rescueVO.rsc_sta == '救援中')}" var="condition" scope="page">
 																<% no++; %>
 																<tr>
 																	<td><%=no %></td>
@@ -211,6 +212,7 @@
 																	<td style=" margin-bottom: auto">${regionSvc.getOneRegion(rescueVO.rsc_reg).reg_name}</td>
 																	<td style=" margin-bottom: auto"><fmt:formatDate value="${rescueVO.rsc_btime}" type="both" /></td>
 																	<td style=" margin-bottom: auto">${rescueVO.rsc_sta}</td>
+																	<td style=" margin-bottom: auto"><p>${rescueVO.rsc_btime}</p></td>
 
 <!-- 																	<td> -->
 <%-- 																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto"> --%>
@@ -253,7 +255,7 @@
 								
 														<% int no1=0;%>
 														<c:forEach var="rescueVO" items="${rescueReviewList}">
-															<c:if test="${rescueVO.rsc_sta =='完成救援' or rescueVO.rsc_sta == '志工已完成'}" var="condition" scope="page">
+															<c:if test="${rescueVO.rsc_sta =='分派給志工' or rescueVO.rsc_sta == '志工已完成'}" var="condition" scope="page">
 																<% no1++; %>
 																<tr>
 																	<td><%=no1 %></td>
