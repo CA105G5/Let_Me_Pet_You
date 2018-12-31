@@ -31,7 +31,7 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 	
 
 	private static final String INSERT_STMT = 
-			"INSERT INTO RESCUING (rsc_id,rscing_ptcp,rscing_btime,rscing_sta,rscing_cdes,rscing_ctime,rscing_etime,rscing_lat,rscing_lon,rscing_rv_des) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			"INSERT INTO RESCUING (rsc_id,rscing_ptcp,rscing_btime,rscing_sta) VALUES (?,?,?,?)";
 	private static final String GET_ALL_STMT = 
 			"SELECT rsc_id,rscing_ptcp,to_char(rscing_btime,'yyyy-mm-dd hh24:mi:ss') rscing_btime,rscing_sta,rscing_cdes,to_char(rscing_ctime,'yyyy-mm-dd hh24:mi:ss') rscing_ctime,to_char(rscing_etime,'yyyy-mm-dd hh24:mi:ss') rscing_etime,rscing_lat,rscing_lon,rscing_rv_des FROM RESCUING order by rsc_id";
 	private static final String GET_ONE_STMT = 
@@ -66,12 +66,12 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			pstmt.setString(2, rescuingVO.getRscing_ptcp());
 			pstmt.setTimestamp(3, rescuingVO.getRscing_btime());
 			pstmt.setString(4, rescuingVO.getRscing_sta());
-			pstmt.setString(5, rescuingVO.getRscing_cdes());
-			pstmt.setTimestamp(6, rescuingVO.getRscing_ctime());
-			pstmt.setTimestamp(7, rescuingVO.getRscing_etime());
-			pstmt.setDouble(8, rescuingVO.getRscing_lat());
-			pstmt.setDouble(9, rescuingVO.getRscing_lon());
-			pstmt.setString(10, rescuingVO.getRscing_rv_des());
+//			pstmt.setString(5, rescuingVO.getRscing_cdes());
+//			pstmt.setTimestamp(6, rescuingVO.getRscing_ctime());
+//			pstmt.setTimestamp(7, rescuingVO.getRscing_etime());
+//			pstmt.setDouble(8, rescuingVO.getRscing_lat());
+//			pstmt.setDouble(9, rescuingVO.getRscing_lon());
+//			pstmt.setString(10, rescuingVO.getRscing_rv_des());
 
 			int rowsUpdated =pstmt.executeUpdate();
 //			System.out.println("Changed " + rowsUpdated + "rows");
@@ -504,14 +504,15 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 		RescuingJDBCDAO dao = new RescuingJDBCDAO();
 
 		// 新增
-//		RescuingVO rescuingVO1 = new RescuingVO();
-//
-//		rescuingVO1.setRsc_id("R000000005");
-//		rescuingVO1.setRscing_ptcp("M000000003");
+		RescuingVO rescuingVO1 = new RescuingVO();
+
+		rescuingVO1.setRsc_id("R000000006");
+		rescuingVO1.setRscing_ptcp("M000000003");
+		rescuingVO1.setRscing_sta("救援中");
 //		rescuingVO1.setRscing_lat(new Double(24.9460628));
 //		rescuingVO1.setRscing_lon(new Double(121.1992745));
-//		rescuingVO1.setRscing_btime(new Timestamp(new Date().getTime()));
-//		dao.insert(rescuingVO1);
+		rescuingVO1.setRscing_btime(new Timestamp(new Date().getTime()));
+		dao.insert(rescuingVO1);
 
 //		// 修改
 //		RescuingVO rescuingVO2 = new RescuingVO();
@@ -555,18 +556,18 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 		
 //		複合查詢
 		
-		Map<String, String[]> map = new TreeMap<String, String[]>();
-		map.put("rsc_id", new String[] { "R000000001" });
-		map.put("action", new String[] { "getXXX" });
-		List<RescuingVO> list = dao.getAll(map);
-		for (RescuingVO aRscing : list) {
-			System.out.print(aRscing.getRsc_id() + ",");
-			System.out.print(aRscing.getRscing_ptcp() + ",");
-			System.out.print(aRscing.getRscing_sta() + ",");
-			System.out.print(aRscing.getRscing_lat() + ",");
-			System.out.print(aRscing.getRscing_lon() + ",");
-			System.out.println();
-		}
+//		Map<String, String[]> map = new TreeMap<String, String[]>();
+//		map.put("rsc_id", new String[] { "R000000001" });
+//		map.put("action", new String[] { "getXXX" });
+//		List<RescuingVO> list = dao.getAll(map);
+//		for (RescuingVO aRscing : list) {
+//			System.out.print(aRscing.getRsc_id() + ",");
+//			System.out.print(aRscing.getRscing_ptcp() + ",");
+//			System.out.print(aRscing.getRscing_sta() + ",");
+//			System.out.print(aRscing.getRscing_lat() + ",");
+//			System.out.print(aRscing.getRscing_lon() + ",");
+//			System.out.println();
+//		}
 	}
 
 
