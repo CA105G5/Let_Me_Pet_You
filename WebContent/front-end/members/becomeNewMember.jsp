@@ -86,7 +86,7 @@
 				<div class="container">
 			<div class="row header-top align-items-center">
 				<div class="col-lg-4 col-sm-4 menu-top-left">
-					<a href="index.jsp"> <img class="img-fluid"
+					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid"
 						src="images/logo2.png" width="200" alt="">
 					</a>
 				</div>
@@ -111,7 +111,7 @@
 			<div class="row align-items-center justify-content-center d-flex">
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="index.jsp">首頁</a></li>
+						<li><a href="<%=request.getContextPath()%>/index.jsp">首頁</a></li>
 						<li><a href="about.html">救援</a></li>
 						<li><a href="service.html">認養</a></li>
 						<li><a href="training.html">失蹤</a></li>

@@ -69,8 +69,8 @@ System.out.println( "是否登入:"+ (memVO != null));
 				<div class="container">
 			<div class="row header-top align-items-center">
 				<div class="col-lg-3 col-sm-3 menu-top-left">
-					<a href="<%=request.getContextPath()%>/front-end/members/index.jsp"> <img class="img-fluid"
-						src="<%=request.getContextPath()%>/front-end/members/images/logo2.png" width="200" alt="">
+					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid"
+						src="<%=request.getContextPath()%>/images/logo2.png" width="200" alt="">
 					</a>
 				</div>
 				<div class="col-lg-6 menu-top-middle justify-content-center d-flex">
@@ -78,15 +78,15 @@ System.out.println( "是否登入:"+ (memVO != null));
 			<div class="row align-items-center justify-content-center d-flex">
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">首頁</a></li>
-						<li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">會員</a>
+						<li><a href="<%=request.getContextPath()%>/index.jsp">首頁</a></li>
+						<li><a href="<%=request.getContextPath()%>/index.jsp">會員</a>
 							<ul>
 								    	<li><a href="<%=request.getContextPath()%>/front-end/members/listOneMember.jsp">查看會員資料</a></li>
 								        <li><a href="<%=request.getContextPath()%>/front-end/pet/pet.do?action=select_pet">查看我的寵物資料</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的救援案例</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的認養案例</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的失蹤寵物</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/members/index.jsp">查看我的捐贈紀錄</a></li>
+								        <li><a href="<%=request.getContextPath()%>/index.jsp">查看我的救援案例</a></li>
+								        <li><a href="<%=request.getContextPath()%>/index.jsp">查看我的認養案例</a></li>
+								        <li><a href="<%=request.getContextPath()%>/index.jsp">查看我的失蹤寵物</a></li>
+								        <li><a href="<%=request.getContextPath()%>/index.jsp">查看我的捐贈紀錄</a></li>
 							</ul>
 						
 						</li>
@@ -124,7 +124,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 				%>
 				<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a><br>
 				
-				<a href="<%=request.getContextPath()%>/front-end/members/index.jsp">愛心幣餘額</a>
+				<a href="<%=request.getContextPath()%>/index.jsp">愛心幣餘額</a>
 				<% out.print("尚有:    "+memVO.getMemb_balance()+"元");}%>
 				</div>
 			</div>
