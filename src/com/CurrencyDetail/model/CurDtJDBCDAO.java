@@ -62,7 +62,7 @@ public class CurDtJDBCDAO implements CurDtDAO_interface {
 			System.out.println(aCurDt.getCur_dt());
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~");
 		}
-		System.out.println("多筆資料查詢成功");
+		System.out.println("多筆資料查詢成功"); 
 		System.out.println("===========");
 	}
 
