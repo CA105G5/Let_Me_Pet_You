@@ -73,7 +73,7 @@
 				<h3 class="mb-20" align="center">請輸入帳號密碼</h3>
 					<form METHOD="post" ACTION="volunteer.do" >
 					<div>帳號：<input class="form-control" type="email" name="vlt_mail" placeholder="Email Address" value="${param.vlt_mail}" required=""><p style="color:red">${errorMsgs.vlt_mail}</p></div>
-					<div>密碼：<input class="form-control" type="password" name="vlt_pw" placeholder="password" "required=""><p style="color:red">${errorMsgs.vlt_pw}</p></div>
+					<div>密碼：<input class="form-control" type="password" name="vlt_pw" placeholder="password" required=""><p style="color:red">${errorMsgs.vlt_pw}</p></div>
 						<input type="hidden" name="action" value="login">
 						<button class="btn btn-default btn-lg btn-block text-center">登入</button>
 					</form>

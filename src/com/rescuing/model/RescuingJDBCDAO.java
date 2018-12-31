@@ -33,6 +33,8 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			"SELECT rsc_id,rscing_ptcp,to_char(rscing_btime,'yyyy-mm-dd hh24:mi:ss') rscing_btime,rscing_sta,rscing_cdes,to_char(rscing_ctime,'yyyy-mm-dd hh24:mi:ss') rscing_ctime,to_char(rscing_etime,'yyyy-mm-dd hh24:mi:ss') rscing_etime,rscing_lat,rscing_lon,rscing_rv_des FROM RESCUING order by rsc_id";
 	private static final String GET_ONE_STMT = 
 			"SELECT rsc_id,rscing_ptcp,to_char(rscing_btime,'yyyy-mm-dd hh24:mi:ss') rscing_btime,rscing_sta,rscing_cdes,to_char(rscing_ctime,'yyyy-mm-dd hh24:mi:ss') rscing_ctime,to_char(rscing_etime,'yyyy-mm-dd hh24:mi:ss') rscing_etime,rscing_lat,rscing_lon,rscing_rv_des FROM RESCUING where rsc_id = ?";
+	private static final String GET_ONE_SELF = 
+			"SELECT rsc_id,rscing_ptcp,to_char(rscing_btime,'yyyy-mm-dd hh24:mi:ss') rscing_btime,rscing_sta,rscing_cdes,to_char(rscing_ctime,'yyyy-mm-dd hh24:mi:ss') rscing_ctime,to_char(rscing_etime,'yyyy-mm-dd hh24:mi:ss') rscing_etime,rscing_lat,rscing_lon,rscing_rv_des FROM RESCUING where rsc_id = ? AND rscing_ptcp = ?";
 	private static final String DELETE = 
 			"DELETE FROM RESCUING where rsc_id = ? AND rscing_ptcp = ?";
 	private static final String UPDATE = 
@@ -399,6 +401,77 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public RescuingVO findself(String rsc_id, String rscing_ptcp) {
+		RescuingVO rescuingVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_SELF);
+
+			pstmt.setString(1, rsc_id);
+			pstmt.setString(2,rscing_ptcp);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// rescuingVo 也稱為 Domain objects
+				rescuingVO = new RescuingVO();
+				rescuingVO.setRsc_id(rs.getString("rsc_id"));
+				rescuingVO.setRscing_ptcp(rs.getString("rscing_ptcp"));
+				rescuingVO.setRscing_btime(rs.getTimestamp("rscing_btime"));
+				rescuingVO.setRscing_sta(rs.getString("rscing_sta"));
+				rescuingVO.setRscing_cdes(rs.getString("rscing_cdes"));
+				rescuingVO.setRscing_ctime(rs.getTimestamp("rscing_ctime"));
+				rescuingVO.setRscing_etime(rs.getTimestamp("rscing_etime"));
+				rescuingVO.setRscing_lat(rs.getDouble("rscing_lat"));
+				rescuingVO.setRscing_lon(rs.getDouble("rscing_lon"));
+				rescuingVO.setRscing_rv_des(rs.getString("rscing_rv_des"));
+				
+				
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return rescuingVO;
+	}
 	public static void main(String[] args) {
 
 		RescuingJDBCDAO dao = new RescuingJDBCDAO();
@@ -445,6 +518,14 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 //			System.out.println();
 //		}
 		
+//		RescuingVO rescuingVO4 = dao.findself("R000000002","M000000005");
+//		System.out.print(rescuingVO4.getRsc_id() + ",");
+//		System.out.print(rescuingVO4.getRscing_ptcp() + ",");
+//		System.out.print(rescuingVO4.getRscing_sta() + ",");
+//		System.out.print(rescuingVO4.getRscing_lat() + ",");
+//		System.out.println(rescuingVO4.getRscing_lon() + ",");
+//		System.out.println("---------------------");
+		
 //		複合查詢
 		
 		Map<String, String[]> map = new TreeMap<String, String[]>();
@@ -460,6 +541,8 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			System.out.println();
 		}
 	}
+
+
 
 
 }

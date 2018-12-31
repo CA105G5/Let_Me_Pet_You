@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.missingCase.model.*;
+import com.missingMsg.model.*;
 
 @MultipartConfig
 public class missingCaseServlet extends HttpServlet {
@@ -76,10 +77,13 @@ public class missingCaseServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
+				missingMsgService missingMsgSvc = new missingMsgService();
+				List<missingMsgVO> MissingMsgList = missingMsgSvc.findByCase(missing_case_id);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("missingCaseVO", missingCaseVO); // 資料庫取出的empVO物件,存入req
 				String url = "/front-end/missingCase/listOneMissingCase.jsp";
+				req.setAttribute("MissingMsgList", MissingMsgList);
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 

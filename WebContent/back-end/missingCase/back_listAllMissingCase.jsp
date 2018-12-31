@@ -152,9 +152,9 @@
 														value="${missingCaseVO.missing_date}" pattern="yyyy-MM-dd" /></span></td>
 											<td><select name="bootstrap-data-table_length"
 												aria-controls="bootstrap-data-table"
-												class="form-control form-control-sm" id="status"><option
-														value="${missingCaseVO.missing_case_id}">上架中</option>
-													<option value="${missingCaseVO.missing_case_id}">下架中</option>
+												class="form-control form-control-sm status"><option
+														value="${missingCaseVO.missing_case_id}">上架</option>
+													<option value="${missingCaseVO.missing_case_id}">下架</option>
 											</select></td>
 										</tr>
 									</c:forEach>
@@ -219,17 +219,23 @@
 		src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/backend_UI_template/assets/js/init/fullcalendar-init.js"></script>
-
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="jquery-3.3.1.min.js"></script>
 	<!--Local Stuff-->
 	<script type="text/javascript">
-	$(document).ready(function(){
-		 $('#status').change(function(){
+	$(document).ready(function(){	
+		 $('.status').change(function(){
+// 		alert($("option:selected", this).text())
 			 $.ajax({
-			 type: "GET",
-			 url: "/missingCaseAjax.do",
-			 data:changeStatus($(this).val(),$(this).text()),
+			 type: "POST",
+		 url: "<%=request.getContextPath() %>/missingCaseAjax.do", 
+			 data:changeStatus($(this).val(),$("option:selected", this).text()),
 			 datatype:"json",
-			 error: function(){alert("AJAX-grade發生錯誤囉!")}
+			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+			 success:function(data){
+				 
+				 $('#contentDiv').html(data);
+			 }
 		 	})
 		})
 	})
@@ -239,10 +245,7 @@
 		return cStatus;
 	}
 
-	</script>
-
-
-	<script>
+	
 		jQuery(document)
 				.ready(
 						function($) {
@@ -486,11 +489,8 @@
 							});
 							// Bar Chart #flotBarChart End
 						});
-	</script>
-
-
-	<!-- w3 css tab -->
-	<script>
+	
+		
 		function openTab(evt, cityName) {
 			var i, x, tablinks;
 			x = document.getElementsByClassName("city");
@@ -507,7 +507,6 @@
 			evt.currentTarget.firstElementChild.className += " w3-border-red";
 		}
 	</script>
-	<!-- w3 css tab -->
 
 </body>
 </html>

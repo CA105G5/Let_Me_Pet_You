@@ -17,7 +17,6 @@ import com.missingCase.model.missingCaseVO;
 import com.missingMsg.model.missingMsgService;
 import com.missingMsg.model.missingMsgVO;
 
-@WebServlet("/missingMsgServlet")
 public class missingMsgServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -29,11 +28,9 @@ public class missingMsgServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-
-		if ("insert".equals("action")) {
+		if ("insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String missing_msg_cont = req.getParameter("missing_msg_cont");
@@ -64,9 +61,10 @@ public class missingMsgServlet extends HttpServlet {
 				missingMsgVO = missingMsgSvc.addMissingMsg(missing_case_id, memb_id, missing_msg_date,
 						missing_msg_cont);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/front-end/missingCase/listOneMissingCase.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listOneMissingCase.jsp
-				successView.forward(req, res);
+				String url = "http://localhost:8081/CA105G5/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id="+missing_case_id;
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listOneMissingCase.jsp
+//				successView.forward(req, res);
+				res.sendRedirect(url);
 				return;
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
@@ -148,10 +146,10 @@ public class missingMsgServlet extends HttpServlet {
 				missingMsgVO = missingMsgSvc.updateMissingMsg(missing_msg_id, missing_case_id, memb_id,
 						missing_msg_date, missing_msg_cont);
 
-				missingMsgVO = missingMsgSvc.findByCase(missing_case_id);
+				List<missingMsgVO> MissingMsgList = missingMsgSvc.findByCase(missing_case_id);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("missingMsgVO", missingMsgVO);
+				req.setAttribute("MissingMsgList", MissingMsgList);
 				String url = "/front-end/missingCase/listOneMissingCase.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);

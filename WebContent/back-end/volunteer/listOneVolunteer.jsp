@@ -3,10 +3,8 @@
 <%@ page import="com.volunteer.model.VolunteerVO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%@ page import="java.util.*"%>
-<%@ page import="com.volunteer.model.VolunteerService"%>
-<%@ page import="com.volunteer.model.VolunteerVO"%>
+
 
 <%
   VolunteerVO volunteerVO = (VolunteerVO) request.getAttribute("volunteerVO"); //EmpServlet.java(Concroller), 存入req的empVO物件

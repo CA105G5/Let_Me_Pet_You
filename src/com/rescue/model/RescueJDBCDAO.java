@@ -35,8 +35,16 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			"DELETE FROM RESCUE where rsc_id = ?";
 	private static final String UPDATE = 
 			"UPDATE RESCUE set rsc_name=?,rsc_add=?,rsc_des=?,rsc_img=?,rsc_sponsor=?,vlt_id=?,rsc_lat=?,rsc_lon=?,rsc_sta=?,rsc_stm_time=?,rsc_stm_url=?,rsc_stm_sta=?,rsc_btime=?,rsc_coin=?,rsc_etime=?,rsc_reg=?,rsc_rt_status=?,ntf_vlt_dt=?,ntf_vlt_link=?,ntf_vlt_sta=?,ntf_vlt_time=? where rsc_id = ?";
+	private static final String UPDATE_RSC_STA =
+			"UPDATE RESCUE set rsc_sta where rsc_id = ?";
 	
-	
+	//安卓指令
+	private static final String FIND_PHOTO_BY_RSCID = 
+			"SELECT rsc_img FROM Rescue WHERE rsc_id = ?";
+	private static final String UPDATE_RESCUE_CASE =
+			"UPDATE Rescue SET rsc_name=?,rsc_add=?,rsc_des=?,rsc_img=?,rsc_sponsor=?,vlt_id=?,rsc_lat=?,rsc_lon=?,rsc_sta=?,rsc_stm_time=?,rsc_stm_url=?,rsc_stm_sta=?,rsc_btime=?,rsc_coin=?,rsc_etime=?,rsc_reg=?,rsc_rt_status=?,ntf_vlt_dt=?,ntf_vlt_link=?,ntf_vlt_sta=?,ntf_vlt_time=? WHERE rsc_id = ?";
+	private static final String INSERT_RESCUE_CASE = 
+			"INSERT INTO RESCUE (rsc_id,rsc_name,rsc_add,rsc_des,rsc_img,rsc_sponsor,vlt_id,rsc_lat,rsc_lon,rsc_sta,rsc_stm_time,rsc_stm_url,rsc_stm_sta,rsc_btime,rsc_coin,rsc_etime,rsc_reg,rsc_rt_status,ntf_vlt_dt,ntf_vlt_link,ntf_vlt_sta,ntf_vlt_time) VALUES ('R'||LPAD(to_char(volunteer_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	
 	
 	
@@ -462,6 +470,52 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		return list;
 	}
+	@Override
+	public void updateRscSta(String rsc_id,String rsc_sta) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_RSC_STA);
+
+			
+			pstmt.setString(1,rsc_id);			
+			pstmt.setString(2,rsc_sta);
+
+			int rowsUpdated = pstmt.executeUpdate();
+			System.out.println("Changed " + rowsUpdated + "rows");
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		
+	}
 	public static void main(String[] args) {
 
 		RescueJDBCDAO dao = new RescueJDBCDAO();
@@ -539,5 +593,183 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 	}
 
+	//安卓
+	@Override
+	public byte[] getImage(String rsc_id) {
+		byte[] picture = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FIND_PHOTO_BY_RSCID);
+			
+			pstmt.setString(1,rsc_id);
+			rs = pstmt.executeQuery();
+			
+		if (rs.next()) {
+			picture = rs.getBytes(1); 
+		}
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		} return picture;
+	}
+
+	@Override
+	public boolean updateCase(RescueVO rescueVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean isRescueCase = false;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_RESCUE_CASE);
+
+			pstmt.setString(1, rescueVO.getRsc_name());
+			pstmt.setString(2, rescueVO.getRsc_add());
+			pstmt.setString(3, rescueVO.getRsc_des());
+			pstmt.setBytes(4, rescueVO.getRsc_img());
+			pstmt.setString(5, rescueVO.getRsc_sponsor());
+			pstmt.setString(6, rescueVO.getVlt_id());
+			pstmt.setDouble(7, rescueVO.getRsc_lat());
+			pstmt.setDouble(8, rescueVO.getRsc_lon());
+			pstmt.setString(9, rescueVO.getRsc_sta());
+			pstmt.setTimestamp(10, rescueVO.getRsc_stm_time());
+			pstmt.setString(11, rescueVO.getRsc_stm_url());
+			pstmt.setString(12, rescueVO.getRsc_stm_sta());
+			pstmt.setTimestamp(13, rescueVO.getRsc_btime());
+			pstmt.setInt(14, rescueVO.getRsc_coin());
+			pstmt.setTimestamp(15, rescueVO.getRsc_etime());
+			pstmt.setString(16, rescueVO.getRsc_reg());
+			pstmt.setString(17, rescueVO.getRsc_rt_status());
+			pstmt.setString(18, rescueVO.getNtf_vlt_dt());
+			pstmt.setString(19, rescueVO.getNtf_vlt_link());
+			pstmt.setString(20, rescueVO.getNtf_vlt_sta());
+			pstmt.setTimestamp(21, rescueVO.getNtf_vlt_time());
+			pstmt.setString(22, rescueVO.getRsc_id());
+
+			int rowsUpdated = pstmt.executeUpdate();
+			System.out.println("Changed " + rowsUpdated + "rows");
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return isRescueCase;
+
+	}
+
+	@Override
+	public boolean addCase(RescueVO rescueVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean isAddRescueCase = false;
+		
+		try {
+
+			Class.forName(driver);
+	 
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(INSERT_RESCUE_CASE);
+
+			pstmt.setString(1, rescueVO.getRsc_name());
+			pstmt.setString(2, rescueVO.getRsc_add());
+			pstmt.setString(3, rescueVO.getRsc_des());
+			pstmt.setBytes(4, rescueVO.getRsc_img());
+			pstmt.setString(5, rescueVO.getRsc_sponsor());
+			pstmt.setString(6, rescueVO.getVlt_id());
+			pstmt.setDouble(7, rescueVO.getRsc_lat());
+			pstmt.setDouble(8, rescueVO.getRsc_lon());
+			pstmt.setString(9, rescueVO.getRsc_sta());
+			pstmt.setTimestamp(10, rescueVO.getRsc_stm_time());
+			pstmt.setString(11, rescueVO.getRsc_stm_url());
+			pstmt.setString(12, rescueVO.getRsc_stm_sta());
+			pstmt.setTimestamp(13, rescueVO.getRsc_btime());
+			pstmt.setInt(14, rescueVO.getRsc_coin());
+			pstmt.setTimestamp(15, rescueVO.getRsc_etime());
+			pstmt.setString(16, rescueVO.getRsc_reg());
+			pstmt.setString(17, rescueVO.getRsc_rt_status());
+			pstmt.setString(18, rescueVO.getNtf_vlt_dt());
+			pstmt.setString(19, rescueVO.getNtf_vlt_link());
+			pstmt.setString(20, rescueVO.getNtf_vlt_sta());
+			pstmt.setTimestamp(21, rescueVO.getNtf_vlt_time());
+
+			int rowsUpdated =pstmt.executeUpdate();
+			System.out.println("Changed " + rowsUpdated + "rows");
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return isAddRescueCase;
+	}
+
 
 }
+
+
+

@@ -52,7 +52,7 @@ System.out.println("222222222222222222222");
 				<div class="container">
 			<div class="row header-top align-items-center">
 				<div class="col-lg-4 col-sm-4 menu-top-left">
-					<a href="index.jsp"> <img class="img-fluid"
+					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid"
 						src="images/logo2.png" width="200" alt="">
 					</a>
 				</div>
@@ -72,7 +72,7 @@ System.out.println("222222222222222222222");
 				<%}else{ 
 					out.print(memVO.getMemb_nick()+"，你好");
 				%>
-				<a href="index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出" onclick="logout();"></a>
+				<a href="<%=request.getContextPath()%>/index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出" onclick="logout();"></a>
 				<a href="updateMembers.jsp">修改會員資料</a>
 				<%}%>
 					
@@ -84,7 +84,7 @@ System.out.println("222222222222222222222");
 			<div class="row align-items-center justify-content-center d-flex">
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="index.jsp">首頁</a></li>
+						<li><a href="<%=request.getContextPath()%>/index.jsp">首頁</a></li>
 						<li><a href="about.html">救援</a></li>
 						<li><a href="service.html">認養</a></li>
 						<li><a href="training.html">失蹤</a></li>

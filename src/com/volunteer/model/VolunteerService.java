@@ -72,6 +72,11 @@ public class VolunteerService {
 		return volunteerVO;
 	}
 	
+	public void updateForVolunteer(VolunteerVO volunteerVO){
+		
+		dao.updateForVolunteer(volunteerVO);
+	}
+	
 	public void deleteVolunteer(String vlt_id) {
 		dao.delete(vlt_id);
 	}

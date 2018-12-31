@@ -24,6 +24,7 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT missing_case_id,memb_id,to_char(missing_date,'yyyy-mm-dd hh24:mi:ss')missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo,missing_type FROM missing_case where missing_case_id = ?";
 	private static final String DELETE = "DELETE FROM missing_case where missing_case_id = ?";
 	private static final String UPDATE = "UPDATE missing_case set memb_id=?, missing_date=?, missing_name=?, missing_des=?, missing_loc=?, missing_status_shelve=?, missing_photo=?, missing_type=? where missing_case_id = ?";
+	private static final String UPDATE_STATUS = "UPDATE missing_case set missing_status_shelve=? where missing_case_id=?";
 
 	// 新增
 	@Override
@@ -120,7 +121,7 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE);
+			pstmt = con.prepareStatement(UPDATE_STATUS);
 
 			pstmt.setString(1, missingCaseVO.getMissing_status_shelve());
 			pstmt.setString(2, missingCaseVO.getMissing_case_id());
@@ -303,4 +304,6 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 		}
 		return list;
 	}
+	
+	
 }

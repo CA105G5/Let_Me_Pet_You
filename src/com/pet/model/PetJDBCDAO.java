@@ -30,7 +30,7 @@ public class PetJDBCDAO implements PetDAO_interface{
 
 	public static void main(String[] args) {
 		//checked
-		PetJDBCDAO dao = new PetJDBCDAO();
+//		PetJDBCDAO dao = new PetJDBCDAO();
 //		//insert
 //		PetVO petVO1 = new PetVO();
 //		petVO1.setPet_name("lucky");

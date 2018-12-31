@@ -32,6 +32,14 @@
     <url-pattern>/util/PhotoReaderId</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>ManagerServlet</servlet-name>
+    <servlet-class>com.manager.controller.ManagerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ManagerServlet</servlet-name>
+    <url-pattern>/back-end/manager/manager.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>MemServlet</servlet-name>
     <servlet-class>com.mem.controller.MemServlet</servlet-class>
   </servlet>
@@ -72,6 +80,14 @@
     <url-pattern>/front-end/pet/pet.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>PetImgServlet</servlet-name>
+    <servlet-class>com.pet.controller.PetImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PetImgServlet</servlet-name>
+    <url-pattern>/front-end/pet/petImg.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>VolunteerServlet</servlet-name>
     <servlet-class>com.volunteer.controller.VolunteerServlet</servlet-class>
   </servlet>
@@ -79,7 +95,7 @@
     <servlet-name>VolunteerServlet</servlet-name>
     <url-pattern>/back-end/volunteer/volunteer.do</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>VolunteerServlet2</servlet-name>
     <servlet-class>com.volunteer.controller.VolunteerServlet</servlet-class>
   </servlet>
@@ -94,6 +110,22 @@
   <servlet-mapping>
     <servlet-name>VolunteerImgServlet</servlet-name>
     <url-pattern>/back-end/volunteer/volunteerImg.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RescueServlet</servlet-name>
+    <servlet-class>com.rescue.controller.RescueServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RescueServlet</servlet-name>
+    <url-pattern>/front-end/rescue/rescue.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RescueImgServlet</servlet-name>
+    <servlet-class>com.rescue.controller.RescueImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RescueImgServlet</servlet-name>
+    <url-pattern>/back-end/rescue/rescueImg.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>PicReader</servlet-name>
@@ -184,11 +216,11 @@
     <url-pattern>/missingCaseAjax.do</url-pattern>
   </servlet-mapping>
   <filter>
-    <filter-name>loginFilter</filter-name>
+    <filter-name>LoginFilter</filter-name>
     <filter-class>filters.LoginFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>loginFilter</filter-name>
+    <filter-name>LoginFilter</filter-name>
     <url-pattern>/front-end/missingCase/addMissing.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
@@ -196,4 +228,33 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
+  <filter>
+    <filter-name>ManagerLoginFilter</filter-name>
+    <filter-class>filters.ManagerLoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ManagerLoginFilter</filter-name>
+    <url-pattern>/back-end/manager/back_end_index.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  <servlet>
+    <servlet-name>missingMsgServlet</servlet-name>
+    <servlet-class>com.missingMsg.controller.missingMsgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>missingMsgServlet</servlet-name>
+    <url-pattern>/front-end/missingMsg/missingMsg.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ReportMissingServlet</servlet-name>
+    <servlet-class>com.reportMissing.controller.ReportMissingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReportMissingServlet</servlet-name>
+    <url-pattern>/front-end/missingCase/reportMissing.do</url-pattern>
+  </servlet-mapping>
 </web-app>

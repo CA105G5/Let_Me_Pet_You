@@ -413,7 +413,7 @@ public class MemServlet extends HttpServlet {
 					       }catch (Exception ignored) { 
 					    	   
 					       }
-					      res.sendRedirect(req.getContextPath()+"/front-end/members/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+					      res.sendRedirect(req.getContextPath()+"/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 						return;
 					}else {
 						//登入失敗
@@ -445,7 +445,7 @@ public class MemServlet extends HttpServlet {
 		if("logout".equals(action)) {
 			HttpSession session = req.getSession();
 			session.setAttribute("memVO", null);
-			res.sendRedirect(req.getContextPath()+"/front-end/members/index.jsp");
+			res.sendRedirect(req.getContextPath()+"/index.jsp");
 			return;
 		}
 	}
