@@ -200,7 +200,7 @@
 											<div class="desc">
 												<h5>
 													<a href="#">Emilly Blunt</a><button type="button" class="genric-btn primary small"
-								style="margin-left: 670px;" data-toggle="modal"	data-target="#report">檢舉</button>
+								style="margin-left: 670px;" data-toggle="modal"	data-target="#${missingMsgVO.missing_msg_id}">檢舉</button>
 												</h5>
 												<p class="date">
 													<fmt:formatDate value="${missingMsgVO.missing_msg_date}"
@@ -215,13 +215,13 @@
 								
 								
 								<!--留言檢舉彈出區-->
-							<div class="modal fade" id="report" tabindex="-1"
-								role="dialog" aria-labelledby="#reportTitle"
+							<div class="modal fade" id="${missingMsgVO.missing_msg_id}" tabindex="-1"
+								role="dialog" aria-labelledby="#${missingMsgVO.missing_msg_id}"
 								aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="reportTitle"
+											<h5 class="modal-title" id="${missingMsgVO.missing_msg_id}"
 												style="margin-left: 200px;">請輸入檢舉原因:</h5>
 											<button type="button" class="close" data-dismiss="modal"
 												aria-label="Close">

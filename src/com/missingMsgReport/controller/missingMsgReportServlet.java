@@ -39,7 +39,6 @@ public class missingMsgReportServlet extends HttpServlet {
 				String missing_msg_rt_cont = req.getParameter("missing_msg_rt_cont");
 				String missing_msg_rt_sta = req.getParameter("missing_msg_rt_sta");
 				String missing_case_id = req.getParameter("missing_case_id");
-
 				java.sql.Timestamp missing_msg_rt_time = null;
 
 				if (missing_msg_rt_cont == null || missing_msg_rt_cont.trim().length() == 0) {
