@@ -232,7 +232,7 @@
 											<form METHOD="post"
 												ACTION="<%=(membVO == null)
 					? request.getContextPath() + "/front-end/members/login.jsp"
-					: "http://localhost:8081/CA105G5/front-end/missingCase/missingMsgReport.do"%>">
+					: request.getContextPath() + "/front-end/missingCase/missingMsgReport.do"%>">
 												<div class="input-group mb-3">
 													<input type="text" class="form-control"
 														name="missing_msg_rt_cont" aria-label="Default"
