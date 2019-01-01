@@ -38,4 +38,7 @@ public class reportMissingService {
 		return reportMissingVO;
 		
 	}
+	public reportMissingVO getOneReport(String report_missing_id) {
+		return dao.findByPrimaryKey(report_missing_id);
+	}
 }

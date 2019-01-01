@@ -34,6 +34,7 @@ public class missingCaseAjax extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String action = req.getParameter("action");
+		System.out.println(action);
 		if ("getChange".equals(action)) {
 			String missing_case_id = req.getParameter("missing_case_id");
 			String status = req.getParameter("status");
@@ -129,7 +130,7 @@ public class missingCaseAjax extends HttpServlet {
 				reportMissingService reportMissingSvc = new reportMissingService();
 				reportMissingVO = reportMissingSvc.updateStatus(report_missing_sta, report_missing_id);
 			}
-			if ("不通過".equals(report_missing_sta)) {
+			if ("未通過".equals(report_missing_sta)) {
 				reportMissingVO reportMissingVO = new reportMissingVO();
 				reportMissingVO.setReport_missing_sta(report_missing_sta);
 
@@ -138,6 +139,27 @@ public class missingCaseAjax extends HttpServlet {
 			}
 
 		}
+		if ("reportMissing".equals(action)) {
+			String report_missing_id = req.getParameter("report_missing_id");
+			String status = req.getParameter("status");
+			System.out.println(report_missing_id);
+			System.out.println(status);
+			if("未通過".equals(status)) {
+				reportMissingService reportMissingSvc = new reportMissingService();
+				reportMissingSvc.updateStatus(status, report_missing_id);
+			}else if("通過".equals(status)) {
+				reportMissingService reportMissingSvc = new reportMissingService();
+				reportMissingSvc.updateStatus(status, report_missing_id);
+				String missing_case_id = reportMissingSvc.getOneReport(report_missing_id).getMissing_case_id();
+				
+				missingCaseService missingCaseSvc = new missingCaseService();
+				
+				missingCaseSvc.updateStatus(missing_case_id, "下架");
+			}
+			
+			
+		}
+		
 	}
 
 }

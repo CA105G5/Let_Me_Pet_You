@@ -1,22 +1,22 @@
+<%@page import="com.missingMsgReport.model.missingMsgReportVO"%>
+<%@page import="com.missingMsgReport.model.missingMsgReportService"%>
+<%@page import="com.missingMsg.model.missingMsgVO"%>
+<%@page import="com.missingMsg.model.missingMsgService"%>
 <%@page import="java.util.List"%>
-<%@page import="com.missingCase.model.*"%>
-<%@page import="com.reportMissing.model.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
-	missingCaseService missingCaseSvc = new missingCaseService();
-	List<missingCaseVO> list = missingCaseSvc.getAll();
-	pageContext.setAttribute("list", list);
+	
 	int x = 0;
-	reportMissingService reportMissingSvc = new reportMissingService();
-	List<reportMissingVO> list2 = reportMissingSvc.listAllReport();
-	pageContext.setAttribute("list2", list2);
+	missingMsgReportService missingMsgReportSvc = new missingMsgReportService();
+	List<missingMsgReportVO> list = missingMsgReportSvc.listAllReport();
+	pageContext.setAttribute("list", list);
 
 %>
-<jsp:useBean id="missingCaseSvc2" scope="page" class="com.missingCase.model.missingCaseService" />
-
+<jsp:useBean id="missingMsgSvc" scope="page" class="com.missingMsg.model.missingMsgService" />
+<jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
 
 
 <!doctype html>
@@ -124,7 +124,7 @@
 			<div class="col-xl-12">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="box-title">失蹤案例檢舉管理</h4>
+						<h4 class="box-title">失蹤留言檢舉管理</h4>
 					</div>
 					<div class="card-body--">
 						<div class="table-stats order-table ov-h">
@@ -132,34 +132,34 @@
 								<thead>
 									<tr>
 										<th class="serial">#</th>
-										<th class="avatar">失蹤案例檢舉原因</th>
-										<th>失蹤案例編號</th>
+										<th>留言編號</th>
+										<th>被檢舉者</th>
 										<th>檢舉者</th>
-										<th>發文者</th>
 										<th>檢舉時間</th>
+										<th class="avatar">失蹤留言檢舉原因</th>
 										<th>檢舉狀態</th>
 									</tr>
 								</thead>
 								<tbody>
 									<%@ include file="page1.file"%>
-									<c:forEach var="reportMissingVO" items="${list2}"
+									<c:forEach var="missingMsgReportVO" items="${list}"
 										begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 										<tr>
 											<td class="serial"><%=++x%></td>
-											<td class="avatar">${reportMissingVO.report_missing_cont}
+											<td class="avatar">${missingMsgReportVO.missing_msg_id}
 											</td>
-											<td>${reportMissingVO.missing_case_id}</td>
-											<td><span class="name">${reportMissingVO.memb_id}</span></td>
-											<td><span class="product">${missingCaseSvc2.getOneMissingCase(reportMissingVO.missing_case_id).memb_id}</span>
-											</td>
+											<td></td>
+											<td><span class="name">${missingMsgReportVO.memb_id}</span></td>
 											<td><span class=""><fmt:formatDate
-														value="${reportMissingVO.report_missing_time}" pattern="yyyy-MM-dd" /></span></td>
+														value="${missingMsgReportVO.missing_msg_rt_time}" pattern="yyyy-MM-dd" /></span></td>
+											<td><span class="product">${missingMsgReportVO.missing_msg_rt_cont }</span>
+											</td>
 											<td><select name="bootstrap-data-table_length"
 												aria-controls="bootstrap-data-table"
 												class="form-control form-control-sm status">
-												<option value="${reportMissingVO.report_missing_id}">未審核</option>
-												<option value="${reportMissingVO.report_missing_id}">通過</option>
-												<option value="${reportMissingVO.report_missing_id}">未通過</option>
+												<option value="${missingMsgReportVO.missing_msg_rt_id}">未審核</option>
+												<option value="${reportMissingVO.missing_msg_rt_id}">通過</option>
+												<option value="${reportMissingVO.missing_msg_rt_id}">未通過</option>
 											</select></td>
 										</tr>
 									</c:forEach>

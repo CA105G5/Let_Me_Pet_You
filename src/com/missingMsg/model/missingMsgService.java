@@ -40,4 +40,11 @@ public class missingMsgService {
 	public List<missingMsgVO> findByCase(String missing_case_id) {
 		return dao.findByCase(missing_case_id);
 	}
+	public List<missingMsgVO> getAll(){
+		return dao.getAll();
+	}
+	
+	public List<missingMsgVO> findByMsg(String missing_msg_id){
+		return dao.findByMsg(missing_msg_id);
+	}
 }
