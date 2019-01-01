@@ -1,6 +1,7 @@
 package com.volunteer.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mem.model.MemVO;
 
@@ -88,7 +89,9 @@ public class VolunteerService {
 	public List<VolunteerVO> getAll(){
 		return dao.getAll();
 	}
-	
+	public List<VolunteerVO> getAll(Map<String, String[]> map){
+		return dao.getAll(map);
+	}
 	public VolunteerVO getVolunteerSelf(String vlt_mail) {
 		return dao.findByAccount(vlt_mail);
 	}

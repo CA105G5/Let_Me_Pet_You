@@ -1,5 +1,6 @@
-<%@page import="java.util.List"%>
+<%@page import="java.util.*"%>
 <%@page import="com.rescue.model.*"%>
+<%@page import="com.volunteer.model.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -15,6 +16,22 @@
 		pageContext.setAttribute("rescueDelayList", rescueDelayList);
 		request.setAttribute("Test", "Test");
 		System.out.println("rescueDelayList= " + rescueDelayList);
+	}
+	List<VolunteerVO> listVolunteerOnCall;
+	listVolunteerOnCall = (List<VolunteerVO>) request.getAttribute("listVolunteerOnCall");
+	if(listVolunteerOnCall==null){
+		VolunteerService volunteerSvc = new VolunteerService();
+		int day = new java.util.Date().getDay();
+		Map<String, String[]> map = new TreeMap<String, String[]>();
+		if(day==0||day==6){
+			map.put("vlt_duty_day", new String[] { "假日" });
+			map.put("vlt_sta", new String[] { "在職志工" });
+		}else{
+			map.put("vlt_duty_day", new String[] { "平日" });
+			map.put("vlt_sta", new String[] { "在職志工" });
+		}
+		listVolunteerOnCall = volunteerSvc.getAll(map);
+		pageContext.setAttribute("listVolunteerOnCall", listVolunteerOnCall);
 	}
 	String tab = (String) request.getAttribute("tab");
 	System.out.println("tab=" + tab);
@@ -194,7 +211,7 @@
 															<th>案例地區</th>
 															<th>發起時間</th>
 															<th>案例狀態</th>
-															<th>時間</th>
+															<th>分派志工</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -206,23 +223,22 @@
 																<tr>
 																	<td><%=no %></td>
 																	<td><img style="width:150px;height:150px" class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="" style="margin-bottom: auto"></td>
-																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">${rescueVO.rsc_id}</a></td>
+																	<td style=" margin-bottom: auto"class="rsc_id">${rescueVO.rsc_id}</td>
 																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">${rescueVO.rsc_name}</a></td>
 																	<td style=" margin-bottom: auto">${rescueVO.rsc_sponsor}<br>暱稱：${memSvc.getOneMem(rescueVO.rsc_sponsor).memb_nick}</td>
 																	<td style=" margin-bottom: auto">${regionSvc.getOneRegion(rescueVO.rsc_reg).reg_name}</td>
 																	<td style=" margin-bottom: auto"><fmt:formatDate value="${rescueVO.rsc_btime}" type="both" /></td>
 																	<td style=" margin-bottom: auto">${rescueVO.rsc_sta}</td>
-																	<td style=" margin-bottom: auto"><p>${rescueVO.rsc_btime}</p></td>
-
-<!-- 																	<td> -->
-<%-- 																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto"> --%>
-<!-- 																		<input type="submit" value="審核" id="review"> -->
-<%-- 																		<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%>
-<%-- 																		<input type="hidden" name="prod_id"  value="${prodVO.prod_id}"> --%>
-<!-- 																		<input type="hidden" name="tab"  value="1"> -->
-<!-- 																		<input type="hidden" name="location"  value="back"> -->
-<!-- 																		<input type="hidden" name="action"	value="getOne_For_Update"></FORM> -->
-<!-- 																	</td> -->
+																	<td style=" margin-bottom: auto">
+																		<select size="1" name="bootstrap-data-table_length"
+																						aria-controls="bootstrap-data-table"
+																						class="form-control form-control-sm status">
+																				<option value="">請選擇
+																			<c:forEach var="volunteerVO" items="${listVolunteerOnCall}">
+																				<option value="${volunteerVO.vlt_id}" ${(rescueVO.vlt_id==volunteerVO.vlt_name)? 'selected':'' } >${volunteerVO.vlt_name}
+																			</c:forEach>
+																		</select>
+																	</td>
 																</tr>
 															</c:if>
 														</c:forEach>
@@ -266,7 +282,6 @@
 																	<td style=" margin-bottom: auto">${regionSvc.getOneRegion(rescueVO.rsc_reg).reg_name}</td>
 																	<td style=" margin-bottom: auto"><fmt:formatDate value="${rescueVO.rsc_btime}" type="both" /></td>
 																	<td style=" margin-bottom: auto">${rescueVO.rsc_sta}</td>
-																	
 																</tr>
 															</c:if>
 														</c:forEach>
@@ -364,7 +379,29 @@
 		$(document).ready(function() {
         	$('#bootstrap-data-table1').DataTable();
         	$('#bootstrap-data-table2').DataTable();
+        	
+        	 $('.status').change(function(){
+//     	 		alert($("option:selected", this).text())
+     				 $.ajax({
+     				 type: "POST",
+     			 url: "<%=request.getContextPath()%>back-end/rescue/RescueAjax.do", 
+     				 data:changeVlt_id($(this).val()),
+     				 datatype:"json",
+     				 error: function(){alert("AJAX-grade發生錯誤囉!")},
+     				 success:function(data){
+     					 
+     					 $('#contentDiv').html(data);
+     				 }
+     			 	})
+     			})
       	});
+		
+		
+		function changeVlt_id(rsc_id,vlt_id){
+			var cVlt_id = {"action":"getChange","rsc_id":rsc_id,"vlt_id":vlt_id};
+			return cVlt_id;
+		}
+
   	</script>
   	<!-- backend datatable  -->
   	
@@ -384,7 +421,9 @@
 	
 	  	});
   	</script>
-<!--   	review modal -->  	
+<!--   	review modal -->
+
+  	
 
 </body>
 </html>

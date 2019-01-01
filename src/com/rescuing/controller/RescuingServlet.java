@@ -42,7 +42,7 @@ public class RescuingServlet extends HttpServlet {
 				req.setAttribute("errorMsgs", errorMsgs);
 				
 
-//				try {
+				try {
 					/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 					//案例編號
 					String rsc_id = req.getParameter("rsc_id");
@@ -87,12 +87,12 @@ public class RescuingServlet extends HttpServlet {
 					successView.forward(req, res);				
 					
 					/***************************其他可能的錯誤處理**********************************/
-//				} catch (Exception e) {
-//					errorMsgs.add(e.getMessage());
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/front-end/rescue/listOneRescue.jsp");
-//					failureView.forward(req, res);	
-//				}
+				} catch (Exception e) {
+					errorMsgs.add(e.getMessage());
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/rescue/listOneRescue.jsp");
+					failureView.forward(req, res);	
+				}
 			}
 		
 		
