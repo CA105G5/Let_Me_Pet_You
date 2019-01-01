@@ -7,14 +7,14 @@
 	
 	
 <%
-	List<RescueVO> rescueReviewList;
-	rescueReviewList = (List<RescueVO>) request.getAttribute("rescueReviewList");
-	if (rescueReviewList==null){
+	List<RescueVO> rescueDelayList;
+	rescueDelayList = (List<RescueVO>) request.getAttribute("rescueDelayList");
+	if (rescueDelayList==null){
 		RescueService rescueSvc = new RescueService(); 
-		rescueReviewList = rescueSvc.getAll();
-		pageContext.setAttribute("rescueReviewList", rescueReviewList);
+		rescueDelayList = rescueSvc.getAllDelay();
+		pageContext.setAttribute("rescueDelayList", rescueDelayList);
 		request.setAttribute("Test", "Test");
-		System.out.println("rescueReviewList= " + rescueReviewList);
+		System.out.println("rescueDelayList= " + rescueDelayList);
 	}
 	String tab = (String) request.getAttribute("tab");
 	System.out.println("tab=" + tab);
@@ -200,8 +200,8 @@
 													<tbody>
 								                       
 														<% int no=0;%>
-														<c:forEach var="rescueVO" items="${rescueReviewList}">
-															<c:if test="${(rescueVO.rsc_sta =='待救援' or rescueVO.rsc_sta == '救援中')}" var="condition" scope="page">
+														<c:forEach var="rescueVO" items="${rescueDelayList}">
+															<c:if test="${(rescueVO.rsc_sta =='待救援' or rescueVO.rsc_sta == '救援中')&&(rescueVO.vlt_id == null)}" var="condition" scope="page">
 																<% no++; %>
 																<tr>
 																	<td><%=no %></td>
@@ -254,7 +254,7 @@
 													<tbody>
 								
 														<% int no1=0;%>
-														<c:forEach var="rescueVO" items="${rescueReviewList}">
+														<c:forEach var="rescueVO" items="${rescueDelayList}">
 															<c:if test="${rescueVO.rsc_sta =='分派給志工' or rescueVO.rsc_sta == '志工已完成'}" var="condition" scope="page">
 																<% no1++; %>
 																<tr>

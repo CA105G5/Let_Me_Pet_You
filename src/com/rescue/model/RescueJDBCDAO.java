@@ -29,6 +29,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			"INSERT INTO RESCUE (rsc_id,rsc_name,rsc_add,rsc_des,rsc_img,rsc_sponsor,vlt_id,rsc_lat,rsc_lon,rsc_sta,rsc_stm_time,rsc_stm_url,rsc_stm_sta,rsc_btime,rsc_coin,rsc_etime,rsc_reg,rsc_rt_status,ntf_vlt_dt,ntf_vlt_link,ntf_vlt_sta,ntf_vlt_time) VALUES ('R'||LPAD(to_char(volunteer_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = 
 			"SELECT rsc_id,rsc_name,rsc_add,rsc_des,rsc_img,rsc_sponsor,vlt_id,rsc_lat,rsc_lon,rsc_sta,to_char(rsc_stm_time,'yyyy-mm-dd hh24:mi:ss') rsc_stm_time,rsc_stm_url,rsc_stm_sta,to_char(rsc_btime,'yyyy-mm-dd hh24:mi:ss') rsc_btime,rsc_coin,to_char(rsc_etime,'yyyy-mm-dd hh24:mi:ss') rsc_etime,rsc_reg,rsc_rt_status,ntf_vlt_dt,ntf_vlt_link,ntf_vlt_sta,to_char(ntf_vlt_time,'yyyy-mm-dd hh24:mi:ss') ntf_vlt_time FROM Rescue order by rsc_id";
+	private static final String GET_ALL_DELAY_STMT = 
+			"SELECT * FROM RESCUE where sysdate-2/24 >= rsc_btime order by rsc_id";
 	private static final String GET_ONE_STMT = 
 			"SELECT rsc_id,rsc_name,rsc_add,rsc_des,rsc_img,rsc_sponsor,vlt_id,rsc_lat,rsc_lon,rsc_sta,to_char(rsc_stm_time,'yyyy-mm-dd hh24:mi:ss') rsc_stm_time,rsc_stm_url,rsc_stm_sta,to_char(rsc_btime,'yyyy-mm-dd hh24:mi:ss') rsc_btime,rsc_coin,to_char(rsc_etime,'yyyy-mm-dd hh24:mi:ss') rsc_etime,rsc_reg,rsc_rt_status,ntf_vlt_dt,ntf_vlt_link,ntf_vlt_sta,to_char(ntf_vlt_time,'yyyy-mm-dd hh24:mi:ss') ntf_vlt_time FROM Rescue where rsc_id = ?";
 	private static final String DELETE = 
@@ -41,8 +43,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			"UPDATE RESCUE set vlt_id=?,rsc_sta=?,ntf_vlt_dt=?,ntf_vlt_link=?,ntf_vlt_sta=?,ntf_vlt_time=? where rsc_id = ?";
 	private static final String UPDATE_NTF_VLT_STA =
 			"UPDATE RESCUE set ntf_vlt_sta=? where rsc_id = ?";
-	private static final String UPDATE_RSC_STA_BY_VLT =
-			"UPDATE RESCUE set rsc_sta=? where rsc_id = ?";
+
 	
 	//安卓指令
 	private static final String FIND_PHOTO_BY_RSCID = 
@@ -570,6 +571,86 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		
 	}
+	
+	@Override
+	public List<RescueVO> getAllDelay() {
+		List<RescueVO> list = new ArrayList<RescueVO>();
+		RescueVO rescueVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_DELAY_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVO 也稱為 Domain objects
+				rescueVO = new RescueVO();
+				rescueVO.setRsc_id(rs.getString("rsc_id"));
+				rescueVO.setRsc_name(rs.getString("rsc_name"));
+				rescueVO.setRsc_add(rs.getString("rsc_add"));
+				rescueVO.setRsc_des(rs.getString("rsc_des"));
+				rescueVO.setRsc_img(rs.getBytes("rsc_img"));
+				rescueVO.setRsc_sponsor(rs.getString("rsc_sponsor"));
+				rescueVO.setVlt_id(rs.getString("vlt_id"));
+				rescueVO.setRsc_lat(rs.getDouble("rsc_lat"));
+				rescueVO.setRsc_lon(rs.getDouble("rsc_lon"));
+				rescueVO.setRsc_sta(rs.getString("rsc_sta"));
+				rescueVO.setRsc_stm_time(rs.getTimestamp("rsc_stm_time"));
+				rescueVO.setRsc_stm_url(rs.getString("rsc_stm_url"));
+				rescueVO.setRsc_stm_sta(rs.getString("rsc_stm_sta"));
+				rescueVO.setRsc_btime(rs.getTimestamp("rsc_btime"));
+				rescueVO.setRsc_coin(rs.getInt("rsc_coin"));
+				rescueVO.setRsc_etime(rs.getTimestamp("rsc_etime"));
+				rescueVO.setRsc_reg(rs.getString("rsc_reg"));
+				rescueVO.setRsc_rt_status(rs.getString("rsc_rt_status"));
+				rescueVO.setNtf_vlt_dt(rs.getString("ntf_vlt_dt"));
+				rescueVO.setNtf_vlt_link(rs.getString("ntf_vlt_link"));
+				rescueVO.setNtf_vlt_sta(rs.getString("ntf_vlt_sta"));
+				rescueVO.setNtf_vlt_time(rs.getTimestamp("ntf_vlt_time"));
+				list.add(rescueVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
 	public static void main(String[] args) {
 
 		RescueJDBCDAO dao = new RescueJDBCDAO();
@@ -577,15 +658,15 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		// 新增
 		RescueVO rescueVO1 = new RescueVO();
 //
-		rescueVO1.setRsc_name("有貓卡樹上");
-		rescueVO1.setRsc_add("326桃園市楊梅區中山北路一段390巷41號");
-		rescueVO1.setRsc_sponsor("M000000003");
-		rescueVO1.setRsc_lat(new Double(24.9460628));
-		rescueVO1.setRsc_lon(new Double(121.1992745));
-		rescueVO1.setRsc_btime(new Timestamp(new Date().getTime()));
-		rescueVO1.setRsc_coin(new Integer(500));
-		rescueVO1.setRsc_reg("REG0000004");
-		dao.insert(rescueVO1);
+//		rescueVO1.setRsc_name("有貓卡樹上");
+//		rescueVO1.setRsc_add("326桃園市楊梅區中山北路一段390巷41號");
+//		rescueVO1.setRsc_sponsor("M000000003");
+//		rescueVO1.setRsc_lat(new Double(24.9460628));
+//		rescueVO1.setRsc_lon(new Double(121.1992745));
+//		rescueVO1.setRsc_btime(new Timestamp(new Date().getTime()));
+//		rescueVO1.setRsc_coin(new Integer(500));
+//		rescueVO1.setRsc_reg("REG0000004");
+//		dao.insert(rescueVO1);
 
 //		// 修改
 //		RescueVO rescueVO2 = new RescueVO();
@@ -627,15 +708,9 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 //			System.out.print(aRsc.getRsc_reg());
 //			System.out.println();
 //		}
-		
-//		複合查詢
-		
-		Map<String, String[]> map = new TreeMap<String, String[]>();
-		map.put("rsc_id", new String[] { "R000000001" });
-		map.put("action", new String[] { "getXXX" });
-		List<RescueVO> list = dao.getAll(map);
+		List<RescueVO> list = dao.getAllDelay();
 		for (RescueVO aRsc : list) {
-			System.out.print(aRsc.getVlt_id() + ",");
+			System.out.print(aRsc.getRsc_id() + ",");
 			System.out.print(aRsc.getRsc_name() + ",");
 			System.out.print(aRsc.getRsc_add() + ",");
 			System.out.print(aRsc.getRsc_sponsor() + ",");
@@ -645,6 +720,25 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			System.out.print(aRsc.getRsc_reg());
 			System.out.println();
 		}
+		
+		
+//		複合查詢
+		
+//		Map<String, String[]> map = new TreeMap<String, String[]>();
+//		map.put("rsc_id", new String[] { "R000000001" });
+//		map.put("action", new String[] { "getXXX" });
+//		List<RescueVO> list = dao.getAll(map);
+//		for (RescueVO aRsc : list) {
+//			System.out.print(aRsc.getVlt_id() + ",");
+//			System.out.print(aRsc.getRsc_name() + ",");
+//			System.out.print(aRsc.getRsc_add() + ",");
+//			System.out.print(aRsc.getRsc_sponsor() + ",");
+//			System.out.print(aRsc.getRsc_lat() + ",");
+//			System.out.print(aRsc.getRsc_lon() + ",");
+//			System.out.print(aRsc.getRsc_coin()+ ",");
+//			System.out.print(aRsc.getRsc_reg());
+//			System.out.println();
+//		}
 	}
 
 	//安卓
@@ -821,6 +915,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		return isAddRescueCase;
 	}
+
+
 
 
 

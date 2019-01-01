@@ -33,6 +33,10 @@ public class RescueService {
 		return dao.getAll();
 	}
 	
+	public List<RescueVO> getAllDelay() {
+		return dao.getAllDelay();
+	}
+	
 	public List<RescueVO> getAll(Map<String ,String[]> map){
 		return dao.getAll(map);
 	}
