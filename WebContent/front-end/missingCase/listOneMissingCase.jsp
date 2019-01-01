@@ -17,6 +17,7 @@
 	MemVO membVO = (MemVO) session.getAttribute("memVO");
 	Timestamp missing_msg_date = new Timestamp(System.currentTimeMillis());
 	Timestamp report_missing_time = new Timestamp(System.currentTimeMillis());
+	Timestamp missing_msg_rt_time = new Timestamp(System.currentTimeMillis());
 %>
 <html>
 <head>
@@ -98,7 +99,7 @@
 							</div>
 						</div>
 
-						<!--檢舉彈出區-->
+						<!--案例檢舉彈出區-->
 						<div class="modal fade" id="exampleModalCenter" tabindex="-1"
 							role="dialog" aria-labelledby="exampleModalCenterTitle"
 							aria-hidden="true">
@@ -188,7 +189,50 @@
 									style="margin-left: 731px" value="送出">
 
 							</form>
-
+							<!--留言檢舉彈出區-->
+							<div class="modal fade" id="#report" tabindex="-1"
+								role="dialog" aria-labelledby="#reportTitle"
+								aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLongTitle"
+												style="margin-left: 200px;">請輸入檢舉原因:</h5>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<form METHOD="post"
+												ACTION="<%=(membVO == null)
+					? request.getContextPath() + "/front-end/members/login.jsp"
+					: "http://localhost:8081/CA105G5/front-end/missingCase/missingMsgReport.do"%>">
+												<div class="input-group mb-3">
+													<input type="text" class="form-control"
+														name="missing_msg_rt_cont" aria-label="Default"
+														aria-describedby="inputGroup-sizing-default">
+												</div>
+												
+												<input type="hidden" name="missing_case_id"
+													value="<%=request.getParameter("missing_case_id")%>">
+												<input type="hidden" name="memb_id"
+													value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
+												<input type="hidden" name="missing_msg_rt_sta" value="待審核">
+												<input type="hidden" name="missing_msg_rt_time"
+													value="<%=missing_msg_rt_time%>"> <input
+													type="hidden" name="action" value="insert">
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">取消</button>
+											<input type="submit" class="btn btn-primary" value="送出">
+										</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- 檢舉結束 -->
 
 							<c:forEach var="missingMsgVO" items="${list}">
 								<div class="comment-list" id="contentdiv">
@@ -200,7 +244,8 @@
 											<div class="desc">
 												<h5>
 													<a href="#">Emilly Blunt</a><a href="#"
-														style="margin-top: 20px"> <i class="fa fa-plane"></i></a>
+														style="margin-top: 20px"> <i class="fa fa-plane" data-toggle="modal"
+								data-target="#report"></i></a>
 												</h5>
 												<p class="date">
 													<fmt:formatDate value="${missingMsgVO.missing_msg_date}"
@@ -208,6 +253,7 @@
 												</p>
 												<p class="comment">${missingMsgVO.missing_msg_cont}</p>
 											</div>
+											<input type="hidden" name="missing_msg_id" value="${missingMsgVO.missing_msg_id}">
 										</div>
 									</div>
 								</div>
