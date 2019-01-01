@@ -189,14 +189,39 @@
 									style="margin-left: 731px" value="送出">
 
 							</form>
-							<!--留言檢舉彈出區-->
-							<div class="modal fade" id="#report" tabindex="-1"
+
+							<c:forEach var="missingMsgVO" items="${list}">
+								<div class="comment-list" id="contentdiv">
+									<div class="single-comment justify-content-between d-flex">
+										<div class="user justify-content-between d-flex">
+											<div class="thumb">
+												<img src="img/blog/c1.jpg" alt="">
+											</div>
+											<div class="desc">
+												<h5>
+													<a href="#">Emilly Blunt</a><button type="button" class="genric-btn primary small"
+								style="margin-left: 670px;" data-toggle="modal"	data-target="#report">檢舉</button>
+												</h5>
+												<p class="date">
+													<fmt:formatDate value="${missingMsgVO.missing_msg_date}"
+														pattern="yyyy-MM-dd" />
+												</p>
+												<p class="comment">${missingMsgVO.missing_msg_cont}</p>
+											</div>
+											<input type="hidden" name="missing_msg_id" value="${missingMsgVO.missing_msg_id}">
+										</div>
+									</div>
+								</div>
+								
+								
+								<!--留言檢舉彈出區-->
+							<div class="modal fade" id="report" tabindex="-1"
 								role="dialog" aria-labelledby="#reportTitle"
 								aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLongTitle"
+											<h5 class="modal-title" id="reportTitle"
 												style="margin-left: 200px;">請輸入檢舉原因:</h5>
 											<button type="button" class="close" data-dismiss="modal"
 												aria-label="Close">
@@ -227,36 +252,13 @@
 											<button type="button" class="btn btn-secondary"
 												data-dismiss="modal">取消</button>
 											<input type="submit" class="btn btn-primary" value="送出">
+										<input type="hidden" name="missing_msg_id" value="${missingMsgVO.missing_msg_id}">
 										</div>
 										</form>
 									</div>
 								</div>
 							</div>
 							<!-- 檢舉結束 -->
-
-							<c:forEach var="missingMsgVO" items="${list}">
-								<div class="comment-list" id="contentdiv">
-									<div class="single-comment justify-content-between d-flex">
-										<div class="user justify-content-between d-flex">
-											<div class="thumb">
-												<img src="img/blog/c1.jpg" alt="">
-											</div>
-											<div class="desc">
-												<h5>
-													<a href="#">Emilly Blunt</a><a href="#"
-														style="margin-top: 20px"> <i class="fa fa-plane" data-toggle="modal"
-								data-target="#report"></i></a>
-												</h5>
-												<p class="date">
-													<fmt:formatDate value="${missingMsgVO.missing_msg_date}"
-														pattern="yyyy-MM-dd" />
-												</p>
-												<p class="comment">${missingMsgVO.missing_msg_cont}</p>
-											</div>
-											<input type="hidden" name="missing_msg_id" value="${missingMsgVO.missing_msg_id}">
-										</div>
-									</div>
-								</div>
 							</c:forEach>
 						</div>
 

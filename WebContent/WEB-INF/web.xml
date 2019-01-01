@@ -267,7 +267,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>missingMsgReportServlet</servlet-name>
-    <servlet-class>com.reportMissing.controller.missingMsgReportServlet</servlet-class>
+    <servlet-class>com.missingMsgReport.controller.missingMsgReportServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>missingMsgReportServlet</servlet-name>
