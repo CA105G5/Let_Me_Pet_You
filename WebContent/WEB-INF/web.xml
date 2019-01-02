@@ -273,4 +273,12 @@
     <servlet-name>missingMsgReportServlet</servlet-name>
     <url-pattern>/front-end/missingCase/missingMsgReport.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>AdoptImgServlet</servlet-name>
+    <servlet-class>com.Adoption.controller.AdoptImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdoptImgServlet</servlet-name>
+    <url-pattern>/front-end/adopt/adoptImg.do</url-pattern>
+  </servlet-mapping>
 </web-app>

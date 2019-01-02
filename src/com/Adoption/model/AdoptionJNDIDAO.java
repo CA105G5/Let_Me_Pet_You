@@ -1,20 +1,29 @@
 package com.Adoption.model;
 
-import java.util.*;
-import com.mysql.jdbc.Driver;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.sql.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
+public class AdoptionJNDIDAO implements AdoptionDAO_Interface{
 
-public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String user = "CA105G5";
-	String password = "123456";
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_ADOPT = 
 			"INSERT INTO ADOPTION (ADOPT_ID,ADOPT_SPECIES,ADOPT_SPONSOR,ADOPT_DES,ADPOT_IMG) values ('A'||LPAD(to_char(adoption_seq.NEXTVAL),9,'0'),?,?,?,?)";
@@ -29,7 +38,7 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 	
 	
 	
-	public AdoptionJDBCDAO() {
+	public AdoptionJNDIDAO() {
 		
 	}
 	//新增
@@ -40,9 +49,7 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_ADOPT);
 		
 			
@@ -53,8 +60,6 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 			
 			pstmt.executeUpdate();
 		
-		} catch (ClassNotFoundException c) {
-			throw new RuntimeException("Couldn't load database driver. " + c.getMessage());
 			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured" + se.getMessage());
@@ -86,8 +91,7 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 		
 		try {
 			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 		
 			pstmt.setString(1, adoptionVO.getAdopt_species());
@@ -102,8 +106,6 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 
 			pstmt.executeUpdate();
 					
-		} catch (ClassNotFoundException c) {
-			throw new RuntimeException("Couldn't load database driver. " + c.getMessage());
 			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured" + se.getMessage());
@@ -138,8 +140,7 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 		
 		try {
 			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_ADOPT);
 			
 			pstmt.setString(1, adopt_id);
@@ -160,9 +161,6 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 						
 			}
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -208,8 +206,7 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 		
 		try {
 			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_ADOPT);
 			rs = pstmt.executeQuery();
 			
@@ -230,9 +227,6 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 			}
 			
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -262,93 +256,5 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 			} 
 		}
 		return list;
-	}	
-
-		
-	public static void main(String[] args) {
-			
-			AdoptionJDBCDAO dao = new AdoptionJDBCDAO();
-			
-	//		//新增
-	//		AdoptionVO adoptionVO1 = new AdoptionVO();
-	//		adoptionVO1.setAdopt_species("羊咩咩");
-	//		adoptionVO1.setAdopt_sponsor("M000000009");
-	//		adoptionVO1.setAdopt_des("認養案例描述");
-	//		
-	//		try {
-	//			byte[] pic1 = getPictureByteArray("C:\\Project\\01.jpg");
-	//			adoptionVO1.setAdopt_img(pic1);
-	//		} catch (IOException e) {
-	//			e.printStackTrace();
-	//		}
-	//		
-	//		dao.insert(adoptionVO1);
-	//		System.out.println("新增成功");
-			
-//			//修改
-//			AdoptionVO adoptionVO2 = new AdoptionVO();
-//			adoptionVO2.setAdopt_id("A000000009");
-//			adoptionVO2.setAdopt_species("羊咩咩");
-//			adoptionVO2.setAdopt_sponsor("M000000009");
-//			adoptionVO2.setAdopt_status("已上架");
-//			adoptionVO2.setAdopt_apply_status("已審核");
-//			adoptionVO2.setAdopt_btime(java.sql.Timestamp.valueOf("1995-03-15 16:00:00"));
-//			adoptionVO2.setAdopt_etime(java.sql.Timestamp.valueOf("1998-03-15 16:00:00"));
-//			adoptionVO2.setAdopt_des("認養案例描述");
-//			adoptionVO2.setAdopt_img(null);
-//			dao.update(adoptionVO2);
-//			System.out.println("修改成功");
-		
-//			//查一筆
-//			AdoptionVO adoptionVO3 = dao.findByPrimaryKey("A000000001");
-//			System.out.println(adoptionVO3.getAdopt_id() + ",");
-//			System.out.println(adoptionVO3.getAdopt_species() + ",");
-//			System.out.println(adoptionVO3.getAdopt_sponsor() + ",");
-//			System.out.println(adoptionVO3.getAdopt_status() + ",");
-//			System.out.println(adoptionVO3.getAdopt_apply_status() + ",");
-//			System.out.println(adoptionVO3.getAdopt_btime() + ",");
-//			System.out.println(adoptionVO3.getAdopt_etime() + ",");
-//			System.out.println(adoptionVO3.getAdopt_des() + ",");
-//			System.out.println(adoptionVO3.getAdopt_img() + ",");
-//			System.out.println("---------------------------");
-//			System.out.println("查一筆成功");
-		
-			
-			//查全部
-			List<AdoptionVO> list = dao.getAll();
-			for (AdoptionVO myadopt : list) {
-				System.out.println(myadopt.getAdopt_id() + ",");
-				System.out.println(myadopt.getAdopt_species() + ",");
-				System.out.println(myadopt.getAdopt_sponsor() + ",");
-				System.out.println(myadopt.getAdopt_status() + ",");
-				System.out.println(myadopt.getAdopt_apply_status() + ",");
-				System.out.println(myadopt.getAdopt_btime() + ",");
-				System.out.println(myadopt.getAdopt_etime() + ",");
-				System.out.println(myadopt.getAdopt_des() + ",");
-				System.out.println(myadopt.getAdopt_img() + ",");
-				System.out.println("---------------------------");
-				System.out.println("查全部成功");
-			}
-			
-		}
-	public static byte[] getPictureByteArray(String path) throws IOException {
-		
-		File file = new File(path);
-		FileInputStream fis = new FileInputStream(file);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		byte[] buffer = new byte[8192];	//設定每次讀取的大小
-		int i;
-		while ((i = fis.read(buffer)) != -1) {
-			baos.write(buffer, 0, i);
-		}
-		baos.close();
-		fis.close();
-
-		return baos.toByteArray();	//將ByteArrayOutputStream轉成ByteArray
-	
-		}
-	
-	
-	
-}	
-	
+	}
+}
