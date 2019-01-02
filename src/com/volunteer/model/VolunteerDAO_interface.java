@@ -11,7 +11,7 @@ public interface VolunteerDAO_interface {
     public void insert(VolunteerVO volunteerVO);
     public void updateForManager(VolunteerVO volunteerVO);
     public void updateForVolunteer(VolunteerVO volunteerVO);
-    public void updateStaByManager(String vlt_id);
+    public void updateStaByManager(String vlt_id, java.sql.Connection con);
     public void delete(String vlt_id);
     public VolunteerVO findByPrimaryKey(String vlt_id);
     public List<VolunteerVO> getAll();

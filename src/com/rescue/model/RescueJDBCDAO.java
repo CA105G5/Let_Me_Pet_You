@@ -16,6 +16,7 @@ import com.ntf.model.NtfJDBCDAO;
 import com.ntf.model.NtfVO;
 import com.rescueCoin.model.RescueCoinVO;
 import com.rescuing.model.RescuingJDBCDAO;
+import com.volunteer.model.VolunteerJDBCDAO;
 
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Rescue;
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
@@ -551,22 +552,24 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 			pstmt.executeUpdate();
 //			System.out.println("Changed " + rowsUpdated + "rows");
-			
+			//改變志工狀態
+			VolunteerJDBCDAO dao1 = new VolunteerJDBCDAO();
+		    dao1.updateStaByManager(rescueVO.getVlt_id(), con);
 			//同時改變rescueing的人 得到參與的會員編號
 			
-			RescuingJDBCDAO dao = new RescuingJDBCDAO();
-			List<String> list = dao.updateByVolunteer(rescueVO.getRsc_id(), con);
+			RescuingJDBCDAO dao2 = new RescuingJDBCDAO();
+			List<String> list = dao2.updateByVolunteer(rescueVO.getRsc_id(), con);
 			//新增通知
-			NtfJDBCDAO dao2 = new NtfJDBCDAO();
+			NtfJDBCDAO dao3 = new NtfJDBCDAO();
 			for (String i :list) {
 				NtfVO ntfVO = new NtfVO();
 				ntfVO.setMemb_id(i);
 				ntfVO.setNtf_src_id(rescueVO.getRsc_id());
 				ntfVO.setNtf_dt("救援編號:"+rescueVO.getRsc_id()+"，救援逾時，已派志工前往。");
-				dao2.insert(ntfVO,con);
+				dao3.insert(ntfVO,con);
 			}
 			
-			
+			System.out.println("已成功分派救援給志工");
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
