@@ -223,19 +223,19 @@
 																<tr>
 																	<td><%=no %></td>
 																	<td><img style="width:150px;height:150px" class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="" style="margin-bottom: auto"></td>
-																	<td style=" margin-bottom: auto"class="rsc_id">${rescueVO.rsc_id}</td>
+																	<td style=" margin-bottom: auto">${rescueVO.rsc_id}</td>
 																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">${rescueVO.rsc_name}</a></td>
 																	<td style=" margin-bottom: auto">${rescueVO.rsc_sponsor}<br>暱稱：${memSvc.getOneMem(rescueVO.rsc_sponsor).memb_nick}</td>
 																	<td style=" margin-bottom: auto">${regionSvc.getOneRegion(rescueVO.rsc_reg).reg_name}</td>
 																	<td style=" margin-bottom: auto"><fmt:formatDate value="${rescueVO.rsc_btime}" type="both" /></td>
 																	<td style=" margin-bottom: auto">${rescueVO.rsc_sta}</td>
 																	<td style=" margin-bottom: auto">
-																		<select size="1" name="bootstrap-data-table_length"
-																						aria-controls="bootstrap-data-table"
-																						class="form-control form-control-sm status">
+																		<select name="select" id="${rescueVO.rsc_id}" class="form=control status">
 																				<option value="">請選擇
 																			<c:forEach var="volunteerVO" items="${listVolunteerOnCall}">
+																				<c:if test="${volunteerVO.vlt_reg==rescueVO.rsc_reg}">
 																				<option value="${volunteerVO.vlt_id}" ${(rescueVO.vlt_id==volunteerVO.vlt_name)? 'selected':'' } >${volunteerVO.vlt_name}
+																			</c:if>
 																			</c:forEach>
 																		</select>
 																	</td>
@@ -381,11 +381,11 @@
         	$('#bootstrap-data-table2').DataTable();
         	
         	 $('.status').change(function(){
-//     	 		alert($("option:selected", this).text())
+     	//			 console.log($(this).attr('id'),$(this).val());
      				 $.ajax({
      				 type: "POST",
      			 url: "<%=request.getContextPath()%>back-end/rescue/RescueAjax.do", 
-     				 data:changeVlt_id($(this).val()),
+     				 data:changeVlt_id($(this).attr('id'),$(this).val()),
      				 datatype:"json",
      				 error: function(){alert("AJAX-grade發生錯誤囉!")},
      				 success:function(data){
