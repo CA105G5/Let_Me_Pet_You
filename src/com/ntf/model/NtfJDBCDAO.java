@@ -94,14 +94,14 @@ public class NtfJDBCDAO implements NtfDAO_interface{
 	}
 
 	@Override
-	public void insert(NtfVO ntfVO) {
+	public void insert(NtfVO ntfVO,Connection con) {
 
-		Connection con = null;
+	
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, password);
+			
+			
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1,ntfVO.getMemb_id());
@@ -114,23 +114,27 @@ public class NtfJDBCDAO implements NtfDAO_interface{
 			
 			
 			
-		}catch(ClassNotFoundException ce){
-			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
-		}catch(SQLException se){
-			throw new RuntimeException("A database error occured."+se.getMessage());
-		}finally {
-			if(pstmt != null) {
+		}catch (SQLException se) {
+			if (con != null) {
 				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
 				}
 			}
-			if(con != null) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
 				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
 				}
 			}
 		}

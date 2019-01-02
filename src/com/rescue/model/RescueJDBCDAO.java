@@ -12,7 +12,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.ntf.model.NtfJDBCDAO;
+import com.ntf.model.NtfVO;
 import com.rescueCoin.model.RescueCoinVO;
+import com.rescuing.model.RescuingJDBCDAO;
 
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Rescue;
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
@@ -543,13 +546,22 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			pstmt.setTimestamp(5, rescueVO.getNtf_vlt_time());
 			pstmt.setString(6, rescueVO.getRsc_id());
 
-			int rowsUpdated = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 //			System.out.println("Changed " + rowsUpdated + "rows");
 			
-			//同時改變rescueing的人
+			//同時改變rescueing的人 得到參與的會員編號
 			
-			
-			
+			RescuingJDBCDAO dao = new RescuingJDBCDAO();
+			List<String> list = dao.updateByVolunteer(rescueVO.getRsc_id(), con);
+			//新增通知
+			NtfJDBCDAO dao2 = new NtfJDBCDAO();
+			for (String i :list) {
+				NtfVO ntfVO = new NtfVO();
+				ntfVO.setMemb_id(i);
+				ntfVO.setNtf_src_id(rescueVO.getRsc_id());
+				ntfVO.setNtf_dt("救援編號:"+rescueVO.getRsc_id()+"，救援逾時，已派志工前往。");
+				dao2.insert(ntfVO,con);
+			}
 			
 			
 			// Handle any driver errors

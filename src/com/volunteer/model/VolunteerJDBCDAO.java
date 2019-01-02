@@ -30,6 +30,7 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 			"UPDATE VOLUNTEER set vlt_pw =?,vlt_tel =?,vlt_img =?,vlt_duty_day =? where vlt_id = ?";
 	private static final String VOLUNTEER_SEARCH_STMT="SELECT * FROM VOLUNTEER where vlt_mail=?";
 	private static final String VOLUNTEER_CHECK_OUT="SELECT * FROM RESCUE where vlt_id = ? AND rsc_sta = '分派給志工'";
+	private static final String UPDATE_STA_BY_MANGER = "UPDATE VOLUNTEER set vlt_sta = ? WHERE vlt_id = ?";
 	//安卓指令
 	private static final String FIND_BY_EMAIL_PASWD = "SELECT * FROM VOLUNTEER WHERE vlt_mail = ? AND vlt_pw = ?";
 	private static final String CHECK_EMAIL_EXIST = "SELECT vlt_mail FROM VOLUNTEER WHERE vlt_mail = ?";
@@ -508,7 +509,70 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 		return volunteerVO;
 		
 	}
-
+	@Override
+	public RescueVO volunteerCheckOut(String vlt_id) {
+		RescueVO rescueVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(VOLUNTEER_CHECK_OUT);
+			
+			pstmt.setString(1,vlt_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				rescueVO = new RescueVO();
+				rescueVO.setRsc_id(rs.getString("rsc_id"));
+				rescueVO.setRsc_name(rs.getString("rsc_name"));
+				rescueVO.setRsc_add(rs.getString("rsc_add"));
+				rescueVO.setRsc_des(rs.getString("rsc_des"));
+				rescueVO.setRsc_img(rs.getBytes("rsc_img"));
+				rescueVO.setRsc_lat(rs.getDouble("rsc_lat"));
+				rescueVO.setRsc_lon(rs.getDouble("rsc_lon"));
+				rescueVO.setRsc_btime(rs.getTimestamp("rsc_btime"));
+			}
+			
+			
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return rescueVO;
+	}
+	@Override
+	public void updateStaByManager(String vlt_id) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	public static void main(String[] args) {
 
@@ -693,65 +757,9 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 		}return isVolunteerExist;
 	}
 
-	@Override
-	public RescueVO volunteerCheckOut(String vlt_id) {
-		RescueVO rescueVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(VOLUNTEER_CHECK_OUT);
-			
-			pstmt.setString(1,vlt_id);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				rescueVO = new RescueVO();
-				rescueVO.setRsc_id(rs.getString("rsc_id"));
-				rescueVO.setRsc_name(rs.getString("rsc_name"));
-				rescueVO.setRsc_add(rs.getString("rsc_add"));
-				rescueVO.setRsc_des(rs.getString("rsc_des"));
-				rescueVO.setRsc_img(rs.getBytes("rsc_img"));
-				rescueVO.setRsc_lat(rs.getDouble("rsc_lat"));
-				rescueVO.setRsc_lon(rs.getDouble("rsc_lon"));
-				rescueVO.setRsc_btime(rs.getTimestamp("rsc_btime"));
-			}
-			
-			
-			
-		}catch(ClassNotFoundException ce){
-			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
-		}catch(SQLException se){
-			throw new RuntimeException("A database error occured."+se.getMessage());
-		}finally {
-			if(rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if(pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if(con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return rescueVO;
-	}
+	
+
+	
 
 
 
