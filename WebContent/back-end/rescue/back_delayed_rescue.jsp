@@ -390,7 +390,7 @@
      				 error: function(){alert("AJAX-grade發生錯誤囉!")},
      				 success:function(data){
      					 
-     					 $('#contentDiv').html(data);
+     					
      				 }
      			 	})
      			})

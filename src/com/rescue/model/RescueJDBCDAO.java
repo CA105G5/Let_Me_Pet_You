@@ -40,7 +40,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 	private static final String UPDATE_RSC_STA =
 			"UPDATE RESCUE set rsc_sta=? where rsc_id = ?";
 	private static final String UPDATE_BY_MANAGER =
-			"UPDATE RESCUE set vlt_id=?,rsc_sta=?,ntf_vlt_dt=?,ntf_vlt_link=?,ntf_vlt_sta=?,ntf_vlt_time=? where rsc_id = ?";
+			"UPDATE RESCUE set vlt_id=?,rsc_sta=?,ntf_vlt_dt=?,ntf_vlt_sta=?,ntf_vlt_time=? where rsc_id = ?";
 	private static final String UPDATE_NTF_VLT_STA =
 			"UPDATE RESCUE set ntf_vlt_sta=? where rsc_id = ?";
 
@@ -530,26 +530,45 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE_BY_MANAGER);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+			//修改rescue
+    		pstmt = con.prepareStatement(UPDATE_BY_MANAGER);
 
 			
 			pstmt.setString(1, rescueVO.getVlt_id());
 		    pstmt.setString(2, rescueVO.getRsc_sta());
 			pstmt.setString(3, rescueVO.getNtf_vlt_dt());
-			pstmt.setString(4, rescueVO.getNtf_vlt_link());
-			pstmt.setString(5, rescueVO.getNtf_vlt_sta());
-			pstmt.setTimestamp(6, rescueVO.getNtf_vlt_time());
-			pstmt.setString(7, rescueVO.getRsc_id());
+			pstmt.setString(4, rescueVO.getNtf_vlt_sta());
+			pstmt.setTimestamp(5, rescueVO.getNtf_vlt_time());
+			pstmt.setString(6, rescueVO.getRsc_id());
 
 			int rowsUpdated = pstmt.executeUpdate();
-			System.out.println("Changed " + rowsUpdated + "rows");
-
+//			System.out.println("Changed " + rowsUpdated + "rows");
+			
+			//同時改變rescueing的人
+			
+			
+			
+			
+			
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
 					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
