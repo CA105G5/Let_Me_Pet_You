@@ -28,7 +28,7 @@ public class RescueVO implements java.io.Serializable{
 	private Timestamp ntf_vlt_time;
 	
 	public RescueVO() {
-		
+		 
 	}
 	
 	public RescueVO (String rsc_name, String rsc_add, String rsc_sta) {
