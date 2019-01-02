@@ -5,8 +5,8 @@
 <%@ page import="java.util.*"%>
 
 <%
-	List<RescueVO> list;
-	list = (List) session.getAttribute("listAllRescue_ByCompositeQuery");
+	List<RescueVO> list = null;
+	
 	System.out.println("listAllRescue_ByCompositeQueryList="+list);
 	if (list==null){
 		RescueService rescueSvc = new RescueService(); 
