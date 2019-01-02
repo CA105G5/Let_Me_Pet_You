@@ -133,20 +133,20 @@ h4 {
 			<!-- 右邊 -->
 			<div class="row">
 				<%@ include file="page1.file"%>
-				<c:forEach var="missingCaseVO" items="${list}"
+				<c:forEach var="adoptionVO" items="${list}"
 					begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 					<div class="col-lg-4 col-md-6">
 						<div class="single-service-page">
 							<div class="thumbs relative">
 								<div class="overlay-bg"></div>
 								<img class="img-fluid"
-									src="<%=request.getContextPath() %>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id }"
+									src="<%=request.getContextPath() %>/front-end/adopt/adoptImg.do?adopt_id=${adoptionVO.adopt_id }"
 									alt="">
 							</div>
 							<div class="details">
-								<h2>${missingCaseVO.missing_name}</h2>
+								<h2>${adoptionVO.adopt_species}</h2>
 								<p>
-									<fmt:formatDate value="${missingCaseVO.missing_date}"
+									<fmt:formatDate value="${adoptionVO.adopt_btime}"
 										pattern="yyyy-MM-dd" />
 								</p>
 								<a

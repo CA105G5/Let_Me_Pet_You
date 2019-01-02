@@ -281,4 +281,12 @@
     <servlet-name>AdoptImgServlet</servlet-name>
     <url-pattern>/front-end/adopt/adoptImg.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>AdoptionServlet</servlet-name>
+    <servlet-class>com.Adoption.controller.AdoptionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdoptionServlet</servlet-name>
+    <url-pattern>/front-end/adopt/adoptionServlet.do</url-pattern>
+  </servlet-mapping>
 </web-app>
