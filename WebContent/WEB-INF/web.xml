@@ -289,4 +289,12 @@
     <servlet-name>AdoptionServlet</servlet-name>
     <url-pattern>/front-end/adopt/adoptionServlet.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>AdoptMsgServlet</servlet-name>
+    <servlet-class>com.AdoptMsg.controller.AdoptMsgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdoptMsgServlet</servlet-name>
+    <url-pattern>/front-end/adopt/adoptMsgServlet.do</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -8,4 +8,5 @@ public interface AdoptMsgDAO_Interface {
 	public void delete(String adopt_msg_id);
 	public AdoptMsgVO findByPrimaryKey(String adopt_msg_id);
 	public List<AdoptMsgVO> getAll();
+	public List<AdoptMsgVO> findByAdopt(String adopt_id);
 }

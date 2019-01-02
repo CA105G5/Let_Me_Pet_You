@@ -150,7 +150,7 @@ h4 {
 										pattern="yyyy-MM-dd" />
 								</p>
 								<a
-									href="<%=request.getContextPath()%>/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id=${missingCaseVO.missing_case_id}"
+									href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}"
 									class="genric-btn info-border circle">查看詳情</a>
 							</div>
 

@@ -5,6 +5,7 @@ import java.util.*;
 import com.AdoptMsg.*;
 import com.Adoption.model.AdoptionJDBCDAO;
 import com.Adoption.model.AdoptionVO;
+import com.missingMsg.model.missingMsgVO;
 import com.mysql.jdbc.Driver;
 import java.sql.*;
 
@@ -19,6 +20,8 @@ public class AdoptMsgJDBCDAO implements AdoptMsgDAO_Interface{
 			"INSERT INTO ADOPT_MSG (ADOPT_MSG_ID,ADOPT_ID,ADOPT_MSG_SPER,ADOPT_MSG_COMM) values ('AM'||LPAD(to_char(adopt_msg_seq.NEXTVAL),8,'0'),?,?,?)";
 	private static final String GET_ONE_ADOPT_MSG =
 			"SELECT * FROM ADOPT_MSG WHERE ADOPT_MSG_ID=?";
+	private static final String GET_ONE_ADOPT =
+			"SELECT * FROM ADOPT_MSG WHERE ADOPT_ID=?";
 	private static final String GET_ALL_ADOPT_MSG =
 			"SELECT * FROM ADOPT_MSG ORDER BY ADOPT_MSG_ID";
 	private static final String DELETE = 
@@ -223,6 +226,73 @@ public class AdoptMsgJDBCDAO implements AdoptMsgDAO_Interface{
 		}
 		return adoptMsgVO;
 	}
+	
+	// 單獨查詢
+		@Override
+		public List<AdoptMsgVO> findByAdopt(String adopt_id) {
+				
+				List<AdoptMsgVO> list = new ArrayList<AdoptMsgVO>();
+				
+				AdoptMsgVO adoptMsgVO = null;
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				
+				try {
+					
+					Class.forName(driver);
+					con = DriverManager.getConnection(url, user, password);
+					pstmt = con.prepareStatement(GET_ONE_ADOPT);
+					
+					pstmt.setString(1, adopt_id);
+					
+					rs = pstmt.executeQuery();
+					
+					while (rs.next()) {
+						adoptMsgVO = new AdoptMsgVO();
+						adoptMsgVO.setAdopt_msg_id(rs.getString("adopt_msg_id"));
+						adoptMsgVO.setAdopt_id(rs.getString("adopt_id"));
+						adoptMsgVO.setAdopt_msg_sper(rs.getString("adopt_msg_sper"));
+						adoptMsgVO.setAdopt_msg_time(rs.getTimestamp("adopt_msg_time"));
+						adoptMsgVO.setAdopt_msg_comm(rs.getString("adopt_msg_comm"));
+						list.add(adoptMsgVO);
+								
+					
+				}
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+				// Handle any SQL errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. " + se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+		}
+	
+	
+	
 	//查全部
 	@Override
 	public List<AdoptMsgVO> getAll() {

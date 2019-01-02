@@ -27,6 +27,7 @@ public class missingMsgService {
 			Timestamp missing_msg_date, String missing_msg_cont) {
 
 		missingMsgVO missingMsgVO = new missingMsgVO();
+		missingMsgVO.setMissing_msg_id(missing_msg_id);
 		missingMsgVO.setMissing_case_id(missing_case_id);
 		missingMsgVO.setMemb_id(memb_id);
 		missingMsgVO.setMissing_msg_date(missing_msg_date);

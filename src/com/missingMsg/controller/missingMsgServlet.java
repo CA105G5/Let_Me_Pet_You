@@ -110,57 +110,57 @@ public class missingMsgServlet extends HttpServlet {
 
 		}
 
-		if ("update".equals(action)) { // 來自update_missing_msg.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			try {
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String missing_msg_id = req.getParameter("missing_msg_id");
-				String missing_msg_cont = req.getParameter("missing_msg_cont");
-				String missing_case_id = req.getParameter("missing_case_id");
-				String memb_id = req.getParameter("memb_id");
-				Timestamp missing_msg_date = java.sql.Timestamp.valueOf(req.getParameter("missing_msg_date").trim());
-
-				if (missing_msg_cont == null || missing_msg_cont.trim().length() == 0) {
-					errorMsgs.add("留言內容請勿空白!");
-				}
-
-				missingMsgVO missingMsgVO = new missingMsgVO();
-				missingMsgVO.setMissing_case_id(missing_case_id);
-				missingMsgVO.setMemb_id(memb_id);
-				missingMsgVO.setMissing_msg_date(missing_msg_date);
-				missingMsgVO.setMissing_msg_cont(missing_msg_cont);
-				missingMsgVO.setMissing_msg_id(missing_msg_id);
-
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("missingMsgVO", missingMsgVO);
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/missingCase/listOneMissingCase.jsp");
-					failureView.forward(req, res);
-					return;
-				}
-				/*************************** 2.開始修改資料 *****************************************/
-				missingMsgService missingMsgSvc = new missingMsgService();
-				missingMsgVO = missingMsgSvc.updateMissingMsg(missing_msg_id, missing_case_id, memb_id,
-						missing_msg_date, missing_msg_cont);
-
-				List<missingMsgVO> MissingMsgList = missingMsgSvc.findByCase(missing_case_id);
-
-				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("MissingMsgList", MissingMsgList);
-				String url = "/front-end/missingCase/listOneMissingCase.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-				/*************************** 其他可能的錯誤處理 *************************************/
-			} catch (Exception e) {
-				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/missingCase/listOneMissingCase.jsp");
-				failureView.forward(req, res);
-			}
-		}
+//		if ("update".equals(action)) { // 來自update_missing_msg.jsp的請求
+//
+//			List<String> errorMsgs = new LinkedList<String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+//
+//			try {
+//				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+//				String missing_msg_id = req.getParameter("missing_msg_id");
+//				String missing_msg_cont = req.getParameter("missing_msg_cont");
+//				String missing_case_id = req.getParameter("missing_case_id");
+//				String memb_id = req.getParameter("memb_id");
+//				Timestamp missing_msg_date = java.sql.Timestamp.valueOf(req.getParameter("missing_msg_date").trim());
+//
+//				if (missing_msg_cont == null || missing_msg_cont.trim().length() == 0) {
+//					errorMsgs.add("留言內容請勿空白!");
+//				}
+//
+//				missingMsgVO missingMsgVO = new missingMsgVO();
+//				missingMsgVO.setMissing_case_id(missing_case_id);
+//				missingMsgVO.setMemb_id(memb_id);
+//				missingMsgVO.setMissing_msg_date(missing_msg_date);
+//				missingMsgVO.setMissing_msg_cont(missing_msg_cont);
+//				missingMsgVO.setMissing_msg_id(missing_msg_id);
+//
+//				if (!errorMsgs.isEmpty()) {
+//					req.setAttribute("missingMsgVO", missingMsgVO);
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/front-end/missingCase/listOneMissingCase.jsp");
+//					failureView.forward(req, res);
+//					return;
+//				}
+//				/*************************** 2.開始修改資料 *****************************************/
+//				missingMsgService missingMsgSvc = new missingMsgService();
+//				missingMsgVO = missingMsgSvc.updateMissingMsg(missing_msg_id, missing_case_id, memb_id,
+//						missing_msg_date, missing_msg_cont);
+//
+//				List<missingMsgVO> MissingMsgList = missingMsgSvc.findByCase(missing_case_id);
+//
+//				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+//				req.setAttribute("MissingMsgList", MissingMsgList);
+//				String url = "/front-end/missingCase/listOneMissingCase.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);
+//				successView.forward(req, res);
+//				/*************************** 其他可能的錯誤處理 *************************************/
+//			} catch (Exception e) {
+//				errorMsgs.add("修改資料失敗:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/missingCase/listOneMissingCase.jsp");
+//				failureView.forward(req, res);
+//			}
+//		}
 		
 		
 	}
