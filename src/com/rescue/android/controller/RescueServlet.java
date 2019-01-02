@@ -43,7 +43,7 @@ public class RescueServlet extends HttpServlet {
 
 		if ("getAll".equals(action)) {
 			List<RescueVO> rescuecase = rescueDao.getAll();
-			writeText(res, gson.toJson(rescuecase));
+			writeText(res,gson.toJson(rescuecase));
 		} else if ("findByPrimaryKey".equals(action)) {
 			String rsc_id = jsonObject.get("rsc_id").getAsString();
 			writeText(res, gson.toJson(rescueDao.findByPrimaryKey(rsc_id)));
@@ -84,7 +84,7 @@ public class RescueServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		RescueDAO_interface rescueDao = new RescueJDBCDAO();
-		List<RescueVO> rescuecase = rescueDao.getAll();
-		writeText(res, new Gson().toJson(rescuecase));
+		List<RescueVO> rescueList = rescueDao.getAll();
+		writeText(res, new Gson().toJson(rescueList));
 	} 
 }

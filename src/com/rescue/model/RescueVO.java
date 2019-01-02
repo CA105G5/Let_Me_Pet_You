@@ -26,6 +26,28 @@ public class RescueVO implements java.io.Serializable{
 	private String ntf_vlt_link;
 	private String ntf_vlt_sta;
 	private Timestamp ntf_vlt_time;
+	
+	public RescueVO() {
+		
+	}
+	
+	public RescueVO (String rsc_name, String rsc_add, String rsc_sta) {
+		this.rsc_name = rsc_name;
+        this.rsc_add = rsc_add;
+        this.rsc_sta = rsc_sta;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || !(obj instanceof RescueVO)) {
+			return false;
+		}
+		return this.getRsc_id().equals(((RescueVO) obj).getRsc_id());
+	}
+	
 	public String getRsc_id() {
 		return rsc_id;
 	}
