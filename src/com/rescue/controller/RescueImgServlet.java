@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.rescue.model.RescueService;
 
+import util.ImageUtil;
+
 public class RescueImgServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

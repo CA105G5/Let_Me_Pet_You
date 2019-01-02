@@ -3,6 +3,7 @@ package com.volunteer.model;
 import java.util.*;
 
 import com.mem.model.MemVO;
+import com.rescue.model.RescueVO;
 
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
 
@@ -28,6 +29,7 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 	private static final String VOLUNTEER_UPDATE_STMT = 
 			"UPDATE VOLUNTEER set vlt_pw =?,vlt_tel =?,vlt_img =?,vlt_duty_day =? where vlt_id = ?";
 	private static final String VOLUNTEER_SEARCH_STMT="SELECT * FROM VOLUNTEER where vlt_mail=?";
+	private static final String VOLUNTEER_CHECK_OUT="SELECT * FROM RESCUE where vlt_id = ? AND rsc_sta = '分派給志工'";
 	//安卓指令
 	private static final String FIND_BY_EMAIL_PASWD = "SELECT * FROM VOLUNTEER WHERE vlt_mail = ? AND vlt_pw = ?";
 	private static final String CHECK_EMAIL_EXIST = "SELECT vlt_mail FROM VOLUNTEER WHERE vlt_mail = ?";
@@ -513,8 +515,8 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 		VolunteerJDBCDAO dao = new VolunteerJDBCDAO();
 
 		//安卓Test
-		System.out.println(dao.isVltExist("s8780015@gmail.com"));
-		System.out.println(dao.isVltMail("s8780015@gmail.com", "123"));
+//		System.out.println(dao.isVltExist("s8780015@gmail.com"));
+//		System.out.println(dao.isVltMail("s8780015@gmail.com", "123"));
 		
 		
 		// 
@@ -586,24 +588,37 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 //		}
 		
 //		複合查詢
-		Map<String, String[]> map = new TreeMap<String, String[]>();
-		map.put("vlt_id", new String[] { "V000000001" });
-		map.put("action", new String[] { "getXXX" }); // 注意Map裡面會含有action的key
-		List<VolunteerVO> list = dao.getAll(map);
-		for (VolunteerVO aVol : list) {
-			System.out.print(aVol.getVlt_id() + ",");
-			System.out.print(aVol.getVlt_name() + ",");
-			System.out.print(aVol.getVlt_mail() + ",");
-			System.out.print(aVol.getVlt_gender() + ",");
-			System.out.print(aVol.getVlt_pw() + ",");
-			System.out.print(aVol.getVlt_tel() + ",");
-			System.out.print(aVol.getVlt_img() + ",");			
-			System.out.print(aVol.getVlt_registerdate() + ",");			
-			System.out.print(aVol.getVlt_duty_day() + ",");
-			System.out.print(aVol.getVlt_sta()+ ",");
-			System.out.print(aVol.getVlt_reg());
-			System.out.println();
-		}
+//		Map<String, String[]> map = new TreeMap<String, String[]>();
+//		map.put("vlt_id", new String[] { "V000000001" });
+//		map.put("action", new String[] { "getXXX" }); // 注意Map裡面會含有action的key
+//		List<VolunteerVO> list = dao.getAll(map);
+//		for (VolunteerVO aVol : list) {
+//			System.out.print(aVol.getVlt_id() + ",");
+//			System.out.print(aVol.getVlt_name() + ",");
+//			System.out.print(aVol.getVlt_mail() + ",");
+//			System.out.print(aVol.getVlt_gender() + ",");
+//			System.out.print(aVol.getVlt_pw() + ",");
+//			System.out.print(aVol.getVlt_tel() + ",");
+//			System.out.print(aVol.getVlt_img() + ",");			
+//			System.out.print(aVol.getVlt_registerdate() + ",");			
+//			System.out.print(aVol.getVlt_duty_day() + ",");
+//			System.out.print(aVol.getVlt_sta()+ ",");
+//			System.out.print(aVol.getVlt_reg());
+//			System.out.println();
+//		}
+		
+		//志工查待救援案例
+		RescueVO rescueVO = dao.volunteerCheckOut("V000000001");
+		System.out.println(rescueVO.getRsc_id());
+		System.out.println(rescueVO.getRsc_name());
+		System.out.println(rescueVO.getRsc_add());
+		System.out.println(rescueVO.getRsc_des());
+		System.out.println(rescueVO.getRsc_img());
+		System.out.println(rescueVO.getRsc_lat());
+		System.out.println(rescueVO.getRsc_lon());
+		System.out.println(rescueVO.getRsc_btime());
+		
+		
 	}
 
 	@Override
@@ -676,6 +691,66 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 				}
 			}
 		}return isVolunteerExist;
+	}
+
+	@Override
+	public RescueVO volunteerCheckOut(String vlt_id) {
+		RescueVO rescueVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(VOLUNTEER_CHECK_OUT);
+			
+			pstmt.setString(1,vlt_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				rescueVO = new RescueVO();
+				rescueVO.setRsc_id(rs.getString("rsc_id"));
+				rescueVO.setRsc_name(rs.getString("rsc_name"));
+				rescueVO.setRsc_add(rs.getString("rsc_add"));
+				rescueVO.setRsc_des(rs.getString("rsc_des"));
+				rescueVO.setRsc_img(rs.getBytes("rsc_img"));
+				rescueVO.setRsc_lat(rs.getDouble("rsc_lat"));
+				rescueVO.setRsc_lon(rs.getDouble("rsc_lon"));
+				rescueVO.setRsc_btime(rs.getTimestamp("rsc_btime"));
+			}
+			
+			
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return rescueVO;
 	}
 
 
