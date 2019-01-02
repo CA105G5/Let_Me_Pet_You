@@ -1028,11 +1028,6 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		return list;
 	}
 
-
-
-
-
-
 }
 
 
