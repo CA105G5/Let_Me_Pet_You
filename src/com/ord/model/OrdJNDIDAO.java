@@ -12,19 +12,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.ord.model.OrdVO;
 import com.orditem.model.OrdItemJDBCDAO;
+import com.orditem.model.OrdItemService;
 import com.orditem.model.OrdItemVO;
 
-public class OrdJDBCDAO implements OrdDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA105G5";
-	String passwd = "123456";
+public class OrdJNDIDAO implements OrdDAO_interface {
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = "INSERT INTO ord (ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM) VALUES ('O'|| to_char(sysdate,'yyyymmdd')||'-'||LPAD(to_char(ORD_id_seq.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord order by ORD_ID";
-	private static final String GET_ALL_ORD_BY_MEM = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord where mem_id = ? order by ORD_ID";
+	private static final String GET_ALL_ORD_BY_MEM = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord where memb_id = ? order by ORD_ID";
 	private static final String GET_ONE_STMT = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord where ORD_ID = ?";
 	private static final String DELETE = "DELETE FROM ord where ORD_ID = ?";
 	private static final String UPDATE = "UPDATE ord set MEMB_ID=?, ORD_DATE=?, ORD_TOTAL=?,ORD_RECEIVER=?, ORD_RC_TEL=?, ORD_RC_ADD=?, ORD_RC_COMM=? where ORD_ID = ?";
@@ -35,13 +46,11 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, ordVO.getMemb_id());
-			pstmt.setTimestamp(2, ordVO.getOrd_date());
+			pstmt.setTimestamp(2, new Timestamp(new Date().getTime()));
 			pstmt.setInt(3, ordVO.getOrd_total());
 			pstmt.setString(4, ordVO.getOrd_receiver());
 			pstmt.setString(5, ordVO.getOrd_rc_tel());
@@ -52,9 +61,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			System.out.println("Changed " + rowsUpdated + "rows");
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -83,9 +89,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, ordVO.getMemb_id());
@@ -102,9 +106,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			System.out.println("Changed " + rowsUpdated + "rows");
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -135,9 +136,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		ResultSet rs = null;
 
 		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, ord_id);
@@ -158,9 +157,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -202,8 +198,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -222,9 +217,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -263,9 +255,63 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 	}
 
 	@Override
-	public Set<OrdVO> getOrdItemByOrd(String ord_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<OrdVO> getOrdByMem(String memb_id) {
+		List<OrdVO> list = new ArrayList<OrdVO>();
+		OrdVO ordVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_ORD_BY_MEM);
+			pstmt.setString(1, memb_id);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// OrdVO 也稱為 Domain objects
+				ordVO = new OrdVO();
+				ordVO.setOrd_id(rs.getString("ord_id"));
+				ordVO.setMemb_id(rs.getString("memb_id"));
+				ordVO.setOrd_date(rs.getTimestamp("ord_date"));
+				ordVO.setOrd_total(rs.getInt("ord_total"));
+				ordVO.setOrd_receiver(rs.getString("ord_receiver"));
+				ordVO.setOrd_rc_tel(rs.getString("ord_rc_tel"));
+				ordVO.setOrd_rc_add(rs.getString("ord_rc_add"));
+				ordVO.setOrd_rc_comm(rs.getString("ord_rc_comm"));
+				list.add(ordVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override
@@ -276,9 +322,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			
+			con = ds.getConnection();			
 			// 1●設定於 pstm.executeUpdate()之前
     		con.setAutoCommit(false);
 			
@@ -304,12 +348,13 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 				System.out.println("未取得自增主鍵值");
 			}
 			rs.close();
-			// 再同時新增員工
-			OrdItemJDBCDAO dao = new OrdItemJDBCDAO();
+			// 再同時新增明細
+			
+			OrdItemService ordItemSvc = new OrdItemService();
 			System.out.println("list.size()-A="+list.size());
 			for (OrdItemVO ordItemVO : list) {
 				ordItemVO.setOrd_id(next_ordno) ;
-				dao.insert2(ordItemVO,con);
+				ordItemSvc.addOrdItem(ordItemVO,con);
 			}
 
 			// 2●設定於 pstm.executeUpdate()之後
@@ -320,10 +365,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 					+ " 筆同時被新增");
 			
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			if (con != null) {
 				try {
@@ -370,8 +411,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, ord_id);
@@ -381,9 +421,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			System.out.println("Changed " + rowsUpdated + "rows");
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -407,7 +444,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 	public static void main(String[] args) {
 
-		OrdJDBCDAO dao = new OrdJDBCDAO();
+		OrdJNDIDAO dao = new OrdJNDIDAO();
 		
 		OrdVO ordVO = new OrdVO();
 		ordVO.setMemb_id("M000000001");
@@ -493,7 +530,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 	}
 
 	@Override
-	public List<OrdVO> getOrdByMem(String memb_id) {
+	public Set<OrdVO> getOrdItemByOrd(String ord_id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

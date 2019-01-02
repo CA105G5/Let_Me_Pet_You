@@ -33,7 +33,7 @@ public class ProdServlet extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		String action = req.getParameter("action");
-		System.out.println(action);
+		System.out.println("action=" + action);
 		
 		HttpSession session = req.getSession();
 		
@@ -127,9 +127,17 @@ public class ProdServlet extends HttpServlet {
 				List<ProdImgVO> prodImgList = prodImgSvc.getOneProdImg(prod_id);
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("prodVO", prodVO); // 資料庫取出的prodVO物件,存入req
-				req.setAttribute("prodImgList", prodImgList);
-				String url = "/front-end/product/listOneProdModal.jsp";
+				session.setAttribute("reviewprodVO", prodVO); // 資料庫取出的prodVO物件,存入req
+				session.setAttribute("reviewprodImgList", prodImgList);
+				//原本畫面跳轉
+//				String url = "/front-end/product/listOneProdModal.jsp";
+				
+				//Bootstrap_modal
+				boolean openModal=true;
+				req.setAttribute("openModal",openModal );
+				
+				//改成modal
+				String url = "/back-end/product/back_shop.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneProd.jsp
 				successView.forward(req, res);
 				
@@ -293,8 +301,85 @@ public class ProdServlet extends HttpServlet {
 		}	
 		
 		
-		if ("getOne_For_Update".equals(action)) { // 來自listAllProd.jsp的請求
+		if ("getOne_For_Review_Update".equals(action)) { // 來自listAllProd.jsp的請求
 
+			System.out.println("=======getOne_For_Review_Update======");
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數****************************************/
+				
+				String prod_id = req.getParameter("prod_id");
+				String prod_review = req.getParameter("prod_review");
+				String prod_review_des = req.getParameter("prod_review_des");
+				System.out.println("prod_id="+prod_id);
+				System.out.println("prod_review="+prod_review);
+				System.out.println("prod_review_des="+prod_review_des);
+				
+				
+				if (prod_review==null || "0".equals(prod_review)) {
+					errorMsgs.add("請選擇審核結果");
+					System.out.println("請選擇審核結果");
+				}
+				if (prod_review_des==null || prod_review_des.trim().length()==0) {
+					errorMsgs.add("請填寫審核結果說明");
+					System.out.println("請填寫審核結果說明");
+				}
+				
+				/***************************2.開始查詢資料****************************************/
+				ProdService prodSvc = new ProdService();
+				ProdVO prodVO = prodSvc.getOneProd(prod_id);
+				
+				prodVO.setProd_review(prod_review);
+				prodVO.setProd_review_des(prod_review_des);
+				if ("通過".equals(prod_review)) {
+					prodVO.setProd_status("上架");
+				} 
+				System.out.println("prodVO.getProd_name()"+prodVO.getProd_name());
+				System.out.println("prodVO.getProd_price()"+prodVO.getProd_price());
+				
+				ProdImgService prodImgSvc = new ProdImgService();
+				List<ProdImgVO> prodImgList = prodImgSvc.getOneProdImg(prod_id);
+				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					session.setAttribute("reviewprodVO", prodVO);         // 資料庫取出的prodVO物件,存入req
+					session.setAttribute("reviewprodImgList", prodImgList); 
+					//原本的跳窗
+					//RequestDispatcher failureView = req.getRequestDispatcher("/front-end/product/listOneProdModal.jsp");
+					
+					//Bootstrap_modal
+					boolean openModal=true;
+					req.setAttribute("openModal",openModal );
+					
+					//改成modal
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/back_shop.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				prodSvc.updateProd(prodVO);
+				session.setAttribute("reviewprodVO", prodVO);         // 資料庫取出的prodVO物件,存入req
+				session.setAttribute("reviewprodImgList", prodImgList);         // 資料庫取出的prodVO物件,存入req
+				String url = "/back-end/product/back_shop.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_prod_input.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/donate/listAllProdDon.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ("getOne_For_Update".equals(action)) { // 來自listAllProd.jsp的請求
+			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -313,14 +398,14 @@ public class ProdServlet extends HttpServlet {
 				
 				ProdImgService prodImgSvc = new ProdImgService();
 				List<ProdImgVO> prodImgList = prodImgSvc.getOneProdImg(prod_id);
-
+				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				session.setAttribute("updateprodVO", prodVO);         // 資料庫取出的prodVO物件,存入req
 				session.setAttribute("updateprodImgList", prodImgList);         // 資料庫取出的prodVO物件,存入req
 				String url = "/front-end/donate/updateProdDon.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_prod_input.jsp
 				successView.forward(req, res);
-
+				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
@@ -795,7 +880,7 @@ public class ProdServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			System.out.println("ProdServlet.java得到從listAllProdDon.jsp設定的屬性"+req.getAttribute("Test"));
 			
-			try {
+//			try {
 				/***************************1.接收請求參數****************************************/
 				String prod_id = req.getParameter("prod_id");
 				
@@ -815,8 +900,8 @@ public class ProdServlet extends HttpServlet {
 				
 				String location = req.getParameter("location");
 				String url;
-				if (location.equals("back")) {
-					url = "/back-end/product/back_listAllProdDon.jsp";
+				if ("back".equals(location)) {
+					url = "/back-end/product/back_shop.jsp";
 				} else {
 					url = "/front-end/donate/listAllProdDon.jsp";
 				}
@@ -824,11 +909,11 @@ public class ProdServlet extends HttpServlet {
 				successView.forward(req, res);
 		
 					/***************************其他可能的錯誤處理**********************************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/donate/listAllProdDon.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/donate/listAllProdDon.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 	}
 

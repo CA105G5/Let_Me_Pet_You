@@ -76,6 +76,10 @@
 	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
 	crossorigin="anonymous">
+	
+<!-- sweetAlert -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
 
 <style type="text/css">
 	p {
@@ -87,6 +91,33 @@
 		font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
 			monospace;
 	}
+	
+/* 	購物車icon */
+#cart-container {
+  float: right;
+  width: 100px;
+  position: relative;
+}
+
+#itemCount {
+  position: absolute;
+  display: none;
+  top: -10px;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+  text-align: center;
+}
+
+i.fa-shopping-cart:hover {
+  cursor: pointer;
+}
+	
+	
+	
 </style>
 </head>
 <body>
@@ -135,10 +166,18 @@
 <!-- 					</div> -->
 				</div>
 
-				<div class="col-lg-3 col-sm-3 menu-top-right">
-					<a class="tel">會員登入/ 註冊</a> <a href="#"><span
-						class="fa fa-user"></span></a>
-					<!-- style="font-size: 1.5rem;" -->
+				<div class="col-lg-3 col-sm-3">
+					<div class="row">
+						<div id="cart-container" class="col-lg-1 col-sm-1">
+						      <a id="cart_icon"><i class="fa fa-shopping-cart fa-1x" aria-hidden="true"></i></a>
+						      <span id="itemCount"></span>
+						</div>
+						<div class="col-lg-11 col-sm-11 menu-top-right">
+							<a class="tel">會員登入/ 註冊</a> 
+							<a href="#"><span class="fa fa-user"></span></a>
+							<!-- style="font-size: 1.5rem;" -->
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -221,7 +260,7 @@
 								<label><input type="checkbox" name="prod_ani_type_id" value="其他"> 其他</label>　<br>
 					        <hr>
 					       	<h5><b>選擇商品種類:</b></h5>
-					       		<label><input type="checkbox" name="prod_type_id" value="食"  > 食</label>　
+					       		<label><input type="checkbox" name="prod_type_id" value="食" > 食</label>　　
 								<label><input type="checkbox" name="prod_type_id" value="衣" > 衣</label>　<br>
 								<label><input type="checkbox" name="prod_type_id" value="住" > 住</label>　　
 								<label><input type="checkbox" name="prod_type_id" value="行" > 行</label>　<br>
@@ -314,6 +353,18 @@
 			</div>
 		</div>
 	</section>
+	
+	
+<!-- 	購物車 -->
+<script>
+// 	var itemCount = 0;
+	
+// 	$('#cartBtn').click(function (){
+// 	  itemCount ++;
+// 	  $('#itemCount').html(itemCount).css('display', 'block');
+// 	}); 
+	
+</script>
 
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 	<script

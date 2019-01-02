@@ -70,8 +70,11 @@ public class jdbcUtil_CompositeQuery_Prod {
 					}
 				}
 			}
-			
-			return whereCondition.toString();
+			if (countCondition==0) {
+				return whereCondition.toString()+" where PROD_STATUS='上架'";
+			} else {
+				return whereCondition.toString()+" and PROD_STATUS='上架'";
+			}
 		}
 
 		public static void main(String argv[]) {

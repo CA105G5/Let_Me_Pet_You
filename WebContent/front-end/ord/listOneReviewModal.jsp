@@ -9,12 +9,13 @@
 <%@ page import="com.prod.model.ProdVO"%>
 
 <%
-	ProdVO prodVO  = (ProdVO) session.getAttribute("reviewprodVO");
-	List<ProdImgVO> prodImgList  = (List<ProdImgVO>) session.getAttribute("reviewprodImgList");
-	System.out.println("listOneProd.jsp得到從ProdServlet.java傳過來的屬性"+request.getAttribute("Test"));
-	System.out.println("listOneProd.jsp得到從ProdServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
-	System.out.println("listOneProd.jsp得到從ProdServlet.java傳過來的請求參數值"+request.getParameter("prod_id"));
+
+
 %>
+
+<jsp:useBean id="ordSvc" scope="page" class="com.ord.model.OrdService" />
+<jsp:useBean id="ordItemSvc" scope="page" class="com.orditem.model.OrdItemService" />
+<jsp:useBean id="prodSvc" scope="page" class="com.prod.model.ProdService" />
 
 <!DOCTYPE html>
 <html>
@@ -48,12 +49,12 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<script src='//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
 
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" -->
-<!-- 	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" -->
-<!-- 	crossorigin="anonymous"> -->
-<script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
+<!-- sweetAlert -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
+
 
 <style type="text/css">
 p {
@@ -191,161 +192,130 @@ div {
 <body>
 
 
-	<section class="training-area section-gap">
+<!-- 	<section class="training-area section-gap"> -->
 		<div class="container">
-			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; bottom: auto;">
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-lg-3 cl-md-3" style="top: 180px; bottom: auto;"></div> -->
-					<div class="col-xs-10 col-sm-10">
-					<div class="row">
-						<div class="col-xs-10 col-sm-10">
-							<%-- 錯誤表列 --%>
-							<c:if test="${not empty errorMsgs}">
-								<div>
-									<font style="color:red">請修正以下錯誤:</font>
-									<ul>
-									    <c:forEach var="message" items="${errorMsgs}">
-											<li style="color:red">${message}</li>
-										</c:forEach>
-									</ul>
-								</div>
-							</c:if>
-						
-							<!-- Slideshow container -->
-							<div class="slideshow-container">
-									
-								<!-- Full-width images with number and caption text -->
-								<% int i =1; %> 
-								<c:forEach var="prodImgVO" items="${reviewprodImgList}">
-									<div class="mySlides" >
-<!-- 							    <div class="mySlides fade"> -->
-										<div class="numbertext"><%=i%>/<%=prodImgList.size()%></div>
-										<img src="<%=request.getContextPath()%>/util/PicReader2?prod_img_id=${prodImgVO.prod_img_id}" style="width:50%">
-										<div class="text"> </div>
-									</div>
-									<% i++; %> 
-								</c:forEach>
-										
-								<!-- Next and previous buttons -->
-								<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-								<a class="next" onclick="plusSlides(1)">&#10095;</a>
-							</div>
-							<br>
-									
-							<!-- The dots/circles -->
-							<div>
-<!-- 						<div style="text-align:center"> -->
-								<% int j =1; %> 
-								<c:forEach var="prodImgVO" items="${reviewprodImgList}">
-									<span class="dot" onclick="currentSlide(<%=j%>)"></span> 
-									<% j++; %> 
-								</c:forEach>
-							</div>
-						</div>
-
-						<div class="col-xs-10 col-sm-10">
-							<h3>${reviewprodVO.prod_name}
+<!-- 			<div class="row"> -->
+<!-- 				<form>  -->
+					<div class="form-group" style="width:700px">
+							<h3>訂單內容</h3>
+							<hr>
+							<img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${prod_id}" alt="">
+							<h5>${prodSvc.getOneProd(prod_id).prod_name}
 								<span style="font-size: 1em; color: Tomato; text-indent:300px;">
 									<i class="fas fa-coins"></i>
-									<b>${reviewprodVO.prod_price}</b>
+									<b>${prodSvc.getOneProd(prod_id).prod_price}</b>
 								</span>
-							</h3>
-							<hr>
-							<h4>商品資訊: <p>${reviewprodVO.prod_info}</p></h4>
-							<h4>捐贈數量: ${reviewprodVO.prod_stock}</h4>
-							<h4>產品分類: ${reviewprodVO.prod_type_id}</h4>
-							<h4>適用動物: ${reviewprodVO.prod_ani_type_id}</h4>
-							<hr>
-							<div>
-								<h3>審核</h3>
-								<div class="row">
-									<div class="input-group-icon mt-10 col-xs-8 col-sm-8" style="width: 150px; ">
-										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto">
-											<div class="input-group-icon mt-10" style="width: 200px; ">
-												<div class="icon">
-													<i class="fa fa-thumb-tack" aria-hidden="true"></i>
-												</div>
-												<div class="form-select" id="default-select">
-													<select style="width: 120px" id="prod_review" name="prod_review">
-														<option value="0">審核結果</option>
-														<option value="通過" ${ reviewprodVO.prod_review.equals("通過")? "selected":""}>通過</option>
-														<option value="不通過" ${ reviewprodVO.prod_review.equals("不通過")? "selected":""}>不通過</option>
-													</select>
-												</div>
-											</div> 
-									</div>
-								
-									<br>
-									<div class="col-xs-10 col-sm-10">
-										審核原因: <br>
-										<textarea name="prod_review_des" class="form-control custom-control" rows="5" style="resize:none; width: 250px;">${ reviewprodVO.prod_review_des==null? "": reviewprodVO.prod_review_des}</textarea>
-									</div>
-								
-								</div>
-								
-								<br>
-								<div>
-<!-- 							<div style="text-align:right"> -->
-									<input type="hidden" name="prod_id"  value="${reviewprodVO.prod_id}">
-									<input type="hidden" name="action"	value="getOne_For_Review_Update">
-									<input type="submit" value="提交" class="button"></FORM>
-								</div>
-							
-							</div>
-						</div>
+								X ${ordItemSvc.getOneOrdItem(prod_id, ord_id).ord_item_qty}
+							</h5>
 					</div>
+					
+					<div class="form-group" style="width:700px">
+							<h3>檢舉理由</h3>
+							<hr>
+							<h5>${ordItemSvc.getOneOrdItem(prod_id, ord_id).ord_item_rt_comm} </h5><br> 
+							<div>${ordItemSvc.getOneOrdItem(prod_id, ord_id).ord_item_rt_pic} </div>
+					</div>
+					
+					
+					
+					<h3>審核</h3>
+					<hr>
+					<span id="result_error" style="color:red"></span>
+					<span id="reason_error" style="color:red"></span>
+					<div class="input-group-icon mt-10" style="width: 200px; ">
+						<div class="icon">
+							<i class="fa fa-thumb-tack" aria-hidden="true"></i>
+						</div>
+						<div class="form-select" id="default-select">
+							<select style="width: 120px" id="report_result" name="report_result">
+								<option value="0">審核結果</option> 
+								<option value="通過" >通過</option>
+								<option value="不通過" >不通過</option>
+							</select>
+						</div>
+					</div> 
+					<br>
+					
+					
 
-						<div class="container">
-							<div id="sider" class="n-browse-nav m-sticky-on"
-								style="top: 150px; bottom: auto;">
-								<div class="row">
-									<div class="col-lg-10 cl-md-10" style="top: 30px; bottom: auto;">
-										<div class="">
-												${reviewprodVO.prod_des}
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<hr>
-						
-						
-					</div>
-				</div>
-			</div>
+ 		    		<div class="form-group" style="width:700px"> 
+<!--  		    			<label for="reason" class="pull-left">審核描述</label>  -->
+ 		    			<textarea class="form-control" id="reason" rows="5" placeholder="請輸入審核理由"></textarea> 
+ 		    		</div> 
+ 		    		<br>
+ 		    		<input type="submit" value="送出" id="submit">
+<!--  		    		<input type="hidden" name="action"  value="getOne_For_Report_Update"> -->
+ 		    		<input type="hidden" name="prod_id"  value="${prod_id}">
+					<input type="hidden" name="ord_id"  value="${ord_id}">
+					<input type="hidden" name="img"  value="">
+<!--  		    	<input type="submit" value="取消"> -->
+ 		    		
+ 		    		
+<!--  		    	</form>  -->
+<!-- 			</div> -->
 		</div>
-	</section>
+<!-- 	</section> -->
 
 <script type="text/javascript">
-	var slideIndex = 1;
-showSlides(slideIndex);
-
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1} 
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none"; 
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block"; 
-  dots[slideIndex-1].className += " active";
-}
-
+	
+	 $("#submit").on('click', function () {
+		 var c=0;
+		 $("#result_error").text("");
+		 $("#reason_error").html("");
+		 console.log("#report_result="+$("#report_result").val());
+		 console.log("#reason="+$("#reason").val());
+		 console.log("ord_id="+ '${ord_id}');
+		 console.log("prod_id="+ '${prod_id}');
+		 
+		 var has_empty = false;
+		    
+		 if ($("#report_result").val()==0){
+			 $("#result_error").text("請輸入審核理由");
+			 has_empty = true;
+			 c++;
+		 } 
+		 
+		 if ($("#reason").val()==null || $("#reason").val().trim().length==0){
+			 has_empty = true;
+			 if (c==0)
+			 	$("#reason_error").text("請輸入審核描述");
+			 else
+			 	$("#reason_error").html("<br>請輸入審核描述");
+			 
+		 } 
+		 if ( has_empty ) { 
+		 	 return false; 
+		 }
+		 
+		 var $this = $(this);
+		 console.log("11111111");
+		 console.log("reason=" + $("#reason").val());
+		 console.log("report_result=" + $("#report_result").val());
+		 console.log("22222222");
+	     	$.ajax({
+	    		url: '<%=request.getContextPath()%>/ordItem/ordItem.do',
+	    		type: "post",
+	    		data: { 'action': 'getOne_For_Review_Update', 'ord_id': '${ord_id}' , 'prod_id': '${prod_id}', 'ord_item_review' : $("#report_result").val(), 'ord_item_rv_des' : $("#reason").val()  },
+	    		dataType: 'json',
+	    		success: function(res){
+	    			console.log("0000000000");
+	    			console.log(res);
+	    			swal({
+	    				title: "完成!",
+	    				text: "已完成審核",
+	    				type: "success",
+	    				timer: 3000
+	    			});
+	    			console.log("11111111");
+	    			window.location.href = "<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp";
+	    			console.log("22222222");
+	    		},
+	    		error: function(res){
+	    			console.log("eeeeeeee");
+	    			console.log("res="+res);
+	    		}
+	    	});
+		});
 </script>
 
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
@@ -368,5 +338,6 @@ function showSlides(n) {
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+	
 </body>
 </html>

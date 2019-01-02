@@ -14,7 +14,7 @@
 	System.out.println("list="+list);
 	if (list==null){
 		ProdService prodSvc = new ProdService(); 
-		list = prodSvc.getAll();
+		list = prodSvc.getAll_Front();
 		pageContext.setAttribute("list", list);
 	}
 	
@@ -133,7 +133,7 @@ div {
 						<div class="row">
 						<%@ include file="/front-end/product/pages/page1.file" %> 
 							<c:forEach var="prodVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-<%-- 								<c:if test="${'上架'.equals(prodVO.prod_status)}" var="condition" scope="page"> --%>
+<%-- 								<c:if test="${prodVO.prod_status.equals('上架')}" var="condition" scope="page"> --%>
 									<div class="col-lg-3 cl-md-3">
 										<div class="single-training">
 											<div class="thumb relative">
@@ -217,6 +217,54 @@ div {
 		        $(e.target).attr("class", "active");
 		    });
 		});
+	</script>
+	
+<!-- 	顯示購物車數量 -->
+	<script>
+		$(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodcart.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) > 0){
+						console.log("parseInt = " + parseInt(res));
+						$('#itemCount').html(res).css('display', 'block');
+					} 
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+	
+		
+		
+
+		$("#cart_icon").click(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodcart.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) < 1){
+// 						alert("購物車中無商品");
+						swal("Oops.....", "購物車中無商品", "warning").catch(swal.noop);
+						return false;
+					} else{
+						console.log("redirect.....");
+						console.log("<%=request.getContextPath()%>/prodcart.do?action=check_Cart");
+						window.location.href = "<%=request.getContextPath()%>/prodcart.do?action=check_Cart";
+					}
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+	
 	</script>
 	
 	
