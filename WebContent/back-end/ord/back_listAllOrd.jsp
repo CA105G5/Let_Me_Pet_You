@@ -1,3 +1,7 @@
+<%@page import="com.orditem.model.OrdItemService"%>
+<%@page import="com.ord.model.OrdVO"%>
+<%@page import="com.ord.model.OrdService"%>
+<%@page import="com.orditem.model.OrdItemVO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.prod.model.ProdService"%>
 <%@page import="com.prod.model.ProdVO"%>
@@ -8,14 +12,17 @@
 	
 	
 <%
-	List<ProdVO> prodReviewList;
-	prodReviewList = (List<ProdVO>) request.getAttribute("prodReviewList");
-	if (prodReviewList==null){
-		ProdService prodSvc = new ProdService(); 
-		prodReviewList = prodSvc.getAll();
-		pageContext.setAttribute("prodReviewList", prodReviewList);
+	List<OrdItemVO> ordItemlist;
+	ordItemlist = (List<OrdItemVO>) request.getAttribute("ordItemlist");
+	if (ordItemlist==null){
+// 		OrdService ordSvc = new OrdService(); 
+// 		List<OrdVO> ordList = ordSvc.getOrdByMem("M000000001"); 
+// 		System.out.println("ordList.size()=" + ordList.size());
+		OrdItemService ordItemSvc = new OrdItemService(); 
+		ordItemlist = ordItemSvc.getAll();
+		System.out.println("ordItemlist.size()=" + ordItemlist.size());
+		pageContext.setAttribute("ordItemlist", ordItemlist);
 		request.setAttribute("Test", "Test");
-		System.out.println("prodReviewList= " + prodReviewList);
 	}
 	String tab = (String) request.getAttribute("tab");
 	System.out.println("tab=" + tab);
@@ -24,7 +31,11 @@
 		tab="1";
 		tab_int = new Integer(tab);
 	}
+
 %>	
+
+<jsp:useBean id="ordSvc" scope="page" class="com.ord.model.OrdService" />
+<jsp:useBean id="prodSvc" scope="page" class="com.prod.model.ProdService" />
 	
 	
 	
@@ -171,7 +182,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">愛心商品捐贈審核</strong>
+                                <strong class="card-title">訂單檢舉審核</strong>
                             </div>
                             <div class="card-body">
                             
@@ -186,7 +197,7 @@
       <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding w3-border-red"><h4>待審核</h4></div>
     </a>
     <a href="javascript:void(0)" onclick="openTab(event, 'reviewed');">
-      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"><h4>上架中</h4></div>
+      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"><h4>已審核</h4></div>
     </a>
   </div>
 
@@ -195,48 +206,47 @@
     <table id="bootstrap-data-table2" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
 														<tr class="success">
-															<th style="width: 30px">序號</th>
-															<th style="width: 100px">照片</th>
-															<th>商品編號</th>
-															<th>商品名稱</th>
-															<th>適用動物</th>
-															<th>商品種類</th>
-															<th>價格</th>
-															<th>捐贈數量</th>
-															<th>申請日期</th>
-															<th>狀態</th>
-															<th>審核</th>
+															<th width="100px">訂單編號</th>
+															<th width="100px">照片</th>
+															<th width="100px">商品名稱</th>
+															<th width="100px">檢舉時間</th>
+															<th width="100px">檢舉理由</th>
+															<th width="100px">檢舉審核狀態</th>
+															<th width="100px">審核</th>
 														</tr>
 													</thead>
 													<tbody>
 								
 														<% int no=0;%>
-														<c:forEach var="prodVO" items="${prodReviewList}">
-															<c:if test="${prodVO.prod_review==null}" var="condition" scope="page">
+														<c:forEach var="ordItemVO" items="${ordItemlist}">
+															<c:if test="${ordItemVO.ord_item_rt_status.equals('已檢舉') && ordItemVO.ord_item_review==null}" var="condition" scope="page">
 																<% no++; %>
 																<tr>
-																	<td><%=no %></td>
-																	<td><img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${prodVO.prod_id}" alt="" style="margin-bottom: auto"></td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_id}</td>
-																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${prodVO.prod_id}">${prodVO.prod_name}</a></td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_ani_type_id}</td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_type_id}</td>
-																	<td style=" margin-bottom: auto">$${prodVO.prod_price}</td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_qty}</td>
-																	<td style=" margin-bottom: auto"><fmt:formatDate value="${prodVO.prod_date}" pattern="yyyy-MM-dd"/></td>
-																	<td style=" margin-bottom: auto">審核中</td>
-																	<td>
-																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto">
-<%-- 																		<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%>
-																		<input type="hidden" name="prod_id"  value="${prodVO.prod_id}">
-																		<input type="hidden" name="tab"  value="1">
-																		<input type="hidden" name="location"  value="back">
-																		<input type="hidden" name="action"	value="getOneModal_For_Display">
+<%-- 																	<td><%=no %></td> --%> 
+<%-- 																	<td style=" margin-bottom: auto">${ordItemVO.ord_id}</td> --%>
+																	<!--改成modal彈跳視窗 -->
+																	<td><A href="<%=request.getContextPath()%>/ordItem/ordItem.do?prod_id=${ordItemVO.prod_id}&ord_id=${ordItemVO.ord_id}&action=getOneModal_For_Detail">${ordItemVO.ord_id}</a></td>
+																	<!--改成modal彈跳視窗 -->
+																	<td style=" margin-bottom: auto"><img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${ordItemVO.prod_id}" alt="" width="50px" style="margin-bottom: auto"></td>
+																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${ordItemVO.prod_id}">${prodSvc.getOneProd(ordItemVO.prod_id).prod_name}</a></td>
+																	<td style=" margin-bottom: auto"><fmt:formatDate value="${ordItemVO.ord_item_rt_date}" pattern="yyyy-MM-dd"/></td>
+																	<td style=" margin-bottom: auto">${ordItemVO.ord_item_rt_comm}</td>
+																	<td style=" margin-bottom: auto">${ordItemVO.ord_item_review==null? "未審核": ordItemVO_Modal.ord_item_review}</td>
+																	<td style=" margin-bottom: auto">
+																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ordItem/ordItem.do" style="text-align: center; margin-bottom: auto">
+<!-- 																		<input type="submit" value="檢舉"> -->
 																		<input type="submit" value="審核" id="review">
-																		<!--改成modal彈跳視窗 -->
-<%-- 																		<A href="<%=request.getContextPath()%>/product/product_upload.do?prod_id=${prodVO.prod_id}&action=getOneModal_For_Display">審核</a> --%>
-																		<!--改成modal彈跳視窗 -->
+<%-- 																		<A type="button" href="<%=request.getContextPath()%>/ordItem/ordItem.do?prod_id=${ordItemVO.prod_id}&ord_id=${ordItemVO.ord_id}&action=getOneModal_For_Review">審核</a> --%>
+<%-- 																	<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%>
+																		<input type="hidden" name="prod_id"  value="${ordItemVO.prod_id}">
+																		<input type="hidden" name="ord_id"  value="${ordItemVO.ord_id}">
+																		<input type="hidden" name="tab"  value="1">
+																		<input type="hidden" name="action"	value="getOneModal_For_Review">
 																		</FORM>
+<!-- 																		改成modal彈跳視窗 -->
+<%-- 																		<A href="<%=request.getContextPath()%>/ordItem/ordItem.do?prod_id=${ordItemVO.prod_id}&ord_id=${ordItemVO.ord_id}&action=getOneModal_For_Detail">檢舉</a> --%>
+<!-- 																		改成modal彈跳視窗 -->
+																	
 																	</td>
 																</tr>
 															</c:if>
@@ -248,48 +258,35 @@
 
   <div id="reviewed" class="w3-container city" style="display:none" style="width:1100px">
     <p> </p> 
-    <table id="bootstrap-data-table" class="table table-striped table-bordered table-hover" style="width:100%">
+    <table id="bootstrap-data-table1" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
 														<tr class="success">
-															<th style="width: 30px">序號</th>
-															<th style="width: 100px">照片</th>
-															<th>商品編號</th>
-															<th>商品名稱</th>
-															<th>適用動物</th>
-															<th>商品種類</th>
-															<th>價格</th>
-															<th>捐贈數量</th>
-															<th>申請日期</th>
-															<th>狀態</th>
-															<th>下架</th>
+															<th width="100px">訂單編號</th>
+															<th width="100px">照片</th>
+															<th width="100px">商品名稱</th>
+															<th width="100px">檢舉時間</th>
+															<th width="100px">檢舉理由</th>
+															<th width="100px">檢舉審核結果</th>
+															<th width="100px">檢舉審核描述</th>
 														</tr>
 													</thead>
 													<tbody>
 								
 														<% int no1=0;%>
-														<c:forEach var="prodVO" items="${prodReviewList}">
-															<c:if test="${prodVO.prod_status.equals('上架')}" var="condition" scope="page">
+														<c:forEach var="ordItemVO" items="${ordItemlist}">
+															<c:if test="${ordItemVO.ord_item_rt_status.equals('已檢舉') && ordItemVO.ord_item_review!=null}" var="condition" scope="page">
 																<% no1++; %>
 																<tr>
-																	<td><%=no1 %></td>
-																	<td><img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${prodVO.prod_id}" alt="" style="margin-bottom: auto"></td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_id}</td>
-																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${prodVO.prod_id}">${prodVO.prod_name}</a></td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_ani_type_id}</td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_type_id}</td>
-																	<td style=" margin-bottom: auto">$${prodVO.prod_price}</td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_qty}</td>
-																	<td style=" margin-bottom: auto"><fmt:formatDate value="${prodVO.prod_date}" pattern="yyyy-MM-dd"/></td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_status}</td>
-																	<td>
-																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto">
-																		<input type="submit" value="下架">
-<%-- 																		<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%>
-																		<input type="hidden" name="prod_id"  value="${prodVO.prod_id}">
-																		<input type="hidden" name="location"  value="back">
-																		<input type="hidden" name="tab"  value="2">
-																		<input type="hidden" name="action"	value="off"></FORM>
-																	</td>
+<%-- 																	<td style=" margin-bottom: auto">${ordItemVO.ord_id}</td> --%>
+																	<!--改成modal彈跳視窗 -->
+																	<td><A href="<%=request.getContextPath()%>/ordItem/ordItem.do?prod_id=${ordItemVO.prod_id}&ord_id=${ordItemVO.ord_id}&action=getOneModal_For_Detail">${ordItemVO.ord_id}</a></td>
+																	<!--改成modal彈跳視窗 -->
+																	<td style=" margin-bottom: auto"><img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${ordItemVO.prod_id}" alt="" width="50px" style="margin-bottom: auto"></td>
+																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${ordItemVO.prod_id}">${prodSvc.getOneProd(ordItemVO.prod_id).prod_name}</a></td>
+																	<td style=" margin-bottom: auto"><fmt:formatDate value="${ordItemVO.ord_item_rt_date}" pattern="yyyy-MM-dd"/></td>
+																	<td style=" margin-bottom: auto">${ordItemVO.ord_item_rt_comm}</td>
+																	<td style=" margin-bottom: auto">${ordItemVO.ord_item_review}</td>
+																	<td style=" margin-bottom: auto">${ordItemVO.ord_item_rv_des}</td>
 																</tr>
 															</c:if>
 														</c:forEach>
@@ -323,21 +320,57 @@
     </div>
     <!-- /#right-panel -->
     
-<!--    加上審核彈跳modal  -->
-<c:if test="${openModal!=null}">
 
-<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+<!--    加上檢舉彈跳modal  -->
+<c:if test="${ReviewModal!=null}">
+
+<div class="modal fade" id="ReviewModal" tabindex="-1" role="dialog" aria-labelledby="ReviewModal" aria-hidden="true" style="overflow: hidden">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 				
-			<div class="modal-header">
+			<div class="modal-header" style="height:auto">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h3 class="modal-title" id="myModalLabel">The Bootstrap modal-header</h3>
             </div>
 			
 			<div class="modal-body">
 <!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
-               <jsp:include page="/front-end/product/listOneProdModal.jsp" />
+               <jsp:include page="/front-end/ord/listOneReviewModal.jsp" />
+<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
+			</div>
+			
+			<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+		
+		</div>
+	</div>
+</div>
+
+        <script>
+    		 $("#ReviewModal").modal({show: true});
+        </script>
+</c:if>
+<!--    加上審核彈跳modal  -->   
+
+
+
+<!--    加上明細彈跳modal  -->
+<c:if test="${openModal!=null}">
+
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="overflow: hidden">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+				
+			<div class="modal-header" style="height:500px">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="myModalLabel">The Bootstrap modal-header</h3>
+            </div>
+			
+			<div class="modal-body">
+<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
+               <jsp:include page="/front-end/ord/listOneOrdDetailModal.jsp" />
 <!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
 			</div>
 			
@@ -354,7 +387,7 @@
     		 $("#basicModal").modal({show: true});
         </script>
 </c:if>
-<!--    加上審核彈跳modal  -->   
+<!--    加上明細彈跳modal  -->   
     
 
     <!-- Scripts -->

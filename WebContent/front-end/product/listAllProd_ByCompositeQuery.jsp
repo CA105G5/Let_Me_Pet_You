@@ -14,7 +14,7 @@
 	System.out.println("listAllProd_ByCompositeQueryList="+list);
 	if (list==null){
 		ProdService prodSvc = new ProdService(); 
-		list = prodSvc.getAll();
+		list = prodSvc.getAll_Front();
 		session.setAttribute("listAllProd_ByCompositeQuery", list);
 	}
 	

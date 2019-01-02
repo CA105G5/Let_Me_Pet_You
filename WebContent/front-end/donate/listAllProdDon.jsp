@@ -148,7 +148,7 @@ div {
 								
 														<% int no=0;%>
 														<c:forEach var="prodVO" items="${list}">
-															<c:if test="${prodVO.prod_status==null}" var="condition" scope="page">
+															<c:if test="${prodVO.prod_review==null}" var="condition" scope="page">
 																<% no++; %>
 																<tr>
 																	<td><%=no %></td>
@@ -160,7 +160,7 @@ div {
 																	<td style=" margin-bottom: auto">$${prodVO.prod_price}</td>
 																	<td style=" margin-bottom: auto">${prodVO.prod_qty}</td>
 																	<td style=" margin-bottom: auto"><fmt:formatDate value="${prodVO.prod_date}" pattern="yyyy-MM-dd"/></td>
-																	<td style=" margin-bottom: auto">${prodVO.prod_status==null? "審核中": prodVO.prod_status}</td>
+																	<td style=" margin-bottom: auto">${prodVO.prod_review==null? "審核中": prodVO.prod_review}</td>
 																	<td>
 																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto">
 																		<input type="submit" value="修改">
@@ -216,7 +216,7 @@ div {
 																	<td style=" margin-bottom: auto">${prodVO.prod_status}</td>
 																	<td>
 																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto">
-																		<input type="submit" value="下架">
+																		<input type="submit" value="下架" id="off">
 <%-- 																		<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%>
 																		<input type="hidden" name="prod_id"  value="${prodVO.prod_id}">
 																		<input type="hidden" name="tab"  value="2">
@@ -416,7 +416,7 @@ div {
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 	<!-- 注意!!! 若有多個jquery會衝突 -->
-<!-- 	<script src="https://code.jquery.com/jquery.js"></script>  -->
+	<script src="https://code.jquery.com/jquery.js"></script> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
 <!-- 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
@@ -440,6 +440,25 @@ div {
 <%-- 			console.log($("#tab<%=tab%>")); --%>
 // 		} );
 	</script>	
+	
+	<script>
+		$('#off').on('click',function(e){
+		    e.preventDefault();
+		    var form = $(this).parents('form');
+		    swal({
+		        title: "Are you sure?",
+		        text: "You will not be able to recover this imaginary file!",
+		        type: "warning",
+		        showCancelButton: true,
+		        confirmButtonColor: "#DD6B55",
+		        confirmButtonText: "Yes, delete it!",
+		        closeOnConfirm: false
+		    }, function(isConfirm){
+		        if (isConfirm) form.submit();
+		    });
+		});
+	
+	</script>
 
 </body>
 </html>

@@ -305,4 +305,36 @@
     <servlet-name>AdoptionServlet</servlet-name>
     <url-pattern>/front-end/adopt/adoptionServlet.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>OrdItemServlet</servlet-name>
+    <servlet-class>com.orditem.controller.OrdItemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrdItemServlet</servlet-name>
+    <url-pattern>/ordItem/ordItem.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>OrdServlet</servlet-name>
+    <servlet-class>com.ord.controller.OrdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrdServlet</servlet-name>
+    <url-pattern>/ord/ord.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ProdCartServlet</servlet-name>
+    <servlet-class>com.prodtrack.controller.ProdCartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProdCartServlet</servlet-name>
+    <url-pattern>/prodcart.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ProdTrackServlet</servlet-name>
+    <servlet-class>com.prodtrack.controller.ProdTrackServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProdTrackServlet</servlet-name>
+    <url-pattern>/prodtrack.do</url-pattern>
+  </servlet-mapping>
 </web-app>

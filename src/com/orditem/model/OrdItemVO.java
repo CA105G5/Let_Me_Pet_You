@@ -19,6 +19,14 @@ public class OrdItemVO implements Serializable {
 	private	String		ord_item_rt_comm;
 	private	String		ord_item_review;
 	private	String		ord_item_rv_des;
+	private	String		ord_item_rt_pic;
+	
+	public String getOrd_item_rt_pic() {
+		return ord_item_rt_pic;
+	}
+	public void setOrd_item_rt_pic(String ord_item_rt_pic) {
+		this.ord_item_rt_pic = ord_item_rt_pic;
+	}
 	
 	public String getProd_id() {
 		return prod_id;
