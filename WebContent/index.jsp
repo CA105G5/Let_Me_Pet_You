@@ -86,7 +86,8 @@ System.out.println( "是否登入:"+ (memVO != null));
 								        <li><a href="<%=request.getContextPath()%>/index.jsp">查看我的救援案例</a></li>
 								        <li><a href="<%=request.getContextPath()%>/index.jsp">查看我的認養案例</a></li>
 								        <li><a href="<%=request.getContextPath()%>/index.jsp">查看我的失蹤寵物</a></li>
-								        <li><a href="<%=request.getContextPath()%>/index.jsp">查看我的捐贈紀錄</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">查看我的捐贈紀錄</a></li>
+										<li><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp">我的訂單管理</a></li>
 							</ul>
 						
 						</li>
@@ -103,34 +104,42 @@ System.out.println( "是否登入:"+ (memVO != null));
 							      	<ul>
 								    	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li>
 								        <li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">許願物資捐贈</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></li>
 								    </ul>
 						</li>
-						<li class="menu-has-children menu-active"><a href="">商城</a></li>
+						<li class="menu-has-children menu-active"><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li>
 <!-- 						<li><a href="contact.html">關於我們</a></li> -->
 <!-- 						<li><a href="elements.html">常見問題</a></li> -->
 					</ul>
 				</nav>
 				<%-- #nav-menu-container --%>
-			</div>
-		</div>
+						</div>
+					</div>
 				</div>
-				<div class="col-lg-3 col-sm-3 menu-top-right">
-				<% if(memVO == null){ %>
-				<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊">登入/註冊</a>
-				<%}else{ %>
-				<div align="center">
-				<a href="<%=request.getContextPath()%>/front-end/members/listAllNtfs.jsp"><i class="fa fa-bell"></i></a>
 				
-				<%
-					out.print(memVO.getMemb_nick()+"，你好");
-				%>
-				<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a><br>
 				
-				<a href="<%=request.getContextPath()%>/front-end/members/cur_dt.jsp">愛心幣餘額</a>
-				<% out.print("尚有:    "+memVO.getMemb_balance()+"元");}%>
-				</div>
+				<div class="col-lg-3 col-sm-3">
+					<div class="row">
+						<div id="cart-container" class="col-lg-1 col-sm-1">
+							<a id="cart_icon"><i class="fa fa-shopping-cart fa-1x" aria-hidden="true"></i></a>
+							<span id="itemCount"></span>
+						</div>
+						<div class="col-lg-11 col-sm-11 menu-top-right">
+							<% if(memVO == null){ %>
+							<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊">登入/註冊</a>
+							<%}else{ %>
+							<div align="center">
+								<a href="<%=request.getContextPath()%>/front-end/members/listAllNtfs.jsp"><i class="fa fa-bell"></i></a>
+								
+								<%
+									out.print(memVO.getMemb_nick()+"，你好");
+								%>
+								<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a><br>
+								
+								<a href="<%=request.getContextPath()%>/front-end/members/cur_dt.jsp">愛心幣餘額</a>
+								<% out.print("尚有:    "+memVO.getMemb_balance()+"元");}%>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
