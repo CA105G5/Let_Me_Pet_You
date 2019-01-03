@@ -401,7 +401,7 @@ public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 		
 //		//新增
 		AdoptApplyVO adoptApplyVO1 = new AdoptApplyVO();
-		adoptApplyVO1.setMemb_id("M000000002");
+		adoptApplyVO1.setMemb_id("M000000003");
 		adoptApplyVO1.setAdopt_id("A000000001");
 		adoptApplyVO1.setAdopt_des("認養案例描述");
 		dao.insert(adoptApplyVO1);

@@ -23,7 +23,7 @@ public class AdoptApplyJNDIDAO implements AdoptApplyDAO_Interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
