@@ -20,4 +20,5 @@ public interface RescueDAO_interface {
     byte[] getImage(String rsc_id);
     boolean updateCase(RescueVO rescueVO);
     boolean addCase(RescueVO rescueVO);
+    public List<RescueVO> getAllRescue();
 }

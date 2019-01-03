@@ -517,8 +517,8 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			pstmt.setString(1,new String("不通過"));
 			pstmt.setString(2,rsc_id);
 
-			int rowsUpdated = pstmt.executeUpdate();
-			System.out.println("Changed " + rowsUpdated + "rows");
+			pstmt.executeUpdate();
+//			System.out.println("Changed " + rowsUpdated + "rows");
 			//查出不通過的那些會員
 			pstmt2 = con.prepareStatement(GET_ALL_MEM);
 			pstmt2.setString(1, rsc_id);

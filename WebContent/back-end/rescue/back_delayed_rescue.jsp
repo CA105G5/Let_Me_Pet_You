@@ -181,7 +181,7 @@
                             <div class="card-header">
                                 <strong class="card-title">救援案例列表</strong>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" id="sss">
                             
                             
                             
@@ -384,13 +384,14 @@
      	//			 console.log($(this).attr('id'),$(this).val());
      				 $.ajax({
      				 type: "POST",
-     			 url: "<%=request.getContextPath()%>back-end/rescue/RescueAjax.do", 
+     			 url: "<%=request.getContextPath()%>/back-end/rescue/RescueAjax.do", 
      				 data:changeVlt_id($(this).attr('id'),$(this).val()),
      				 datatype:"json",
      				 error: function(){alert("AJAX-grade發生錯誤囉!")},
      				 success:function(data){
      					 
-     					
+     					$("#sss").html(dates);
+     					alert("已發送通知給志工!")
      				 }
      			 	})
      			})
