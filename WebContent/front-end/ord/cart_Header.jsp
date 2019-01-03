@@ -130,7 +130,7 @@ i.fa-shopping-cart:hover {
 		<div class="container">
 			<div class="row header-top align-items-center">
 				<div class="col-lg-3 col-sm-3 menu-top-left col-sm-offset-1">
-					<a href="index.html"> <img 
+					<a href="<%=request.getContextPath()%>/index.jsp"> <img 
 						src="<%=request.getContextPath()%>/horse_UI_template/img/logo2.png" width="250" alt="">
 					</a>
 				</div>

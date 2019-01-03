@@ -1,35 +1,19 @@
 <%@page import="com.mem.model.MemVO"%>
-<%@page import="java.util.*"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
-<!-- 	這版是套首頁的版本 -->
+	<!-- 	這版是套首頁的版本 -->
 <%  
-	Map<String, String[]> map = (Map<String, String[]>) request.getAttribute("map");
-	String[] prod_ani_type_id = null;
-	String[] prod_type_id = null;
-	String prod_price = null;
-	
-	if (map!=null){
-		Set<String> keys = map.keySet();
-		if (keys.contains("prod_ani_type_id")){
-			prod_ani_type_id = map.get("prod_ani_type_id");
-			System.out.println("prod_ani_type_id:");
-		}
-		if (keys.contains("prod_type_id")){
-			prod_type_id = map.get("prod_type_id");
-		}
-		if (keys.contains("prod_price")){
-			prod_price = map.get("prod_price")[0];
-		}
-	}
 	
 	MemVO memVO = (MemVO) session.getAttribute("memVO");
 	System.out.println("111111111111111111111111111="+session.getId());
 	System.out.println( "是否登入:"+ (memVO != null));
 	
 	
-	%>
+%>
+	
 	
 	
 	
@@ -80,10 +64,6 @@
 	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
 	crossorigin="anonymous">
-	
-<!-- sweetAlert -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
 
 <style type="text/css">
 	p {
@@ -96,37 +76,37 @@
 			monospace;
 	}
 	
-/* 	購物車icon */
-#cart-container {
-  float: right;
-  width: 100px;
-  position: relative;
-}
-
-#itemCount {
-  position: absolute;
-  display: none;
-  top: -10px;
-  left: -10px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: red;
-  color: white;
-  text-align: center;
-}
-
-i.fa-shopping-cart:hover {
-  cursor: pointer;
-}
 	
+	/* 	購物車icon */
+	#cart-container {
+	  float: right;
+	  width: 100px;
+	  position: relative;
+	}
+	
+	#itemCount {
+	  position: absolute;
+	  display: none;
+	  top: -10px;
+	  left: -10px;
+	  width: 20px;
+	  height: 20px;
+	  border-radius: 50%;
+	  background: red;
+	  color: white;
+	  text-align: center;
+	}
+	
+	i.fa-shopping-cart:hover {
+	  cursor: pointer;
+	}
 	
 	
 </style>
 </head>
 <body>
-
-	<header id="header" id="home" height="100">
+<% System.out.println("don_Header.jsp得到從addProdDon.jsp設定的屬性"+request.getAttribute("Test")); %>
+	<header id="header" id="home">
 		<div class="container">
 			<div class="row header-top align-items-center">
 				<div class="col-lg-3 col-sm-3 menu-top-left">
@@ -140,7 +120,7 @@ i.fa-shopping-cart:hover {
 							<nav id="nav-menu-container">
 								<ul class="nav-menu">
 									<li><a href="<%=request.getContextPath()%>/index.jsp">首頁</a></li>
-									<li><a href="<%=request.getContextPath()%>/index.jsp">會員</a>
+									<li class="menu-active"><a href="<%=request.getContextPath()%>/index.jsp">會員</a>
 										<ul>
 											<li><a href="<%=request.getContextPath()%>/front-end/members/listOneMember.jsp">查看會員資料</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/pet/pet.do?action=select_pet">查看我的寵物資料</a></li>
@@ -166,7 +146,7 @@ i.fa-shopping-cart:hover {
 											<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li>
 										</ul>
 									</li>
-									<li class="menu-active"><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li>
 		<!-- 						<li><a href="contact.html">關於我們</a></li> -->
 		<!-- 						<li><a href="elements.html">常見問題</a></li> -->
 								</ul>
@@ -175,8 +155,9 @@ i.fa-shopping-cart:hover {
 						</div>
 					</div>
 				</div>
-				
-				
+
+
+
 				<div class="col-lg-3 col-sm-3">
 					<div class="row">
 						<div id="cart-container" class="col-lg-1 col-sm-1">
@@ -204,58 +185,27 @@ i.fa-shopping-cart:hover {
 			</div>
 		</div>
 		<hr>
-			    
+		
 		
 		<div class="container">
 			<div class="row">
 
-			
 			<!-- 左側邊list-group -->
 			<div class="col-xs-12 col-sm-3">
 				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
-					<h3>商品分類</h3>
+					<h3>捐贈紀錄</h3>
 					<hr>
-					    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" name="form1">
-					        <h5><b>選擇動物:</b></h5>
-						        <label><input type="checkbox" name="prod_ani_type_id" value="貓"> 貓</label>　　
-								<label><input type="checkbox" name="prod_ani_type_id" value="狗"> 狗</label>　<br>
-								<label><input type="checkbox" name="prod_ani_type_id" value="兔"> 兔</label>　　
-								<label><input type="checkbox" name="prod_ani_type_id" value="飛禽"> 飛禽</label>　<br>
-								<label><input type="checkbox" name="prod_ani_type_id" value="其他"> 其他</label>　<br>
-					        <hr>
-					       	<h5><b>選擇商品種類:</b></h5>
-					       		<label><input type="checkbox" name="prod_type_id" value="食" > 食</label>　　
-								<label><input type="checkbox" name="prod_type_id" value="衣" > 衣</label>　<br>
-								<label><input type="checkbox" name="prod_type_id" value="住" > 住</label>　　
-								<label><input type="checkbox" name="prod_type_id" value="行" > 行</label>　<br>
-								<label><input type="checkbox" name="prod_type_id" value="育" > 育</label>　　
-								<label><input type="checkbox" name="prod_type_id" value="樂" > 樂</label>　<br>
-<%-- 					        <%= Arrays.asList(prod_type_id).contains("樂")? "checked":"" %> --%>
-					        
-					        <hr>
-					       	<h5><b>選擇價格區間:</b></h5>
-					       		<label><input type="radio" name="prod_price" value="0 and 50" <%= "0 and 50".equals(prod_price)? "checked":"" %> > $ 50以下</label>　<br>
-								<label><input type="radio" name="prod_price" value="50 and 100" <%= "50 and 100".equals(prod_price)? "checked":"" %>> $ 50~100</label>　<br>
-								<label><input type="radio" name="prod_price" value="101 and 200" <%= "101 and 200".equals(prod_price)? "checked":"" %>> $ 101~200</label>　<br>
-								<label><input type="radio" name="prod_price" value="200" <%= "200".equals(prod_price)? "checked":"" %>> $ 200以上</label>　<br>
-							<br>
-							<input type="submit" value="查詢">
-        					<input type="hidden" name="action" value="listAll_ByCompositeQuery">
-					    
-					     </FORM>
-
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心捐款紀錄</a></h5>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄</a></h5>
+					<hr>
 				</div>
 			</div>
-			
-			
-			
 		</div>
 	</div>
 
 	</header>
 	<!-- #header -->
-	<br>
-	<br>
 
 	<br>
 	<br>
@@ -263,6 +213,9 @@ i.fa-shopping-cart:hover {
 	<br>
 	<br>
 
+	<br>
+	<br>
+	
 	
 <!-- 	購物車 -->
 <script>
@@ -274,6 +227,27 @@ i.fa-shopping-cart:hover {
 // 	}); 
 	
 </script>
+
+<!-- 	顯示購物車數量 -->
+	<script>
+		$(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodcart.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) > 0){
+						console.log("parseInt = " + parseInt(res));
+						$('#itemCount').html(res).css('display', 'block');
+					} 
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+	</script>
 
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 	<script

@@ -1,3 +1,4 @@
+<%@page import="com.mem.model.MemVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ page import="com.prodimg.model.ProdImgService"%>
 <%@ page import="com.prodimg.model.ProdImgVO"%>
@@ -14,6 +15,12 @@
 	System.out.println("listOneProd.jsp得到從ProdServlet.java傳過來的屬性"+request.getAttribute("Test"));
 	System.out.println("listOneProd.jsp得到從ProdServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
 	System.out.println("listOneProd.jsp得到從ProdServlet.java傳過來的請求參數值"+request.getParameter("prod_id"));
+%>
+
+<%
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
+	System.out.println("111111111111111111111111111="+session.getId());
+	System.out.println( "是否登入:"+ (memVO != null));
 %>
 <jsp:useBean id="prodSvc" scope="page" class="com.prod.model.ProdService" />
 
@@ -376,57 +383,76 @@ $.ajax({
 
 // 加入/取消追蹤 & 愛心切換
 $("#favBtn").click(function(){
-	++t;
 	console.log("favfavfav");
 	console.log('${prodVO.prod_id}');
+	++t;
 	
-	if (t%2==1){
-		
-		$.ajax({
-			url: '<%=request.getContextPath()%>/prodtrack.do',
-			type: "get",
-			data: { 'action': 'addFav', 'prod_id': '${prodVO.prod_id}' },
-			dataType: 'json',
-			success: function(res){
-				console.log("success="+res);
-				if (res==0){
-					alert("請登入");
-				} else {
-					$("#heart").attr("class", "glyphicon glyphicon-heart");
-					console.log("11111");
-					alert("商品已加入追蹤");
-					swal("完成", "商品已加入追蹤", "success").catch(swal.noop);
+<%-- 	if (<%= memVO == null%>){ --%>
+// 		swal({
+//             title: "請先登入",
+//             html: "按下確定後前往登入畫面",
+//             type: "warning", // type can be "success", "error", "warning", "info", "question"
+//             showCancelButton: true,
+//         	showCloseButton: true,
+//         }).then(
+//         	   function (result) {
+//                 if (result) {
+<%--                 	window.location.href = "<%=request.getContextPath()%>/front-end/members/login.jsp"; --%>
+//                 }
+//         }, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+//         		swal("取消", "取消登入", "error");
+//         }).catch(swal.noop);
+// 	} else{
+		if (t%2==1){
+			
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodtrack.do',
+				type: "get",
+				data: { 'action': 'addFav', 'prod_id': '${prodVO.prod_id}' },
+				dataType: 'json',
+				success: function(res){
+					console.log("success="+res);
+					if (res==0){
+						alert("請登入");
+					} else {
+						$("#heart").attr("class", "glyphicon glyphicon-heart");
+						console.log("11111");
+//	 					alert("商品已加入追蹤");
+						swal("完成", "商品已加入追蹤", "success").catch(swal.noop);
+					}
+				},
+				error: function(res){
+					console.log("error="+res);
 				}
-			},
-			error: function(res){
-				console.log("error="+res);
-			}
-		
-		});
-	} else {
-		
-		$.ajax({
-			url: '<%=request.getContextPath()%>/prodtrack.do',
-			type: "get",
-			data: { 'action': 'cancelFav', 'prod_id': '${prodVO.prod_id}' },
-			dataType: 'json',
-			success: function(res){
-				console.log("success="+res);
-				if (res==0){
-					alert("請登入");
-				} else {
-					$("#heart").attr("class", "glyphicon glyphicon-heart-empty");
-					console.log("22222");
-					alert("商品已取消追蹤");
-					swal("完成", "商品已取消追蹤", "warning").catch(swal.noop);
+			
+			});
+		} else {
+			
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodtrack.do',
+				type: "get",
+				data: { 'action': 'cancelFav', 'prod_id': '${prodVO.prod_id}' },
+				dataType: 'json',
+				success: function(res){
+					console.log("success="+res);
+					if (res==0){
+						alert("請登入");
+					} else {
+						$("#heart").attr("class", "glyphicon glyphicon-heart-empty");
+						console.log("22222");
+//	 					alert("商品已取消追蹤");
+						swal("完成", "商品已取消追蹤", "warning").catch(swal.noop);
+					}
+				},
+				error: function(res){
+					console.log("error="+res);
 				}
-			},
-			error: function(res){
-				console.log("error="+res);
-			}
-		
-		});
-	}
+			
+			});
+		}
+// 	}
+	
+	
 });
 
   
@@ -490,7 +516,7 @@ var c=0;
 				$("#cartBtn").html("前往結帳");
 			}
 			if(c>=2){
-				$("#cartBtn").attr("href", "<%=request.getContextPath()%>/prodcart.do?action=check_Cart");
+				$("#cartBtn").attr('href', '<%=request.getContextPath()%>/prodcart.do?action=check_Cart');
 			}
 			
 		}

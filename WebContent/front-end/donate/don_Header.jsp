@@ -1,5 +1,22 @@
+<%@page import="com.mem.model.MemVO"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+	<!-- 	這版是套首頁的版本 -->
+<%  
+	
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
+	System.out.println("111111111111111111111111111="+session.getId());
+	System.out.println( "是否登入:"+ (memVO != null));
+	
+	
+%>
+	
+	
+	
+	
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -58,6 +75,34 @@
 		font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
 			monospace;
 	}
+	
+	/* 	購物車icon */
+	#cart-container {
+	  float: right;
+	  width: 100px;
+	  position: relative;
+	}
+	
+	#itemCount {
+	  position: absolute;
+	  display: none;
+	  top: -10px;
+	  left: -10px;
+	  width: 20px;
+	  height: 20px;
+	  border-radius: 50%;
+	  background: red;
+	  color: white;
+	  text-align: center;
+	}
+	
+	i.fa-shopping-cart:hover {
+	  cursor: pointer;
+	}
+	
+	
+	
+	
 </style>
 </head>
 <body>
@@ -66,82 +111,82 @@
 		<div class="container">
 			<div class="row header-top align-items-center">
 				<div class="col-lg-3 col-sm-3 menu-top-left">
-					<a href="index.html"> <img class="img-fluid"
+					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid"
 						src="<%=request.getContextPath()%>/horse_UI_template/img/logo2.png" width="200" alt="">
 					</a>
 				</div>
-<!-- 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex"> -->
-<!-- 					<div class="input-group"> -->
-<!-- 						<input type="text" class="form-control" placeholder="請輸入關鍵字"> -->
-<!-- 						<span class="input-group-btn"> -->
-<!-- 							<button class="btn btn-info" type="button"> -->
-<!-- 								<i class="glyphicon glyphicon-search"></i> -->
-<!-- 							</button> -->
-<!-- 						</span> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-
-
-				<div class="col-lg-6 menu-top-middle justify-content-center d-flex"> 
-<!-- 					<div class="row align-items-center justify-content-center d-flex"> -->
-<!-- 						<nav id="nav-menu-container"> -->
-							<ul class="nav-menu">
-						    	<li><a href="index.html">首頁</a></li>
-						       	<li><a href="about.html">救援</a></li>
-						        <li><a href="service.html">認養</a></li>				          
-						        <li><a href="training.html">失蹤</a></li>
-						        <li><a href="events.html">協尋</a></li>
-						        <li class="menu-has-children menu-active"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a>
-							      	<ul>
-								    	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">許願物資捐贈</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></li>
-								    </ul>
-								</li>
-								<li><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li>
-								<li><a href="contact.html">關於我們</a></li>
-								<li><a href="elements.html">常見問題</a></li>
-							</ul>
-<!-- 						</nav>#nav-menu-container		    		 -->
-<!-- 					</div> -->
+				<div class="col-lg-6 menu-top-middle justify-content-center d-flex">
+					<div class="container">
+						<div class="row align-items-center justify-content-center d-flex">
+							<nav id="nav-menu-container">
+								<ul class="nav-menu">
+									<li><a href="<%=request.getContextPath()%>/index.jsp">首頁</a></li>
+									<li><a href="<%=request.getContextPath()%>/index.jsp">會員</a>
+										<ul>
+											<li><a href="<%=request.getContextPath()%>/front-end/members/listOneMember.jsp">查看會員資料</a></li>
+											<li><a href="<%=request.getContextPath()%>/front-end/pet/pet.do?action=select_pet">查看我的寵物資料</a></li>
+											<li><a href="<%=request.getContextPath()%>/index.jsp">查看我的救援案例</a></li>
+											<li><a href="<%=request.getContextPath()%>/index.jsp">查看我的認養案例</a></li>
+											<li><a href="<%=request.getContextPath()%>/index.jsp">查看我的失蹤寵物</a></li>
+											<li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">查看我的捐贈紀錄</a></li>
+											<li><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp">我的訂單管理</a></li>
+										</ul>
+									</li>
+									<li><a href="about.html">救援</a></li>
+									<li><a href="service.html">認養</a></li>
+									<li><a href="training.html">失蹤</a>
+								    	<ul>
+											<li><a href="<%=request.getContextPath()%>/front-end/missingCase/addMissing.jsp">新增失蹤案例</a></li>
+											<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤案例瀏覽</a></li>
+										</ul>
+									</li>
+								
+									<li class="menu-has-children menu-active"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a>
+										<ul>
+											<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li>
+											<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li>
+										</ul>
+									</li>
+									<li><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li>
+		<!-- 						<li><a href="contact.html">關於我們</a></li> -->
+		<!-- 						<li><a href="elements.html">常見問題</a></li> -->
+								</ul>
+							</nav>
+				<%-- #nav-menu-container --%>
+						</div>
+					</div>
 				</div>
 
 
 
-				<div class="col-lg-3 col-sm-3 menu-top-right">
-					<a class="tel">會員登入/ 註冊</a> <a href="#"><span
-						class="fa fa-user"></span></a>
-					<!-- style="font-size: 1.5rem;" -->
+				<div class="col-lg-3 col-sm-3">
+					<div class="row">
+						<div id="cart-container" class="col-lg-1 col-sm-1">
+							<a id="cart_icon"><i class="fa fa-shopping-cart fa-1x" aria-hidden="true"></i></a>
+							<span id="itemCount"></span>
+						</div>
+						<div class="col-lg-11 col-sm-11 menu-top-right">
+							<% if(memVO == null){ %>
+							<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊">登入/註冊</a>
+							<%}else{ %>
+							<div align="center">
+								<a href="<%=request.getContextPath()%>/front-end/members/listAllNtfs.jsp"><i class="fa fa-bell"></i></a>
+								
+								<%
+									out.print(memVO.getMemb_nick()+"，你好");
+								%>
+								<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a><br>
+								
+								<a href="<%=request.getContextPath()%>/front-end/members/cur_dt.jsp">愛心幣餘額</a>
+								<% out.print("尚有:    "+memVO.getMemb_balance()+"元");}%>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 		<hr>
 		
-<!-- 		<div class="container">	 -->
-<!-- 			<div class="row align-items-center justify-content-center d-flex"> -->
-<!-- 				<nav id="nav-menu-container"> -->
-<!-- 					<ul class="nav-menu"> -->
-<!-- 				    	<li><a href="index.html">首頁</a></li> -->
-<!-- 				       	<li><a href="about.html">救援</a></li> -->
-<!-- 				        <li><a href="service.html">認養</a></li>				           -->
-<!-- 				        <li><a href="training.html">失蹤</a></li> -->
-<!-- 				        <li><a href="events.html">協尋</a></li> -->
-<%-- 				        <li class="menu-has-children menu-active"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a> --%>
-<!-- 				        	<ul> -->
-<%-- 				            	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li> --%>
-<%-- 				            	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li> --%>
-<%-- 				            	<li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">許願物資捐贈</a></li> --%>
-<%-- 				            	<li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></li> --%>
-<!-- 				            </ul> -->
-<!-- 				        </li> -->
-<%-- 				        <li><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li> --%>
-<!-- 				        <li><a href="contact.html">關於我們</a></li> -->
-<!-- 				        <li><a href="elements.html">常見問題</a></li> -->
-<!-- 				     </ul> -->
-<!-- 				 </nav>#nav-menu-container		    		 -->
-<!-- 			</div> -->
-<!-- 		</div> -->
 		
 		<div class="container">
 			<div class="row">
@@ -154,10 +199,6 @@
 					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></h5>
 					<hr>
 					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">許願物資捐贈</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></h5>
 					<hr>
 				</div>
 			</div>
@@ -175,27 +216,39 @@
 
 	<br>
 	<br>
-
-	<!-- 	starting side-bar -->
 	
-	<!-- 	end side-bar -->
+	
+<!-- 	購物車 -->
+<script>
+// 	var itemCount = 0;
+	
+// 	$('#cartBtn').click(function (){
+// 	  itemCount ++;
+// 	  $('#itemCount').html(itemCount).css('display', 'block');
+// 	}); 
+	
+</script>
 
-	<!-- start banner Area -->
-	<!-- 12/16加上style="display: none" 移除封面 -->
-	<section class="banner-area relative" id="home" style="display: none">
-		<div class="overlay overlay-bg"></div>
-		<div class="container">
-			<div class="row d-flex align-items-center justify-content-center">
-				<div class="about-content col-lg-12">
-					<h1 class="text-white">Training Programs</h1>
-					<p class="text-white link-nav">
-						<a href="index.html">Home </a> <span class="lnr lnr-arrow-right"></span>
-						<a href="training.html"> Training Programs</a>
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
+<!-- 	顯示購物車數量 -->
+	<script>
+		$(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodcart.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) > 0){
+						console.log("parseInt = " + parseInt(res));
+						$('#itemCount').html(res).css('display', 'block');
+					} 
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+	</script>
 
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 	<script

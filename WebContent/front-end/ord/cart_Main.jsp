@@ -14,6 +14,7 @@
 	System.out.println("cartMap.size()= " + cartMap.size());
 	Integer amount  = (Integer) session.getAttribute("amount");
 	System.out.println("amount= " + amount);
+	System.out.println("location=" + request.getRequestURI());
 %>
 <jsp:useBean id="prodSvc" scope="page" class="com.prod.model.ProdService" />
 
@@ -55,7 +56,7 @@ div {
       	<div class="title">
         	購物車清單
      	</div>
-     	<form method="post" action="<%=request.getContextPath()%>/prodcart.do" >
+     	<form method="post" action="<%=request.getContextPath()%>/prodcart2.do" >
 		<c:forEach var="prod_id" items="${cartMap.keySet()}">
 <%-- 		"prod_id=" + ${prod_id} --%>
 	      <!-- Product #1 -->
@@ -385,29 +386,6 @@ div {
 	        	
 	    });
 	   
-	   
-	   //按下一步時
-	    $('#receiver').on('click', function() {
-	        console.log("購物車移除商品"+$(this).next().attr("id"));
-	        
-		// 透過ajax將更新內容儲存至redis資料庫
-	        $.ajax({
-	    		url: '<%=request.getContextPath()%>/prodcart.do',
-	    		type: "get",
-	    		data: { 'action': 'remove', 'prod_id': $(this).next().attr("id")},
-	    		dataType: 'json',
-	    		success: function(res){
-	    			console.log("success="+res);
-	    			console.log("22222");
-	    		},
-	    		error: function(res){
-	    			console.log("error="+res);
-	    		}
-	    		
-	    	});
-	        $(this).parent().parent().remove();
-	        	
-	    });
 	   
    
     </script>
