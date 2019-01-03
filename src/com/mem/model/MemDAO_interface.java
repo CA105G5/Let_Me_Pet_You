@@ -15,6 +15,8 @@ public interface MemDAO_interface {
 	public MemVO findByPrimaryKey(String memb_id);
 	public MemVO findByAccount(String memb_acc);
 	public List<MemVO> getAll();
+
+	
 	
 	//安卓功能
 	boolean isMemAcc(String memb_acc, String memb_psw);//確認會員存在

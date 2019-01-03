@@ -1,7 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<% String flag = (String) request.getAttribute("mail"); %>
+<% String flag = (String) request.getAttribute("mail"); 
+	
+
+
+%>
 
 <html>
 <head>
@@ -46,55 +50,56 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
 </head>
 <body>
-<header id="header" id="home">
-				<div class="container">
-			<div class="row header-top align-items-center">
-				<div class="col-lg-4 col-sm-4 menu-top-left">
-					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid"
-						src="images/logo2.png" width="200" alt="">
-					</a>
-				</div>
-				<div class="col-lg-4 menu-top-middle justify-content-center d-flex">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="請輸入關鍵字">
-						<span class="input-group-btn">
-							<button class="btn btn-info" type="button">
-								<i class="glyphicon glyphicon-search"></i>
-							</button>
-						</span>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-4 menu-top-right">
-				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a>
+<jsp:include page="/front-end/members/member_header.jsp" flush="true" />
+<!-- <header id="header" id="home"> -->
+<!-- 				<div class="container"> -->
+<!-- 			<div class="row header-top align-items-center"> -->
+<!-- 				<div class="col-lg-4 col-sm-4 menu-top-left"> -->
+<%-- 					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid" --%>
+<!-- 						src="images/logo2.png" width="200" alt=""> -->
+<!-- 					</a> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex"> -->
+<!-- 					<div class="input-group"> -->
+<!-- 						<input type="text" class="form-control" placeholder="請輸入關鍵字"> -->
+<!-- 						<span class="input-group-btn"> -->
+<!-- 							<button class="btn btn-info" type="button"> -->
+<!-- 								<i class="glyphicon glyphicon-search"></i> -->
+<!-- 							</button> -->
+<!-- 						</span> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-lg-4 col-sm-4 menu-top-right"> -->
+<!-- 				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a> -->
 					
-				</div>
-			</div>
-		</div>
-		<hr>
-			    <div class="container">
-			<div class="row align-items-center justify-content-center d-flex">
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<li><a href="<%=request.getContextPath()%>/index.jsp">首頁</a></li>
-						<li><a href="about.html">救援</a></li>
-						<li><a href="service.html">認養</a></li>
-						<li><a href="training.html">失蹤</a></li>
-						<li><a href="events.html">協尋</a></li>
-						<li><a href="pricing.html">捐贈</a>
-							<ul>
-								<li><a href="blog-home.html">愛心捐款</a></li>
-								<li><a href="blog-single.html">愛心物資捐贈</a></li>
-								<li><a href="blog-single.html">許願物資捐贈</a></li>
-							</ul></li>
-						<li class="menu-has-children menu-active"><a href="">商城</a></li>
-						<li><a href="contact.html">關於我們</a></li>
-						<li><a href="elements.html">常見問題</a></li>
-					</ul>
-				</nav>
-				<%-- #nav-menu-container --%>
-			</div>
-		</div>
-			  </header><!-- #header -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<hr> -->
+<!-- 			    <div class="container"> -->
+<!-- 			<div class="row align-items-center justify-content-center d-flex"> -->
+<!-- 				<nav id="nav-menu-container"> -->
+<!-- 					<ul class="nav-menu"> -->
+<%-- 						<li><a href="<%=request.getContextPath()%>/index.jsp">首頁</a></li> --%>
+<!-- 						<li><a href="about.html">救援</a></li> -->
+<!-- 						<li><a href="service.html">認養</a></li> -->
+<!-- 						<li><a href="training.html">失蹤</a></li> -->
+<!-- 						<li><a href="events.html">協尋</a></li> -->
+<!-- 						<li><a href="pricing.html">捐贈</a> -->
+<!-- 							<ul> -->
+<!-- 								<li><a href="blog-home.html">愛心捐款</a></li> -->
+<!-- 								<li><a href="blog-single.html">愛心物資捐贈</a></li> -->
+<!-- 								<li><a href="blog-single.html">許願物資捐贈</a></li> -->
+<!-- 							</ul></li> -->
+<!-- 						<li class="menu-has-children menu-active"><a href="">商城</a></li> -->
+<!-- 						<li><a href="contact.html">關於我們</a></li> -->
+<!-- 						<li><a href="elements.html">常見問題</a></li> -->
+<!-- 					</ul> -->
+<!-- 				</nav> -->
+<%-- 				#nav-menu-container --%>
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 			  </header>#header -->
 			  
 			  <br><br><br><br><br><br><br><br><br>
 
@@ -135,14 +140,16 @@
     <%if ("yes".equals(flag)){%>
     	<script>
 	//自訂預設值
-	swal.setDefaults({
-		title: "確定刪除？",
-        html: "按下確定後資料會永久刪除",
-        type: "success", // type can be "success", "error", "warning", "info", "question"
-    	showCloseButton: true
-	});
+	swal({
+	            title: "已經寄送新密碼",
+	            html: "請前往信箱確認",
+	            type: "success", // type can be "success", "error", "warning", "info", "question"
+	            
+	        		showCloseButton: true,
+	        });
 	</script>
-    <%} %>
+	
+    <% flag = "";} %>
     
     
     
@@ -173,8 +180,8 @@
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 
 <%-- RWD--%>
-<script src="https://code.jquery.com/jquery.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery.js"></script> -->
+<!-- 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 			
 			
 			
