@@ -353,6 +353,11 @@ public class MemServlet extends HttpServlet {
 				MemVO memVO = new MemVO();
 				memVO.setMemb_acc(memb_acc);
 				memVO.setMemb_psw(memb_psw);
+				
+				HttpSession session = req.getSession();
+				
+				System.out.println("location=" + (String) session.getAttribute("location"));
+				
 				if(!errorMsgs.isEmpty()) {
 					req.setAttribute("memVO", memVO);
 					RequestDispatcher failureView = 
@@ -366,13 +371,16 @@ public class MemServlet extends HttpServlet {
 					memVO = memSvc.getMemSelf(memb_acc);
 					if(memb_psw.equals(memVO.getMemb_psw())) {
 						//登入成功
-						HttpSession session = req.getSession();
 						session.setAttribute("memVO", memVO);
 						
 						try {                                                        
 					         String location = (String) session.getAttribute("location");
 					         if (location != null) {
 					           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+					           if ("/CA105G5_Jen/front-end/ord/cart_Receiver.jsp".equals(location)) {
+					        	   res.sendRedirect("/CA105G5_Jen/prodcart.do?action=check_Cart");
+					        	   return;
+					           }
 					           res.sendRedirect(location);            
 					           return;
 					         }
