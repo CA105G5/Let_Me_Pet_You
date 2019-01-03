@@ -183,7 +183,7 @@
 
   <div id="toBeReviewed" class="w3-container city" style="display:''; width:1100px">
  	<p> </p> 
-    <table id="bootstrap-data-table2" class="table table-striped table-bordered table-hover" style="width:100%">
+    <table style="text-align:center" id="bootstrap-data-table2" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
 														<tr class="success">
 															<th style="width: 30px">序號</th>
@@ -211,17 +211,7 @@
 																	<td style=" margin-bottom: auto">${regionSvc.getOneRegion(rescueVO.rsc_reg).reg_name}</td>
 																	<td style=" margin-bottom: auto"><fmt:formatDate value="${rescueVO.rsc_btime}" type="both" /></td>
 																	<td style=" margin-bottom: auto">${rescueVO.rsc_sta}</td>
-
-<!-- 																	<td> -->
-<%-- 																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto"> --%>
-<!-- 																		<input type="submit" value="審核" id="review"> -->
-<%-- 																		<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%>
-<%-- 																		<input type="hidden" name="prod_id"  value="${prodVO.prod_id}"> --%>
-<!-- 																		<input type="hidden" name="tab"  value="1"> -->
-<!-- 																		<input type="hidden" name="location"  value="back"> -->
-<!-- 																		<input type="hidden" name="action"	value="getOne_For_Update"></FORM> -->
-<!-- 																	</td> -->
-																</tr>
+                                                                 </tr>
 															</c:if>
 														</c:forEach>
 													</tbody>
