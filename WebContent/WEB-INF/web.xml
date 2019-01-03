@@ -235,7 +235,7 @@
     <servlet-name>missingCaseAjax</servlet-name>
     <servlet-class>com.missingCase.controller.missingCaseAjax</servlet-class>
   </servlet>
-  <servlet-mapping>
+  <servlet-mapping> 
     <servlet-name>missingCaseAjax</servlet-name>
     <url-pattern>/missingCaseAjax.do</url-pattern>
   </servlet-mapping>
