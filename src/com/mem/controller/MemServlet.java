@@ -375,14 +375,21 @@ public class MemServlet extends HttpServlet {
 						
 						try {                                                        
 					         String location = (String) session.getAttribute("location");
+					         String adopt = (String) session.getAttribute("adopt");
 					         if (location != null) {
 					           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-					           if ("/CA105G5_Jen/front-end/ord/cart_Receiver.jsp".equals(location)) {
+					           if ("/CA105G5/front-end/ord/cart_Receiver.jsp".equals(location)) {
 					        	   res.sendRedirect("/CA105G5_Jen/prodcart.do?action=check_Cart");
 					        	   return;
 					           }
 					           res.sendRedirect(location);            
 					           return;
+					         }
+					         if (adopt != null) {
+					        	 session.removeAttribute("adopt");   //*工作3: 看看周伯 (-->如有來源網頁:則重導至來源網頁)
+					        		 res.sendRedirect(adopt);
+					        		 return;
+					        	
 					         }
 					       }catch (Exception ignored) { 
 					    	   

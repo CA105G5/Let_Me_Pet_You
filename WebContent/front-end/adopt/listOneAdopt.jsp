@@ -13,6 +13,9 @@
 	List<AdoptMsgVO> list = adoptMsgSvc.findByAdopt(adopt_id);
 	pageContext.setAttribute("list", list);
 	MemVO membVO = (MemVO) session.getAttribute("memVO");
+	
+	String url = request.getContextPath() +"/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id;
+	session.setAttribute("adopt",url);
 %>
 <html>
 <head>
@@ -31,12 +34,6 @@
 <!-- Site Title -->
 <title>Adopt</title>
 
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
-	rel="stylesheet">
-<!--
-			CSS
-			============================================= -->
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet"
@@ -50,10 +47,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
-<script src="js/jquery-1.12.3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/ckeditor2/ckeditor.js"></script>
 </head>
 <body>
 
@@ -104,8 +98,8 @@
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLongTitle"
-											style="margin-left: 200px;">請輸入申請原因:</h5>
+										<h3 class="modal-title" id="exampleModalLongTitle"
+											style="margin-left: 150px;">請輸入申請原因:</h3>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-label="Close">
 											<span aria-hidden="true">&times;</span>
@@ -115,20 +109,19 @@
 										<form METHOD="post"
 											ACTION="<%=(membVO == null)
   					? request.getContextPath() + "/front-end/members/login.jsp" 
- 					: "http://localhost:8081/CA105G5/front-end/missingCase/reportMissing.do"%>"> 
+ 					: request.getContextPath()+"/AdoptApply.do"%>"> 
 											<div class="input-group mb-3">
-												<input type="text" class="form-control"
-													name="report_missing_cont" aria-label="Default"
-													aria-describedby="inputGroup-sizing-default">
+										<textarea class="single-textarea form-group"
+									name="adopt_des" placeholder="Messege"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Messege'"></textarea>
+												<script> CKEDITOR.replace( 'adopt_des', {}); </script> 	
 											</div>
-											<input type="hidden" name="missing_case_id"
-												value="<%=request.getParameter("missing_case_id")%>">
+											<input type="hidden" name="adopt_id"
+												value="<%=request.getParameter("adopt_id")%>">
 											<input type="hidden" name="memb_id"
 												value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
-											<input type="hidden" name="report_missing_sta" value="待審核">
-											<input type="hidden" name="report_missing_time"
-												value="<%=report_missing_time%>"> <input
-												type="hidden" name="action" value="insert">
+											 <input type="hidden" name="action" value="insert">
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
@@ -331,5 +324,6 @@
 		type="text/javascript"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/jquery-1.12.3.min.js"></script>
 </body>
 </html>

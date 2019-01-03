@@ -59,7 +59,7 @@
 </head>
 <body>
 
-	<jsp:include page="<%=request.getContextPath() %>/index_Header.jsp"
+	<jsp:include page="/index_Header.jsp"
 		flush="true" />
 
 	<!-- End banner Area -->

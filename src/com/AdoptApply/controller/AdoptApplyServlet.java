@@ -37,6 +37,9 @@ public class AdoptApplyServlet extends HttpServlet {
 
 				String adopt_des = req.getParameter("adopt_des");
 
+				System.out.println(memb_id);
+				System.out.println(adopt_id);
+				System.out.println(adopt_des);
 				if (adopt_des == null || adopt_des.trim().length() == 0) {
 					errorMsgs.add("申請理由請勿空白");
 				}
@@ -55,6 +58,7 @@ public class AdoptApplyServlet extends HttpServlet {
 					return;
 				}
 				/*************************** 2.開始新增資料 ***************************************/
+				System.out.println("988889898898989898");
 				AdoptApplyService adoptApplySvc = new AdoptApplyService();
 				adoptApplyVO = adoptApplySvc.addApply(memb_id, adopt_id, adopt_des);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
