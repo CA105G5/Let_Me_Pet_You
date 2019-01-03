@@ -80,6 +80,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <!-- w3 CSS tabs -->
+<!-- sweetAlert -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
 
 
 
@@ -220,7 +223,7 @@
 														<c:forEach var="rescueVO" items="${rescueDelayList}">
 															<c:if test="${(rescueVO.rsc_sta =='待救援' or rescueVO.rsc_sta == '救援中')&&(rescueVO.vlt_id == null)}" var="condition" scope="page">
 																<% no++; %>
-																<tr>
+																<tr id='${rescueVO.rsc_id}'>
 																	<td><%=no %></td>
 																	<td><img style="width:150px;height:150px" class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="" style="margin-bottom: auto"></td>
 																	<td style=" margin-bottom: auto">${rescueVO.rsc_id}</td>
@@ -381,28 +384,60 @@
         	$('#bootstrap-data-table2').DataTable();
         	
         	 $('.status').change(function(){
-     	//			 console.log($(this).attr('id'),$(this).val());
-     				 $.ajax({
-     				 type: "POST",
-     			 url: "<%=request.getContextPath()%>/back-end/rescue/RescueAjax.do", 
-     				 data:changeVlt_id($(this).attr('id'),$(this).val()),
-     				 datatype:"json",
-     				 error: function(){alert("AJAX-grade發生錯誤囉!")},
-     				 success:function(data){
-     					 
-     					$("#sss").html(dates);
-     					alert("已發送通知給志工!")
-     				 }
-     			 	})
-     			})
+        		 var $this = $(this);
+        		 console.log("$this=" + $this);
+        		 console.log("$this.val()=" + $this.val());
+        		 swal({
+        			  title: "確定分派給此志工嗎?",
+        			  text: "分派後無法更換志工!",
+        			  type: "warning",
+        			  showCancelButton: true,
+  		        	  showCloseButton: true,
+        			}).then(
+        			function(result){
+        			  if (result) {
+        				  console.log("11111");
+        				  $.ajax({
+        	     		     type: "POST",
+        	     			 url: "<%=request.getContextPath()%>/back-end/rescue/RescueAjax.do", 
+        	     			 data:{"action":"getChange","rsc_id":$this.attr('id'),"vlt_id":$this.val()},
+        	     			 datatype:"json",
+        	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+        	     			 success:function(data){
+        	     				swal({
+	    				    	     title: "完成分派!",
+	    				    	     text: "已發通知給志工",
+	    				    	     type: "success",
+	    				    	    
+	    				    	}).then(
+	    				    			function(result){
+	    				    		if(result){
+	    				    		setTimeout("window.location.reload()",100);
+	    				    	}
+	    				    		}
+	    				    			)
+ 	        	     			 
+        	     				
+
+        	     			 }
+        	     		 }) 
+        			  }
+        			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+	            		swal("取消", "取消收貨", "error");
+		        }).catch(swal.noop);
+		    });
+       		
+     			function changeVlt_id(rsc_id,vlt_id){
+	     			var cVlt_id = {"action":"getChange","rsc_id":rsc_id,"vlt_id":vlt_id};
+	     			return cVlt_id;
+     			}
+	
+     			
+     			
       	});
 		
 		
-		function changeVlt_id(rsc_id,vlt_id){
-			var cVlt_id = {"action":"getChange","rsc_id":rsc_id,"vlt_id":vlt_id};
-			return cVlt_id;
-		}
-
+		
   	</script>
   	<!-- backend datatable  -->
   	

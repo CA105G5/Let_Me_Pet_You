@@ -1,12 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.mem.model.*"%>
-<%
-  MemVO memVO = (MemVO) session.getAttribute("memVO");
-System.out.println("222222222222222222222="+session.getId());
-System.out.println( memVO == null);
-System.out.println("222222222222222222222");
-%>
+
+<% String flag = (String) request.getAttribute("mail"); %>
+
 <html>
 <head>
 <%-- Mobile Specific Meta --%>
@@ -45,7 +41,9 @@ System.out.println("222222222222222222222");
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-
+<!-- sweetAlert -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
 </head>
 <body>
 <header id="header" id="home">
@@ -67,14 +65,7 @@ System.out.println("222222222222222222222");
 					</div>
 				</div>
 				<div class="col-lg-4 col-sm-4 menu-top-right">
-				<% if(memVO == null){ %>
-				<a href="login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a>
-				<%}else{ 
-					out.print(memVO.getMemb_nick()+"，你好");
-				%>
-				<a href="<%=request.getContextPath()%>/index.jsp"><img style="width:40px;height:40px" class="img-fluid" src="images/logout.png" data-toggle="tooltip" data-placement="left" title="登出" onclick="logout();"></a>
-				<a href="updateMembers.jsp">修改會員資料</a>
-				<%}%>
+				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a>
 					
 				</div>
 			</div>
@@ -121,24 +112,42 @@ System.out.println("222222222222222222222");
 			<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">請輸入欲修改的會員帳號</h1>
+			  <h1 align="center">請輸入帳號與信箱</h1>
+			  <h3 align="center">驗證成功後將寄送新密碼至信箱</h3>
 			</div>
-			<table class="table table-bordered table-striped table-hover table-condensed">
-			<tr><td>帳號:</td><td><input type="text" name="memb_acc"></td></tr>
+			<table class="table table-bordered table-striped table-hover table-condensed" style="width:500px" align="center">
+			<tr align="center"><td>帳號:</td><td width="50%"><input type="text" name="memb_acc"></td></tr>
+			<tr align="center"><td>信箱:</td><td width="50%"><input type="email" name="memb_email"></td></tr>
 			
-			
-   
+    
  
         
         
         </table>
         </div>
         <br>
-        <input type="hidden" name="action" value="updateFromClient">
-        <div align="center"><input type="submit" value="送出修改">
-        </div>
+        <input type="hidden" name="action" value="forget_psw">
+        <div align="center"><input id="fp" type="submit" value="送出">
+       </div>
         
     </FORM>
+    
+    <%if ("yes".equals(flag)){%>
+    	<script>
+	//自訂預設值
+	swal.setDefaults({
+		title: "確定刪除？",
+        html: "按下確定後資料會永久刪除",
+        type: "success", // type can be "success", "error", "warning", "info", "question"
+    	showCloseButton: true
+	});
+	</script>
+    <%} %>
+    
+    
+    
+    <div align="center"><a href="<%=request.getContextPath()%>/front-end/members/login.jsp">前往登入頁面</a></div>
+    
  		  
 			  
 			  
@@ -166,6 +175,8 @@ System.out.println("222222222222222222222");
 <%-- RWD--%>
 <script src="https://code.jquery.com/jquery.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+			
+			
+			
 </body>
 </html>
