@@ -223,6 +223,30 @@ div {
 		}
 	
 	</script>
+	
+	
+	
+	<!-- 	顯示購物車數量 -->
+	<script>
+		$(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodcart.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) > 0){
+						console.log("parseInt = " + parseInt(res));
+						$('#itemCount').html(res).css('display', 'block');
+					} 
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+	</script>
+	
 
 
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>

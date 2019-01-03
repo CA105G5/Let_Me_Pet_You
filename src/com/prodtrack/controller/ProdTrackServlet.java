@@ -42,9 +42,9 @@ public class ProdTrackServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		MemVO memVO = (MemVO) session.getAttribute("memVO");
 		String memb_id = null;
-		if (memVO!=null) {
-			memb_id = memVO.getMemb_id();
-		};
+		
+		String session_id = session.getId();
+		System.out.println("session_id="+session_id);
 		
 		String prod_id = req.getParameter("prod_id");
 		System.out.println("prod_id="+prod_id);
@@ -59,13 +59,24 @@ public class ProdTrackServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if (memb_id!=null) {
+		if (memVO!=null) {
+			memb_id = memVO.getMemb_id();
+			System.out.println("memb_id="+memb_id);
+			Set<String> set = jedis.smembers("Fav:" + session_id);
+			System.out.println("Fav:" + session_id + "=" + set);
+			if (set!=null) {
+				for (String key : set) {
+					jedis.sadd("Fav:" + memb_id, key);
+					jedis.srem("Fav:"+ session_id , key);
+				}
+			}
+			
 			if("addFav".equals(action)){
 				jedis.sadd("Fav:"+ memb_id, prod_id);
 	
 				System.out.println("Fav:" + memb_id + "目前追蹤商品=" + jedis.smembers("Fav:" + memb_id) );
 				System.out.println("Fav:" + memb_id + "目前追蹤商品數量=" + jedis.scard("Fav:" + memb_id) );
-				out.println("Fav:" + memb_id + "目前追蹤商品=" + jedis.smembers("Fav:" + memb_id)  );
+				out.println(1);
 			}
 			
 			else if("cancelFav".equals(action)){
@@ -73,7 +84,7 @@ public class ProdTrackServlet extends HttpServlet {
 				
 				System.out.println("Fav:" + memb_id + "目前追蹤商品=" + jedis.smembers("Fav:" + memb_id) );
 				System.out.println("Fav:" + memb_id + "目前追蹤商品數量=" + jedis.scard("Fav:" + memb_id));
-				out.println("Fav:" + memb_id + "目前追蹤商品=" + jedis.smembers("Fav:" + memb_id) );
+				out.println(1);
 			}
 			
 			else if("checkFav".equals(action)){
@@ -84,7 +95,31 @@ public class ProdTrackServlet extends HttpServlet {
 				out.println(fav);
 			}
 		} else {
-			out.println(0);
+			if("addFav".equals(action)){
+				jedis.sadd("Fav:"+ session_id, prod_id);
+	
+				System.out.println("Fav:" + session_id + "目前追蹤商品=" + jedis.smembers("Fav:" + session_id) );
+				System.out.println("Fav:" + session_id + "目前追蹤商品數量=" + jedis.scard("Fav:" + session_id) );
+				out.println(1);
+			}
+			
+			else if("cancelFav".equals(action)){
+				jedis.srem("Fav:"+ session_id, prod_id);
+				
+				System.out.println("Fav:" + session_id + "目前追蹤商品=" + jedis.smembers("Fav:" + session_id) );
+				System.out.println("Fav:" + session_id + "目前追蹤商品數量=" + jedis.scard("Fav:" + session_id));
+				out.println(1);
+			}
+			
+			else if("checkFav".equals(action)){
+				Boolean fav = jedis.sismember("Fav:"+ session_id, prod_id);
+				
+				System.out.println("Fav:" + session_id + "目前是否有追蹤此商品=" + jedis.sismember("Fav:" + session_id, prod_id));
+				System.out.println("Fav:" + session_id + "目前追蹤商品數量=" + jedis.scard("Fav:" + session_id));
+				out.println(fav);
+			}
+			
+//			out.println(0);
 		}
 		
 		

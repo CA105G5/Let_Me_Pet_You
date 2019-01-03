@@ -246,6 +246,11 @@
   <filter-mapping>
     <filter-name>LoginFilter</filter-name>
     <url-pattern>/front-end/missingCase/addMissing.jsp</url-pattern>
+    <url-pattern>/front-end/donate/addProdDon.jsp</url-pattern>
+    <url-pattern>/front-end/donate/listAllProdDon.jsp</url-pattern>
+    <url-pattern>/front-end/ord/listAllOrd.jsp</url-pattern>
+    <url-pattern>/front-end/ord/listAllOrd_Ship.jsp</url-pattern>
+    <url-pattern>/front-end/ord/cart_Receiver.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
@@ -259,6 +264,8 @@
   <filter-mapping>
     <filter-name>ManagerLoginFilter</filter-name>
     <url-pattern>/back-end/manager/back_end_index.jsp</url-pattern>
+    <url-pattern>/back-end/product/back_shop.jsp</url-pattern>
+    <url-pattern>/back-end/ord/back_listAllOrd.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
@@ -329,6 +336,14 @@
     <servlet-name>ProdCartServlet</servlet-name>
     <url-pattern>/prodcart.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ProdCartServlet2</servlet-name>
+    <servlet-class>com.prodtrack.controller.ProdCartServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProdCartServlet2</servlet-name>
+    <url-pattern>/prodcart2.do</url-pattern>
+  </servlet-mapping>  
   <servlet>
     <servlet-name>ProdTrackServlet</servlet-name>
     <servlet-class>com.prodtrack.controller.ProdTrackServlet</servlet-class>

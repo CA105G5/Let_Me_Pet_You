@@ -1,3 +1,4 @@
+<%@page import="com.mem.model.MemVO"%>
 <%@ page import="com.orditem.model.OrdItemService"%>
 <%@ page import="com.orditem.model.OrdItemVO"%>
 <%@ page import="com.ord.model.OrdService"%>
@@ -14,9 +15,11 @@
 <%
 	List<OrdItemVO> ordItemlist;
 	ordItemlist = (List<OrdItemVO>) request.getAttribute("ordItemlist");
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
+	String memb_id = memVO.getMemb_id();
 	if (ordItemlist==null){
 		OrdService ordSvc = new OrdService(); 
-		List<OrdVO> ordList = ordSvc.getOrdByMem("M000000001"); 
+		List<OrdVO> ordList = ordSvc.getOrdByMem(memb_id); 
 		System.out.println("ordList.size()=" + ordList.size());
 		OrdItemService ordItemSvc = new OrdItemService(); 
 		ordItemlist = ordItemSvc.getOrdItemByOrd(ordList);
@@ -94,7 +97,7 @@ div {
 </head>
 <body>
 
-	<jsp:include page="/front-end/donate/don_Header.jsp" flush="true" />
+	<jsp:include page="/front-end/ord/ord_Header.jsp" flush="true" />
 
 	<section class="training-area section-gap">
 		<div class="container">
@@ -122,7 +125,7 @@ div {
 									</div>
 								</c:if>
 								
-								<h1>我的訂單 <small>點擊訂單查看明細</small></h1>
+								<h1>我的收貨管理 <small>點擊訂單查看明細</small></h1>
 							
 								<div class="container">
 									<div role="tabpanel">
@@ -464,6 +467,27 @@ div {
 
 
 
+<!-- 	顯示購物車數量 -->
+	<script>
+		$(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodcart.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) > 0){
+						console.log("parseInt = " + parseInt(res));
+						$('#itemCount').html(res).css('display', 'block');
+					} 
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+	</script>
+
 
 
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
@@ -528,7 +552,7 @@ div {
 //  		        	   function (result) {
 //  		                if (result) {
 //  		                	$.ajax({
-<%-- <%-- 		    					url: '<%=request.getContextPath()%>/ordItem/ordItem.do', --%> --%>
+<%--  		    					url: '<%=request.getContextPath()%>/ordItem/ordItem.do', --%> 
 //  		    					type: "get",
 //  		    					data: { 'action': 'getOne_For_Receive_Update', 'ord_id': $this.next().next().val() , 'prod_id': $this.next().val() },
 //  		    					dataType: 'json',
@@ -542,7 +566,7 @@ div {
 //  		    				    	     timer: 3000
 //  		    				    	});
 //  		    						console.log("11111111");
-<%-- <%-- 		    						window.location.href = "<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp"; --%> --%>
+<%--  		    						window.location.href = "<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp"; --%> 
 //  		    						console.log("22222222");
 //  		    					},
 //  		    					error: function(res){

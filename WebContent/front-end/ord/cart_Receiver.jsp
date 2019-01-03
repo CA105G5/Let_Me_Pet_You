@@ -12,8 +12,9 @@
 	Map<String, String> cartMap  = (Map<String, String>) session.getAttribute("cartMap");
 	System.out.println("cartMap= " + cartMap);
 	System.out.println("cartMap.size()= " + cartMap.size());
-	String amount  = (String)session.getAttribute("amount");
-	System.out.println("amount= " + amount);
+// 	String amount  = (String) session.getAttribute("amount");
+// 	System.out.println("amount= " + amount);
+	System.out.println("location=" + request.getRequestURI());
 %>
 <jsp:useBean id="prodSvc" scope="page" class="com.prod.model.ProdService" />
 
@@ -324,6 +325,29 @@ div {
 		    	  
 		});
 		});
+		
+		//剛開始進來顯示購物車數量
+		$(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodcart2.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) > 0){
+						console.log("parseInt = " + parseInt(res));
+						$('#itemCount').html(res).css('display', 'block');
+					}
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+		
+		
+		
+		
 	</script>
 
 

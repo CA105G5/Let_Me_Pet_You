@@ -1,5 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.manager.model.*"%>
+<%
+ManagerVO managerVO = (ManagerVO) session.getAttribute("managerVO");
+System.out.println("111111111111111111111111111="+session.getId());
+System.out.println( "是否登入:"+ (managerVO != null));
+%>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -77,135 +83,43 @@
                    
                     <li class="menu-title active"><a href="index.html">後台管理</a></li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>救援</a>
-                        <ul class="sub-menu children dropdown-menu">                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Buttons</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
-                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
-
-                            <li><i class="fa fa-id-card-o"></i><a href="ui-cards.html">Cards</a></li>
-                            <li><i class="fa fa-exclamation-triangle"></i><a href="ui-alerts.html">Alerts</a></li>
-                            <li><i class="fa fa-spinner"></i><a href="ui-progressbar.html">Progress Bars</a></li>
-                            <li><i class="fa fa-fire"></i><a href="ui-modals.html">Modals</a></li>
-                            <li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
-                            <li><i class="fa fa-th"></i><a href="ui-grids.html">Grids</a></li>
-                            <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>救援管理</a>
+                        <ul class="sub-menu children dropdown-menu">                            
+                        	<li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">救援案例管理</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">審核檢舉救援案例</a></li>
+                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">審核檢舉救援留言</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>認養</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>認養管理</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-basic.html">審核認養案例</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-data.html">認養案例結案管理</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-data.html">審核檢舉認養留言</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>失蹤</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>失蹤協尋管理</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">審核檢舉失蹤案例</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">審核檢舉失蹤案例留言</a></li>
                         </ul>
                     </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>協尋</a>
-                        <ul class="sub-menu children dropdown-menu">                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Buttons</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
-                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
-
-                            <li><i class="fa fa-id-card-o"></i><a href="ui-cards.html">Cards</a></li>
-                            <li><i class="fa fa-exclamation-triangle"></i><a href="ui-alerts.html">Alerts</a></li>
-                            <li><i class="fa fa-spinner"></i><a href="ui-progressbar.html">Progress Bars</a></li>
-                            <li><i class="fa fa-fire"></i><a href="ui-modals.html">Modals</a></li>
-                            <li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
-                            <li><i class="fa fa-th"></i><a href="ui-grids.html">Grids</a></li>
-                            <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
+                        <a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>訂單管理</a>
+                        <ul class="sub-menu children dropdown-menu">                            
+                            <li><i class="fa fa-id-card-o"></i><a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp">審核訂單檢舉</a></li>
                         </ul>
                     </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>愛心商城</a>
-                        <ul class="sub-menu children dropdown-menu">                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">物資捐贈審核</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
-                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
-
-                            <li><i class="fa fa-id-card-o"></i><a href="ui-cards.html">訂單檢舉審核</a></li>
-                            <li><i class="fa fa-exclamation-triangle"></i><a href="ui-alerts.html">Alerts</a></li>
-                            <li><i class="fa fa-spinner"></i><a href="ui-progressbar.html">Progress Bars</a></li>
-                            <li><i class="fa fa-fire"></i><a href="ui-modals.html">Modals</a></li>
-                            <li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
-                            <li><i class="fa fa-th"></i><a href="ui-grids.html">Grids</a></li>
-                            <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
+                        <a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>捐贈管理</a>
+                        <ul class="sub-menu children dropdown-menu">                            
+                            <li><i class="fa fa-id-badge"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心捐款管理</a></li>
+                            <li><i class="fa fa-bars"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心物資管理</a></li>
                         </ul>
                     </li>
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>許願物資</a>
-                        <ul class="sub-menu children dropdown-menu">                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Buttons</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
-                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
-
-                            <li><i class="fa fa-id-card-o"></i><a href="ui-cards.html">Cards</a></li>
-                            <li><i class="fa fa-exclamation-triangle"></i><a href="ui-alerts.html">Alerts</a></li>
-                            <li><i class="fa fa-spinner"></i><a href="ui-progressbar.html">Progress Bars</a></li>
-                            <li><i class="fa fa-fire"></i><a href="ui-modals.html">Modals</a></li>
-                            <li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
-                            <li><i class="fa fa-th"></i><a href="ui-grids.html">Grids</a></li>
-                            <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>捐款</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Font Awesome</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Themefy Icons</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Widgets </a>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Chart JS</a></li>
-                            <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Flot Chart</a></li>
-                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="charts-peity.html">Peity Chart</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">Google Maps</a></li>
-                            <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Vector Maps</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
-                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Components</a>
-                        <ul class="sub-menu children dropdown-menu">                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Buttons</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
-                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
-
-                            <li><i class="fa fa-id-card-o"></i><a href="ui-cards.html">Cards</a></li>
-                            <li><i class="fa fa-exclamation-triangle"></i><a href="ui-alerts.html">Alerts</a></li>
-                            <li><i class="fa fa-spinner"></i><a href="ui-progressbar.html">Progress Bars</a></li>
-                            <li><i class="fa fa-fire"></i><a href="ui-modals.html">Modals</a></li>
-                            <li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
-                            <li><i class="fa fa-th"></i><a href="ui-grids.html">Grids</a></li>
-                            <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
-                        </ul>
-                    </li>
-
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -217,7 +131,7 @@
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" a href="back-index.html"><img src="<%=request.getContextPath()%>/backend_UI_template/images/logo-2.png" alt="Logo" height="42"></a>
+                    <a class="navbar-brand" a href="<%=request.getContextPath()%>/back-end/manager/back_end_index.jsp"><img src="<%=request.getContextPath()%>/backend_UI_template/images/logo-2.png" alt="Logo" height="42"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>

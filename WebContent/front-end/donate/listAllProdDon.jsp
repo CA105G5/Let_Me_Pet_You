@@ -1,3 +1,4 @@
+<%@page import="com.mem.model.MemVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ page import="com.prodimg.model.ProdImgService"%>
 <%@ page import="com.prodimg.model.ProdImgVO"%>
@@ -11,9 +12,11 @@
 <%
 	List<ProdVO> list;
 	list = (List<ProdVO>) request.getAttribute("list");
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
+	String memb_id = memVO.getMemb_id();
 	if (list==null){
 		ProdService prodSvc = new ProdService(); 
-		list = prodSvc.getAll();
+		list = prodSvc.getProdByMem(memb_id);
 		pageContext.setAttribute("list", list);
 		request.setAttribute("Test", "Test");
 	}
@@ -76,7 +79,7 @@ div {
 </head>
 <body>
 
-	<jsp:include page="/front-end/donate/don_Header.jsp" flush="true" />
+	<jsp:include page="/front-end/donate/don_history_Header.jsp" flush="true" />
 
 	<section class="training-area section-gap">
 		<div class="container">
@@ -391,6 +394,29 @@ div {
   	  }); -->
 	
 <!-- </script> -->
+
+
+<!-- 	顯示購物車數量 -->
+	<script>
+		$(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodcart.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) > 0){
+						console.log("parseInt = " + parseInt(res));
+						$('#itemCount').html(res).css('display', 'block');
+					} 
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+	</script>
+
 
 
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>

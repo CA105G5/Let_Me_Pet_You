@@ -1,3 +1,4 @@
+<%@page import="com.mem.model.MemVO"%>
 <%@page import="com.prod.model.ProdVO"%>
 <%@page import="com.prod.model.ProdService"%>
 <%@ page import="com.orditem.model.OrdItemService"%>
@@ -16,9 +17,11 @@
 <%
 	List<OrdItemVO> ordItemlist;
 	ordItemlist = (List<OrdItemVO>) request.getAttribute("ordItemlist");
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
+	String memb_id = memVO.getMemb_id();
 	if (ordItemlist==null){
 		ProdService prodSvc = new ProdService(); 
-		List<ProdVO> prodList = prodSvc.getProdByMem("M000000001"); 
+		List<ProdVO> prodList = prodSvc.getProdByMem(memb_id); 
 		System.out.println("prodList.size()=" + prodList.size());
 		OrdItemService ordItemSvc = new OrdItemService(); 
 		ordItemlist = ordItemSvc.getOrdItemByProd(prodList);
@@ -96,7 +99,7 @@ div {
 </head>
 <body>
 
-	<jsp:include page="/front-end/donate/don_Header.jsp" flush="true" />
+	<jsp:include page="/front-end/ord/ord_Header.jsp" flush="true" />
 
 	<section class="training-area section-gap">
 		<div class="container">
@@ -505,6 +508,33 @@ div {
 		    $('#table4').DataTable();
 		} );
 	</script>
+
+
+<!-- 	顯示購物車數量 -->
+	<script>
+		$(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodcart.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) > 0){
+						console.log("parseInt = " + parseInt(res));
+						$('#itemCount').html(res).css('display', 'block');
+					} 
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+	</script>
+
+
+
+
+
 	
 	<script>
 // 		$(document).ready(function() {

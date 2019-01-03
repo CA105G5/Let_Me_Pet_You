@@ -42,14 +42,20 @@ public class ProdCartServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		MemVO memVO = (MemVO) session.getAttribute("memVO");
 		String memb_id = null;
-		String session_id = null;
-		if (memVO!=null) {
-			memb_id = memVO.getMemb_id();
-			System.out.println("memb_id="+memb_id);
-		} else {
-			session_id = session.getId();
-			System.out.println("session_id="+session_id);
-		}
+		
+		String session_id = session.getId();
+		System.out.println("session_id="+session_id);
+		
+		String prod_qty = req.getParameter("prod_qty");
+		System.out.println("prod_qty="+prod_qty);
+		String prod_id = req.getParameter("prod_id");
+		System.out.println("prod_id="+prod_id);
+		
+		ProdService prodSvc = new ProdService();
+		Integer prod_stock = 0;
+		if (prod_id!=null)
+			prod_stock = prodSvc.getOneProd(prod_id).getProd_stock();
+		System.out.println("prod_stock=" + prod_stock); 
 		
 		//建立Redis連線
 		Jedis jedis=null;
@@ -59,16 +65,35 @@ public class ProdCartServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+				
+		
+		if (memVO!=null) {
+			memb_id = memVO.getMemb_id();
+			System.out.println("memb_id="+memb_id);
+			Map<String, String> map = jedis.hgetAll("Cart:" + session_id);
+			System.out.println("Cart:" + session_id + "=" + map);
+			if (map!=null) {
+				for (String key : map.keySet()) {
+					int cartQty_int = new Integer(map.get(key));
+					String mem_cartQty = jedis.hgetAll("Cart:" + memb_id).get(key);
+					int mem_cartQty_int = 0;
+					if (mem_cartQty!=null)
+						mem_cartQty_int = new Integer(mem_cartQty);
+					String qty;
+					if (cartQty_int + mem_cartQty_int > prodSvc.getOneProd(key).getProd_stock() ) {
+						qty = Integer.toString(prodSvc.getOneProd(key).getProd_stock());
+					} else {
+						qty = Integer.toString(cartQty_int + mem_cartQty_int);
+					}
+					
+					jedis.hset("Cart:" + memb_id, key, qty);
+					jedis.hdel("Cart:"+ session_id , key);
+				}
+			}
+		} 
+		
 		
 		if("addCart".equals(action)){
-			String prod_qty = req.getParameter("prod_qty");
-			System.out.println("prod_qty="+prod_qty);
-			String prod_id = req.getParameter("prod_id");
-			System.out.println("prod_id="+prod_id);
-			
-			ProdService prodSvc = new ProdService();
-			Integer prod_stock = prodSvc.getOneProd(prod_id).getProd_stock();
-			System.out.println("prod_stock=" + prod_stock); 
 			
 			if (memb_id==null) {
 				if(prod_id!=null && prod_qty!=null) {
@@ -116,14 +141,8 @@ public class ProdCartServlet extends HttpServlet {
 		}
 		
 		if("changeCart".equals(action)){
-			String prod_qty = req.getParameter("prod_qty");
-			System.out.println("prod_qty="+prod_qty);
-			String prod_id = req.getParameter("prod_id");
-			System.out.println("prod_id="+prod_id);
 			
 			JSONObject obj = new JSONObject();
-			ProdService prodSvc = new ProdService();
-			Integer prod_stock = prodSvc.getOneProd(prod_id).getProd_stock();
 			if (Integer.valueOf(prod_qty) > prod_stock) {
 				try {
 					obj.accumulate("success", 0);
@@ -173,7 +192,6 @@ public class ProdCartServlet extends HttpServlet {
 		}
 		
 		if("remove".equals(action)){
-			String prod_id = req.getParameter("prod_id");
 			System.out.println("移除商品prod_id="+prod_id);
 			Map<String, String> cartMap = null;
 			if (memb_id==null) {
@@ -186,7 +204,6 @@ public class ProdCartServlet extends HttpServlet {
 			}
 			session.setAttribute("cartMap", cartMap); // 資料庫取出的prodVO物件,存入req
 			Integer amount = 0;
-			ProdService prodSvc = new ProdService();
 			for (String prod : cartMap.keySet()) {
 				System.out.println("111");
 				Integer price = prodSvc.getOneProd(prod).getProd_price();
@@ -228,13 +245,12 @@ public class ProdCartServlet extends HttpServlet {
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				session.setAttribute("cartMap", cartMap); // 資料庫取出的prodVO物件,存入req
 				Integer amount = 0;
-				ProdService prodSvc = new ProdService();
-				for (String prod_id : cartMap.keySet()) {
+				for (String key : cartMap.keySet()) {
 					System.out.println("111");
-					Integer prod_price = prodSvc.getOneProd(prod_id).getProd_price();
+					Integer prod_price = prodSvc.getOneProd(key).getProd_price();
 					System.out.println("222");
-					Integer prod_qty = new Integer(cartMap.get(prod_id));
-					amount = amount + prod_price*prod_qty;
+					Integer qty = new Integer(cartMap.get(key));
+					amount = amount + prod_price*qty;
 				}
 				System.out.println("amount=" + amount);
 				session.setAttribute("amount", amount);
@@ -283,9 +299,10 @@ public class ProdCartServlet extends HttpServlet {
 				session.setAttribute("amount", amount);
 				session.setAttribute("total_qty", total_qty);
 				
-				String url = "/front-end/ord/cart_Receiver.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneProd.jsp
-				successView.forward(req, res);
+				String url = req.getContextPath()+"/front-end/ord/cart_Receiver.jsp";
+				res.sendRedirect(url);
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneProd.jsp
+//				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
