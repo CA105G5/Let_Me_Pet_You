@@ -43,6 +43,10 @@ public class MemService {
 		dao.insert(memVO);
 		return memVO;
 	}
+	public MemVO updateMem(MemVO memVO) {
+		dao.update(memVO);
+		return memVO;
+	}
 	public MemVO updateMem( String memb_id, 
 							String memb_sta, 
 							String memb_acc, 
