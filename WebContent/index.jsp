@@ -107,7 +107,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></li>
 								    </ul>
 						</li>
-						<li class="menu-has-children menu-active"><a href="">商城</a></li>
+						<li class="menu-has-children menu-active"><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li>
 <!-- 						<li><a href="contact.html">關於我們</a></li> -->
 <!-- 						<li><a href="elements.html">常見問題</a></li> -->
 					</ul>
