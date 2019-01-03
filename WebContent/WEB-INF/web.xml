@@ -351,4 +351,12 @@
     <servlet-name>ProdTrackServlet</servlet-name>
     <url-pattern>/prodtrack.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>AdoptApplyServlet</servlet-name>
+    <servlet-class>com.AdoptApply.controller.AdoptApplyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdoptApplyServlet</servlet-name>
+    <url-pattern>/AdoptApply.do</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -50,7 +50,10 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="js/jquery-1.12.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -84,7 +87,7 @@
 										pattern="yyyy-MM-dd" /></li>
 							</ul>
 							<button type="button" class="genric-btn primary small"
-								style="margin-left: 670px;" data-toggle="modal"
+								style="margin-left: 670px;" id="apply" data-toggle="modal"
 								data-target="#exampleModalCenter">申請</button>
 							<a href="#">
 								<h3>${adoptionVO.adopt_species}</h3>
@@ -95,47 +98,47 @@
 						</div>
 
 						<!--案例檢舉彈出區-->
-<!-- 						<div class="modal fade" id="exampleModalCenter" tabindex="-1" -->
-<!-- 							role="dialog" aria-labelledby="exampleModalCenterTitle" -->
-<!-- 							aria-hidden="true"> -->
-<!-- 							<div class="modal-dialog modal-dialog-centered" role="document"> -->
-<!-- 								<div class="modal-content"> -->
-<!-- 									<div class="modal-header"> -->
-<!-- 										<h5 class="modal-title" id="exampleModalLongTitle" -->
-<!-- 											style="margin-left: 200px;">請輸入檢舉原因:</h5> -->
-<!-- 										<button type="button" class="close" data-dismiss="modal" -->
-<!-- 											aria-label="Close"> -->
-<!-- 											<span aria-hidden="true">&times;</span> -->
-<!-- 										</button> -->
-<!-- 									</div> -->
-<!-- 									<div class="modal-body"> -->
-<!-- 										<form METHOD="post" -->
-<%-- 											ACTION="<%=(membVO == null) --%>
-<!--  					? request.getContextPath() + "/front-end/members/login.jsp" -->
-<%-- 					: "http://localhost:8081/CA105G5/front-end/missingCase/reportMissing.do"%>"> --%>
-<!-- 											<div class="input-group mb-3"> -->
-<!-- 												<input type="text" class="form-control" -->
-<!-- 													name="report_missing_cont" aria-label="Default" -->
-<!-- 													aria-describedby="inputGroup-sizing-default"> -->
-<!-- 											</div> -->
-<!-- 											<input type="hidden" name="missing_case_id" -->
-<%-- 												value="<%=request.getParameter("missing_case_id")%>"> --%>
-<!-- 											<input type="hidden" name="memb_id" -->
-<%-- 												value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>"> --%>
-<!-- 											<input type="hidden" name="report_missing_sta" value="待審核"> -->
-<!-- 											<input type="hidden" name="report_missing_time" -->
-<%-- 												value="<%=report_missing_time%>"> <input --%>
-<!-- 												type="hidden" name="action" value="insert"> -->
-<!-- 									</div> -->
-<!-- 									<div class="modal-footer"> -->
-<!-- 										<button type="button" class="btn btn-secondary" -->
-<!-- 											data-dismiss="modal">取消</button> -->
-<!-- 										<input type="submit" class="btn btn-primary" value="送出"> -->
-<!-- 									</div> -->
-<!-- 									</form> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
+						<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLongTitle"
+											style="margin-left: 200px;">請輸入申請原因:</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form METHOD="post"
+											ACTION="<%=(membVO == null)
+  					? request.getContextPath() + "/front-end/members/login.jsp" 
+ 					: "http://localhost:8081/CA105G5/front-end/missingCase/reportMissing.do"%>"> 
+											<div class="input-group mb-3">
+												<input type="text" class="form-control"
+													name="report_missing_cont" aria-label="Default"
+													aria-describedby="inputGroup-sizing-default">
+											</div>
+											<input type="hidden" name="missing_case_id"
+												value="<%=request.getParameter("missing_case_id")%>">
+											<input type="hidden" name="memb_id"
+												value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
+											<input type="hidden" name="report_missing_sta" value="待審核">
+											<input type="hidden" name="report_missing_time"
+												value="<%=report_missing_time%>"> <input
+												type="hidden" name="action" value="insert">
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">取消</button>
+										<input type="submit" class="btn btn-primary" value="送出">
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
 						<!-- 檢舉結束 -->
 
 						<section class="nav-area pt-50 pb-100"
@@ -259,6 +262,38 @@
 			</div>
 		</div>
 	</section>
+<script>
+// $("#apply").on("click", function(){
+// 	swal({
+// 		title: '請輸入申請原因 ',
+// 		html:
+// 			'<form>' +
+// 			  '<div class="form-group">' +
+// 			    '<label for="reason" class="pull-left">檢舉原因：</label>' +
+// 			    '<input type="text" class="form-control" id="reason" placeholder="reason">' +
+// 			  '</div>' +
+// 			'</form>',	
+// 		type: "warning",
+// 		preConfirm: function () {
+// 			 return new Promise(function (resolve, reject) {
+// 				 var data = {};
+// 				 data.action = "insert";
+// 				 data.adopt_des = $('reason').val().trim();
+// 				 data.memb_id = '${membVO.memb_id}';
+<%-- 				 data.daopt_id = '<%=adopt_id%>'; --%>
+// 				 if (!data.adopt_des) reject('請輸入原因！');
+// 			 })
+			
+// 		}
+// 	})
+	
+	
+// })
+
+
+</script>
+
+
 
 	<script
 		src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
@@ -296,6 +331,5 @@
 		type="text/javascript"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="js/jquery-1.12.3.min.js"></script>
 </body>
 </html>
