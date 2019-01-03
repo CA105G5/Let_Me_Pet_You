@@ -37,16 +37,6 @@ public class RescueVO implements java.io.Serializable{
         this.rsc_sta = rsc_sta;
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null || !(obj instanceof RescueVO)) {
-			return false;
-		}
-		return this.getRsc_id().equals(((RescueVO) obj).getRsc_id());
-	}
 	
 	public String getRsc_id() {
 		return rsc_id;
