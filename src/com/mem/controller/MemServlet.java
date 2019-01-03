@@ -18,6 +18,8 @@ import javax.servlet.http.Part;
 import com.mem.model.MemService;
 import com.mem.model.MemVO;
 
+import util.MailService;
+
 @MultipartConfig
 public class MemServlet extends HttpServlet {
 	
@@ -167,42 +169,6 @@ public class MemServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-//		if("updateFromClient".equals(action)) {
-//			List<String> errorMsgs = new LinkedList<String>();
-//			req.setAttribute("errorMsgs", errorMsgs);
-//			try {
-//				
-//				/***************************1.接收請求參數****************************************/
-//				String memb_acc = req.getParameter("memb_acc");
-//				if(memb_acc == null || memb_acc.trim().length() == 0) {
-//					errorMsgs.add("請輸入會員帳號");
-//				}
-//				
-//				
-//				/***************************2.開始查詢資料****************************************/
-//				MemService memSvc = new MemService();
-//				MemVO memVO = memSvc.getMemSelf(memb_acc);
-//				if(memVO == null) {
-//					errorMsgs.add("查無此帳號");
-//				}
-//				if(!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = 
-//					req.getRequestDispatcher("/front-end/members/addMembers.jsp");
-//					failureView.forward(req, res);
-//					return;
-//				}
-//				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-//				req.setAttribute("memVO", memVO);         // 資料庫取出的empVO物件,存入req
-//				String url = "/front-end/members/client_update.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 client_update.jsp
-//				successView.forward(req, res);
-//			}catch(Exception e) {
-//				errorMsgs.add("有Exception");
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/front-end/members/addMembers.jsp");
-//				failureView.forward(req, res);
-//			}
-//		}
 		if("client_update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -448,6 +414,89 @@ public class MemServlet extends HttpServlet {
 			res.sendRedirect(req.getContextPath()+"/index.jsp");
 			return;
 		}
+		if("forget_psw".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				String memb_acc = req.getParameter("memb_acc");
+				if(memb_acc == null || memb_acc.trim().length() == 0) {
+					errorMsgs.add("請輸入帳號");
+				}
+				String memb_email = req.getParameter("memb_email");
+				if(memb_email == null || memb_email.trim().length() == 0) {
+					errorMsgs.add("請輸入信箱");
+				}
+				MemVO memVO = new MemVO();
+				memVO.setMemb_acc(memb_acc);
+				memVO.setMemb_email(memb_email);
+				if(!errorMsgs.isEmpty()) {
+					req.setAttribute("memVO", memVO);
+					RequestDispatcher failureView = 
+					req.getRequestDispatcher("/front-end/members/forget_psw.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				try {
+					MemService memSvc = new MemService();
+					memVO = memSvc.getMemSelf(memb_acc);
+					if(memb_email.equals(memVO.getMemb_email())) {
+						//帳號信箱驗證成功
+						
+						//設定新密碼
+						String new_psw = genAuthCode();
+						memVO.setMemb_psw(new_psw);
+						
+						//存入資料庫
+						memVO=memSvc.updateMem(memVO);
+						
+						//將新密碼用電子郵件寄給使用者
+						String to = memb_email;
+					      
+					    String subject = "新密碼通知";
+					      
+					    String ch_name = memVO.getMemb_name();      
+
+					    String passRandom = new_psw;
+					    String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)";
+					    MailService mailService = new MailService();
+					    mailService.sendMail(to, subject, messageText);
+					   
+					    req.setAttribute("mail", "yes");
+					    
+						RequestDispatcher successView = req
+								.getRequestDispatcher("/front-end/members/forget_psw.jsp");
+						successView.forward(req, res);
+					}else {
+						//帳號信箱驗證失敗
+						errorMsgs.add("輸入的信箱錯誤");
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("/front-end/members/forget_psw.jsp");
+						failureView.forward(req, res);
+					}
+					
+				}catch(Exception e) {
+					if(memVO == null) {
+						errorMsgs.add("查無此帳號");
+					}else {
+						errorMsgs.add("資料庫的例外");
+					}
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/members/forget_psw.jsp");
+					failureView.forward(req, res);
+					
+					
+				}
+			}catch(Exception e) {
+				errorMsgs.add("發生其他例外:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/members/forget_psw.jsp");
+				failureView.forward(req, res);
+			}
+			
+			
+		}
 	}
 	public static final byte[] transbyte(InputStream inStream) throws IOException {
 		ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
@@ -459,4 +508,50 @@ public class MemServlet extends HttpServlet {
 		byte[] in2b = swapStream.toByteArray();
 		return in2b;
 	}
+	public static String genAuthCode() {
+    	int number8_20 = (int)(Math.random()*13+8);
+    	char[] pool=new char[62];
+    	int count=0,index=0;
+    	int [] lucky=new int[number8_20];
+    	boolean bool1=false,bool2=false,bool3=false;
+    	for(char i=48; i<=57; i++) {
+    		pool[count]=i;
+    		count++;
+    	}
+    	for(char j=65; j<=90; j++) {
+    		pool[count]=j;
+    		count++;
+    	}
+    	for(char k=97; k<=122; k++) {
+    		pool[count]=k;
+    		count++;
+    	}
+    	do {
+    		bool1=true;
+    		bool2=true;
+    		bool3=true;
+    		index=0;
+    		for (int t=0;t<number8_20;t++) {
+    			lucky[index]=(int)(Math.random()*count);
+    			index++;
+    	    }
+    		for (int n=0;n<number8_20;n++) {
+    			if(0<=lucky[n]&&lucky[n]<=9) {
+    				bool1=false;
+    			}
+    			if(10<=lucky[n]&&lucky[n]<=35) {
+    				bool2=false;
+    			}
+    			if(36<=lucky[n]&&lucky[n]<=61) {
+    				bool3=false;
+    			}
+    		}
+    	} while(bool1||bool2||bool3);
+    	StringBuffer sb = new StringBuffer();
+    	for (int m=0;m<number8_20;m++) {
+    		sb = sb.append(pool[lucky[m]]);
+    	}
+    	return sb.toString();
+    	
+    }
 }

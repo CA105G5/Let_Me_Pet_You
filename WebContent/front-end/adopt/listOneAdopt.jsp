@@ -68,8 +68,8 @@
 			</div>
 			<div class="col-xs-12 col-sm-3">
 				<div class="list-group">
-					<a href="listAllMissingCase.jsp" class="list-group-item ">認養案例總覽</a>
-					<a href="addMissing.jsp" class="list-group-item ">認養案例新增</a>
+					<a href="listAllAdopt.jsp" class="list-group-item ">認養案例總覽</a>
+					<a href="addAdopt.jsp" class="list-group-item ">認養案例新增</a>
 				</div>
 			</div>
 			<div class="container">
@@ -111,7 +111,7 @@
 <!-- 									<div class="modal-body"> -->
 <!-- 										<form METHOD="post" -->
 <%-- 											ACTION="<%=(membVO == null) --%>
-// 					? request.getContextPath() + "/front-end/members/login.jsp"
+<!--  					? request.getContextPath() + "/front-end/members/login.jsp" -->
 <%-- 					: "http://localhost:8081/CA105G5/front-end/missingCase/reportMissing.do"%>"> --%>
 <!-- 											<div class="input-group mb-3"> -->
 <!-- 												<input type="text" class="form-control" -->
@@ -164,20 +164,17 @@
 							<form
 								action="<%=(membVO == null)
 					? request.getContextPath() + "/front-end/members/login.jsp"
-					: request.getContextPath() + "/front-end/missingMsg/missingMsg.do"%>"
+					: request.getContextPath() + "/front-end/adopt/adoptMsgServlet.do"%>"
 								method="post">
-								<textarea class="form-control mb-10" name="missing_msg_cont"
-									id="missing_msg_cont" placeholder="Messege"
+								<textarea class="form-control mb-10" name="adopt_msg_comm"
+									id="adopt_msg_comm" placeholder="Messege"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'Messege'"></textarea>
-								<input type="hidden" name="missing_case_id" id="missing_case_id"
-									value="<%=request.getParameter("missing_case_id")%>"> <input
-									type="hidden" name="missing_msg_date" id="missing_msg_date"
-									value="<%=missing_msg_date%>"> <input type="hidden"
-									name="memb_id" id="memb_id"
+								<input type="hidden" name="adopt_id" id="adopt_id"
+									value="<%=request.getParameter("adopt_id")%>">  
+									<input type="hidden" name="adopt_msg_sper" id="adopt_msg_sper"
 									value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
-								<input type="hidden" name="URL"
-									value="<%=request.getRequestURL()%>"> <input
+								 <input
 									type="hidden" name="action" value="insert"> <input
 									type="submit" id="submit"
 									class="genric-btn danger circle arrow col-offset-md-6"
@@ -185,7 +182,7 @@
 
 							</form>
 
-							<c:forEach var="missingMsgVO" items="${list}">
+							<c:forEach var="adoptMsgVO" items="${list}">
 								<div class="comment-list" id="contentdiv">
 									<div class="single-comment justify-content-between d-flex">
 										<div class="user justify-content-between d-flex">
@@ -198,61 +195,61 @@
 								style="margin-left: 670px;" data-toggle="modal"	data-target="#${missingMsgVO.missing_msg_id}">檢舉</button>
 												</h5>
 												<p class="date">
-													<fmt:formatDate value="${missingMsgVO.missing_msg_date}"
+													<fmt:formatDate value="${adoptMsgVO.adopt_msg_time}"
 														pattern="yyyy-MM-dd" />
 												</p>
-												<p class="comment">${missingMsgVO.missing_msg_cont}</p>
+												<p class="comment">${adoptMsgVO.adopt_msg_comm}</p>
 											</div>
-											<input type="hidden" name="missing_msg_id" value="${missingMsgVO.missing_msg_id}">
+											<input type="hidden" name="adopt_msg_id" value="${adoptMsgVO.adopt_msg_id}">
 										</div>
 									</div>
 								</div>
 								
 								
 								<!--留言檢舉彈出區-->
-							<div class="modal fade" id="${missingMsgVO.missing_msg_id}" tabindex="-1"
-								role="dialog" aria-labelledby="#${missingMsgVO.missing_msg_id}"
-								aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="${missingMsgVO.missing_msg_id}"
-												style="margin-left: 200px;">請輸入檢舉原因:</h5>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form METHOD="post"
-												ACTION="<%=(membVO == null)
-					? request.getContextPath() + "/front-end/members/login.jsp"
-					: request.getContextPath() + "/front-end/missingCase/missingMsgReport.do"%>">
-												<div class="input-group mb-3">
-													<input type="text" class="form-control"
-														name="missing_msg_rt_cont" aria-label="Default"
-														aria-describedby="inputGroup-sizing-default">
-												</div>
+<%-- 							<div class="modal fade" id="${missingMsgVO.missing_msg_id}" tabindex="-1" --%>
+<!-- 								role="dialog" aria-labelledby="#${missingMsgVO.missing_msg_id}" -->
+<!-- 								aria-hidden="true"> -->
+<!-- 								<div class="modal-dialog modal-dialog-centered" role="document"> -->
+<!-- 									<div class="modal-content"> -->
+<!-- 										<div class="modal-header"> -->
+<%-- 											<h5 class="modal-title" id="${missingMsgVO.missing_msg_id}" --%>
+<!-- 												style="margin-left: 200px;">請輸入檢舉原因:</h5> -->
+<!-- 											<button type="button" class="close" data-dismiss="modal" -->
+<!-- 												aria-label="Close"> -->
+<!-- 												<span aria-hidden="true">&times;</span> -->
+<!-- 											</button> -->
+<!-- 										</div> -->
+<!-- 										<div class="modal-body"> -->
+<!-- 											<form METHOD="post" -->
+<%-- 												ACTION="<%=(membVO == null) --%>
+<!--  					? request.getContextPath() + "/front-end/members/login.jsp" -->
+<%-- 					: request.getContextPath() + "/front-end/missingCase/missingMsgReport.do"%>"> --%>
+<!-- 												<div class="input-group mb-3"> -->
+<!-- 													<input type="text" class="form-control" -->
+<!-- 														name="missing_msg_rt_cont" aria-label="Default" -->
+<!-- 														aria-describedby="inputGroup-sizing-default"> -->
+<!-- 												</div> -->
 												
-												<input type="hidden" name="missing_case_id"
-													value="<%=request.getParameter("missing_case_id")%>">
-												<input type="hidden" name="memb_id"
-													value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
-												<input type="hidden" name="missing_msg_rt_sta" value="待審核">
-												<input type="hidden" name="missing_msg_rt_time"
-													value="<%=missing_msg_rt_time%>"> <input
-													type="hidden" name="action" value="insert">
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">取消</button>
-											<input type="submit" class="btn btn-primary" value="送出">
-										<input type="hidden" name="missing_msg_id" value="${missingMsgVO.missing_msg_id}">
-										</div>
-										</form>
-									</div>
-								</div>
-							</div>
+<!-- 												<input type="hidden" name="missing_case_id" -->
+<%-- 													value="<%=request.getParameter("missing_case_id")%>"> --%>
+<!-- 												<input type="hidden" name="memb_id" -->
+<%-- 													value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>"> --%>
+<!-- 												<input type="hidden" name="missing_msg_rt_sta" value="待審核"> -->
+<!-- 												<input type="hidden" name="missing_msg_rt_time" -->
+<%-- 													value="<%=missing_msg_rt_time%>"> <input --%>
+<!-- 													type="hidden" name="action" value="insert"> -->
+<!-- 										</div> -->
+<!-- 										<div class="modal-footer"> -->
+<!-- 											<button type="button" class="btn btn-secondary" -->
+<!-- 												data-dismiss="modal">取消</button> -->
+<!-- 											<input type="submit" class="btn btn-primary" value="送出"> -->
+<%-- 										<input type="hidden" name="missing_msg_id" value="${missingMsgVO.missing_msg_id}"> --%>
+<!-- 										</div> -->
+<!-- 										</form> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							<!-- 檢舉結束 -->
 							</c:forEach>
 						</div>

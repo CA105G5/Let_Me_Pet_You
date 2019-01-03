@@ -50,7 +50,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/backend_UI_template/assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/backend_UI_template/assets/css/style.css">
     
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    V<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
     
     <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
@@ -58,6 +58,15 @@
 
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+    
+    
+<!--     加上審核彈跳modal -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--     加上審核彈跳modal -->
+    
 
 <!-- w3 CSS tabs -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -218,12 +227,16 @@
 																	<td style=" margin-bottom: auto">審核中</td>
 																	<td>
 																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto">
-																		<input type="submit" value="審核" id="review">
 <%-- 																		<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%>
 																		<input type="hidden" name="prod_id"  value="${prodVO.prod_id}">
 																		<input type="hidden" name="tab"  value="1">
 																		<input type="hidden" name="location"  value="back">
-																		<input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+																		<input type="hidden" name="action"	value="getOneModal_For_Display">
+																		<input type="submit" value="審核" id="review">
+																		<!--改成modal彈跳視窗 -->
+<%-- 																		<A href="<%=request.getContextPath()%>/product/product_upload.do?prod_id=${prodVO.prod_id}&action=getOneModal_For_Display">審核</a> --%>
+																		<!--改成modal彈跳視窗 -->
+																		</FORM>
 																	</td>
 																</tr>
 															</c:if>
@@ -231,11 +244,6 @@
 													</tbody>
 												</table>
 												
-												<div id="dialog" title="Dialog box">
-												<%=request.getContextPath()%>/product/product_upload.do?action=getOneModal_For_Display&prod_id=${prodVO.prod_id}
-<%-- 													<jsp:include page="/front-end/product/listOneProd.jsp" flush="true" /> --%>
-												
-												</div>
   </div>
 
   <div id="reviewed" class="w3-container city" style="display:none" style="width:1100px">
@@ -314,6 +322,40 @@
         <div class="clearfix"></div>
     </div>
     <!-- /#right-panel -->
+    
+<!--    加上審核彈跳modal  -->
+<c:if test="${openModal!=null}">
+
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+				
+			<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="myModalLabel">The Bootstrap modal-header</h3>
+            </div>
+			
+			<div class="modal-body">
+<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
+               <jsp:include page="/front-end/product/listOneProdModal.jsp" />
+<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
+			</div>
+			
+			<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+		
+		</div>
+	</div>
+</div>
+
+        <script>
+    		 $("#basicModal").modal({show: true});
+        </script>
+</c:if>
+<!--    加上審核彈跳modal  -->   
+    
 
     <!-- Scripts -->
 <!--     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script> -->
@@ -383,23 +425,6 @@
   	</script>
   	<!-- backend datatable  -->
   	
-<!--   	review modal -->
-  	<script>
-	  	$(function() {
-	
-	  	  $("#dialog").dialog({
-	  	     autoOpen: false,
-	  	     modal: true
-	  	   });
-	
-	  	  $("#review").on("click", function(e) {
-	  	      e.preventDefault();
-	  	      $("#dialog").dialog("open");
-	  	  });
-	
-	  	});
-  	</script>
-<!--   	review modal -->  	
 
 </body>
 </html>

@@ -26,7 +26,7 @@ public class AdoptionJNDIDAO implements AdoptionDAO_Interface{
 	}
 	
 	private static final String INSERT_ADOPT = 
-			"INSERT INTO ADOPTION (ADOPT_ID,ADOPT_SPECIES,ADOPT_SPONSOR,ADOPT_DES,ADPOT_IMG) values ('A'||LPAD(to_char(adoption_seq.NEXTVAL),9,'0'),?,?,?,?)";
+			"INSERT INTO ADOPTION (ADOPT_ID,ADOPT_SPECIES,ADOPT_SPONSOR,ADOPT_DES,ADOPT_IMG) values ('A'||LPAD(to_char(adoption_seq.NEXTVAL),9,'0'),?,?,?,?)";
 	private static final String GET_ONE_ADOPT =
 			"SELECT * FROM ADOPTION WHERE ADOPT_ID=?";
 	private static final String GET_ALL_ADOPT =

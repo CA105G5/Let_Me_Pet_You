@@ -32,6 +32,8 @@ public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 	
 	private static final String GET_ALL_ADOPT_APPLY =
 			"SELECT * FROM ADOPT_APPLY ORDER BY ADOPT_ID";
+	private static final String FIND_BY_ADOPT =
+			"SELECT memb_id FROM ADOPT_APPLY WHERE ADOPT_ID=?";
 	
 	public AdoptApplyJDBCDAO() {
 		
@@ -269,6 +271,65 @@ public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 		}
 		return list;
 	}
+	//查單筆資料
+	@Override
+	public List<AdoptApplyVO> findByAdopt(String adopt_id) {
+		List<AdoptApplyVO> list = new ArrayList<>();
+		AdoptApplyVO adoptApplyVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(FIND_BY_ADOPT);
+			
+			pstmt.setString(1, adopt_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				adoptApplyVO = new AdoptApplyVO();
+				adoptApplyVO.setMemb_id(rs.getString("memb_id"));
+				list.add(adoptApplyVO);
+				
+			}
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			} 
+		}
+		return list;
+	}
 	//查全部
 	@Override
 	public List<AdoptApplyVO> getAll() {
@@ -339,12 +400,12 @@ public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 		AdoptApplyJDBCDAO dao = new AdoptApplyJDBCDAO();
 		
 //		//新增
-//		AdoptApplyVO adoptApplyVO1 = new AdoptApplyVO();
-//		adoptApplyVO1.setMemb_id("M000000002");
-//		adoptApplyVO1.setAdopt_id("A000000003");
-//		adoptApplyVO1.setAdopt_des("認養案例描述");
-//		dao.insert(adoptApplyVO1);
-//		System.out.println("新增成功");
+		AdoptApplyVO adoptApplyVO1 = new AdoptApplyVO();
+		adoptApplyVO1.setMemb_id("M000000002");
+		adoptApplyVO1.setAdopt_id("A000000001");
+		adoptApplyVO1.setAdopt_des("認養案例描述");
+		dao.insert(adoptApplyVO1);
+		System.out.println("新增成功");
 			
 //		//修改
 //		AdoptApplyVO adoptApplyVO2 = new AdoptApplyVO();

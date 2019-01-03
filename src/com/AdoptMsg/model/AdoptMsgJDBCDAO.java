@@ -363,12 +363,12 @@ public class AdoptMsgJDBCDAO implements AdoptMsgDAO_Interface{
 		AdoptMsgJDBCDAO dao = new AdoptMsgJDBCDAO();
 		
 //		//新增
-//		AdoptMsgVO adoptMsgVO1 = new AdoptMsgVO();
-//		adoptMsgVO1.setAdopt_id("A000000007");
-//		adoptMsgVO1.setAdopt_msg_sper("M000000002");
-//		adoptMsgVO1.setAdopt_msg_comm("留言描述");
-//		dao.insert(adoptMsgVO1);
-//		System.out.println("新增成功");
+		AdoptMsgVO adoptMsgVO1 = new AdoptMsgVO();
+		adoptMsgVO1.setAdopt_id("A000000007");
+		adoptMsgVO1.setAdopt_msg_sper("M000000002");
+		adoptMsgVO1.setAdopt_msg_comm("留言描述");
+		dao.insert(adoptMsgVO1);
+		System.out.println("新增成功");
 		
 //		//刪除
 //		dao.delete("AM00000007");

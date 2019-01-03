@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mem.model.MemVO;
+import com.rescue.model.RescueVO;
 
 public class VolunteerService {
 	
@@ -95,6 +96,8 @@ public class VolunteerService {
 	public VolunteerVO getVolunteerSelf(String vlt_mail) {
 		return dao.findByAccount(vlt_mail);
 	}
-
+	public RescueVO volunteerCheckOut(String vlt_id) {
+		return dao.volunteerCheckOut(vlt_id);
+	}
 
 }

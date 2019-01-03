@@ -10,7 +10,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.CurrencyDetail.model.CurDtVO;
+import com.mem.model.MemVO;
+import com.ord.model.OrdVO;
 import com.orditem.model.OrdItemVO;
+import com.prod.model.ProdService;
+import com.prod.model.ProdVO;
 
 public class OrdItemJDBCDAO implements OrdItemDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -76,6 +81,72 @@ public class OrdItemJDBCDAO implements OrdItemDAO_interface {
 			}
 		}
 
+	}
+	
+	
+	@Override
+	public void insert2(OrdItemVO ordItemVO, Connection con) {
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement(INSERT_STMT);
+			
+			pstmt.setString(1, ordItemVO.getProd_id());
+			pstmt.setString(2, ordItemVO.getOrd_id());
+			pstmt.setInt(3, ordItemVO.getOrd_item_qty());
+			pstmt.setString(4, ordItemVO.getOrd_item_sp_status());
+			pstmt.setTimestamp(5, ordItemVO.getOrd_item_sp_date());
+			pstmt.setString(6, ordItemVO.getOrd_item_rc_status());
+			pstmt.setTimestamp(7, ordItemVO.getOrd_item_rc_date());
+			pstmt.setString(8, ordItemVO.getOrd_item_coin_st());
+			pstmt.setString(9, ordItemVO.getOrd_item_rt_status());
+			pstmt.setTimestamp(10, ordItemVO.getOrd_item_rt_date());
+			pstmt.setString(11, ordItemVO.getOrd_item_rt_comm());
+			pstmt.setString(12, ordItemVO.getOrd_item_review());
+			pstmt.setString(13, ordItemVO.getOrd_item_rv_des());
+			
+			int rowsUpdated = pstmt.executeUpdate();
+			System.out.println("Changed " + rowsUpdated + "rows");
+			
+			ProdService prodSvc = new ProdService();
+			String prod_id = ordItemVO.getProd_id();
+			ProdVO prodVO = prodSvc.getOneProd(prod_id);
+			
+			prodVO.setProd_stock(prodVO.getProd_stock()-ordItemVO.getOrd_item_qty());
+			System.out.println("剩餘數量=" + prodVO.getProd_stock());
+			if (prodVO.getProd_stock()==0) {
+				prodVO.setProd_status("下架");
+			} 
+			
+			prodSvc.updateProd(prodVO, con);
+			
+			// Handle any driver errors
+		} catch (Exception se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-ordItem");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
 	}
 
 	@Override
@@ -383,5 +454,28 @@ public class OrdItemJDBCDAO implements OrdItemDAO_interface {
 			System.out.println("---------------------");
 		}
 	}
+
+
+	@Override
+	public void update(OrdItemVO ordItemVO, MemVO memVO, CurDtVO curDTVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public List<OrdItemVO> getOrdItemByOrd(List<OrdVO> ordList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<OrdItemVO> getOrdItemByProd(List<ProdVO> prodList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 }

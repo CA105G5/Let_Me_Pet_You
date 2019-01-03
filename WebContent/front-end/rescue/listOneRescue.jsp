@@ -3,15 +3,40 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.mem.model.*"%>
+<%@ page import="com.rescuing.model.*"%>
 <%@ page import="java.util.*"%>
 
 
 <%
 RescueVO rescueVO  = (RescueVO) request.getAttribute("rescueVO");
-System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
-System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("rsc_id"));
-MemService memSvc1 = new MemService();
-MemVO memVO = memSvc1.getOneMem("M000000005");
+String rsc_id = rescueVO.getRsc_id();
+// System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
+// System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("rsc_id"));
+
+// MemVO memVOinit = new MemVO();
+// memVOinit.setMemb_id("M000000002");
+// session.setAttribute("memVO", memVOinit);
+
+MemVO memVO =(MemVO) session.getAttribute("memVO");
+String memb_id="";
+if (memVO !=null){
+	memb_id = memVO.getMemb_id();
+}else{
+	memb_id="";
+}
+
+Map<String, String[]> map = new TreeMap<String, String[]>();
+map.put("rsc_id",new String[] {rsc_id});
+map.put("rscing_ptcp",new String[] {memb_id});
+
+RescuingService rescuingSvc2 = new RescuingService();
+List<RescuingVO> list =rescuingSvc2.getAll(map);
+
+
+
+
+// MemService memSvc1 = new MemService();
+// MemVO memVO = memSvc1.getOneMem("M000000005");
 session.setAttribute("memVO",memVO);
 %>
 <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService"/>
@@ -113,15 +138,43 @@ div {
 										<div class="comment-wrap col-sm-8">
 											<ul>
 										
+<%-- 											<c:if test="${rescueVO.rsc_sta=='待救援' or rescueVO.rsc_sta=='救援中'}"> --%>
+											
+<%-- 												<a href="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do?rsc_id=${rescueVO.rsc_id}&rscing_ptcp=${memVO.memb_id}&action=insert"  --%>
+<!-- 												class="genric-btn primary">加入救援</a> -->
+											
+<!-- 												<a href="#" class="genric-btn disable">已加入救援</a> -->
+											
+<%-- 											</c:if> --%>
+											
 											<c:if test="${rescueVO.rsc_sta=='待救援' or rescueVO.rsc_sta=='救援中'}">
 											
-												<a href="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do?rsc_id=${rescueVO.rsc_id}&rscing_ptcp=${memVO.memb_id}&action=insert" 
-												class="genric-btn primary">加入救援</a>
+												<% if(memVO == null){ %>
+												<h3 style="color:red">請先登入才可加入救援 </h3>
+													 
+												
+												<%}else if (list.isEmpty()){ %>
+													
+														<a href="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do?rsc_id=${rescueVO.rsc_id}&rscing_ptcp=${memVO.memb_id}&action=insert" 
+														class="genric-btn primary">加入救援</a>
+												<%}else{%>
+												
+														<a href="#" class="genric-btn disable">已加入救援</a>
+												
+												<%}%>
 											
-												<a href="#" class="genric-btn disable">已加入救援</a>
+											
 											</c:if>
+											
 											</ul>
 										</div>
+										
+										
+										
+										
+										
+										
+										
 <!-- 										<div class="social-wrap col-lg-6"> -->
 <!-- 											<ul> -->
 <!-- 												<li><a href="#"><i class="fa fa-facebook"></i></a></li> -->

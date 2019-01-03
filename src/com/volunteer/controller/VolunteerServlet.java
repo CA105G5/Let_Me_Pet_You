@@ -13,6 +13,7 @@ import javax.servlet.http.*;
 
 import com.mem.model.MemService;
 import com.mem.model.MemVO;
+import com.rescue.model.RescueVO;
 import com.volunteer.model.*;
 @MultipartConfig
 public class VolunteerServlet extends HttpServlet{
@@ -609,6 +610,20 @@ public class VolunteerServlet extends HttpServlet{
 						.getRequestDispatcher(requestURL);
 				failureView.forward(req, res);
 			}
+		}
+		if ("check_out_rescue".equals(action)) {
+			/***************************1.取得資料**********************************/ 
+			HttpSession session = req.getSession();
+			VolunteerVO volunteerVO = (VolunteerVO) session.getAttribute("volunteerVO");
+			String vlt_id = volunteerVO.getVlt_id();
+			/***************************2.開始查詢***************************************/
+			VolunteerService volunteerSvc = new VolunteerService();
+			RescueVO rescueVO = volunteerSvc.volunteerCheckOut(vlt_id);
+			/***************************3.查詢完成,準備轉交(Send the Success view)************/
+			req.setAttribute("rescueVO", rescueVO);
+			RequestDispatcher successView = 
+					req.getRequestDispatcher("/front-end/volunteer/volunteer_rescue.jsp");
+			successView.forward(req, res);
 		}
 		
 	}

@@ -9,8 +9,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.ord.model.OrdVO;
+import com.orditem.model.OrdItemJDBCDAO;
+import com.orditem.model.OrdItemVO;
 
 public class OrdJDBCDAO implements OrdDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -20,6 +24,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO ord (ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM) VALUES ('O'|| to_char(sysdate,'yyyymmdd')||'-'||LPAD(to_char(ORD_id_seq.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord order by ORD_ID";
+	private static final String GET_ALL_ORD_BY_MEM = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord where mem_id = ? order by ORD_ID";
 	private static final String GET_ONE_STMT = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord where ORD_ID = ?";
 	private static final String DELETE = "DELETE FROM ord where ORD_ID = ?";
 	private static final String UPDATE = "UPDATE ord set MEMB_ID=?, ORD_DATE=?, ORD_TOTAL=?,ORD_RECEIVER=?, ORD_RC_TEL=?, ORD_RC_ADD=?, ORD_RC_COMM=? where ORD_ID = ?";
@@ -249,6 +254,114 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		return list;
 
 	}
+	
+	
+	@Override
+	public List<OrdVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<OrdVO> getOrdItemByOrd(String ord_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insertWithOrdItem(OrdVO ordVO, List<OrdItemVO> list) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+			
+    		// 先新增部門
+			String cols[] = {"ORD_ID"};
+			pstmt = con.prepareStatement(INSERT_STMT , cols);			
+			pstmt.setString(1, ordVO.getMemb_id());
+			pstmt.setTimestamp(2, new Timestamp(new Date().getTime()));
+			pstmt.setInt(3, ordVO.getOrd_total());
+			pstmt.setString(4, ordVO.getOrd_receiver());
+			pstmt.setString(5, ordVO.getOrd_rc_tel());
+			pstmt.setString(6, ordVO.getOrd_rc_add());
+			pstmt.setString(7, ordVO.getOrd_rc_comm());
+			int rowsUpdated = pstmt.executeUpdate();
+			System.out.println("Changed " + rowsUpdated + "rows");
+			//掘取對應的自增主鍵值
+			String next_ordno = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				next_ordno = rs.getString(1);
+				System.out.println("自增主鍵值= " + next_ordno +"(剛新增成功的訂單編號)");
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+			// 再同時新增員工
+			OrdItemJDBCDAO dao = new OrdItemJDBCDAO();
+			System.out.println("list.size()-A="+list.size());
+			for (OrdItemVO ordItemVO : list) {
+				ordItemVO.setOrd_id(next_ordno) ;
+				dao.insert2(ordItemVO,con);
+			}
+
+			// 2●設定於 pstm.executeUpdate()之後
+			con.commit();
+			
+			System.out.println("list.size()-B="+list.size());
+			System.out.println("新增訂單編號" + next_ordno + "時,共有訂單明細 " + list.size()
+					+ " 筆同時被新增");
+			
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-ord");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			try {
+				con.setAutoCommit(true);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
 
 	@Override
 	public void delete(String ord_id) {
@@ -295,6 +408,34 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 	public static void main(String[] args) {
 
 		OrdJDBCDAO dao = new OrdJDBCDAO();
+		
+		OrdVO ordVO = new OrdVO();
+		ordVO.setMemb_id("M000000001");
+		ordVO.setOrd_date(new Timestamp(new Date().getTime()));
+		ordVO.setOrd_total(30);
+		ordVO.setOrd_receiver("Jen");
+		ordVO.setOrd_rc_tel("0912345678");
+		ordVO.setOrd_rc_add("中壢市平鎮區中央路300號");
+		ordVO.setOrd_rc_comm("請晚上六點之後派送");
+		
+		List<OrdItemVO> testList = new ArrayList<OrdItemVO>(); // 準備置入明細數筆
+		
+		OrdItemVO ordItemVO1 = new OrdItemVO();
+		ordItemVO1.setProd_id("P000000010");
+		ordItemVO1.setOrd_item_qty(3);
+		
+		OrdItemVO ordItemVO2 = new OrdItemVO();
+		ordItemVO2.setProd_id("P000000004");
+		ordItemVO2.setOrd_item_qty(5);
+		
+		testList.add(ordItemVO1);
+		testList.add(ordItemVO2);
+		
+		dao.insertWithOrdItem(ordVO , testList);
+		
+		
+		
+		
 
 		// 新增
 //		OrdVO ordVO1 = new OrdVO();
@@ -336,19 +477,27 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 //		System.out.println("---------------------");
 
 //		// 查詢
-		List<OrdVO> list = dao.getAll();
-		for (OrdVO aOrd : list) {
-			System.out.print(aOrd.getOrd_id() + ",");
-			System.out.print(aOrd.getMemb_id() + ",");
-			System.out.print(aOrd.getOrd_date() + ",");
-			System.out.print(aOrd.getOrd_total() + ",");
-			System.out.print(aOrd.getOrd_receiver() + ",");
-			System.out.print(aOrd.getOrd_rc_tel() + ",");
-			System.out.print(aOrd.getOrd_rc_add() + ",");
-			System.out.println(aOrd.getOrd_rc_comm());
-			System.out.println("---------------------");
-			System.out.println();
-		}
+//		List<OrdVO> list = dao.getAll();
+//		for (OrdVO aOrd : list) {
+//			System.out.print(aOrd.getOrd_id() + ",");
+//			System.out.print(aOrd.getMemb_id() + ",");
+//			System.out.print(aOrd.getOrd_date() + ",");
+//			System.out.print(aOrd.getOrd_total() + ",");
+//			System.out.print(aOrd.getOrd_receiver() + ",");
+//			System.out.print(aOrd.getOrd_rc_tel() + ",");
+//			System.out.print(aOrd.getOrd_rc_add() + ",");
+//			System.out.println(aOrd.getOrd_rc_comm());
+//			System.out.println("---------------------");
+//			System.out.println();
+//		}
 	}
+
+	@Override
+	public List<OrdVO> getOrdByMem(String memb_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 }

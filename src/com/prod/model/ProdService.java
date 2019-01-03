@@ -1,8 +1,12 @@
 package com.prod.model;
 
+import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+
+import com.ord.model.OrdVO;
+
 
 public class ProdService {
 
@@ -70,6 +74,10 @@ public class ProdService {
 	public void updateProd(ProdVO prodVO) {
 		dao.update(prodVO);
 	}
+	
+	public void updateProd(ProdVO prodVO, Connection con) {
+		dao.update(prodVO,con);
+	}
 
 	public void deleteProd(String prod_id) {
 		dao.delete(prod_id);
@@ -83,7 +91,15 @@ public class ProdService {
 		return dao.getAll();
 	}
 	
+	public List<ProdVO> getAll_Front() {
+		return dao.getAll_Front();
+	}
+	
 	public List<ProdVO> getAll(Map<String, String[]> map) {
 		return dao.getAll(map);
+	}
+	
+	public List<ProdVO> getProdByMem(String memb_id) {
+		return dao.getProdByMem(memb_id);
 	}
 }

@@ -9,8 +9,8 @@
 <%@ page import="com.prod.model.ProdVO"%>
 
 <%
-	ProdVO prodVO  = (ProdVO) request.getAttribute("prodVO");
-	List<ProdImgVO> prodImgList  = (List<ProdImgVO>) request.getAttribute("prodImgList");
+	ProdVO prodVO  = (ProdVO) session.getAttribute("reviewprodVO");
+	List<ProdImgVO> prodImgList  = (List<ProdImgVO>) session.getAttribute("reviewprodImgList");
 	System.out.println("listOneProd.jsp得到從ProdServlet.java傳過來的屬性"+request.getAttribute("Test"));
 	System.out.println("listOneProd.jsp得到從ProdServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
 	System.out.println("listOneProd.jsp得到從ProdServlet.java傳過來的請求參數值"+request.getParameter("prod_id"));
@@ -49,10 +49,10 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
-	crossorigin="anonymous">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" -->
+<!-- 	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" -->
+<!-- 	crossorigin="anonymous"> -->
 <script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 
 <style type="text/css">
@@ -162,6 +162,30 @@ div {
   to {opacity: 1}
 }
 
+/* button click動畫 */
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
 </style>
 </head>
 <body>
@@ -172,20 +196,31 @@ div {
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; bottom: auto;">
 <!-- 				<div class="row"> -->
 <!-- 					<div class="col-lg-3 cl-md-3" style="top: 180px; bottom: auto;"></div> -->
-					<div class="col-xs-12 col-sm-12">
+					<div class="col-xs-10 col-sm-10">
 					<div class="row">
-						<div class="col-xs-12 col-sm-6">
+						<div class="col-xs-10 col-sm-10">
+							<%-- 錯誤表列 --%>
+							<c:if test="${not empty errorMsgs}">
+								<div>
+									<font style="color:red">請修正以下錯誤:</font>
+									<ul>
+									    <c:forEach var="message" items="${errorMsgs}">
+											<li style="color:red">${message}</li>
+										</c:forEach>
+									</ul>
+								</div>
+							</c:if>
 						
 							<!-- Slideshow container -->
 							<div class="slideshow-container">
 									
 								<!-- Full-width images with number and caption text -->
 								<% int i =1; %> 
-								<c:forEach var="prodImgVO" items="${prodImgList}">
+								<c:forEach var="prodImgVO" items="${reviewprodImgList}">
 									<div class="mySlides" >
 <!-- 							    <div class="mySlides fade"> -->
 										<div class="numbertext"><%=i%>/<%=prodImgList.size()%></div>
-										<img src="<%=request.getContextPath()%>/util/PicReader2?prod_img_id=${prodImgVO.prod_img_id}" style="width:100%">
+										<img src="<%=request.getContextPath()%>/util/PicReader2?prod_img_id=${prodImgVO.prod_img_id}" style="width:50%">
 										<div class="text"> </div>
 									</div>
 									<% i++; %> 
@@ -198,30 +233,65 @@ div {
 							<br>
 									
 							<!-- The dots/circles -->
-							<div style="text-align:center">
+							<div>
+<!-- 						<div style="text-align:center"> -->
 								<% int j =1; %> 
-								<c:forEach var="prodImgVO" items="${prodImgList}">
+								<c:forEach var="prodImgVO" items="${reviewprodImgList}">
 									<span class="dot" onclick="currentSlide(<%=j%>)"></span> 
 									<% j++; %> 
 								</c:forEach>
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-6">
-							<h3>${prodVO.prod_name}
+						<div class="col-xs-10 col-sm-10">
+							<h3>${reviewprodVO.prod_name}
 								<span style="font-size: 1em; color: Tomato; text-indent:300px;">
 									<i class="fas fa-coins"></i>
-									<b>${prodVO.prod_price}</b>
+									<b>${reviewprodVO.prod_price}</b>
 								</span>
 							</h3>
-							<h4>商品資訊:</h4> <p>${prodVO.prod_info}</p>
-							<br>
-							<h4>捐贈數量: ${prodVO.prod_stock}</h4>
-							<br>
-							<h4>產品分類: ${prodVO.prod_type_id}</h4>
-							<br>
-							<h4>適用動物: ${prodVO.prod_ani_type_id}</h4>
-									
+							<hr>
+							<h4>商品資訊: <p>${reviewprodVO.prod_info}</p></h4>
+							<h4>捐贈數量: ${reviewprodVO.prod_stock}</h4>
+							<h4>產品分類: ${reviewprodVO.prod_type_id}</h4>
+							<h4>適用動物: ${reviewprodVO.prod_ani_type_id}</h4>
+							<hr>
+							<div>
+								<h3>審核</h3>
+								<div class="row">
+									<div class="input-group-icon mt-10 col-xs-8 col-sm-8" style="width: 150px; ">
+										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto">
+											<div class="input-group-icon mt-10" style="width: 200px; ">
+												<div class="icon">
+													<i class="fa fa-thumb-tack" aria-hidden="true"></i>
+												</div>
+												<div class="form-select" id="default-select">
+													<select style="width: 120px" id="prod_review" name="prod_review">
+														<option value="0">審核結果</option>
+														<option value="通過" ${ reviewprodVO.prod_review.equals("通過")? "selected":""}>通過</option>
+														<option value="不通過" ${ reviewprodVO.prod_review.equals("不通過")? "selected":""}>不通過</option>
+													</select>
+												</div>
+											</div> 
+									</div>
+								
+									<br>
+									<div class="col-xs-10 col-sm-10">
+										審核原因: <br>
+										<textarea name="prod_review_des" class="form-control custom-control" rows="5" style="resize:none; width: 250px;">${ reviewprodVO.prod_review_des==null? "": reviewprodVO.prod_review_des}</textarea>
+									</div>
+								
+								</div>
+								
+								<br>
+								<div>
+<!-- 							<div style="text-align:right"> -->
+									<input type="hidden" name="prod_id"  value="${reviewprodVO.prod_id}">
+									<input type="hidden" name="action"	value="getOne_For_Review_Update">
+									<input type="submit" value="提交" class="button"></FORM>
+								</div>
+							
+							</div>
 						</div>
 					</div>
 
@@ -229,35 +299,16 @@ div {
 							<div id="sider" class="n-browse-nav m-sticky-on"
 								style="top: 150px; bottom: auto;">
 								<div class="row">
-									<div class="col-lg-9 cl-md-9" style="top: 30px; bottom: auto;">
+									<div class="col-lg-10 cl-md-10" style="top: 30px; bottom: auto;">
 										<div class="">
-												${prodVO.prod_des}
+												${reviewprodVO.prod_des}
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<hr>
-						<div>
-							<h3>審核</h3>
-							<div class="input-group-icon mt-10" style="width: 150px; ">
-								<div class="icon">
-									<i class="fa fa-thumb-tack" aria-hidden="true"></i>
-								</div>
-								<div class="form-select" id="default-select">
-									<select style="width: 120px">
-										<option value="0">審核結果</option>
-										<option value="1">通過</option>
-										<option value="2">不通過</option>
-									</select>
-								</div>
-							</div>
-							<br>
-							<div>
-								審核原因: <br>
-								<textarea></textarea>
-							</div>
-						</div>
+						
 						
 					</div>
 				</div>

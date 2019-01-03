@@ -1,3 +1,4 @@
+<%@page import="com.reportMissing.model.reportMissingService"%>
 <%@page import="java.util.List"%>
 <%@page import="com.missingCase.model.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -9,6 +10,7 @@
 	List<missingCaseVO> list = missingCaseSvc.getAll();
 	pageContext.setAttribute("list", list);
 	int x = 0;
+// 	reportMissingService reportMissingSvc = new reportMissingService();
 %>
 
 

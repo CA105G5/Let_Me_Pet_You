@@ -17,7 +17,7 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 	String password = "123456";
 	
 	private static final String INSERT_ADOPT = 
-			"INSERT INTO ADOPTION (ADOPT_ID,ADOPT_SPECIES,ADOPT_SPONSOR,ADOPT_DES,ADPOT_IMG) values ('A'||LPAD(to_char(adoption_seq.NEXTVAL),9,'0'),?,?,?,?)";
+			"INSERT INTO ADOPTION (ADOPT_ID,ADOPT_SPECIES,ADOPT_SPONSOR,ADOPT_DES,ADOPT_IMG) values ('A'||LPAD(to_char(adoption_seq.NEXTVAL),9,'0'),?,?,?,?)";
 	private static final String GET_ONE_ADOPT =
 			"SELECT * FROM ADOPTION WHERE ADOPT_ID=?";
 	private static final String GET_ALL_ADOPT =
@@ -270,20 +270,20 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 			AdoptionJDBCDAO dao = new AdoptionJDBCDAO();
 			
 	//		//新增
-	//		AdoptionVO adoptionVO1 = new AdoptionVO();
-	//		adoptionVO1.setAdopt_species("羊咩咩");
-	//		adoptionVO1.setAdopt_sponsor("M000000009");
-	//		adoptionVO1.setAdopt_des("認養案例描述");
-	//		
-	//		try {
-	//			byte[] pic1 = getPictureByteArray("C:\\Project\\01.jpg");
-	//			adoptionVO1.setAdopt_img(pic1);
-	//		} catch (IOException e) {
-	//			e.printStackTrace();
-	//		}
-	//		
-	//		dao.insert(adoptionVO1);
-	//		System.out.println("新增成功");
+			AdoptionVO adoptionVO1 = new AdoptionVO();
+			adoptionVO1.setAdopt_species("羊咩咩");
+			adoptionVO1.setAdopt_sponsor("M000000009");
+			adoptionVO1.setAdopt_des("認養案例描述");
+			adoptionVO1.setAdopt_img(null);
+//			try {
+//				byte[] pic1 = getPictureByteArray("C:\\Project\\01.jpg");
+//				adoptionVO1.setAdopt_img(pic1);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+			
+			dao.insert(adoptionVO1);
+			System.out.println("新增成功");
 			
 //			//修改
 //			AdoptionVO adoptionVO2 = new AdoptionVO();
@@ -315,20 +315,20 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 		
 			
 			//查全部
-			List<AdoptionVO> list = dao.getAll();
-			for (AdoptionVO myadopt : list) {
-				System.out.println(myadopt.getAdopt_id() + ",");
-				System.out.println(myadopt.getAdopt_species() + ",");
-				System.out.println(myadopt.getAdopt_sponsor() + ",");
-				System.out.println(myadopt.getAdopt_status() + ",");
-				System.out.println(myadopt.getAdopt_apply_status() + ",");
-				System.out.println(myadopt.getAdopt_btime() + ",");
-				System.out.println(myadopt.getAdopt_etime() + ",");
-				System.out.println(myadopt.getAdopt_des() + ",");
-				System.out.println(myadopt.getAdopt_img() + ",");
-				System.out.println("---------------------------");
-				System.out.println("查全部成功");
-			}
+//			List<AdoptionVO> list = dao.getAll();
+//			for (AdoptionVO myadopt : list) {
+//				System.out.println(myadopt.getAdopt_id() + ",");
+//				System.out.println(myadopt.getAdopt_species() + ",");
+//				System.out.println(myadopt.getAdopt_sponsor() + ",");
+//				System.out.println(myadopt.getAdopt_status() + ",");
+//				System.out.println(myadopt.getAdopt_apply_status() + ",");
+//				System.out.println(myadopt.getAdopt_btime() + ",");
+//				System.out.println(myadopt.getAdopt_etime() + ",");
+//				System.out.println(myadopt.getAdopt_des() + ",");
+//				System.out.println(myadopt.getAdopt_img() + ",");
+//				System.out.println("---------------------------");
+//				System.out.println("查全部成功");
+//			}
 			
 		}
 	public static byte[] getPictureByteArray(String path) throws IOException {

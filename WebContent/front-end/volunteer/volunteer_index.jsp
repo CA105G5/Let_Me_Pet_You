@@ -82,7 +82,7 @@ System.out.println("111111111111111111111111111="+session.getId());
 							</a>
 						</div>
 						<div class="col-lg-6 home-about-right">
-							<a href="#">
+							<a href="<%=request.getContextPath()%>/front-end/volunteer/volunteer.do?action=check_out_rescue">
 							<img style="width:80%;height:80%;"class="mx-auto d-block img-fluid img" src="images/rescue1.png" alt="" title="救援專區">
 							</a>
 						</div>

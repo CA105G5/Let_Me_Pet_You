@@ -123,8 +123,8 @@ h4 {
 			<!-- 左側邊 -->
 			<div class="col-xs-12 col-sm-3">
 				<div class="list-group">
-					<a href="listAllMissingCase.jsp" class="list-group-item ">認養案例瀏覽</a>
-					<a href="addMissing.jsp" class="list-group-item ">認養案例新增</a>
+					<a href="listAllAdopt.jsp" class="list-group-item ">認養案例瀏覽</a>
+					<a href="addAdopt.jsp" class="list-group-item ">認養案例新增</a>
 				</div>
 			</div>
 

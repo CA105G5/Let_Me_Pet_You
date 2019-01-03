@@ -128,6 +128,14 @@
     <url-pattern>/back-end/rescue/rescueImg.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>RescueAjax</servlet-name>
+    <servlet-class>com.rescue.controller.RescueAjax</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RescueAjax</servlet-name>
+    <url-pattern>/back-end/rescue/RescueAjax.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>RescuingServlet</servlet-name>
     <servlet-class>com.rescuing.controller.RescuingServlet</servlet-class>
   </servlet>
@@ -206,6 +214,14 @@
   <servlet-mapping>
     <servlet-name>AndroidVolunteerServlet</servlet-name>
     <url-pattern>/volunteer/VolunteerServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AndroidRescueServlet</servlet-name>
+    <servlet-class>com.rescue.android.controller.RescueServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AndroidRescueServlet</servlet-name>
+    <url-pattern>/rescue/RescueServlet.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>DonateServlet</servlet-name>
@@ -290,11 +306,44 @@
     <url-pattern>/front-end/adopt/adoptionServlet.do</url-pattern>
   </servlet-mapping>
   <servlet>
+<<<<<<< HEAD
     <servlet-name>AdoptMsgServlet</servlet-name>
     <servlet-class>com.AdoptMsg.controller.AdoptMsgServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AdoptMsgServlet</servlet-name>
     <url-pattern>/front-end/adopt/adoptMsgServlet.do</url-pattern>
+=======
+    <servlet-name>OrdItemServlet</servlet-name>
+    <servlet-class>com.orditem.controller.OrdItemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrdItemServlet</servlet-name>
+    <url-pattern>/ordItem/ordItem.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>OrdServlet</servlet-name>
+    <servlet-class>com.ord.controller.OrdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrdServlet</servlet-name>
+    <url-pattern>/ord/ord.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ProdCartServlet</servlet-name>
+    <servlet-class>com.prodtrack.controller.ProdCartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProdCartServlet</servlet-name>
+    <url-pattern>/prodcart.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ProdTrackServlet</servlet-name>
+    <servlet-class>com.prodtrack.controller.ProdTrackServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProdTrackServlet</servlet-name>
+    <url-pattern>/prodtrack.do</url-pattern>
+>>>>>>> branch 'master' of https://github.com/CA105G5/Let_Me_Pet_You.git
   </servlet-mapping>
 </web-app>

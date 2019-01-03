@@ -135,6 +135,7 @@
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">取消</button>
+										<input type="hidden" class="btn btn-primary" name="missingCase"value="<%=request.getContextPath()%>/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id=${missingCaseVO.missing_case_id}">
 										<input type="submit" class="btn btn-primary" value="送出">
 									</div>
 									</form>

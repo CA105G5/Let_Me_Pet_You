@@ -141,6 +141,7 @@ public class missingCaseServlet extends HttpServlet {
 					errorMsgs.add("請輸入正確的地點");
 				}
 				String missing_status_shelve = null;
+				String missing_type = req.getParameter("missing_type");
 
 				Part part = req.getPart("upfile");
 				if (part.getSubmittedFileName().equals(null) && part.getSubmittedFileName().trim().length() == 0) {
@@ -157,8 +158,7 @@ public class missingCaseServlet extends HttpServlet {
 				missingCaseVO.setMissing_loc(loc);
 				missingCaseVO.setMissing_status_shelve(missing_status_shelve);
 				missingCaseVO.setMissing_photo(missing_photo);
-
-				String missing_type = req.getParameter("missing_type");
+				missingCaseVO.setMissing_type(missing_type);
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {

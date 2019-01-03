@@ -13,8 +13,8 @@ public class AdoptApplyVO implements java.io.Serializable{
 		return memb_id;
 	}
 
-	public void setMemb_id(String memeb_id) {
-		this.memb_id = memeb_id;
+	public void setMemb_id(String memb_id) {
+		this.memb_id = memb_id;
 	}
 
 	public String getAdopt_id() {

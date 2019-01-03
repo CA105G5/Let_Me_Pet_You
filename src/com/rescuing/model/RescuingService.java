@@ -22,6 +22,9 @@ public RescuingDAO_interface dao;
 		
 		dao.update(rescuingVO);
 	}
+	public List updateByVolunteer(String rsc_id,java.sql.Connection con) {
+		return dao.updateByVolunteer(rsc_id, con);
+	}
 	public void deleteRescuing(String rsc_id,String rsc_coin_mem) {
 		dao.delete(rsc_id,rsc_coin_mem);
 	}
