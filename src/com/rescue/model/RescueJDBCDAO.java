@@ -568,7 +568,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 				ntfVO.setNtf_dt("救援編號:"+rescueVO.getRsc_id()+"，救援逾時，已派志工前往。");
 				dao3.insert(ntfVO,con);
 			}
-			
+			con.commit();
+			con.setAutoCommit(true);
 			System.out.println("已成功分派救援給志工");
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
