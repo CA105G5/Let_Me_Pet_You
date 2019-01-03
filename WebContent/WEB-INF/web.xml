@@ -246,7 +246,6 @@
   <filter-mapping>
     <filter-name>LoginFilter</filter-name>
     <url-pattern>/front-end/missingCase/addMissing.jsp</url-pattern>
-    <url-pattern>/front-end/donate/addProdDon.jsp</url-pattern>
     <url-pattern>/front-end/donate/listAllProdDon.jsp</url-pattern>
     <url-pattern>/front-end/ord/listAllOrd.jsp</url-pattern>
     <url-pattern>/front-end/ord/listAllOrd_Ship.jsp</url-pattern>
