@@ -463,6 +463,7 @@ public class MemServlet extends HttpServlet {
 					    MailService mailService = new MailService();
 					    mailService.sendMail(to, subject, messageText);
 					   
+					    req.setAttribute("mail", "yes");
 					    
 						RequestDispatcher successView = req
 								.getRequestDispatcher("/front-end/members/forget_psw.jsp");

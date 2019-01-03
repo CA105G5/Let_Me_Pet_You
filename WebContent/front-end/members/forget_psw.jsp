@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<% String flag = (String) request.getAttribute("mail"); %>
+
 <html>
 <head>
 <%-- Mobile Specific Meta --%>
@@ -129,6 +131,20 @@
        </div>
         
     </FORM>
+    
+    <%if ("yes".equals(flag)){%>
+    	<script>
+	//自訂預設值
+	swal.setDefaults({
+		title: "確定刪除？",
+        html: "按下確定後資料會永久刪除",
+        type: "success", // type can be "success", "error", "warning", "info", "question"
+    	showCloseButton: true
+	});
+	</script>
+    <%} %>
+    
+    
     
     <div align="center"><a href="<%=request.getContextPath()%>/front-end/members/login.jsp">前往登入頁面</a></div>
     
