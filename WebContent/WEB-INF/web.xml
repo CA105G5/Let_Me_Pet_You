@@ -313,14 +313,6 @@
     <url-pattern>/front-end/adopt/adoptionServlet.do</url-pattern>
   </servlet-mapping>
   <servlet>
-<<<<<<< HEAD
-    <servlet-name>AdoptMsgServlet</servlet-name>
-    <servlet-class>com.AdoptMsg.controller.AdoptMsgServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AdoptMsgServlet</servlet-name>
-    <url-pattern>/front-end/adopt/adoptMsgServlet.do</url-pattern>
-=======
     <servlet-name>OrdItemServlet</servlet-name>
     <servlet-class>com.orditem.controller.OrdItemServlet</servlet-class>
   </servlet>
@@ -359,6 +351,5 @@
   <servlet-mapping>
     <servlet-name>ProdTrackServlet</servlet-name>
     <url-pattern>/prodtrack.do</url-pattern>
->>>>>>> branch 'master' of https://github.com/CA105G5/Let_Me_Pet_You.git
   </servlet-mapping>
 </web-app>
