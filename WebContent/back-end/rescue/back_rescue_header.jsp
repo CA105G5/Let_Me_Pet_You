@@ -81,7 +81,7 @@
                         <ul class="sub-menu children dropdown-menu">                            
                         	<li><i class="fa fa-list-ul"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescue.jsp">救援案例列表</a></li>
                             <li><i class="fa fa-exclamation-circle"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp">逾時案例列表</a></li>
-                            <li><i class="fa fa-wpforms"></i><a href="ui-tabs.html">完成的救援審核</a></li>
+                            <li><i class="fa fa-wpforms"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_done_rescue.jsp">完成的救援審核</a></li>
                             <li><i class="fa fa-flag"></i><a href="ui-cards.html">救援檢舉審核</a></li>
                             <li><i class="fa fa-comments"></i><a href="ui-alerts.html">救援留言檢舉審核</a></li>
                             <li><i class="fa fa-spinner"></i><a href="ui-progressbar.html">Progress Bars</a></li>
