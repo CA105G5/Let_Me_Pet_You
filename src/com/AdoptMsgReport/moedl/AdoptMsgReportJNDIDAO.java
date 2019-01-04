@@ -3,16 +3,26 @@ package com.AdoptMsgReport.moedl;
 import java.sql.*;
 import java.util.*;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.AdoptApply.model.AdoptApplyVO;
 import com.AdoptMsg.model.AdoptMsgJDBCDAO;
 import com.missingMsgReport.model.missingMsgReportVO;
 
-public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
+public class AdoptMsgReportJNDIDAO implements AdoptMsgReportDAO_Interface {
 
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String user = "CA105G5";
-	String password = "123456";
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_ADOPT_MSG_RT = "INSERT INTO ADOPT_MSG_RT (ADOPT_MSG_RT_ID,ADOPT_MSG_ID,MEMB_ID,ADOPT_MSG_RT_COMM) values ('AMR'||LPAD(to_char(adopt_msg_rt_seq.NEXTVAL),7,'0'),?,?,?)";
 	private static final String UPDATE = "SELECT * FROM ADOPT_MSG_RT WHERE ADOPT_MSG_ID=?";
@@ -20,10 +30,6 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 	private static final String GET_ALL_ADOPT_MSG_RT = "SELECT * FROM ADOPT_MSG_RT ORDER BY ADOPT_MSG_RT_ID";
 	private static final String DELETE = "DELETE FROM ADOPT_MSG_RT WHERE ADOPT_MSG_RT_ID=?";
 	private static final String UPDATE_STATUS = "UPDATE adopt_msg_rt set adopt_msg_rt_status=? where adopt_msg_rt_id=?";
-
-	public AdoptMsgReportJDBCDAO() {
-		// TODO Auto-generated constructor stub
-	}
 
 	// 新增
 	@Override
@@ -34,8 +40,7 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_ADOPT_MSG_RT);
 
 			pstmt.setString(1, adoptMsgReportVO.getAdopt_msg_id());
@@ -43,9 +48,6 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 			pstmt.setString(3, adoptMsgReportVO.getAdopt_msg_rt_comm());
 
 			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException c) {
-			throw new RuntimeException("Couldn't load database driver. " + c.getMessage());
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured" + se.getMessage());
@@ -76,8 +78,7 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STATUS);
 
 			pstmt.setString(1, adoptMsgReportVO.getAdopt_msg_rt_status());
@@ -85,8 +86,6 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -116,8 +115,7 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, adoptMsgReportVO.getAdopt_msg_rt_id());
@@ -128,9 +126,6 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 			pstmt.setString(6, adoptMsgReportVO.getAdopt_msg_rt_status());
 
 			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException c) {
-			throw new RuntimeException("Couldn't load database driver. " + c.getMessage());
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured" + se.getMessage());
@@ -161,16 +156,12 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, adopt_msg_rt_id);
 
 			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException c) {
-			throw new RuntimeException("Couldn't load database driver. " + c.getMessage());
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured" + se.getMessage());
@@ -206,8 +197,7 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_ADOPT_MSG_RT);
 			pstmt.setString(1, adopt_msg_rt_id);
 
@@ -225,9 +215,6 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 				adoptMsgReportVO.setAdopt_msg_rt_status(rs.getString("adopt_msg_rt_status"));
 				list.add(adoptMsgReportVO);
 			}
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -269,8 +256,7 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_ADOPT_MSG_RT);
 			rs = pstmt.executeQuery();
 
@@ -286,9 +272,6 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 				adoptMsgReportVO.setAdopt_msg_rt_status(rs.getString("adopt_msg_rt_status"));
 				list.add(adoptMsgReportVO);
 			}
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -317,51 +300,6 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 			}
 		}
 		return list;
-	}
-
-	public static void main(String[] args) {
-
-		AdoptMsgReportJDBCDAO dao = new AdoptMsgReportJDBCDAO();
-
-//		//新增
-//		AdoptMsgReportVO adoptMsgReportVO1 = new AdoptMsgReportVO();
-//		adoptMsgReportVO1.setAdopt_msg_id("AM00000003");
-//		adoptMsgReportVO1.setMemb_id("M000000002");
-//		adoptMsgReportVO1.setAdopt_msg_rt_comm("檢舉內容");
-//		dao.insert(adoptMsgReportVO1);
-//		System.out.println("新增成功");
-
-//		//刪除
-//		dao.delete("AMR0000002");
-//		System.out.println("刪除成功");
-
-//		//查一筆
-//		List<AdoptMsgReportVO> list = dao.findByPrimaryKey("AMR0000001");
-//		for (AdoptMsgReportVO reportmsg : list) {
-//		System.out.println(reportmsg.getAdopt_msg_rt_id() + ",");
-//		System.out.println(reportmsg.getAdopt_msg_id() + ",");
-//		System.out.println(reportmsg.getMemb_id() + ",");
-//		System.out.println(reportmsg.getAdopt_msg_rt_time() + ",");
-//		System.out.println(reportmsg.getAdopt_msg_rt_comm() + ",");
-//		System.out.println(reportmsg.getAdopt_msg_rv_des() + ",");
-//		System.out.println(reportmsg.getAdopt_msg_rt_status() + ",");
-//		System.out.println("---------------------------");
-//		System.out.println("查一筆成功");
-//		}
-
-//		//查全部
-//		List<AdoptMsgReportVO> list = dao.getAll();
-//		for (AdoptMsgReportVO reportmsg : list) {
-//			System.out.println(reportmsg.getAdopt_msg_rt_id() + ",");
-//			System.out.println(reportmsg.getAdopt_msg_id() + ",");
-//			System.out.println(reportmsg.getMemb_id() + ",");
-//			System.out.println(reportmsg.getAdopt_msg_rt_time() + ",");
-//			System.out.println(reportmsg.getAdopt_msg_rt_comm() + ",");
-//			System.out.println(reportmsg.getAdopt_msg_rv_des() + ",");
-//			System.out.println(reportmsg.getAdopt_msg_rt_status() + ",");
-//			System.out.println("---------------------------");
-//		}
-
 	}
 
 }

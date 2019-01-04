@@ -188,7 +188,7 @@
 											<div class="desc">
 												<h5>
 													<a href="#">Emilly Blunt</a><button type="button" class="genric-btn primary small"
-								style="margin-left: 670px;" data-toggle="modal"	data-target="#${missingMsgVO.missing_msg_id}">檢舉</button>
+								style="margin-left: 670px;" data-toggle="modal"	data-target="#${adoptMsgVO.adopt_msg_id}">檢舉</button>
 												</h5>
 												<p class="date">
 													<fmt:formatDate value="${adoptMsgVO.adopt_msg_time}"
@@ -203,49 +203,46 @@
 								
 								
 								<!--留言檢舉彈出區-->
-<%-- 							<div class="modal fade" id="${missingMsgVO.missing_msg_id}" tabindex="-1" --%>
-<!-- 								role="dialog" aria-labelledby="#${missingMsgVO.missing_msg_id}" -->
-<!-- 								aria-hidden="true"> -->
-<!-- 								<div class="modal-dialog modal-dialog-centered" role="document"> -->
-<!-- 									<div class="modal-content"> -->
-<!-- 										<div class="modal-header"> -->
-<%-- 											<h5 class="modal-title" id="${missingMsgVO.missing_msg_id}" --%>
-<!-- 												style="margin-left: 200px;">請輸入檢舉原因:</h5> -->
-<!-- 											<button type="button" class="close" data-dismiss="modal" -->
-<!-- 												aria-label="Close"> -->
-<!-- 												<span aria-hidden="true">&times;</span> -->
-<!-- 											</button> -->
-<!-- 										</div> -->
-<!-- 										<div class="modal-body"> -->
-<!-- 											<form METHOD="post" -->
-<%-- 												ACTION="<%=(membVO == null) --%>
-<!--  					? request.getContextPath() + "/front-end/members/login.jsp" -->
-<%-- 					: request.getContextPath() + "/front-end/missingCase/missingMsgReport.do"%>"> --%>
-<!-- 												<div class="input-group mb-3"> -->
-<!-- 													<input type="text" class="form-control" -->
-<!-- 														name="missing_msg_rt_cont" aria-label="Default" -->
-<!-- 														aria-describedby="inputGroup-sizing-default"> -->
-<!-- 												</div> -->
+							<div class="modal fade" id="${adoptMsgVO.adopt_msg_id}" tabindex="-1"
+								role="dialog" aria-labelledby="#${missingMsgVO.missing_msg_id}"
+								aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="${adoptMsgVO.adopt_msg_id}"
+												style="margin-left: 200px;">請輸入檢舉原因:</h5>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<form METHOD="post"
+												ACTION="<%=(membVO == null)
+  					? request.getContextPath() + "/front-end/members/login.jsp" 
+					: request.getContextPath() + "/front-end/adopt/AdoptMsgReportServlet.do"%>"> 
+												<div class="input-group mb-3">
+													<input type="text" class="form-control"
+														name="adopt_msg_rt_comm" aria-label="Default"
+														aria-describedby="inputGroup-sizing-default">
+												</div>
 												
-<!-- 												<input type="hidden" name="missing_case_id" -->
-<%-- 													value="<%=request.getParameter("missing_case_id")%>"> --%>
-<!-- 												<input type="hidden" name="memb_id" -->
-<%-- 													value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>"> --%>
-<!-- 												<input type="hidden" name="missing_msg_rt_sta" value="待審核"> -->
-<!-- 												<input type="hidden" name="missing_msg_rt_time" -->
-<%-- 													value="<%=missing_msg_rt_time%>"> <input --%>
-<!-- 													type="hidden" name="action" value="insert"> -->
-<!-- 										</div> -->
-<!-- 										<div class="modal-footer"> -->
-<!-- 											<button type="button" class="btn btn-secondary" -->
-<!-- 												data-dismiss="modal">取消</button> -->
-<!-- 											<input type="submit" class="btn btn-primary" value="送出"> -->
-<%-- 										<input type="hidden" name="missing_msg_id" value="${missingMsgVO.missing_msg_id}"> --%>
-<!-- 										</div> -->
-<!-- 										</form> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
+												<input type="hidden" name="adopt_id"
+													value="<%=request.getParameter("adopt_id")%>">
+												<input type="hidden" name="memb_id"
+													value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
+												 <input type="hidden" name="action" value="insert">
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">取消</button>
+											<input type="submit" class="btn btn-primary" value="送出">
+										<input type="hidden" name="adopt_msg_id" value="${adoptMsgVO.adopt_msg_id}">
+										</div>
+										</form>
+									</div>
+								</div>
+							</div>
 							<!-- 檢舉結束 -->
 							</c:forEach>
 						</div>
