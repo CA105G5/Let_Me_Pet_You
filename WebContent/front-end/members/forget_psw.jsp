@@ -50,7 +50,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
 </head>
 <body>
-<jsp:include page="/front-end/members/member_header.jsp" flush="true" />
+<jsp:include page="<%=request.getContextPath()%>/index_Header.jsp" flush="true" />
 <!-- <header id="header" id="home"> -->
 <!-- 				<div class="container"> -->
 <!-- 			<div class="row header-top align-items-center"> -->

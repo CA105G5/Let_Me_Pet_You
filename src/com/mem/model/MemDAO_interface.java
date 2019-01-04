@@ -3,7 +3,12 @@ package com.mem.model;
 import java.sql.Connection;
 import java.util.List;
 
+import com.AdoptApply.model.AdoptApplyVO;
+import com.Adoption.model.AdoptionVO;
 import com.CurrencyDetail.model.CurDtVO;
+import com.missingCase.model.missingCaseVO;
+import com.rescue.model.RescueVO;
+import com.rescuing.model.RescuingVO;
 
 public interface MemDAO_interface {
 	public void insert(MemVO memVO); 
@@ -15,7 +20,11 @@ public interface MemDAO_interface {
 	public MemVO findByPrimaryKey(String memb_id);
 	public MemVO findByAccount(String memb_acc);
 	public List<MemVO> getAll();
-
+	public List<RescueVO> selectRescue(String memb_id);
+	public List<RescuingVO> selectRescuing(String memb_id);
+	public List<AdoptionVO> selectAdoption(String memb_id);
+	public List<AdoptApplyVO> selectAdoptApply(String memb_id);
+	public List<missingCaseVO> selectMissingCase(String memb_id);
 	
 	
 	//安卓功能

@@ -7,10 +7,15 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
+import com.AdoptApply.model.AdoptApplyVO;
+import com.Adoption.model.AdoptionVO;
 import com.CurrencyDetail.model.CurDtJDBCDAO;
 import com.CurrencyDetail.model.CurDtVO;
+import com.missingCase.model.missingCaseVO;
 import com.prod.model.ProdService;
 import com.prod.model.ProdVO;
+import com.rescue.model.RescueVO;
+import com.rescuing.model.RescuingVO;
 
 public class MemJDBCDAO implements MemDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -32,6 +37,12 @@ public class MemJDBCDAO implements MemDAO_interface {
 	private static final String GET_ONE_STMT="SELECT * FROM MEMBERS where memb_id=?";
 	private static final String GET_ALL_STMT="SELECT * FROM MEMBERS order by memb_id";
 	private static final String CLIENT_SEARCH_STMT="SELECT * FROM MEMBERS where memb_acc=?";
+	private static final String SELECT_RESCUE_SPONSOR = "SELECT * FROM RESCUE where rsc_sponsor=?";
+	private static final String SELECT_RSCING_PTCP = "SELECT * FROM RESCUING where rscing_ptcp=?";
+	private static final String SELECT_ADOPT_SPONSOR = "SELECT * FROM ADOPTION where adopt_sponsor=?";
+	private static final String SELECT_ADOPT_APPLY = "SELECT * FROM ADOPT_APPLY where memb_id=?";
+	private static final String SELECT_MISSING_PET = "SELECT * FROM MISSING_CASE where memb_id=?";
+	
 	//安卓SQL指令
 	private static final String FIND_BY_ID_PASWD = "SELECT * FROM MEMBERS WHERE memb_acc = ? AND memb_psw = ?";
 	private static final String CHECK_ID_EXIST = "SELECT memb_acc FROM MEMBERS WHERE memb_acc = ?";
@@ -677,6 +688,38 @@ public class MemJDBCDAO implements MemDAO_interface {
 		return memVO;
 	}
 
+	@Override
+	public List<RescueVO> selectRescue(String memb_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<RescuingVO> selectRescuing(String memb_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AdoptionVO> selectAdoption(String memb_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AdoptApplyVO> selectAdoptApply(String memb_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<missingCaseVO> selectMissingCase(String memb_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
 	//安卓確認會員帳密
 	@Override
 	public boolean isMemAcc(String memb_acc, String memb_psw) {
@@ -790,4 +833,6 @@ public class MemJDBCDAO implements MemDAO_interface {
 			}
 		} return picture;
 	}
+
+	
 }

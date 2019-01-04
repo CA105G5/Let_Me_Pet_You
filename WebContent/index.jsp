@@ -65,88 +65,8 @@ System.out.println( "是否登入:"+ (memVO != null));
 
 </head>
 <body bgcolor='white'>
-<jsp:include page="/front-end/members/member_header.jsp" flush="true" />
-<!-- <header id="header" id="home"> -->
-<!-- 				<div class="container"> -->
-<!-- 			<div class="row header-top align-items-center"> -->
-<!-- 				<div class="col-lg-3 col-sm-3 menu-top-left"> -->
-<%-- 					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid" --%>
-<%-- 						src="<%=request.getContextPath()%>/images/logo2.png" width="200" alt=""> --%>
-<!-- 					</a> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-lg-6 menu-top-middle justify-content-center d-flex"> -->
-<!-- 					<div class="container"> -->
-<!-- 			<div class="row align-items-center justify-content-center d-flex"> -->
-<!-- 				<nav id="nav-menu-container"> -->
-<!-- 					<ul class="nav-menu"> -->
-<%-- 						<li><a href="<%=request.getContextPath()%>/index.jsp">首頁</a></li> --%>
-<%-- 						<li><a href="<%=request.getContextPath()%>/index.jsp">會員</a> --%>
-<!-- 							<ul> -->
-<%-- 								    	<li><a href="<%=request.getContextPath()%>/front-end/members/listOneMember.jsp">查看會員資料</a></li> --%>
-<%-- 								        <li><a href="<%=request.getContextPath()%>/front-end/pet/pet.do?action=select_pet">查看我的寵物資料</a></li> --%>
-<%-- 								        <li><a href="<%=request.getContextPath()%>/index.jsp">查看我的救援案例</a></li> --%>
-<%-- 								        <li><a href="<%=request.getContextPath()%>/index.jsp">查看我的認養案例</a></li> --%>
-<%-- 								        <li><a href="<%=request.getContextPath()%>/index.jsp">查看我的失蹤寵物</a></li> --%>
-<%-- 								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">查看我的捐贈紀錄</a></li> --%>
-<%-- 										<li><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp">我的訂單管理</a></li> --%>
-<!-- 							</ul> -->
-						
-<!-- 						</li> -->
-<!-- 						<li><a href="about.html">救援</a></li> -->
-<!-- 						<li><a href="service.html">認養</a></li> -->
-<!-- 						<li><a href="training.html">失蹤</a> -->
-<!-- 						     <ul> -->
-<%-- 								<li><a href="<%=request.getContextPath()%>/front-end/missingCase/addMissing.jsp">新增失蹤案例</a></li> --%>
-<%-- 								<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤案例瀏覽</a></li> --%>
-<!-- 							</ul> -->
-<!-- 						</li> -->
-						
-<%-- 						<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a> --%>
-<!-- 							      	<ul> -->
-<%-- 								    	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li> --%>
-<%-- 								        <li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li> --%>
-<!-- 								    </ul> -->
-<!-- 						</li> -->
-<%-- 						<li class="menu-has-children menu-active"><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li> --%>
-<!-- <!-- 						<li><a href="contact.html">關於我們</a></li> --> -->
-<!-- <!-- 						<li><a href="elements.html">常見問題</a></li> --> -->
-<!-- 					</ul> -->
-<!-- 				</nav> -->
-				
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				
-				
-<!-- 				<div class="col-lg-3 col-sm-3"> -->
-<!-- 					<div class="row"> -->
-<!-- 						<div id="cart-container" class="col-lg-1 col-sm-1"> -->
-<!-- 							<a id="cart_icon"><i class="fa fa-shopping-cart fa-1x" aria-hidden="true"></i></a> -->
-<!-- 							<span id="itemCount"></span> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-lg-11 col-sm-11 menu-top-right"> -->
-<%-- 							<% if(memVO == null){ %> --%>
-<%-- 							<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊">登入/註冊</a> --%>
-<%-- 							<%}else{ %> --%>
-<!-- 							<div align="center"> -->
-<%-- 								<a href="<%=request.getContextPath()%>/front-end/members/listAllNtfs.jsp"><i class="fa fa-bell"></i></a> --%>
-								
-<%-- 								<% --%>
-//  									out.print(memVO.getMemb_nick()+"，你好");
-<%-- 								%> --%>
-<%-- 								<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a><br> --%>
-								
-<%-- 								<a href="<%=request.getContextPath()%>/front-end/members/cur_dt.jsp">愛心幣餘額</a> --%>
-<%-- 								<% out.print("尚有:    "+memVO.getMemb_balance()+"元");}%> --%>
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<hr> -->
-			    
-<!-- 			  </header> -->
+<jsp:include page="/index_Header.jsp" flush="true" />
+
 			  
 			  
 	<%-- 黑底logo區 --%>			  
@@ -364,7 +284,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="<%=request.getContextPath()%>/front-end/members/images/g6.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/java.jpg" alt="" height="300px">
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>

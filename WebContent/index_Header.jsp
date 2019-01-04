@@ -125,7 +125,7 @@ i.fa-shopping-cart:hover {
 </style>
 </head>
 <body>
-
+	<jsp:useBean id="MemberService" scope="page" class="com.mem.model.MemService"/>
 	<header id="header" id="home" height="100">
 		<div class="container">
 			<div class="row header-top align-items-center">
@@ -196,7 +196,7 @@ i.fa-shopping-cart:hover {
 								<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a><br>
 								
 								<a href="<%=request.getContextPath()%>/front-end/members/cur_dt.jsp">愛心幣餘額</a>
-								<% out.print("尚有:    "+memVO.getMemb_balance()+"元");}%>
+								<% out.print("尚有:    "+MemberService.getOneMem(memVO.getMemb_id()).getMemb_balance()+"元");}%>
 							</div>
 						</div>
 					</div>
