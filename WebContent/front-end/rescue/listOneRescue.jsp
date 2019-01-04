@@ -115,12 +115,12 @@ div {
 										地點：${rescueVO.rsc_add}
 									</p>
 									<p>
-										發起時間：${rescueVO.rsc_btime}
+										發起時間：<fmt:formatDate value="${rescueVO.rsc_btime}" type="both" />
 									</p>
 									
 									<c:if test="${not empty rescueVO.rsc_etime}">
 					                <p>
-										完成時間：${rescueVO.rsc_etime}
+										完成時間：<fmt:formatDate value="${rescueVO.rsc_etime}" type="both" />
 									</p>
 				                    </c:if>
 									

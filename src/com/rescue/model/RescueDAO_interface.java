@@ -11,7 +11,7 @@ public interface RescueDAO_interface {
     public void updateByManager(RescueVO rescueVO);
     public void delete(String rsc_id);
     public RescueVO findByPrimaryKey(String rsc_id);
-    public List<RescueVO> getAll();
+    public List<RescueVO> getAll(); 
     public List<RescueVO> getAllDelay();
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
     public List<RescueVO> getAll(Map<String, String[]> map); 

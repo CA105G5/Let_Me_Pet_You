@@ -956,7 +956,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 	@Override
 	public List<RescueVO> getAllRescue() {
-		List<RescueVO> list = new ArrayList<RescueVO>();
+		List<RescueVO> list = new ArrayList<>();
 		RescueVO rescueVO = null;
 
 		Connection con = null;
@@ -967,11 +967,10 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ALL_STMT);
+			pstmt = con.prepareStatement(GET_ALL_RESCUE);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVO 也稱為 Domain objects
 				rescueVO = new RescueVO();
 				rescueVO.setRsc_id(rs.getString("rsc_id"));
 				rescueVO.setRsc_name(rs.getString("rsc_name"));
@@ -983,18 +982,13 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 				rescueVO.setRsc_lon(rs.getDouble("rsc_lon"));
 				rescueVO.setRsc_sta(rs.getString("rsc_sta"));
 				rescueVO.setRsc_stm_time(rs.getTimestamp("rsc_stm_time"));
-				rescueVO.setRsc_stm_url(rs.getString("rsc_stm_url"));
 				rescueVO.setRsc_stm_sta(rs.getString("rsc_stm_sta"));
 				rescueVO.setRsc_btime(rs.getTimestamp("rsc_btime"));
 				rescueVO.setRsc_coin(rs.getInt("rsc_coin"));
 				rescueVO.setRsc_etime(rs.getTimestamp("rsc_etime"));
 				rescueVO.setRsc_reg(rs.getString("rsc_reg"));
-				rescueVO.setRsc_rt_status(rs.getString("rsc_rt_status"));
 				rescueVO.setNtf_vlt_dt(rs.getString("ntf_vlt_dt"));
-				rescueVO.setNtf_vlt_link(rs.getString("ntf_vlt_link"));
-				rescueVO.setNtf_vlt_sta(rs.getString("ntf_vlt_sta"));
-				rescueVO.setNtf_vlt_time(rs.getTimestamp("ntf_vlt_time"));
-				list.add(rescueVO); // Store the row in the list
+				list.add(rescueVO); 
 			}
 
 			// Handle any driver errors

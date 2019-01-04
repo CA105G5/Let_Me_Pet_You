@@ -41,8 +41,8 @@ public class RescueServlet extends HttpServlet {
 		JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
 		String action = jsonObject.get("action").getAsString();
 
-		if ("getAll".equals(action)) {
-			List<RescueVO> rescueList = rescueDao.getAll();
+		if ("getAllRescue".equals(action)) {
+			List<RescueVO> rescueList = rescueDao.getAllRescue();
 			writeText(res,gson.toJson(rescueList));
 		} else if ("findByPrimaryKey".equals(action)) {
 			String rsc_id = jsonObject.get("rsc_id").getAsString();
@@ -78,7 +78,7 @@ public class RescueServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		out.print(outText);
 		out.close();
-		System.out.println("outText: 1111" + outText);
+		System.out.println("outText: " + outText);
 	}
 
 	@Override

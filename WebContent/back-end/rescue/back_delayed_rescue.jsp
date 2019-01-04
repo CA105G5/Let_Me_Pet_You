@@ -203,7 +203,7 @@
 
   <div id="toBeReviewed" class="w3-container city" style="display:''; width:1100px">
  	<p> </p> 
-    <table id="bootstrap-data-table2" class="table table-striped table-bordered table-hover" style="width:100%">
+    <table style="text-align:center" id="bootstrap-data-table2" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
 														<tr class="success">
 															<th style="width: 30px">序號</th>
