@@ -161,9 +161,12 @@ if (rescuingReviewList==null){
 													<td><%=no %></td>
 													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescuingVO.rsc_id}">${rescuingVO.rsc_id}</a></td>
 													<td style=" margin-bottom: auto">${rescuingVO.rscing_ptcp}<br>暱稱：${memSvc.getOneMem(rescuingVO.rscing_ptcp).memb_nick}</td>
-													<td style=" margin-bottom: auto"><input class="btn btn-outline-info cdes" type="button" value="報告詳情"><div style="display:none">${rescuingVO.rscing_cdes}</div></td>
+													<td style=" margin-bottom: auto">
+														<button type="button" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#${rescuingVO.rsc_id}">完成報告</button>
+													</td>
 													<td style=" margin-bottom: auto"><fmt:formatDate value="${rescuingVO.rscing_ctime}" type="both" /></td>
 													<td style=" margin-bottom: auto">
+											
 														<select name="bootstrap-data-table_length"
 															aria-controls="bootstrap-data-table"
 															class="form-control form-control-sm status">
@@ -171,9 +174,29 @@ if (rescuingReviewList==null){
 															<option value="完成救援">通過</option>
 															<option value="不通過">不通過</option>
 														</select>
+														<div style="display:none">${rescuingVO.rsc_id}</div>
 													</td>
 												</tr>
-<%-- 										</c:if> --%>
+									       <div class="modal fade" id="${rescuingVO.rsc_id}" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+								                <div class="modal-dialog modal-lg" role="document">
+								                    <div class="modal-content">
+								                        <div class="modal-header">
+								                            <h5 class="modal-title" id="largeModalLabel">完成報告</h5>
+								                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								                                <span aria-hidden="true">&times;</span>
+								                            </button>
+								                        </div>
+								                        <div class="modal-body">
+								                            ${rescuingVO.rscing_cdes}
+								                        </div>
+								                        <div class="modal-footer">
+								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+<!-- 								                            <button type="button" class="btn btn-primary">Confirm</button> -->
+								                        </div>
+								                    </div>
+								                </div>
+								            </div>
+								        <%-- 										</c:if> --%>
 										</c:forEach>
                                     </tbody>
                                 </table>
@@ -255,60 +278,64 @@ if (rescuingReviewList==null){
 		$(document).ready(function() {
         	$('#bootstrap-data-table1').DataTable();
         	$('#bootstrap-data-table2').DataTable();
+        
         	
-        	$('.cdes').click(function(){
-        		
-        		
-        	});
-        	
-//         	 $('.status').change(function(){
-//         		 var $this = $(this);
-//         		 console.log("$this=" + $this);
-//         		 console.log("$this.val()=" + $this.val());
-//         		 swal({
-//         			  title: "確定分派給此志工嗎?",
-//         			  text: "分派後無法更換志工!",
-//         			  type: "warning",
-//         			  showCancelButton: true,
-//   		        	  showCloseButton: true,
-//         			}).then(
-//         			function(result){
-//         			  if (result) {
-//         				  console.log("11111");
-//         				  $.ajax({
-//         	     		     type: "POST",
+        	 $('.status').change(function(){
+        		 var $this = $(this);
+        		 console.log("$this=" + $this);
+        		 console.log("$this.val()=" + $this.val());
+        		 console.log($this.next().text());
+        		 if($this.val()=='完成救援'){
+        			 console.log("yyyyyyyy");
+//             		 swal({
+//        			  title: "確定通過嗎?",
+//        			  text: "確定後無法改變!",
+//        			  type: "warning",
+//        			  showCancelButton: true,
+//  		        	  showCloseButton: true,
+//        			}).then(
+//        			function(result){
+//        			  if (result) {
+//        				  
+//        				  $.ajax({
+//        	     		     type: "POST",
 <%--         	     			 url: "<%=request.getContextPath()%>/back-end/rescue/RescueAjax.do",  --%>
-//         	     			 data:{"action":"getChange","rsc_id":$this.attr('id'),"vlt_id":$this.val()},
-//         	     			 datatype:"json",
-//         	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
-//         	     			 success:function(data){
-//         	     				swal({
-// 	    				    	     title: "完成分派!",
-// 	    				    	     text: "已發通知給志工",
-// 	    				    	     type: "success",
+//        	     			 data:{"action":"doneRscPass","rsc_id":$this.next().text()},
+//        	     			 datatype:"json",
+//        	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+//        	     			 success:function(data){
+//        	     				swal({
+//	    				    	     title: "完成!",
+//	    				    	     text: "已發通知給會員!",
+//	    				    	     type: "success",
 	    				    	    
-// 	    				    	}).then(
-// 	    				    			function(result){
-// 	    				    		if(result){
-// 	    				    		setTimeout("window.location.reload()",100);
-// 	    				    	}
-// 	    				    		}
-// 	    				    			)
- 	        	     			 
-        	     				
+//	    				    	}).then(
+//	    				    			function(result){
+//	    				    				if(result){
+//	    				    					setTimeout("window.location.reload()",100);
+//	    				    				}
+//	    				    			}
+//	    				    		)
+//        	     			 }
+//        	     		 }) 
+//        			  }
+//        			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+//	            		swal("取消", "取消收貨", "error");
+//		        }).catch(swal.noop);
+//		    });
+        			 
+        			 
+        		 }else{
+        			 if($this.val()=='不通過'){
+        				 console.log("nnnnnnn");
+        			 }
+        		 }
 
-//         	     			 }
-//         	     		 }) 
-//         			  }
-//         			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
-// 	            		swal("取消", "取消收貨", "error");
-// 		        }).catch(swal.noop);
-// 		    });
+        	 });
+
+
        		
-//      			function changeVlt_id(rsc_id,vlt_id){
-// 	     			var cVlt_id = {"action":"getChange","rsc_id":rsc_id,"vlt_id":vlt_id};
-// 	     			return cVlt_id;
-//      			}
+
 	
      			
      			
