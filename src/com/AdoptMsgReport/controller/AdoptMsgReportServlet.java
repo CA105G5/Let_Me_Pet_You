@@ -34,6 +34,7 @@ public class AdoptMsgReportServlet extends HttpServlet {
 				String adopt_msg_id = req.getParameter("adopt_msg_id");
 				String memb_id = req.getParameter("memb_id");
 				String adopt_msg_rt_comm = req.getParameter("adopt_msg_rt_comm");
+				String adopt_id = req.getParameter("adopt_id");
 				
 				if(adopt_msg_rt_comm ==null || adopt_msg_rt_comm.trim().length() ==0) {
 					errorMsgs.add("請輸入檢舉理由");
@@ -48,7 +49,7 @@ public class AdoptMsgReportServlet extends HttpServlet {
 					req.setAttribute("adoptMsgReportVO", adoptMsgReportVO); // 含有輸入格式錯誤的reportMissingVO物件,也存入req
 					RequestDispatcher failureView = req.getRequestDispatcher(
 							"http://localhost:8081/CA105G5/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="
-									+ adopt_msg_id);
+									+ adopt_id);
 					failureView.forward(req, res);
 					return;
 				}
@@ -56,7 +57,7 @@ public class AdoptMsgReportServlet extends HttpServlet {
 				AdoptMsgReportService AdoptMsgSvc = new AdoptMsgReportService();
 				adoptMsgReportVO = AdoptMsgSvc.addAdoptMsgReport(adopt_msg_id, memb_id, adopt_msg_rt_comm);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "http://localhost:8081/CA105G5/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_msg_id;
+				String url = "http://localhost:8081/CA105G5/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id;
 				res.sendRedirect(url);
 				return;
 			} catch (Exception e) {

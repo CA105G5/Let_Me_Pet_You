@@ -220,27 +220,24 @@
 											<form METHOD="post"
 												ACTION="<%=(membVO == null)
   					? request.getContextPath() + "/front-end/members/login.jsp" 
-					: request.getContextPath() + "/front-end/missingCase/missingMsgReport.do"%>"> 
+					: request.getContextPath() + "/front-end/adopt/AdoptMsgReportServlet.do"%>"> 
 												<div class="input-group mb-3">
 													<input type="text" class="form-control"
-														name="missing_msg_rt_cont" aria-label="Default"
+														name="adopt_msg_rt_comm" aria-label="Default"
 														aria-describedby="inputGroup-sizing-default">
 												</div>
 												
-												<input type="hidden" name="missing_case_id"
-													value="<%=request.getParameter("missing_case_id")%>">
+												<input type="hidden" name="adopt_id"
+													value="<%=request.getParameter("adopt_id")%>">
 												<input type="hidden" name="memb_id"
 													value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
-												<input type="hidden" name="missing_msg_rt_sta" value="待審核">
-												<input type="hidden" name="missing_msg_rt_time"
-													value="<%=missing_msg_rt_time%>"> <input
-													type="hidden" name="action" value="insert">
+												 <input type="hidden" name="action" value="insert">
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-dismiss="modal">取消</button>
 											<input type="submit" class="btn btn-primary" value="送出">
-										<input type="hidden" name="missing_msg_id" value="${missingMsgVO.missing_msg_id}">
+										<input type="hidden" name="adopt_msg_id" value="${adoptMsgVO.adopt_msg_id}">
 										</div>
 										</form>
 									</div>

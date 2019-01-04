@@ -372,7 +372,7 @@
     <servlet-class>com.AdoptMsgReport.controller.AdoptMsgReportServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AdoptApplyServlet</servlet-name>
+    <servlet-name>AdoptMsgReportServlet</servlet-name>
     <url-pattern>/front-end/adopt/AdoptMsgReportServlet.do</url-pattern>
   </servlet-mapping>
 </web-app>
