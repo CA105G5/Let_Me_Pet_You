@@ -235,7 +235,7 @@
     <servlet-name>missingCaseAjax</servlet-name>
     <servlet-class>com.missingCase.controller.missingCaseAjax</servlet-class>
   </servlet>
-  <servlet-mapping> 
+  <servlet-mapping>
     <servlet-name>missingCaseAjax</servlet-name>
     <url-pattern>/missingCaseAjax.do</url-pattern>
   </servlet-mapping>
@@ -342,7 +342,7 @@
   <servlet-mapping>
     <servlet-name>ProdCartServlet2</servlet-name>
     <url-pattern>/prodcart2.do</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet>
     <servlet-name>ProdTrackServlet</servlet-name>
     <servlet-class>com.prodtrack.controller.ProdTrackServlet</servlet-class>
@@ -366,5 +366,13 @@
   <servlet-mapping>
     <servlet-name>AdoptApplyServlet</servlet-name>
     <url-pattern>/front-end/adopt/adoptMsgServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AdoptMsgReportServlet</servlet-name>
+    <servlet-class>com.AdoptMsgReport.controller.AdoptMsgReportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdoptApplyServlet</servlet-name>
+    <url-pattern>/front-end/adopt/AdoptMsgReportServlet.do</url-pattern>
   </servlet-mapping>
 </web-app>

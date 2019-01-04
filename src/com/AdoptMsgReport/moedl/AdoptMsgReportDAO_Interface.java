@@ -2,6 +2,7 @@ package com.AdoptMsgReport.moedl;
 
 import java.util.List;
 
+
 public interface AdoptMsgReportDAO_Interface {
 	
 	public void insert(AdoptMsgReportVO adoptMsgReportVO);
@@ -9,5 +10,5 @@ public interface AdoptMsgReportDAO_Interface {
 	public void delete(String adopt_msg_rt_id);
 	public List<AdoptMsgReportVO> findByPrimaryKey(String adopt_msg_rt_id);
 	public List<AdoptMsgReportVO> getAll();
-
+	public void updateStatus(AdoptMsgReportVO adoptMsgReportVO);
 }
