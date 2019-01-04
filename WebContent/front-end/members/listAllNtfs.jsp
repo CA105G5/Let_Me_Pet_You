@@ -83,7 +83,7 @@ pageContext.setAttribute("list",list);
 </style>
 </head>
 <body>
-<jsp:include page="<%=request.getContextPath()%>/index_Header.jsp" flush="true" />
+<jsp:include page="/index_Header.jsp" flush="true" />
 <!-- <header id="header" id="home"> -->
 <!-- 				<div class="container"> -->
 <!-- 			<div class="row header-top align-items-center"> -->

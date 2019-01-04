@@ -82,7 +82,7 @@
 
 </head>
 <body bgcolor='white'>
-<jsp:include page="<%=request.getContextPath()%>/index_Header.jsp" flush="true" />
+<jsp:include page="/index_Header.jsp" flush="true" />
 
 
 
