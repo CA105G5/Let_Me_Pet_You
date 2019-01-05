@@ -13,10 +13,11 @@
 	List<AdoptMsgVO> list = adoptMsgSvc.findByAdopt(adopt_id);
 	pageContext.setAttribute("list", list);
 	MemVO membVO = (MemVO) session.getAttribute("memVO");
-	
 	String url = request.getContextPath() +"/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id;
 	session.setAttribute("adopt",url);
 %>
+
+<jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
 <html>
 <head>
 <meta name="viewport"
@@ -183,7 +184,7 @@
 									<div class="single-comment justify-content-between d-flex">
 										<div class="user justify-content-between d-flex">
 											<div class="thumb">
-												<img src="img/blog/c1.jpg" alt="">
+												<img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${adoptMsgVO.adopt_msg_sper}">
 											</div>
 											<div class="desc">
 												<h5>
