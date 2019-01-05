@@ -34,6 +34,9 @@ public class AdoptionJNDIDAO implements AdoptionDAO_Interface{
 	private static final String UPDATE =
 			"UPDATE ADOPTION SET ADOPT_SPECIES=?,ADOPT_SPONSOR=?,ADOPT_STATUS=?,ADOPT_APPLY_STATUS=?,ADOPT_BTIME=?,ADOPT_ETIME=?,ADOPT_DES=?,ADOPT_IMG=? WHERE ADOPT_ID=?";
 	
+	private static final String CHANGE_STATUS =
+			"UPDATE ADOPTION SET ADOPT_APPLY_STATUS=?,ADOPT_STATUS=? WHERE ADOPT_ID=?";
+	
 	
 	
 	
@@ -191,7 +194,58 @@ public class AdoptionJNDIDAO implements AdoptionDAO_Interface{
 		}
 		return adoptionVO;
 	}
-		
+	
+	
+	//改狀態
+			@Override
+			public void changeStatus(String adopt_id, String adopt_apply_status, String adopt_status) {
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				
+				try {
+					
+					con = ds.getConnection();
+					pstmt = con.prepareStatement(CHANGE_STATUS);
+					
+					pstmt.setString(1, adopt_apply_status);
+					pstmt.setString(2, adopt_status);
+					pstmt.setString(3, adopt_id);
+					
+					pstmt.executeUpdate();
+			
+					
+					
+				} catch (SQLException se) {
+					throw new RuntimeException("A database error occured. "
+							+ se.getMessage());
+					
+				} finally {
+					if (rs != null) {
+						try {
+							rs.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (pstmt != null) {
+						try {
+							pstmt.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (con != null) {
+						try {
+							con.close();
+						} catch (Exception e) {
+							e.printStackTrace(System.err);
+						}
+					} 
+				}
+			}
+
+	
 
 	//查全部
 	@Override
