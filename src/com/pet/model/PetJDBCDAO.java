@@ -319,7 +319,7 @@ public class PetJDBCDAO implements PetDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				petVO = new PetVO();
+				
 				petVO = new PetVO();
 				petVO.setPet_id(rs.getString("pet_id"));
 				petVO.setPet_name(rs.getString("pet_name"));

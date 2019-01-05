@@ -12,6 +12,7 @@ import com.Adoption.model.AdoptionVO;
 import com.CurrencyDetail.model.CurDtJDBCDAO;
 import com.CurrencyDetail.model.CurDtVO;
 import com.missingCase.model.missingCaseVO;
+import com.pet.model.PetVO;
 import com.prod.model.ProdService;
 import com.prod.model.ProdVO;
 import com.rescue.model.RescueVO;
@@ -54,8 +55,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 		MemJDBCDAO dao = new MemJDBCDAO();
 		
 		//安卓測試
-		System.out.println(dao.isMemAcc("aaa", "123"));
-		System.out.println(dao.isMemExist("bbb"));
+//		System.out.println(dao.isMemAcc("aaa", "123"));
+//		System.out.println(dao.isMemExist("bbb"));
 	
 		
 //		//insert
@@ -166,6 +167,55 @@ public class MemJDBCDAO implements MemDAO_interface {
 //			System.out.println(aMem.getMemb_nick());
 //			System.out.println(aMem.getMemb_email());
 //			System.out.println(aMem.getMemb_photo());
+//			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+//		}
+//		System.out.println("多筆資料查詢成功");
+//		System.out.println("===========");
+		
+//		//getAll
+//		List <RescueVO> list2 = dao.selectRescue("M000000002");
+//		for(RescueVO aRescue : list2) {
+//			System.out.println(aRescue.getRsc_id());
+//			System.out.println(aRescue.getRsc_name());
+//			System.out.println(aRescue.getRsc_add());
+//			System.out.println(aRescue.getRsc_des());
+//			System.out.println(aRescue.getRsc_img());
+//			System.out.println(aRescue.getRsc_sponsor());
+//			System.out.println(aRescue.getVlt_id());
+//			System.out.println(aRescue.getRsc_lat());
+//			System.out.println(aRescue.getRsc_lon());
+//			System.out.println(aRescue.getRsc_sta());
+//			System.out.println(aRescue.getRsc_stm_time());
+//			System.out.println(aRescue.getRsc_stm_url());
+//			System.out.println(aRescue.getRsc_stm_sta());
+//			System.out.println(aRescue.getRsc_btime());
+//			System.out.println(aRescue.getRsc_coin());
+//			System.out.println(aRescue.getRsc_etime());
+//			System.out.println(aRescue.getRsc_reg());
+//			System.out.println(aRescue.getRsc_rt_status());
+//			System.out.println(aRescue.getNtf_vlt_dt());
+//			System.out.println(aRescue.getNtf_vlt_link());
+//			System.out.println(aRescue.getNtf_vlt_sta());
+//			System.out.println(aRescue.getNtf_vlt_time());
+//			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+//			
+//		}
+//		System.out.println("多筆資料查詢成功");
+//		System.out.println("===========");
+		
+		
+//		List <RescuingVO> list3 =dao.selectRescuing("M000000005");
+//		for(RescuingVO aRescuing : list3) {
+//			System.out.println(aRescuing.getRsc_id());
+//			System.out.println(aRescuing.getRscing_btime());
+//			System.out.println(aRescuing.getRscing_ctime());
+//			System.out.println(aRescuing.getRscing_etime());
+//			System.out.println(aRescuing.getRscing_ptcp());
+//			System.out.println(aRescuing.getRscing_sta());
+//			System.out.println(aRescuing.getRscing_cdes());
+//			System.out.println(aRescuing.getRscing_lat());
+//			System.out.println(aRescuing.getRscing_lon());
+//			System.out.println(aRescuing.getRscing_rv_des());
 //			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
 //		}
 //		System.out.println("多筆資料查詢成功");
@@ -690,14 +740,144 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 	@Override
 	public List<RescueVO> selectRescue(String memb_id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<RescueVO> list = new ArrayList<RescueVO>();
+		RescueVO rescueVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(SELECT_RESCUE_SPONSOR);
+			pstmt.setString(1,memb_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				rescueVO= new RescueVO();
+				rescueVO.setRsc_id(rs.getString("rsc_id"));
+				rescueVO.setRsc_name(rs.getString("rsc_name"));
+				rescueVO.setRsc_add(rs.getString("rsc_add"));
+				rescueVO.setRsc_des(rs.getString("rsc_des"));
+				rescueVO.setRsc_img(rs.getBytes("rsc_img"));
+				rescueVO.setRsc_sponsor(rs.getString("rsc_sponsor"));
+				rescueVO.setVlt_id(rs.getString("vlt_id"));
+				rescueVO.setRsc_lat(rs.getDouble("rsc_lat"));
+				rescueVO.setRsc_lon(rs.getDouble("rsc_lon"));
+				rescueVO.setRsc_sta(rs.getString("rsc_sta"));
+				rescueVO.setRsc_stm_time(rs.getTimestamp("rsc_stm_time"));
+				rescueVO.setRsc_stm_url(rs.getString("rsc_stm_url"));
+				rescueVO.setRsc_stm_sta(rs.getString("rsc_stm_sta"));
+				rescueVO.setRsc_btime(rs.getTimestamp("rsc_btime"));
+				rescueVO.setRsc_coin(rs.getInt("rsc_coin"));
+				rescueVO.setRsc_etime(rs.getTimestamp("rsc_etime"));
+				rescueVO.setRsc_reg(rs.getString("rsc_reg"));
+				rescueVO.setRsc_rt_status(rs.getString("rsc_rt_status"));
+				rescueVO.setNtf_vlt_dt(rs.getString("ntf_vlt_dt"));
+				rescueVO.setNtf_vlt_link(rs.getString("ntf_vlt_link"));
+				rescueVO.setNtf_vlt_sta(rs.getString("ntf_vlt_sta"));
+				rescueVO.setNtf_vlt_time(rs.getTimestamp("ntf_vlt_time"));
+				list.add(rescueVO);
+			}
+			
+			
+			
+			
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override
 	public List<RescuingVO> selectRescuing(String memb_id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<RescuingVO> list = new ArrayList<RescuingVO>();
+		RescuingVO rescuingVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(SELECT_RSCING_PTCP);
+			pstmt.setString(1,memb_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				rescuingVO= new RescuingVO();
+				rescuingVO.setRsc_id(rs.getString("rsc_id"));
+				rescuingVO.setRscing_ptcp(rs.getString("rscing_ptcp"));
+				rescuingVO.setRscing_btime(rs.getTimestamp("rscing_btime"));
+				rescuingVO.setRscing_sta(rs.getString("rscing_sta"));
+				rescuingVO.setRscing_cdes(rs.getString("rscing_cdes"));
+				rescuingVO.setRscing_ctime(rs.getTimestamp("rscing_ctime"));
+				rescuingVO.setRscing_etime(rs.getTimestamp("rscing_etime"));
+				rescuingVO.setRscing_lat(rs.getDouble("rscing_lat"));
+				rescuingVO.setRscing_lon(rs.getDouble("rscing_lon"));
+				rescuingVO.setRscing_rv_des(rs.getString("rscing_rv_des"));
+				list.add(rescuingVO);
+			}
+			
+			
+			
+			
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override

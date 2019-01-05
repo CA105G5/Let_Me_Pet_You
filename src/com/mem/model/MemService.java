@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.CurrencyDetail.model.CurDtVO;
 import com.orditem.model.OrdItemVO;
+import com.rescue.model.RescueVO;
+import com.rescuing.model.RescuingVO;
 
 public class MemService {
 	private MemDAO_interface dao; 
@@ -135,7 +137,12 @@ public class MemService {
 	public List<MemVO> getAll(){
 		return dao.getAll();
 	}
-	
+	public List<RescueVO> selectRescue(String memb_id){
+		return dao.selectRescue(memb_id);
+	}
+	public List<RescuingVO> selectRescuing(String memb_id){
+		return dao.selectRescuing(memb_id);
+	}
 	
 	public void updateMem(MemVO memVO, CurDtVO curDTVO, Connection con) {
 		dao.updateMemWithOrdItemAndCurDt(memVO, curDTVO, con);
