@@ -285,8 +285,10 @@ if (rescuingReviewList==null){
         		 console.log("$this=" + $this);
         		 console.log("$this.val()=" + $this.val());
         		 console.log($this.next().text());
+        		 
         		 if($this.val()=='完成救援'){
         			 console.log("yyyyyyyy");
+        			 
 //             		 swal({
 //        			  title: "確定通過嗎?",
 //        			  text: "確定後無法改變!",
@@ -312,7 +314,7 @@ if (rescuingReviewList==null){
 //	    				    	}).then(
 //	    				    			function(result){
 //	    				    				if(result){
-//	    				    					setTimeout("window.location.reload()",100);
+//	    				    					$this.parent().parent().css("display","none")
 //	    				    				}
 //	    				    			}
 //	    				    		)
@@ -320,7 +322,7 @@ if (rescuingReviewList==null){
 //        	     		 }) 
 //        			  }
 //        			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
-//	            		swal("取消", "取消收貨", "error");
+//	            		swal("取消", "取消審核", "error");
 //		        }).catch(swal.noop);
 //		    });
         			 
@@ -328,6 +330,43 @@ if (rescuingReviewList==null){
         		 }else{
         			 if($this.val()=='不通過'){
         				 console.log("nnnnnnn");
+        				 
+//                 		 swal({
+//           			  title: "確定不通過嗎?",
+//           			  text: "確定後無法改變!",
+//           			  type: "warning",
+//           			  showCancelButton: true,
+//     		        	  showCloseButton: true,
+//           			}).then(
+//           			function(result){
+//           			  if (result) {
+//           				  
+//           				  $.ajax({
+//           	     		     type: "POST",
+   <%--         	     			 url: "<%=request.getContextPath()%>/back-end/rescue/RescueAjax.do",  --%>
+//           	     			 data:{"action":"doneRscPass","rsc_id":$this.next().text()},
+//           	     			 datatype:"json",
+//           	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+//           	     			 success:function(data){
+//           	     				swal({
+//   	    				    	     title: "完成!",
+//   	    				    	     text: "已發通知給會員!",
+//   	    				    	     type: "success",
+   	    				    	    
+//   	    				    	}).then(
+//   	    				    			function(result){
+//   	    				    				if(result){
+//   	    				    					$this.parent().parent().css("display","none")
+//   	    				    				}
+//   	    				    			}
+//   	    				    		)
+//           	     			 }
+//           	     		 }) 
+//           			  }
+//           			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+//   	            		swal("取消", "取消審核", "error");
+//   		        }).catch(swal.noop);
+//   		    });
         			 }
         		 }
 

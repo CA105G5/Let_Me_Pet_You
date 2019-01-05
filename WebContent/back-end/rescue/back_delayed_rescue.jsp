@@ -423,7 +423,7 @@
         	     		 }) 
         			  }
         			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
-	            		swal("取消", "取消收貨", "error");
+	            		swal("取消", "取消分派", "error");
 		        }).catch(swal.noop);
 		    });
        		
