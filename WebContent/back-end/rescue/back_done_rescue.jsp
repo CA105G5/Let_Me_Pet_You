@@ -328,9 +328,25 @@ if (rescuingReviewList==null){
         			 
         			 
         		 }else{
-        			 if($this.val()=='不通過'){
-        				 console.log("nnnnnnn");
+//         			 if($this.val()=='不通過'){
+//         				 console.log("nnnnnnn");
         				 
+//         				 swal({
+//            				  title: '請描述不通過原因',
+//            				  input: 'textarea',
+//            				  showCancelButton: true,
+//            				  inputValidator: function (value) {
+//            				    return new Promise(function (resolve, reject) {
+//            				      if (value) {
+//            				        resolve()
+//            				      } else {
+//            				        reject('請輸入原因!')
+//            				      }
+//            				    })
+//            				  }
+//            				}).then(function (result) {
+//            				  console.log(result);
+//            				})
 //                 		 swal({
 //           			  title: "確定不通過嗎?",
 //           			  text: "確定後無法改變!",
@@ -344,7 +360,7 @@ if (rescuingReviewList==null){
 //           				  $.ajax({
 //           	     		     type: "POST",
    <%--         	     			 url: "<%=request.getContextPath()%>/back-end/rescue/RescueAjax.do",  --%>
-//           	     			 data:{"action":"doneRscPass","rsc_id":$this.next().text()},
+//           	     			 data:{"action":"doneRscNoPass","rsc_id":$this.next().text()},
 //           	     			 datatype:"json",
 //           	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
 //           	     			 success:function(data){

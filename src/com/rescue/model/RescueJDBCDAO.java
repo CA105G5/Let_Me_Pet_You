@@ -609,6 +609,163 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		
 	}
+	@Override
+	public void updateByPass(String rsc_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+			//修改rescue
+            pstmt = con.prepareStatement(UPDATE_RSC_STA);
+			
+			pstmt.setString(1,new String("完成救援"));
+			pstmt.setString(2,rsc_id);
+
+			
+
+			pstmt.executeUpdate();
+
+//			//改變志工狀態
+//			VolunteerJDBCDAO dao1 = new VolunteerJDBCDAO();
+//		    dao1.updateStaByManager(rescueVO.getVlt_id(), con);
+//			//同時改變rescueing的人 得到參與的會員編號
+//			
+//			RescuingJDBCDAO dao2 = new RescuingJDBCDAO();
+//			List<String> list = dao2.updateByVolunteer(rescueVO.getRsc_id(), con);
+//			//新增通知
+//			NtfJDBCDAO dao3 = new NtfJDBCDAO();
+//			for (String i :list) {
+//				NtfVO ntfVO = new NtfVO();
+//				ntfVO.setMemb_id(i);
+//				ntfVO.setNtf_src_id(rescueVO.getRsc_id());
+//				ntfVO.setNtf_dt("救援編號:"+rescueVO.getRsc_id()+"，救援逾時，已派志工前往。");
+//				dao3.insert(ntfVO,con);
+//			}
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("已成功通知會員");
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public void updateByNoPass(String rsc_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+			//修改rescue
+            pstmt = con.prepareStatement(UPDATE_RSC_STA);
+			
+			pstmt.setString(1,new String("救援中"));
+			pstmt.setString(2,rsc_id);
+
+			
+
+			pstmt.executeUpdate();
+
+//			//改變志工狀態
+//			VolunteerJDBCDAO dao1 = new VolunteerJDBCDAO();
+//		    dao1.updateStaByManager(rescueVO.getVlt_id(), con);
+//			//同時改變rescueing的人 得到參與的會員編號
+//			
+//			RescuingJDBCDAO dao2 = new RescuingJDBCDAO();
+//			List<String> list = dao2.updateByVolunteer(rescueVO.getRsc_id(), con);
+//			//新增通知
+//			NtfJDBCDAO dao3 = new NtfJDBCDAO();
+//			for (String i :list) {
+//				NtfVO ntfVO = new NtfVO();
+//				ntfVO.setMemb_id(i);
+//				ntfVO.setNtf_src_id(rescueVO.getRsc_id());
+//				ntfVO.setNtf_dt("救援編號:"+rescueVO.getRsc_id()+"，救援逾時，已派志工前往。");
+//				dao3.insert(ntfVO,con);
+//			}
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("已成功通知會員");
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
 	
 	@Override
 	public List<RescueVO> getAllDelay() {
@@ -1025,6 +1182,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		return list;
 	}
+
+
 
 }
 
