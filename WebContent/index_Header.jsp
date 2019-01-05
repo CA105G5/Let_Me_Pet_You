@@ -123,7 +123,7 @@ i.fa-shopping-cart:hover {
 										<ul>
 											<li><a href="<%=request.getContextPath()%>/front-end/members/listOneMember.jsp">查看會員資料</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/pet/pet.do?action=select_pet">查看我的寵物資料</a></li>
-											<li><a href="<%=request.getContextPath()%>/front-end/members/listAllRescue.jsp">查看我的救援案例</a></li>
+											<li><a href="<%=request.getContextPath()%>/index.jsp">查看我的救援案例</a></li>
 											<li><a href="<%=request.getContextPath()%>/index.jsp">查看我的認養案例</a></li>
 											<li><a href="<%=request.getContextPath()%>/index.jsp">查看我的失蹤寵物</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">查看我的捐贈紀錄</a></li>
@@ -200,30 +200,7 @@ i.fa-shopping-cart:hover {
 
 	<br>
 	<br>
-
 	
-<!-- 	購物車 -->
-<!-- 	顯示購物車數量 -->
-	<script>
-		$(function(){
-			$.ajax({
-				url: '<%=request.getContextPath()%>/prodcart.do',
-				type: "get",
-				success: function(res){
-					console.log(res);
-					if (parseInt(res) > 0){
-						console.log("parseInt = " + parseInt(res));
-						$('#itemCount').html(res).css('display', 'block');
-					} 
-				},
-				error: function(res){
-					console.log(res);
-				}
-			
-			});
-		});
-	</script>
-
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -247,7 +224,56 @@ i.fa-shopping-cart:hover {
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
 	<script type="text/javascript">
+	
+			// 	購物車
+			// 	顯示購物車數量
+			$(function(){
+				$.ajax({
+					url: '<%=request.getContextPath()%>/prodcart.do',
+					type: "get",
+					success: function(res){
+						console.log(res);
+						if (parseInt(res) > 0){
+							console.log("parseInt = " + parseInt(res));
+							$('#itemCount').html(res).css('display', 'block');
+						} 
+					},
+					error: function(res){
+						console.log(res);
+					}
+				
+				});
+			});
+	
+
+		$("#cart_icon").click(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodcart.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) < 1){
+	//						alert("購物車中無商品");
+						swal("Oops.....", "購物車中無商品", "warning").catch(swal.noop);
+						return false;
+					} else{
+						console.log("redirect.....");
+						console.log("<%=request.getContextPath()%>/prodcart.do?action=check_Cart");
+						window.location.href = "<%=request.getContextPath()%>/prodcart.do?action=check_Cart";
+					}
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+	
+	
 		$("#fav_icon").click(function(){
 			$.ajax({
 				url: '<%=request.getContextPath()%>/prodtrack.do',
