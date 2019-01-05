@@ -1,15 +1,28 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mem.model.*"%>
-<%@ page import="com.ntf.model.*"%>
+<%@ page import="com.rescue.model.*"%>
+<%@ page import="com.rescuing.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%
 MemVO memVO = (MemVO) session.getAttribute("memVO");
 String memb_id = memVO.getMemb_id();
-NtfService ntfSvc = new NtfService();
-List<NtfVO> list = ntfSvc.getAllNtfsFromSameMember(memb_id);
+
+System.out.println("11111111111111"+memb_id);
+
+Map<String, String[]> map1 = new TreeMap<String, String[]>();
+map1.put("rsc_sponsor",new String[] {memb_id});
+RescueService rescueSvc = new RescueService();
+List<RescueVO> list =rescueSvc.getAll(map1);
+System.out.println("11111111111111"+memb_id);
 pageContext.setAttribute("list",list);
+
+Map<String, String[]> map2 = new TreeMap<String, String[]>();
+map2.put("rsc_sponsor",new String[] {memb_id});
+RescuingService rescueingSvc = new RescuingService();
+List<RescuingVO> list2 =rescueingSvc.getAll(map2);
+pageContext.setAttribute("list2",list2);
 %>
 
 <html>
@@ -93,22 +106,22 @@ pageContext.setAttribute("list",list);
 			<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">所有通知</h1>
+			  <h1 align="center">所有救援</h1>
 			</div>
 <table class="table table-bordered table-striped table-hover table-condensed">
 	<tr>
-		<th>通知來源編號</th>
-		<th>通知詳情</th>
-		<th>通知時間</th>
+		<th>救援名稱</th>
+		<th>救援地址</th>
+		<th>救援狀態</th>
 		
 	</tr>
 	<%@ include file="page1.file" %>
-	<c:forEach var="ntfVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+	<c:forEach var="rescueVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
-			<td>${ntfVO.ntf_src_id}</td>
-			<td>${ntfVO.ntf_dt}</td>
-			<td>${ntfVO.ntf_time}</td>
+			<td>${rescueVO.rsc_name}</td>
+			<td>${rescueVO.rsc_add}</td>
+			<td>${rescueVO.rsc_sta}</td>
 			
 			
 		</tr>
