@@ -9,6 +9,8 @@ public interface RescuingDAO_interface {
     public void insert(RescuingVO rescuingVO);
     public void update(RescuingVO rescuingVO);
     public List updateByVolunteer(String rsc_id,java.sql.Connection con);
+    public void updateByManagerPass(String rsc_id);
+    public void updateByManagerNoPass(String rsc_id);
     public void delete(String rsc_id,String rscing_ptcp);
     public RescuingVO findByPrimaryKey(String rsc_id);
     public RescuingVO findself(String rsc_id,String rscing_ptcp);

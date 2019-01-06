@@ -330,33 +330,24 @@ if (rescuingReviewList==null){
         		 }else{
 //         			 if($this.val()=='不通過'){
 //         				 console.log("nnnnnnn");
-        				 
+
 //         				 swal({
 //            				  title: '請描述不通過原因',
 //            				  input: 'textarea',
 //            				  showCancelButton: true,
 //            				  inputValidator: function (value) {
-//            				    return new Promise(function (resolve, reject) {
-//            				      if (value) {
-//            				        resolve()
-//            				      } else {
-//            				        reject('請輸入原因!')
-//            				      }
-//            				    })
+//            				  	 return new Promise(
+		//                    		function (resolve, reject) {
+//            				      		if (value) {
+//            				        		resolve()
+//            				      		} else {
+//            				        		reject('請輸入原因!')
+//            				      		}
+//            				     })
 //            				  }
 //            				}).then(function (result) {
 //            				  console.log(result);
-//            				})
-//                 		 swal({
-//           			  title: "確定不通過嗎?",
-//           			  text: "確定後無法改變!",
-//           			  type: "warning",
-//           			  showCancelButton: true,
-//     		        	  showCloseButton: true,
-//           			}).then(
-//           			function(result){
-//           			  if (result) {
-//           				  
+								
 //           				  $.ajax({
 //           	     		     type: "POST",
    <%--         	     			 url: "<%=request.getContextPath()%>/back-end/rescue/RescueAjax.do",  --%>
@@ -378,11 +369,11 @@ if (rescuingReviewList==null){
 //   	    				    		)
 //           	     			 }
 //           	     		 }) 
-//           			  }
-//           			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
-//   	            		swal("取消", "取消審核", "error");
-//   		        }).catch(swal.noop);
-//   		    });
+//            				}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+//								swal("取消", "取消審核", "error");
+// 							 }).catch(swal.noop);
+//							}
+
         			 }
         		 }
 

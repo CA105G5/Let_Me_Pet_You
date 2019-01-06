@@ -12,8 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.ntf.model.NtfJDBCDAO;
+import com.ntf.model.NtfVO;
 import com.rescue.model.RescueJDBCDAO;
 import com.rescue.model.RescueVO;
+import com.volunteer.model.VolunteerJDBCDAO;
 
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Rescuing;
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
@@ -45,7 +48,9 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 	private static final String UPDATE_BY_VOLUNTEER = 
 			"update RESCUING set rscing_sta=? where rsc_id = ?";
 	private static final String GET_ALL_MEM ="SELECT rscing_ptcp FROM Rescuing where rsc_id = ?";
+	private static final String GET_PASS_MEM ="SELECT rscing_ptcp FROM Rescuing where rsc_id = ? AND rscing_sta = ?";
 
+	
 	@Override
 	public void insert(RescuingVO rescuingVO) {
 		Connection con = null;
@@ -557,6 +562,171 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 		}
 			return memlist;
 	}
+	
+	@Override
+	public void updateByManagerPass(String rsc_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+			//
+//    		pstmt = con.prepareStatement(UPDATE_BY_MANAGER);
+//
+//			
+//			pstmt.setString(1, rescueVO.getVlt_id());
+//		    pstmt.setString(2, rescueVO.getRsc_sta());
+//			pstmt.setString(3, rescueVO.getNtf_vlt_dt());
+//			pstmt.setString(4, rescueVO.getNtf_vlt_sta());
+//			pstmt.setTimestamp(5, rescueVO.getNtf_vlt_time());
+//			pstmt.setString(6, rescueVO.getRsc_id());
+//
+//			pstmt.executeUpdate();
+////			System.out.println("Changed " + rowsUpdated + "rows");
+//			//改變志工狀態
+//			VolunteerJDBCDAO dao1 = new VolunteerJDBCDAO();
+//		    dao1.updateStaByManager(rescueVO.getVlt_id(), con);
+//			//同時改變rescueing的人 得到參與的會員編號
+//			
+//			RescuingJDBCDAO dao2 = new RescuingJDBCDAO();
+//			List<String> list = dao2.updateByVolunteer(rescueVO.getRsc_id(), con);
+//			//新增通知
+//			NtfJDBCDAO dao3 = new NtfJDBCDAO();
+//			for (String i :list) {
+//				NtfVO ntfVO = new NtfVO();
+//				ntfVO.setMemb_id(i);
+//				ntfVO.setNtf_src_id(rescueVO.getRsc_id());
+//				ntfVO.setNtf_dt("救援編號:"+rescueVO.getRsc_id()+"，救援逾時，已派志工前往。");
+//				dao3.insert(ntfVO,con);
+//			}
+//			con.commit();
+//			con.setAutoCommit(true);
+//			System.out.println("已成功分派救援給志工");
+//			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		
+	}
+	@Override
+	public void updateByManagerNoPass(String rsc_id) {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//
+//		try {
+//
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			// 1●設定於 pstm.executeUpdate()之前
+//    		con.setAutoCommit(false);
+//			//修改rescue
+//    		pstmt = con.prepareStatement(UPDATE_BY_MANAGER);
+//
+//			
+//			pstmt.setString(1, rescueVO.getVlt_id());
+//		    pstmt.setString(2, rescueVO.getRsc_sta());
+//			pstmt.setString(3, rescueVO.getNtf_vlt_dt());
+//			pstmt.setString(4, rescueVO.getNtf_vlt_sta());
+//			pstmt.setTimestamp(5, rescueVO.getNtf_vlt_time());
+//			pstmt.setString(6, rescueVO.getRsc_id());
+//
+//			pstmt.executeUpdate();
+////			System.out.println("Changed " + rowsUpdated + "rows");
+//			//改變志工狀態
+//			VolunteerJDBCDAO dao1 = new VolunteerJDBCDAO();
+//		    dao1.updateStaByManager(rescueVO.getVlt_id(), con);
+//			//同時改變rescueing的人 得到參與的會員編號
+//			
+//			RescuingJDBCDAO dao2 = new RescuingJDBCDAO();
+//			List<String> list = dao2.updateByVolunteer(rescueVO.getRsc_id(), con);
+//			//新增通知
+//			NtfJDBCDAO dao3 = new NtfJDBCDAO();
+//			for (String i :list) {
+//				NtfVO ntfVO = new NtfVO();
+//				ntfVO.setMemb_id(i);
+//				ntfVO.setNtf_src_id(rescueVO.getRsc_id());
+//				ntfVO.setNtf_dt("救援編號:"+rescueVO.getRsc_id()+"，救援逾時，已派志工前往。");
+//				dao3.insert(ntfVO,con);
+//			}
+//			con.commit();
+//			con.setAutoCommit(true);
+//			System.out.println("已成功分派救援給志工");
+//			// Handle any driver errors
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			if (con != null) {
+//				try {
+//					// 3●設定於當有exception發生時之catch區塊內
+//					System.err.print("Transaction is being ");
+//					System.err.println("rolled back-由-dept");
+//					con.rollback();
+//				} catch (SQLException excep) {
+//					throw new RuntimeException("rollback error occured. "
+//							+ excep.getMessage());
+//				}
+//			}
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+		
+		
+	}
 
 	public static void main(String[] args) {
 
@@ -629,6 +799,7 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 //		}
 	}
 
+	
 	
 
 

@@ -8,8 +8,8 @@ public interface RescueDAO_interface {
     public void insert(RescueVO rescueVO);
     public void update(RescueVO rescueVO);
     public void updateRscSta(String rsc_id, java.sql.Connection con);
-    public void updateByPass(String rsc_id);
-    public void updateByNoPass(String rsc_id);
+    public void updateByPass(String rsc_id,java.sql.Connection con);
+    public void updateByNoPass(String rsc_id,java.sql.Connection con);
     public void updateByManager(RescueVO rescueVO);
     public void delete(String rsc_id);
     public RescueVO findByPrimaryKey(String rsc_id);
