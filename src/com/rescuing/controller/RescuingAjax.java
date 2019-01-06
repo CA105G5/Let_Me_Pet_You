@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +18,7 @@ import org.json.JSONArray;
 
 import com.rescue.model.RescueService;
 import com.rescue.model.RescueVO;
+import com.rescuing.model.RescuingService;
 
 public class RescuingAjax extends HttpServlet{
 
@@ -36,9 +39,9 @@ public class RescuingAjax extends HttpServlet{
 
 				String rsc_id = req.getParameter("rsc_id");
 				
-				RescueVO rescueVO = new RescueVO();
-				rescueVO.setRsc_id(rsc_id);
-				rescueVO.setRsc_etime(new Timestamp(new Date().getTime()));
+				RescuingService rscuingSvc = new RescuingService();
+				Map<String, String[]> map = new TreeMap<String, String[]>();
+				map.put("rsc_id",new String[] {rsc_id});
 				
 				
 				if (!errorMsgs.isEmpty()) {
@@ -49,7 +52,7 @@ public class RescuingAjax extends HttpServlet{
 				}
 
 				/*************************** 2.開始新增資料 ***************************************/
-				RescueService rescueSvc = new RescueService();
+				
 				
 
 				// 回傳
