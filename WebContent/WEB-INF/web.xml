@@ -136,6 +136,14 @@
     <url-pattern>/back-end/rescue/RescueAjax.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>RescuingAjax</servlet-name>
+    <servlet-class>com.rescuing.controller.RescuingAjax</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RescuingAjax</servlet-name>
+    <url-pattern>/back-end/rescuing/RescuingAjax.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>RescuingServlet</servlet-name>
     <servlet-class>com.rescuing.controller.RescuingServlet</servlet-class>
   </servlet>
