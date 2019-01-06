@@ -12,9 +12,9 @@ public class jdbcUtil_CompositeQuery_Rescue {
 //			aCondition = columnName + " like '%" + value + "%'";
 //		else if ("hiredate".equals(columnName))                          // 用於Oracle的date
 //			aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
-		if("rsc_lat".equals(columnName) || "rsc_lon".equals(columnName) || "rsc_sponsor".equals(columnName))
+		if("rsc_lat".equals(columnName) || "rsc_lon".equals(columnName) )
 			aCondition = columnName + "=" + value;
-		else if("rsc_id".equals(columnName) || "rsc_name".equals(columnName) || "rsc_add".equals(columnName)||"rsc_sta".equals(columnName)||"rsc_reg".equals(columnName))
+		else if("rsc_id".equals(columnName) || "rsc_name".equals(columnName) || "rsc_add".equals(columnName)||"rsc_sta".equals(columnName)||"rsc_reg".equals(columnName)|| "rsc_sponsor".equals(columnName))
 			aCondition = columnName + " like '%" + value + "%'";
 		else if ("rsc_btime".equals(columnName))                          // 用於Oracle的date
 			aCondition = "to_char(" + columnName + ",'yyyy-mm-dd HH24:MI:SS')='" + value + "'";

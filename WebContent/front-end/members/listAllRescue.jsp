@@ -12,14 +12,16 @@ String memb_id = memVO.getMemb_id();
 System.out.println("11111111111111"+memb_id);
 
 Map<String, String[]> map1 = new TreeMap<String, String[]>();
-map1.put("rsc_sponsor",new String[] {memb_id});
+map1.put("rsc_sponsor",new String[] {"M000000001"});
 RescueService rescueSvc = new RescueService();
 List<RescueVO> list =rescueSvc.getAll(map1);
+
 System.out.println("11111111111111"+memb_id);
+
 pageContext.setAttribute("list",list);
 
 Map<String, String[]> map2 = new TreeMap<String, String[]>();
-map2.put("rsc_sponsor",new String[] {memb_id});
+map2.put("rscing_ptcp",new String[] {memVO.getMemb_id()});
 RescuingService rescueingSvc = new RescuingService();
 List<RescuingVO> list2 =rescueingSvc.getAll(map2);
 pageContext.setAttribute("list2",list2);
