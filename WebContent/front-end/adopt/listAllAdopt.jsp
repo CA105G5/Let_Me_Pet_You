@@ -149,9 +149,9 @@ h4 {
 									<fmt:formatDate value="${adoptionVO.adopt_btime}"
 										pattern="yyyy-MM-dd" />
 								</p>
-								<a
-									href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}"
-									class="genric-btn info-border circle">查看詳情</a>
+								<a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}">
+								<button type="button" class="btn btn-outline-primary">查看詳情</button>
+								</a>
 							</div>
 
 							<!-- 					<FORM METHOD="post" -->

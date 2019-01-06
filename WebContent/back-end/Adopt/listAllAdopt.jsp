@@ -142,6 +142,7 @@ pageContext.setAttribute("list", list);
                                             <th>認養申請時間</th>
                                             <th>案例審核狀態</th>
                                             <th>上架狀態</th>
+                                            <th>案例詳情</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -155,35 +156,32 @@ pageContext.setAttribute("list", list);
 													<td style=" margin-bottom: auto">
 														<fmt:formatDate value="${adoptionVO.adopt_btime}" pattern="yyyy-MM-dd" />
 													</td>
-													<td style=" margin-bottom: auto">
+													<td style=" margin-bottom: auto" align="center">
+													<c:if test="${adoptionVO.adopt_apply_status == '未審核'}"></c:if><c:if test="${adoptionVO.adopt_apply_status == '通過'}">審核通過</c:if><c:if test="${adoptionVO.adopt_apply_status == '不通過'}">審核未通過</c:if>
+													<c:if test="${adoptionVO.adopt_apply_status == '未審核'}">
 														<table style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;"><tr style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;"><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
-															<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/report/reportGroup.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
-																<input type="hidden" name="reportId" value="${rgVO.reportId}">
-																<input type="hidden" name="groupId" value="${rgVO.groupId}">
-																<input type="hidden" name="groupStatus" value="G5">
-																<input type="hidden" name="reportStatus" value="R2">
-																<input type="hidden" name="action" value="pass_Report">
-																<input style="width:100%;" type="submit" value="通過"  class="btn btnyes">
+															<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																<input type="hidden" name="adopt_id" value="${adoptionVO.adopt_id}">
+																<input type="hidden" name="adopt_apply_status" value="通過">
+																<input type="hidden" name="adopt_status" value="上架">
+																<input type="hidden" name="action" value="changeStatus">
+																<input style="width:100%;" type="submit" value="通過"  class="btn btn-success">
 															</FORM>
 															</td><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
-																	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/report/reportGroup.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
-																		<input type="hidden" name="reportId" value="${rgVO.reportId}">
-																		<input type="hidden" name="reportStatus" value="R3">
-																		<input type="hidden" name="action" value="pass_Report">
-																		<input style="width:100%;" type="submit" value="不通過"  class="btn btnno">
+																	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																<input type="hidden" name="adopt_id" value="${adoptionVO.adopt_id}">
+																<input type="hidden" name="adopt_apply_status" value="不通過">
+																<input type="hidden" name="adopt_status" value="下架">
+																<input type="hidden" name="action" value="changeStatus">
+																		<input style="width:100%;" type="submit" value="不通過"  class="btn btn-warning">
 																	</FORM>
-															</td><tr></table>
+															</td><tr></table></c:if>
 													</td>
 													<td style=" margin-bottom: auto">
-											
-														<select name="bootstrap-data-table_length"
-															aria-controls="bootstrap-data-table"
-															class="form-control form-control-sm status">
-															<option value="">請選擇</option>
-															<option value="完成救援">通過</option>
-															<option value="不通過">不通過</option>
-														</select>
-														<div style="display:none">${rescuingVO.rsc_id}</div>
+													<c:if test="${adoptionVO.adopt_status == '未上架'}">未上架</c:if><c:if test="${adoptionVO.adopt_status == '上架'}">上架中</c:if><c:if test="${adoptionVO.adopt_status == '下架'}">下架中</c:if>
+													</td>
+													<td>
+													<a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}" class="btn btn-outline-primary">點擊查看</a>
 													</td>
 												</tr>
 									       <div class="modal fade" id="${rescuingVO.rsc_id}" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
