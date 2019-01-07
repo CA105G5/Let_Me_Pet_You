@@ -49,7 +49,7 @@
 <jsp:include page="/index_Header.jsp" flush="true" />
 
 			  
-			  <br><br><br><br><br><br><br><br><br>
+
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">

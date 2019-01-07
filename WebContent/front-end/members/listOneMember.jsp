@@ -87,7 +87,7 @@
 
 
 
-<br><br><br><br><br><br><br><br><br>
+
 
 <div class="container">
 			<div class="h1"></div>
@@ -136,7 +136,7 @@
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 
-<%-- <%-- RWD--%> --%>
+<%-- RWD--%>
 <!-- <script src="https://code.jquery.com/jquery.js"></script> -->
 <!-- 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 

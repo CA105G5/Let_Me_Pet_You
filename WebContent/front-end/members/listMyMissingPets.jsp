@@ -89,7 +89,7 @@ pageContext.setAttribute("list",list);
 
 
 
-<br><br><br><br><br><br><br><br><br>
+
 <% if(list.size()>0){ %>
 <div class="container">
 			<div class="h1"></div>

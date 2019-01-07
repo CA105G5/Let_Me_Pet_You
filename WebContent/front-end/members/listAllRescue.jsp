@@ -87,7 +87,7 @@ pageContext.setAttribute("list2",list2);
 
 
 
-<br><br><br><br><br><br><br><br><br>
+
 <section class="training-area section-gap">
 		<div class="container">
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
