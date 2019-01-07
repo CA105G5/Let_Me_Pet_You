@@ -143,7 +143,7 @@
 									<div class="post-details">
 										<p>連絡失主</p>
 										<h4 class="text-uppercase">
-											<a href="#">失蹤的人</a>
+											<a href="#">${memSvc.getOneMem(adoptionVO.adopt_sponsor).memb_nick}</a>
 										</h4>
 									</div>
 									<div class="thumb">
@@ -155,6 +155,14 @@
 						</section>
 						<div class="comment-sec-area">
 							<h3 class="text-uppercase" style="color: red">留言區</h3>
+							<br>
+							<c:if test="${not empty errorMsgs}">
+									<c:forEach var="message" items="${errorMsgs}">
+										<div class="alert alert-danger" role="alert">
+                                        	${message}
+                                    	</div>
+									</c:forEach>
+							</c:if>
 							<br>
 							<h4 class="pb50">Leave a Reply...</h4>
 

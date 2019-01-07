@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.AdoptMsg.model.AdoptMsgService;
 import com.AdoptMsg.model.AdoptMsgVO;
+import com.Adoption.model.AdoptionService;
+import com.Adoption.model.AdoptionVO;
 
 public class AdoptMsgServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -37,7 +39,7 @@ public class AdoptMsgServlet extends HttpServlet {
 				String adopt_msg_comm = req.getParameter("adopt_msg_comm");
 				
 				if(adopt_msg_comm == null || adopt_msg_comm.trim().length() ==0) {
-					errorMsgs.add("留言請勿空白");
+					errorMsgs.add("留言請勿空白!");
 				}
 				
 				AdoptMsgVO adoptMsgVO = new AdoptMsgVO();
@@ -46,9 +48,17 @@ public class AdoptMsgServlet extends HttpServlet {
 				adoptMsgVO.setAdopt_msg_comm(adopt_msg_comm);
 				
 				if (!errorMsgs.isEmpty()) {
+					System.out.println("hello"+errorMsgs);
 					req.setAttribute("adoptMsgVO", adoptMsgVO);
+					//
+					AdoptionService adoptSvc= new AdoptionService();
+					AdoptionVO adoptionVO = adoptSvc.getOneAdopt(adopt_id);
+					req.setAttribute("adoptionVO", adoptionVO);
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/adopt/listOneAdopt.jsp");
+					//					
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id);
 					failureView.forward(req, res);
 					return;
 				}
