@@ -1,25 +1,5 @@
-<%@page import="com.mem.model.MemVO"%>
-<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-	
-<%  
-	Map<String, String[]> map = (Map<String, String[]>) request.getAttribute("map");
-	String[] prod_ani_type_id = null;
-	String[] prod_type_id = null;
-	String prod_price = null;
-	
-	MemVO memVO = (MemVO) session.getAttribute("memVO");
-	String memb_id=null;
-	if (memVO!=null)
-		memb_id = memVO.getMemb_id();
-	
-	%>
-	
-	<jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
-	
-	
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -68,14 +48,6 @@
 	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
 	crossorigin="anonymous">
 
-<!--  購物車流程圖麵包屑  -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/ord/css/style.css"> 
-
-<!-- sweetAlert -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
-
-
 <style type="text/css">
 	p {
 		　 font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
@@ -86,89 +58,112 @@
 		font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
 			monospace;
 	}
-	
-/* 	購物車icon */
-#cart-container {
-  float: right;
-  width: 100px;
-  position: relative;
-}
-
-#itemCount {
-  position: absolute;
-  display: none;
-  top: -10px;
-  left: -10px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: red;
-  color: white;
-  text-align: center;
-}
-
-i.fa-shopping-cart:hover {
-  cursor: pointer;
-}
-	
-/* 購物車流程圖麵包屑 */
-	
 </style>
 </head>
 <body>
-
-	<header id="header" id="home" height="100">
+<% System.out.println("don_Header.jsp得到從addProdDon.jsp設定的屬性"+request.getAttribute("Test")); %>
+	<header id="header" id="home">
 		<div class="container">
 			<div class="row header-top align-items-center">
-				<div class="col-lg-3 col-sm-3" >
-					<a href="<%=request.getContextPath()%>/index.jsp"> <img 
-						src="<%=request.getContextPath()%>/horse_UI_template/img/logo2.png" width="250" alt="">
+				<div class="col-lg-3 col-sm-3 menu-top-left">
+					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid"
+						src="<%=request.getContextPath()%>/horse_UI_template/img/logo2.png" width="200" alt="">
 					</a>
 				</div>
+<!-- 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex"> -->
+<!-- 					<div class="input-group"> -->
+<!-- 						<input type="text" class="form-control" placeholder="請輸入關鍵字"> -->
+<!-- 						<span class="input-group-btn"> -->
+<!-- 							<button class="btn btn-info" type="button"> -->
+<!-- 								<i class="glyphicon glyphicon-search"></i> -->
+<!-- 							</button> -->
+<!-- 						</span> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
-				<div class="col-lg-6 col-sm-6 align-items-center"> 
-					<nav>
-						<ol class="cd-multi-steps text-bottom count">
-							<li class="current">
-								<a href="<%=request.getContextPath()%>/prodcart.do?action=check_Cart" style="text-decoration: none;">
-									確認購物車
-								</a>
-							</li>
-							<li class="" id="step_info"><a>填收件資料</a></li>
-							<li class="" id="step_finish"><em>完成訂購</em></li>
-						</ol>
-					</nav>
+
+				<div class="col-lg-6 menu-top-middle justify-content-center d-flex"> 
+<!-- 					<div class="row align-items-center justify-content-center d-flex"> -->
+<!-- 						<nav id="nav-menu-container"> -->
+							<ul class="nav-menu">
+						    	<li><a href="index.html">首頁</a></li>
+						       	<li><a href="about.html">救援</a></li>
+						        <li><a href="service.html">認養</a></li>				          
+						        <li><a href="training.html">失蹤</a></li>
+						        <li><a href="events.html">協尋</a></li>
+						        <li class="menu-has-children menu-active"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a>
+							      	<ul>
+								    	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">許願物資捐贈</a></li>
+								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></li>
+								    </ul>
+								</li>
+								<li><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li>
+								<li><a href="contact.html">關於我們</a></li>
+								<li><a href="elements.html">常見問題</a></li>
+							</ul>
+<!-- 						</nav>#nav-menu-container		    		 -->
+<!-- 					</div> -->
 				</div>
 
-				<div class="col-lg-3 col-sm-3 align-items-center" >
-					<div class="col-lg-12 col-sm-12">
-						<div class="row">
-							<div id="cart-container" class="col-lg-1 col-sm-1 offset-sm-5">
-								<a id="cart_icon"><i class="fa fa-shopping-cart fa-1x" aria-hidden="true"></i></a>
-								<span id="itemCount"></span>
-							</div>
-							<div class="col-lg-1 col-sm-1">
-								<a id="fav_icon"><i class="glyphicon glyphicon-heart" style="color: red; font-size:15px"  id="fav_heart"></i></a>
-							</div> 
-						</div>
-					</div>
-						<a href="<%=request.getContextPath()%>/front-end/members/listAllNtfs.jsp" style="display: ${memVO==null? 'none':'' }"><i class="fa fa-bell"></i></a>
-									
-						<% if(memVO!=null)
-						   	   out.print(memVO.getMemb_nick()+"，你好");
-						%>
-						<br>
-						<% if(memVO!=null) {%>
-						<a href="<%=request.getContextPath()%>/front-end/members/cur_dt.jsp" style="display: ${memVO==null? 'none':'' }">愛心幣餘額</a>
-						<% out.print("尚有:    "+memSvc.getOneMem(memVO.getMemb_id()).getMemb_balance()+"元"); }%>
+
+
+				<div class="col-lg-3 col-sm-3 menu-top-right">
+					<a class="tel">會員登入/ 註冊</a> <a href="#"><span
+						class="fa fa-user"></span></a>
+					<!-- style="font-size: 1.5rem;" -->
 				</div>
 			</div>
 		</div>
 		<hr>
 		
+<!-- 		<div class="container">	 -->
+<!-- 			<div class="row align-items-center justify-content-center d-flex"> -->
+<!-- 				<nav id="nav-menu-container"> -->
+<!-- 					<ul class="nav-menu"> -->
+<!-- 				    	<li><a href="index.html">首頁</a></li> -->
+<!-- 				       	<li><a href="about.html">救援</a></li> -->
+<!-- 				        <li><a href="service.html">認養</a></li>				           -->
+<!-- 				        <li><a href="training.html">失蹤</a></li> -->
+<!-- 				        <li><a href="events.html">協尋</a></li> -->
+<%-- 				        <li class="menu-has-children menu-active"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a> --%>
+<!-- 				        	<ul> -->
+<%-- 				            	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li> --%>
+<%-- 				            	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li> --%>
+<%-- 				            	<li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">許願物資捐贈</a></li> --%>
+<%-- 				            	<li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></li> --%>
+<!-- 				            </ul> -->
+<!-- 				        </li> -->
+<%-- 				        <li><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li> --%>
+<!-- 				        <li><a href="contact.html">關於我們</a></li> -->
+<!-- 				        <li><a href="elements.html">常見問題</a></li> -->
+<!-- 				     </ul> -->
+<!-- 				 </nav>#nav-menu-container		    		 -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 		
 		<div class="container">
 			<div class="row">
+
+			<!-- 左側邊list-group -->
+			<div class="col-xs-12 col-sm-3">
+				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
+					<h3>愛心捐贈</h3>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></h5>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></h5>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">許願物資捐贈</a></h5>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></h5>
+					<hr>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	</header>
 	<!-- #header -->
 
@@ -201,18 +196,6 @@ i.fa-shopping-cart:hover {
 			</div>
 		</div>
 	</section>
-	
-	
-<!-- 	購物車 -->
-<script>
-// 	var itemCount = 0;
-	
-// 	$('#cartBtn').click(function (){
-// 	  itemCount ++;
-// 	  $('#itemCount').html(itemCount).css('display', 'block');
-// 	}); 
-	
-</script>
 
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 	<script
@@ -236,80 +219,6 @@ i.fa-shopping-cart:hover {
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
-	
-	<script type="text/javascript">
-	
-			// 	購物車
-			// 	顯示購物車數量
-			$(function(){
-				$.ajax({
-					url: '<%=request.getContextPath()%>/prodcart.do',
-					type: "get",
-					success: function(res){
-						console.log(res);
-						if (parseInt(res) > 0){
-							console.log("parseInt = " + parseInt(res));
-							$('#itemCount').html(res).css('display', 'block');
-						} 
-					},
-					error: function(res){
-						console.log(res);
-					}
-				
-				});
-			});
-	
-
-		$("#cart_icon").click(function(){
-			$.ajax({
-				url: '<%=request.getContextPath()%>/prodcart.do',
-				type: "get",
-				success: function(res){
-					console.log(res);
-					if (parseInt(res) < 1){
-	//						alert("購物車中無商品");
-						swal("Oops.....", "購物車中無商品", "warning").catch(swal.noop);
-						return false;
-					} else{
-						console.log("redirect.....");
-						console.log("<%=request.getContextPath()%>/prodcart.do?action=check_Cart");
-						window.location.href = "<%=request.getContextPath()%>/prodcart.do?action=check_Cart";
-					}
-				},
-				error: function(res){
-					console.log(res);
-				}
-			
-			});
-		});
-	
-	
-		$("#fav_icon").click(function(){
-			$.ajax({
-				url: '<%=request.getContextPath()%>/prodtrack.do',
-				type: "get",
-				success: function(res){
-					console.log(res);
-					if (parseInt(res) < 1){
-	// 					alert("尚無追蹤商品");
-						swal("Oops.....", "尚無追蹤商品", "warning").catch(swal.noop);
-						return false;
-					} else{
-						window.location.href = "<%=request.getContextPath()%>/prodtrack.do?action=check_Fav";
-					}
-				},
-				error: function(res){
-					console.log(res);
-				}
-			
-			});
-		});
-		
-		$(".nav-menu li").click(function(){
-			$(this).attr('class', 'menu-active' );
-		});
-	
-	</script>
 </body>
 </html>
 
