@@ -13,9 +13,9 @@ String rsc_id = rescueVO.getRsc_id();
 // System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
 // System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("rsc_id"));
 
-// MemVO memVOinit = new MemVO();
-// memVOinit.setMemb_id("M000000002");
-// session.setAttribute("memVO", memVOinit);
+MemVO memVOinit = new MemVO();
+memVOinit.setMemb_id("M000000005");
+session.setAttribute("memVO", memVOinit);
 
 MemVO memVO =(MemVO) session.getAttribute("memVO");
 String memb_id="";

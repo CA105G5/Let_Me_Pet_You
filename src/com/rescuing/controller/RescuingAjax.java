@@ -73,7 +73,7 @@ public class RescuingAjax extends HttpServlet{
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back_end/rescue/back_delayed_rescue.jsp");
+							.getRequestDispatcher("/back_end/rescue/back_done_rescue.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -86,7 +86,7 @@ public class RescuingAjax extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back_end/rescue/back_delayed_rescue.jsp");
+						.getRequestDispatcher("/back_end/rescue/back_done_rescue.jsp");
 				failureView.forward(req, res);
 
 			}
