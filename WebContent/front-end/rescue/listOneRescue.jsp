@@ -13,9 +13,9 @@ String rsc_id = rescueVO.getRsc_id();
 // System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
 // System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("rsc_id"));
 
-MemVO memVOinit = new MemVO();
-memVOinit.setMemb_id("M000000005");
-session.setAttribute("memVO", memVOinit);
+// MemVO memVOinit = new MemVO();
+// memVOinit.setMemb_id("M000000005");
+// session.setAttribute("memVO", memVOinit);
 
 MemVO memVO =(MemVO) session.getAttribute("memVO");
 String memb_id="";
@@ -76,11 +76,12 @@ div {
 					<hr>
 					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
 					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">救援地圖</a></h5>
 					<hr>
 					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
 					<hr>
-
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp">待完成救援案例</a></h5>
+					<hr>
 					
 				</div>
 			</div>
@@ -94,7 +95,7 @@ div {
 					<div class="row justify-content-center">
 						<div class="col-sm-8 post-list blog-post-list">
 							<div class="single-post">
-								<img class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="">
+								<img style="width:auto;height:500px; class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="">
 								
 								
 									<h1>
@@ -184,7 +185,7 @@ div {
                                     <div class="row ">
                                         <div class="col-sm-3 nav-left justify-content-start d-flex">
                                             <div class="thumb">
-                                                <img style="width:100px;height:100px"  src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memSvc.getOneMem(rescueVO.rsc_sponsor).memb_id}" alt="">
+                                                <img style="width:auto;height:100px"  src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memSvc.getOneMem(rescueVO.rsc_sponsor).memb_id}" alt="">
                                             </div>
                                             <div class="post-details">
                                                 <p>救援發起者</p>
@@ -352,7 +353,7 @@ div {
 
 
 
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
+
 	
 </body>
 </html>

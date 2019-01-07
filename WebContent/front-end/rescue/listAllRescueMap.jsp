@@ -36,7 +36,7 @@ div {
 
 
 
-	<jsp:include page="/front-end/rescue/rescue_header.jsp" flush="true" />
+	<jsp:include page="/index_Header.jsp" flush="true" />
 	
 			<div class="container">
 			<div class="row">
@@ -52,7 +52,8 @@ div {
 					<hr>
 					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
 					<hr>
-
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp">待完成救援案例</a></h5>
+					<hr>
 					
 				</div>
 			</div>
@@ -60,8 +61,6 @@ div {
 	</div>
 	
 
-
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
 
 </body>
 </html>
