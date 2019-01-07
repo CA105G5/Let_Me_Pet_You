@@ -21,7 +21,7 @@ public class AdoptApplyService {
 
 	public AdoptApplyVO changetStatus(String adopt_id, String adopt_id_status, String memb_id) {
 		AdoptApplyVO adoptApplyVO = new AdoptApplyVO();
-		adoptApplyVO.setAdopt_id(adopt_id_status);
+		adoptApplyVO.setAdopt_id(adopt_id);
 		adoptApplyVO.setAdopt_id_status(adopt_id_status);
 		adoptApplyVO.setMemb_id(memb_id);
 		dao.update(adoptApplyVO);

@@ -151,7 +151,7 @@ pageContext.setAttribute("list", list);
 												<% no++; %>
 												<tr>
 													<td><%=no %></td>
-													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&rsc_id=${adoptionVO.adopt_id}">${adoptionVO.adopt_id}</a></td>
+													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}">${adoptionVO.adopt_id}</a></td>
 													<td style=" margin-bottom: auto">${memSvc.getOneMem(adoptionVO.adopt_sponsor).memb_nick}</td>
 													<td style=" margin-bottom: auto">
 														<fmt:formatDate value="${adoptionVO.adopt_btime}" pattern="yyyy-MM-dd" />

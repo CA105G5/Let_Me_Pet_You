@@ -83,7 +83,7 @@ div {
 </head>
 <body>
 
-	<jsp:include page="/front-end/missingCase/missing_case_header.jsp"
+	<jsp:include page="/index_Header.jsp"
 		flush="true" />
 
 	<section class="service-page-area section-gap">

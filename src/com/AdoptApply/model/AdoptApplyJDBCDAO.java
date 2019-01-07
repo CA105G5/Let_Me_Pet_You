@@ -23,7 +23,7 @@ public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 	private static final String INSERT_ADOPT_APPLY = "INSERT INTO ADOPT_APPLY (MEMB_ID,ADOPT_ID,ADOPT_DES) values (?,?,?)";
 	private static final String UPDATE_STATUS = "UPDATE ADOPT_APPLY SET ADOPT_ID_STATUS=? WHERE ADOPT_ID=? AND MEMB_ID=?";
 
-	private static final String OTHER_STATUS = "UPDATE ADOPT_APPLY SET ADOPT_ID_STATUS='未通過' WHERE ADOPT_ID_STATUS='未審核' AND ADOPT_ID=?";
+	private static final String OTHER_STATUS = "UPDATE ADOPT_APPLY SET ADOPT_ID_STATUS='不通過' WHERE ADOPT_ID_STATUS='未審核' AND ADOPT_ID=?";
 
 	private static final String DELETE = "DELETE FROM ADOPT_APPLY WHERE ADOPT_ID=? AND MEMB_ID=?";
 
@@ -425,8 +425,8 @@ public class AdoptApplyJDBCDAO implements AdoptApplyDAO_Interface {
 
 //		//修改
 		AdoptApplyVO adoptApplyVO2 = new AdoptApplyVO();
-		adoptApplyVO2.setAdopt_id("A000000001");
-		adoptApplyVO2.setAdopt_id_status("通過");
+		adoptApplyVO2.setAdopt_id("A000000003");
+		adoptApplyVO2.setAdopt_id_status("不通過");
 		adoptApplyVO2.setMemb_id("M000000001");
 		dao.update(adoptApplyVO2);
 		System.out.println("修改成功");

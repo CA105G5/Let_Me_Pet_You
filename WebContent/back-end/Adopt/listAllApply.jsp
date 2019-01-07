@@ -146,22 +146,24 @@ pageContext.setAttribute("list", list);
 										<c:forEach var="adoptApplyVO" items="${list}">
 												<tr>
 													<td style=" margin-bottom: auto">${memSvc.getOneMem(adoptApplyVO.memb_id).memb_nick}</td>
-													<td style=" margin-bottom: auto">${adoptApplyVO.adopt_id}</td>
+													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptApplyVO.adopt_id}">${adoptApplyVO.adopt_id}</a></td>
 													<td style=" margin-bottom: auto">${adoptApplyVO.adopt_des}</td>
 													<td style=" margin-bottom: auto" align="center">
-													<c:if test="${adoptApplyVO.adopt_id_status == '未審核'}"></c:if><c:if test="${adoptApplyVO.adopt_id_status == '通過'}">審核通過</c:if><c:if test="${adoptApplyVO.adopt_id_status == '不通過'}">審核未通過</c:if>
+													<c:if test="${adoptApplyVO.adopt_id_status == '未審核'}"></c:if><c:if test="${adoptApplyVO.adopt_id_status == '通過'}">審核通過</c:if><c:if test="${adoptApplyVO.adopt_id_status == '未通過'}">審核未通過</c:if>
 													<c:if test="${adoptApplyVO.adopt_id_status == '未審核'}">
 														<table style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;"><tr style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;"><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
-															<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
-																<input type="hidden" name="memb_id" value="${adoptionVO.adopt_id}">
+															<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/AdoptApply.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																<input type="hidden" name="memb_id" value="${adoptApplyVO.memb_id}">
 																<input type="hidden" name="adopt_id_status" value="通過">
+																<input type="hidden" name="adopt_id" value="${adoptApplyVO.adopt_id}">
 																<input type="hidden" name="action" value="getChange">
 																<input style="width:100%;" type="submit" value="通過"  class="btn btn-success">
-															</FORM>
+															</FORM>	
 															</td><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
-																	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
-																<input type="hidden" name="adopt_id" value="${adoptionVO.adopt_id}">
+																	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/AdoptApply.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																<input type="hidden" name="adopt_id" value="${adoptApplyVO.memb_id}">
 																<input type="hidden" name="adopt_id_status" value="不通過">
+																<input type="hidden" name="adopt_id" value="${adoptApplyVO.adopt_id}">
 																<input type="hidden" name="action" value="getChange">
 																		<input style="width:100%;" type="submit" value="不通過"  class="btn btn-warning">
 																	</FORM>

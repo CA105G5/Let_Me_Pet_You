@@ -132,8 +132,13 @@ i.fa-shopping-cart:hover {
 										</ul>
 									</li>
 									<li><a href="about.html">救援</a></li>
-									<li><a href="service.html">認養</a></li>
-									<li><a href="training.html">失蹤</a>
+									<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/adopt/listAllAdopt.jsp">認養</a>
+										<ul>
+											<li><a href="<%=request.getContextPath()%>/front-end/adopt/addAdopt.jsp">新增失蹤案例</a></li>
+											<li><a href="<%=request.getContextPath()%>/front-end/adopt/listAllAdopt.jsp">失蹤案例瀏覽</a></li>
+										</ul>
+									</li>
+									<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤</a>
 								    	<ul>
 											<li><a href="<%=request.getContextPath()%>/front-end/missingCase/addMissing.jsp">新增失蹤案例</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤案例瀏覽</a></li>
