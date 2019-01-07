@@ -223,7 +223,6 @@ public class missingCaseServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
 				String missing_case_id = req.getParameter("missing_case_id");
-				System.out.println(missing_case_id);
 				String membno = req.getParameter("membno");
 
 				String membnoReg = "^[M][0-9]{9}$";
@@ -255,7 +254,7 @@ public class missingCaseServlet extends HttpServlet {
 					errorMsgs.add("失蹤地點請勿空白");
 				}
 				String missing_status_shelve = null;
-				String missing_type = null;
+				String missing_type = req.getParameter("missing_type");
 				//照片
 				byte[] missing_photo = null;
 				Part part = req.getPart("upfile");

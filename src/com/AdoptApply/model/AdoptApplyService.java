@@ -30,7 +30,7 @@ public class AdoptApplyService {
 
 	}
 	
-	public List<AdoptApplyVO >getAllApply(){
+	public List<AdoptApplyVO>getAllApply(){
 		return dao.getAll();
 	}
 	public List<AdoptApplyVO>getAllMem(String adopt_id){

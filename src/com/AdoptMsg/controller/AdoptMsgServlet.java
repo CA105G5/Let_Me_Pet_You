@@ -48,7 +48,6 @@ public class AdoptMsgServlet extends HttpServlet {
 				adoptMsgVO.setAdopt_msg_comm(adopt_msg_comm);
 				
 				if (!errorMsgs.isEmpty()) {
-					System.out.println("hello"+errorMsgs);
 					req.setAttribute("adoptMsgVO", adoptMsgVO);
 					//
 					AdoptionService adoptSvc= new AdoptionService();

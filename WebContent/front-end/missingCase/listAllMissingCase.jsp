@@ -171,55 +171,6 @@ h4 {
 			<%@ include file="page2.file"%>
 		</div>
 	</section>
-	<%-- 
-	<table>
-		<tr>
-			<th>案例編號</th>
-			<th>會員編號</th>
-			<th>失蹤日期</th>
-			<th>失蹤內容描述</th>
-			<th>失蹤動物名稱</th>
-			<th>失蹤地點</th>
-			<th>失蹤案例上架狀態</th>
-		</tr>
-		<%@ include file="page1.file"%>
-		<c:forEach var="missingCaseVO" items="${list}" begin="<%=pageIndex%>"
-			end="<%=pageIndex+rowsPerPage-1%>">
-
-			<tr>
-				<td>${missingCaseVO.missing_case_id}</td>
-				<td>${missingCaseVO.memb_id}</td>
-				<td>${missingCaseVO.missing_date}</td>
-				<td>${missingCaseVO.missing_des}</td>
-				<td>${missingCaseVO.missing_name}</td>
-				<td>${missingCaseVO.missing_loc}</td>
-				<td><img
-					src="<%=request.getContextPath() %>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id }"></td>
-				<td>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/front-end/missingCase/miss.do"
-						style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="missing_case_id" value="${missingCaseVO.missing_case_id}">
-						<input type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
-				</td>
-				<td>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/front-end/missingCase/miss.do"
-						style="margin-bottom: 0px;">
-						<input type="hidden" name="missing_case_id"
-							value="${missingCaseVO.missing_case_id}"> <input
-							type="hidden" name="action" value="delete"> <input
-							type="submit" value="刪除">
-					</FORM>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-	<%@ include file="page2.file"%>
-
---%>
 
 
 

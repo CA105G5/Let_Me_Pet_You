@@ -15,10 +15,14 @@
 	pageContext.setAttribute("list", list);
 
 	MemVO membVO = (MemVO) session.getAttribute("memVO");
+	pageContext.setAttribute("membVO", membVO);
 	Timestamp missing_msg_date = new Timestamp(System.currentTimeMillis());
 	Timestamp report_missing_time = new Timestamp(System.currentTimeMillis());
 	Timestamp missing_msg_rt_time = new Timestamp(System.currentTimeMillis());
+	
+	
 %>
+<jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
 <html>
 <head>
 <meta name="viewport"
@@ -34,14 +38,8 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>Horse Club</title>
+<title>單一失蹤案例</title>
 
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
-	rel="stylesheet">
-<!--
-			CSS
-			============================================= -->
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet"
@@ -55,7 +53,10 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+	<script src="<%=request.getContextPath()%>/ckeditor2/ckeditor.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="js/jquery-1.12.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -71,12 +72,6 @@
 					<p>Who are in extremely love with eco friendly system.</p>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-3">
-				<div class="list-group">
-					<a href="listAllMissingCase.jsp" class="list-group-item ">失蹤案例總覽</a>
-					<a href="addMissing.jsp" class="list-group-item ">失蹤案例新增</a>
-				</div>
-			</div>
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 post-list blog-post-list">
@@ -88,9 +83,23 @@
 								<li><fmt:formatDate value="${missingCaseVO.missing_date}"
 										pattern="yyyy-MM-dd" /></li>
 							</ul>
-							<button type="button" class="genric-btn primary small"
-								style="margin-left: 670px;" data-toggle="modal"
-								data-target="#exampleModalCenter">檢舉</button>
+								
+						<div style="float:right;">
+							<ul class="nav-menu">
+								<li class="menu-has-children"><a class="item"><i class="fa fa-thumb-tack"></i></a>
+									<ul>
+										<li><form method="post"
+												action="<%=request.getContextPath()%>/front-end/missingCase/miss.do">
+												<button class="genric-btn primary small" type="submit" id="update2">編輯</button>
+												<input type="hidden" name="action" value="getOne_For_Update">
+												<input type="hidden" name="missing_case_id" value="${missingCaseVO.missing_case_id}">
+											</form>
+										<button type="button" class="genric-btn primary small" data-toggle="modal" data-target="#exampleModalCenter">檢舉</button>
+									</li>
+									</ul>
+								</li>
+							</ul>	
+						</div>
 							<a href="#">
 								<h3>${missingCaseVO.missing_name}</h3>
 							</a>
@@ -151,11 +160,11 @@
 									<div class="post-details">
 										<p>連絡失主</p>
 										<h4 class="text-uppercase">
-											<a href="#">失蹤的人</a>
+											<a href="#">${memSvc.getOneMem(missingCaseVO.memb_id).memb_nick}</a>
 										</h4>
 									</div>
 									<div class="thumb">
-										<img src="img/blog/next.jpg" alt="">
+										<img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${missingCaseVO.memb_id}" alt="">
 									</div>
 								</div>
 							</div>
@@ -185,24 +194,38 @@
 								<input type="hidden" name="URL"
 									value="<%=request.getRequestURL()%>"> <input
 									type="hidden" name="action" value="insert"> <input
-									type="submit" id="submit"
+									type="submit" id="msgSubmit"
 									class="genric-btn danger circle arrow col-offset-md-6"
-									style="margin-left: 731px" value="送出">
+									style="margin-left: 1020px" value="送出">
 
 							</form>
 
 							<c:forEach var="missingMsgVO" items="${list}">
 								<div class="comment-list" id="contentdiv">
-									<div class="single-comment justify-content-between d-flex">
+									<div class=" justify-content-between d-flex">
 										<div class="user justify-content-between d-flex">
 											<div class="thumb">
-												<img src="img/blog/c1.jpg" alt="">
+												<img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${missingMsgVO.memb_id}" alt="">
 											</div>
 											<div class="desc">
 												<h5>
-													<a href="#">Emilly Blunt</a><button type="button" class="genric-btn primary small"
-								style="margin-left: 670px;" data-toggle="modal"	data-target="#${missingMsgVO.missing_msg_id}">檢舉</button>
+													<a href="#">${memSvc.getOneMem(missingMsgVO.memb_id).memb_nick}</a>
 												</h5>
+												
+						<div style="float:right">
+							<ul class="nav-menu">
+								<li class="menu-has-children"><a class="item"><i class="fa fa-thumb-tack"></i></a>
+									<ul>
+										<li>
+											<button type="button" class="genric-btn primary small"
+								 data-toggle="modal" data-target="#${missingMsgVO.missing_msg_id}">檢舉</button>
+										</li>
+									</ul>
+								</li>
+							</ul>	
+						</div>
+								<br>				
+												
 												<p class="date">
 													<fmt:formatDate value="${missingMsgVO.missing_msg_date}"
 														pattern="yyyy-MM-dd" />
@@ -269,7 +292,24 @@
 		</div>
 	</section>
 
+	<script>
+	$('#update2').click(function(e){
+		if(${missingCaseVO.memb_id != membVO.memb_id}){
+			swal("編輯失敗！你並不是發文的人！","","warning");
+			return false;
+		}
+	});	
+	
+	$('#msgSubmit').click(function(e){
+		if($('#missing_msg_cont').val().trim()== ""){
+			swal("留言失敗！留言內容請勿空白！","","warning");
+			return false;
+		}else{
+			$('#msgSubmit').submit();
+		}
+		
+	});
+	</script>
 
-</script>
 </body>
 </html>

@@ -96,15 +96,9 @@ div {
 			</div>
 			<div class="row">
 				<!-- 左側邊 -->
-				<div class="col-xs-12 col-sm-3">
-					<div class="list-group">
-						<a href="listAllMissingCase.jsp" class="list-group-item ">認養案例總覽</a>
-						<a href="addMissing.jsp" class="list-group-item active">認養案例新增</a>
-					</div>
-				</div>
 
 				<!-- 右邊內容區 -->
-				<div class="col-xs-12 col-sm-9">
+				<div class="col-xs-12 col-sm-12">
 
 					<!-- 					<FORM action="miss.do" method=post enctype="multipart/form-data"> -->
 					<!-- 						<input type="file" name="upfile" id="file01"> -->
