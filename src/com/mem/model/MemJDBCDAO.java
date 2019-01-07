@@ -223,19 +223,35 @@ public class MemJDBCDAO implements MemDAO_interface {
 //		}
 //		System.out.println("多筆資料查詢成功");
 //		System.out.println("===========");
-		List <missingCaseVO> list4 = dao.selectMissingCase("M000000007");
-		for(missingCaseVO aMissingCaseVO : list4) {
-		System.out.println(aMissingCaseVO.getMissing_case_id());
-		System.out.println(aMissingCaseVO.getMemb_id());
-		System.out.println(aMissingCaseVO.getMissing_date());
-		System.out.println(aMissingCaseVO.getMissing_name());
-		System.out.println(aMissingCaseVO.getMissing_des());
-		System.out.println(aMissingCaseVO.getMissing_loc());
-		System.out.println(aMissingCaseVO.getMissing_status_shelve());
-		System.out.println(aMissingCaseVO.getMissing_photo());
-		System.out.println(aMissingCaseVO.getMissing_type());
-		
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+//		List <missingCaseVO> list4 = dao.selectMissingCase("M000000007");
+//		for(missingCaseVO aMissingCaseVO : list4) {
+//		System.out.println(aMissingCaseVO.getMissing_case_id());
+//		System.out.println(aMissingCaseVO.getMemb_id());
+//		System.out.println(aMissingCaseVO.getMissing_date());
+//		System.out.println(aMissingCaseVO.getMissing_name());
+//		System.out.println(aMissingCaseVO.getMissing_des());
+//		System.out.println(aMissingCaseVO.getMissing_loc());
+//		System.out.println(aMissingCaseVO.getMissing_status_shelve());
+//		System.out.println(aMissingCaseVO.getMissing_photo());
+//		System.out.println(aMissingCaseVO.getMissing_type());
+//		
+//		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+//		}
+//		System.out.println("多筆資料查詢成功");
+//		System.out.println("===========");
+		List <missingCaseVO> list5 = dao.selectMissingCase("M000000007");
+		for(missingCaseVO aMissingCaseVO : list5) {
+			System.out.println(aMissingCaseVO.getMissing_case_id());
+			System.out.println(aMissingCaseVO.getMemb_id());
+			System.out.println(aMissingCaseVO.getMissing_date());
+			System.out.println(aMissingCaseVO.getMissing_name());
+			System.out.println(aMissingCaseVO.getMissing_des());
+			System.out.println(aMissingCaseVO.getMissing_loc());
+			System.out.println(aMissingCaseVO.getMissing_status_shelve());
+			System.out.println(aMissingCaseVO.getMissing_photo());
+			System.out.println(aMissingCaseVO.getMissing_type());
+			
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
 		}
 		System.out.println("多筆資料查詢成功");
 		System.out.println("===========");
@@ -961,14 +977,118 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 	@Override
 	public List<AdoptionVO> selectAdoption(String memb_id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<AdoptionVO> list = new ArrayList<AdoptionVO>();
+		AdoptionVO adoptionVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(SELECT_ADOPT_SPONSOR);
+			pstmt.setString(1,memb_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				adoptionVO= new AdoptionVO();
+				adoptionVO.setAdopt_id(rs.getString("adopt_id"));
+				adoptionVO.setAdopt_species(rs.getString("adopt_species"));
+				adoptionVO.setAdopt_sponsor(rs.getString("adopt_sponsor"));
+				adoptionVO.setAdopt_status(rs.getString("adopt_status"));
+				adoptionVO.setAdopt_apply_status(rs.getString("adopt_apply_status"));
+				adoptionVO.setAdopt_btime(rs.getTimestamp("adopt_btime"));
+				adoptionVO.setAdopt_etime(rs.getTimestamp("adopt_etime"));
+				adoptionVO.setAdopt_des(rs.getString("adopt_des"));
+				adoptionVO.setAdopt_img(rs.getBytes("adopt_img"));
+				list.add(adoptionVO);
+			}
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override
 	public List<AdoptApplyVO> selectAdoptApply(String memb_id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<AdoptApplyVO> list = new ArrayList<AdoptApplyVO>();
+		AdoptApplyVO adoptApplyVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(SELECT_ADOPT_APPLY);
+			pstmt.setString(1,memb_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				adoptApplyVO= new AdoptApplyVO();
+				adoptApplyVO.setMemb_id(rs.getString("memb_id"));
+				adoptApplyVO.setAdopt_id(rs.getString("adopt_id"));
+				adoptApplyVO.setAdopt_des(rs.getString("adopt_des"));
+				adoptApplyVO.setAdopt_id_status(rs.getString("adopt_id_status"));
+
+				list.add(adoptApplyVO);
+			}
+				
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override
@@ -1002,11 +1122,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 				
 				list.add(missingCaseVO);
 			}
-			
-			
-			
-			
-			
+
 		}catch(ClassNotFoundException ce){
 			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
 		}catch(SQLException se){
