@@ -38,6 +38,7 @@ public class OrdItemServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		String action = req.getParameter("action");
 		System.out.println("action=" + action);
+		System.out.println("ordItemServlet");
 		
 		HttpSession session = req.getSession();
 		
@@ -329,6 +330,7 @@ public class OrdItemServlet extends HttpServlet {
 				/***************************2.開始查詢資料****************************************/
 				OrdItemService ordItemSvc = new OrdItemService();
 				OrdItemVO ordItemVO = ordItemSvc.getOneOrdItem(prod_id, ord_id);
+				Integer qty = ordItemVO.getOrd_item_qty();
 				
 				//設定ordItemVO
 				ordItemVO.setOrd_item_rc_status("已收貨");
@@ -340,7 +342,7 @@ public class OrdItemServlet extends HttpServlet {
 				ProdVO prodVO = prodSvc.getOneProd(prod_id);
 				String memb_id = prodVO.getMemb_id();
 				Integer prod_price = prodVO.getProd_price();
-				Integer ord_item_coin_st = Math.round(prod_price*0.8f);
+				Integer ord_item_coin_st = Math.round(prod_price*qty*0.8f);
 				ordItemVO.setOrd_item_coin_st(Integer.toString(ord_item_coin_st));
 				
 				//查詢會員VO，以更新會員愛心幣餘額

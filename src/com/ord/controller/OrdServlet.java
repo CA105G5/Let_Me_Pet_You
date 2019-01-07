@@ -11,6 +11,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import com.mem.model.MemService;
 import com.mem.model.MemVO;
 import com.ord.model.OrdService;
 import com.ord.model.OrdVO;
@@ -652,10 +653,14 @@ public class OrdServlet extends HttpServlet {
 			System.out.println("000");
 			OrdVO ordVO = new OrdVO();
 			System.out.println("得到從addProdDon.jsp設定的屬性"+req.getAttribute("Test"));
+			
+			MemVO memVO = (MemVO) session.getAttribute("memVO");
+			MemService memSvc = new MemService();
+			System.out.println("111111111111111111111111111="+session.getId());
+			System.out.println( "是否登入:"+ (memVO != null));
 
-//			try {
+			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-//				String memb_id = req.getParameter("memb_id");
 				String ord_total = req.getParameter("ord_total");
 				String ord_receiver = req.getParameter("ord_receiver");
 				String ord_rc_tel = req.getParameter("ord_rc_tel");
@@ -665,7 +670,9 @@ public class OrdServlet extends HttpServlet {
 				String zipcode = req.getParameter("zipcode");
 				String ord_rc_comm = req.getParameter("ord_rc_comm");
 				
-				ordVO.setMemb_id("M000000001");
+				
+				
+				ordVO.setMemb_id(memVO.getMemb_id());
 				ordVO.setOrd_total(Integer.valueOf(ord_total));
 				ordVO.setOrd_receiver(ord_receiver);
 				ordVO.setOrd_rc_tel(ord_rc_tel);
@@ -677,6 +684,8 @@ public class OrdServlet extends HttpServlet {
 				System.out.println("ord_rc_add= "+ord_rc_comm+county+district+ord_rc_add);
 				System.out.println("ord_rc_comm= "+ord_rc_comm);
 				System.out.println("ord_total= "+ord_total);
+				
+				memVO.setMemb_balance(memSvc.getOneMem(memVO.getMemb_id()).getMemb_balance()-Integer.valueOf(ord_total));
 				
 				
 				/***************************2.開始新增資料***************************************/
@@ -696,55 +705,61 @@ public class OrdServlet extends HttpServlet {
 						
 					ordItemList.add(ordItemVO1);
 				}
-
+    
 				OrdService ordSvc = new OrdService();
-				ordSvc.insertWithOrdItem(ordVO, ordItemList);
+				ordSvc.insertWithOrdItem(ordVO, ordItemList, memVO);
 				System.out.println("??????????");
 				
 				
-				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/front-end/ord/listAllOrd.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllProd.jsp
-				System.out.println("$$$$$$$$$$");
-				successView.forward(req, res);	
-				
-				//建立Redis連線
+				//建立Redis連線，更新購物車數量
 				Jedis jedis=null;
 				try {
 					jedis = new Jedis("localhost", 6379);
 					jedis.auth("123456");
 					System.out.println("已連線redis資料庫");
 					
-					MemVO memVO = (MemVO) session.getAttribute("memVO");
-					if (memVO!=null) {
+//					if (memVO!=null) {
 						Set<String> cart_prod = jedis.hgetAll("Cart:" + memVO.getMemb_id()).keySet();
 						for (String prod_id : cart_prod) {
 							jedis.hdel("Cart:"+ memVO.getMemb_id(), prod_id);
 						}
 						System.out.println("已刪除會員購物車");
-					} else {
-						Set<String> cart_prod = jedis.hgetAll("Cart:" + session.getId()).keySet();
-						for (String prod_id : cart_prod) {
-							jedis.hdel("Cart:"+ session.getId(), prod_id);
-						}
-						System.out.println("已刪除session購物車");
-					}
+//					} else {
+//						Set<String> cart_prod = jedis.hgetAll("Cart:" + session.getId()).keySet();
+//						for (String prod_id : cart_prod) {
+//							jedis.hdel("Cart:"+ session.getId(), prod_id);
+//						}
+//						System.out.println("已刪除session購物車");
+//					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
-					out.flush();
 					jedis.close();
-					out.close();
 				}
 				
+				
+				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				//用sendRedirect才不會刷新頁面又重複扣款
+				String url = req.getContextPath()+ "/front-end/ord/listAllOrd.jsp";
+				System.out.println("$$$$$$$$$$");
+				res.sendRedirect(url);
+				
+				//forward寫法
+//				String url = "/front-end/ord/listAllOrd.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllProd.jsp
+//				System.out.println("$$$$$$$$$$");
+//				successView.forward(req, res);	
+				
+				
+				
 				/***************************其他可能的錯誤處理**********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add(e.getMessage());
-//				req.setAttribute("ordVO", ordVO);
-//				System.out.println("@@@@@@@@@@");
-//				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/ord/cart_Receiver.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				req.setAttribute("ordVO", ordVO);
+				System.out.println("@@@@@@@@@@");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/ord/cart_Receiver.jsp");
+				failureView.forward(req, res);
+			}
 		}
 		
 //		
