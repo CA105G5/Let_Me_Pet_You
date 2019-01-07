@@ -1311,7 +1311,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 							+ excep.getMessage());
 				}
 			}
-			throw new RuntimeException("A database error occured. "
+			throw new RuntimeException("A database error occured. " 
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
