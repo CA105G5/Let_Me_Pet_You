@@ -262,7 +262,7 @@
     <url-pattern>/front-end/ord/listAllOrd.jsp</url-pattern>
     <url-pattern>/front-end/ord/listAllOrd_Ship.jsp</url-pattern>
     <url-pattern>/front-end/ord/cart_Receiver.jsp</url-pattern>
-    <servlet-name>PetServlet</servlet-name>
+    <url-pattern>/front-end/pet/listAllPets.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
