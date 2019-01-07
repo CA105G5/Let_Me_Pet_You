@@ -1,21 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mem.model.*"%>
-<%@ page import="com.pet.model.*"%>
+<%@ page import="com.ntf.model.*"%>
+<%@ page import="com.missingCase.model.*"%>
 <%@ page import="java.util.*"%>
-<%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-  MemVO memVO = (MemVO) session.getAttribute("memVO");
-  String memb_id = memVO.getMemb_id();
-  PetService petSvc = new PetService();
-  List<PetVO> list = petSvc.getAllPetsFromSameMember(memb_id);
-  pageContext.setAttribute("list",list);
+MemVO memVO = (MemVO) session.getAttribute("memVO");
+String memb_id = memVO.getMemb_id();
+MemService memSvc = new MemService();
+List<missingCaseVO> list = memSvc.selectMissingCase(memb_id);
+pageContext.setAttribute("list",list);
 %>
 
-<html> 
+<html>
 <head>
-
 <%-- Mobile Specific Meta --%>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
@@ -28,10 +27,7 @@
 		<meta name="keywords" content="">
 		<!-- meta character set -->
 		<meta charset="UTF-8">
-		<!-- Site Title -->
-
-<title>寵物資料 - listAllPets.jsp</title>
-
+<title>所有通知</title>
 <%-- 放自己css前 --%>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<%--
@@ -86,58 +82,52 @@
     text-align: center;
   }
 </style>
-
 </head>
-<body bgcolor='white'>
+<body>
 <jsp:include page="/index_Header.jsp" flush="true" />
 
 
 
 
 <br><br><br><br><br><br><br><br><br>
+<% if(list.size()>0){ %>
 <div class="container">
 			<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">寵物資料</h1>
+			  <h1 align="center">你的所有失蹤寵物</h1>
 			</div>
 <table class="table table-bordered table-striped table-hover table-condensed">
 	<tr>
-		<th>寵物姓名</th>
-		<th>寵物性別</th>
-		<th>出生日期</th>
-		<th>死亡日期</th>
-		<th>寵物描述</th>
-		<th>寵物狀態</th>
-		<th>寵物類型</th>
+		<th>失蹤日期</th>
+		<th>失蹤寵物名</th>
+		<th>失蹤描述</th>
+		<th>失蹤位置</th>
 		<th>寵物照片</th>
+		<th>寵物類型</th>
+		
 	</tr>
 	<%@ include file="page1.file" %>
-	<c:forEach var="petVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+	<c:forEach var="missingCaseVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
-			<td>${petVO.pet_name}</td>
-			<td>${petVO.pet_gender=='M'? '公':(petVO.pet_gender=='F'?'母':'')}</td>
-			<td>${petVO.pet_birth}</td>
-			<td>${petVO.pet_death}</td>
-			<td><textarea name="pet_descr" rows="5" cols="10">${petVO.pet_descr}</textarea></td>
-			<td>${petVO.pet_status}</td>
-			<td>${petVO.pet_type}</td>
-			<td><img src="<%=request.getContextPath()%>/front-end/pet/petImg.do?pet_id=${petVO.pet_id}"/></td>
-			 <td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/pet/pet.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="pet_id"  value="${petVO.pet_id}">
-			     <input type="hidden" name="action"	value="updatePetFromlistAll"></FORM>
-			</td>
+			<td>${missingCaseVO.missing_date}</td>
+			<td>${missingCaseVO.missing_name}</td>
+			<td>${missingCaseVO.missing_des}</td>
+			<td>${missingCaseVO.missing_loc}</td>
+			<td><img class="img-fluid" src="<%=request.getContextPath()%>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id}" alt="" width="50px" style="margin-bottom: auto"></td>
+			<td>${missingCaseVO.missing_type}</td>
+			
 			
 		</tr>
 	</c:forEach>
 
 </table>
-<div align="center"><a href="<%=request.getContextPath()%>/front-end/pet/addPets.jsp">增加一筆寵物資料</a></div>
 </div>
-<%@ include file="page2.file" %>
+<div align="center"><%@ include file="page2.file" %></div>
+<%}else{ %>
+	<h1 style="color:green;font-size:60px" align="center">您目前沒有失蹤的寵物</h1>
+<%}%>
 
 <%-- 模板後script 加在自己的script前--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
@@ -162,6 +152,5 @@
 <%-- RWD--%>
 <!-- <script src="https://code.jquery.com/jquery.js"></script> -->
 <!-- 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-
 </body>
 </html>

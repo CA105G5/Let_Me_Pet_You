@@ -239,17 +239,28 @@ public class MemJDBCDAO implements MemDAO_interface {
 //		}
 //		System.out.println("多筆資料查詢成功");
 //		System.out.println("===========");
-		List <missingCaseVO> list5 = dao.selectMissingCase("M000000007");
-		for(missingCaseVO aMissingCaseVO : list5) {
-			System.out.println(aMissingCaseVO.getMissing_case_id());
-			System.out.println(aMissingCaseVO.getMemb_id());
-			System.out.println(aMissingCaseVO.getMissing_date());
-			System.out.println(aMissingCaseVO.getMissing_name());
-			System.out.println(aMissingCaseVO.getMissing_des());
-			System.out.println(aMissingCaseVO.getMissing_loc());
-			System.out.println(aMissingCaseVO.getMissing_status_shelve());
-			System.out.println(aMissingCaseVO.getMissing_photo());
-			System.out.println(aMissingCaseVO.getMissing_type());
+		List<AdoptionVO> list5 = dao.selectAdoption("M000000002");
+		for(AdoptionVO adoptionVO : list5) {
+			System.out.println(adoptionVO.getAdopt_id());
+			System.out.println(adoptionVO.getAdopt_species());
+			System.out.println(adoptionVO.getAdopt_sponsor());
+			System.out.println(adoptionVO.getAdopt_status());
+			System.out.println(adoptionVO.getAdopt_apply_status());
+			System.out.println(adoptionVO.getAdopt_btime());
+			System.out.println(adoptionVO.getAdopt_etime());
+			System.out.println(adoptionVO.getAdopt_des());
+			System.out.println(adoptionVO.getAdopt_img());
+			
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+		}
+		System.out.println("多筆資料查詢成功");
+		System.out.println("===========");
+		List<AdoptApplyVO> list6 = dao.selectAdoptApply("M000000002");
+		for(AdoptApplyVO adoptApplyVO : list6) {
+			System.out.println(adoptApplyVO.getMemb_id());
+			System.out.println(adoptApplyVO.getAdopt_id());
+			System.out.println(adoptApplyVO.getAdopt_des());
+			System.out.println(adoptApplyVO.getAdopt_id_status());
 			
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
 		}

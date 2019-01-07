@@ -124,8 +124,8 @@ i.fa-shopping-cart:hover {
 											<li><a href="<%=request.getContextPath()%>/front-end/members/listOneMember.jsp">查看會員資料</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/pet/pet.do?action=select_pet">查看我的寵物資料</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/members/listAllRescue.jsp">查看我的救援案例</a></li>
-											<li><a href="<%=request.getContextPath()%>/index.jsp">查看我的認養案例</a></li>
-											<li><a href="<%=request.getContextPath()%>/index.jsp">查看我的失蹤寵物</a></li>
+											<li><a href="<%=request.getContextPath()%>/front-end/members/listAllAdopt.jsp">查看我的認養案例</a></li>
+											<li><a href="<%=request.getContextPath()%>/front-end/members/listMyMissingPets.jsp">查看我的失蹤寵物</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">查看我的捐贈紀錄</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp">我的訂單管理</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/prodtrack/listAllProdTrack.jsp">我的追蹤商品</a></li>
