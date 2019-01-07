@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.mem.model.MemVO;
 import com.ord.model.OrdVO;
 import com.orditem.model.OrdItemVO;
 
@@ -20,7 +21,7 @@ public interface OrdDAO_interface {
     public Set<OrdVO> getOrdItemByOrd(String ord_id);
     
     //同時新增訂單主檔與明細
-    public void insertWithOrdItem(OrdVO ordVO, List<OrdItemVO> list);
+    public void insertWithOrdItem(OrdVO ordVO, List<OrdItemVO> list,  MemVO memVO);
     
     //以會員編號查詢所有訂單
     public List<OrdVO> getOrdByMem(String memb_id);

@@ -66,7 +66,7 @@ public class ProdCartServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 				
-		
+		//當會員登入時，將session裡的購物車商品放到會員購物車，刪除session的購物車
 		if (memVO!=null) {
 			memb_id = memVO.getMemb_id();
 			System.out.println("memb_id="+memb_id);
@@ -111,7 +111,7 @@ public class ProdCartServlet extends HttpServlet {
 							qty = Integer.toString(cartQty_int + prod_qty_int);
 						}
 						jedis.hset("Cart:" + session_id, prod_id, qty);
-					}
+					}  
 				}
 				System.out.println("Cart:" + session_id + " = " + jedis.hgetAll("Cart:" + session_id));
 				System.out.println("Cart:" + session_id + " 購物車商品數量=" + jedis.hlen("Cart:" + session_id));
@@ -243,15 +243,51 @@ public class ProdCartServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				session.setAttribute("cartMap", cartMap); // 資料庫取出的prodVO物件,存入req
 				Integer amount = 0;
-				for (String key : cartMap.keySet()) {
+				
+				Iterator it = cartMap.entrySet().iterator();
+				while (it.hasNext()) {
 					System.out.println("111");
-					Integer prod_price = prodSvc.getOneProd(key).getProd_price();
-					System.out.println("222");
-					Integer qty = new Integer(cartMap.get(key));
-					amount = amount + prod_price*qty;
-				}
+			        Map.Entry pair = (Map.Entry)it.next();
+			        System.out.println(pair.getKey() + " = " + pair.getValue());
+			        if (prodSvc.getOneProd((String)pair.getKey()).getProd_stock()==0 || prodSvc.getOneProd((String)pair.getKey()).getProd_status().equals("下架")) {
+			        	it.remove(); 
+			        	jedis.hdel("Cart:"+ memb_id , (String)pair.getKey());
+					}
+			        else {
+						Integer prod_price = prodSvc.getOneProd((String)pair.getKey()).getProd_price();
+						System.out.println("222");
+						Integer qty = new Integer(cartMap.get((String)pair.getKey()));
+						
+						amount = amount + prod_price*qty;
+					}
+			    }
+//				for (String key : cartMap.keySet()) {
+//					System.out.println("111");
+//					System.out.println("key="+key);
+//					if (prodSvc.getOneProd(key).getProd_stock()==0) {
+//						cartMap.remove(key);
+////						qty=0;
+//					}
+//					
+////					直接讓redis購物車數量變0
+////					if (prodSvc.getOneProd(key).getProd_stock()==0) {
+////						cartMap.put(key,"0");
+////						if (memb_id==null) 
+////							jedis.hset("Cart:" + session_id, key, "0");
+////						else
+////							jedis.hset("Cart:" + memb_id, key, "0");
+////					}
+////					直接讓redis購物車數量變0
+//					else {
+//						Integer prod_price = prodSvc.getOneProd(key).getProd_price();
+//						System.out.println("222");
+//						Integer qty = new Integer(cartMap.get(key));
+//						
+//						amount = amount + prod_price*qty;
+//					}
+//				}
+				session.setAttribute("cartMap", cartMap); // 資料庫取出的prodVO物件,存入req
 				System.out.println("amount=" + amount);
 				session.setAttribute("amount", amount);
 				

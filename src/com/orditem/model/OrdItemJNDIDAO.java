@@ -22,6 +22,9 @@ import javax.sql.DataSource;
 import com.CurrencyDetail.model.CurDtVO;
 import com.mem.model.MemService;
 import com.mem.model.MemVO;
+import com.ntf.model.NtfJDBCDAO;
+import com.ntf.model.NtfVO;
+import com.ord.model.OrdService;
 import com.ord.model.OrdVO;
 import com.orditem.model.OrdItemVO;
 import com.prod.model.ProdService;
@@ -143,6 +146,15 @@ public class OrdItemJNDIDAO implements OrdItemDAO_interface {
 			
 			prodSvc.updateProd(prodVO, con);
 			
+			// 再同時新增通知給捐贈會員
+			NtfVO ntfVO = new NtfVO();
+			ntfVO.setMemb_id(prodSvc.getOneProd(prod_id).getMemb_id());
+			ntfVO.setNtf_src_id(ordItemVO.getOrd_id());
+			ntfVO.setNtf_dt("您的商品["+ prodSvc.getOneProd(prod_id).getProd_name() + "]已有新的訂單囉，訂單編號:"+ordItemVO.getOrd_id()+"，請盡快出貨^^");
+						
+			NtfJDBCDAO ntfDAO = new NtfJDBCDAO();
+			ntfDAO.insert(ntfVO, con);
+			
 			// Handle any driver errors
 		} catch (Exception se) {
 			if (con != null) {
@@ -171,17 +183,21 @@ public class OrdItemJNDIDAO implements OrdItemDAO_interface {
 		
 	}
 
-	//商品明細更新(檢舉或出貨更新)
+	//商品明細更新(出貨/檢舉/檢舉審核更新)
 	@Override
 	public void update(OrdItemVO ordItemVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		
 		try {
-
+			
 			con = ds.getConnection();
+			
+			// 1●設定於 pstm.executeUpdate()之前
+			con.setAutoCommit(false);
+			
 			pstmt = con.prepareStatement(UPDATE);
-
+			
 			pstmt.setString(13, ordItemVO.getProd_id());
 			pstmt.setString(14, ordItemVO.getOrd_id());
 			pstmt.setInt(1, ordItemVO.getOrd_item_qty());
@@ -199,17 +215,80 @@ public class OrdItemJNDIDAO implements OrdItemDAO_interface {
 			Clob clob = con.createClob(); //使用連線connection建立clob
 			clob.setString(1, ordItemVO.getOrd_item_rt_pic()); // 括號內第一個數字1是指放置在clob的位置。 str - the string to be written to the CLOBvalue that this Clob designates，
 			pstmt.setClob(12, clob);
-
-
+			
+			
 			int rowsUpdated = pstmt.executeUpdate();
-
+			
 			System.out.println("Changed " + rowsUpdated + "rows");
-
+			
+			
+			// 再同時新增通知給訂單會員
+			ProdService prodSvc = new ProdService();
+			OrdService ordSvc = new OrdService();
+			NtfVO ntfVO = new NtfVO();
+			NtfJDBCDAO ntfDAO = new NtfJDBCDAO();
+			System.out.println("==================");
+			
+			//檢舉審核完畢通知
+			if (ordItemVO.getOrd_item_review()!=null) {
+				ntfVO.setMemb_id(ordSvc.getOneOrd(ordItemVO.getOrd_id()).getMemb_id());
+				ntfVO.setNtf_src_id(ordItemVO.getOrd_id());
+				ntfVO.setNtf_dt("您的檢舉訂單編號: "+ordItemVO.getOrd_id()+"，商品["+ prodSvc.getOneProd(ordItemVO.getProd_id()).getProd_name() + "]已審核完畢囉，請前往查看詳細資訊。");
+				
+				NtfVO ntfVO2 = new NtfVO();
+				ntfVO2.setMemb_id(prodSvc.getOneProd(ordItemVO.getProd_id()).getMemb_id());
+				ntfVO2.setNtf_src_id(ordItemVO.getOrd_id());
+				ntfVO2.setNtf_dt("您被檢舉的出貨商品["+ prodSvc.getOneProd(ordItemVO.getProd_id()).getProd_name() + "]，訂單編號:"+ordItemVO.getOrd_id()+"，已審核完畢，請前往查看詳細資訊。");
+				ntfDAO.insert(ntfVO2, con);
+				System.out.println("11111111111111111111");
+			}
+			//被檢舉通知
+			if (ordItemVO.getOrd_item_review()==null && ordItemVO.getOrd_item_rt_status()!=null) {
+				// 再同時新增通知給捐贈會員
+				ntfVO.setMemb_id(prodSvc.getOneProd(ordItemVO.getProd_id()).getMemb_id());
+				ntfVO.setNtf_src_id(ordItemVO.getOrd_id());
+				ntfVO.setNtf_dt("您的出貨商品["+ prodSvc.getOneProd(ordItemVO.getProd_id()).getProd_name() + "] 已被檢舉，訂單編號:"+ordItemVO.getOrd_id()+"，現正審核中，特此告知。");
+				System.out.println("222222222222222222222");
+			}
+			
+			//出貨通知
+			if (ordItemVO.getOrd_item_rt_status()==null) {
+				// 再同時新增出貨通知給購買會員
+				ntfVO.setMemb_id(ordSvc.getOneOrd(ordItemVO.getOrd_id()).getMemb_id());
+				ntfVO.setNtf_src_id(ordItemVO.getOrd_id());
+				ntfVO.setNtf_dt("您的訂單: "+ordItemVO.getOrd_id()+"，商品["+ prodSvc.getOneProd(ordItemVO.getProd_id()).getProd_name() + "]已出貨囉，請注意查收。");
+				System.out.println("33333333333333333333");
+			}
+			
+			System.out.println("44444444444444444444");
+			ntfDAO.insert(ntfVO, con);
+			System.out.println("55555555555555555555");
+			
+			
+			// 2●設定於 pstm.executeUpdate()之後
+			con.commit();
+			
+			
 			// Handle any driver errors
 		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-orditem");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
+			try {
+				con.setAutoCommit(true);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -225,8 +304,9 @@ public class OrdItemJNDIDAO implements OrdItemDAO_interface {
 				}
 			}
 		}
-
+		
 	}
+	
 
 	@Override
 	public OrdItemVO findByPrimaryKey(String prod_id, String ord_id) {
@@ -557,7 +637,7 @@ public class OrdItemJNDIDAO implements OrdItemDAO_interface {
 	}
 
 
-	//商品明細確認收貨後，要同時更新會員愛心幣餘額以及愛心幣明細
+	//商品明細確認收貨後，要同時更新會員愛心幣餘額以及愛心幣明細以及通知
 	@Override
 	public void update(OrdItemVO ordItemVO, MemVO memVO, CurDtVO curDTVO) {
 		Connection con = null;
@@ -598,6 +678,17 @@ public class OrdItemJNDIDAO implements OrdItemDAO_interface {
 			// 再同時更新會員愛心幣餘額
 			MemService memSvc = new MemService();
 			memSvc.updateMem(memVO, curDTVO, con);
+			
+			// 再同時新增通知給捐贈會員
+			ProdService prodSvc = new ProdService();
+			NtfVO ntfVO = new NtfVO();
+			ntfVO.setMemb_id(prodSvc.getOneProd(ordItemVO.getProd_id()).getMemb_id());
+			ntfVO.setNtf_src_id(ordItemVO.getOrd_id());
+			ntfVO.setNtf_dt("訂單編號:"+ordItemVO.getOrd_id()+"的商品["+prodSvc.getOneProd(ordItemVO.getProd_id()).getProd_name()+"] 已確認收貨囉! 並已發放愛心幣$" + curDTVO.getCur_dt() +"給您。" );
+			
+			NtfJDBCDAO ntfDAO = new NtfJDBCDAO();
+			ntfDAO.insert(ntfVO, con);
+			
 
 			// 2●設定於 pstm.executeUpdate()之後
 			con.commit();

@@ -38,60 +38,16 @@
 <%-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab --%>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-
+<style>
+#p1{
+    opacity: 0.3; //設為完全不透明
+    filter: alpha(opacity=30); // IE8 與更早的版本
+}
+</style>
 </head>
-<body>
+<body background="">
 <jsp:include page="/index_Header.jsp" flush="true" />
-<!-- <header id="header" id="home"> -->
-<!-- 				<div class="container"> -->
-<!-- 			<div class="row header-top align-items-center"> -->
-<!-- 				<div class="col-lg-4 col-sm-4 menu-top-left"> -->
-<%-- 					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid" --%>
-<!-- 						src="images/logo2.png" width="200" alt=""> -->
-<!-- 					</a> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-lg-4 menu-top-middle justify-content-center d-flex"> -->
-<!-- 					<div class="input-group"> -->
-<!-- 						<input type="text" class="form-control" placeholder="請輸入關鍵字"> -->
-<!-- 						<span class="input-group-btn"> -->
-<!-- 							<button class="btn btn-info" type="button"> -->
-<!-- 								<i class="glyphicon glyphicon-search"></i> -->
-<!-- 							</button> -->
-<!-- 						</span> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-lg-4 col-sm-4 menu-top-right"> -->
-<!-- 				<a href="#"><img style="width:40px;height:40px" class="img-fluid" src="images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊"></a> -->
-					
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<hr> -->
-<!-- 			    <div class="container"> -->
-<!-- 			<div class="row align-items-center justify-content-center d-flex"> -->
-<!-- 				<nav id="nav-menu-container"> -->
-<!-- 					<ul class="nav-menu"> -->
-<%-- 						<li><a href="<%=request.getContextPath()%>/index.jsp">首頁</a></li> --%>
-<!-- 						<li><a href="about.html">救援</a></li> -->
-<!-- 						<li><a href="service.html">認養</a></li> -->
-<!-- 						<li><a href="training.html">失蹤</a></li> -->
-<!-- 						<li><a href="events.html">協尋</a></li> -->
-<!-- 						<li><a href="pricing.html">捐贈</a> -->
-<!-- 							<ul> -->
-<!-- 								<li><a href="blog-home.html">愛心捐款</a></li> -->
-<!-- 								<li><a href="blog-single.html">愛心物資捐贈</a></li> -->
-<!-- 								<li><a href="blog-single.html">許願物資捐贈</a></li> -->
-<!-- 							</ul></li> -->
-<!-- 						<li class="menu-has-children menu-active"><a href="">商城</a></li> -->
-<!-- 						<li><a href="contact.html">關於我們</a></li> -->
-<!-- 						<li><a href="elements.html">常見問題</a></li> -->
-<!-- 					</ul> -->
-<!-- 				</nav> -->
-<%-- 				#nav-menu-container --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 			  </header>#header -->
+
 			  
 			  <br><br><br><br><br><br><br><br><br>
 

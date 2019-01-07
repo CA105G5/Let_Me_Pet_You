@@ -17,10 +17,17 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.CurrencyDetail.model.CurDtJDBCDAO;
+import com.CurrencyDetail.model.CurDtVO;
+import com.mem.model.MemService;
+import com.mem.model.MemVO;
+import com.ntf.model.NtfJDBCDAO;
+import com.ntf.model.NtfVO;
 import com.ord.model.OrdVO;
 import com.orditem.model.OrdItemJDBCDAO;
 import com.orditem.model.OrdItemService;
 import com.orditem.model.OrdItemVO;
+import com.prod.model.ProdService;
 
 public class OrdJNDIDAO implements OrdDAO_interface {
 	private static DataSource ds = null;
@@ -315,7 +322,7 @@ public class OrdJNDIDAO implements OrdDAO_interface {
 	}
 
 	@Override
-	public void insertWithOrdItem(OrdVO ordVO, List<OrdItemVO> list) {
+	public void insertWithOrdItem(OrdVO ordVO, List<OrdItemVO> list,  MemVO memVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -326,7 +333,7 @@ public class OrdJNDIDAO implements OrdDAO_interface {
 			// 1●設定於 pstm.executeUpdate()之前
     		con.setAutoCommit(false);
 			
-    		// 先新增部門
+    		// 先新增訂單
 			String cols[] = {"ORD_ID"};
 			pstmt = con.prepareStatement(INSERT_STMT , cols);			
 			pstmt.setString(1, ordVO.getMemb_id());
@@ -348,14 +355,30 @@ public class OrdJNDIDAO implements OrdDAO_interface {
 				System.out.println("未取得自增主鍵值");
 			}
 			rs.close();
-			// 再同時新增明細
 			
+			// 再同時新增明細，更新商品庫存是在新增明細時一起做的，在明細裡面才能拿到每一筆明細數量，去更新商品數量
 			OrdItemService ordItemSvc = new OrdItemService();
 			System.out.println("list.size()-A="+list.size());
 			for (OrdItemVO ordItemVO : list) {
 				ordItemVO.setOrd_id(next_ordno) ;
 				ordItemSvc.addOrdItem(ordItemVO,con);
 			}
+			
+			//更新愛心幣明細表格
+			CurDtVO curDtVO = new CurDtVO();
+			curDtVO.setMemb_id(memVO.getMemb_id());
+			curDtVO.setCur_src_id(next_ordno);
+			curDtVO.setCur_dt("-"+Integer.toString(ordVO.getOrd_total()));
+			
+			//新增愛心幣明細資料
+			CurDtJDBCDAO curdao = new CurDtJDBCDAO();
+			curdao.insert(curDtVO, con);
+			
+			
+			//再更新會員餘額
+			MemService memSvc = new MemService();
+			memSvc.updateMemBal(memVO, con);
+			
 
 			// 2●設定於 pstm.executeUpdate()之後
 			con.commit();
@@ -455,6 +478,11 @@ public class OrdJNDIDAO implements OrdDAO_interface {
 		ordVO.setOrd_rc_add("中壢市平鎮區中央路300號");
 		ordVO.setOrd_rc_comm("請晚上六點之後派送");
 		
+		MemService memSvc = new MemService();
+		MemVO memVO = memSvc.getOneMem("M000000001");
+		memVO.setMemb_balance(memVO.getMemb_balance()-ordVO.getOrd_total());
+
+		
 		List<OrdItemVO> testList = new ArrayList<OrdItemVO>(); // 準備置入明細數筆
 		
 		OrdItemVO ordItemVO1 = new OrdItemVO();
@@ -468,7 +496,7 @@ public class OrdJNDIDAO implements OrdDAO_interface {
 		testList.add(ordItemVO1);
 		testList.add(ordItemVO2);
 		
-		dao.insertWithOrdItem(ordVO , testList);
+		dao.insertWithOrdItem(ordVO , testList, memVO);
 		
 		
 		

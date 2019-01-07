@@ -1,8 +1,7 @@
 <%@page import="com.mem.model.MemVO"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Map"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	
 	<!-- 	這版是套首頁的版本 -->
 <%  
@@ -13,6 +12,8 @@
 	
 	
 %>
+
+<jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
 	
 	
 	
@@ -101,6 +102,11 @@
 	  cursor: pointer;
 	}
 	
+	i.glyphicon-heart:hover {
+  		cursor: pointer;
+	}
+	
+	
 	
 </style>
 </head>
@@ -164,6 +170,9 @@
 							<a id="cart_icon"><i class="fa fa-shopping-cart fa-1x" aria-hidden="true"></i></a>
 							<span id="itemCount"></span>
 						</div>
+						<div style="text-align:right; padding-left:20px">
+							<a id="fav_icon"><i class="glyphicon glyphicon-heart" style="color: red; font-size:15px"  id="fav_heart"></i></a>
+						</div> 
 						<div class="col-lg-11 col-sm-11 menu-top-right">
 							<% if(memVO == null){ %>
 							<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊">登入/註冊</a>
@@ -177,7 +186,7 @@
 								<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a><br>
 								
 								<a href="<%=request.getContextPath()%>/front-end/members/cur_dt.jsp">愛心幣餘額</a>
-								<% out.print("尚有:    "+memVO.getMemb_balance()+"元");}%>
+								<% out.print("尚有:    "+memSvc.getOneMem(memVO.getMemb_id()).getMemb_balance()+"元");}%>
 							</div>
 						</div>
 					</div>
@@ -250,13 +259,15 @@
 	</script>
 
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
+<!-- 	<script src="https://code.jquery.com/jquery.js"></script>  -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+<!-- 		下面這個會讓tab-panel和會員的下拉彈跳選單衝突 -->
+<%-- 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script> --%>
+<!-- 		下面這個會讓tab-panel和會員的下拉彈跳選單衝突 -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
@@ -271,6 +282,31 @@
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+	
+	
+	<script type="text/javascript">
+		$("#fav_icon").click(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodtrack.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) < 1){
+	// 					alert("尚無追蹤商品");
+						swal("Oops.....", "尚無追蹤商品", "warning").catch(swal.noop);
+						return false;
+					} else{
+						window.location.href = "<%=request.getContextPath()%>/prodtrack.do?action=check_Fav";
+					}
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+	
+	</script>
 </body>
 </html>
 

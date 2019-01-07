@@ -351,7 +351,7 @@ if (rescuingReviewList==null){
 //           				  $.ajax({
 //           	     		     type: "POST",
    <%--         	     			 url: "<%=request.getContextPath()%>/back-end/rescue/RescueAjax.do",  --%>
-//           	     			 data:{"action":"doneRscNoPass","rsc_id":$this.next().text()},
+//           	     			 data:{"action":"doneRscNoPass","rsc_id":$this.next().text(),"rscing_rv_des":result},
 //           	     			 datatype:"json",
 //           	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
 //           	     			 success:function(data){

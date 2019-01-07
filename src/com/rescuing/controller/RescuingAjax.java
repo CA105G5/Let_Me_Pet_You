@@ -48,9 +48,10 @@ public class RescuingAjax extends HttpServlet{
 				}
 
 				/*************************** 2.開始新增資料 ***************************************/
-			
-				
-
+			   RescueService rescueSvc = new RescueService();
+			   RescueVO rescueVO = rescueSvc.getOneRescue(rsc_id);
+			   RescuingService rescuingSvc = new RescuingService();
+			   rescuingSvc.updateByManagerPass(rescueVO);
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
@@ -64,10 +65,11 @@ public class RescuingAjax extends HttpServlet{
 		if ("doneRscNoPass".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			JSONArray array = new JSONArray();
+			
 			try {
 
 				String rsc_id = req.getParameter("rsc_id");
+				String rscing_rv_des = req.getParameter("rscing_rv_des");
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
@@ -77,7 +79,8 @@ public class RescuingAjax extends HttpServlet{
 				}
 
 				/*************************** 2.開始新增資料 ***************************************/
-				
+				 RescuingService rescuingSvc = new RescuingService();
+				 rescuingSvc.updateByManagerNoPass(rsc_id,rscing_rv_des);
 
 			
 			} catch (Exception e) {
