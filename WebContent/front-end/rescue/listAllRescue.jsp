@@ -34,30 +34,7 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>Let Me Pet You</title>
-
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
-	rel="stylesheet">
-<!--
-			CSS
-			============================================= -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<title>救援案例總覽</title>
 
 <!-- https://fontawesome.com/ 自己的css-->
 <link rel="stylesheet"
@@ -119,6 +96,27 @@ div {
 	<a href="javascript:void(0);" id="scroll" title="Scroll to Top" style="display: none;">Top<span></span></a>
 
 	<!-- ++++++++++++ Page Content Goes Here ++++++++++++ -->
+	<div class="container">
+			<div class="row">
+
+<!-- 				左側邊list-group -->
+ 				<div class="col-xs-12 col-sm-3">
+				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
+					<h3>救援</h3>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
+					<hr>
+
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
 
 	<section class="service-page-area section-gap">
 		<div class="container">
@@ -177,20 +175,9 @@ div {
 <!-- 	<script type="text/javascript" -->
 <!-- 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKTq4JnBzGP4UWtr5xe0c_wDQlWUbVrXU&callback=initMap"></script> -->
 		
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
+
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	

@@ -14,9 +14,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>救援地圖</title>
+<title>待完成的救援案例</title>
 
 
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+	crossorigin="anonymous">
 <script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 
 <style type="text/css">
@@ -59,9 +63,6 @@ div {
 		</div>
 	</div>
 	
-
-
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
 
 </body>
 </html>

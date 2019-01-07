@@ -120,26 +120,7 @@
 		</div>
 		<hr>
 		
-		<div class="container">
-			<div class="row">
 
-<!-- 				左側邊list-group -->
- 				<div class="col-xs-12 col-sm-3">
-				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
-					<h3>救援</h3>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
-					<hr>
-
-					
-				</div>
-			</div>
-		</div>
-	</div>
 <!-- 			</div> -->
 <!-- 		</div> -->
 	</header>
