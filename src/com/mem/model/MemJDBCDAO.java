@@ -20,7 +20,7 @@ import com.rescue.model.RescueVO;
 import com.rescuing.model.RescuingVO;
 
 public class MemJDBCDAO implements MemDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
+	String driver = "oracle.jdbc.driver.OracleDriver"; 
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G5";
 	String password = "123456";  
@@ -223,6 +223,22 @@ public class MemJDBCDAO implements MemDAO_interface {
 //		}
 //		System.out.println("多筆資料查詢成功");
 //		System.out.println("===========");
+		List <missingCaseVO> list4 = dao.selectMissingCase("M000000007");
+		for(missingCaseVO aMissingCaseVO : list4) {
+		System.out.println(aMissingCaseVO.getMissing_case_id());
+		System.out.println(aMissingCaseVO.getMemb_id());
+		System.out.println(aMissingCaseVO.getMissing_date());
+		System.out.println(aMissingCaseVO.getMissing_name());
+		System.out.println(aMissingCaseVO.getMissing_des());
+		System.out.println(aMissingCaseVO.getMissing_loc());
+		System.out.println(aMissingCaseVO.getMissing_status_shelve());
+		System.out.println(aMissingCaseVO.getMissing_photo());
+		System.out.println(aMissingCaseVO.getMissing_type());
+		
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+		}
+		System.out.println("多筆資料查詢成功");
+		System.out.println("===========");
 	}
 
 	@Override
@@ -957,8 +973,68 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 	@Override
 	public List<missingCaseVO> selectMissingCase(String memb_id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<missingCaseVO> list = new ArrayList<missingCaseVO>();
+		missingCaseVO missingCaseVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(SELECT_MISSING_PET);
+			pstmt.setString(1,memb_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				missingCaseVO= new missingCaseVO();
+				missingCaseVO.setMissing_case_id(rs.getString("missing_case_id"));
+				missingCaseVO.setMemb_id(rs.getString("memb_id"));
+				missingCaseVO.setMissing_date(rs.getTimestamp("missing_date"));
+				missingCaseVO.setMissing_name(rs.getString("missing_name"));
+				missingCaseVO.setMissing_des(rs.getString("missing_des"));
+				missingCaseVO.setMissing_loc(rs.getString("missing_loc"));
+				missingCaseVO.setMissing_status_shelve(rs.getString("missing_status_shelve"));
+				missingCaseVO.setMissing_photo(rs.getBytes("missing_photo"));
+				missingCaseVO.setMissing_type(rs.getString("missing_type"));
+				
+				
+				list.add(missingCaseVO);
+			}
+			
+			
+			
+			
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
 	}
 	
 	
@@ -1075,6 +1151,62 @@ public class MemJDBCDAO implements MemDAO_interface {
 				}
 			}
 		} return picture;
+	}
+	
+	@Override
+	public void updateMemBal(MemVO memVO, Connection con) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement(UPDATE_STMT);
+			
+			pstmt.setString(1,memVO.getMemb_sta());
+			pstmt.setString(2,memVO.getMemb_acc());
+			pstmt.setString(3,memVO.getMemb_psw());
+			pstmt.setString(4,memVO.getMemb_name());
+			pstmt.setString(5,memVO.getMemb_nick());
+			pstmt.setString(6,memVO.getMemb_email());
+			pstmt.setString(7,memVO.getMemb_cellphone());
+			pstmt.setString(8,memVO.getMemb_gender());
+			pstmt.setInt(9,memVO.getMemb_balance());
+			pstmt.setString(10,memVO.getMemb_cre_type());
+			pstmt.setString(11,memVO.getMemb_cre_name());
+			pstmt.setString(12,memVO.getMemb_cre_year());
+			pstmt.setString(13,memVO.getMemb_cre_month());
+			pstmt.setInt(14,memVO.getMemb_vio_times());
+			pstmt.setBytes(15, memVO.getMemb_photo());
+			pstmt.setString(16,memVO.getMemb_id());
+			
+			
+			int rowsUpdated = pstmt.executeUpdate();
+			System.out.println("Changed " + rowsUpdated + "rows");
+			System.out.println("會員餘額 " + memVO.getMemb_balance() + "元");
+			
+			// Handle any driver errors
+		} catch (Exception se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-memUpdate");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 

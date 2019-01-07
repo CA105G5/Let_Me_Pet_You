@@ -42,6 +42,9 @@ public class ProdTrackServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		MemVO memVO = (MemVO) session.getAttribute("memVO");
 		String memb_id = null;
+		if (memVO!=null) {
+			memb_id = memVO.getMemb_id();
+		}
 		
 		String session_id = session.getId();
 		System.out.println("session_id="+session_id);
@@ -58,6 +61,8 @@ public class ProdTrackServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 		
 		if (memVO!=null) {
 			memb_id = memVO.getMemb_id();
@@ -123,9 +128,63 @@ public class ProdTrackServlet extends HttpServlet {
 		}
 		
 		
-		jedis.close();
+		if ("check_Fav".equals(action)) { // 來自select_page.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			Set<String> favSet = null;
+
+			try {
+				
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				/***************************2.開始查詢資料*****************************************/
+				if (memb_id==null) {
+					
+					favSet = jedis.smembers("Fav:"+session_id);
+					System.out.println("Fav:" + session_id + " = " + favSet);
+					System.out.println("Fav:" + session_id + " 追蹤商品數量=" + favSet.size());
+			
+				} else {
+					
+					favSet = jedis.smembers("Fav:"+memb_id);
+					System.out.println("Fav:" + memb_id + " = " + favSet);
+					System.out.println("Fav:" + memb_id + " 追蹤商品數量=" + favSet.size());
+					
+				}
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				System.out.println("favSet="+favSet);
+				session.setAttribute("favSet", favSet); // 資料庫取出的prodVO物件,存入req
+				
+				String url = "/front-end/prodtrack/listAllProdTrack.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneProd.jsp
+				successView.forward(req, res);
+				
+			/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				System.out.println("eeeeeeeeeee");
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/product/listAllProd.jsp");
+				failureView.forward(req, res);
+			}
 		
+		}
+		
+		if(action==null){
+			if (memb_id==null) {
+				out.println(jedis.smembers("Fav:"+session_id).size());
+			} else {
+				out.println(jedis.smembers("Fav:"+memb_id).size());
+			}
+		}
 		out.flush();
+		jedis.close();
 		out.close();
+		
 	}
 }
+	

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import com.mem.model.MemVO;
 import com.orditem.model.OrdItemVO;
 import com.prod.model.ProdVO;
 
@@ -93,7 +94,7 @@ public class OrdService {
 		return dao.getOrdByMem(memb_id);
 	}
 	
-	public void insertWithOrdItem(OrdVO ordVO, List<OrdItemVO> list) {
-		dao.insertWithOrdItem(ordVO, list);
+	public void insertWithOrdItem(OrdVO ordVO, List<OrdItemVO> list, MemVO memVO) {
+		dao.insertWithOrdItem(ordVO, list, memVO);
 	}
 }

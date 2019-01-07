@@ -9,6 +9,7 @@
 <%
 	AdoptMsgVO adoptMsgVO = (AdoptMsgVO)request.getAttribute("adoptMsgVO");
 	String adopt_id = request.getParameter("adopt_id");
+	System.out.println(adopt_id);
 	AdoptMsgService adoptMsgSvc = new AdoptMsgService();
 	List<AdoptMsgVO> list = adoptMsgSvc.findByAdopt(adopt_id);
 	pageContext.setAttribute("list", list);
@@ -52,7 +53,7 @@
 </head>
 <body>
 
-	<jsp:include page="/front-end/missingCase/missing_case_header.jsp"
+	<jsp:include page="/index_Header.jsp"
 		flush="true" />
 
 	<!-- End banner Area -->
@@ -142,7 +143,7 @@
 									<div class="post-details">
 										<p>連絡失主</p>
 										<h4 class="text-uppercase">
-											<a href="#">失蹤的人</a>
+											<a href="#">${memSvc.getOneMem(adoptionVO.adopt_sponsor).memb_nick}</a>
 										</h4>
 									</div>
 									<div class="thumb">
@@ -154,6 +155,14 @@
 						</section>
 						<div class="comment-sec-area">
 							<h3 class="text-uppercase" style="color: red">留言區</h3>
+							<br>
+							<c:if test="${not empty errorMsgs}">
+									<c:forEach var="message" items="${errorMsgs}">
+										<div class="alert alert-danger" role="alert">
+                                        	${message}
+                                    	</div>
+									</c:forEach>
+							</c:if>
 							<br>
 							<h4 class="pb50">Leave a Reply...</h4>
 
@@ -167,10 +176,8 @@
 									id="adopt_msg_comm" placeholder="Messege"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'Messege'"></textarea>
-								<input type="hidden" name="adopt_id" id="adopt_id"
-									value="<%=request.getParameter("adopt_id")%>">  
-									<input type="hidden" name="adopt_msg_sper" id="adopt_msg_sper"
-									value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
+								<input type="hidden" name="adopt_id" id="adopt_id" value="<%=adopt_id%>">  
+								<input type="hidden" name="adopt_msg_sper" id="adopt_msg_sper" value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
 								 <input
 									type="hidden" name="action" value="insert"> <input
 									type="submit" id="submit"
@@ -286,42 +293,6 @@
 
 
 
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js"
-		type="text/javascript"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="js/jquery-1.12.3.min.js"></script>
+	
 </body>
 </html>

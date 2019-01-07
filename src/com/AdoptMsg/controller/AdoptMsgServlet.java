@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.AdoptMsg.model.AdoptMsgService;
 import com.AdoptMsg.model.AdoptMsgVO;
+import com.Adoption.model.AdoptionService;
+import com.Adoption.model.AdoptionVO;
 
 public class AdoptMsgServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -37,7 +39,7 @@ public class AdoptMsgServlet extends HttpServlet {
 				String adopt_msg_comm = req.getParameter("adopt_msg_comm");
 				
 				if(adopt_msg_comm == null || adopt_msg_comm.trim().length() ==0) {
-					errorMsgs.add("留言請勿空白");
+					errorMsgs.add("留言請勿空白!");
 				}
 				
 				AdoptMsgVO adoptMsgVO = new AdoptMsgVO();
@@ -46,17 +48,28 @@ public class AdoptMsgServlet extends HttpServlet {
 				adoptMsgVO.setAdopt_msg_comm(adopt_msg_comm);
 				
 				if (!errorMsgs.isEmpty()) {
+					System.out.println("hello"+errorMsgs);
 					req.setAttribute("adoptMsgVO", adoptMsgVO);
+					//
+					AdoptionService adoptSvc= new AdoptionService();
+					AdoptionVO adoptionVO = adoptSvc.getOneAdopt(adopt_id);
+					req.setAttribute("adoptionVO", adoptionVO);
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/adopt/listOneAdopt.jsp");
+					//					
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id);
 					failureView.forward(req, res);
 					return;
 				}
 				/*************************** 2.開始新增資料 ***************************************/
+				System.out.println(adopt_id);
+				System.out.println(adopt_msg_sper);
+				System.out.println(adopt_msg_comm);
 				AdoptMsgService adoptMsgSvc = new AdoptMsgService();
 				adoptMsgVO = adoptMsgSvc.addAdopMsg(adopt_id, adopt_msg_sper, adopt_msg_comm);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "http://localhost:8081/CA105G5/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id;
+				String url = req.getContextPath()+"/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id;
 //				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listOneMissingCase.jsp
 //				successView.forward(req, res);
 				res.sendRedirect(url);

@@ -25,7 +25,8 @@
 		tab_int = new Integer(tab);
 	}
 %>	
-	
+
+<jsp:useBean id="prodImgSvc" scope="page" class="com.prodimg.model.ProdImgService" />
 	
 	
 <!doctype html>
@@ -54,10 +55,10 @@
 	
     
 
-<!-- w3 CSS tabs -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<!-- w3 CSS tabs -->
+	<!-- w3 CSS tabs -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<!-- w3 CSS tabs -->
 
 
 
@@ -111,8 +112,128 @@
         #cellPaiChart{
             height: 160px;
         }
+        
+	
+	* {box-sizing:border-box}
+	
+	/* Slideshow container */
+	.slideshow-container {
+	  max-width: 1000px;
+	  position: relative;
+	  margin: auto;
+	}
+	
+	/* Hide the images by default */
+	.mySlides {
+	  display: none;
+	}
+	
+	/* Next & previous buttons */
+	.prev, .next {
+	  cursor: pointer;
+	  position: absolute;
+	  top: 50%;
+	  width: auto;
+	  margin-top: -22px;
+	  padding: 16px;
+	  color: white;
+	  font-weight: bold;
+	  font-size: 18px;
+	  transition: 0.6s ease;
+	  border-radius: 0 3px 3px 0;
+	  user-select: none;
+	}
+	
+	/* Position the "next button" to the right */
+	.next {
+	  right: 0;
+	  border-radius: 3px 0 0 3px;
+	}
+	
+	/* On hover, add a black background color with a little bit see-through */
+	.prev:hover, .next:hover {
+	  background-color: rgba(0,0,0,0.8);
+	}
+	
+	/* Caption text */
+	.text {
+	  color: #f2f2f2;
+	  font-size: 15px;
+	  padding: 8px 12px;
+	  position: absolute;
+	  bottom: 8px;
+	  width: 100%;
+	  text-align: center;
+	}
+	
+	/* Number text (1/3 etc) */
+	.numbertext {
+	  color: #f2f2f2;
+	  font-size: 12px;
+	  padding: 8px 12px;
+	  position: absolute;
+	  top: 0;
+	}
+	
+	/* The dots/bullets/indicators */
+	.dot {
+	  cursor: pointer;
+	  height: 15px;
+	  width: 15px;
+	  margin: 0 2px;
+	  background-color: #bbb;
+	  border-radius: 50%;
+	  display: inline-block;
+	  transition: background-color 0.6s ease;
+	}
+	
+	.active, .dot:hover {
+	  background-color: #717171;
+	}
+	
+	/* Fading animation */
+	.fade {
+	  -webkit-animation-name: fade;
+	  -webkit-animation-duration: 5s;
+	  animation-name: fade;
+	  animation-duration: 5s;
+	}
+	
+	@-webkit-keyframes fade {
+	  from {opacity: .6} 
+	  to {opacity: 1}
+	}
+	
+	@keyframes fade {
+	  from {opacity: .6} 
+	  to {opacity: 1}
+	}
+	
+	/* button click動畫 */
+	.button {
+	  display: inline-block;
+	  padding: 15px 25px;
+	  font-size: 24px;
+	  cursor: pointer;
+	  text-align: center;
+	  text-decoration: none;
+	  outline: none;
+	  color: #fff;
+	  background-color: #4CAF50;
+	  border: none;
+	  border-radius: 15px;
+	  box-shadow: 0 9px #999;
+	}
+	
+	.button:hover {background-color: #3e8e41}
+	
+	.button:active {
+	  background-color: #3e8e41;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);
+	}
 
-    </style>
+</style>
 </head>
 
 <body>
@@ -212,19 +333,151 @@
 																	<td style=" margin-bottom: auto"><fmt:formatDate value="${prodVO.prod_date}" pattern="yyyy-MM-dd"/></td>
 																	<td style=" margin-bottom: auto">審核中</td>
 																	<td>
-																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto">
+<%-- 																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto"> --%>
 <%-- 																		<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%>
 																		<input type="hidden" name="prod_id"  value="${prodVO.prod_id}">
 																		<input type="hidden" name="tab"  value="1">
 																		<input type="hidden" name="location"  value="back">
 																		<input type="hidden" name="action"	value="getOneModal_For_Display">
-																		<input type="submit" value="審核" id="review">
+																		<input type="submit" value="審核" id="review" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#${prodVO.prod_id}">
 																		<!--改成modal彈跳視窗 -->
 <%-- 																		<A href="<%=request.getContextPath()%>/product/product_upload.do?prod_id=${prodVO.prod_id}&action=getOneModal_For_Display">審核</a> --%>
 																		<!--改成modal彈跳視窗 -->
-																		</FORM>
+<!-- 																		</FORM> -->
 																	</td>
 																</tr>
+																
+											<div class="modal" id="${prodVO.prod_id}" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+								                <div class="modal-dialog modal-lg" role="document">
+								                    <div class="modal-content">
+								                        <div class="modal-header">
+								                            <h5 class="modal-title" id="largeModalLabel">審核捐贈申請</h5>
+								                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								                                <span aria-hidden="true">&times;</span>
+								                            </button>
+								                        </div>
+								                        <div class="modal-body">
+								                            <section class="training-area section-gap">
+		<div class="container">
+			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; bottom: auto;">
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-lg-3 cl-md-3" style="top: 180px; bottom: auto;"></div> -->
+					<div class="col-xs-10 col-sm-10">
+					<div class="row">
+						<div class="col-xs-10 col-sm-10">
+						
+							<!-- Slideshow container -->
+							<div class="slideshow-container">
+									
+								<!-- Full-width images with number and caption text -->
+								<% int i =1; %> 
+								<c:forEach var="prodImgVO" items="${prodImgSvc.getOneProdImg(prodVO.prod_id)}">
+									<div class="mySlides" >
+<!-- 							    <div class="mySlides fade"> -->
+										<div class="numbertext"><%=i%>/${prodImgSvc.getOneProdImg(prodVO.prod_id).size()}</div>
+										<img src="<%=request.getContextPath()%>/util/PicReader2?prod_img_id=${prodImgVO.prod_img_id}" style="width:50%">
+										<div class="text"> </div>
+									</div>
+									<% i++; %> 
+								</c:forEach>
+										
+								<!-- Next and previous buttons -->
+								<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+								<a class="next" onclick="plusSlides(1)">&#10095;</a>
+							</div>
+							<br>
+									
+							<!-- The dots/circles -->
+							<div>
+<!-- 						<div style="text-align:center"> -->
+								<% int j =1; %> 
+								<c:forEach var="prodImgVO" items="${prodImgSvc.getOneProdImg(prodVO.prod_id)}">
+									<span class="dot" onclick="currentSlide(<%=j%>)"></span> 
+									<% j++; %> 
+								</c:forEach>
+							</div>
+						</div>
+
+						<div class="col-xs-10 col-sm-10">
+							<h3>${prodVO.prod_name}
+								<span style="font-size: 1em; color: Tomato; text-indent:300px;">
+									<i class="fas fa-coins"></i>
+									<b>${prodVO.prod_price}</b>
+								</span>
+							</h3>
+							<hr>
+							<h4>商品資訊: <p>${prodVO.prod_info}</p></h4>
+							<h4>捐贈數量: ${prodVO.prod_stock}</h4>
+							<h4>產品分類: ${prodVO.prod_type_id}</h4>
+							<h4>適用動物: ${prodVO.prod_ani_type_id}</h4>
+							<hr>
+							<div>
+								<h3>審核</h3>
+								<div class="row">
+									<div class="input-group-icon mt-10 col-xs-8 col-sm-8" style="height: 100px; ">
+										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto">
+											<div class="input-group-icon mt-10" style="width: 200px; ">
+												<div class="icon">
+													<i class="fa fa-thumb-tack" aria-hidden="true"></i>
+												</div>
+												<div class="form-select" id="default-select">
+													<select style="width: 120px" id="prod_review" name="prod_review">
+														<option value="0">審核結果</option>
+														<option value="通過" ${ prodVO.prod_review.equals("通過")? "selected":""}>通過</option>
+														<option value="不通過" ${ prodVO.prod_review.equals("不通過")? "selected":""}>不通過</option>
+													</select>
+												</div>
+											</div> 
+									</div>
+								
+									<br>
+									<div class="col-xs-10 col-sm-10">
+										審核原因: <br>
+										<textarea name="prod_review_des" class="form-control custom-control" rows="5" style="resize:none; width: 250px;">${ prodVO.prod_review_des==null? "": prodVO.prod_review_des}</textarea>
+									</div>
+								
+								</div>
+								
+								<br>
+								<div>
+<!-- 							<div style="text-align:right"> -->
+									<input type="hidden" name="prod_id"  value="${prodVO.prod_id}">
+									<input type="hidden" name="action"	value="getOne_For_Review_Update">
+									<input type="submit" value="提交" class="button"></FORM>
+								</div>
+							
+							</div>
+						</div>
+					</div>
+
+						<div class="container">
+							<div id="sider" class="n-browse-nav m-sticky-on"
+								style="top: 150px; bottom: auto;">
+								<div class="row">
+									<div class="col-lg-10 cl-md-10" style="top: 30px; bottom: auto;">
+										<div class="">
+												${prodVO.prod_des}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr>
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+								                        </div>
+								                        <div class="modal-footer">
+								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+<!-- 								                            <button type="button" class="btn btn-primary">Confirm</button> -->
+								                        </div>
+								                    </div>
+								                </div>
+								            </div>
 															</c:if>
 														</c:forEach>
 													</tbody>
@@ -385,6 +638,100 @@
       	});
   	</script>
   	<!-- backend datatable  -->
+  	
+<script type="text/javascript">
+	var slideIndex = 1;
+	showSlides(slideIndex);
+	
+	// Next/previous controls
+	function plusSlides(n) {
+	  showSlides(slideIndex += n);
+	}
+	
+	// Thumbnail image controls
+	function currentSlide(n) {
+	  showSlides(slideIndex = n);
+	}
+	
+	function showSlides(n) {
+	  var i;
+	  var slides = document.getElementsByClassName("mySlides");
+	  var dots = document.getElementsByClassName("dot");
+	  if (n > slides.length) {slideIndex = 1} 
+	  if (n < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = "none"; 
+	  }
+	  for (i = 0; i < dots.length; i++) {
+	      dots[i].className = dots[i].className.replace(" active", "");
+	  }
+	  slides[slideIndex-1].style.display = "block"; 
+	  dots[slideIndex-1].className += " active";
+	}
+
+</script>
+
+<script type="text/javascript">
+	
+	 $("#submit").on('click', function () {
+		 var c=0;
+		 $("#result_error").text("");
+		 $("#reason_error").html("");
+		 console.log("#report_result="+$("#report_result").val());
+		 console.log("#reason="+$("#reason").val());
+		 console.log("ord_id="+ '${ord_id}');
+		 console.log("prod_id="+ '${prod_id}');
+		 
+		 var has_empty = false;
+		    
+		 if ($("#report_result").val()==0){
+			 $("#result_error").text("請輸入審核理由");
+			 has_empty = true;
+			 c++;
+		 } 
+		 
+		 if ($("#reason").val()==null || $("#reason").val().trim().length==0){
+			 has_empty = true;
+			 if (c==0)
+			 	$("#reason_error").text("請輸入審核描述");
+			 else
+			 	$("#reason_error").html("<br>請輸入審核描述");
+			 
+		 } 
+		 if ( has_empty ) { 
+		 	 return false; 
+		 }
+		 
+		 var $this = $(this);
+		 console.log("11111111");
+		 console.log("reason=" + $("#reason").val());
+		 console.log("report_result=" + $("#report_result").val());
+		 console.log("22222222");
+	     	$.ajax({
+	    		url: '<%=request.getContextPath()%>/ordItem/ordItem.do',
+	    		type: "post",
+	    		data: { 'action': 'getOne_For_Review_Update', 'ord_id': '${ord_id}' , 'prod_id': '${prod_id}', 'ord_item_review' : $("#report_result").val(), 'ord_item_rv_des' : $("#reason").val()  },
+	    		dataType: 'json',
+	    		success: function(res){
+	    			console.log("0000000000");
+	    			console.log(res);
+	    			swal({
+	    				title: "完成!",
+	    				text: "已完成審核",
+	    				type: "success",
+	    				timer: 3000
+	    			});
+	    			console.log("11111111");
+	    			window.location.href = "<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp";
+	    			console.log("22222222");
+	    		},
+	    		error: function(res){
+	    			console.log("eeeeeeee");
+	    			console.log("res="+res);
+	    		}
+	    	});
+		});
+</script>
   	
 
 </body>

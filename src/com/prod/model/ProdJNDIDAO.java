@@ -20,6 +20,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.ntf.model.NtfJDBCDAO;
+import com.ntf.model.NtfVO;
+import com.ord.model.OrdService;
 import com.prod.model.ProdVO;
 
 public class ProdJNDIDAO implements ProdDAO_interface {
@@ -112,6 +115,7 @@ public class ProdJNDIDAO implements ProdDAO_interface {
 		return str;
 	}
 
+	//上架審核
 	@Override
 	public void update(ProdVO prodVO) {
 		Connection con = null;
@@ -120,6 +124,10 @@ public class ProdJNDIDAO implements ProdDAO_interface {
 		try {
 
 			con = ds.getConnection();
+			
+			// 1●設定於 pstm.executeUpdate()之前
+			con.setAutoCommit(false);
+			
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, prodVO.getProd_type_id());
@@ -143,28 +151,58 @@ public class ProdJNDIDAO implements ProdDAO_interface {
 			int rowsUpdated = pstmt.executeUpdate();
 
 			System.out.println("Changed " + rowsUpdated + "rows");
+			
+			// 再同時新增通知給訂單會員
+			NtfVO ntfVO = new NtfVO();
+			NtfJDBCDAO ntfDAO = new NtfJDBCDAO();
+						
+			//上架審核完畢通知
+			ntfVO.setMemb_id(prodVO.getMemb_id());
+			ntfVO.setNtf_src_id(prodVO.getProd_id());
+			ntfVO.setNtf_dt("您的商品: "+prodVO.getProd_name()+"已審核完畢，審核結果:" + prodVO.getProd_review() + "，請前往查看詳細資訊。");
+							
+						
+			ntfDAO.insert(ntfVO, con);
+						
+						
+			// 2●設定於 pstm.executeUpdate()之後
+			con.commit();
 
 			// Handle any driver errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
+			} catch (SQLException se) {
+				if (con != null) {
+					try {
+						// 3●設定於當有exception發生時之catch區塊內
+						System.err.print("Transaction is being ");
+						System.err.println("rolled back-由-product");
+						con.rollback();
+					} catch (SQLException excep) {
+						throw new RuntimeException("rollback error occured. " + excep.getMessage());
+					}
+				}
+				throw new RuntimeException("A database error occured. " + se.getMessage());
+					// Clean up JDBC resources
+			} finally {
 				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
+					con.setAutoCommit(true);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
 				}
 			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-
 	}
 
 	@Override
