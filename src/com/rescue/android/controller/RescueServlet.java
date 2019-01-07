@@ -39,6 +39,8 @@ public class RescueServlet extends HttpServlet {
 		}
 		System.out.println("input: " + jsonIn);
 		JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
+		
+		System.out.println(jsonObject.toString());
 		String action = jsonObject.get("action").getAsString();
 
 		if ("getAllRescue".equals(action)) {
