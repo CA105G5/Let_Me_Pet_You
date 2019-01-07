@@ -92,11 +92,11 @@ div {
                                     <thead>
                                         <tr>
                                         	<th style="width: 30px">序號</th>
-                                            <th>救援案例編號</th>
-                                            <th>完成案例送審會員</th>
-<!--                                             <th>完成送審描述</th> -->
-                                            <th>完成救援時間</th>
-<!--                                             <th>審核</th> -->
+                                        	<th><center>加入救援時間</center></th>
+                                            <th><center>救援案例編號</center></th>
+                                            <th><center>發起案例會員</center></th>
+                                            <th><center>發起時間</center></th>
+                                            <th><center>完成救援</center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -106,17 +106,49 @@ div {
 												<% no++; %>
 												<tr>
 													<td><%=no %></td>
+													<td style=" margin-bottom: auto"><fmt:formatDate value="${rescuingVO.rscing_btime}" type="both" /></td>
 													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescuingVO.rsc_id}">${rescuingVO.rsc_id}</a></td>
 													<td style=" margin-bottom: auto">${rescuingVO.rscing_ptcp}<br>暱稱：${memSvc.getOneMem(rescuingVO.rscing_ptcp).memb_nick}</td>
+													<td style=" margin-bottom: auto"><fmt:formatDate value="${rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_btime}" type="both" /></td>
+													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do?rsc_id=${rescuingVO.rsc_id}&rscing_ptcp=${rescuingVO.rscing_ptcp}&action=rescueReport" class="genric-btn success circle arrow">完成救援<span class="lnr lnr-arrow-right"></span></a>
 													
-													<td style=" margin-bottom: auto"><fmt:formatDate value="${rescuingVO.rscing_ctime}" type="both" /></td>
-													
+													</td>
 												</tr>
 									    
 								        								
 										</c:forEach>
                                     </tbody>
                                 </table>
+<c:if test="${openModal!=null}">
+
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+				
+			<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="myModalLabel">The Bootstrap modal-header</h3>
+            </div>
+			
+			<div class="modal-body">
+<!-- =========================================以下為原的內容========================================== -->
+               <jsp:include page="rescueReport.jsp" />
+<!-- =========================================以上為原的內容========================================== -->
+			</div>
+			
+			<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+		
+		</div>
+	</div>
+</div>
+
+        <script>
+    		 $("#basicModal").modal({show: true});
+        </script>
+ </c:if>
                             </div>
                         </div>
                     </div>

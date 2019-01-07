@@ -94,7 +94,34 @@ public class RescuingServlet extends HttpServlet {
 					failureView.forward(req, res);	
 				}
 			}
-		
+			if ("rescueReport".equals(action)) {
+
+				try {
+					// Retrieve form parameters.
+					String rsc_id = req.getParameter("rsc_id");
+					String rscing_ptcp = req.getParameter("rscing_ptcp");
+					RescuingService rescuingSvc = new RescuingService();
+					RescuingVO rescuingVO = rescuingSvc.findself(rsc_id,rscing_ptcp);
+					
+
+					req.setAttribute("rescuingVO",rescuingVO ); // 資料庫取出的empVO物件,存入req
+					
+					//Bootstrap_modal
+					boolean openModal=true;
+					req.setAttribute("openModal",openModal );
+					
+					// 取出的empVO送給listOneEmp.jsp
+					RequestDispatcher successView = req
+							.getRequestDispatcher("/frond-end/rescue/listMemRescue.jsp");
+					successView.forward(req, res);
+					return;
+
+					// Handle any unusual exceptions
+				} catch (Exception e) {
+					throw new ServletException(e);
+				}
+			}
+			
 		
 		
 		
