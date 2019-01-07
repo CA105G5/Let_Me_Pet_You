@@ -40,4 +40,7 @@ public class AdoptMsgService {
 	public List<AdoptMsgVO> getAll(){
 		return dao.getAll();
 	}
+	public AdoptMsgVO getOneMsg(String adopt_msg_id) {
+		return dao.findByPrimaryKey(adopt_msg_id);
+	}
 }

@@ -1,6 +1,8 @@
 package com.Adoption.model;
 
 import java.util.*;
+
+import com.AdoptApply.model.AdoptApplyVO;
 import com.mysql.jdbc.Driver;
 
 import java.io.ByteArrayOutputStream;
@@ -26,6 +28,9 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 			"UPDATE ADOPTION SET ADOPT_SPECIES=?,ADOPT_SPONSOR=?,ADOPT_STATUS=?,ADOPT_APPLY_STATUS=?,ADOPT_BTIME=?,ADOPT_ETIME=?,ADOPT_DES=?,ADOPT_IMG=? WHERE ADOPT_ID=?";
 	private static final String CHANGE_STATUS =
 			"UPDATE ADOPTION SET ADOPT_APPLY_STATUS=?,ADOPT_STATUS=? WHERE ADOPT_ID=?";
+	
+	private static final String UPDATE_STATUS =
+			"UPDATE ADOPTION SET ADOPT_STATUS='下架' WHERE ADOPT_ID=?";
 	
 	
 	public AdoptionJDBCDAO() {
@@ -124,6 +129,46 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 					e.printStackTrace(System.err);
 				}
 			} 
+		}
+	}
+	
+	//改狀態
+	@Override
+	public void updateStatus(AdoptApplyVO adoptApplyVO, Connection con) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+			
+			pstmt.setString(1, adoptApplyVO.getAdopt_id());
+			
+			pstmt.executeUpdate();
+			
+			
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-emp");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 		}
 	}
 

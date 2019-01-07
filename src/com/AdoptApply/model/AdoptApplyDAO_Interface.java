@@ -10,6 +10,5 @@ public interface AdoptApplyDAO_Interface {
 	public List<AdoptApplyVO> findByPrimaryKey(String memb_id, String adopt_id);
 	public List<AdoptApplyVO> findByAdopt(String memb_id);
 	public List<AdoptApplyVO> getAll();
-	
 
 }

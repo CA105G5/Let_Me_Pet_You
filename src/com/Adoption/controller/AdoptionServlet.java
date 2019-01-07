@@ -177,10 +177,10 @@ public class AdoptionServlet extends HttpServlet {
 				adoptionSvc.changeStatus(adopt_id, adopt_apply_status, adopt_status);
 				
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				String url = "back-end/Adopt/listAllAdopt.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url);
-//				successView.forward(req, res);
-				res.sendRedirect(url);
+				String url = "/back-end/Adopt/listAllAdopt.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+//				res.sendRedirect(url);
 				/*************************** 其他可能的錯誤處理 **********************************/
 				
 			}catch (Exception e) {
