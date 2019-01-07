@@ -152,6 +152,6 @@ public class MemService {
 		dao.updateMemWithOrdItemAndCurDt(memVO, curDTVO, con);
 	}
 	public void updateMemBal(MemVO memVO, Connection con) {
-		dao.updateMemBal(memVO, con);
+		dao.updateMemBal(memVO, con); 
 	}
 }

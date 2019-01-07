@@ -20,7 +20,7 @@ import com.rescue.model.RescueVO;
 import com.rescuing.model.RescuingVO;
 
 public class MemJDBCDAO implements MemDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
+	String driver = "oracle.jdbc.driver.OracleDriver"; 
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G5";
 	String password = "123456";  
