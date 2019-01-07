@@ -24,7 +24,7 @@
 <meta name="description" content="">
 <!-- Meta Keyword -->
 <meta name="keywords" content="">
-<!-- meta character set -->
+<!-- meta character set --> 
 <meta charset="UTF-8">
 <!-- Site Title -->
 <title>Horse Club</title>

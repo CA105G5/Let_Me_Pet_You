@@ -17,7 +17,7 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user = "CA105G5";
 	String password = "123456";
-	
+	 
 	private static final String INSERT_ADOPT = 
 			"INSERT INTO ADOPTION (ADOPT_ID,ADOPT_SPECIES,ADOPT_SPONSOR,ADOPT_DES,ADOPT_IMG) values ('A'||LPAD(to_char(adoption_seq.NEXTVAL),9,'0'),?,?,?,?)";
 	private static final String GET_ONE_ADOPT =

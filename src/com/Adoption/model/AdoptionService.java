@@ -20,7 +20,7 @@ public class AdoptionService {
 		adoptionVO.setAdopt_img(adopt_img);
 		dao.insert(adoptionVO);
 
-		return adoptionVO;
+		return adoptionVO; 
 	}
 
 	public AdoptionVO updateAdoption(String adopt_id, String adopt_species, String adopt_sponsor, String adopt_status,
