@@ -53,10 +53,13 @@ public class AdoptMsgServlet extends HttpServlet {
 					return;
 				}
 				/*************************** 2.開始新增資料 ***************************************/
+				System.out.println(adopt_id);
+				System.out.println(adopt_msg_sper);
+				System.out.println(adopt_msg_comm);
 				AdoptMsgService adoptMsgSvc = new AdoptMsgService();
 				adoptMsgVO = adoptMsgSvc.addAdopMsg(adopt_id, adopt_msg_sper, adopt_msg_comm);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "http://localhost:8081/CA105G5/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id;
+				String url = req.getContextPath()+"/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id;
 //				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listOneMissingCase.jsp
 //				successView.forward(req, res);
 				res.sendRedirect(url);

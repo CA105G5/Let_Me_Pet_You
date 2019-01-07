@@ -369,10 +369,10 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>AdoptMsgServlet</servlet-name>
-    <servlet-class>com.Adopt.controller.AdoptMsgServlet</servlet-class>
+    <servlet-class>com.AdoptMsg.controller.AdoptMsgServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AdoptApplyServlet</servlet-name>
+    <servlet-name>AdoptMsgServlet</servlet-name>
     <url-pattern>/front-end/adopt/adoptMsgServlet.do</url-pattern>
   </servlet-mapping>
   <servlet>
