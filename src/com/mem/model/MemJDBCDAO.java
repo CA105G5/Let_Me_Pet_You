@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 import com.AdoptApply.model.AdoptApplyVO;
 import com.Adoption.model.AdoptionVO;
@@ -43,6 +44,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 	private static final String SELECT_ADOPT_SPONSOR = "SELECT * FROM ADOPTION where adopt_sponsor=?";
 	private static final String SELECT_ADOPT_APPLY = "SELECT * FROM ADOPT_APPLY where memb_id=?";
 	private static final String SELECT_MISSING_PET = "SELECT * FROM MISSING_CASE where memb_id=?";
+	private static final String SELECT_BALANCE ="SELECT memb_balance FROM MEMBERS where memb_id = ?";
+	private static final String UPDATE_BALANCE = "UPDATE MEMBERS set memb_balance = ? where memb_id = ?";
 	
 	//安卓SQL指令
 	private static final String FIND_BY_ID_PASWD = "SELECT * FROM MEMBERS WHERE memb_acc = ? AND memb_psw = ?";
@@ -479,6 +482,65 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 		
 	}
+	@Override
+	public void updateBalance(String memb_id,Integer rsc_coin, Connection con) {
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null;
+		ResultSet rs = null;
+		Integer coin = 0;
+		try {
+
+			//查出愛心幣
+          pstmt = con.prepareStatement(SELECT_BALANCE);
+          pstmt.setString(1,memb_id);
+			
+          rs = pstmt.executeQuery();
+          while(rs.next()) {
+        	  coin = rs.getInt("memb_balance");	
+			}
+          rs.close();
+          //存愛心幣
+          pstmt1 = con.prepareStatement(UPDATE_BALANCE);
+          
+          	pstmt1.setInt(1,(rsc_coin+coin));
+			pstmt1.setString(2,memb_id);
+     		pstmt1.executeUpdate();
+
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt1 != null) {
+				try {
+					pstmt1.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
 
 	@Override
 	public void delete(String memb_id) {
@@ -518,6 +580,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 		
 	}
+
 
 	@Override
 	public MemVO findByPrimaryKey(String memb_id) {
@@ -1013,6 +1076,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 			}
 		} return picture;
 	}
+
+
 
 	
 }

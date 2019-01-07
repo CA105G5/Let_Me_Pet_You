@@ -48,9 +48,9 @@ public class RescuingAjax extends HttpServlet{
 				}
 
 				/*************************** 2.開始新增資料 ***************************************/
-			
-				
-
+			   RescueService rescueSvc = new RescueService();
+			   RescueVO rescueVO = rescueSvc.getOneRescue(rsc_id);
+			   
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req

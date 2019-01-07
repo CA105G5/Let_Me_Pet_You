@@ -47,7 +47,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			"UPDATE RESCUE set vlt_id=?,rsc_sta=?,ntf_vlt_dt=?,ntf_vlt_sta=?,ntf_vlt_time=? where rsc_id = ?";
 	private static final String UPDATE_NTF_VLT_STA =
 			"UPDATE RESCUE set ntf_vlt_sta=? where rsc_id = ?";
-
+    private static final String UPDATE_BY_PASS = 
+    		"UPDATE RESCUE set rsc_sta=?,rsc_etime where rsc_id = ?";
 	
 	//安卓指令
 	private static final String FIND_PHOTO_BY_RSCID = 
@@ -617,10 +618,11 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		try {
 
 			//修改rescue
-            pstmt = con.prepareStatement(UPDATE_RSC_STA);
+            pstmt = con.prepareStatement(UPDATE_BY_PASS);
 			
 			pstmt.setString(1,new String("完成救援"));
-			pstmt.setString(2,rsc_id);
+			pstmt.setTimestamp(2,new Timestamp(new Date().getTime()));
+			pstmt.setString(3,rsc_id);
      		pstmt.executeUpdate();
 
 			

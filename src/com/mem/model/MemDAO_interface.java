@@ -25,7 +25,7 @@ public interface MemDAO_interface {
 	public List<AdoptionVO> selectAdoption(String memb_id);
 	public List<AdoptApplyVO> selectAdoptApply(String memb_id);
 	public List<missingCaseVO> selectMissingCase(String memb_id);
-	
+	public void updateBalance(String memb_id,Integer rsc_coin,Connection con);
 	
 	//安卓功能
 	boolean isMemAcc(String memb_acc, String memb_psw);//確認會員存在
