@@ -253,11 +253,16 @@
   </filter>
   <filter-mapping>
     <filter-name>LoginFilter</filter-name>
+    <url-pattern>/front-end/members/listOneMember.jsp</url-pattern>
+    <url-pattern>/front-end/members/listAllRescue.jsp</url-pattern>
+    <url-pattern>/front-end/members/listAllAdopt.jsp</url-pattern>
+    <url-pattern>/front-end/members/listMyMissingPets.jsp</url-pattern>
     <url-pattern>/front-end/missingCase/addMissing.jsp</url-pattern>
     <url-pattern>/front-end/donate/listAllProdDon.jsp</url-pattern>
     <url-pattern>/front-end/ord/listAllOrd.jsp</url-pattern>
     <url-pattern>/front-end/ord/listAllOrd_Ship.jsp</url-pattern>
     <url-pattern>/front-end/ord/cart_Receiver.jsp</url-pattern>
+    <servlet-name>PetServlet</servlet-name>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
