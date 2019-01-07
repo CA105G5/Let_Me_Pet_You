@@ -48,7 +48,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 	private static final String UPDATE_NTF_VLT_STA =
 			"UPDATE RESCUE set ntf_vlt_sta=? where rsc_id = ?";
     private static final String UPDATE_BY_PASS = 
-    		"UPDATE RESCUE set rsc_sta=?,rsc_etime where rsc_id = ?";
+    		"UPDATE RESCUE set rsc_sta=?,rsc_etime= ? where rsc_id = ?";
 	
 	//安卓指令
 	private static final String FIND_PHOTO_BY_RSCID = 
