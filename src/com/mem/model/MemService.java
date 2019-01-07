@@ -147,4 +147,7 @@ public class MemService {
 	public void updateMem(MemVO memVO, CurDtVO curDTVO, Connection con) {
 		dao.updateMemWithOrdItemAndCurDt(memVO, curDTVO, con);
 	}
+	public void updateMemBal(MemVO memVO, Connection con) {
+		dao.updateMemBal(memVO, con);
+	}
 }
