@@ -104,7 +104,10 @@
 	<tr><td>會員Email</td><td><%=memVO.getMemb_email()%></td></tr>
 	<tr><td>會員手機</td><td><%=memVO.getMemb_cellphone()%></td></tr>
 	<tr><td>會員性別</td><td><% if ("M".equals(memVO.getMemb_gender())){out.println("男");}else if ("F".equals(memVO.getMemb_gender())){out.println("女");}else{out.println("未填");};%></td></tr>
+	<% if (memVO.getMemb_cre_type() != null){%>
 	<tr><td>信用卡類型</td><td><%=memVO.getMemb_cre_type()%></td></tr>
+	<%}%>
+	
 	<tr><td>持卡人</td><td><%=memVO.getMemb_cre_name()%></td></tr>
 	<tr><td>信用卡到期年</td><td><%=memVO.getMemb_cre_year()%></td></tr>
 	<tr><td>信用卡到期月</td><td><%=memVO.getMemb_cre_month()%></td></tr>
