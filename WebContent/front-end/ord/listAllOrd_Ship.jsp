@@ -250,28 +250,38 @@ left: 43px;
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
 	
-	<div class="container">
-			<div class="row">
+<!-- 	<div class="container"> -->
+<!-- 			<div class="row"> -->
 
 			<!-- 左側邊list-group -->
-			<div class="col-xs-12 col-sm-2">
-				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
-					<h3>我的訂單</h3>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp">我的收貨管理</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd_Ship.jsp">我的出貨管理</a></h5>
-					<hr>
-				</div>
-			</div>
-		</div>
-	</div>
+<!-- 			<div class="col-xs-12 col-sm-2"> -->
+<!-- 				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto"> -->
+<!-- 					<h3>我的訂單</h3> -->
+<!-- 					<hr> -->
+<%-- 					<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp">我的收貨管理</a></h5> --%>
+<!-- 					<hr> -->
+<%-- 					<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd_Ship.jsp">我的出貨管理</a></h5> --%>
+<!-- 					<hr> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 
 	<section class="training-area section-gap">
 		<div class="container">
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
 				<div class="row">
-					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;"></div> <!-- position: fixed -->
+					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;">
+						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
+							<h3>我的訂單</h3>
+							<hr>
+							<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp">我的收貨管理</a></h5>
+							<hr>
+							<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd_Ship.jsp">我的出貨管理</a></h5>
+							<hr>
+						</div>
+					</div> <!-- position: fixed -->
+					
 					<div class="col-xs-12 col-sm-10">
 						<div class="row">
 							<div class="page-header">

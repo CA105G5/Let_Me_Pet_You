@@ -276,28 +276,38 @@ left: 43px;
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
 	
-	<div class="container">
-			<div class="row">
+<!-- 	<div class="container"> -->
+<!-- 			<div class="row"> -->
 
-			<!-- 左側邊list-group -->
-			<div class="col-xs-12 col-sm-2">
-				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
-					<h3>我的訂單</h3>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp">我的收貨管理</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd_Ship.jsp">我的出貨管理</a></h5>
-					<hr>
-				</div>
-			</div>
-		</div>
-	</div>
+ 			<!-- 左側邊list-group --> 
+<!-- 			<div class="col-xs-12 col-sm-2"> -->
+<!-- 				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto"> -->
+<!-- 					<h3>我的訂單</h3> -->
+<!-- 					<hr> -->
+<%-- 					<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp">我的收貨管理</a></h5> --%>
+<!-- 					<hr> -->
+<%-- 					<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd_Ship.jsp">我的出貨管理</a></h5> --%>
+<!-- 					<hr> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 
 	<section class="training-area section-gap">
 		<div class="container">
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
 				<div class="row">
-					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;"></div> <!-- position: fixed -->
+					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;">
+						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
+							<h3>我的訂單</h3>
+							<hr>
+							<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp">我的收貨管理</a></h5>
+							<hr>
+							<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd_Ship.jsp">我的出貨管理</a></h5>
+							<hr>
+						</div>
+					</div> <!-- position: fixed -->
+					
 					<div class="col-xs-12 col-sm-10">
 						<div class="row">
 							<div class="page-header">
@@ -449,7 +459,7 @@ left: 43px;
 																	
 																	</td>
 																</tr>
-																
+											<!--檢舉modal-->
 											<div class="modal" id="rv_modal<%= no %>" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
 								                <div class="modal-dialog modal-lg" role="document">
 								                    <div class="modal-content">
@@ -474,19 +484,19 @@ left: 43px;
 							<img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${ordItemVO.prod_id}" alt="">
 					</div>
  		    		<div class="form-group" style="width:700px"> 
- 		    			<label for="reason" class="pull-left">檢舉理由</label> <span id="reason_error" style="color:red"></span>
- 		    			<textarea class="form-control" id="reason" rows="5" placeholder="請輸入檢舉理由"></textarea> 
+ 		    			<label for="reason<%= no %>" class="pull-left">檢舉理由</label> <span id="reason_error<%= no %>" style="color:red"></span>
+ 		    			<textarea class="form-control" id="reason<%= no %>" rows="5" placeholder="請輸入檢舉理由"></textarea> 
  		    		</div> 
  		    		<br>
  		    		<div class="form-group" style="width:700px"> 
- 		    			<label for="report_img" class="pull-left">上傳照片</label> <span id="pic_error" style="color:red"></span><br>
- 		    			<input type="file" class="form-control" id="report_img" name="report_img" multiple style="width: 700px"> 
+ 		    			<label for="report_img<%= no %>" class="pull-left">上傳照片</label> <span id="pic_error<%= no %>" style="color:red"></span><br>
+ 		    			<input type="file" class="form-control" id="report_img<%= no %>" name="report_img" multiple style="width: 700px"> 
 <!--  		    			<br>  -->
  		    		</div> 
- 		    		<div id="preview"></div> 
- 		    		<input type="submit" value="送出" id="submit">
- 		    		<input type="hidden" name="prod_id"  value="${ordItemVO.prod_id}">
-					<input type="hidden" name="ord_id"  value="${ordItemVO.ord_id}">
+ 		    		<div id="preview<%= no %>"></div> 
+ 		    		<input type="submit" value="送出" id="submit<%= no %>">
+ 		    		<input type="hidden" name="prod_id" id="prod<%= no %>"  value="${ordItemVO.prod_id}">
+					<input type="hidden" name="ord_id" id="ord<%= no %>"  value="${ordItemVO.ord_id}">
 					<input type="hidden" name="img"  value="">
 				</div>
 				
@@ -499,6 +509,104 @@ left: 43px;
 								                    </div>
 								                </div>	
 											</div>	
+											<!--檢舉modal-->
+											
+<script type="text/javascript">
+	//預覽照片
+	var i;
+	var files = $("#form :file");
+	$("#report_img<%= no %>").change(function() {
+		$("#preview<%= no %>").html("");
+		var $no = <%= no %>;
+		console.log("this="+this);
+		console.log("=========="+"#preview<%= no %>");
+		console.log("=========="+ $no);
+		readURL(this, $no);
+	});
+	
+	function readURL(input, $no) {
+		console.log("=====no====="+$no);
+		if (input.files && input.files.length>= 0) {
+			for (var i = 0; i < input.files.length; i++) {
+				var reader = new FileReader();
+				reader.readAsDataURL(input.files[i]);
+				reader.onload = function(e) {
+				var img = $("<img width='300' height='200'>").attr('src', e.target.result);
+					console.log(img);
+					console.log("#preview$no="+$no);
+					$("#preview"+$no).append(img).append("　　").append("　　");
+				}
+			}
+		}
+	}
+	
+	
+	(function($) {
+		 $("#submit<%= no %>").on('click', function () {
+			 var $this = $(this);
+			 console.log("$this="+ $this);
+			 console.log("$this.val()="+ $this.val());
+			 $("#reason_error<%= no %>").text("");
+			 $("#pic_error<%= no %>").text("");
+			 console.log("img_length=" + $('#preview<%= no %>').text().length);
+			 console.log("preview<%= no %>.html()="+ $('#preview<%= no %>').text());
+			 console.log("img_length=" + $this.prev().val().length);
+			 console.log('preview_img_length='+ $this.prev().val());
+			 
+			 console.log("11111111");
+			 console.log("$this.next().next().val()=ord_id=" + $this.next().next().val());
+			 console.log("$this.next().val()=prod_id=" + $this.next().val());
+			 console.log("$this.next().next().val()=ord_id=" + '${ordItemVO.ord_id}');
+			 console.log("$this.next().val()=prod_id=" + '${ordItemVO.prod_id}');
+			 console.log("img=" + $('#preview<%= no %>').html());
+			 console.log("reason=" + $('#reason<%= no %>').val());
+			 console.log("22222222");
+			 console.log("<%=request.getContextPath()%>/ordItem/ordItem.do?action=getOne_For_Report_Update");
+			 
+			 var has_empty = false;
+			    
+			 if ($("#reason<%= no %>").val()==null || $("#reason<%= no %>").val().trim().length==0){
+				 $("#reason_error<%= no %>").text("　　請輸入檢舉原因");
+				 has_empty = true;
+			 } 
+			 
+			 if ($("#preview<%= no %>").html().trim().length==0){
+				 $("#pic_error<%= no %>").text("　　請上傳照片");
+				 has_empty = true;
+			 } 
+			 if ( has_empty ) { 
+			 	 return false; 
+			 }
+		     	$.ajax({
+		     		url: '<%=request.getContextPath()%>/ordItem/ordItem.do',
+					type: "post",
+					data: { 'action': 'getOne_For_Report_Update', 'ord_id': '${ordItemVO.ord_id}' , 'prod_id': '${ordItemVO.prod_id}', 'reason' : $('#reason<%= no %>').val(), 'img' : $('#preview<%= no %>').html() },
+					dataType: 'json',
+					success: function(res){
+		    			console.log("0000000000");
+		    			console.log(res);
+		    			swal({
+		    				title: "完成!",
+		    				text: "已完成檢舉",
+		    				type: "success",
+		    				timer: 3000
+		    			});
+		    			console.log("11111111");
+		    			setInterval(function() { window.location.href = '<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp';}, 2000);
+		    			console.log("22222222");
+		    		},
+		    		error: function(res){
+		    			console.log("eeeeeeee");
+		    			console.log("res="+res);
+		    		}
+		    	});
+			});
+		})(jQuery);
+	</script>
+											
+											
+											
+											
 											
 											<!--訂單明細modal -->
 <div class="modal" id="detail_modal_c<%= no %>" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
@@ -656,85 +764,7 @@ left: 43px;
 														</c:forEach>
 													</tbody>
 												</table>
-												<script type="text/javascript">
-	//預覽照片
-	var i;
-	var files = $("#form :file");
-	$("#report_img").change(function() {
-		$("#preview").html("");
-		console.log("this="+this);
-		readURL(this);
-	});
 	
-	function readURL(input) {
-		if (input.files && input.files.length>= 0) {
-			for (var i = 0; i < input.files.length; i++) {
-				var reader = new FileReader();
-				reader.readAsDataURL(input.files[i]);
-				reader.onload = function(e) {
-				var img = $("<img width='300' height='200'>").attr('src', e.target.result);
-					console.log(img);
-					$("#preview").append(img).append("　　").append("　　");
-				}
-			}
-		}
-	}
-	
-	
-	 $("#submit").on('click', function () {
-		 $("#reason_error").text("");
-		 $("#pic_error").text("");
-		 console.log("$('#preview').html()="+$("#preview").html());
-		 console.log("img_length=" + $("#preview").html().length);
-		 
-		 var $this = $(this);
-		 console.log("11111111");
-		 console.log("$this.next().next().val()=ord_id=" + $this.next().next().val());
-		 console.log("$this.next().val()=prod_id=" + $this.next().val());
-		 console.log("img=" + $("#preview").html());
-		 console.log("reason=" + $("#reason").val());
-		 console.log("22222222");
-		 console.log("<%=request.getContextPath()%>/ordItem/ordItem.do?action=getOne_For_Report_Update");
-		 
-		 var has_empty = false;
-		    
-		 if ($("#reason").val()==null || $("#reason").val().trim().length==0){
-			 $("#reason_error").text("　　請輸入檢舉原因");
-			 has_empty = true;
-		 } 
-		 
-		 if ($("#preview").html().trim().length==0){
-			 $("#pic_error").text("　　請上傳照片");
-			 has_empty = true;
-		 } 
-		 if ( has_empty ) { 
-		 	 return false; 
-		 }
-	     	$.ajax({
-	     		url: '<%=request.getContextPath()%>/ordItem/ordItem.do',
-				type: "post",
-				data: { 'action': 'getOne_For_Report_Update', 'ord_id': $this.next().next().val() , 'prod_id': $this.next().val(), 'reason' : $('#reason').val(), 'img' : $('#preview').html() },
-				dataType: 'json',
-				success: function(res){
-	    			console.log("0000000000");
-	    			console.log(res);
-	    			swal({
-	    				title: "完成!",
-	    				text: "已完成檢舉",
-	    				type: "success",
-	    				timer: 3000
-	    			});
-	    			console.log("11111111");
-	    			window.location.href = "<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp";
-	    			console.log("22222222");
-	    		},
-	    		error: function(res){
-	    			console.log("eeeeeeee");
-	    			console.log("res="+res);
-	    		}
-	    	});
-		});
-</script>
 															        
 									        </div>
 									        
@@ -1146,112 +1176,6 @@ left: 43px;
 
 
 
-	 <!-- Button trigger modal --> 
-<!-- <button type="button" class="btn btn-info btn-lg" id="alertbox">Click here</button> -->
-
-	 <!-- Modal --> 
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
-<!--   <div class="modal-dialog" role="document"> -->
-<!--     <div class="modal-content"> -->
-<!--       <div class="modal-header"> -->
-<!--         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
-<!--         <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-<!--           <span aria-hidden="true">&times;</span> -->
-<!--         </button> -->
-<!--       </div> -->
-<!--       <div class="modal-body"> -->
-<!--         	<p id="error">確定要刪除嗎?</p> -->
-<!--       </div> -->
-<!--       <div class="modal-footer"> -->
-<!--         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
-<!--         <button type="button" class="btn btn-primary">Confirm</button> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div> -->
-
-<!-- Button trigger script  -->
-<!-- <script> 
-  	$(document).ready(function(){ 
-  	  $('#alertbox').click(function(){ 
-  	    $("#error").html("You Clicked on Click here Button"); 
-  	      $('#myModal').modal("show"); 
-  	    }); 
-  	  }); -->
-	
-<!-- </script> -->
-
-
-
-
-<!--    加上明細彈跳modal  -->
-<c:if test="${openModal!=null}">
-
-<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="overflow: hidden">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-				
-			<div class="modal-header" style="height:500px">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title" id="myModalLabel">The Bootstrap modal-header</h3>
-            </div>
-			
-			<div class="modal-body">
-<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
-               <jsp:include page="/front-end/ord/listOneOrdDetailModal.jsp" />
-<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
-			</div>
-			
-			<div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-		
-		</div>
-	</div>
-</div>
-
-        <script>
-    		 $("#basicModal").modal({show: true});
-        </script>
-</c:if>
-<!--    加上明細彈跳modal  -->   
-
-
-<!--    加上檢舉彈跳modal  -->
-<c:if test="${ReportModal!=null}">
-
-<div class="modal fade" id="ReportModal" tabindex="-1" role="dialog" aria-labelledby="ReportModal" aria-hidden="true" style="overflow: hidden">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-				
-			<div class="modal-header" style="height:auto">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title" id="myModalLabel">The Bootstrap modal-header</h3>
-            </div>
-			
-			<div class="modal-body">
-<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
-               <jsp:include page="/front-end/ord/listOneReportModal.jsp" />
-<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
-			</div>
-			
-			<div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-		
-		</div>
-	</div>
-</div>
-
-        <script>
-    		 $("#ReportModal").modal({show: true});
-        </script>
-</c:if>
-<!--    加上檢舉彈跳modal  -->   
-
-
 <!-- 注意!!! 若有多個jquery會衝突 -->
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.dataTables.js"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
@@ -1274,141 +1198,6 @@ left: 43px;
 	</script>	
 	
 	<script>
-//  		 $("#rc_confirm").on('click', function () {
-//  			 var $this = $(this);
-//  			 console.log("$this.next().next().val()="+$this.next().next().val());
-//  			 console.log("$this.next().val()="+$this.next().val());
-//  		        swal({
-//  		            title: "確定收貨？",
-//  		            html: "按下確定收貨後就無法再檢舉囉",
-//  		            type: "warning",  // type can be "success", "error", "warning", "info", "question"
-//  		            showCancelButton: true,
-//  		        	showCloseButton: true,
-//  		        }).then(
-//  		        	   function (result) {
-//  		                if (result) {
-//  		                	$.ajax({
-<%--  		    					url: '<%=request.getContextPath()%>/ordItem/ordItem.do', --%> 
-//  		    					type: "get",
-//  		    					data: { 'action': 'getOne_For_Receive_Update', 'ord_id': $this.next().next().val() , 'prod_id': $this.next().val() },
-//  		    					dataType: 'json',
-//  		    					success: function(res){
-//  		    						console.log("0000000000");
-//  		    						console.log(res);
-//  		    						swal({
-//  		    				    	     title: "完成!",
-//  		    				    	     text: "已完成收貨",
-//  		    				    	     type: "success",
-//  		    				    	     timer: 3000
-//  		    				    	});
-//  		    						console.log("11111111");
-<%--  		    						window.location.href = "<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp"; --%> 
-//  		    						console.log("22222222");
-//  		    					},
-//  		    					error: function(res){
-//  		    						console.log("eeeeeeee");
-//  		    						console.log("res="+res);
-//  		    					}
-		    				
-//  		    				});
-//  		                }
-//  	            }, function(dismiss) {  // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
-//  	            		swal("取消", "取消收貨", "error");
-//  		        }).catch(swal.noop);
-//  		    });
-	
-		 
-//  		 sweet alert上傳照片fail......
-//  		 $("#report").on('click', function () {
-//  			 swal({
-//  	    			title: '檢舉訂單 ',
-//  	    			html:
-//  		    			'<form>' +
-//  		    			  '<div class="form-group">' +
-//  		    			    '<label for="reason" class="pull-left">請輸入檢舉理由</label>' +
-//  		    			    '<textarea class="form-control" id="reason" rows="5" placeholder="請輸入檢舉理由"></textarea>' +
-//  		    			  '</div>' +
-//  		    			  '<div class="form-group">' +
-//  		    			    '<label for="report_img" class="pull-left">請上傳照片</label>' +
-//  		    			    '<input type="file" class="form-control" id="report_img" name="report_img" multiple style="width: 500px;">' +
-//  		    			  	'<br>' +
-//  		    			  	'<div id="preview"><img src="" width="100px" style="bottom-padding: 50px"></div>' +
-//  		    			  '</div>' +
-//  		    			'</form>' ,
-//  	    			type: "warning",
-//  	    			showCancelButton: true,
-//  		        	showCloseButton: true,
-//  	    			preConfirm: function () {
-//  		                 return new Promise(function (resolve, reject) {
-//  		                     var data = {};
-//  		                     console.log("111111111");
-//  		                     data.action ="sweetAlert";
-//  		                     data.reason = $('#reason').val();
-//  		                     data.pics = $('#report_img').val();
-//  		                     console.log(data.reason);
-//  		                     console.log(data.pics);
-//  		                     if(data.reason!=null) data.reason = $('#reason').val().trim();
-//  		                 		if (!data.reason) reject('請輸入檢舉理由！');
-//  		                 		else if (!data.pics) reject('請上傳照片！');
-//  		                 		else {
-//  		                 			console.log("22222222");
-//  		                 			$.ajax({
-//  		                				 type: "GET",
-//  		                				 url: "",
-//  		                				 data: data,
-//  		                				 dataType: "json",
-//  		                				 success: function (result){
-//  		                					if("N" === result.pass){
-//  		                						reject('Oops檢舉發生錯誤.....');
-//  		                					} else {
-//  		                						resolve(result);
-//  		                					}
-//  		                			     },
-//  		                	             error: function(){
-//  		                	            	 	reject('AJAX發生錯誤囉!');
-//  		                	             }
-//  		                	        });
-//  		                 		}
-//  		                 })
-//  		             },
-//  		             onOpen: function () {
-//  		                 $('#reason').focus();
-//  		             },
-//  			    }).then(function (result) {
-//  			    	if (result) {
-//  				    	swal({
-//  				    		   	type: 'success',
-//  				    			title: '檢舉成功',
-//  				    		 })
-//  			    	}
-//  			 	}, function(dismiss) {  //dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
-//              		swal("取消", "取消檢舉", "error");
-//  		        }).catch(swal.noop);
-//  		 });
-	
-		 
-//   預覽照片
-//   			'var i;'+
-//  			'var files = $("#form :file");' +
-//  			'$("#report_img").change(function() {'+
-//  				'$("#preview").html("");' +
-//  				'console.log(this);' +
-//  				'readURL(this);' +
-//  			'});' +
-		
-//  			'function readURL(input) {' +
-//  				'if (input.files && input.files.length>= 0) {' +
-//  					'for (var i = 0; i < input.files.length; i++) {' +
-//  						'var reader = new FileReader();' +
-//  						'reader.readAsDataURL(input.files[i]);' +
-//  						'reader.onload = function(e) {' +
-//  						'var img = $("<img width='300' height='200'>").attr('src', e.target.result);' +
-//  							'console.log(img);' +
-//  							'$("#preview").append(img).append("　　").append("　　");' +
-//  						'}' +
-//  					'}' +
-//  				'}' +
-//  			'}' +
 		 
 		 $("ul.nav-menu li").attr('class', "" );
 		$("#member").attr('class', 'menu-active menu-has-children' );

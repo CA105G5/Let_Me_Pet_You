@@ -119,9 +119,55 @@ div {
 			<div class="row">
 
 			
-			<!-- 左側邊list-group -->
-			<div class="col-xs-12 col-sm-3">
-				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
+<!-- 			<!-- 左側邊list-group --> 
+<!-- 			<div class="col-xs-12 col-sm-3"> -->
+<!-- 				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto"> -->
+<!-- 					<h3>商品分類</h3> -->
+<!-- 					<hr> -->
+<%-- 					    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" name="form1"> --%>
+<!-- 					        <h5><b>選擇動物:</b></h5> -->
+<!-- 						        <label><input type="checkbox" name="prod_ani_type_id" value="貓"> 貓</label>　　 -->
+<!-- 								<label><input type="checkbox" name="prod_ani_type_id" value="狗"> 狗</label>　<br> -->
+<!-- 								<label><input type="checkbox" name="prod_ani_type_id" value="兔"> 兔</label>　　 -->
+<!-- 								<label><input type="checkbox" name="prod_ani_type_id" value="飛禽"> 飛禽</label>　<br> -->
+<!-- 								<label><input type="checkbox" name="prod_ani_type_id" value="其他"> 其他</label>　<br> -->
+<!-- 					        <hr> -->
+<!-- 					       	<h5><b>選擇商品種類:</b></h5> -->
+<!-- 					       		<label><input type="checkbox" name="prod_type_id" value="食" > 食</label>　　 -->
+<!-- 								<label><input type="checkbox" name="prod_type_id" value="衣" > 衣</label>　<br> -->
+<!-- 								<label><input type="checkbox" name="prod_type_id" value="住" > 住</label>　　 -->
+<!-- 								<label><input type="checkbox" name="prod_type_id" value="行" > 行</label>　<br> -->
+<!-- 								<label><input type="checkbox" name="prod_type_id" value="育" > 育</label>　　 -->
+<!-- 								<label><input type="checkbox" name="prod_type_id" value="樂" > 樂</label>　<br> -->
+<%-- <%-- 					        <%= Arrays.asList(prod_type_id).contains("樂")? "checked":"" %> --%> 
+					        
+<!-- 					        <hr> -->
+<!-- 					       	<h5><b>選擇價格區間:</b></h5> -->
+<%-- 					       		<label><input type="radio" name="prod_price" value="0 and 50" <%= "0 and 50".equals(prod_price)? "checked":"" %> > $ 50以下</label>　<br> --%>
+<%-- 								<label><input type="radio" name="prod_price" value="50 and 100" <%= "50 and 100".equals(prod_price)? "checked":"" %>> $ 50~100</label>　<br> --%>
+<%-- 								<label><input type="radio" name="prod_price" value="101 and 200" <%= "101 and 200".equals(prod_price)? "checked":"" %>> $ 101~200</label>　<br> --%>
+<%-- 								<label><input type="radio" name="prod_price" value="200" <%= "200".equals(prod_price)? "checked":"" %>> $ 200以上</label>　<br> --%>
+<!-- 							<br> -->
+<!-- 							<input type="submit" value="查詢"> -->
+<!--         					<input type="hidden" name="action" value="listAll_ByCompositeQuery"> -->
+					    
+<!-- 					     </FORM> -->
+
+<!-- 				</div> -->
+<!-- 			</div> -->
+			
+			
+			
+		</div>
+	</div>
+	
+
+	<section class="training-area section-gap">
+		<div class="container">
+			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 10px; bottom: auto;">
+				<div class="row">
+					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;">
+						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto"> 
 					<h3>商品分類</h3>
 					<hr>
 					    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" name="form1">
@@ -139,10 +185,10 @@ div {
 								<label><input type="checkbox" name="prod_type_id" value="行" > 行</label>　<br>
 								<label><input type="checkbox" name="prod_type_id" value="育" > 育</label>　　
 								<label><input type="checkbox" name="prod_type_id" value="樂" > 樂</label>　<br>
-<%-- 					        <%= Arrays.asList(prod_type_id).contains("樂")? "checked":"" %> --%>
+<%-- 					        <%= Arrays.asList(prod_type_id).contains("樂")? "checked":"" %>  --%>
 					        
-					        <hr>
-					       	<h5><b>選擇價格區間:</b></h5>
+ 					        <hr> 
+ 					       	<h5><b>選擇價格區間:</b></h5> 
 					       		<label><input type="radio" name="prod_price" value="0 and 50" <%= "0 and 50".equals(prod_price)? "checked":"" %> > $ 50以下</label>　<br>
 								<label><input type="radio" name="prod_price" value="50 and 100" <%= "50 and 100".equals(prod_price)? "checked":"" %>> $ 50~100</label>　<br>
 								<label><input type="radio" name="prod_price" value="101 and 200" <%= "101 and 200".equals(prod_price)? "checked":"" %>> $ 101~200</label>　<br>
@@ -154,19 +200,11 @@ div {
 					     </FORM>
 
 				</div>
-			</div>
-			
-			
-			
-		</div>
-	</div>
-	
-
-	<section class="training-area section-gap">
-		<div class="container">
-			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
-				<div class="row">
-					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;"></div> <!-- position: fixed -->
+						
+					
+					
+					
+					</div> <!-- position: fixed -->
 					<div class="col-xs-12 col-sm-10" >
 						<div class="row">
 						<%@ include file="/front-end/product/pages/page1.file" %> 
