@@ -8,6 +8,15 @@
 
 <%
 RescuingVO rescuingVO = (RescuingVO) request.getAttribute("rescuingVO");
+List<RescuingVO> listRescuingMem;
+listRescuingMem =(List<RescuingVO>) request.getAttribute("listRescuingMem");
+if(listRescuingMem==null){
+	RescuingService rescuingSvc =new RescuingService();
+	Map<String, String[]> map = new TreeMap<String, String[]>();
+	map.put("rsc_id", new String[] {rescuingVO.getRsc_id()});
+	listRescuingMem = rescuingSvc.getAll(map);
+	pageContext.setAttribute("listRescuingMem",listRescuingMem);
+}
 %>
 <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService"/>
 <!DOCTYPE html>
@@ -78,31 +87,30 @@ div {
 								<input type="text" name="memb_nick" value="${memSvc.getOneMem(rescuingVO.rscing_ptcp).memb_nick}" readonly="readonly" required="" class="single-input">
 								<br>
 								<div class="single-element-widget mt-30">
-									<h3 class="mb-30">Checkboxes</h3>
-									<div class="switch-wrap d-flex justify-content-between">
-										<p>01. Sample Checkbox</p>
-										<div class="primary-checkbox">
-											<input type="checkbox" id="default-checkbox">
-											<label for="default-checkbox"></label>
+									<h3 class="mb-30">一起參與的會員</h3>
+									<c:forEach var="rescuingVO2" items="${listRescuingMem}">
+									
+									<div class="switch-wrap d-flex justify-content-between" style="width:30%">
+										<table><tr>
+										<td>
+										<img style="width:80px;height:80px"src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memSvc.getOneMem(rescuingVO2.rscing_ptcp).memb_id}" alt="">
+										</td>
+										<td style="width:100px;text-aling:center" >${memSvc.getOneMem(rescuingVO2.rscing_ptcp).memb_nick}</td>
+										<td>
+										<div class="primary-checkbox" style="height:20px;width:20px">
+											<input type="checkbox" id="${rescuingVO2.rscing_ptcp}">
+											<label for="${rescuingVO2.rscing_ptcp}"></label>
 										</div>
+										</td>
+										</tr></table>
 									</div>
-									<div class="switch-wrap d-flex justify-content-between">
-										<p>02. Primary Color Checkbox</p>
-										<div class="primary-checkbox">
-											<input type="checkbox" id="primary-checkbox" checked="">
-											<label for="primary-checkbox"></label>
-										</div>
-									</div>
-									<div class="switch-wrap d-flex justify-content-between">
-										<p>03. Confirm Color Checkbox</p>
-										<div class="confirm-checkbox">
-											<input type="checkbox" id="confirm-checkbox">
-											<label for="confirm-checkbox"></label>
-										</div>
-									</div>
+									</c:forEach>	
+									
+									
 
 								
 								</div>
+								<br>
 								<br>
 								<h4>完成描述</h4>
 						  		<textarea name="rscing_rv_des" id="rscing_rv_des" rows="10" cols="80"><%= (rescuingVO.getRscing_rv_des()==null)? "" : rescuingVO.getRscing_rv_des()%></textarea>
