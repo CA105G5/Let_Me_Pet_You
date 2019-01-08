@@ -120,6 +120,14 @@ System.out.println( "是否登入:"+ (managerVO != null));
                             <li><i class="fa fa-bars"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心物資管理</a></li>
                         </ul>
                     </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>志工管理</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/volunteer/addVolunteer.jsp">志工新增</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/volunteer/listAllVolunteer.jsp">志工查詢</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">志工分派</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

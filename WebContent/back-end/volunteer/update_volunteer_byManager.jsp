@@ -8,52 +8,103 @@
 
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>志工資料修改</title>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>浪我陪你</title>
+    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend_UI_template/assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend_UI_template/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend_UI_template/assets/css/style.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+
+<!-- w3 CSS tabs -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- w3 CSS tabs -->
+<!-- sweetAlert -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+   <style>
+   
+	   p{
+	   		font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
+			monospace;
+		}
+
+		div{
+			font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
+				monospace;
+		}
+   
+	    #weatherWidget .currentDesc {
+	        color: #ffffff!important;
+	    }
+        .traffic-chart {
+            min-height: 335px;
+        }
+        #flotPie1  {
+            height: 150px;
+        }
+        #flotPie1 td {
+            padding:3px;
+        }
+        #flotPie1 table {
+            top: 20px!important;
+            right: -10px!important;
+        }
+        .chart-container {
+            display: table;
+            min-width: 270px ;
+            text-align: left;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        #flotLine5  {
+             height: 105px;
+        }
+
+        #flotBarChart {
+            height: 150px;
+        }
+        #cellPaiChart{
+            height: 160px;
+        }
+
+    </style>
 
 </head>
 <body bgcolor='white'>
-
-<table id="table-1">
-	<tr><td>
-		 <h3>志工資料修改</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料修改:</h3>
+<jsp:include page="/back-end/manager/back_end_index_header.jsp" flush="true" />
+<div id="right-panel" class="right-panel">
+	<div class="content">
+		<div class="animated fadeIn">
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -64,6 +115,86 @@
 		</c:forEach>
 	</ul>
 </c:if>
+				<div class="container" style="margin-top:300px;margin-left:500px">
+									<div class="row">
+										<div class="col-lg-offset-3 col-lg-6">	
+				               <div class="card">
+				                        <div class="card-header" align="center">志工新增</div>
+				                        <div class="card-body card-block">
+				                            <form action="volunteer.do" method="post" class="">
+				                            	<div class="form-group">
+				                                    <div class="input-group">
+				                                        <div class="input-group-addon">志工信箱(帳號):</div>
+				                                        <input type="email" id="email3" name="vlt_mail" class="form-control" value="<%= (volunteerVO==null)? "" : volunteerVO.getVlt_mail()%>">
+				                                        <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+				                                    </div>
+				                                </div>
+				                                <div class="form-group">
+				                                    <div class="input-group">
+				                                        <div class="input-group-addon">志工姓名:</div>
+				                                        <input type="text" id="username3" name="vlt_name" class="form-control" value="<%= (volunteerVO==null)? "" : volunteerVO.getVlt_name()%>">
+				                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+				                                    </div>
+				                                </div>
+				                                <div class="form-group">
+				                                    <div class="input-group">
+				                                        <div class="input-group-addon">手機號碼:</div>
+				                                        <input type="text" id="phone3" name="vlt_tel" class="form-control" value="<%= (volunteerVO==null)? "" : volunteerVO.getVlt_tel()%>">
+				                                        <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+				                                    </div>
+				                                </div>
+				                                <div class="form-group">
+				                                    <div class="input-group">
+				                                        <div class="input-group-addon">可值勤日:<font color=red><b>*</b></font></div>
+				                                        <select size="1" name="vlt_duty_day">
+																<option value="平日" ${(volunteerVO.vlt_duty_day=='平日')? 'selected':'' }>平日
+																<option value="假日" ${(volunteerVO.vlt_duty_day=='假日')? 'selected':'' }>假日
+																<option value="每日" ${(volunteerVO.vlt_duty_day=='每日')? 'selected':'' }>每日
+							
+														</select>
+				                                        
+				                                    </div>
+				                                </div>
+				                                <jsp:useBean id="regionSvc" scope="page" class="com.region.model.RegionService" />
+				                                <div class="form-group">
+				                                    <div class="input-group">
+				                                        <div class="input-group-addon">服務區域:<font color=red><b>*</b></font></div>
+				                                        <select size="1" name="reg_id">
+															<c:forEach var="regionVO" items="${regionSvc.all}">
+																<option value="${regionVO.reg_id}" ${(volunteerVO.vlt_reg==regionVO.reg_id)? 'selected':'' } >${regionVO.reg_name}
+															</c:forEach>
+														</select>
+				                                        
+				                                    </div>
+				                                </div>
+				                                <div class="form-group">
+				                                    <div class="input-group">
+				                                        <div class="input-group-addon">志工性別:</div>
+				                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				                                        		<label for="inline-radio1" class="form-check-label ">
+				                                                    <input type="radio" id="inline-radio1" name="vlt_gender" class="form-check-input" value="男" ${(volunteerVO.vlt_gender=='M')? 'checked':''} >男
+				                                                </label>
+				                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        
+				                                                <label for="inline-radio2" class="form-check-label ">
+				                                                    <input type="radio" id="inline-radio2" name="vlt_gender" class="form-check-input" value="女" ${(volunteerVO.vlt_gender=='F')? 'checked':'' } >女
+				                                                </label>
+				                                        
+				                                    </div>
+				                                </div>
+				                                <input type="hidden" name="action" value="insert">
+				                                <div class="form-actions form-group" align="center">
+				                                    <button type="submit" class="btn btn-primary btn-sm">送出新增</button>
+				                                </div>
+				                            </form>
+				                        </div>
+				                    </div>
+				               </div>
+				         </div>
+				 </div>
+		</div>
+	</div>
+</div>
+
 
 <FORM METHOD="post" ACTION="volunteer.do" name="form1">
 <table>
@@ -73,8 +204,7 @@
 	</tr>
 	<tr>
 		<td>志工姓名:</td>
-		<td><input type="TEXT" name="vlt_name" size="45" 
-			 value="<%=volunteerVO.getVlt_name()%>" /></td>
+		<td><%=volunteerVO.getVlt_name()%></td>
 	</tr>
 	<tr>
 		<td>照片:</td>
@@ -82,24 +212,17 @@
 	</tr>
 	<tr>
 		<td>e-mail(帳號):</td>
-		<td><input type="TEXT" name="vlt_mail" size="45"
-			 value="<%=volunteerVO.getVlt_mail()%>" /></td>
+		<td><%=volunteerVO.getVlt_mail()%></td>
 	</tr>
-<!-- 	<tr> -->
-<!-- 		<td>密碼:</td> -->
-<!-- 		<td><input type="TEXT" name="vlt_pw" size="45" -->
-<%-- 			 value="<%=volunteerVO.getVlt_pw()%>" /></td> --%>
-<!-- 	</tr> -->
+
 
 	<tr>
 		<td>性別:</td>
-		<td><input type="RADIO" name="vlt_gender" value="M" ${(volunteerVO.vlt_gender=="M")? "checked":'' }/>男
-			<input type="RADIO" name="vlt_gender" value="F" ${(volunteerVO.vlt_gender=="F")? "checked":'' }/>女</td>
+		<td><%=volunteerVO.getVlt_gender()%></td>
 	</tr>
 	<tr>
 		<td>手機號碼:</td>
-		<td><input type="TEXT" name="vlt_tel" size="45"
-			 value="<%=volunteerVO.getVlt_tel()%>" /></td>
+		<td><%=volunteerVO.getVlt_tel()%></td>
 	</tr>
 	<tr>
 		<td>加入日期:</td>
@@ -116,7 +239,7 @@
 		</select></td>
 	</tr>
 
-	<jsp:useBean id="regionSvc" scope="page" class="com.region.model.RegionService" />
+<%-- 	<jsp:useBean id="regionSvc" scope="page" class="com.region.model.RegionService" /> --%>
 	<tr>
 		<td>服務區域:<font color=red><b>*</b></font></td>
 		<td><select size="1" name="reg_id">
@@ -140,5 +263,51 @@
 <input type="hidden" name="vlt_id" value="<%=volunteerVO.getVlt_id()%>">
 <input type="hidden" name="vlt_registerdate" value="<%=volunteerVO.getVlt_registerdate()%>">
 <input type="submit" value="送出修改"></FORM>
+
+
+
+
+<!-- Scripts -->
+<!--     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+<!--     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script> -->
+    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/main.js"></script>
+
+    <!--  Chart js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
+
+    <!--Chartist Chart-->
+    <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script>
+
+<!--     <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script> -->
+<!--     <script src="https://cdn.jsdelivr.net/npm/flot-pie@1.0.0/src/jquery.flot.pie.min.js"></script> -->
+<!--     <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script> -->
+
+<!--     <script src="https://cdn.jsdelivr.net/npm/simpleweather@3.1.0/jquery.simpleWeather.min.js"></script> -->
+    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/init/weather-init.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/init/fullcalendar-init.js"></script>
+
+	<script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/init/datatables-init.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('#bootstrap-data-table-export').DataTable();
+      } );
+  </script>
 </body>
 </html>

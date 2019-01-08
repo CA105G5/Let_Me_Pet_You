@@ -17,6 +17,7 @@
 <body bgcolor='white'>
 <jsp:include page="/back-end/manager/back_end_index_header.jsp" flush="true" />
 <div id="right-panel" class="right-panel">
+	<div class="content">
 	<div class="animated fadeIn">
 	<%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -27,96 +28,93 @@
 		</c:forEach>
 	</ul>
 </c:if>
+<div class="container" style="margin-top:300px;margin-left:500px">
+					<div class="row">
+						<div class="col-lg-offset-3 col-lg-6">	
                <div class="card">
-                        <div class="card-header">Example Form</div>
+                        <div class="card-header" align="center">志工新增</div>
                         <div class="card-body card-block">
-                            <form action="#" method="post" class="">
-                                <div class="form-group">
+                            <form action="volunteer.do" method="post" class="">
+                            	<div class="form-group">
                                     <div class="input-group">
-                                        <div class="input-group-addon">Username</div>
-                                        <input type="text" id="username3" name="username3" class="form-control">
-                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Email</div>
-                                        <input type="email" id="email3" name="email3" class="form-control">
+                                        <div class="input-group-addon">志工信箱(帳號):</div>
+                                        <input type="email" id="email3" name="vlt_mail" class="form-control" value="<%= (volunteerVO==null)? "" : volunteerVO.getVlt_mail()%>">
                                         <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <div class="input-group-addon">Password</div>
-                                        <input type="password" id="password3" name="password3" class="form-control">
-                                        <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
+                                        <div class="input-group-addon">志工姓名:</div>
+                                        <input type="text" id="username3" name="vlt_name" class="form-control" value="<%= (volunteerVO==null)? "" : volunteerVO.getVlt_name()%>">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
                                     </div>
                                 </div>
-                                <div class="form-actions form-group">
-                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">手機號碼:</div>
+                                        <input type="text" id="phone3" name="vlt_tel" class="form-control" value="<%= (volunteerVO==null)? "" : volunteerVO.getVlt_tel()%>">
+                                        <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">可值勤日:<font color=red><b>*</b></font></div>
+                                        <select size="1" name="vlt_duty_day">
+												<option value="平日" ${(volunteerVO.vlt_duty_day=='平日')? 'selected':'' }>平日
+												<option value="假日" ${(volunteerVO.vlt_duty_day=='假日')? 'selected':'' }>假日
+												<option value="每日" ${(volunteerVO.vlt_duty_day=='每日')? 'selected':'' }>每日
+			
+										</select>
+                                        
+                                    </div>
+                                </div>
+                                <jsp:useBean id="regionSvc" scope="page" class="com.region.model.RegionService" />
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">服務區域:<font color=red><b>*</b></font></div>
+                                        <select size="1" name="reg_id">
+											<c:forEach var="regionVO" items="${regionSvc.all}">
+												<option value="${regionVO.reg_id}" ${(volunteerVO.vlt_reg==regionVO.reg_id)? 'selected':'' } >${regionVO.reg_name}
+											</c:forEach>
+										</select>
+                                        
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">志工性別:</div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        		<label for="inline-radio1" class="form-check-label ">
+                                                    <input type="radio" id="inline-radio1" name="vlt_gender" class="form-check-input" value="男" ${(volunteerVO.vlt_gender=='M')? 'checked':''} >男
+                                                </label>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        
+                                                <label for="inline-radio2" class="form-check-label ">
+                                                    <input type="radio" id="inline-radio2" name="vlt_gender" class="form-check-input" value="女" ${(volunteerVO.vlt_gender=='F')? 'checked':'' } >女
+                                                </label>
+                                        
+                                    </div>
+                                </div>
+                                <input type="hidden" name="action" value="insert">
+                                <div class="form-actions form-group" align="center">
+                                    <button type="submit" class="btn btn-primary btn-sm">送出新增</button>
                                 </div>
                             </form>
                         </div>
                     </div>
-              
+               </div>
+         </div>
+ </div>             
 
-				<h3>資料新增:</h3>
-
-
-
-<FORM METHOD="post" ACTION="volunteer.do" name="form1">
-<table>
-	<tr>
-		<td>志工姓名:</td>
-		<td><input type="TEXT" name="vlt_name" size="45" 
-			 value="<%= (volunteerVO==null)? "鳴鳴" : volunteerVO.getVlt_name()%>" /></td>
-	</tr>
-	<tr>
-		<td>e-mail(帳號):</td>
-		<td><input type="TEXT" name="vlt_mail" size="45"
-			 value="<%= (volunteerVO==null)? "jjuies424@gmail.com" : volunteerVO.getVlt_mail()%>" /></td>
-	</tr>
-
-	<tr>
-		<td>性別:</td>
-		<td><input type="RADIO" name="vlt_gender" value="男" ${(volunteerVO.vlt_gender=='M')? 'checked':'' }/>男
-			<input type="RADIO" name="vlt_gender" value="女" ${(volunteerVO.vlt_gender=='F')? 'checked':'' }/>女</td>
-	</tr>
-	<tr>
-		<td>手機號碼:</td>
-		<td><input type="TEXT" name="vlt_tel" size="45"
-			 value="<%= (volunteerVO==null)? "0939-393570" : volunteerVO.getVlt_tel()%>" /></td>
-	</tr>
-
-	<tr>
-		<td>可值勤日:<font color=red><b>*</b></font></td>
-		<td><select size="1" name="vlt_duty_day">
-				<option value="平日" ${(volunteerVO.vlt_duty_day=='平日')? 'selected':'' }>平日
-				<option value="假日" ${(volunteerVO.vlt_duty_day=='假日')? 'selected':'' }>假日
-				<option value="每日" ${(volunteerVO.vlt_duty_day=='每日')? 'selected':'' }>每日
+				
 			
-		</select></td>
-	</tr>
 
-	<jsp:useBean id="regionSvc" scope="page" class="com.region.model.RegionService" />
-	<tr>
-		<td>服務區域:<font color=red><b>*</b></font></td>
-		<td><select size="1" name="reg_id">
-			<c:forEach var="regionVO" items="${regionSvc.all}">
-				<option value="${regionVO.reg_id}" ${(volunteerVO.vlt_reg==regionVO.reg_id)? 'selected':'' } >${regionVO.reg_name}
-			</c:forEach>
-		</select></td>
-	</tr>
 
-</table>
-<br>
-<input type="hidden" name="action" value="insert">
-<input type="submit" value="送出新增"></FORM>
               
                 
                    
             <!-- /#add-category -->
         </div>
+      </div>  
             <!-- .animated -->
 </div>
 

@@ -124,7 +124,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>志工管理</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/volunteer/addVolunteer.jsp">志工新增</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/volunteer/update_volunteer_byManager.jsp">志工修改</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/volunteer/listAllVolunteer.jsp">志工查詢</a></li>
                             <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">志工分派</a></li>
                         </ul>
                     </li>
