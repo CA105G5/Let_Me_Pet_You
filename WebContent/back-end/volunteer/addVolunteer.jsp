@@ -11,51 +11,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>志工資料新增 </title>
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
 
 </head>
 <body bgcolor='white'>
 <jsp:include page="/back-end/manager/back_end_index_header.jsp" flush="true" />
-<table id="table-1">
-	<tr><td>
-		 <h3>志工資料新增</h3></td><td>
-		 <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料新增:</h3>
-
-<%-- 錯誤表列 --%>
+<div id="right-panel" class="right-panel">
+	<div class="animated fadeIn">
+	<%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -64,6 +27,42 @@
 		</c:forEach>
 	</ul>
 </c:if>
+               <div class="card">
+                        <div class="card-header">Example Form</div>
+                        <div class="card-body card-block">
+                            <form action="#" method="post" class="">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">Username</div>
+                                        <input type="text" id="username3" name="username3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">Email</div>
+                                        <input type="email" id="email3" name="email3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">Password</div>
+                                        <input type="password" id="password3" name="password3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
+                                    </div>
+                                </div>
+                                <div class="form-actions form-group">
+                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+              
+
+				<h3>資料新增:</h3>
+
+
 
 <FORM METHOD="post" ACTION="volunteer.do" name="form1">
 <table>
@@ -113,5 +112,17 @@
 <br>
 <input type="hidden" name="action" value="insert">
 <input type="submit" value="送出新增"></FORM>
+              
+                
+                   
+            <!-- /#add-category -->
+        </div>
+            <!-- .animated -->
+</div>
+
+
+
+
+
 </body>
 </html>
