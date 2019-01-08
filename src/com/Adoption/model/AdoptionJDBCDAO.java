@@ -1,6 +1,8 @@
 package com.Adoption.model;
 
 import java.util.*;
+
+import com.AdoptApply.model.AdoptApplyVO;
 import com.mysql.jdbc.Driver;
 
 import java.io.ByteArrayOutputStream;
@@ -15,7 +17,7 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user = "CA105G5";
 	String password = "123456";
-	
+	 
 	private static final String INSERT_ADOPT = 
 			"INSERT INTO ADOPTION (ADOPT_ID,ADOPT_SPECIES,ADOPT_SPONSOR,ADOPT_DES,ADOPT_IMG) values ('A'||LPAD(to_char(adoption_seq.NEXTVAL),9,'0'),?,?,?,?)";
 	private static final String GET_ONE_ADOPT =
@@ -24,9 +26,11 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 			"SELECT * FROM ADOPTION ORDER BY ADOPT_ID";
 	private static final String UPDATE =
 			"UPDATE ADOPTION SET ADOPT_SPECIES=?,ADOPT_SPONSOR=?,ADOPT_STATUS=?,ADOPT_APPLY_STATUS=?,ADOPT_BTIME=?,ADOPT_ETIME=?,ADOPT_DES=?,ADOPT_IMG=? WHERE ADOPT_ID=?";
+	private static final String CHANGE_STATUS =
+			"UPDATE ADOPTION SET ADOPT_APPLY_STATUS=?,ADOPT_STATUS=? WHERE ADOPT_ID=?";
 	
-	
-	
+	private static final String UPDATE_STATUS =
+			"UPDATE ADOPTION SET ADOPT_STATUS='下架' WHERE ADOPT_ID=?";
 	
 	
 	public AdoptionJDBCDAO() {
@@ -77,6 +81,98 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 		}
 	}
 		
+	//改狀態
+	@Override
+	public void changeStatus(String adopt_id, String adopt_apply_status, String adopt_status) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(CHANGE_STATUS);
+			
+			pstmt.setString(1, adopt_apply_status);
+			pstmt.setString(2, adopt_status);
+			pstmt.setString(3, adopt_id);
+			
+			pstmt.executeUpdate();
+			
+			
+		} catch (ClassNotFoundException c) {
+			throw new RuntimeException("Couldn't load database driver. " + c.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			} 
+		}
+	}
+	
+	//改狀態
+	@Override
+	public void updateStatus(AdoptApplyVO adoptApplyVO, Connection con) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+			
+			pstmt.setString(1, adoptApplyVO.getAdopt_id());
+			
+			pstmt.executeUpdate();
+			
+			
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-emp");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	
 	//修改
 	@Override
 	public void update(AdoptionVO adoptionVO) {
@@ -270,11 +366,11 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 			AdoptionJDBCDAO dao = new AdoptionJDBCDAO();
 			
 	//		//新增
-			AdoptionVO adoptionVO1 = new AdoptionVO();
-			adoptionVO1.setAdopt_species("羊咩咩");
-			adoptionVO1.setAdopt_sponsor("M000000009");
-			adoptionVO1.setAdopt_des("認養案例描述");
-			adoptionVO1.setAdopt_img(null);
+//			AdoptionVO adoptionVO1 = new AdoptionVO();
+//			adoptionVO1.setAdopt_species("羊咩咩");
+//			adoptionVO1.setAdopt_sponsor("M000000009");
+//			adoptionVO1.setAdopt_des("認養案例描述");
+//			adoptionVO1.setAdopt_img(null);
 //			try {
 //				byte[] pic1 = getPictureByteArray("C:\\Project\\01.jpg");
 //				adoptionVO1.setAdopt_img(pic1);
@@ -282,9 +378,9 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 //				e.printStackTrace();
 //			}
 			
-			dao.insert(adoptionVO1);
-			System.out.println("新增成功");
-			
+//			dao.insert(adoptionVO1);
+//			System.out.println("新增成功");
+//			
 //			//修改
 //			AdoptionVO adoptionVO2 = new AdoptionVO();
 //			adoptionVO2.setAdopt_id("A000000009");
@@ -330,24 +426,26 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 //				System.out.println("查全部成功");
 //			}
 			
+		dao.changeStatus("A000000001", "87", "下架");
+			
 		}
-	public static byte[] getPictureByteArray(String path) throws IOException {
-		
-		File file = new File(path);
-		FileInputStream fis = new FileInputStream(file);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		byte[] buffer = new byte[8192];	//設定每次讀取的大小
-		int i;
-		while ((i = fis.read(buffer)) != -1) {
-			baos.write(buffer, 0, i);
-		}
-		baos.close();
-		fis.close();
-
-		return baos.toByteArray();	//將ByteArrayOutputStream轉成ByteArray
-	
-		}
-	
+//	public static byte[] getPictureByteArray(String path) throws IOException {
+//		
+//		File file = new File(path);
+//		FileInputStream fis = new FileInputStream(file);
+//		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//		byte[] buffer = new byte[8192];	//設定每次讀取的大小
+//		int i;
+//		while ((i = fis.read(buffer)) != -1) {
+//			baos.write(buffer, 0, i);
+//		}
+//		baos.close();
+//		fis.close();
+//
+//		return baos.toByteArray();	//將ByteArrayOutputStream轉成ByteArray
+//	
+//		}
+//	
 	
 	
 }	

@@ -3,7 +3,10 @@ package com.mem.model;
 import java.sql.Connection;
 import java.util.List;
 
+import com.AdoptApply.model.AdoptApplyVO;
+import com.Adoption.model.AdoptionVO;
 import com.CurrencyDetail.model.CurDtVO;
+import com.missingCase.model.missingCaseVO;
 import com.orditem.model.OrdItemVO;
 import com.rescue.model.RescueVO;
 import com.rescuing.model.RescuingVO;
@@ -143,8 +146,20 @@ public class MemService {
 	public List<RescuingVO> selectRescuing(String memb_id){
 		return dao.selectRescuing(memb_id);
 	}
+	public List<missingCaseVO> selectMissingCase(String memb_id){
+		return dao.selectMissingCase(memb_id);
+	}
+	public List<AdoptionVO> selectAdoption(String memb_id){
+		return dao.selectAdoption(memb_id);
+	}
+	public List<AdoptApplyVO> selectAdoptApply(String memb_id){
+		return dao.selectAdoptApply(memb_id);
+	}
 	
 	public void updateMem(MemVO memVO, CurDtVO curDTVO, Connection con) {
 		dao.updateMemWithOrdItemAndCurDt(memVO, curDTVO, con);
+	}
+	public void updateMemBal(MemVO memVO, Connection con) {
+		dao.updateMemBal(memVO, con); 
 	}
 }

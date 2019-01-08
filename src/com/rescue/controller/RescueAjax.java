@@ -34,6 +34,7 @@ public class RescueAjax extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String action = req.getParameter("action");
 		System.out.println(action);
+		
 		if ("getChange".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -63,20 +64,7 @@ public class RescueAjax extends HttpServlet {
 				RescueService rescueSvc = new RescueService();
 				rescueSvc.updateByManager(rescueVO);
 
-				// 回傳
-//				List<missingMsgVO> msgList = new ArrayList<missingMsgVO>();
-//				msgList.add((missingMsgVO) missingMsgSvc.findByCase(missing_case_id));
-//				for (missingMsgVO msg : msgList) {
-//					JSONObject obj = new JSONObject();
-//					DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//					obj.put("missing_case_id", msg.getMissing_case_id());
-//					obj.put("memb_id", msg.getMemb_id());
-//					obj.put("missing_msg_date", sdf.format(msg.getMissing_msg_date()));
-//					obj.put("missing_msg_cont", msg.getMissing_msg_cont());
-//					array.put(obj);
-//
-//				}
-//				System.out.println(array);
+
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
@@ -84,14 +72,9 @@ public class RescueAjax extends HttpServlet {
 				failureView.forward(req, res);
 
 			}
-//			res.setContentType("text/plain");
-//			res.setCharacterEncoding("UTF-8");
-//			PrintWriter out = res.getWriter();
-//			out.write(array.toString());
-//			out.flush();
-//			out.close();
+
 		}
 	
-
+	
 			}
 }

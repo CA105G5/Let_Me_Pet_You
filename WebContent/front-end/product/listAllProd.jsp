@@ -19,6 +19,25 @@
 	}
 	
 	
+	Map<String, String[]> map = (Map<String, String[]>) request.getAttribute("map");
+	String[] prod_ani_type_id = null;
+	String[] prod_type_id = null;
+	String prod_price = null;
+	
+	if (map!=null){
+		Set<String> keys = map.keySet();
+		if (keys.contains("prod_ani_type_id")){
+			prod_ani_type_id = map.get("prod_ani_type_id");
+			System.out.println("prod_ani_type_id:");
+		}
+		if (keys.contains("prod_type_id")){
+			prod_type_id = map.get("prod_type_id");
+		}
+		if (keys.contains("prod_price")){
+			prod_price = map.get("prod_price")[0];
+		}
+	}
+	
 %>
 
 <!DOCTYPE html>
@@ -38,37 +57,8 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>Horse Club</title>
+<title>愛心商城</title>
 
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
-	rel="stylesheet">
-<!--
-			CSS
-			============================================= -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-<!-- https://fontawesome.com/ 自己的css-->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
-	crossorigin="anonymous">
-	
 
 <style type="text/css">
 p {
@@ -117,12 +107,60 @@ div {
 </head>
 <body>
 
-	<jsp:include page="/front-end/product/prod_list_Header.jsp" flush="true" />
+	<jsp:include page="/index_Header.jsp" flush="true" />
 	
 	<!-- BackToTop Button -->
 	<a href="javascript:void(0);" id="scroll" title="Scroll to Top" style="display: none;">Top<span></span></a>
 
 	<!-- ++++++++++++ Page Content Goes Here ++++++++++++ -->
+	
+	
+	<div class="container">
+			<div class="row">
+
+			
+			<!-- 左側邊list-group -->
+			<div class="col-xs-12 col-sm-3">
+				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
+					<h3>商品分類</h3>
+					<hr>
+					    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" name="form1">
+					        <h5><b>選擇動物:</b></h5>
+						        <label><input type="checkbox" name="prod_ani_type_id" value="貓"> 貓</label>　　
+								<label><input type="checkbox" name="prod_ani_type_id" value="狗"> 狗</label>　<br>
+								<label><input type="checkbox" name="prod_ani_type_id" value="兔"> 兔</label>　　
+								<label><input type="checkbox" name="prod_ani_type_id" value="飛禽"> 飛禽</label>　<br>
+								<label><input type="checkbox" name="prod_ani_type_id" value="其他"> 其他</label>　<br>
+					        <hr>
+					       	<h5><b>選擇商品種類:</b></h5>
+					       		<label><input type="checkbox" name="prod_type_id" value="食" > 食</label>　　
+								<label><input type="checkbox" name="prod_type_id" value="衣" > 衣</label>　<br>
+								<label><input type="checkbox" name="prod_type_id" value="住" > 住</label>　　
+								<label><input type="checkbox" name="prod_type_id" value="行" > 行</label>　<br>
+								<label><input type="checkbox" name="prod_type_id" value="育" > 育</label>　　
+								<label><input type="checkbox" name="prod_type_id" value="樂" > 樂</label>　<br>
+<%-- 					        <%= Arrays.asList(prod_type_id).contains("樂")? "checked":"" %> --%>
+					        
+					        <hr>
+					       	<h5><b>選擇價格區間:</b></h5>
+					       		<label><input type="radio" name="prod_price" value="0 and 50" <%= "0 and 50".equals(prod_price)? "checked":"" %> > $ 50以下</label>　<br>
+								<label><input type="radio" name="prod_price" value="50 and 100" <%= "50 and 100".equals(prod_price)? "checked":"" %>> $ 50~100</label>　<br>
+								<label><input type="radio" name="prod_price" value="101 and 200" <%= "101 and 200".equals(prod_price)? "checked":"" %>> $ 101~200</label>　<br>
+								<label><input type="radio" name="prod_price" value="200" <%= "200".equals(prod_price)? "checked":"" %>> $ 200以上</label>　<br>
+							<br>
+							<input type="submit" value="查詢">
+        					<input type="hidden" name="action" value="listAll_ByCompositeQuery">
+					    
+					     </FORM>
+
+				</div>
+			</div>
+			
+			
+			
+		</div>
+	</div>
+	
 
 	<section class="training-area section-gap">
 		<div class="container">
@@ -165,34 +203,7 @@ div {
 		</div>
 	</section>
 	
-	
 
-
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-	
 	<script type="text/javascript">
 		$(document).ready(function(){
 		    $(window).scroll(function(){
@@ -217,54 +228,10 @@ div {
 		        $(e.target).attr("class", "active");
 		    });
 		});
-	</script>
-	
-<!-- 	顯示購物車數量 -->
-	<script>
-		$(function(){
-			$.ajax({
-				url: '<%=request.getContextPath()%>/prodcart.do',
-				type: "get",
-				success: function(res){
-					console.log(res);
-					if (parseInt(res) > 0){
-						console.log("parseInt = " + parseInt(res));
-						$('#itemCount').html(res).css('display', 'block');
-					} 
-				},
-				error: function(res){
-					console.log(res);
-				}
-			
-			});
-		});
-	
 		
 		
-
-		$("#cart_icon").click(function(){
-			$.ajax({
-				url: '<%=request.getContextPath()%>/prodcart.do',
-				type: "get",
-				success: function(res){
-					console.log(res);
-					if (parseInt(res) < 1){
-// 						alert("購物車中無商品");
-						swal("Oops.....", "購物車中無商品", "warning").catch(swal.noop);
-						return false;
-					} else{
-						console.log("redirect.....");
-						console.log("<%=request.getContextPath()%>/prodcart.do?action=check_Cart");
-						window.location.href = "<%=request.getContextPath()%>/prodcart.do?action=check_Cart";
-					}
-				},
-				error: function(res){
-					console.log(res);
-				}
-			
-			});
-		});
-	
+		$("ul.nav-menu li").attr('class', "" );
+		$("#shop").attr('class', 'menu-active menu-has-children' );
 	</script>
 	
 	

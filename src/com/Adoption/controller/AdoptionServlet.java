@@ -164,6 +164,32 @@ public class AdoptionServlet extends HttpServlet {
 			}
 		}
 		
+		if ("changeStatus".equals(action)) { 
+			
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String adopt_id = req.getParameter("adopt_id");
+				String adopt_apply_status = req.getParameter("adopt_apply_status");
+				String adopt_status = req.getParameter("adopt_status");
+				System.out.println(adopt_apply_status);
+				/*************************** 2.開始查詢資料 ****************************************/
+				AdoptionService adoptionSvc = new AdoptionService();
+				adoptionSvc.changeStatus(adopt_id, adopt_apply_status, adopt_status);
+				
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				String url = "/back-end/Adopt/listAllAdopt.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+//				res.sendRedirect(url);
+				/*************************** 其他可能的錯誤處理 **********************************/
+				
+			}catch (Exception e) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/Adopt/listAllAdopt.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 	}
 
 	public static final byte[] transbyte(InputStream inStream) throws IOException {

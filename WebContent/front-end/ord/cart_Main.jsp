@@ -1,3 +1,4 @@
+<%@page import="com.mem.model.MemVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ page import="com.prodimg.model.ProdImgService"%>
 <%@ page import="com.prodimg.model.ProdImgVO"%>
@@ -15,8 +16,17 @@
 	Integer amount  = (Integer) session.getAttribute("amount");
 	System.out.println("amount= " + amount);
 	System.out.println("location=" + request.getRequestURI());
+	System.out.println("this is cartMain");
+	
+	
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
+	String memb_id=null;
+	if (memVO!=null){
+		memb_id = memVO.getMemb_id();
+	}
 %>
 <jsp:useBean id="prodSvc" scope="page" class="com.prod.model.ProdService" />
+<jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
 
 <!DOCTYPE html>
 <html>
@@ -60,7 +70,15 @@ div {
 		<c:forEach var="prod_id" items="${cartMap.keySet()}">
 <%-- 		"prod_id=" + ${prod_id} --%>
 	      <!-- Product #1 -->
-	      <div class="item">
+	      <div class="item" ${prodSvc.getOneProd(prod_id).prod_stock==0? 'style=color:gray':""}>
+<!-- 	      加上checkbox -->
+<!-- 	      	<div class="switch-wrap d-flex justify-content-between"> -->
+<!-- 				<div class="primary-checkbox"> -->
+<!-- 					<input type="checkbox" id="default-checkbox"> -->
+<!-- 					<label for="default-checkbox"></label> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 	      加上checkbox -->
 	        <div class="buttons">
 	          <span class="delete-btn"></span>
 	          <span class="like-btn" id="${prod_id}"></span>
@@ -83,17 +101,17 @@ div {
 	        </div>
 	
 	        <div class="quantity">
-	          <button class="minus-btn" type="button" name="button">
+	          <button class="minus-btn" type="button" name="button" ${prodSvc.getOneProd(prod_id).prod_stock==0? "disabled":""}>
 <!-- 	            <img src="minus.svg" alt="" /> -->
 					<i class="glyphicon glyphicon-minus" style="color:gray"></i>
 	          </button>
-	          <input type="text" name="quantity" value="${cartMap.get(prod_id)}" class="${prod_id}">
-	          <button class="plus-btn" type="button" name="button">
+	          <input type="text" name="quantity" value="${prodSvc.getOneProd(prod_id).prod_stock==0? '0':cartMap.get(prod_id)}" class="${prod_id}" ${prodSvc.getOneProd(prod_id).prod_stock==0? 'readonly':''}>
+	          <button class="plus-btn" type="button" name="button" ${prodSvc.getOneProd(prod_id).prod_stock==0? "disabled":""}>
 <!-- 	            <img src="plus.svg" alt="" /> -->
 					<i class="glyphicon glyphicon-plus" style="color:gray"></i>
 	          </button>
 	        </div>
-	        <span></span>
+	        <span>${prodSvc.getOneProd(prod_id).prod_stock==0? '無庫存': ''}</span>
 	
 	        <div class="total-price">
 	        	<i class="fas fa-coins"></i><b>  ${prodSvc.getOneProd(prod_id).prod_price}</b>
@@ -105,9 +123,9 @@ div {
 
 		    var pattern = /^[1-9][0-9]?$/; 
 		 // 判斷使用者輸入的數量是否正確
-		    $('.${prod_id}').on('keyup', function() {
+		    $('.${prod_id}').on('change', function() {
 				var $this = $(this);
-			    console.log('.on(keyup) = ' + $(this).val());
+			    console.log('.on(change) = ' + $(this).val());
 			    console.log(pattern.test($(this).val()));
 		      	if ($this.val()<1 || !pattern.test($this.val()) ){
 		      		$this.parent().next().text('輸入數量錯誤');
@@ -135,7 +153,7 @@ div {
 						});
 		      		}
 		      		//setTimeout(myFunc,5000);
-			    	setTimeout(timer1,1000);  
+			    	setTimeout(timer1,500);  
 		      	} else{
 			    	    $($(this).parent().next()).text('');
 			    	  	$.ajax({
@@ -357,7 +375,6 @@ div {
 	   // 若使用者點擊移除按鈕，透過ajax操作redis資料庫，並將畫面中此筆資料移除
 	   $('.delete-btn').on('click', function() {
 	        console.log("購物車移除商品"+$(this).next().attr("id"));
-	        
 		// 透過ajax將更新內容儲存至redis資料庫
 	        $.ajax({
 	    	url: '<%=request.getContextPath()%>/prodcart.do',
@@ -375,6 +392,7 @@ div {
 	    				$('#no_prod_des').css("display", "");
 	    				$('#next').css("background-color", "#D2B48C");
 	    				$('#next').val("返回購物");
+	    				console.log("$next=" + $('#next').val());
 	    			}
 	    		},
 	    		error: function(res){
@@ -383,6 +401,39 @@ div {
 	    		
 	    	});
 	        $(this).parent().parent().remove();
+	        	
+	    });
+	   
+	   console.log("=====按下下一步=====");
+       console.log("${amount}="+ '${amount}');
+       console.log('$memBalance='+ '${memSvc.getOneMem(memVO.getMemb_id()).getMemb_balance()}');
+       console.log('$memVO='+ '${memVO}');
+       console.log("$('#amount').text()=" + $('#amount').text());
+	   //按下一步時，除了filter檢查是否登入之外，再檢查愛心幣餘額是否足夠
+	   $('#next').on('click', function() {
+	        console.log("=====按下下一步=====");
+	        console.log("${amount}"+ '${amount}');
+	        
+	        
+			if($('#next').val()== "返回購物"){
+				window.location.href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp";
+				return false;
+	   		}
+	        
+	        if ('${memVO}'!=""){ 
+					console.log("@@@@@@@@@@");
+					console.log($('#amount').text() > '${memSvc.getOneMem(memVO.getMemb_id()).getMemb_balance()}');
+					console.log($('#amount').text() + '>' + '${memSvc.getOneMem(memVO.getMemb_id()).getMemb_balance()}');
+					console.log($('#amount').text() - '${memSvc.getOneMem(memVO.getMemb_id()).getMemb_balance()}');
+					console.log($('#amount').text() - '${memSvc.getOneMem(memVO.getMemb_id()).getMemb_balance()}' > 0 );
+					console.log($('#amount').text()+"=====");
+					console.log('${memSvc.getOneMem(memVO.getMemb_id()).getMemb_balance()}'+"=====");
+				if ($('#amount').text() - '${memSvc.getOneMem(memVO.getMemb_id()).getMemb_balance()}' > 0){
+					console.log("22222");
+					swal("Oops.....", "愛心幣餘額不足...", "error").catch(swal.noop);
+					return false;
+				} 
+			}
 	        	
 	    });
 	   

@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 import com.AdoptApply.model.AdoptApplyVO;
 import com.Adoption.model.AdoptionVO;
@@ -19,7 +20,7 @@ import com.rescue.model.RescueVO;
 import com.rescuing.model.RescuingVO;
 
 public class MemJDBCDAO implements MemDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
+	String driver = "oracle.jdbc.driver.OracleDriver"; 
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G5";
 	String password = "123456";  
@@ -43,6 +44,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 	private static final String SELECT_ADOPT_SPONSOR = "SELECT * FROM ADOPTION where adopt_sponsor=?";
 	private static final String SELECT_ADOPT_APPLY = "SELECT * FROM ADOPT_APPLY where memb_id=?";
 	private static final String SELECT_MISSING_PET = "SELECT * FROM MISSING_CASE where memb_id=?";
+	private static final String SELECT_BALANCE ="SELECT memb_balance FROM MEMBERS where memb_id = ?";
+	private static final String UPDATE_BALANCE = "UPDATE MEMBERS set memb_balance = ? where memb_id = ?";
 	
 	//安卓SQL指令
 	private static final String FIND_BY_ID_PASWD = "SELECT * FROM MEMBERS WHERE memb_acc = ? AND memb_psw = ?";
@@ -220,6 +223,49 @@ public class MemJDBCDAO implements MemDAO_interface {
 //		}
 //		System.out.println("多筆資料查詢成功");
 //		System.out.println("===========");
+//		List <missingCaseVO> list4 = dao.selectMissingCase("M000000007");
+//		for(missingCaseVO aMissingCaseVO : list4) {
+//		System.out.println(aMissingCaseVO.getMissing_case_id());
+//		System.out.println(aMissingCaseVO.getMemb_id());
+//		System.out.println(aMissingCaseVO.getMissing_date());
+//		System.out.println(aMissingCaseVO.getMissing_name());
+//		System.out.println(aMissingCaseVO.getMissing_des());
+//		System.out.println(aMissingCaseVO.getMissing_loc());
+//		System.out.println(aMissingCaseVO.getMissing_status_shelve());
+//		System.out.println(aMissingCaseVO.getMissing_photo());
+//		System.out.println(aMissingCaseVO.getMissing_type());
+//		
+//		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+//		}
+//		System.out.println("多筆資料查詢成功");
+//		System.out.println("===========");
+		List<AdoptionVO> list5 = dao.selectAdoption("M000000002");
+		for(AdoptionVO adoptionVO : list5) {
+			System.out.println(adoptionVO.getAdopt_id());
+			System.out.println(adoptionVO.getAdopt_species());
+			System.out.println(adoptionVO.getAdopt_sponsor());
+			System.out.println(adoptionVO.getAdopt_status());
+			System.out.println(adoptionVO.getAdopt_apply_status());
+			System.out.println(adoptionVO.getAdopt_btime());
+			System.out.println(adoptionVO.getAdopt_etime());
+			System.out.println(adoptionVO.getAdopt_des());
+			System.out.println(adoptionVO.getAdopt_img());
+			
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+		}
+		System.out.println("多筆資料查詢成功");
+		System.out.println("===========");
+		List<AdoptApplyVO> list6 = dao.selectAdoptApply("M000000002");
+		for(AdoptApplyVO adoptApplyVO : list6) {
+			System.out.println(adoptApplyVO.getMemb_id());
+			System.out.println(adoptApplyVO.getAdopt_id());
+			System.out.println(adoptApplyVO.getAdopt_des());
+			System.out.println(adoptApplyVO.getAdopt_id_status());
+			
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+		}
+		System.out.println("多筆資料查詢成功");
+		System.out.println("===========");
 	}
 
 	@Override
@@ -479,6 +525,65 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 		
 	}
+	@Override
+	public void updateBalance(String memb_id,Integer rsc_coin, Connection con) {
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null;
+		ResultSet rs = null;
+		Integer coin = 0;
+		try {
+
+			//查出愛心幣
+          pstmt = con.prepareStatement(SELECT_BALANCE);
+          pstmt.setString(1,memb_id);
+			
+          rs = pstmt.executeQuery();
+          while(rs.next()) {
+        	  coin = rs.getInt("memb_balance");	
+			}
+          rs.close();
+          //存愛心幣
+          pstmt1 = con.prepareStatement(UPDATE_BALANCE);
+          
+          	pstmt1.setInt(1,(rsc_coin+coin));
+			pstmt1.setString(2,memb_id);
+     		pstmt1.executeUpdate();
+
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-mem");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt1 != null) {
+				try {
+					pstmt1.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
 
 	@Override
 	public void delete(String memb_id) {
@@ -518,6 +623,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 		
 	}
+
 
 	@Override
 	public MemVO findByPrimaryKey(String memb_id) {
@@ -882,20 +988,180 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 	@Override
 	public List<AdoptionVO> selectAdoption(String memb_id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<AdoptionVO> list = new ArrayList<AdoptionVO>();
+		AdoptionVO adoptionVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(SELECT_ADOPT_SPONSOR);
+			pstmt.setString(1,memb_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				adoptionVO= new AdoptionVO();
+				adoptionVO.setAdopt_id(rs.getString("adopt_id"));
+				adoptionVO.setAdopt_species(rs.getString("adopt_species"));
+				adoptionVO.setAdopt_sponsor(rs.getString("adopt_sponsor"));
+				adoptionVO.setAdopt_status(rs.getString("adopt_status"));
+				adoptionVO.setAdopt_apply_status(rs.getString("adopt_apply_status"));
+				adoptionVO.setAdopt_btime(rs.getTimestamp("adopt_btime"));
+				adoptionVO.setAdopt_etime(rs.getTimestamp("adopt_etime"));
+				adoptionVO.setAdopt_des(rs.getString("adopt_des"));
+				adoptionVO.setAdopt_img(rs.getBytes("adopt_img"));
+				list.add(adoptionVO);
+			}
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override
 	public List<AdoptApplyVO> selectAdoptApply(String memb_id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<AdoptApplyVO> list = new ArrayList<AdoptApplyVO>();
+		AdoptApplyVO adoptApplyVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(SELECT_ADOPT_APPLY);
+			pstmt.setString(1,memb_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				adoptApplyVO= new AdoptApplyVO();
+				adoptApplyVO.setMemb_id(rs.getString("memb_id"));
+				adoptApplyVO.setAdopt_id(rs.getString("adopt_id"));
+				adoptApplyVO.setAdopt_des(rs.getString("adopt_des"));
+				adoptApplyVO.setAdopt_id_status(rs.getString("adopt_id_status"));
+
+				list.add(adoptApplyVO);
+			}
+				
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override
 	public List<missingCaseVO> selectMissingCase(String memb_id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<missingCaseVO> list = new ArrayList<missingCaseVO>();
+		missingCaseVO missingCaseVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(SELECT_MISSING_PET);
+			pstmt.setString(1,memb_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				missingCaseVO= new missingCaseVO();
+				missingCaseVO.setMissing_case_id(rs.getString("missing_case_id"));
+				missingCaseVO.setMemb_id(rs.getString("memb_id"));
+				missingCaseVO.setMissing_date(rs.getTimestamp("missing_date"));
+				missingCaseVO.setMissing_name(rs.getString("missing_name"));
+				missingCaseVO.setMissing_des(rs.getString("missing_des"));
+				missingCaseVO.setMissing_loc(rs.getString("missing_loc"));
+				missingCaseVO.setMissing_status_shelve(rs.getString("missing_status_shelve"));
+				missingCaseVO.setMissing_photo(rs.getBytes("missing_photo"));
+				missingCaseVO.setMissing_type(rs.getString("missing_type"));
+				
+				
+				list.add(missingCaseVO);
+			}
+
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
 	}
 	
 	
@@ -1013,6 +1279,64 @@ public class MemJDBCDAO implements MemDAO_interface {
 			}
 		} return picture;
 	}
+	
+	@Override
+	public void updateMemBal(MemVO memVO, Connection con) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement(UPDATE_STMT);
+			
+			pstmt.setString(1,memVO.getMemb_sta());
+			pstmt.setString(2,memVO.getMemb_acc());
+			pstmt.setString(3,memVO.getMemb_psw());
+			pstmt.setString(4,memVO.getMemb_name());
+			pstmt.setString(5,memVO.getMemb_nick());
+			pstmt.setString(6,memVO.getMemb_email());
+			pstmt.setString(7,memVO.getMemb_cellphone());
+			pstmt.setString(8,memVO.getMemb_gender());
+			pstmt.setInt(9,memVO.getMemb_balance());
+			pstmt.setString(10,memVO.getMemb_cre_type());
+			pstmt.setString(11,memVO.getMemb_cre_name());
+			pstmt.setString(12,memVO.getMemb_cre_year());
+			pstmt.setString(13,memVO.getMemb_cre_month());
+			pstmt.setInt(14,memVO.getMemb_vio_times());
+			pstmt.setBytes(15, memVO.getMemb_photo());
+			pstmt.setString(16,memVO.getMemb_id());
+			
+			
+			int rowsUpdated = pstmt.executeUpdate();
+			System.out.println("Changed " + rowsUpdated + "rows");
+			System.out.println("會員餘額 " + memVO.getMemb_balance() + "元");
+			
+			// Handle any driver errors
+		} catch (Exception se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-memUpdate");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. " 
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+
 
 	
 }

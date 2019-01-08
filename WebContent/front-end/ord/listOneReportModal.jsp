@@ -287,10 +287,11 @@ div {
 		 console.log("img=" + $("#preview").html());
 		 console.log("reason=" + $("#reason").val());
 		 console.log("22222222");
+		 console.log("<%=request.getContextPath()%>/ordItem/ordItem.do?action=getOne_For_Report_Update");
 	     	$.ajax({
-	    		url: '<%=request.getContextPath()%>/ordItem/ordItem.do',
-	    		type: "post",
-	    		data: { 'action': 'getOne_For_Report_Update', 'ord_id': $this.next().next().val() , 'prod_id': $this.next().val(), 'reason' : $("#reason").val(), 'img' : $("#preview").html()  },
+	    		url: '<%=request.getContextPath()%>/ordItem/ordItem.do?action=getOne_For_Report_Update',
+	    		type: "get",
+	    		data: { 'ord_id': $this.next().next().val() , 'prod_id': $this.next().val(), 'reason' : $('#reason').val(), 'img' : $('#preview').html()  },
 	    		dataType: 'json',
 	    		success: function(res){
 	    			console.log("0000000000");

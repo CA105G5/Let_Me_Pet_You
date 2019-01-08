@@ -13,7 +13,9 @@
 	List<ProdVO> list;
 	list = (List<ProdVO>) request.getAttribute("list");
 	MemVO memVO = (MemVO) session.getAttribute("memVO");
-	String memb_id = memVO.getMemb_id();
+	String memb_id = null;
+	if(memVO!=null)
+		memb_id = memVO.getMemb_id();
 	if (list==null){
 		ProdService prodSvc = new ProdService(); 
 		list = prodSvc.getProdByMem(memb_id);
@@ -40,30 +42,9 @@
 <meta charset="UTF-8">
 <title>Horse Club</title>
 
-<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-<!-- https://fontawesome.com/ 自己的css-->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
-	crossorigin="anonymous">
 
 <style type="text/css">
 p {
@@ -79,14 +60,33 @@ div {
 </head>
 <body>
 
-	<jsp:include page="/front-end/donate/don_history_Header.jsp" flush="true" />
 
+	<jsp:include page="/index_Header.jsp" flush="true" />
+	
+	<div class="container">
+			<div class="row">
+
+			<!-- 左側邊list-group -->
+			<div class="col-xs-12 col-sm-3">
+				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
+					<h3>捐贈紀錄</h3>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心捐款紀錄</a></h5>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄</a></h5>
+					<hr>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 	<section class="training-area section-gap">
 		<div class="container">
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
 				<div class="row">
-					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;"></div> <!-- position: fixed -->
-					<div class="col-xs-12 col-sm-10">
+					<div class="col-lg-3 cl-md-3" style="top: 180px; bottom: auto;"></div> <!-- position: fixed -->
+					<div class="col-xs-12 col-sm-9">
 						<div class="row">
 							<div class="page-header">
 							<%-- 錯誤表列 --%>
@@ -396,56 +396,7 @@ div {
 <!-- </script> -->
 
 
-<!-- 	顯示購物車數量 -->
-	<script>
-		$(function(){
-			$.ajax({
-				url: '<%=request.getContextPath()%>/prodcart.do',
-				type: "get",
-				success: function(res){
-					console.log(res);
-					if (parseInt(res) > 0){
-						console.log("parseInt = " + parseInt(res));
-						$('#itemCount').html(res).css('display', 'block');
-					} 
-				},
-				error: function(res){
-					console.log(res);
-				}
-			
-			});
-		});
-	</script>
-
-
-
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 	<!-- 注意!!! 若有多個jquery會衝突 -->
-	<script src="https://code.jquery.com/jquery.js"></script> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
-<!-- 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.dataTables.js"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 
@@ -457,6 +408,7 @@ div {
 		    $('#table4').DataTable();
 		} );
 	</script>
+	
 	
 	<script>
 // 		$(document).ready(function() {
@@ -472,18 +424,28 @@ div {
 		    e.preventDefault();
 		    var form = $(this).parents('form');
 		    swal({
-		        title: "Are you sure?",
-		        text: "You will not be able to recover this imaginary file!",
-		        type: "warning",
-		        showCancelButton: true,
-		        confirmButtonColor: "#DD6B55",
-		        confirmButtonText: "Yes, delete it!",
-		        closeOnConfirm: false
-		    }, function(isConfirm){
-		        if (isConfirm) form.submit();
-		    });
+	            title: "確定下架？",
+	            html: "下架後就無法再重新上架囉",
+	            type: "warning", // type can be "success", "error", "warning", "info", "question"
+	            showCancelButton: true,
+	        	showCloseButton: true,
+	        }).then(
+	        	   function (result) {
+	        		   form.submit();
+            }, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+            		swal("取消", "取消下架", "error");
+	        }).catch(swal.noop);
 		});
+		
 	
+	</script>
+	
+	<script>
+		
+		$("ul.nav-menu li").attr('class', "" );
+		$("#member").attr('class', 'menu-active menu-has-children' )
+		 
+		 
 	</script>
 
 </body>

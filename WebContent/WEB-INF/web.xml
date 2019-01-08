@@ -136,6 +136,14 @@
     <url-pattern>/back-end/rescue/RescueAjax.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>RescuingAjax</servlet-name>
+    <servlet-class>com.rescuing.controller.RescuingAjax</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RescuingAjax</servlet-name>
+    <url-pattern>/back-end/rescuing/RescuingAjax.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>RescuingServlet</servlet-name>
     <servlet-class>com.rescuing.controller.RescuingServlet</servlet-class>
   </servlet>
@@ -245,11 +253,16 @@
   </filter>
   <filter-mapping>
     <filter-name>LoginFilter</filter-name>
+    <url-pattern>/front-end/members/listOneMember.jsp</url-pattern>
+    <url-pattern>/front-end/members/listAllRescue.jsp</url-pattern>
+    <url-pattern>/front-end/members/listAllAdopt.jsp</url-pattern>
+    <url-pattern>/front-end/members/listMyMissingPets.jsp</url-pattern>
     <url-pattern>/front-end/missingCase/addMissing.jsp</url-pattern>
     <url-pattern>/front-end/donate/listAllProdDon.jsp</url-pattern>
     <url-pattern>/front-end/ord/listAllOrd.jsp</url-pattern>
     <url-pattern>/front-end/ord/listAllOrd_Ship.jsp</url-pattern>
     <url-pattern>/front-end/ord/cart_Receiver.jsp</url-pattern>
+    <url-pattern>/front-end/pet/listAllPets.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
@@ -361,10 +374,10 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>AdoptMsgServlet</servlet-name>
-    <servlet-class>com.Adopt.controller.AdoptMsgServlet</servlet-class>
+    <servlet-class>com.AdoptMsg.controller.AdoptMsgServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AdoptApplyServlet</servlet-name>
+    <servlet-name>AdoptMsgServlet</servlet-name>
     <url-pattern>/front-end/adopt/adoptMsgServlet.do</url-pattern>
   </servlet-mapping>
   <servlet>

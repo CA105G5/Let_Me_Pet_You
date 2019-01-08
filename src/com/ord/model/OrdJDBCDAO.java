@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.mem.model.MemService;
+import com.mem.model.MemVO;
 import com.ord.model.OrdVO;
 import com.orditem.model.OrdItemJDBCDAO;
 import com.orditem.model.OrdItemVO;
@@ -269,7 +271,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 	}
 
 	@Override
-	public void insertWithOrdItem(OrdVO ordVO, List<OrdItemVO> list) {
+	public void insertWithOrdItem(OrdVO ordVO, List<OrdItemVO> list,  MemVO memVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -304,13 +306,16 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 				System.out.println("未取得自增主鍵值");
 			}
 			rs.close();
-			// 再同時新增員工
+			// 再同時新增明細
 			OrdItemJDBCDAO dao = new OrdItemJDBCDAO();
 			System.out.println("list.size()-A="+list.size());
 			for (OrdItemVO ordItemVO : list) {
 				ordItemVO.setOrd_id(next_ordno) ;
 				dao.insert2(ordItemVO,con);
 			}
+			
+			MemService memSvc = new MemService();
+			memSvc.updateMemBal(memVO, con);
 
 			// 2●設定於 pstm.executeUpdate()之後
 			con.commit();
@@ -418,6 +423,10 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		ordVO.setOrd_rc_add("中壢市平鎮區中央路300號");
 		ordVO.setOrd_rc_comm("請晚上六點之後派送");
 		
+		MemService memSvc = new MemService();
+		MemVO memVO = memSvc.getOneMem("M000000001");
+		memVO.setMemb_balance(memVO.getMemb_balance()-ordVO.getOrd_total());
+		
 		List<OrdItemVO> testList = new ArrayList<OrdItemVO>(); // 準備置入明細數筆
 		
 		OrdItemVO ordItemVO1 = new OrdItemVO();
@@ -431,7 +440,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		testList.add(ordItemVO1);
 		testList.add(ordItemVO2);
 		
-		dao.insertWithOrdItem(ordVO , testList);
+		dao.insertWithOrdItem(ordVO , testList, memVO);
 		
 		
 		
@@ -498,6 +507,5 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		return null;
 	}
 
-	
 
 }

@@ -83,7 +83,7 @@ div {
 </head>
 <body>
 
-	<jsp:include page="/front-end/missingCase/missing_case_header.jsp"
+	<jsp:include page="/index_Header.jsp"
 		flush="true" />
 
 	<section class="service-page-area section-gap">
@@ -96,15 +96,9 @@ div {
 			</div>
 			<div class="row">
 				<!-- 左側邊 -->
-				<div class="col-xs-12 col-sm-3">
-					<div class="list-group">
-						<a href="listAllMissingCase.jsp" class="list-group-item ">認養案例總覽</a>
-						<a href="addMissing.jsp" class="list-group-item active">認養案例新增</a>
-					</div>
-				</div>
 
 				<!-- 右邊內容區 -->
-				<div class="col-xs-12 col-sm-9">
+				<div class="col-xs-12 col-sm-12">
 
 					<!-- 					<FORM action="miss.do" method=post enctype="multipart/form-data"> -->
 					<!-- 						<input type="file" name="upfile" id="file01"> -->
@@ -204,31 +198,6 @@ div {
 		}
 	
 	</script>
-
-
-	<script defer src="js/vendor/jquery-2.2.4.min.js"></script>
-	<script defer
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script defer src="js/vendor/bootstrap.min.js"></script>
-	<script defer type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script defer src="js/easing.min.js"></script>
-	<script defer src="js/hoverIntent.js"></script>
-	<script defer src="js/superfish.min.js"></script>
-	<script defer src="js/jquery.ajaxchimp.min.js"></script>
-	<script defer src="js/jquery.magnific-popup.min.js"></script>
-	<script defer src="js/owl.carousel.min.js"></script>
-	<script defer src="js/jquery.sticky.js"></script>
-	<script defer src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script defer src="js/jquery.nice-select.min.js"></script>
-	<script defer src="js/parallax.min.js"></script>
-	<script defer src="js/waypoints.min.js"></script>
-	<script defer src="js/jquery.counterup.min.js"></script>
-	<script defer src="js/mail-script.js"></script>
-	<script defer src="js/main.js"></script>
-	
 </body>
 
 

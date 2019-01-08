@@ -12,8 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.CurrencyDetail.model.CurDtJDBCDAO;
+import com.mem.model.MemJDBCDAO;
+import com.ntf.model.NtfJDBCDAO;
+import com.ntf.model.NtfVO;
 import com.rescue.model.RescueJDBCDAO;
 import com.rescue.model.RescueVO;
+import com.volunteer.model.VolunteerJDBCDAO;
 
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Rescuing;
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
@@ -44,8 +49,14 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			"UPDATE RESCUING set rscing_btime = ?,rscing_sta = ?,rscing_cdes = ?,rscing_etime = ?,rscing_lat = ?,rscing_lon = ?,rscing_rv_des = ? where rsc_id = ? AND rscing_ptcp = ?";
 	private static final String UPDATE_BY_VOLUNTEER = 
 			"update RESCUING set rscing_sta=? where rsc_id = ?";
-	private static final String GET_ALL_MEM ="SELECT rscing_ptcp FROM Rescuing where rsc_id = ?";
-
+	private static final String GET_ALL_MEM =
+			"SELECT rscing_ptcp FROM Rescuing where rsc_id = ?";
+	private static final String GET_PASS_MEM =
+			"SELECT rscing_ptcp FROM Rescuing where rsc_id = ? AND rscing_sta = ?";
+	private static final String UPDATE_PASS_MEM = 
+			"UPDATE RESCUING set rscing_sta = ?,rscing_etime = ? where rsc_id = ? AND rscing_ptcp = ?";
+	private static final String UPDATE_NO_PASS_MEM = 
+			"UPDATE RESCUING set rscing_sta = ? where rsc_id = ? AND rscing_ptcp = ?";
 	@Override
 	public void insert(RescuingVO rescuingVO) {
 		Connection con = null;
@@ -527,7 +538,7 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 				memlist.add(rs.getString(1));
 			}
 			
-			
+			rs.close();
 			
 
 			// Handle any driver errors
@@ -554,8 +565,334 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 					se.printStackTrace(System.err);
 				}
 			}
+			if (pstmt2 != null) {
+				try {
+					pstmt2.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 		}
 			return memlist;
+	}
+	public void updatePassMem(String rsc_id,String rsc_ptcp, Connection con) {
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+
+			pstmt = con.prepareStatement(UPDATE_PASS_MEM);
+			//改成不通過
+			pstmt.setString(1,new String("完成救援"));
+			pstmt.setTimestamp(2,new Timestamp(new Date().getTime()));
+			pstmt.setString(3,rsc_id);
+			pstmt.setString(4,rsc_ptcp);
+
+			pstmt.executeUpdate();
+//			System.out.println("Changed " + rowsUpdated + "rows");
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+		}
+			
+	}
+	@Override
+	public void updateNoPassMem(String rsc_id, String rsc_ptcp, Connection con) {
+		PreparedStatement pstmt = null;
+		
+		try {
+
+			pstmt = con.prepareStatement(UPDATE_NO_PASS_MEM);
+			//改成不通過
+			pstmt.setString(1,new String("不通過"));
+			pstmt.setString(2,rsc_id);
+			pstmt.setString(3,rsc_ptcp);
+
+			pstmt.executeUpdate();
+//			System.out.println("Changed " + rowsUpdated + "rows");
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+		}
+		
+	}
+	@Override
+	public void updateNoPass(String rsc_id, String rsc_ptcp, Connection con) {
+		PreparedStatement pstmt = null;
+		
+		try {
+
+			pstmt = con.prepareStatement(UPDATE_NO_PASS_MEM);
+			//改成不通過
+			pstmt.setString(1,new String("救援中"));
+			pstmt.setString(2,rsc_id);
+			pstmt.setString(3,rsc_ptcp);
+
+			pstmt.executeUpdate();
+//			System.out.println("Changed " + rowsUpdated + "rows");
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+		}
+		
+	}
+
+	@Override
+	public void updateByManagerPass(RescueVO rescueVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		
+		ResultSet rs = null;
+		List<String> passmem = new ArrayList<String>();
+		List<String> nopassmem = new ArrayList<String>();
+		
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+    		//先改救援表
+    		RescueJDBCDAO dao = new RescueJDBCDAO();
+    		dao.updateByPass(rescueVO.getRsc_id(), con);
+			//查有完成的會員
+    		pstmt = con.prepareStatement(GET_PASS_MEM);
+
+			pstmt.setString(1,rescueVO.getRsc_id());
+		    pstmt.setString(2,"完成救援送審中");
+		    rs = pstmt.executeQuery();
+		    while(rs.next()) {
+		    	passmem.add(rs.getString(1));
+		    }
+		    //查未完成的會員
+		    pstmt2 = con.prepareStatement(GET_PASS_MEM);
+
+			pstmt2.setString(1,rescueVO.getRsc_id());
+		    pstmt2.setString(2,"救援中");
+		    rs = pstmt2.executeQuery();
+		    while(rs.next()) {
+		    	nopassmem.add(rs.getString(1));
+		    }
+		    rs.close();
+		    //完成的會員狀態改變、會員愛心幣、通知
+		    MemJDBCDAO dao2 = new MemJDBCDAO();
+		    CurDtJDBCDAO dao3 = new CurDtJDBCDAO();
+		    NtfJDBCDAO dao4 = new NtfJDBCDAO();
+		    for(String i:passmem) {
+		    	updatePassMem(rescueVO.getRsc_id(),i,con);
+		    	dao2.updateBalance(i,rescueVO.getRsc_coin(), con);
+		    	dao3.insert(i,rescueVO,con);
+		    	NtfVO ntfVO = new NtfVO();
+				ntfVO.setMemb_id(i);
+				ntfVO.setNtf_src_id(rescueVO.getRsc_id());
+				ntfVO.setNtf_dt("救援編號:"+rescueVO.getRsc_id()+"，通過審核，已發送愛心幣!");
+				dao4.insert(ntfVO,con);
+		    }
+		   //未完成的會員狀態改變、通知
+		    for(String j:nopassmem) {
+		    	updateNoPassMem(rescueVO.getRsc_id(),j,con);
+		    	NtfVO ntfVO2 = new NtfVO();
+		    	ntfVO2.setMemb_id(j);
+		    	ntfVO2.setNtf_src_id(rescueVO.getRsc_id());
+		    	ntfVO2.setNtf_dt("救援編號:"+rescueVO.getRsc_id()+"未通過!，已有會員通過審核!");
+		    	dao4.insert(ntfVO2, con);
+		    }
+
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("已成功發送愛心幣");
+//			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rscuing");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt2 != null) {
+				try {
+					pstmt2.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		
+	}
+	@Override
+	public void updateByManagerNoPass(String rsc_id,String rscing_rv_des) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> nopassmem = new ArrayList<String>();
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+    		//救援改狀態
+    		RescueJDBCDAO dao = new RescueJDBCDAO();
+    		dao.updateByNoPass(rsc_id, con);
+    		//查所有完成救援送審的人
+    		pstmt = con.prepareStatement(GET_PASS_MEM);
+ 			pstmt.setString(1,rsc_id);
+ 		    pstmt.setString(2,"完成救援送審中");
+ 		    rs = pstmt.executeQuery();
+ 		    while(rs.next()) {
+ 		    	nopassmem.add(rs.getString(1));
+ 		    }
+ 		    //改變狀態救援中
+ 		   NtfJDBCDAO dao2 = new NtfJDBCDAO();
+ 		   for(String j:nopassmem) {
+		    	updateNoPass(rsc_id,j,con);
+		    	NtfVO ntfVO2 = new NtfVO();
+		    	ntfVO2.setMemb_id(j);
+		    	ntfVO2.setNtf_src_id(rsc_id);
+		    	ntfVO2.setNtf_dt("救援編號:"+rsc_id+"未通過!"+rscing_rv_des);
+		    	dao2.insert(ntfVO2, con);
+		    }
+ 		    
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("已成功發通知給會員");
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		
 	}
 
 	public static void main(String[] args) {
@@ -629,6 +966,10 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 //		}
 	}
 
+
+	
+
+	
 	
 
 

@@ -24,7 +24,7 @@
 <meta name="description" content="">
 <!-- Meta Keyword -->
 <meta name="keywords" content="">
-<!-- meta character set -->
+<!-- meta character set --> 
 <meta charset="UTF-8">
 <!-- Site Title -->
 <title>Horse Club</title>
@@ -81,7 +81,7 @@ h4 {
 </head>
 <body>
 
-	<jsp:include page="/front-end/missingCase/missing_case_header.jsp"
+	<jsp:include page="/index_Header.jsp"
 		flush="true" />
 
 	<section class="service-page-area section-gap ">
@@ -120,13 +120,6 @@ h4 {
 					</div>
 				</div>
 			</div>
-			<!-- 左側邊 -->
-			<div class="col-xs-12 col-sm-3">
-				<div class="list-group">
-					<a href="listAllAdopt.jsp" class="list-group-item ">認養案例瀏覽</a>
-					<a href="addAdopt.jsp" class="list-group-item ">認養案例新增</a>
-				</div>
-			</div>
 
 
 
@@ -135,6 +128,7 @@ h4 {
 				<%@ include file="page1.file"%>
 				<c:forEach var="adoptionVO" items="${list}"
 					begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+					<c:if test="${adoptionVO.adopt_status == '上架'}">
 					<div class="col-lg-4 col-md-6">
 						<div class="single-service-page">
 							<div class="thumbs relative">
@@ -149,111 +143,21 @@ h4 {
 									<fmt:formatDate value="${adoptionVO.adopt_btime}"
 										pattern="yyyy-MM-dd" />
 								</p>
-								<a
-									href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}"
-									class="genric-btn info-border circle">查看詳情</a>
+								<a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}">
+								<button type="button" class="btn btn-outline-primary">查看詳情</button>
+								</a>
 							</div>
 
-							<!-- 					<FORM METHOD="post" -->
-							<%-- 						ACTION="<%=request.getContextPath()%>/front-end/missingCase/miss.do" --%>
-							<!-- 						style="margin-bottom: 0px;"> -->
-							<!-- 						<button type="submit" class="btn btn-primary">修改</button><input type="hidden" -->
-							<%-- 							name="missing_case_id" value="${missingCaseVO.missing_case_id}"> --%>
-							<!-- 						<input type="hidden" name="action" value="getOne_For_Update"> -->
-							<!-- 					</FORM> -->
-							<!-- 					<FORM METHOD="post" -->
-							<%-- 						ACTION="<%=request.getContextPath()%>/front-end/missingCase/miss.do" --%>
-							<!-- 						style="margin-bottom: 0px;"> -->
-							<!-- 						<input type="hidden" name="missing_case_id" -->
-							<%-- 							value="${missingCaseVO.missing_case_id}"> <input --%>
-							<!-- 							type="hidden" name="action" value="delete"> -->
-							<!-- 								<button type="submit" class="btn btn-primary">刪除</button> -->
-							<!-- 					</FORM>		 -->
 
 						</div>
 					</div>
+					</c:if>
 				</c:forEach>
 
 			</div>
 			<%@ include file="page2.file"%>
 		</div>
 	</section>
-	<%-- 
-	<table>
-		<tr>
-			<th>案例編號</th>
-			<th>會員編號</th>
-			<th>失蹤日期</th>
-			<th>失蹤內容描述</th>
-			<th>失蹤動物名稱</th>
-			<th>失蹤地點</th>
-			<th>失蹤案例上架狀態</th>
-		</tr>
-		<%@ include file="page1.file"%>
-		<c:forEach var="missingCaseVO" items="${list}" begin="<%=pageIndex%>"
-			end="<%=pageIndex+rowsPerPage-1%>">
-
-			<tr>
-				<td>${missingCaseVO.missing_case_id}</td>
-				<td>${missingCaseVO.memb_id}</td>
-				<td>${missingCaseVO.missing_date}</td>
-				<td>${missingCaseVO.missing_des}</td>
-				<td>${missingCaseVO.missing_name}</td>
-				<td>${missingCaseVO.missing_loc}</td>
-				<td><img
-					src="<%=request.getContextPath() %>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id }"></td>
-				<td>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/front-end/missingCase/miss.do"
-						style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="missing_case_id" value="${missingCaseVO.missing_case_id}">
-						<input type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
-				</td>
-				<td>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/front-end/missingCase/miss.do"
-						style="margin-bottom: 0px;">
-						<input type="hidden" name="missing_case_id"
-							value="${missingCaseVO.missing_case_id}"> <input
-							type="hidden" name="action" value="delete"> <input
-							type="submit" value="刪除">
-					</FORM>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-	<%@ include file="page2.file"%>
-
---%>
-
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="js/vendor/jquery-2.2.4.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script src="js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="js/easing.min.js"></script>
-	<script src="js/hoverIntent.js"></script>
-	<script src="js/superfish.min.js"></script>
-	<script src="js/jquery.ajaxchimp.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.sticky.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<script src="js/parallax.min.js"></script>
-	<script src="js/waypoints.min.js"></script>
-	<script src="js/jquery.counterup.min.js"></script>
-	<script src="js/mail-script.js"></script>
-	<script src="js/main.js"></script>
-
 
 </body>
 </html>

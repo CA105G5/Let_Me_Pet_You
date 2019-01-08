@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rescue.model.RescueVO;
+
 public class CurDtJDBCDAO implements CurDtDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -163,7 +165,46 @@ public class CurDtJDBCDAO implements CurDtDAO_interface {
 		}
 		
 	}
-
+	@Override
+	public void insert(String memb_id,RescueVO rescueVO,Connection con) {
+	PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement(INSERT_STMT);
+			
+			pstmt.setString(1,memb_id);
+			pstmt.setString(2,rescueVO.getRsc_id());
+			pstmt.setString(3,"完成救援獲得愛心幣"+rescueVO.getRsc_coin()+"元!"); 
+			
+			pstmt.executeUpdate();
+//			System.out.println("Changed " + rowsUpdated + "rows");
+			
+		} catch (Exception se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-curDt");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
 	@Override
 	public void update(CurDtVO curdtVO) {
 		Connection con = null;
@@ -416,6 +457,8 @@ public class CurDtJDBCDAO implements CurDtDAO_interface {
 		}
 		return list;
 	}
+
+	
 	
 
 }

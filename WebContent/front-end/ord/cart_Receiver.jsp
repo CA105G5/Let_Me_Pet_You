@@ -315,9 +315,9 @@ div {
 		    	     type: "success",
 		    	     timer: 3000
 		    	}),
-		    	function() { 
-		    		$this.submit();
-		    	};
+		    	
+		    	setInterval(function() { $this.submit();}, 2000);
+		    	
 		    	
 		    }
 		      

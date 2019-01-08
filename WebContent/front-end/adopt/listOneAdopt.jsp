@@ -1,3 +1,5 @@
+<%@page import="com.AdoptApply.model.AdoptApplyVO"%>
+<%@page import="com.AdoptApply.model.AdoptApplyService"%>
 <%@page import="com.AdoptMsg.model.AdoptMsgService"%>
 <%@page import="com.AdoptMsg.model.AdoptMsgVO"%>
 <%@page import="com.mem.model.MemVO"%>
@@ -9,12 +11,18 @@
 <%
 	AdoptMsgVO adoptMsgVO = (AdoptMsgVO)request.getAttribute("adoptMsgVO");
 	String adopt_id = request.getParameter("adopt_id");
+	pageContext.setAttribute("adopt_id", adopt_id);
 	AdoptMsgService adoptMsgSvc = new AdoptMsgService();
 	List<AdoptMsgVO> list = adoptMsgSvc.findByAdopt(adopt_id);
 	pageContext.setAttribute("list", list);
 	MemVO membVO = (MemVO) session.getAttribute("memVO");
+	pageContext.setAttribute("membVO", membVO);
 	String url = request.getContextPath() +"/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id;
 	session.setAttribute("adopt",url);
+	
+	AdoptApplyService adoptApplySvc = new AdoptApplyService();
+	List<AdoptApplyVO> list2 =  adoptApplySvc.getAllApply();
+	pageContext.setAttribute("list2", list2);
 %>
 
 <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
@@ -49,10 +57,13 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="<%=request.getContextPath()%>/ckeditor2/ckeditor.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="js/jquery-1.12.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
 </head>
 <body>
 
-	<jsp:include page="/front-end/missingCase/missing_case_header.jsp"
+	<jsp:include page="/index_Header.jsp"
 		flush="true" />
 
 	<!-- End banner Area -->
@@ -62,12 +73,6 @@
 				<div class="col-md-9 pb-40 header-text text-center">
 					<h1 class="pb-10"></h1>
 					<p>Who are in extremely love with eco friendly system.</p>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-3">
-				<div class="list-group">
-					<a href="listAllAdopt.jsp" class="list-group-item ">認養案例總覽</a>
-					<a href="addAdopt.jsp" class="list-group-item ">認養案例新增</a>
 				</div>
 			</div>
 			<div class="container">
@@ -81,6 +86,7 @@
 								<li><fmt:formatDate value="${adoptionVO.adopt_btime}"
 										pattern="yyyy-MM-dd" /></li>
 							</ul>
+							
 							<button type="button" class="genric-btn primary small"
 								style="margin-left: 670px;" id="apply" data-toggle="modal"
 								data-target="#exampleModalCenter">申請</button>
@@ -142,7 +148,7 @@
 									<div class="post-details">
 										<p>連絡失主</p>
 										<h4 class="text-uppercase">
-											<a href="#">失蹤的人</a>
+											<a href="#">${memSvc.getOneMem(adoptionVO.adopt_sponsor).memb_nick}</a>
 										</h4>
 									</div>
 									<div class="thumb">
@@ -154,6 +160,14 @@
 						</section>
 						<div class="comment-sec-area">
 							<h3 class="text-uppercase" style="color: red">留言區</h3>
+							<br>
+							<c:if test="${not empty errorMsgs}">
+									<c:forEach var="message" items="${errorMsgs}">
+										<div class="alert alert-danger" role="alert">
+                                        	${message}
+                                    	</div>
+									</c:forEach>
+							</c:if>
 							<br>
 							<h4 class="pb50">Leave a Reply...</h4>
 
@@ -167,10 +181,8 @@
 									id="adopt_msg_comm" placeholder="Messege"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'Messege'"></textarea>
-								<input type="hidden" name="adopt_id" id="adopt_id"
-									value="<%=request.getParameter("adopt_id")%>">  
-									<input type="hidden" name="adopt_msg_sper" id="adopt_msg_sper"
-									value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
+								<input type="hidden" name="adopt_id" id="adopt_id" value="<%=adopt_id%>">  
+								<input type="hidden" name="adopt_msg_sper" id="adopt_msg_sper" value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
 								 <input
 									type="hidden" name="action" value="insert"> <input
 									type="submit" id="submit"
@@ -188,8 +200,22 @@
 											</div>
 											<div class="desc">
 												<h5>
-													<a href="#">Emilly Blunt</a><button type="button" class="genric-btn primary small"
-								style="margin-left: 670px;" data-toggle="modal"	data-target="#${adoptMsgVO.adopt_msg_id}">檢舉</button>
+													<a href="#">Emilly Blunt</a>
+								
+						<div style="float:right">
+							<ul class="nav-menu">
+								<li class="menu-has-children"><a class="item"><i class="fa fa-thumb-tack"></i></a>
+									<ul>
+										<li>
+											<button type="button" class="genric-btn primary small"
+								 data-toggle="modal"	data-target="#${adoptMsgVO.adopt_msg_id}">檢舉</button>
+										</li>
+									</ul>
+								</li>
+							</ul>	
+						</div>
+								
+								
 												</h5>
 												<p class="date">
 													<fmt:formatDate value="${adoptMsgVO.adopt_msg_time}"
@@ -253,75 +279,21 @@
 			</div>
 		</div>
 	</section>
-<script>
-// $("#apply").on("click", function(){
-// 	swal({
-// 		title: '請輸入申請原因 ',
-// 		html:
-// 			'<form>' +
-// 			  '<div class="form-group">' +
-// 			    '<label for="reason" class="pull-left">檢舉原因：</label>' +
-// 			    '<input type="text" class="form-control" id="reason" placeholder="reason">' +
-// 			  '</div>' +
-// 			'</form>',	
-// 		type: "warning",
-// 		preConfirm: function () {
-// 			 return new Promise(function (resolve, reject) {
-// 				 var data = {};
-// 				 data.action = "insert";
-// 				 data.adopt_des = $('reason').val().trim();
-// 				 data.memb_id = '${membVO.memb_id}';
-<%-- 				 data.daopt_id = '<%=adopt_id%>'; --%>
-// 				 if (!data.adopt_des) reject('請輸入原因！');
-// 			 })
-			
-// 		}
-// 	})
+	<c:forEach var="AdoptApplyVO" items="${list2}">
+	<c:if test="${AdoptApplyVO.memb_id == membVO.memb_id && AdoptApplyVO.adopt_id == adopt_id}">
+	<script>
+	$('#apply').click(function(e){
+		if(${AdoptApplyVO.memb_id == membVO.memb_id && AdoptApplyVO.adopt_id == adopt_id}){
+			swal("申請失敗！你已經申請過了!");
+			return false;
+		}
+	});	
+	</script>
+	</c:if>
+	</c:forEach>
+
+
+
 	
-	
-// })
-
-
-</script>
-
-
-
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js"
-		type="text/javascript"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="js/jquery-1.12.3.min.js"></script>
 </body>
 </html>

@@ -47,7 +47,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			"UPDATE RESCUE set vlt_id=?,rsc_sta=?,ntf_vlt_dt=?,ntf_vlt_sta=?,ntf_vlt_time=? where rsc_id = ?";
 	private static final String UPDATE_NTF_VLT_STA =
 			"UPDATE RESCUE set ntf_vlt_sta=? where rsc_id = ?";
-
+    private static final String UPDATE_BY_PASS = 
+    		"UPDATE RESCUE set rsc_sta=?,rsc_etime= ? where rsc_id = ?";
 	
 	//安卓指令
 	private static final String FIND_PHOTO_BY_RSCID = 
@@ -609,6 +610,92 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		
 	}
+	@Override
+	public void updateByPass(String rsc_id,Connection con) {
+		
+		PreparedStatement pstmt = null;
+
+		try {
+
+			//修改rescue
+            pstmt = con.prepareStatement(UPDATE_BY_PASS);
+			
+			pstmt.setString(1,new String("完成救援"));
+			pstmt.setTimestamp(2,new Timestamp(new Date().getTime()));
+			pstmt.setString(3,rsc_id);
+     		pstmt.executeUpdate();
+
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void updateByNoPass(String rsc_id,Connection con) {
+	
+		PreparedStatement pstmt = null;
+
+		try {
+
+			
+			//修改rescue
+            pstmt = con.prepareStatement(UPDATE_RSC_STA);
+			
+			pstmt.setString(1,new String("救援中"));
+			pstmt.setString(2,rsc_id);
+			pstmt.executeUpdate();
+			
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
 	
 	@Override
 	public List<RescueVO> getAllDelay() {
@@ -1025,6 +1112,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		return list;
 	}
+
+
 
 }
 

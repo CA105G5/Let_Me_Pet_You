@@ -11,6 +11,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import com.mem.model.MemVO;
 import com.prod.model.ProdService;
 import com.prod.model.ProdVO;
 import com.prodimg.model.ProdImgJDBCDAO;
@@ -36,6 +37,11 @@ public class ProdServlet extends HttpServlet {
 		System.out.println("action=" + action);
 		
 		HttpSession session = req.getSession();
+		
+		MemVO memVO = (MemVO) session.getAttribute("memVO");
+		String memb_id = null;
+		if(memVO!=null)
+			memb_id = memVO.getMemb_id();
 		
 		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
@@ -352,8 +358,8 @@ public class ProdServlet extends HttpServlet {
 					//RequestDispatcher failureView = req.getRequestDispatcher("/front-end/product/listOneProdModal.jsp");
 					
 					//Bootstrap_modal
-					boolean openModal=true;
-					req.setAttribute("openModal",openModal );
+//					boolean openModal=true;
+//					req.setAttribute("openModal",openModal );
 					
 					//改成modal
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/back_shop.jsp");
@@ -740,14 +746,14 @@ public class ProdServlet extends HttpServlet {
 				}
 				
 				
-				prodVO.setMemb_id("M000000008");
+				prodVO.setMemb_id(memVO.getMemb_id());
 				prodVO.setProd_type_id(prod_type_id);
 				prodVO.setProd_ani_type_id(prod_ani_type_id);
 				prodVO.setProd_name(prod_name);
 				prodVO.setProd_des(prod_des);
 				prodVO.setProd_info(prod_info);
 				prodVO.setProd_qty(prod_qty_int);
-				prodVO.setProd_stock(0);
+				prodVO.setProd_stock(prod_qty_int);
 				prodVO.setProd_date(prod_date);
 //				prodVO.setProd_review(prod_review);
 //				prodVO.setProd_review_des(prod_review_des);

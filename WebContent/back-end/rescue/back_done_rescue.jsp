@@ -5,7 +5,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-	
+	 
 	
 <%
 List<RescuingVO> rescuingReviewList;
@@ -155,7 +155,7 @@ if (rescuingReviewList==null){
                                     <tbody>
                                         <% int no=0;%>
 										<c:forEach var="rescuingVO" items="${rescuingReviewList}">
-<%-- 										<c:if test="${rescuingVO.rscing_sta =='完成救援送審中' and rescuingVO.rscing_cdes != ''}" var="condition" scope="page"> --%>
+										<c:if test="${rescuingVO.rscing_sta =='完成救援送審中' and rescuingVO.rscing_cdes != null}" var="condition" scope="page">
 												<% no++; %>
 												<tr>
 													<td><%=no %></td>
@@ -196,7 +196,7 @@ if (rescuingReviewList==null){
 								                    </div>
 								                </div>
 								            </div>
-								        <%-- 										</c:if> --%>
+								        										</c:if>
 										</c:forEach>
                                     </tbody>
                                 </table>
@@ -289,95 +289,90 @@ if (rescuingReviewList==null){
         		 if($this.val()=='完成救援'){
         			 console.log("yyyyyyyy");
         			 
-//             		 swal({
-//        			  title: "確定通過嗎?",
-//        			  text: "確定後無法改變!",
-//        			  type: "warning",
-//        			  showCancelButton: true,
-//  		        	  showCloseButton: true,
-//        			}).then(
-//        			function(result){
-//        			  if (result) {
-//        				  
-//        				  $.ajax({
-//        	     		     type: "POST",
-<%--         	     			 url: "<%=request.getContextPath()%>/back-end/rescue/RescueAjax.do",  --%>
-//        	     			 data:{"action":"doneRscPass","rsc_id":$this.next().text()},
-//        	     			 datatype:"json",
-//        	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
-//        	     			 success:function(data){
-//        	     				swal({
-//	    				    	     title: "完成!",
-//	    				    	     text: "已發通知給會員!",
-//	    				    	     type: "success",
-	    				    	    
-//	    				    	}).then(
-//	    				    			function(result){
-//	    				    				if(result){
-//	    				    					$this.parent().parent().css("display","none")
-//	    				    				}
-//	    				    			}
-//	    				    		)
-//        	     			 }
-//        	     		 }) 
-//        			  }
-//        			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
-//	            		swal("取消", "取消審核", "error");
-//		        }).catch(swal.noop);
-//		    });
-        			 
-        			 
+            		swal({
+       			  		title: "確定通過嗎?",
+       			  		text: "確定後無法改變!",
+       			  		type: "warning",
+       			  		showCancelButton: true,
+ 		        	  	showCloseButton: true,
+       				}).then(function(result){
+       			  		if (result) {
+       				  
+	       				  $.ajax({
+	       	     		     type: "POST",
+	        	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do", 
+	       	     			 data:{"action":"doneRscPass","rsc_id":$this.next().text()},
+	       	     			 datatype:"json",
+	       	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+	       	     			 success:function(data){
+	       	     				swal({
+		    				    	     title: "完成!",
+		    				    	     text: "已發通知給會員!",
+		    				    	     type: "success",
+		    				    	    
+		    				    	}).then(
+		    				    			function(result){
+		    				    				if(result){
+		    				    					$this.parent().parent().css("display","none")
+		    				    				}
+		    				    			}
+		    				    		)
+	       	     			 }
+       	     		 	}) 
+       			  	 }
+       			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+	            		swal("取消", "取消審核", "error");
+		        	}).catch(swal.noop);
+
+        			 	 
         		 }else{
         			 if($this.val()=='不通過'){
         				 console.log("nnnnnnn");
-        				 
-//                 		 swal({
-//           			  title: "確定不通過嗎?",
-//           			  text: "確定後無法改變!",
-//           			  type: "warning",
-//           			  showCancelButton: true,
-//     		        	  showCloseButton: true,
-//           			}).then(
-//           			function(result){
-//           			  if (result) {
-//           				  
-//           				  $.ajax({
-//           	     		     type: "POST",
-   <%--         	     			 url: "<%=request.getContextPath()%>/back-end/rescue/RescueAjax.do",  --%>
-//           	     			 data:{"action":"doneRscPass","rsc_id":$this.next().text()},
-//           	     			 datatype:"json",
-//           	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
-//           	     			 success:function(data){
-//           	     				swal({
-//   	    				    	     title: "完成!",
-//   	    				    	     text: "已發通知給會員!",
-//   	    				    	     type: "success",
+
+        				 swal({
+           				  title: '請描述不通過原因',
+           				  input: 'textarea',
+           				  showCancelButton: true,
+           				  inputValidator: function (value) {
+           					  return new Promise(function (resolve, reject) {
+           				      		if (value) {
+           				        		resolve()
+           				      		} else {
+           				        		reject('請輸入原因!')
+           				      		}
+           				     })
+           				  }
+           				}).then(function (result) {
+           				  console.log(result);
+								
+          				  $.ajax({
+          	     		     type: "POST",
+           	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do", 
+          	     			 data:{"action":"doneRscNoPass","rsc_id":$this.next().text(),"rscing_rv_des":result},
+          	     			 datatype:"json",
+          	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+          	     			 success:function(data){
+          	     				swal({
+  	    				    	     title: "完成!",
+  	    				    	     text: "已發通知給會員!",
+  	    				    	     type: "success",
    	    				    	    
-//   	    				    	}).then(
-//   	    				    			function(result){
-//   	    				    				if(result){
-//   	    				    					$this.parent().parent().css("display","none")
-//   	    				    				}
-//   	    				    			}
-//   	    				    		)
-//           	     			 }
-//           	     		 }) 
-//           			  }
-//           			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
-//   	            		swal("取消", "取消審核", "error");
-//   		        }).catch(swal.noop);
-//   		    });
+  	    				    	}).then(
+  	    				    			function(result){
+  	    				    				if(result){
+  	    				    					$this.parent().parent().css("display","none")
+  	    				    				}
+  	    				    			}
+  	    				    		)
+          	     			 }
+          	     		 }) 
+           				}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+								swal("取消", "取消審核", "error");
+							 }).catch(swal.noop);
+							}
+
         			 }
-        		 }
-
-        	 });
-
-
-       		
-
-	
-     			
-     			
+			});
       	});
 		
 		
@@ -407,5 +402,6 @@ if (rescuingReviewList==null){
 
 </body>
 </html>
+
 
 

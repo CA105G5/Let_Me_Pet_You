@@ -14,6 +14,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.AdoptMsg.model.AdoptMsgVO;
+import com.Adoption.model.AdoptionJDBCDAO;
 import com.Adoption.model.AdoptionVO;
 import com.donate.model.DonateVO;
 
@@ -45,6 +46,8 @@ public class AdoptApplyJNDIDAO implements AdoptApplyDAO_Interface {
 	
 	private static final String FIND_BY_ADOPT =
 			"SELECT memb_id FROM ADOPT_APPLY WHERE ADOPT_ID=?";
+	private static final String OTHER_STATUS = "UPDATE ADOPT_APPLY SET ADOPT_ID_STATUS='未通過' WHERE ADOPT_ID_STATUS='未審核' AND ADOPT_ID=?";
+
 	
 	//新增
 	@Override
@@ -125,26 +128,51 @@ public class AdoptApplyJNDIDAO implements AdoptApplyDAO_Interface {
 		}
 			
 	}
-	//修改
+	// 修改
 	@Override
 	public void update(AdoptApplyVO adoptApplyVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+		PreparedStatement pstmt2 = null;
+
 		try {
-			
+
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STATUS);
-		
-			pstmt.setString(2, adoptApplyVO.getAdopt_id());
-			pstmt.setString(1, adoptApplyVO.getAdopt_id_status());
-			pstmt.setString(3, adoptApplyVO.getMemb_id());
 
+			// 1●設定於 pstm.executeUpdate()之前
+			con.setAutoCommit(false);
+
+			pstmt.setString(1, adoptApplyVO.getAdopt_id_status());
+			pstmt.setString(2, adoptApplyVO.getAdopt_id());
+			pstmt.setString(3, adoptApplyVO.getMemb_id());
 			pstmt.executeUpdate();
-					
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured" + se.getMessage());
+
+			pstmt2 = con.prepareStatement(OTHER_STATUS);
+			pstmt2.setString(1, adoptApplyVO.getAdopt_id());
 			
+			pstmt2.executeUpdate();
+			
+			AdoptionJDBCDAO dao = new AdoptionJDBCDAO();
+			dao.updateStatus(adoptApplyVO, con);
+			
+			// 2●設定於 pstm.executeUpdate()之後
+			con.commit();
+
+
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured" + se.getMessage());
+
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -152,7 +180,7 @@ public class AdoptApplyJNDIDAO implements AdoptApplyDAO_Interface {
 				} catch (SQLException se) {
 					se.printStackTrace(System.err);
 				}
-			}	
+			}
 			if (con != null) {
 				try {
 					con.close();
@@ -161,8 +189,7 @@ public class AdoptApplyJNDIDAO implements AdoptApplyDAO_Interface {
 				}
 			}
 		}
-			
-		
+
 	}
 	//刪除
 	@Override

@@ -24,6 +24,7 @@ public class RescueService {
 	public void updateByManager(RescueVO rescueVO) {
 		dao.updateByManager(rescueVO);
 	}
+	
 	public void deleteRescue(String rsc_id) {
 		dao.delete(rsc_id);
 	}

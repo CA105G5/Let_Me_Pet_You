@@ -12,16 +12,24 @@ String memb_id = memVO.getMemb_id();
 System.out.println("11111111111111"+memb_id);
 
 Map<String, String[]> map1 = new TreeMap<String, String[]>();
-map1.put("rsc_sponsor",new String[] {memb_id});
+map1.put("rsc_sponsor",new String[] {memVO.getMemb_id()});
 RescueService rescueSvc = new RescueService();
 List<RescueVO> list =rescueSvc.getAll(map1);
 pageContext.setAttribute("list",list);
 
 Map<String, String[]> map2 = new TreeMap<String, String[]>();
-map2.put("rsc_sponsor",new String[] {memb_id});
+map2.put("rscing_ptcp",new String[] {memVO.getMemb_id()});
 RescuingService rescueingSvc = new RescuingService();
 List<RescuingVO> list2 =rescueingSvc.getAll(map2);
 pageContext.setAttribute("list2",list2);
+
+// String tab = (String) request.getAttribute("tab");
+// System.out.println("tab=" + tab);
+// Integer tab_int = null;
+// if (tab==null){
+// 	tab="1";
+// 	tab_int = new Integer(tab);
+// }
 %>
 
 <html>
@@ -39,28 +47,7 @@ pageContext.setAttribute("list2",list2);
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 <title>所有通知</title>
-<%-- 放自己css前 --%>
-<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
-			<%--
-			CSS
-			============================================= --%>
-			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
-			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
-			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
-			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
-			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">					
-			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
-			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">	
-			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
-			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 			
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-
-<%-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab --%>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -100,56 +87,137 @@ pageContext.setAttribute("list2",list2);
 
 
 
-<br><br><br><br><br><br><br><br><br>
-<div class="container">
-			<div class="h1"></div>
-			
-			<div class="page-header">
-			  <h1 align="center">所有救援</h1>
-			</div>
-<table class="table table-bordered table-striped table-hover table-condensed">
-	<tr>
-		<th>救援名稱</th>
-		<th>救援地址</th>
-		<th>救援狀態</th>
-		
-	</tr>
-	<%@ include file="page1.file" %>
-	<c:forEach var="rescueVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
-		<tr>
-			<td>${rescueVO.rsc_name}</td>
-			<td>${rescueVO.rsc_add}</td>
-			<td>${rescueVO.rsc_sta}</td>
-			
-			
-		</tr>
-	</c:forEach>
 
-</table>
-</div>
-<%@ include file="page2.file" %>
+<section class="training-area section-gap">
+		<div class="container">
+			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
+				<div class="row">
+					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;"></div> <!-- position: fixed -->
+					<div class="col-xs-12 col-sm-10">
+						<div class="row">
+							<div class="page-header">
+							<%-- 錯誤表列 --%>
+								<c:if test="${not empty errorMsgs}">
+									<div>
+										<font style="color:red">請修正以下錯誤:</font>
+										<ul>
+										    <c:forEach var="message" items="${errorMsgs}">
+												<li style="color:red">${message}</li>
+											</c:forEach>
+										</ul>
+									</div>
+								</c:if>
+								
+								<c:if test="${not empty msg}">
+									<div>
+										<font style="color:red">${msg}</font>
+									</div>
+								</c:if>
+								
+								<h1>救援案例紀錄列表 <small>點擊案例名稱查看詳情</small></h1>
+							
+								<div class="container">
+									<div role="tabpanel">
+									    <!-- 標籤面板：標籤區 -->
+									    <ul class="nav nav-tabs" role="tablist">
+									        <li role="presentation" class="active"> 
+									            <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">發起的救援</a>
+									        </li>
+									        <li role="presentation">
+									            <a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">參與的救援</a>
+									        </li>
+									    </ul>
+									
+									    <!-- 標籤面板：內容區 -->
+									    <br>
+									    <div class="tab-content">
+									        <div role="tabpanel" class="tab-pane active" id="tab1">
+
+												<table id="table1" class="table table-striped table-bordered table-hover" style="width:800px">
+												
+														
+													<thead>
+														<tr class="success">
+															<th style="width: 30px">序號</th>
+															<th>救援名稱</th>
+															<th>救援地址</th>
+															<th>救援狀態</th>
+														</tr>
+													</thead>
+													<tbody>
+								
+														<% int no=0;%>
+														<c:forEach var="rescueVO" items="${list}">
+															
+																<% no++; %>
+															<tr>
+																<td><%=no %></td>
+																<td>${rescueVO.rsc_name}</td>
+																<td>${rescueVO.rsc_add}</td>
+																<td>${rescueVO.rsc_sta}</td>
+															</tr>
+															
+														</c:forEach>
+													</tbody>
+												</table>
+															        
+									        </div>
+									        <div role="tabpanel" class="tab-pane active" id="tab2">
+												<table id="table2" class="table table-striped table-bordered table-hover" style="width:800px">
+														
+													<thead>
+														<tr class="success">
+															<th style="width: 30px">序號</th>
+															
+															<th>救援狀態</th>
+														</tr>
+													</thead>
+													<tbody>
+								
+														<% int no2=0;%>
+														
+														<c:forEach var="rescuingVO" items="${list2}">
+																<% no2++; %>
+															<tr>
+																<td><%=no2 %></td>
+																<td>${rescuingVO.rscing_sta}</td>
+																
+															</tr>
+															
+														</c:forEach>
+													</tbody>
+												</table>
+															        
+									        </div>
+
+										    
+										   
+									    
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+
 
 <%-- 模板後script 加在自己的script前--%>
-<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>			
-			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-  			<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>			
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>	
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>	
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>			
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
-			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>				
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>			
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>	
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>			
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
-			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
-
+				<!-- 注意!!! 若有多個jquery會衝突 -->
+<!-- 	<script src="https://code.jquery.com/jquery.js"></script>  -->
+	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.dataTables.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script>
+		$(document).ready(function() {
+		    $('#table1').DataTable();
+		    $('#table2').DataTable();
+		} );
+	</script>
 <%-- RWD--%>
 <!-- <script src="https://code.jquery.com/jquery.js"></script> -->
 <!-- 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->

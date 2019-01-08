@@ -6,8 +6,8 @@
 <!-- Mobile Specific Meta -->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
- <!-- Favicon-->
-<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
+<!-- Favicon-->
+<link rel="shortcut icon" href="img/fav.png">
 <!-- Author Meta -->
 <meta name="author" content="codepixer">
 <!-- Meta Description -->
@@ -17,7 +17,7 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>LET ME PET YOU</title>
+<title>浪我陪你</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
@@ -43,6 +43,10 @@
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 <!-- https://fontawesome.com/ 自己的css-->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+	crossorigin="anonymous">
 
 <style type="text/css">
 	p {
@@ -57,12 +61,12 @@
 </style>
 </head>
 <body>
-
-	<header id="header" id="home" height="100">
+<% System.out.println("don_Header.jsp得到從addProdDon.jsp設定的屬性"+request.getAttribute("Test")); %>
+	<header id="header" id="home">
 		<div class="container">
 			<div class="row header-top align-items-center">
 				<div class="col-lg-3 col-sm-3 menu-top-left">
-					<a href="index.html"> <img class="img-fluid"
+					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid"
 						src="<%=request.getContextPath()%>/horse_UI_template/img/logo2.png" width="200" alt="">
 					</a>
 				</div>
@@ -77,26 +81,17 @@
 <!-- 					</div> -->
 <!-- 				</div> -->
 
+
 				<div class="col-lg-6 menu-top-middle justify-content-center d-flex"> 
 <!-- 					<div class="row align-items-center justify-content-center d-flex"> -->
 <!-- 						<nav id="nav-menu-container"> -->
 							<ul class="nav-menu">
 						    	<li><a href="index.html">首頁</a></li>
-						       	<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">救援</a>
-						       		<ul>
-								    	<li><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援案例</a></li>
-								    </ul>
-								 </li> 
-						        <li><a href="service.html">認養</a></li>	          
-						        <li><a href="training.html">協尋</a></li>
-						        <li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤</a>
-							      	<ul>
-								    	<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤案例柳覽</a></li>
-								        <li><a href="<%=request.getContextPath()%>/front-end/missingCase/addMissing.jsp">新增失蹤案例</a></li>
-								    </ul>
-								</li>
-						        <li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a>
+						       	<li><a href="about.html">救援</a></li>
+						        <li><a href="service.html">認養</a></li>				          
+						        <li><a href="training.html">失蹤</a></li>
+						        <li><a href="events.html">協尋</a></li>
+						        <li class="menu-has-children menu-active"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a>
 							      	<ul>
 								    	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li>
 								        <li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li>
@@ -104,12 +99,15 @@
 								        <li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></li>
 								    </ul>
 								</li>
-								<li class="menu-active"><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li>
 								<li><a href="contact.html">關於我們</a></li>
+								<li><a href="elements.html">常見問題</a></li>
 							</ul>
 <!-- 						</nav>#nav-menu-container		    		 -->
 <!-- 					</div> -->
 				</div>
+
+
 
 				<div class="col-lg-3 col-sm-3 menu-top-right">
 					<a class="tel">會員登入/ 註冊</a> <a href="#"><span
@@ -120,30 +118,63 @@
 		</div>
 		<hr>
 		
+<!-- 		<div class="container">	 -->
+<!-- 			<div class="row align-items-center justify-content-center d-flex"> -->
+<!-- 				<nav id="nav-menu-container"> -->
+<!-- 					<ul class="nav-menu"> -->
+<!-- 				    	<li><a href="index.html">首頁</a></li> -->
+<!-- 				       	<li><a href="about.html">救援</a></li> -->
+<!-- 				        <li><a href="service.html">認養</a></li>				           -->
+<!-- 				        <li><a href="training.html">失蹤</a></li> -->
+<!-- 				        <li><a href="events.html">協尋</a></li> -->
+<%-- 				        <li class="menu-has-children menu-active"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a> --%>
+<!-- 				        	<ul> -->
+<%-- 				            	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li> --%>
+<%-- 				            	<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li> --%>
+<%-- 				            	<li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">許願物資捐贈</a></li> --%>
+<%-- 				            	<li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></li> --%>
+<!-- 				            </ul> -->
+<!-- 				        </li> -->
+<%-- 				        <li><a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a></li> --%>
+<!-- 				        <li><a href="contact.html">關於我們</a></li> -->
+<!-- 				        <li><a href="elements.html">常見問題</a></li> -->
+<!-- 				     </ul> -->
+<!-- 				 </nav>#nav-menu-container		    		 -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+		
 		<div class="container">
 			<div class="row">
 
-<!-- 				左側邊list-group -->
- 				<div class="col-xs-12 col-sm-3">
+			<!-- 左側邊list-group -->
+			<div class="col-xs-12 col-sm-3">
 				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
-					<h3>救援</h3>
+					<h3>愛心捐贈</h3>
 					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></h5>
 					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></h5>
 					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">許願物資捐贈</a></h5>
 					<hr>
-
-					
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄列表</a></h5>
+					<hr>
 				</div>
 			</div>
 		</div>
 	</div>
-<!-- 			</div> -->
-<!-- 		</div> -->
+
 	</header>
 	<!-- #header -->
+
+	<br>
+	<br>
+
+	<br>
+	<br>
+
+	<br>
+	<br>
 
 	<!-- 	starting side-bar -->
 	

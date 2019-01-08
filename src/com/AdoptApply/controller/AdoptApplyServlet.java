@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.AdoptApply.model.AdoptApplyService;
 import com.AdoptApply.model.AdoptApplyVO;
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 public class AdoptApplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -79,20 +80,30 @@ public class AdoptApplyServlet extends HttpServlet {
 			String adopt_id = req.getParameter("adopt_id");
 			String adopt_id_status = req.getParameter("adopt_id_status");
 			String memb_id = req.getParameter("memb_id");
-
+			
 			if ("通過".equals(adopt_id_status)) {
 				AdoptApplyVO adoptApplyVO = new AdoptApplyVO();
 				adoptApplyVO.setAdopt_id_status(adopt_id_status);
 
 				AdoptApplyService adoptApplySvc = new AdoptApplyService();
 				adoptApplyVO = adoptApplySvc.changetStatus(adopt_id, adopt_id_status, memb_id);
-
+				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+				String url = "/back-end/Adopt/listAllApply.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listOneMissingCase.jsp
+				successView.forward(req, res);
+				
+				
 			} else if ("不通過".equals(adopt_id_status)) {
 				AdoptApplyVO adoptApplyVO = new AdoptApplyVO();
 				adoptApplyVO.setAdopt_id_status(adopt_id_status);
 
 				AdoptApplyService adoptApplySvc = new AdoptApplyService();
 				adoptApplyVO = adoptApplySvc.changetStatus(adopt_id, adopt_id_status, memb_id);
+
+				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+				String url = "/back-end/Adopt/listAllApply.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listOneMissingCase.jsp
+				successView.forward(req, res);
 
 			}
 		}

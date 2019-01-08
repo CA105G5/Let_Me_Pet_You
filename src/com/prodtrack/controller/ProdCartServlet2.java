@@ -27,8 +27,8 @@ public class ProdCartServlet2 extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		doPost(req, res); 
-	} 
+		doPost(req, res);
+	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -142,6 +142,7 @@ public class ProdCartServlet2 extends HttpServlet {
 				
 				String url = req.getContextPath()+"/front-end/ord/cart_Receiver.jsp";
 				res.sendRedirect(url);
+				
 //				String url = "/front-end/ord/cart_Main.jsp";
 //				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneProd.jsp
 //				successView.forward(req, res);

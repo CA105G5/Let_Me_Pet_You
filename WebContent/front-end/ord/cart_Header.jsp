@@ -1,3 +1,4 @@
+<%@page import="com.mem.model.MemVO"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -9,24 +10,14 @@
 	String[] prod_type_id = null;
 	String prod_price = null;
 	
-	if (map!=null){
-		Set<String> keys = map.keySet();
-		if (keys.contains("prod_ani_type_id")){
-			prod_ani_type_id = map.get("prod_ani_type_id");
-			System.out.println("prod_ani_type_id:");
-		}
-		if (keys.contains("prod_type_id")){
-			prod_type_id = map.get("prod_type_id");
-		}
-		if (keys.contains("prod_price")){
-			prod_price = map.get("prod_price")[0];
-		}
-	}
-	
-	
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
+	String memb_id=null;
+	if (memVO!=null)
+		memb_id = memVO.getMemb_id();
 	
 	%>
 	
+	<jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
 	
 	
 <!DOCTYPE html>
@@ -129,14 +120,14 @@ i.fa-shopping-cart:hover {
 	<header id="header" id="home" height="100">
 		<div class="container">
 			<div class="row header-top align-items-center">
-				<div class="col-lg-3 col-sm-3 menu-top-left col-sm-offset-1">
+				<div class="col-lg-3 col-sm-3" >
 					<a href="<%=request.getContextPath()%>/index.jsp"> <img 
 						src="<%=request.getContextPath()%>/horse_UI_template/img/logo2.png" width="250" alt="">
 					</a>
 				</div>
 
-				<div class="col-lg-7 col-sm-7" > 
-					<nav style="width:400px">
+				<div class="col-lg-6 col-sm-6 align-items-center"> 
+					<nav>
 						<ol class="cd-multi-steps text-bottom count">
 							<li class="current">
 								<a href="<%=request.getContextPath()%>/prodcart.do?action=check_Cart" style="text-decoration: none;">
@@ -149,18 +140,27 @@ i.fa-shopping-cart:hover {
 					</nav>
 				</div>
 
-				<div class="col-lg-3 col-sm-3">
-<!-- 					<div class="row"> -->
-<!-- 						<div id="cart-container" class="col-lg-1 col-sm-1"> -->
-<%-- 						      <a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp"><i class="fa fa-shopping-cart fa-1x" aria-hidden="true"></i></a> --%>
-<!-- 						      <span id="itemCount"></span> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-lg-11 col-sm-11 menu-top-right"> -->
-<!-- 							<a class="tel">會員登入/ 註冊</a>  -->
-<!-- 							<a href="#"><span class="fa fa-user"></span></a> -->
-<!-- 							style="font-size: 1.5rem;" -->
-<!-- 						</div> -->
-<!-- 					</div> -->
+				<div class="col-lg-3 col-sm-3 align-items-center" >
+					<div class="col-lg-12 col-sm-12">
+						<div class="row">
+							<div id="cart-container" class="col-lg-1 col-sm-1 offset-sm-5">
+								<a id="cart_icon"><i class="fa fa-shopping-cart fa-1x" aria-hidden="true"></i></a>
+								<span id="itemCount"></span>
+							</div>
+							<div class="col-lg-1 col-sm-1">
+								<a id="fav_icon"><i class="glyphicon glyphicon-heart" style="color: red; font-size:15px"  id="fav_heart"></i></a>
+							</div> 
+						</div>
+					</div>
+						<a href="<%=request.getContextPath()%>/front-end/members/listAllNtfs.jsp" style="display: ${memVO==null? 'none':'' }"><i class="fa fa-bell"></i></a>
+									
+						<% if(memVO!=null)
+						   	   out.print(memVO.getMemb_nick()+"，你好");
+						%>
+						<br>
+						<% if(memVO!=null) {%>
+						<a href="<%=request.getContextPath()%>/front-end/members/cur_dt.jsp" style="display: ${memVO==null? 'none':'' }">愛心幣餘額</a>
+						<% out.print("尚有:    "+memSvc.getOneMem(memVO.getMemb_id()).getMemb_balance()+"元"); }%>
 				</div>
 			</div>
 		</div>
@@ -236,6 +236,80 @@ i.fa-shopping-cart:hover {
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+	
+	<script type="text/javascript">
+	
+			// 	購物車
+			// 	顯示購物車數量
+			$(function(){
+				$.ajax({
+					url: '<%=request.getContextPath()%>/prodcart.do',
+					type: "get",
+					success: function(res){
+						console.log(res);
+						if (parseInt(res) > 0){
+							console.log("parseInt = " + parseInt(res));
+							$('#itemCount').html(res).css('display', 'block');
+						} 
+					},
+					error: function(res){
+						console.log(res);
+					}
+				
+				});
+			});
+	
+
+		$("#cart_icon").click(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodcart.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) < 1){
+	//						alert("購物車中無商品");
+						swal("Oops.....", "購物車中無商品", "warning").catch(swal.noop);
+						return false;
+					} else{
+						console.log("redirect.....");
+						console.log("<%=request.getContextPath()%>/prodcart.do?action=check_Cart");
+						window.location.href = "<%=request.getContextPath()%>/prodcart.do?action=check_Cart";
+					}
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+	
+	
+		$("#fav_icon").click(function(){
+			$.ajax({
+				url: '<%=request.getContextPath()%>/prodtrack.do',
+				type: "get",
+				success: function(res){
+					console.log(res);
+					if (parseInt(res) < 1){
+	// 					alert("尚無追蹤商品");
+						swal("Oops.....", "尚無追蹤商品", "warning").catch(swal.noop);
+						return false;
+					} else{
+						window.location.href = "<%=request.getContextPath()%>/prodtrack.do?action=check_Fav";
+					}
+				},
+				error: function(res){
+					console.log(res);
+				}
+			
+			});
+		});
+		
+		$(".nav-menu li").click(function(){
+			$(this).attr('class', 'menu-active' );
+		});
+	
+	</script>
 </body>
 </html>
 
