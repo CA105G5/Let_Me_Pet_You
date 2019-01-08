@@ -7,7 +7,7 @@
 
 <%
 MemVO memVO = (MemVO) session.getAttribute("memVO");
-String memb_id = memVO.getMemb_id();
+String memb_id = memVO.getMemb_id(); 
 
 System.out.println("11111111111111"+memb_id);
 

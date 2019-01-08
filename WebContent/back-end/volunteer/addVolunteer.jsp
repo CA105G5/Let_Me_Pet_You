@@ -45,7 +45,7 @@
 
 </head>
 <body bgcolor='white'>
-
+<jsp:include page="/back-end/manager/back_end_index_header.jsp" flush="true" />
 <table id="table-1">
 	<tr><td>
 		 <h3>志工資料新增</h3></td><td>

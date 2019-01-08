@@ -332,7 +332,8 @@ public class MemServlet extends HttpServlet {
 						
 				
 			}catch(Exception e) {
-				errorMsgs.add("無法新增資料:" + e.getMessage());
+				
+				errorMsgs.add("帳號有人使用");
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/members/addMembers.jsp");
 				failureView.forward(req, res);
