@@ -15,7 +15,6 @@ Map<String, String[]> map1 = new TreeMap<String, String[]>();
 map1.put("rsc_sponsor",new String[] {memb_id});
 RescueService rescueSvc = new RescueService();
 List<RescueVO> list =rescueSvc.getAll(map1);
-System.out.println("11111111111111"+memb_id);
 pageContext.setAttribute("list",list);
 
 Map<String, String[]> map2 = new TreeMap<String, String[]>();
