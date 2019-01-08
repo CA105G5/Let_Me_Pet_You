@@ -95,7 +95,7 @@ public class RescuingServlet extends HttpServlet {
 				}
 			}
 			if ("rescueReport".equals(action)) {
-
+					System.out.println("111111111111111111111111111");
 				try {
 					// Retrieve form parameters.
 					String rsc_id = req.getParameter("rsc_id");
@@ -112,7 +112,7 @@ public class RescuingServlet extends HttpServlet {
 					
 					// 取出的empVO送給listOneEmp.jsp
 					RequestDispatcher successView = req
-							.getRequestDispatcher("/frond-end/rescue/listMemRescue.jsp");
+							.getRequestDispatcher("/front-end/rescue/rescueReport.jsp");
 					successView.forward(req, res);
 					return;
 

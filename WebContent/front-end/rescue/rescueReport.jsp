@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-<%@ page import="com.rescue.model.*"%>
+<%@ page import="com.rescuing.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.mem.model.*"%>
@@ -7,9 +7,9 @@
 
 
 <%
-RescueVO rescueVO = (RescueVO) request.getAttribute("rescueVO");
+RescuingVO rescuingVO = (RescuingVO) request.getAttribute("rescuingVO");
 %>
-
+<jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +33,7 @@ div {
 </head>
 <body>
 
-
+<jsp:include page="/index_Header.jsp" flush="true" />
 	
 	
 	<section style="padding-top:30px" class="training-area section-gap">
@@ -41,11 +41,21 @@ div {
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
 				<div class="row">
 					<div class="col-xs-12 col-sm-2" style="top: 10px; bottom: auto;">
+						<h3>救援</h3>
+						<hr>
+						<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
+						<hr>
+						<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
+						<hr>
+						<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
+						<hr>
+						<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp">待完成救援案例</a></h5>
+						<hr>
 					</div> <!-- position: fixed -->
 					<div class="col-xs-12 col-sm-1"></div>
 					<div class="col-xs-12 col-sm-9">
 						<div class="row">
-							<h1 class="pb-10">新增救援案例</h1>
+							
 							<%-- 錯誤表列 --%>
 							<c:if test="${not empty errorMsgs}">
 								<div>
@@ -57,28 +67,50 @@ div {
 									</ul>
 								</div>
 							</c:if>
-							<form METHOD="post" ACTION="<%=request.getContextPath()%><%=request.getContextPath()%>/front-end/rescuing/rescuing.do" enctype="multipart/form-data">
-								<div class="input-group">
-									<label class="input-group-addon" style="width: 150px;">救援案例編號</label>
-						  			<input type="text" class="form-control"  readonly="readonly"
-						  				   value="${rescuingVO.rsc_id}" id="rsc_id" name="rsc_id" style="width: 500px;">
+							
+							<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do" enctype="multipart/form-data">
+   								<h1>完成案例報告</h1>
+   								<br>
+								<h4>救援案例編號：</h4>					  			
+								<input type="text" name="rsc_id" value="${rescuingVO.rsc_id}" readonly="readonly" required="" class="single-input">
+								<br>
+								<h4>填寫會員暱稱：</h4>
+								<input type="text" name="memb_nick" value="${memSvc.getOneMem(rescuingVO.rscing_ptcp).memb_nick}" readonly="readonly" required="" class="single-input">
+								<br>
+								<div class="single-element-widget mt-30">
+									<h3 class="mb-30">Checkboxes</h3>
+									<div class="switch-wrap d-flex justify-content-between">
+										<p>01. Sample Checkbox</p>
+										<div class="primary-checkbox">
+											<input type="checkbox" id="default-checkbox">
+											<label for="default-checkbox"></label>
+										</div>
+									</div>
+									<div class="switch-wrap d-flex justify-content-between">
+										<p>02. Primary Color Checkbox</p>
+										<div class="primary-checkbox">
+											<input type="checkbox" id="primary-checkbox" checked="">
+											<label for="primary-checkbox"></label>
+										</div>
+									</div>
+									<div class="switch-wrap d-flex justify-content-between">
+										<p>03. Confirm Color Checkbox</p>
+										<div class="confirm-checkbox">
+											<input type="checkbox" id="confirm-checkbox">
+											<label for="confirm-checkbox"></label>
+										</div>
+									</div>
+
+								
 								</div>
 								<br>
-								<div class="input-group">
-									<label class="input-group-addon" for="rscing_ptcp" style="width: 150px;">填寫會員</label>
-								  	<input type="text" class="form-control"  readonly="readonly"
-								  		   value="${rescuingVO.rscuing_ptcp}" id="rscing_ptcp" name="rscing_ptcp" style="width: 500px;">
-								</div>
+								<h4>完成描述</h4>
+						  		<textarea name="rscing_rv_des" id="rscing_rv_des" rows="10" cols="80"><%= (rescuingVO.getRscing_rv_des()==null)? "" : rescuingVO.getRscing_rv_des()%></textarea>
+			            		<script> CKEDITOR.replace( 'rscing_rv_des', {}); </script> 
+			            		<br>
 								<br>
-								<div class="input-group">
-									<label class="input-group-addon" style="width: 150px;">完成描述</label>
-						  			<textarea name="rsc_des" id="rsc_des" rows="10" cols="80"><%= (rescueVO==null)? "" : rescueVO.getRsc_des()%></textarea>
-			            			<script> CKEDITOR.replace( 'rsc_des', {}); </script> 
-			            			<br>
-								</div>
 								<br>
-									
-								<br>
+								<button class="genric-btn success circle arrow">完成救援<span class="lnr lnr-arrow-right"></span></button>
 							</form>
 						</div>
 					</div>
@@ -87,31 +119,6 @@ div {
 			</div>
 		</div>
 	</section>
-	
-	<script>
-		var i;
-		var files = $("#form :file"); //若只有單一表格要做動態樣式，則可以使用css選擇器
-		$("#rsc_img").change(function() {
-			$("#preview").html("");
-			console.log(this);
-			readURL(this);
-		});
-	
-		function readURL(input) {
-			if (input.files && input.files.length>= 0) {
-				for (var i = 0; i < input.files.length; i++) {
-					var reader = new FileReader();
-					reader.readAsDataURL(input.files[i]);
-					reader.onload = function(e) {
-					var img = $("<img width='300' height='200'>").attr('src', e.target.result);
-						console.log(img);
-						$("#preview").append(img).append("<br>").append("<br>");
-					}
-				}
-			}
-		}
-	
-	</script>
 
 
 

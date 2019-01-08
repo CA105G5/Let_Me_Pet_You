@@ -110,8 +110,13 @@ div {
 													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescuingVO.rsc_id}">${rescuingVO.rsc_id}</a></td>
 													<td style=" margin-bottom: auto">${rescuingVO.rscing_ptcp}<br>暱稱：${memSvc.getOneMem(rescuingVO.rscing_ptcp).memb_nick}</td>
 													<td style=" margin-bottom: auto"><fmt:formatDate value="${rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_btime}" type="both" /></td>
-													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do?rsc_id=${rescuingVO.rsc_id}&rscing_ptcp=${rescuingVO.rscing_ptcp}&action=rescueReport" class="genric-btn success circle arrow">完成救援<span class="lnr lnr-arrow-right"></span></a>
-													
+													<td style=" margin-bottom: auto">
+													<form method="post" action="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do">
+													<input type="hidden"name="action" value="rescueReport">
+													<input type="hidden"name="rsc_id" value="${rescuingVO.rsc_id}">
+													<input type="hidden"name="rscing_ptcp" value="${rescuingVO.rscing_ptcp}">
+													<button class="genric-btn success circle arrow">完成救援<span class="lnr lnr-arrow-right"></span></button>
+													</form>
 													</td>
 												</tr>
 									    
@@ -119,37 +124,7 @@ div {
 										</c:forEach>
                                     </tbody>
                                 </table>
-<c:if test="${openModal!=null}">
-
-<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-				
-			<div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title" id="myModalLabel">The Bootstrap modal-header</h3>
-            </div>
-			
-			<div class="modal-body">
-<!-- =========================================以下為原的內容========================================== -->
-               <jsp:include page="rescueReport.jsp" />
-<!-- =========================================以上為原的內容========================================== -->
-			</div>
-			
-			<div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-		
-		</div>
-	</div>
-</div>
-
-        <script>
-    		 $("#basicModal").modal({show: true});
-        </script>
- </c:if>
-                            </div>
+            				</div>
                         </div>
                     </div>
 
