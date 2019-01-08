@@ -48,7 +48,9 @@ public class RescueServlet extends HttpServlet {
 			writeText(res,gson.toJson(rescueList));
 		} else if ("findByPrimaryKey".equals(action)) {
 			String rsc_id = jsonObject.get("rsc_id").getAsString();
-			writeText(res, gson.toJson(rescueDao.findByPrimaryKey(rsc_id)));
+			RescueVO rescueVO = rescueDao.findByPrimaryKey(rsc_id);
+			rescueVO.setRsc_img(null);
+			writeText(res, gson.toJson(rescueVO));
 		}else if ("addcase".equals(action)) {
 			RescueVO rescueVO = gson.fromJson(jsonObject.get("Rescue").getAsString(), RescueVO.class);
 			writeText(res, String.valueOf(rescueDao.addCase(rescueVO)));
