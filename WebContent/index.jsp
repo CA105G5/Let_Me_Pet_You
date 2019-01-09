@@ -81,12 +81,12 @@ System.out.println( "是否登入:"+ (memVO != null));
 								浪我陪你 <br>
 								LET ME PET YOU
 							</h1>
-							<a href="#" class="genric-btn">Book Consultancy</a>
+							
 						</div>
 					</div>
 				</div>
 			</section>
-		<section id="sp-main-top-wrapper" class=" "><div class="row-fluid" id="main-top">
+		
 	
 <%-- 鼓勵救援區 --%>			
 			<section class="about-video-area section-gap">
@@ -108,7 +108,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 							<a class="primary-btn" href="#">Get Started Now</a>
 						</div>
 						<div class="col-lg-6 about-video-right justify-content-center align-items-center d-flex">
-							<a class="play-btn" href="https://www.youtube.com/watch?v=ARA0AxrnHdM"><img class="img-fluid mx-auto" src="img/play.png" alt=""></a>
+							<a class="play-btn" href="https://www.youtube.com/watch?v=ARA0AxrnHdM"><img class="img-fluid mx-auto" src="<%=request.getContextPath()%>/horse_UI_template/img/play.png" alt=""></a>
 						</div>
 					</div>
 				</div>	

@@ -15,6 +15,8 @@ import com.mem.model.MemService;
 import com.mem.model.MemVO;
 import com.rescue.model.RescueVO;
 import com.volunteer.model.*;
+
+import util.MailService;
 @MultipartConfig
 public class VolunteerServlet extends HttpServlet{
 
@@ -204,7 +206,7 @@ public class VolunteerServlet extends HttpServlet{
 				volunteerSvc.updateForManager(volunteerVO);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("volunteerVO", volunteerVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/back-end/volunteer/listOneVolunteer.jsp";
+				String url = "/back-end/volunteer/listAllVolunteer.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -393,24 +395,24 @@ public class VolunteerServlet extends HttpServlet{
 				String vlt_duty_day = req.getParameter("vlt_duty_day").trim();
 				String vlt_reg = req.getParameter("reg_id").trim();
 				//亂數密碼
-				StringBuilder sb = new StringBuilder();
-				for(int i=1;i<=8;i++) {
-					int condition = (int)(Math.random()*3)+1;
-					switch(condition) {
-					case 1:
-						char c1 = (char)((int)(Math.random()*26)+65);
-						sb.append(c1);
-						break;
-					case 2:
-						char c2 = (char)((int)(Math.random()*26)+97);
-						sb.append(c2);
-						break;
-					case 3:
-						sb.append((int)(Math.random()*10));
-						break;
-					}
-				}
-				String vlt_pw = sb.toString();
+//				StringBuilder sb = new StringBuilder();
+//				for(int i=1;i<=8;i++) {
+//					int condition = (int)(Math.random()*3)+1;
+//					switch(condition) {
+//					case 1:
+//						char c1 = (char)((int)(Math.random()*26)+65);
+//						sb.append(c1);
+//						break;
+//					case 2:
+//						char c2 = (char)((int)(Math.random()*26)+97);
+//						sb.append(c2);
+//						break;
+//					case 3:
+//						sb.append((int)(Math.random()*10));
+//						break;
+//					}
+//				}
+				String vlt_pw = genAuthCode();
 				//新增的志工狀態
 				String vlt_sta = "在職志工";
 				//新增時還未有圖片
@@ -431,6 +433,17 @@ public class VolunteerServlet extends HttpServlet{
 				volunteerVO.setVlt_sta(vlt_sta);
 				volunteerVO.setVlt_reg(vlt_reg);
 				
+				//寄密碼給志工
+				String to = vlt_mail;
+			      
+			    String subject = "新密碼通知";
+			      
+			    String ch_name = vlt_name;      
+
+			    String passRandom = vlt_pw;
+			    String messageText = "Hello! " + ch_name + "，歡迎成為新志工，請謹記此密碼: " + passRandom + "\n" +" (已經啟用)";
+			    MailService mailService = new MailService();
+			    mailService.sendMail(to, subject, messageText);
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -641,6 +654,51 @@ public class VolunteerServlet extends HttpServlet{
 
 		return baos.toByteArray();	//將ByteArrayOutputStream轉成ByteArray
 	}
-	
+	public static String genAuthCode() {
+    	int number8_20 = (int)(Math.random()*13+8);
+    	char[] pool=new char[62];
+    	int count=0,index=0;
+    	int [] lucky=new int[number8_20];
+    	boolean bool1=false,bool2=false,bool3=false;
+    	for(char i=48; i<=57; i++) {
+    		pool[count]=i;
+    		count++;
+    	}
+    	for(char j=65; j<=90; j++) {
+    		pool[count]=j;
+    		count++;
+    	}
+    	for(char k=97; k<=122; k++) {
+    		pool[count]=k;
+    		count++;
+    	}
+    	do {
+    		bool1=true;
+    		bool2=true;
+    		bool3=true;
+    		index=0;
+    		for (int t=0;t<number8_20;t++) {
+    			lucky[index]=(int)(Math.random()*count);
+    			index++;
+    	    }
+    		for (int n=0;n<number8_20;n++) {
+    			if(0<=lucky[n]&&lucky[n]<=9) {
+    				bool1=false;
+    			}
+    			if(10<=lucky[n]&&lucky[n]<=35) {
+    				bool2=false;
+    			}
+    			if(36<=lucky[n]&&lucky[n]<=61) {
+    				bool3=false;
+    			}
+    		}
+    	} while(bool1||bool2||bool3);
+    	StringBuffer sb = new StringBuffer();
+    	for (int m=0;m<number8_20;m++) {
+    		sb = sb.append(pool[lucky[m]]);
+    	}
+    	return sb.toString();
+    	
+    }
 
 }

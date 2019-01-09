@@ -98,8 +98,7 @@
 i.fa-shopping-cart:hover {
   cursor: pointer;
 }
-	
-	
+
 	
 </style>
 </head>
@@ -181,6 +180,27 @@ i.fa-shopping-cart:hover {
 							<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊">登入/註冊</a>
 							<%}else{ %>
 							<div align="center">
+								<div class="dropdown for-notification" style="width:20px;height:20px">
+		                            <button class="" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0px;color:#007bff;background-color:#ffffff;border-width:0px;width:20px;height:20px">
+		                                <i class="fa fa-bell"></i>
+		                                <span class="count" style="margin:0px;padding:0px;width:5px;height:5px">3</span>
+		                            </button>
+		                            <div class="dropdown-menu" aria-labelledby="notification">
+		                                <p class="red">You have 3 Notification</p>
+		                                <a class="dropdown-item media" href="#">
+		                                    <i class="fa fa-check"></i>
+		                                    <p>Server #1 overloaded.</p>
+		                                </a>
+		                                <a class="dropdown-item media" href="#">
+		                                    <i class="fa fa-info"></i>
+		                                    <p>Server #2 overloaded.</p>
+		                                </a>
+		                                <a class="dropdown-item media" href="#">
+		                                    <i class="fa fa-warning"></i>
+		                                    <p>Server #3 overloaded.</p>
+		                                </a>
+		                            </div>
+		                        </div>
 								<a href="<%=request.getContextPath()%>/front-end/members/listAllNtfs.jsp"><i class="fa fa-bell"></i></a>
 								
 								<%
