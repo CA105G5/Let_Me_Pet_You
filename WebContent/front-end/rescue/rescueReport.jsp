@@ -38,6 +38,17 @@ div {
 		monospace;
 }
 
+table{
+	border-spacing:10px !important;
+	border-collapse:separate !important;
+}
+#scroll {
+    /*width: 150px;*/
+    height: 350px;
+    overflow: scroll;
+}
+
+
 </style>
 </head>
 <body>
@@ -86,26 +97,58 @@ div {
 								<h4>填寫會員暱稱：</h4>
 								<input type="text" name="memb_nick" value="${memSvc.getOneMem(rescuingVO.rscing_ptcp).memb_nick}" readonly="readonly" required="" class="single-input">
 								<br>
-								<div class="single-element-widget mt-30">
-									<h3 class="mb-30">一起參與的會員</h3>
-									<c:forEach var="rescuingVO2" items="${listRescuingMem}">
+								<div class="single-element-widget mt-30 ">
+								<h4>一起參與的會員：</h4>
+<!-- 									<div id="scroll"> -->
+<%-- 									<c:forEach var="rescuingVO2" items="${listRescuingMem}"> --%>
 									
-									<div class="switch-wrap d-flex justify-content-between" style="width:30%">
-										<table><tr>
-										<td>
+<!-- 									<div class="switch-wrap d-flex justify-content-between" style="width:30%"> -->
+<!-- 										<table style="text-align:center"> -->
+										
+<!-- 										<tr> -->
+										
+<!-- 										<td> -->
+<!-- 										<div class="primary-checkbox" style="height:20px;width:20px"> -->
+<%-- 											<label for="${rescuingVO2.rscing_ptcp}"></label> --%>
+<%-- 											<input type="checkbox" id="${rescuingVO2.rscing_ptcp}"> --%>
+<!-- 										</div> -->
+<!-- 										</td> -->
+<!-- 										<td> -->
+<%-- 										<img style="width:80px;height:80px"src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memSvc.getOneMem(rescuingVO2.rscing_ptcp).memb_id}" alt=""> --%>
+<!-- 										</td> -->
+										
+<%-- 										<td style="width:100px;text-aling:center" >${memSvc.getOneMem(rescuingVO2.rscing_ptcp).memb_nick}</td> --%>
+<!-- 										</tr> -->
+										
+<!-- 										</table> -->
+<!-- 									</div> -->
+<%-- 									</c:forEach>	 --%>
+<!-- 									</div> -->
+									
+									
+									 
+									    <div class="switch-wrap justify-content-between " id="scroll">
+									    <c:forEach var="rescuingVO2" items="${listRescuingMem}">
+									    <c:if test="${rescuingVO2.rscing_ptcp!=rescuingVO.rscing_ptcp}" var="condition" scope="page">
+									        <div class="checkbox">
+									            <label><input type="checkbox" value="">
+									            <table style="text-align:center">
+									            <tr>
+									            <td>
 										<img style="width:80px;height:80px"src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memSvc.getOneMem(rescuingVO2.rscing_ptcp).memb_id}" alt="">
 										</td>
+										
 										<td style="width:100px;text-aling:center" >${memSvc.getOneMem(rescuingVO2.rscing_ptcp).memb_nick}</td>
-										<td>
-										<div class="primary-checkbox" style="height:20px;width:20px">
-											<input type="checkbox" id="${rescuingVO2.rscing_ptcp}">
-											<label for="${rescuingVO2.rscing_ptcp}"></label>
+									            
+									            
+									            
+									            </tr>
+									            </table>
+									            </label>
+									        </div>
+									        </c:if>
+									    </c:forEach>
 										</div>
-										</td>
-										</tr></table>
-									</div>
-									</c:forEach>	
-									
 									
 
 								
@@ -129,6 +172,9 @@ div {
 	</section>
 
 
+<script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
 
 </body>
 </html>

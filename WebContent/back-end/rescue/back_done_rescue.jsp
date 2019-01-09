@@ -196,7 +196,7 @@ if (rescuingReviewList==null){
 								                    </div>
 								                </div>
 								            </div>
-								        										</c:if>
+								          </c:if>
 										</c:forEach>
                                     </tbody>
                                 </table>
