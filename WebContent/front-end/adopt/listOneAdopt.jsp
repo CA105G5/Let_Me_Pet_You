@@ -79,17 +79,19 @@
 				<div class="row">
 					<div class="col-lg-12 post-list blog-post-list">
 						<div class="single-post">
+						<div style="text-align:center;">
 							<img class="img-fluid"
-								src="<%=request.getContextPath() %>/front-end/adopt/adoptImg.do?adopt_id=${adoptionVO.adopt_id}"
-								alt="">
+								src="<%=request.getContextPath() %>/front-end/adopt/adoptImg.do?adopt_id=${adoptionVO.adopt_id}">
+						</div>
 							<ul class="tags">
 								<li><fmt:formatDate value="${adoptionVO.adopt_btime}"
 										pattern="yyyy-MM-dd" /></li>
 							</ul>
-							
+						<div style="float:right;">
 							<button type="button" class="genric-btn primary small"
 								style="margin-left: 670px;" id="apply" data-toggle="modal"
 								data-target="#exampleModalCenter">申請</button>
+						</div>
 							<a href="#">
 								<h3>${adoptionVO.adopt_species}</h3>
 							</a>
@@ -152,7 +154,7 @@
 										</h4>
 									</div>
 									<div class="thumb">
-										<img src="img/blog/next.jpg" alt="">
+										<img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${adoptionVO.adopt_sponsor}" alt="">
 									</div>
 								</div>
 							</div>
@@ -187,12 +189,12 @@
 									type="hidden" name="action" value="insert"> <input
 									type="submit" id="submit"
 									class="genric-btn danger circle arrow col-offset-md-6"
-									style="margin-left: 731px" value="送出">
+									style="margin-left: 1020px;" value="送出">
 
 							</form>
 
-							<c:forEach var="adoptMsgVO" items="${list}">
-								<div class="comment-list" id="contentdiv">
+							<c:forEach var="adoptMsgVO" items="${list}" varStatus="i">
+								<div class="comment-list" id="m${i.index}">
 									<div class="single-comment justify-content-between d-flex">
 										<div class="user justify-content-between d-flex">
 											<div class="thumb">
@@ -200,7 +202,7 @@
 											</div>
 											<div class="desc">
 												<h5>
-													<a href="#">Emilly Blunt</a>
+													<a href="#">${memSvc.getOneMem(adoptMsgVO.adopt_msg_sper).memb_nick}</a>
 								
 						<div style="float:right">
 							<ul class="nav-menu">
@@ -209,6 +211,15 @@
 										<li>
 											<button type="button" class="genric-btn primary small"
 								 data-toggle="modal"	data-target="#${adoptMsgVO.adopt_msg_id}">檢舉</button>
+										</li>
+										<li>
+<!-- 											<form method="post" -->
+<%-- 												action="<%=request.getContextPath()%>/front-end/adopt/adoptMsgServlet.do"> --%>
+												<button class="genric-btn primary small" type="submit" id="${i.index}">刪除</button>
+												<input type="hidden" name="action" value="delete">
+												<input type="hidden" name="adopt_msg_id" value="${adoptMsgVO.adopt_msg_id}">
+												<input type="hidden" name="adopt_id" value="<%=request.getParameter("adopt_id")%>">
+<!-- 											</form> -->
 										</li>
 									</ul>
 								</li>
@@ -271,6 +282,58 @@
 								</div>
 							</div>
 							<!-- 檢舉結束 -->
+<script>
+//刪除留言
+	$('#${i.index}').click(function(e){
+		if(${adoptMsgVO.adopt_msg_sper != membVO.memb_id}){
+			swal("刪除失敗！你不是留言的人！","","warning");
+			return false;
+		}else{
+			swal({
+	            title: "確定刪除？",
+	            html: "按下確定後資料會永久刪除",
+	            type: "question", 
+	            showCancelButton: true,
+	        	showCloseButton: true,
+	        }).then(
+		        	  function (result) {
+		                  if (result) {
+		                	  console.log("11111111111111");
+		                	 $.ajax({
+		                			url : '<%=request.getContextPath()%>/front-end/adopt/adoptMsgServlet.do',
+		                			type : 'Post',
+		    						data : {
+		    							action : 'delete',
+		    							adopt_msg_id : '${adoptMsgVO.adopt_msg_id}',
+		    							memb_id : '${adoptMsgVO.adopt_msg_sper}',
+		    						},
+		    						success: function(result){
+		    							 console.log("222222222");
+		    								$('#m${i.index}').hide();
+		    						}
+		                	 })
+		                      swal("完成!", "資料已經刪除", "success");
+		                  }
+		              }, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+		             		swal("取消", "資料未被刪除", "error");
+		   	       }).catch(swal.noop);
+		}
+	});
+//新增留言
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</script>
+							
+							
+							
 							</c:forEach>
 						</div>
 
@@ -284,14 +347,16 @@
 	<script>
 	$('#apply').click(function(e){
 		if(${AdoptApplyVO.memb_id == membVO.memb_id && AdoptApplyVO.adopt_id == adopt_id}){
-			swal("申請失敗！你已經申請過了!");
+			swal("申請失敗！你已經申請過了!","","warning！");
 			return false;
 		}
 	});	
+	
+	
+	
 	</script>
 	</c:if>
 	</c:forEach>
-
 
 
 	

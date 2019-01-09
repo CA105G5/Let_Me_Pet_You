@@ -43,4 +43,8 @@ public class AdoptMsgService {
 	public AdoptMsgVO getOneMsg(String adopt_msg_id) {
 		return dao.findByPrimaryKey(adopt_msg_id);
 	}
+	
+	public void delete(String adopt_msg_id) {
+		 dao.delete(adopt_msg_id);
+	}
 }
