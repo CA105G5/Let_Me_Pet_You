@@ -84,6 +84,7 @@ table{
 								<br>
 								<h4>填寫會員暱稱：</h4>
 								<input type="text" name="memb_nick" value="${memSvc.getOneMem(rescuingVO.rscing_ptcp).memb_nick}" readonly="readonly" required="" class="single-input">
+								<input type="hidden" name="reporter" value="${rescuingVO.rscing_ptcp}">
 								<br>
 								<div class="single-element-widget mt-30 ">
 								<h4>一起參與的會員：</h4>
@@ -171,7 +172,7 @@ $(document).ready(function() {
 	     				 "rsc_id":$('rsc_id').val(),
 	     				 "rscing_ptcp":$('[name="rscing_ptcp"]').val(),
 	     				 "rscing_rv_des":$('rscing_rv_des').val(),
-	     				 "reporter":(${rescuingVO2.rscing_ptcp})
+	     				 "reporter":($('reporter').val())
 	     				 },
 	     			 datatype:"json",
 	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
