@@ -92,7 +92,7 @@ table{
    								<h1>完成案例報告</h1>
    								<br>
 								<h4>救援案例編號：</h4>					  			
-								<input type="text" name="rsc_id" value="${rescuingVO.rsc_id}" readonly="readonly" required="" class="single-input">
+								<input type="text" id="rsc_id" name="rsc_id" value="${rescuingVO.rsc_id}" readonly="readonly" required="" class="single-input">
 								<br>
 								<h4>填寫會員暱稱：</h4>
 								<input type="text" name="memb_nick" value="${memSvc.getOneMem(rescuingVO.rscing_ptcp).memb_nick}" readonly="readonly" required="" class="single-input">
@@ -131,7 +131,7 @@ table{
 									    <c:forEach var="rescuingVO2" items="${listRescuingMem}">
 									    <c:if test="${rescuingVO2.rscing_ptcp!=rescuingVO.rscing_ptcp}" var="condition" scope="page">
 									        <div class="checkbox">
-									            <label><input style="height: 20px;margin-top: 0px;bottom: 50px;top: 40px;width: 20px;" type="checkbox" value="">
+									            <label><input style="height: 20px;margin-top: 0px;bottom: 50px;top: 40px;width: 20px;" type="checkbox" name="rscing_ptcp" value="${rescuingVO2.rscing_ptcp}">
 									            <table style="text-align:center">
 									            <tr>
 									            <td>
@@ -148,6 +148,7 @@ table{
 									        </div>
 									        </c:if>
 									    </c:forEach>
+									    <div class="checkbox"><input type="hidden" name="rscing_ptcp" value="${rescuingVO.rscing_ptcp}"></div>
 										</div>
 									
 
@@ -161,7 +162,7 @@ table{
 			            		<br>
 								<br>
 								<br>
-								<button class="genric-btn success circle arrow">完成救援<span class="lnr lnr-arrow-right"></span></button>
+								<button class="genric-btn success circle arrow" id="done">完成救援<span class="lnr lnr-arrow-right"></span></button>
 							</form>
 						</div>
 					</div>
@@ -173,8 +174,75 @@ table{
 
 
 <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$('#done').click(function(){
+// 		 var $this = $(this);
+		 console.log("rsc_id="+$('rsc_id').val());
+		 console.log("checkbox"+$('[name="rscing_ptcp"]').val());
+// 		 swal({
+// 			  title: "確定送出報告?",
+// 			  text: "送出後無法更改!",
+// 			  type: "warning",
+// 			  showCancelButton: true,
+// 	        	  showCloseButton: true,
+// 			}).then(
+// 			function(result){
+// 			  if (result) {
+// 				  console.log("11111");
+// 				  $.ajax({
+// 	     		     type: "POST",
+<%-- 	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do",  --%>
+// 	     			 data:{"action":"doneReport","rsc_id":$this.attr('id'),"vlt_id":$this.val()},
+// 	     			 datatype:"json",
+// 	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+// 	     			 success:function(data){
+// 	     				swal({
+// 				    	     title: "完成!",
+// 				    	     text: "已送出報告!",
+// 				    	     type: "success",
+				    	    
+// 				    	}).then(
+// 				    			function(result){
+// 				    		if(result){
+// 				    		setTimeout("window.location.reload()",100);
+// 				    	}
+// 				    		}
+// 				    			)
+     	     			 
+	     				
+
+// 	     			 }
+// 	     		 }) 
+// 			  }
+// 			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+//         		swal("取消", "取消分派", "error");
+//         }).catch(swal.noop);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+});
+
+</script>
 
 </body>
+
 </html>
