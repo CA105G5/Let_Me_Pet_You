@@ -1,21 +1,20 @@
-<%@page import="com.missingMsg.model.missingMsgVO"%>
-<%@page import="com.missingMsg.model.missingMsgService"%>
+<%@page import="com.reportMissing.model.reportMissingService"%>
 <%@page import="java.util.List"%>
+<%@page import="com.missingCase.model.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
-	missingMsgService missingMsgSvc = new missingMsgService();
-	List<missingMsgVO> list = missingMsgSvc.getAll();
+	missingCaseService missingCaseSvc = new missingCaseService();
+	List<missingCaseVO> list = missingCaseSvc.getAll();
 	pageContext.setAttribute("list", list);
 	int x = 0;
-
+// 	reportMissingService reportMissingSvc = new reportMissingService();
 %>
+
+
 <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
-<jsp:useBean id="missingCaseSvc" scope="page" class="com.missingCase.model.missingCaseService" />
-
-
 
 <!doctype html>
 <html class="no-js" lang="">
@@ -113,7 +112,7 @@
 
 <body>
 
-	<jsp:include page="/back-end/rescue/back_rescue_header.jsp" flush="true" />
+	<jsp:include page="/back-end/product/back_shop_Header.jsp" flush="true" />
 
 	<!-- Right Panel -->
 	<div class="right-panel">
@@ -121,7 +120,7 @@
 			<div class="col-xl-12">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="box-title">失蹤案例留言管理</h4>
+						<h4 class="box-title">失蹤寵物管理</h4>
 					</div>
 					<div class="card-body--">
 						<div class="table-stats order-table ov-h">
@@ -129,30 +128,34 @@
 								<thead>
 									<tr>
 										<th class="serial">#</th>
-										<th class="avatar">失蹤案例</th>
-										<th>留言會員</th>
-										<th>留言時間</th>
-										<th>內容</th>
-										<th>留言狀態</th>
+										<th class="avatar">失蹤案例編號</th>
+										<th>失蹤案例名稱</th>
+										<th>會員名稱</th>
+										<th>案例種類</th>
+										<th>失蹤時間</th>
+										<th>上架狀態</th>
 									</tr>
 								</thead>
 								<tbody>
 									<%@ include file="page1.file"%>
-									<c:forEach var="missingMsgVO" items="${list}"
+									<c:forEach var="missingCaseVO" items="${list}"
 										begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 										<tr>
 											<td class="serial"><%=++x%></td>
-											<td><a
-												href="<%=request.getContextPath()%>/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id=${missingMsgVO.missing_case_id}">${missingCaseSvc.getOneMissingCase(missingMsgVO.missing_case_id).missing_name}</a>
-											<td>${memSvc.getOneMem(missingMsgVO.memb_id).memb_name}</td>
+											<td class="avatar"><a
+												href="<%=request.getContextPath()%>/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id=${missingCaseVO.missing_case_id}">${missingCaseVO.missing_case_id}</a>
+											</td>
+											<td>${missingCaseVO.missing_name}</td>
+											<td><span class="name">${memSvc.getOneMem(missingCaseVO.memb_id).memb_nick}</span></td>
+											<td><span class="product">${missingCaseVO.missing_type}</span>
+											</td>
 											<td><span class=""><fmt:formatDate
-														value="${missingMsgVO.missing_msg_date}" pattern="yyyy-MM-dd" /></span></td>
-											<td><span class="product">${missingMsgVO.missing_msg_cont}</span>
+														value="${missingCaseVO.missing_date}" pattern="yyyy-MM-dd" /></span></td>
 											<td><select name="bootstrap-data-table_length"
 												aria-controls="bootstrap-data-table"
-												class="form-control form-control-sm status">
-												<option value="${missingMsgVO.missing_msg_id}">正常</option>
-												<option value="${missingMsgVO.missing_msg_id}">下架</option>
+												class="form-control form-control-sm status"><option
+														value="${missingCaseVO.missing_case_id}">上架</option>
+													<option value="${missingCaseVO.missing_case_id}">下架</option>
 											</select></td>
 										</tr>
 									</c:forEach>
@@ -221,6 +224,29 @@
 		<script src="jquery-3.3.1.min.js"></script>
 	<!--Local Stuff-->
 	<script type="text/javascript">
+	$(document).ready(function(){	
+		 $('.status').change(function(){
+// 		alert($("option:selected", this).text())
+			 $.ajax({
+			 type: "POST",
+		 url: "<%=request.getContextPath() %>/missingCaseAjax.do", 
+			 data:changeStatus($(this).val(),$("option:selected", this).text()),
+			 datatype:"json",
+			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+			 success:function(data){
+				 
+				 $('#contentDiv').html(data);
+			 }
+		 	})
+		})
+	})
+	
+	function changeStatus(missing_case_id,status){
+		var cStatus = {"action":"getChange","missing_case_id":missing_case_id,"status":status};
+		return cStatus;
+	}
+
+	
 		jQuery(document)
 				.ready(
 						function($) {

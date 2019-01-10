@@ -48,4 +48,7 @@ public class missingMsgService {
 	public List<missingMsgVO> findByMsg(String missing_msg_id){
 		return dao.findByMsg(missing_msg_id);
 	}
+	public void delete(String missing_msg_id) {
+		dao.delete(missing_msg_id);
+	}
 }

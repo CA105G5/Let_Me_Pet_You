@@ -76,9 +76,11 @@
 				<div class="row">
 					<div class="col-lg-12 post-list blog-post-list">
 						<div class="single-post">
+						<div style="text-align:center;">
 							<img class="img-fluid"
 								src="<%=request.getContextPath() %>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id}"
 								alt="">
+						</div>		
 							<ul class="tags">
 								<li><fmt:formatDate value="${missingCaseVO.missing_date}"
 										pattern="yyyy-MM-dd" /></li>
@@ -200,8 +202,8 @@
 
 							</form>
 
-							<c:forEach var="missingMsgVO" items="${list}">
-								<div class="comment-list" id="contentdiv">
+							<c:forEach var="missingMsgVO" items="${list}" varStatus="i">
+								<div class="comment-list" id="m${i.index}">
 									<div class=" justify-content-between d-flex">
 										<div class="user justify-content-between d-flex">
 											<div class="thumb">
@@ -219,6 +221,10 @@
 										<li>
 											<button type="button" class="genric-btn primary small"
 								 data-toggle="modal" data-target="#${missingMsgVO.missing_msg_id}">檢舉</button>
+										</li>
+										<li>
+											<button type="button" class="genric-btn primary small"
+								            id="${i.index}">刪除</button>
 										</li>
 									</ul>
 								</li>
@@ -283,6 +289,47 @@
 								</div>
 							</div>
 							<!-- 檢舉結束 -->
+							
+							
+	<script type="text/javascript">						
+								//刪除留言
+	$('#${i.index}').click(function(e){
+		if(${missingMsgVO.memb_id != membVO.memb_id}){
+			swal("刪除失敗！你不是留言的人！","","warning");
+			return false;
+		}else{
+			swal({
+	            title: "確定刪除？",
+	            html: "按下確定後資料會永久刪除",
+	            type: "question", 
+	            showCancelButton: true,
+	        	showCloseButton: true,
+	        }).then(
+		        	  function (result) {
+		                  if (result) {
+		                	  console.log("11111111111111");
+		                	 $.ajax({
+		                			url : '<%=request.getContextPath()%>/front-end/missingMsg/missingMsg.do',
+		                			type : 'Post',
+		    						data : {
+		    							action : 'delete',
+		    							missing_msg_id : '${missingMsgVO.missing_msg_id}',
+		    						},
+		    						success: function(result){
+		    							 console.log("222222222");
+		    								$('#m${i.index}').hide();
+		    						}
+		                	 })
+		                      swal("完成!", "資料已經刪除", "success");
+		                  }
+		              }, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+		             		swal("取消", "資料未被刪除", "error");
+		   	       }).catch(swal.noop);
+		}
+	});
+	</script>					
+							
+							
 							</c:forEach>
 						</div>
 
@@ -309,6 +356,10 @@
 		}
 		
 	});
+	
+	
+	
+
 	</script>
 
 </body>

@@ -133,8 +133,7 @@
 									<tr>
 										<th class="serial">#</th>
 										<th>留言編號</th>
-										<th>被檢舉者</th>
-										<th>檢舉者</th>
+										<th>檢舉會員</th>
 										<th>檢舉時間</th>
 										<th class="avatar">失蹤留言檢舉原因</th>
 										<th>檢舉狀態</th>
@@ -148,8 +147,7 @@
 											<td class="serial"><%=++x%></td>
 											<td class="avatar">${missingMsgReportVO.missing_msg_id}
 											</td>
-											<td></td>
-											<td><span class="name">${missingMsgReportVO.memb_id}</span></td>
+											<td><span class="name">${memSvc.getOneMem(missingMsgReportVO.memb_id).memb_nick}</span></td>
 											<td><span class=""><fmt:formatDate
 														value="${missingMsgReportVO.missing_msg_rt_time}" pattern="yyyy-MM-dd" /></span></td>
 											<td><span class="product">${missingMsgReportVO.missing_msg_rt_cont }</span>

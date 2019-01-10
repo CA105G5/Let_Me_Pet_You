@@ -71,8 +71,7 @@
 		<div class="container" style="top: 180px">
 			<div class="row d-flex justify-content-center">
 				<div class="col-md-9 pb-40 header-text text-center">
-					<h1 class="pb-10"></h1>
-					<p>Who are in extremely love with eco friendly system.</p>
+					<h1 class="pb-10">單一案例瀏覽</h1>
 				</div>
 			</div>
 			<div class="container">

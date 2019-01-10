@@ -1,6 +1,7 @@
 package com.missingMsg.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
 
 import com.missingCase.model.missingCaseService;
 import com.missingCase.model.missingCaseVO;
@@ -108,6 +111,26 @@ public class missingMsgServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 
+		}
+		
+		if("delete".equals(action)) {
+			System.out.println("哈囉");
+			/*************************** 1.接收請求參數 ****************************************/
+			String missing_msg_id = req.getParameter("missing_msg_id");
+			
+			/*************************** 2.開始修改資料 ****************************************/
+			missingMsgService missingMsgSvc = new missingMsgService();
+			missingMsgSvc.delete(missing_msg_id);
+			
+			JSONObject obj = new JSONObject();
+			obj.put("missing_msg_id", missing_msg_id);
+			
+			res.setContentType("text/plain");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(obj.toString());
+			out.flush();
+			out.close();
 		}
 
 //		if ("update".equals(action)) { // 來自update_missing_msg.jsp的請求
