@@ -111,7 +111,7 @@ table{
 									        </div>
 									        </c:if>
 									    </c:forEach>
-									    <div class="checkbox"><input type="hidden" name="rscing_ptcp" checked value="${rescuingVO.rscing_ptcp}"></div>
+									    
 										</div>
 									
 
@@ -143,9 +143,10 @@ table{
 $(document).ready(function() {
 	
 	$('#done').click(function(e){
+		var doneRescueMemslist =[];
 		<%System.out.println("000000000000");%>
 		 console.log(CKEDITOR.instances.rscing_rv_des.getData());
-		 console.log($(':checked').val());
+		 
 		if(CKEDITOR.instances.rscing_rv_des.getData()==""){
 			swal({
 	    	     title: "錯誤!",
@@ -155,58 +156,58 @@ $(document).ready(function() {
 	    	});
 			return false;
 		}else{
-// 		 var $this = $(this);
-		 console.log("rsc_id="+$('rsc_id').val());
-		 console.log("checkbox"+$('[name="rscing_ptcp"]').val());
+
 		 $('input[name="rscing_ptcp"]:checked').each(function(){
 			 console.log("---------------!!!!!!!!!!!!!!!!!!!!!" + $(this).val());
+			 doneRescueMemslist.push($(this).val());
 // 			 console.log($(e));
 // 			 console.log($(e.target));
 		 });
-// 		 swal({
-// 			  title: "確定送出報告?",
-// 			  text: "送出後無法更改!",
-// 			  type: "warning",
-// 			  showCancelButton: true,
-// 	   		  showCloseButton: true,
-// 			}).then(
-// 			function(result){
-// 			  if (result) {
-// 				  console.log("11111");
-// 				  $.ajax({
-// 	     		     type: "POST",
-<%-- 	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do",  --%>
-// 	     			 data:{
-// 	     				 "action":"doneReport",
-// 	     				 "rsc_id":$('#rsc_id').val(),
-// 	     				 "rscing_ptcp":$(':checked').val(),
-// 	     				 "rscing_rv_des":CKEDITOR.instances.rscing_rv_des.getData(),
-// 	     				 "reporter":($('#reporter').val())
-// 	     				 },
-// 	     			 datatype:"json",
-// 	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
-// 	     			 success:function(data){
-// 	     				swal({
-// 				    	     title: "完成!",
-// 				    	     text: "已送出報告!",
-// 				    	     type: "success",
+		 console.log(doneRescueMemslist);
+		 swal({
+			  title: "確定送出報告?",
+			  text: "送出後無法更改!",
+			  type: "warning",
+			  showCancelButton: true,
+	   		  showCloseButton: true,
+			}).then(
+			function(result){
+			  if (result) {
+				  console.log("11111");
+				  $.ajax({
+	     		     type: "POST",
+	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do", 
+	     			 data:{
+	     				 "action":"doneReport",
+	     				 "rsc_id":$('#rsc_id').val(),
+	     				 "rscing_ptcp":doneRescueMemslist,
+	     				 "rscing_rv_des":CKEDITOR.instances.rscing_rv_des.getData(),
+	     				 "reporter":($('#reporter').val())
+	     				 },
+	     			 datatype:"json",
+	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+	     			 success:function(data){
+	     				swal({
+				    	     title: "完成!",
+				    	     text: "已送出報告!",
+				    	     type: "success",
 				    	    
-// 				    	}).then(
-// 				    			function(result){
-// 				    		if(result){
-// 				    		setTimeout("window.location.reload()",100);
-// 				    	}
-// 				    		}
-// 				    			)
+				    	}).then(
+				    			function(result){
+				    		if(result){
+				    		setTimeout("window.location.reload()",100);
+				    	}
+				    		}
+				    			)
      	     			 
 	     				
 
-// 	     			 }
-// 	     		 }) 
-// 			  }
-// 			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
-//         		swal("取消", "取消送出!", "error");
-//         }).catch(swal.noop);
+	     			 }
+	     		 }) 
+			  }
+			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+        		swal("取消", "取消送出!", "error");
+        }).catch(swal.noop);
 		
 		
 		

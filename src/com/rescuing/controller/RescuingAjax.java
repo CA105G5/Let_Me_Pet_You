@@ -98,7 +98,7 @@ public class RescuingAjax extends HttpServlet{
 			req.setAttribute("errorMsgs", errorMsgs);
 			System.out.println("111"+req.getParameter("rsc_id"));
 			System.out.println("222"+req.getParameter("rscing_rv_des"));
-			System.out.println("333"+req.getParameterValues("rscing_ptcp"));
+			System.out.println("333"+req.getParameterValues("rscing_ptcp[]"));
 			System.out.println("444"+req.getParameter("reporter"));
 			
 
@@ -107,8 +107,9 @@ public class RescuingAjax extends HttpServlet{
 				String rscing_rv_des = req.getParameter("rscing_rv_des");
 				
 				ArrayList doneRescueMemslist = new ArrayList();
-				if(req.getParameterValues("rscing_ptcp")!=null) {
-				String[] rscing_ptcps = req.getParameterValues("rscing_ptcp");
+				if(req.getParameterValues("rscing_ptcp[]")!=null) {
+				String[] rscing_ptcps = req.getParameterValues("rscing_ptcp[]");
+				System.out.println("length"+rscing_ptcps.length);
 					for (int i = 0; i <rscing_ptcps.length; i++){
 						doneRescueMemslist.add(rscing_ptcps[i]);
 					}
