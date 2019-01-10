@@ -83,14 +83,10 @@
     padding: 1px;
   }
 </style>
-
+<style>#success_message{ display: none;}</style>
 </head>
 <body bgcolor='white'>
 <jsp:include page="/index_Header.jsp" flush="true" />
-
-
-
-
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -102,112 +98,222 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="mem.do" name="form1" enctype="multipart/form-data">
 <div class="container">
-			<div class="h1"></div>
-			
-			<div class="page-header">
-			  <h1 align="center">請修改您的資料</h1>
-			</div>
+
+    <form class="well form-horizontal" action="mem.do" method="post"  id="contact_form" enctype="multipart/form-data">
+<fieldset>
+
+<!-- Form Name -->
+<legend align="center">請修改您的資料</legend>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label">會員編號:<font color=red><b>*無法修改</b></font></label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  
+  <input name="memb_id" class="form-control"  type="text"  value="<%= (memVO==null)? "" : memVO.getMemb_id()%>" disabled>
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-md-4 control-label">會員帳號:<font color=red><b>*無法修改</b></font></label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  
+  <input  name="memb_acc" class="form-control"  type="text"  value="<%= (memVO==null)? "" : memVO.getMemb_acc()%>" disabled>
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label" >會員密碼:<font color=red><b>*必填</b></font></label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> -->
+  <input name="memb_psw" class="form-control"  type="text" value="<%= (memVO==null)? "" : memVO.getMemb_psw()%>">
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+       <div class="form-group">
+  <label class="col-md-4 control-label">會員姓名:<font color=red><b>*必填</b></font></label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span> -->
+  <input name="memb_name" class="form-control"  type="text" value="<%= (memVO==null)? "" : memVO.getMemb_name()%>">
+    </div>
+  </div>
+</div>
 
 
-<table class="table table-bordered table-striped table-hover table-condensed">
-	<tr>
-		<td>會員編號:<font color=red><b>*無法修改</b></font></td>
-		<td><%=memVO.getMemb_id()%></td>
-	</tr>
-	<tr>
-		<td>會員帳號:<font color=red><b>*無法修改</b></font></td>
-		<td><%=memVO.getMemb_acc()%></td>
-	</tr>
-	<tr>
-		<td>會員密碼:<font color=red><b>*必填</b></font></td>
-		<td><input type="TEXT" name="memb_psw" size="45" value="<%=memVO.getMemb_psw()%>" /></td>
-	</tr>
-	<tr>
-		<td>會員姓名:<font color=red><b>*必填</b></font></td>
-		<td><input type="TEXT" name="memb_name" size="45" value="<%=memVO.getMemb_name()%>" /></td>
-	</tr>
-	<tr>
-		<td>會員暱稱:<font color=red><b>*必填</b></font></td>
-		<td><input type="TEXT" name="memb_nick" size="45" value="<%=memVO.getMemb_nick()%>" /></td>
-	</tr>
-	<tr>
-		<td>會員信箱:<font color=red><b>*必填</b></font></td>
-		<td><input type="TEXT" name="memb_email" size="45" value="<%=memVO.getMemb_email()%>" /></td>
-	</tr>
-	<tr>
-		<td>會員手機:</td>
-		<td><input type="TEXT" name="memb_cellphone" size="45" value="<%=(memVO.getMemb_cellphone()==null)? "" : memVO.getMemb_cellphone()%>" /></td>
-	</tr>
-	<tr>
-		<td>會員性別:</td>
-		<td><input type="RADIO" name="memb_gender" size="45" 
-			 value="M" ${(memVO.memb_gender=='M')? 'checked':'' }/>男
-				 
-			 
-		<input type="RADIO" name="memb_gender" size="45" 
-			 value="F" ${(memVO.memb_gender=='F')? 'checked':'' }/>女</td>
-	</tr>
-	<tr>
-		<td>信用卡類型:</td>
-		<td><input type="TEXT" name="memb_cre_type" size="45" value="<%=(memVO.getMemb_cre_type()==null)? "" : memVO.getMemb_cre_type()%>" /></td>
-	</tr>
-	<tr>
-		<td>信用卡持卡人:</td>
-		<td><input type="TEXT" name="memb_cre_name" size="45" value="<%=(memVO.getMemb_cre_name()==null)? "" : memVO.getMemb_cre_name()%>" /></td>
-	</tr>
-	<tr>
-		<td>信用卡到期年:</td>
-		<td><select name="memb_cre_year" size="1">
+<!-- Text input-->
+       
+<div class="form-group">
+  <label class="col-md-4 control-label">會員暱稱:<font color=red><b>*必填</b></font></label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> -->
+  <input name="memb_nick" class="form-control" type="text" value="<%= (memVO==null)? "" : memVO.getMemb_nick()%>">
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+      
+<div class="form-group">
+  <label class="col-md-4 control-label">會員信箱:<font color=red><b>*必填</b></font></label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
+  <input name="memb_email" class="form-control" type="text" value="<%= (memVO==null)? "" : memVO.getMemb_email()%>">
+    </div>
+  </div>
+</div>
+
+<!-- radio checks -->
+ <div class="form-group">
+                        <label class="col-md-4 control-label">會員性別:</label>
+                        <div class="col-md-4" >
+                            <div class="radio" >
+                                <label>
+                                	<input type="RADIO" name="memb_gender" size="45" 
+			 							value="M" ${(memVO.memb_gender=='M')? 'checked':'' }/>男
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="RADIO" name="memb_gender" size="45" 
+			 							value="F" ${(memVO.memb_gender=='F')? 'checked':'' }/>女
+                                </label>
+                            </div>
+                        </div>
+</div>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label">會員手機:</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
+  <input name="memb_cellphone" class="form-control"  type="text" value="<%= (memVO.getMemb_cellphone()==null)? "" : memVO.getMemb_cellphone()%>">
+    </div>
+</div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label">信用卡類型:</label>  
+   <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span> -->
+  <input name="memb_cre_type" class="form-control" type="text" value="<%= (memVO.getMemb_cre_type()==null)? "" : memVO.getMemb_cre_type()%>">
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+ 
+<div class="form-group">
+  <label class="col-md-4 control-label">信用卡持卡人:</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
+  <input name="memb_cre_name" class="form-control"  type="text" value="<%= (memVO.getMemb_cre_name()==null)? "" : memVO.getMemb_cre_name()%>">
+    </div>
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group"> 
+  <label class="col-md-4 control-label">信用卡到期年:</label>
+    <div class="col-md-4 selectContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span> -->
+    <select name="memb_cre_year" class="form-control selectpicker" style="padding-bottom: 0px;">
 		<option value="" ${(memVO.memb_cre_year =='')? 'selected':''}>請選擇年份
-		<option value="2019" ${(memVO.memb_cre_year =="2019")? "selected":""}>2019
-		<option value="2020" ${(memVO.memb_cre_year =='2020')? 'selected':''}>2020
-		<option value="2021" ${(memVO.memb_cre_year =='2021')? 'selected':''}>2021
-		<option value="2022" ${(memVO.memb_cre_year =='2022')? 'selected':''}>2022
-		<option value="2023" ${(memVO.memb_cre_year =='2023')? 'selected':''}>2023
-		<option value="2024" ${(memVO.memb_cre_year =='2024')? 'selected':''}>2024
-		<option value="2025" ${(memVO.memb_cre_year =='2025')? 'selected':''}>2025
-		<option value="2026" ${(memVO.memb_cre_year =='2026')? 'selected':''}>2026
-		    </select>年
-		</td>
-	</tr>
-	<tr>
-		<td>信用卡到期月:</td>
-		<td><select name="memb_cre_month" size="1">
+		<option value="2019" ${(memVO.memb_cre_year =="2019")? "selected":""}>2019年
+		<option value="2020" ${(memVO.memb_cre_year =='2020')? 'selected':''}>2020年
+		<option value="2021" ${(memVO.memb_cre_year =='2021')? 'selected':''}>2021年
+		<option value="2022" ${(memVO.memb_cre_year =='2022')? 'selected':''}>2022年
+		<option value="2023" ${(memVO.memb_cre_year =='2023')? 'selected':''}>2023年
+		<option value="2024" ${(memVO.memb_cre_year =='2024')? 'selected':''}>2024年
+		<option value="2025" ${(memVO.memb_cre_year =='2025')? 'selected':''}>2025年
+		<option value="2026" ${(memVO.memb_cre_year =='2026')? 'selected':''}>2026年
+	</select>
+  </div>
+</div>
+</div>
+   
+<div class="form-group"> 
+  <label class="col-md-4 control-label">信用卡到期月:</label>
+    <div class="col-md-4 selectContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span> -->
+    
+    <select name="memb_cre_month" class="form-control selectpicker" style="padding-bottom: 0px;">
 		<option value="" ${(memVO.memb_cre_month =='')? 'selected':''}>請選擇月份
-		<option value="1" ${(memVO.memb_cre_month =='1')? 'selected':''}>1
-		<option value="2" ${(memVO.memb_cre_month =='2')? 'selected':''}>2
-		<option value="3" ${(memVO.memb_cre_month =='3')? 'selected':''}>3
-		<option value="4" ${(memVO.memb_cre_month =='4')? 'selected':''}>4
-		<option value="5" ${(memVO.memb_cre_month =='5')? 'selected':''}>5
-		<option value="6" ${(memVO.memb_cre_month =='6')? 'selected':''}>6
-		<option value="7" ${(memVO.memb_cre_month =='7')? 'selected':''}>7
-		<option value="8" ${(memVO.memb_cre_month =='8')? 'selected':''}>8
-		<option value="9" ${(memVO.memb_cre_month =='9')? 'selected':''}>9
-		<option value="10" ${(memVO.memb_cre_month =='10')? 'selected':''}>10
-		<option value="11" ${(memVO.memb_cre_month =='11')? 'selected':''}>11
-		<option value="12" ${(memVO.memb_cre_month =='12')? 'selected':''}>12
-		    </select>月
-		</td>
-	</tr>
-	<tr>
-		<td>會員照片:</td>
-		<td>
-		<img class="preview" src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/>
-		 <div class="size"></div>
-		 選擇照片
-		<input type="file" class="upl" name="upfile" id="file01">
-		</td>
-	</tr>
-</table>
-</div>	
+		<option value="1" ${(memVO.memb_cre_month =='1')? 'selected':''}>1月
+		<option value="2" ${(memVO.memb_cre_month =='2')? 'selected':''}>2月
+		<option value="3" ${(memVO.memb_cre_month =='3')? 'selected':''}>3月
+		<option value="4" ${(memVO.memb_cre_month =='4')? 'selected':''}>4月
+		<option value="5" ${(memVO.memb_cre_month =='5')? 'selected':''}>5月
+		<option value="6" ${(memVO.memb_cre_month =='6')? 'selected':''}>6月
+		<option value="7" ${(memVO.memb_cre_month =='7')? 'selected':''}>7月
+		<option value="8" ${(memVO.memb_cre_month =='8')? 'selected':''}>8月
+		<option value="9" ${(memVO.memb_cre_month =='9')? 'selected':''}>9月
+		<option value="10" ${(memVO.memb_cre_month =='10')? 'selected':''}>10月
+		<option value="11" ${(memVO.memb_cre_month =='11')? 'selected':''}>11月
+		<option value="12" ${(memVO.memb_cre_month =='12')? 'selected':''}>12月
+		    </select>
+  </div>
+</div>
+</div>
 
-<br>
-<input type="hidden" name="action" value="client_update">
-<input type="hidden" name="memb_id" value="<%=memVO.getMemb_id()%>">
-<input type="hidden" name="memb_acc" value="<%=memVO.getMemb_acc()%>">
-<div align="center"><input type="submit" value="送出修改"></div></FORM>
+
+
+
+
+<!-- Photo area -->
+  
+<div class="form-group">
+  <label class="col-md-4 control-label">會員照片</label>
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+    	<img class="preview" src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/>
+        <input type="file" class="upl" name="upfile" id="file01">
+		<div class="size"></div>
+  </div>
+  </div>
+</div>
+
+<!-- Success message -->
+<!-- <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div> -->
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+  	<input type="hidden" name="action" value="client_update">
+	<input type="hidden" name="memb_id" value="<%=memVO.getMemb_id()%>">
+	<input type="hidden" name="memb_acc" value="<%=memVO.getMemb_acc()%>">
+    <button type="submit" class="btn btn-warning" >送出修改 <span class="glyphicon glyphicon-send"></span></button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+    </div><!-- /.container -->
+
+
+
+
 
 
 <%-- 模板後script 加在自己的script前--%>

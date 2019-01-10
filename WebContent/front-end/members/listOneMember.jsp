@@ -79,42 +79,186 @@
     text-align: center;
   }
 </style>
-
+<style>#success_message{ display: none;}</style>
 </head>
 <body bgcolor='white'>
-<jsp:include page="/index_Header.jsp" flush="true" />
-
-
-
-
-
+<jsp:include page="/index_Header.jsp" flush="true"/>
 
 <div class="container">
-			<div class="h1"></div>
-			
-			<div class="page-header">
-			  <h1 align="center">會員資料</h1>
-			</div>
 
-<table class="table table-bordered table-striped table-hover table-condensed">
-	<tr><td>會員帳號</td><td><%=memVO.getMemb_acc()%></td></tr>
-	<tr><td>會員密碼</td><td><%=memVO.getMemb_psw()%></td></tr>
-	<tr><td>會員姓名</td><td><%=memVO.getMemb_name()%></td></tr>
-	<tr><td>會員暱稱</td><td><%=memVO.getMemb_nick()%></td></tr>
-	<tr><td>會員Email</td><td><%=memVO.getMemb_email()%></td></tr>
-	<tr><td>會員手機</td><td><%=memVO.getMemb_cellphone()%></td></tr>
-	<tr><td>會員性別</td><td><% if ("M".equals(memVO.getMemb_gender())){out.println("男");}else if ("F".equals(memVO.getMemb_gender())){out.println("女");}else{out.println("未填");};%></td></tr>
-	<% if (memVO.getMemb_cre_type() != null){%>
-	<tr><td>信用卡類型</td><td><%=memVO.getMemb_cre_type()%></td></tr>
-	<%}%>
-	
-	<tr><td>信用卡持卡人</td><td><%=memVO.getMemb_cre_name()%></td></tr>
-	<tr><td>信用卡到期年</td><td><%=memVO.getMemb_cre_year()%></td></tr>
-	<tr><td>信用卡到期月</td><td><%=memVO.getMemb_cre_month()%></td></tr>
-	<tr><td>會員照片</td><td><img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td></tr>
-</table>
-<div align="center"><a href="<%=request.getContextPath()%>/front-end/members/client_update.jsp">修改資料</a></div>
+    <form class="well form-horizontal" action="mem.do" method="post"  id="contact_form" enctype="multipart/form-data">
+<fieldset>
+<br>
+<!-- Form Name -->
+<legend align="center">會員資料!</legend>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label">會員帳號:</label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  
+  <input  name="memb_acc" placeholder="至多20碼英文大小寫數字" class="form-control"  type="text"  value="<%=memVO.getMemb_acc()%>" disabled>
+    </div>
+  </div>
 </div>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label" >會員密碼:</label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> -->
+  <input name="memb_psw" placeholder="至多20碼英文大小寫數字" class="form-control"  type="text" value="<%=memVO.getMemb_psw()%>" disabled>
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+       <div class="form-group">
+  <label class="col-md-4 control-label">會員姓名:</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span> -->
+  <input name="memb_name" placeholder="eg. 王小明" class="form-control"  type="text" value="<%=memVO.getMemb_name()%>" disabled>
+    </div>
+  </div>
+</div>
+
+
+<!-- Text input-->
+       
+<div class="form-group">
+  <label class="col-md-4 control-label">會員暱稱:</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> -->
+  <input name="memb_nick" placeholder="eg. 大衛海鮮" class="form-control" type="text" value="<%=memVO.getMemb_nick()%>" disabled>
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+      
+<div class="form-group">
+  <label class="col-md-4 control-label">會員信箱:</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
+  <input name="memb_email" placeholder="eg. xxx@gmail.com" class="form-control" type="text" value="<%=memVO.getMemb_email()%>" disabled>
+    </div>
+  </div>
+</div>
+
+<!-- radio checks -->
+<div class="form-group">
+  <label class="col-md-4 control-label">會員性別:</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
+  <input name="memb_gender" class="form-control" type="text" value="<% if ("M".equals(memVO.getMemb_gender())){out.println("男");}else if ("F".equals(memVO.getMemb_gender())){out.println("女");}else{out.println("未填寫");};%>" disabled>
+    </div>
+  </div>
+</div>
+
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label">會員手機:</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
+  <input name="memb_cellphone" class="form-control"  type="text" value="<%= (memVO.getMemb_cellphone()==null)? "未填寫" : memVO.getMemb_cellphone()%>" disabled>
+    </div>
+</div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label">信用卡類型:</label>  
+   <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span> -->
+  <input name="memb_cre_type" class="form-control" type="text" value="<%= (memVO.getMemb_cre_type()==null)? "未填寫" : memVO.getMemb_cre_type()%>" disabled>
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+ 
+<div class="form-group">
+  <label class="col-md-4 control-label">信用卡持卡人:</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
+  <input name="memb_cre_name" class="form-control"  type="text" value="<%= (memVO.getMemb_cre_name()==null)? "未填寫" : memVO.getMemb_cre_name()%>" disabled>
+    </div>
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label">信用卡到期年:</label>  
+    <div class="col-md-4 inputGroupContainer">
+	    <div class="input-group">
+	<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
+	  <input name="memb_cre_year" class="form-control"  type="text" value="<%= (memVO.getMemb_cre_year()==null)? "未填寫" : memVO.getMemb_cre_year()+'年'%>" disabled>
+	    </div>
+	</div>
+</div>
+<div class="form-group">
+  <label class="col-md-4 control-label">信用卡到期月:</label>  
+    <div class="col-md-4 inputGroupContainer">
+	    <div class="input-group">
+	<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
+	  <input name="memb_cre_month" class="form-control"  type="text" value="<%= (memVO.getMemb_cre_month()==null)? "未填寫" : memVO.getMemb_cre_month()+'月'%>" disabled>
+	    </div>
+	</div>
+</div>  
+
+
+
+
+
+
+<!-- Photo area -->
+  
+<div class="form-group">
+  <label class="col-md-4 control-label">會員照片</label>
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/>
+  </div>
+  </div>
+</div>
+
+<!-- Success message -->
+<!-- <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div> -->
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+  	<div align="center"><a href="<%=request.getContextPath()%>/front-end/members/client_update.jsp">修改資料</a></div>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+    </div><!-- /.container -->
+
+
+
+
+
+
+
+
+
 
 <%-- 模板後script 加在自己的script前--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
@@ -136,9 +280,6 @@
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 
-<%-- RWD--%>
-<!-- <script src="https://code.jquery.com/jquery.js"></script> -->
-<!-- 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
 </body>
 </html>
