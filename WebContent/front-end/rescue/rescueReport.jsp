@@ -88,7 +88,7 @@ table{
 								</div>
 							</c:if>
 							
-							<form METHOD="post" >
+							<form>
    								<h1>完成案例報告</h1>
    								<br>
 								<h4>救援案例編號：</h4>					  			
