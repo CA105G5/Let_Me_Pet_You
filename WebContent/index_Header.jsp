@@ -99,6 +99,9 @@ i.fa-shopping-cart:hover {
   cursor: pointer;
 }
 
+.show{
+	display:inline!important;
+}
 	
 </style>
 </head>
@@ -180,36 +183,40 @@ i.fa-shopping-cart:hover {
 							<a href="<%=request.getContextPath()%>/front-end/members/login.jsp"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/login.jpg" data-toggle="tooltip" data-placement="left" title="登入/註冊">登入/註冊</a>
 							<%}else{ %>
 							<div align="center">
-								<div class="dropdown for-notification" style="width:20px;height:20px">
-		                            <button class="" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0px;color:#007bff;background-color:#ffffff;border-width:0px;width:20px;height:20px">
-		                                <i class="fa fa-bell"></i>
-		                                <span class="count" style="margin:0px;padding:0px;width:5px;height:5px">3</span>
-		                            </button>
-		                            <div class="dropdown-menu" aria-labelledby="notification">
-		                                <p class="red">You have 3 Notification</p>
-		                                <a class="dropdown-item media" href="#">
-		                                    <i class="fa fa-check"></i>
-		                                    <p>Server #1 overloaded.</p>
-		                                </a>
-		                                <a class="dropdown-item media" href="#">
-		                                    <i class="fa fa-info"></i>
-		                                    <p>Server #2 overloaded.</p>
-		                                </a>
-		                                <a class="dropdown-item media" href="#">
-		                                    <i class="fa fa-warning"></i>
-		                                    <p>Server #3 overloaded.</p>
-		                                </a>
-		                            </div>
-		                        </div>
+								
+							
+								
 								<a href="<%=request.getContextPath()%>/front-end/members/listAllNtfs.jsp"><i class="fa fa-bell"></i></a>
 								
 								<%
 									out.print(memVO.getMemb_nick()+"，你好");
 								%>
 								<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a><br>
-								
+								<div class="dropdown for-notification" style="display:inline">
+			                            <button class="" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0px;color:#007bff;background-color:#ffffff;border-width:0px;width:18px;height:18px">
+			                                <i class="fa fa-bell"></i>
+			                                <div style="margin:0px;padding:0px;width:13px;height:13px"><h6 style="background-color:#ff0000;color:white;margin-top: -20;margin-bottom: 0px;margin-right: -10;margin-left: 10px;">3</h6></div>
+			                            </button>
+			                            <div class="dropdown-menu" aria-labelledby="notification">
+			                                <p class="red">未讀的訊息有:</p>
+			                                <a class="dropdown-item media" href="#">
+			                                    <i class="fa fa-check"></i>
+			                                    <p>123456789123456789123456789123456789123456789</p>
+			                                </a>
+			                                <a class="dropdown-item media" href="#">
+			                                    <i class="fa fa-info"></i>
+			                                    <p>Server #2 overloaded.</p>
+			                                </a>
+			                                <a class="dropdown-item media" href="#">
+			                                    <i class="fa fa-warning"></i>
+			                                    <p>Server #3 overloaded.</p>
+			                                </a>
+			                            </div>
+			                   </div>
+								&nbsp;&nbsp;&nbsp;
 								<a href="<%=request.getContextPath()%>/front-end/members/cur_dt.jsp">愛心幣餘額</a>
 								<% out.print("尚有:    "+MemberService.getOneMem(memVO.getMemb_id()).getMemb_balance()+"元");}%>
+								
 							</div>
 						</div>
 					</div>

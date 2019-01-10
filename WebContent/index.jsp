@@ -67,7 +67,60 @@ System.out.println( "是否登入:"+ (memVO != null));
 <body bgcolor='white'>
 <jsp:include page="/index_Header.jsp" flush="true" />
 
-			  
+
+
+<div id="carousel-id" class="carousel slide" data-ride="carousel">
+		    <!-- 幻燈片小圓點區 -->
+		    <ol class="carousel-indicators">
+		        <li data-target="#carousel-id" data-slide-to="0" class="active"></li>
+		        <li data-target="#carousel-id" data-slide-to="1" class=""></li>
+		        <li data-target="#carousel-id" data-slide-to="2" class=""></li>
+		    </ol>
+		    <!-- 幻燈片主圖區 -->
+		    <div class="carousel-inner">
+		        <div class="item active">
+<!-- 		        	<img src="https://api.fnkr.net/testimg/2800x700/aaaaaa" alt=""> -->
+		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel1.jpg" alt="" style="width:2000px;height:800px"> 
+		            <div class="container">
+		                <div class="carousel-caption">
+		                    <h1>Help~~~~~~</h1>
+<!-- 		                    <p>請救救我...</p> -->
+		                    <p><a class="btn btn-lg btn-primary" href="#" role="button">即刻救援</a></p>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="item">
+		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel2.jpg" alt="" style="width:2000px;height:800px">
+<%-- 		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel2.jpg" alt=""> --%>
+		            <div class="container">
+		                <div class="carousel-caption">
+		                    <h1>以領養代替購買</h1>
+<!-- 		                    <p>愛我請照顧我一輩子</p> -->
+		                    <p><a class="btn btn-lg btn-primary" href="#" role="button">線上認養</a></p>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="item">
+		        	<img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel3.jpg" alt="" style="width:2000px;height:800px">
+<%-- 		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel3.jpg" alt=""> --%>
+		            <div class="container">
+		                <div class="carousel-caption">
+		                    <h1>他們找不到回家的路...</h1>
+<!-- 		                    <p>請幫助他們找到主人</p> -->
+		                    <p><a class="btn btn-lg btn-primary" href="#" role="button">失蹤詳情</a></p>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+			<a class="left carousel-control" href="#carousel-id" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+		    <a class="right carousel-control" href="#carousel-id" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+		</div>  
+		
+		
+		
+		
+		
+		
 			  
 	<%-- 黑底logo區 --%>			  
 <section class="banner-area relative" id="home">	
@@ -295,7 +348,11 @@ System.out.println( "是否登入:"+ (memVO != null));
 					</div>
 				</div>	
 			</section>
-
+<script>
+$('.carousel').carousel({
+	interval: 3000
+})
+</script>
 
 
 <%-- 模板script --%>
@@ -317,6 +374,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>			
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+			
 	
 </body>
 
