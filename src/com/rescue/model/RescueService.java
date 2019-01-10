@@ -24,7 +24,9 @@ public class RescueService {
 	public void updateByManager(RescueVO rescueVO) {
 		dao.updateByManager(rescueVO);
 	}
-	
+	public void updateByDoneReport(String rsc_id,java.sql.Connection con) {
+		dao.updateByDoneReport(rsc_id,con);
+	}
 	public void deleteRescue(String rsc_id) {
 		dao.delete(rsc_id);
 	}

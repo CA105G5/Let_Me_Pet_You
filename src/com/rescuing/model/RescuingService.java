@@ -32,6 +32,9 @@ public RescuingDAO_interface dao;
     public void updateByManagerNoPass(String rsc_id,String rscing_rv_des) {
     	dao.updateByManagerNoPass(rsc_id,rscing_rv_des);
     }
+    public void updateDoneReport(RescuingVO rescuingVO,List<String> doneRescueMemslist) {
+    	dao.updateDoneReport(rescuingVO, doneRescueMemslist);
+    }
 	public void deleteRescuing(String rsc_id,String rsc_coin_mem) {
 		dao.delete(rsc_id,rsc_coin_mem);
 	}

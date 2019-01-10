@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import com.rescue.model.RescueService;
 import com.rescue.model.RescueVO;
 import com.rescuing.model.RescuingService;
+import com.rescuing.model.RescuingVO;
 
 public class RescuingAjax extends HttpServlet{
 
@@ -106,7 +107,7 @@ public class RescuingAjax extends HttpServlet{
 				String rsc_id = req.getParameter("rsc_id");
 				String rscing_rv_des = req.getParameter("rscing_rv_des");
 				
-				ArrayList doneRescueMemslist = new ArrayList();
+				ArrayList<String>  doneRescueMemslist = new ArrayList<String>();
 				if(req.getParameterValues("rscing_ptcp[]")!=null) {
 				String[] rscing_ptcps = req.getParameterValues("rscing_ptcp[]");
 				System.out.println("length"+rscing_ptcps.length);
@@ -115,8 +116,19 @@ public class RescuingAjax extends HttpServlet{
 					}
 				}
 				System.out.println("list"+doneRescueMemslist);
-				String repoter = req.getParameter("reporter");
+				String reporter = req.getParameter("reporter");
 			
+				RescuingVO rescuingVO = new RescuingVO();
+				rescuingVO.setRsc_id(rsc_id);
+				rescuingVO.setRscing_ptcp(reporter);
+				rescuingVO.setRscing_ctime(new Timestamp(new Date().getTime()));
+				rescuingVO.setRscing_sta("完成案例送審中");
+				rescuingVO.setRscing_rv_des(rscing_rv_des);
+				
+				
+				
+				
+				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/rescue/rescueReport.jsp");
@@ -126,7 +138,7 @@ public class RescuingAjax extends HttpServlet{
 
 				/*************************** 2.開始新增資料 ***************************************/
 				 RescuingService rescuingSvc = new RescuingService();
-
+				 rescuingSvc.updateDoneReport(rescuingVO, doneRescueMemslist);
 
 			
 			} catch (Exception e) {

@@ -13,6 +13,7 @@ public interface RescuingDAO_interface {
     public void updatePassMem(String rsc_id,String rsc_ptcp,java.sql.Connection con);
     public void updateNoPassMem(String rsc_id,String rsc_ptcp,java.sql.Connection con); 
     public void updateNoPass(String rsc_id,String rsc_ptcp,java.sql.Connection con); 
+    public void updateDoneReport(RescuingVO rescuingVO,List<String> doneRescueMemslist);
     public void updateByManagerPass(RescueVO rescueVO);
     public void updateByManagerNoPass(String rsc_id,String rscing_rv_des);
     public void delete(String rsc_id,String rscing_ptcp);

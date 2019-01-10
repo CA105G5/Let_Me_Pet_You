@@ -57,6 +57,8 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			"UPDATE RESCUING set rscing_sta = ?,rscing_etime = ? where rsc_id = ? AND rscing_ptcp = ?";
 	private static final String UPDATE_NO_PASS_MEM = 
 			"UPDATE RESCUING set rscing_sta = ? where rsc_id = ? AND rscing_ptcp = ?";
+	private static final String UPDATE_DONE_REPORT = 
+			"UPDATE RESCUING set rscing_sta = ?,rscing_ctime = ?,rscing_rv_des = ? where rsc_id = ? AND rscing_ptcp = ?";
 	@Override
 	public void insert(RescuingVO rescuingVO) {
 		Connection con = null;
@@ -894,6 +896,128 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 		
 		
 	}
+	
+	public void updateByJoinRsc(String rsc_id, String rsc_ptcp, Connection con) {
+		PreparedStatement pstmt = null;
+		
+		try {
+
+			pstmt = con.prepareStatement(UPDATE_NO_PASS_MEM);
+			//改成不通過
+			pstmt.setString(1,new String("完成救援送審中"));
+			pstmt.setString(2,rsc_id);
+			pstmt.setString(3,rsc_ptcp);
+
+			pstmt.executeUpdate();
+//			System.out.println("Changed " + rowsUpdated + "rows");
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+		}
+		
+	}
+	@Override
+	public void updateDoneReport(RescuingVO rescuingVO, List<String> doneRescueMemslist) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt2 = null;
+		
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+    		//救援改狀態
+    		RescueJDBCDAO dao = new RescueJDBCDAO();
+    		dao.updateByDoneReport(rescuingVO.getRsc_id(), con);
+    		//報告者的資料改變
+    		pstmt = con.prepareStatement(UPDATE_DONE_REPORT);
+			pstmt.setString(1,new String("完成救援送審中"));
+			pstmt.setTimestamp(2,rescuingVO.getRscing_ctime());
+		    pstmt.setString(3, rescuingVO.getRscing_cdes());
+			pstmt.setString(4,rescuingVO.getRsc_id());
+			pstmt.setString(5,rescuingVO.getRscing_ptcp());
+
+			pstmt.executeUpdate();
+	       //參與者改變狀態
+ 		   for(String i:doneRescueMemslist) {
+ 			  updateByJoinRsc(rescuingVO.getRsc_id(),i,con);
+		    }
+ 		    
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("已送審中");
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt2 != null) {
+				try {
+					pstmt2.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	
 
 	public static void main(String[] args) {
 
@@ -965,6 +1089,8 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 //			System.out.println();
 //		}
 	}
+
+
 
 
 	

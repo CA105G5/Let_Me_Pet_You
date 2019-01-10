@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ page import="com.rescuing.model.*"%>
+<%@ page import="com.rescue.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.mem.model.*"%>
@@ -108,14 +109,23 @@ div {
 													<td><%=no %></td>
 													<td style=" margin-bottom: auto"><fmt:formatDate value="${rescuingVO.rscing_btime}" type="both" /></td>
 													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescuingVO.rsc_id}">${rescuingVO.rsc_id}</a></td>
-													<td style=" margin-bottom: auto">${rescuingVO.rscing_ptcp}<br>暱稱：${memSvc.getOneMem(rescuingVO.rscing_ptcp).memb_nick}</td>
+													<td style=" margin-bottom: auto"><br>暱稱：${memSvc.getOneMem(rescueSvc.getOneRescue(rescuing.rsc_id).rsc_sponsor).memb_nick}</td>
 													<td style=" margin-bottom: auto"><fmt:formatDate value="${rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_btime}" type="both" /></td>
 													<td style=" margin-bottom: auto">
 													<form method="post" action="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do">
 													<input type="hidden"name="action" value="rescueReport">
 													<input type="hidden"name="rsc_id" value="${rescuingVO.rsc_id}">
 													<input type="hidden"name="rscing_ptcp" value="${rescuingVO.rscing_ptcp}">
+													
+													<c:if test="${rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_sta !='完成救援送審中'}" var="condition" scope="page">
 													<button class="genric-btn success circle arrow">完成救援<span class="lnr lnr-arrow-right"></span></button>
+													</c:if>
+<%-- 													<c:if test="${((rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_sta) == '完成救援送審中')and(rescuingVO.rscing_rv_des==null)}" var="111" scope="page"> --%>
+<!-- 													<button class="genric-btn success circle arrow disable">已有會員送出完成報告<span class="lnr lnr-arrow-right"></span></button> -->
+<%-- 													</c:if> --%>
+<%-- 													<c:if test="${((rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_sta)) == '完成救援送審中')and(rescuingVO.rscing_rv_des!=null)}" var="111" scope="page"> --%>
+<!-- 													<button class="genric-btn success circle arrow disable">已送出完成報告<span class="lnr lnr-arrow-right"></span></button> -->
+<%-- 													</c:if> --%>
 													</form>
 													</td>
 												</tr>
