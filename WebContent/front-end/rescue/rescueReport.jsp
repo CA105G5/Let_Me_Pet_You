@@ -131,7 +131,7 @@ table{
 									    <c:forEach var="rescuingVO2" items="${listRescuingMem}">
 									    <c:if test="${rescuingVO2.rscing_ptcp!=rescuingVO.rscing_ptcp}" var="condition" scope="page">
 									        <div class="checkbox">
-									            <label><input type="checkbox" value="">
+									            <label><input style="height: 20px;margin-top: 0px;bottom: 50px;top: 40px;width: 20px;" type="checkbox" value="">
 									            <table style="text-align:center">
 									            <tr>
 									            <td>
