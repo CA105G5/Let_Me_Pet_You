@@ -60,29 +60,59 @@
 		</c:forEach>
 	</ul>
 </c:if>
-    <FORM METHOD="post" ACTION="mem.do" >
-        <div class="container">
-			<div class="h1"></div>
+
+<div class="container">
+
+    <form class="well form-horizontal" action="mem.do" method="post"  id="contact_form">
+<fieldset>
+
+<!-- Form Name -->
+<div class="h1"></div>
 			
 			<div class="page-header">
-			  <h1 align="center">請輸入帳號密碼</h1>
+			  <h1 align="center">請輸入帳號與密碼</h1>
+			  
 			</div>
-			<table class="table table-bordered table-striped table-hover table-condensed" style="width:500px" align="center">
-			<tr align="center"><td>帳號:</td><td width="50%"><input type="text" name="memb_acc"></td></tr>
-			<tr align="center"><td>密碼:</td><td width="50%"><input type="password" name="memb_psw"></td></tr>
-			
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label">會員帳號:</label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  
+  <input  name="memb_acc" class="form-control"  type="text">
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label" >會員密碼:</label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> -->
+  <input name="memb_psw" class="form-control"  type="password" >
+    </div>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+  	<input type="hidden" name="action" value="login">
+    <button type="submit" class="btn btn-warning">登入 <span class="glyphicon glyphicon-send"></span></button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+    </div><!-- /.container -->
+    <div align="center"><a href="<%=request.getContextPath()%>/front-end/members/forget_psw.jsp">我忘記密碼了</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/front-end/members/addMembers.jsp">註冊成為新會員</a></div>
     
- 
-        
-        
-        </table>
-        </div>
-        <br>
-        <input type="hidden" name="action" value="login">
-        <div align="center"><input type="submit" value="登入">
-        <br><br><a href="<%=request.getContextPath()%>/front-end/members/forget_psw.jsp">我忘記密碼了</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/front-end/members/addMembers.jsp">註冊成為新會員</a></div>
-        
-    </FORM>
  		  
 			  
 			  
@@ -107,8 +137,5 @@
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 
- <%-- RWD--%> 
-<!-- <script src="https://code.jquery.com/jquery.js"></script> -->
-<!-- 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </body>
 </html>

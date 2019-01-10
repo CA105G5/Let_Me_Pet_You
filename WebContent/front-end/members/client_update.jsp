@@ -154,7 +154,7 @@
 		<td><input type="TEXT" name="memb_cre_type" size="45" value="<%=(memVO.getMemb_cre_type()==null)? "" : memVO.getMemb_cre_type()%>" /></td>
 	</tr>
 	<tr>
-		<td>持卡人:</td>
+		<td>信用卡持卡人:</td>
 		<td><input type="TEXT" name="memb_cre_name" size="45" value="<%=(memVO.getMemb_cre_name()==null)? "" : memVO.getMemb_cre_name()%>" /></td>
 	</tr>
 	<tr>

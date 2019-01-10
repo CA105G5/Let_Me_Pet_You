@@ -48,6 +48,7 @@
 <!-- sweetAlert -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
+<style>#success_message{ display: none;}</style>
 </head>
 <body>
 <jsp:include page="/index_Header.jsp" flush="true" />
@@ -62,30 +63,64 @@
 		</c:forEach>
 	</ul>
 </c:if>
-    <FORM METHOD="post" ACTION="mem.do" >
-        <div class="container">
-			<div class="h1"></div>
+
+<div class="container">
+
+    <form class="well form-horizontal" action="mem.do" method="post"  id="contact_form">
+<fieldset>
+
+<!-- Form Name -->
+<div class="h1"></div>
 			
 			<div class="page-header">
 			  <h1 align="center">請輸入帳號與信箱</h1>
 			  <h3 align="center">驗證成功後將寄送新密碼至信箱</h3>
 			</div>
-			<table class="table table-bordered table-striped table-hover table-condensed" style="width:500px" align="center">
-			<tr align="center"><td>帳號:</td><td width="50%"><input type="text" name="memb_acc"></td></tr>
-			<tr align="center"><td>信箱:</td><td width="50%"><input type="email" name="memb_email"></td></tr>
-			
-    
- 
-        
-        
-        </table>
-        </div>
-        <br>
-        <input type="hidden" name="action" value="forget_psw">
-        <div align="center"><input id="fp" type="submit" value="送出">
-       </div>
-        
-    </FORM>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label">會員帳號:</label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  
+  <input  name="memb_acc" class="form-control"  type="text">
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label" >會員信箱:</label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> -->
+  <input name="memb_email" class="form-control"  type="text" >
+    </div>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+  	<input type="hidden" name="action" value="forget_psw">
+    <button type="submit" class="btn btn-warning" >寄送驗證 <span class="glyphicon glyphicon-send"></span></button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+    </div><!-- /.container -->
+
+
+
+
+
+
+
     
     <%if ("yes".equals(flag)){%>
     	<script>
@@ -129,9 +164,6 @@
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 
-<%-- RWD--%>
-<!-- <script src="https://code.jquery.com/jquery.js"></script> -->
-<!-- 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 			
 			
 			

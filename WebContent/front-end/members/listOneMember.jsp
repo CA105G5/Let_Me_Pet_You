@@ -108,7 +108,7 @@
 	<tr><td>信用卡類型</td><td><%=memVO.getMemb_cre_type()%></td></tr>
 	<%}%>
 	
-	<tr><td>持卡人</td><td><%=memVO.getMemb_cre_name()%></td></tr>
+	<tr><td>信用卡持卡人</td><td><%=memVO.getMemb_cre_name()%></td></tr>
 	<tr><td>信用卡到期年</td><td><%=memVO.getMemb_cre_year()%></td></tr>
 	<tr><td>信用卡到期月</td><td><%=memVO.getMemb_cre_month()%></td></tr>
 	<tr><td>會員照片</td><td><img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${memVO.memb_id}"/></td></tr>

@@ -45,6 +45,37 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 			
+<style>
+  table#table-1 {
+	background-color: #CCCCFF;
+    border: 2px solid black;
+    text-align: center;
+  }
+  table#table-1 h4 {
+    color: red;
+    display: block;
+    margin-bottom: 1px;
+  }
+  h4 {
+    color: blue;
+    display: inline;
+  }
+</style>
+
+<style>
+  table {
+	width: 450px;
+	background-color: white;
+	margin-top: 1px;
+	margin-bottom: 1px;
+  }
+  table, th, td {
+    border: 0px solid #CCCCFF;
+  }
+  th, td {
+    padding: 1px;
+  }
+</style>
 <style>#success_message{ display: none;}</style>
 
 
@@ -248,7 +279,7 @@
 </div>
 
 <!-- Success message -->
-<!-- <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div> -->
+<div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div>
 
 <!-- Button -->
 <div class="form-group">
@@ -320,6 +351,7 @@ $(function (){
     
 })
 </script>
+
 </body>
 
 
