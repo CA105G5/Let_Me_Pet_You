@@ -1,11 +1,28 @@
 
 //我使用D3.js V5的版本
+<%@page import="com.missingMsg.model.missingMsgVO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.missingMsg.model.missingMsgService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
+<%
+missingMsgService missingMsgSvc = new missingMsgService();
+List<missingMsgVO> list = missingMsgSvc.findByCase("S000000002");
+pageContext.setAttribute("list", list);
 
+
+%>
 <div id="tag" style="border: 1px solid #eee; height: 320px; width:525px;"></div>
+
+<script></script>
+<c:forEach var="missingMsgVO" items="${list}" varStatus="i">
+
+
+
+</c:forEach>
 <script>
     //取得d3顏色
     var fill = d3.scaleOrdinal(d3.schemeCategory10);

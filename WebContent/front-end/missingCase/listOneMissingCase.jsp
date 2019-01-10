@@ -243,7 +243,6 @@
 									</div>
 								</div>
 								
-								
 								<!--留言檢舉彈出區-->
 							<div class="modal fade" id="${missingMsgVO.missing_msg_id}" tabindex="-1"
 								role="dialog" aria-labelledby="#${missingMsgVO.missing_msg_id}"
@@ -292,7 +291,7 @@
 							
 							
 	<script type="text/javascript">						
-								//刪除留言
+//刪除留言
 	$('#${i.index}').click(function(e){
 		if(${missingMsgVO.memb_id != membVO.memb_id}){
 			swal("刪除失敗！你不是留言的人！","","warning");
