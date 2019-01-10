@@ -265,7 +265,7 @@ public class OrdItemServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			try {
+//			try {
 				/***************************1.接收請求參數****************************************/
 				
 				String prod_id = req.getParameter("prod_id");
@@ -299,13 +299,13 @@ public class OrdItemServlet extends HttpServlet {
 				System.out.println("!!!!!!!!!!!");
 				
 				/***************************其他可能的錯誤處理**********************************/
-			} catch (Exception e) {
-				System.out.println("???????????");
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/ord/listAllOrd.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				System.out.println("???????????");
+//				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/ord/listAllOrd.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 		
 

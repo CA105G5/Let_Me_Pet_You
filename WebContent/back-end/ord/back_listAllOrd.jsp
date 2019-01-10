@@ -48,45 +48,38 @@
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
+<%--     <link rel="stylesheet" href="<%=request.getContextPath()%>/backend_UI_template/assets/css/lib/datatable/dataTables.bootstrap.min.css"> --%>
+<!--     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'> -->
+    
+<!--     <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+    
+<!-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend_UI_template/assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend_UI_template/assets/css/lib/datatable/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend_UI_template/assets/css/style.css">
-    
-    V<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-    
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
+<!-- https://fontawesome.com/ 自己的css-->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+	crossorigin="anonymous">
 
-    <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
+
+
     
-    
-<!--     加上審核彈跳modal -->
+<!-- <!--     加上審核彈跳modal --> -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<!-- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
-<!--     加上審核彈跳modal -->
+<!-- <!--     加上審核彈跳modal --> -->
     
 
 <!-- w3 CSS tabs -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <!-- w3 CSS tabs -->
-
-
-
-
 
 
 
@@ -136,6 +129,184 @@
         #cellPaiChart{
             height: 160px;
         }
+        
+       .modal {
+  overflow-y:auto;
+}
+
+/* Timeline */
+/* 參考網址https://bootsnipp.com/snippets/pjQlD */
+.timeline,
+.timeline-horizontal {
+list-style: none;
+padding: 20px;
+position: relative;
+}
+.timeline:before {
+top: 40px;
+bottom: 0;
+position: absolute;
+content: " ";
+width: 3px;
+background-color: #eeeeee;
+left: 50%;
+margin-left: -1.5px;
+}
+.timeline .timeline-item {
+margin-bottom: 20px;
+position: relative;
+}
+.timeline .timeline-item:before,
+.timeline .timeline-item:after {
+content: "";
+display: table;
+}
+.timeline .timeline-item:after {
+clear: both;
+}
+.timeline .timeline-item .timeline-badge {
+color: #fff;
+width: 54px;
+height: 54px;
+line-height: 52px;
+font-size: 22px;
+text-align: center;
+position: absolute;
+top: 15px;
+left: 50%;
+margin-left: -25px;
+background-color: #7c7c7c;
+border: 3px solid #ffffff;
+z-index: 100;
+border-top-right-radius: 50%;
+border-top-left-radius: 50%;
+border-bottom-right-radius: 50%;
+border-bottom-left-radius: 50%;
+}
+.timeline .timeline-item .timeline-badge i,
+.timeline .timeline-item .timeline-badge .fa,
+.timeline .timeline-item .timeline-badge .glyphicon {
+top: 2px;
+left: 0px;
+}
+.timeline .timeline-item .timeline-badge.primary {
+background-color: #1f9eba;
+}
+.timeline .timeline-item .timeline-badge.info {
+background-color: #5bc0de;
+}
+.timeline .timeline-item .timeline-badge.success {
+background-color: #59ba1f;
+}
+.timeline .timeline-item .timeline-badge.warning {
+background-color: #d1bd10;
+}
+.timeline .timeline-item .timeline-badge.danger {
+background-color: #ba1f1f;
+}
+.timeline .timeline-item .timeline-panel {
+position: relative;
+width: 46%;
+float: left;
+right: 16px;
+border: 1px solid #c0c0c0;
+background: #ffffff;
+border-radius: 2px;
+padding: 20px;
+-webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+.timeline .timeline-item .timeline-panel:before {
+position: absolute;
+top: 26px;
+right: -16px;
+display: inline-block;
+border-top: 16px solid transparent;
+border-left: 16px solid #c0c0c0;
+border-right: 0 solid #c0c0c0;
+border-bottom: 16px solid transparent;
+content: " ";
+}
+.timeline .timeline-item .timeline-panel .timeline-title {
+margin-top: 0;
+color: inherit;
+}
+.timeline .timeline-item .timeline-panel .timeline-body > p,
+.timeline .timeline-item .timeline-panel .timeline-body > ul {
+margin-bottom: 0;
+}
+.timeline .timeline-item .timeline-panel .timeline-body > p + p {
+margin-top: 5px;
+}
+.timeline .timeline-item:last-child:nth-child(even) {
+float: right;
+}
+.timeline .timeline-item:nth-child(even) .timeline-panel {
+float: right;
+left: 16px;
+}
+.timeline .timeline-item:nth-child(even) .timeline-panel:before {
+border-left-width: 0;
+border-right-width: 14px;
+left: -14px;
+right: auto;
+}
+.timeline-horizontal {
+list-style: none;
+position: relative;
+padding: 20px 0px 20px 0px;
+display: inline-block;
+}
+.timeline-horizontal:before {
+height: 3px;
+top: auto;
+bottom: 26px;
+left: 50px;
+right: 0;
+width: 78%;
+margin-bottom: 20px;
+}
+.timeline-horizontal .timeline-item {
+display: table-cell;
+height: 280px;
+width: 20%;
+min-width: 200px;
+float: none !important;
+padding-left: 0px;
+padding-right: 20px;
+margin: 0 auto;
+vertical-align: bottom;
+}
+.timeline-horizontal .timeline-item .timeline-panel {
+top: auto;
+bottom: 64px;
+display: inline-block;
+float: none !important;
+left: 0 !important;
+right: 0 !important;
+width: 120px;
+margin-bottom: 20px;
+}
+.timeline-horizontal .timeline-item .timeline-panel:before {
+top: auto;
+bottom: -16px;
+left: 28px !important;
+right: auto;
+border-right: 16px solid transparent !important;
+border-top: 16px solid #c0c0c0 !important;
+border-bottom: 0 solid #c0c0c0 !important;
+border-left: 16px solid transparent !important;
+}
+.timeline-horizontal .timeline-item:before,
+.timeline-horizontal .timeline-item:after {
+display: none;
+}
+.timeline-horizontal .timeline-item .timeline-badge {
+top: auto;
+bottom: 0px;
+left: 43px;
+}
+        
 
     </style>
 </head>
@@ -205,7 +376,8 @@
  	<p> </p> 
     <table id="bootstrap-data-table2" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
-														<tr class="success">
+<!-- 														<tr class="success"> -->
+														<tr>
 															<th width="100px">訂單編號</th>
 															<th width="100px">照片</th>
 															<th width="100px">商品名稱</th>
@@ -225,7 +397,8 @@
 <%-- 																	<td><%=no %></td> --%> 
 <%-- 																	<td style=" margin-bottom: auto">${ordItemVO.ord_id}</td> --%>
 																	<!--改成modal彈跳視窗 -->
-																	<td><A href="<%=request.getContextPath()%>/ordItem/ordItem.do?prod_id=${ordItemVO.prod_id}&ord_id=${ordItemVO.ord_id}&action=getOneModal_For_Detail">${ordItemVO.ord_id}</a></td>
+<%-- 																	<td><A href="<%=request.getContextPath()%>/ordItem/ordItem.do?prod_id=${ordItemVO.prod_id}&ord_id=${ordItemVO.ord_id}&action=getOneModal_For_Detail">${ordItemVO.ord_id}</a></td> --%>
+																	<td><input type="button" value="${ordItemVO.ord_id}" id="ord_detail1" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#toReview<%= no %>"}></td>
 																	<!--改成modal彈跳視窗 -->
 																	<td style=" margin-bottom: auto"><img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${ordItemVO.prod_id}" alt="" width="50px" style="margin-bottom: auto"></td>
 																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${ordItemVO.prod_id}">${prodSvc.getOneProd(ordItemVO.prod_id).prod_name}</a></td>
@@ -233,26 +406,351 @@
 																	<td style=" margin-bottom: auto">${ordItemVO.ord_item_rt_comm}</td>
 																	<td style=" margin-bottom: auto">${ordItemVO.ord_item_review==null? "未審核": ordItemVO_Modal.ord_item_review}</td>
 																	<td style=" margin-bottom: auto">
-																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ordItem/ordItem.do" style="text-align: center; margin-bottom: auto">
-<!-- 																		<input type="submit" value="檢舉"> -->
-																		<input type="submit" value="審核" id="review">
+<%-- 																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ordItem/ordItem.do" style="text-align: center; margin-bottom: auto"> --%>
+<!-- 																		<input type="submit" value="審核" id="review"> -->
+																		<input type="button" value="審核" id="review" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#rv_modal<%= no %>" ${ordItemVO.ord_item_sp_status==null? "disabled": ""}>
 <%-- 																		<A type="button" href="<%=request.getContextPath()%>/ordItem/ordItem.do?prod_id=${ordItemVO.prod_id}&ord_id=${ordItemVO.ord_id}&action=getOneModal_For_Review">審核</a> --%>
 <%-- 																	<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%>
 																		<input type="hidden" name="prod_id"  value="${ordItemVO.prod_id}">
 																		<input type="hidden" name="ord_id"  value="${ordItemVO.ord_id}">
 																		<input type="hidden" name="tab"  value="1">
 																		<input type="hidden" name="action"	value="getOneModal_For_Review">
-																		</FORM>
+<!-- 																		</FORM> -->
 <!-- 																		改成modal彈跳視窗 -->
 <%-- 																		<A href="<%=request.getContextPath()%>/ordItem/ordItem.do?prod_id=${ordItemVO.prod_id}&ord_id=${ordItemVO.ord_id}&action=getOneModal_For_Detail">檢舉</a> --%>
 <!-- 																		改成modal彈跳視窗 -->
 																	
 																	</td>
 																</tr>
+																
+<!-- 審核 -->
+				
+	<div class="modal" id="rv_modal<%= no %>" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+								                <div class="modal-dialog modal-lg" role="document">
+								                    <div class="modal-content">
+								                        <div class="modal-header">
+								                            <h3 class="modal-title" id="largeModalLabel"><b style="color:black">訂單檢舉</b></h3>
+								                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								                                <span aria-hidden="true">&times;</span>
+								                            </button>
+								                        </div>
+								                        <div class="modal-body">
+				<div class="container">
+					<div class="form-group" style="width:700px">
+							<h4>訂單內容</h4>
+							<hr>
+							<h4 style="display:inline">${prodSvc.getOneProd(ordItemVO.prod_id).prod_name}</h4>
+							<span style="font-size: 1.5em; color: Tomato; text-indent:300px; display:inline">
+								<i class="fas fa-coins"></i>
+								<b>${prodSvc.getOneProd(ordItemVO.prod_id).prod_price}</b>
+							</span>
+							<h4 style="display:inline">X ${ordItemVO.ord_item_qty}</h4>
+							
+							<img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${ordItemVO.prod_id}" alt="">
+					</div>
+					<br>
+					<div class="form-group" style="width:700px">
+							<h3>檢舉理由</h3>
+							<hr>
+							<h5>${ordItemVO.ord_item_rt_comm} </h5><br> 
+							<div>${ordItemVO.ord_item_rt_pic} </div>
+					</div>
+					
+					
+					<br>
+					<h3>審核</h3>
+					<hr>
+					<span id="result_error<%=no%>" style="color:red"></span>
+					<span id="reason_error<%=no%>" style="color:red"></span>
+					<div class="input-group-icon mt-10" style="width: 200px; ">
+						<div class="icon">
+							<i class="fa fa-thumb-tack" aria-hidden="true"></i>
+						</div>
+						<div class="form-select" id="default-select">
+							<select style="width: 120px" id="report_result<%=no%>" name="report_result">
+								<option value="0">審核結果</option> 
+								<option value="通過" >通過</option>
+								<option value="不通過" >不通過</option>
+							</select>
+						</div>
+					</div> 
+					<br>
+					
+					
+
+ 		    		<div class="form-group" style="width:700px"> 
+ 		    		<textarea class="form-control" id="reason<%=no%>" rows="5" placeholder="請輸入審核理由"></textarea> 
+ 		    		</div> 
+ 		    		<br>
+ 		    		<input type="submit" value="送出" id="submit<%=no %>">
+<%--  		    		<input type="button" value="提交" class="button" id="submit<%=no %>" onclick="reviewSubmit()"> --%>
+ 		    		<input type="hidden" name="prod_id" id="product_id" value='${ordItemVO.prod_id}'>
+					<input type="hidden" name="ord_id"  id="ord_id" value='${ordItemVO.ord_id}'>
+					<input type="hidden" name="img"  value="">
+ 		    		
+ 		    		
+		</div>
+								                        
+								                        </div>
+								                        <div class="modal-footer">
+								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+<!-- 								                            <button type="button" class="btn btn-primary">Confirm</button> -->
+								                        </div>
+								                    </div>
+								                </div>	
+											</div>				
+																
+																
+																
+																
+<!-- 審核 -->
+																
+																														
+<script>
+(function($) {
+ 	$('#submit<%=no%>').on('click', function () {
+// 	function reviewSubmit(e){
+		 var $this = $(this);
+// 		 console.log("e.target="+e);
+		 console.log("$this="+$this);
+		 console.log("$this.val()="+$this.val());
+		 var c=0;
+		 $("#result_error<%=no%>").text("");
+		 $("#reason_error<%=no%>").html("");
+		 console.log("#report_result="+$("#report_result<%=no%>").val());
+		 console.log("#reason="+$("#reason<%=no%>").val());
+		 console.log("ord_id="+ $this.next().next().val());
+		 console.log("prod_id="+ $this.next().val());
+		 console.log("ord_id="+ '${ordItemVO.ord_id}');
+		 console.log("prod_id="+ '${ordItemVO.prod_id}');
+		 
+		 var has_empty = false;
+		    
+		 if ($("#report_result<%=no%>").val()==0){
+			 $("#result_error<%=no%>").text("請輸入審核理由");
+			 has_empty = true;
+			 c++;
+		 } 
+		 
+		 if ($("#reason<%=no%>").val()==null || $("#reason<%=no%>").val().trim().length==0){
+			 has_empty = true;
+			 if (c==0)
+			 	$("#reason_error<%=no%>").text("請輸入審核描述");
+			 else
+			 	$("#reason_error<%=no%>").html("<br>請輸入審核描述");
+			 
+		 } 
+		 if ( has_empty ) { 
+		 	 return false; 
+		 }
+		 
+		 var $this = $(this);
+		 console.log("11111111");
+		 console.log("reason<%=no%>=" + $("#reason<%=no%>").val());
+		 console.log("report_result<%=no%>=" + $("#report_result<%=no%>").val());
+		 console.log("22222222");
+	     	$.ajax({
+	    		url: '<%=request.getContextPath()%>/ordItem/ordItem.do',
+	    		type: "post",
+	    		data: { 'action': 'getOne_For_Review_Update', 'ord_id': '${ordItemVO.ord_id}' , 'prod_id': '${ordItemVO.prod_id}', 'ord_item_review' : $("#report_result<%=no%>").val(), 'ord_item_rv_des' : $("#reason<%=no%>").val()  },
+	    		dataType: 'json',
+	    		success: function(res){
+	    			console.log("0000000000");
+	    			console.log(res);
+	    			swal({
+	    				title: "完成!",
+	    				text: "已完成審核",
+	    				type: "success",
+	    				timer: 3000
+	    			});
+	    			console.log("11111111");
+	    			setInterval(function() { window.location.href = '<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp';}, 2000);
+	    			console.log("22222222");
+	    		},
+	    		error: function(res){
+	    			console.log("eeeeeeee");
+	    			console.log("res="+res);
+	    		}
+	    	});
+// 	};
+		});
+})(jQuery);
+</script>																	
+																
+																
+																
+																
+																
+																	<!--訂單明細modal -->
+<div class="modal" id="toReview<%= no %>" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+								                <div class="modal-dialog modal-lg" role="document">
+								                    <div class="modal-content">
+								                        <div class="modal-header">
+								                            <h3 class="modal-title" id="largeModalLabel">訂單明細</h3>
+								                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								                                <span aria-hidden="true">&times;</span>
+								                            </button>
+								                        </div>
+								                        <div class="modal-body">
+		<div class="container">
+			<div class="form-group" style="width:700px">
+							<h3>訂單內容</h3>
+							<div class="container">
+								<hr>
+								<div class="row">
+									<div class="col-xs-3 col-sm-3">
+										<img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${ordItemVO.prod_id}" alt="" width="200px">
+									</div>
+									<div class="col-xs-6 col-sm-6">
+										<h5>${prodSvc.getOneProd(ordItemVO.prod_id).prod_name}
+											<span style="font-size: 1em; color: Tomato; text-indent:50px;">
+												<i class="fas fa-coins"></i>
+												<b>${prodSvc.getOneProd(ordItemVO.prod_id).prod_price}</b>
+											</span>
+											X ${ordItemVO.ord_item_qty}
+										</h5>
+									</div>
+								</div>
+							</div>
+							
+			</div>
+						<br>
+						<div class="form-group" style="width:700px">
+							<h3>收件人資訊</h3>
+							<hr>
+<!-- 							<table> -->
+<%-- 								<tr><th>收件人</th><td>${ordSvc.getOneOrd(ordItemVO.ord_id).ord_receiver}</td></tr> --%>
+<%-- 								<tr><th>收件人電話</th><td>${ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_tel}</td></tr> --%>
+<%-- 								<tr><th>收件人地址</th><td>${ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_add}</td></tr> --%>
+<%-- 								<tr><th>收件備註</th><td>${ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_comm==null? "無" : ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_comm}</td></tr> --%>
+<!-- 							</table> -->
+								<span>收件人　　　${ordSvc.getOneOrd(ordItemVO.ord_id).ord_receiver}</span><br>
+								<span>收件人電話　${ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_tel}</span><br>
+								<span>收件人地址　${ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_add}</span><br>
+								<span>收件備註　　${ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_comm==null? "無" : ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_comm}</span><br>
+						</div>
+						<br>
+						<div class="form-group" style="width:700px; display: ${ordItemVO.ord_item_rt_status.equals("已檢舉")? "" : "none"}" >
+							<h3>檢舉資訊</h3>
+							<hr>
+<!-- 							<table> -->
+<%-- 								<tr><th>檢舉狀態</th><td>${ordItemVO.ord_item_rt_status}</td></tr> --%>
+<%-- 								<tr><th>檢舉時間</th><td>${ordItemVO.ord_item_rt_date}</td></tr> --%>
+<%-- 								<tr><th>檢舉理由</th><td>${ordItemVO.ord_item_rt_comm} <br> ${ordItemVO.ord_item_rt_pic} </td></tr> --%>
+<%-- 								<tr><th>檢舉審核結果</th><td>${ordItemVO.ord_item_review==null? "未審核": ordItemVO.ord_item_review}</td></tr> --%>
+<%-- 								<tr><th>檢舉審核描述</th><td>${ordItemVO.ord_item_rv_des==null? "未審核": ordItemVO.ord_item_rv_des}</td></tr> --%>
+<!-- 							</table> -->
+								<span>檢舉狀態　　　${ordItemVO.ord_item_rt_status}</span><br>
+								<span>檢舉時間　　　${ordItemVO.ord_item_rt_date}</span><br>
+								<span>檢舉理由　　　${ordItemVO.ord_item_rt_comm}</span><br>
+								<span>檢舉照片<br></span>
+								<span style="padding-left:100px">${ordItemVO.ord_item_rt_pic}</span><br><br>
+								<span>檢舉審核結果　${ordItemVO.ord_item_review==null? "未審核": ordItemVO.ord_item_review}</span><br>
+								<span>檢舉審核描述　${ordItemVO.ord_item_rv_des==null? "未審核": ordItemVO.ord_item_rv_des}</span><br>
+						</div>
+						<br>
+						<div class="form-group" style="width:700px">
+							<h3 style="display:inline">訂單狀態 </h3>
+							<c:choose>
+							    <c:when test="${ordItemVO.ord_item_rt_status.equals('已檢舉')}">
+							        <span><h4 style="display:inline; padding-left:30px">已檢舉</h4></span>
+							    </c:when>
+							    <c:when test="${ordItemVO.ord_item_rt_status.equals('未檢舉')}">
+							        <span><h4 style="display:inline">已收貨</h4></span>
+							    </c:when>
+							    <c:when test="${ordItemVO.ord_item_rc_status==null}">
+							        <span><h4 style="display:inline; padding-left:30px">待收貨</h4></span>
+							    </c:when>
+							    <c:otherwise>
+							    </c:otherwise>
+							</c:choose>
+							<hr>
+							
+						</div>
+						<br>
+						<div class="form-group" style="width:700px">
+							<h3>訂單歷史</h3>
+							<hr>
+							
+								<div class="container">
+									<div class="row">
+										<div class="col-md-12">
+											<div style="display:inline-block;width:700px">
+												<ul class="timeline timeline-horizontal">
+													<li class="timeline-item" style="width:170px">
+														<div class="timeline-badge ${ordSvc.getOneOrd(ordItemVO.ord_id).ord_date==null? '':'primary'}"><i class="glyphicon glyphicon-time" style="font-size: 1em;"></i></div>
+														<div class="timeline-panel">
+															<div class="timeline-heading">訂單成立
+																<p><small class="text-muted"><fmt:formatDate value="${ordSvc.getOneOrd(ordItemVO.ord_id).ord_date}" pattern="yyyy-MM-dd HH:mm:ss"/></small></p>
+															</div>
+														</div>
+													</li>
+													<li class="timeline-item">
+														<div class="timeline-badge ${ordItemVO.ord_item_sp_date==null? '':'primary'}"><i class="glyphicon glyphicon-time" style="font-size: 1em;"></i></div>
+														<div class="timeline-panel">
+															<div class="timeline-heading">出貨時間
+																<p><small class="text-muted"><fmt:formatDate value="${ordItemVO.ord_item_sp_date}" pattern="yyyy-MM-dd HH:mm:ss"/></small></p>
+															</div>
+														</div>
+													</li>
+													<li class="timeline-item">
+														<div class="timeline-badge ${ordItemVO.ord_item_rc_date==null? '':'primary'}"><i class="glyphicon glyphicon-time" style="font-size: 1em;"></i></div>
+														<div class="timeline-panel">
+															<div class="timeline-heading">收貨時間
+																<p><small class="text-muted"><fmt:formatDate value="${ordItemVO.ord_item_rc_date}" pattern="yyyy-MM-dd HH:mm:ss"/></small></p>
+															</div>
+														</div>
+													</li>
+													<li class="timeline-item">
+														<div class="timeline-badge ${ordItemVO.ord_item_rt_date==null? '':'primary'}"><i class="glyphicon glyphicon-time" style="font-size: 1em;"></i></div>
+														<div class="timeline-panel">
+															<div class="timeline-heading">檢舉時間
+																<p><small class="text-muted"><fmt:formatDate value="${ordItemVO.ord_item_rt_date}" pattern="yyyy-MM-dd HH:mm:ss"/></small></p>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+						</div>
+					</div>
+						
+					</div>
+								                        <div class="modal-footer">
+								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+<!-- 								                            <button type="button" class="btn btn-primary">送出</button> -->
+								                        </div>
+								                    </div>
+								                </div>
+								            </div>	
+								                
+
+
+<!--訂單明細modal -->
+
+
+
+	
+				
+																
+																
+																
+																
+																
 															</c:if>
 														</c:forEach>
 													</tbody>
 												</table>
+												
+								
+											
+												
+												
+												
+												
 												
   </div>
 
@@ -279,7 +777,8 @@
 																<tr>
 <%-- 																	<td style=" margin-bottom: auto">${ordItemVO.ord_id}</td> --%>
 																	<!--改成modal彈跳視窗 -->
-																	<td><A href="<%=request.getContextPath()%>/ordItem/ordItem.do?prod_id=${ordItemVO.prod_id}&ord_id=${ordItemVO.ord_id}&action=getOneModal_For_Detail">${ordItemVO.ord_id}</a></td>
+<%-- 																	<td><A href="<%=request.getContextPath()%>/ordItem/ordItem.do?prod_id=${ordItemVO.prod_id}&ord_id=${ordItemVO.ord_id}&action=getOneModal_For_Detail">${ordItemVO.ord_id}</a></td> --%>
+																	<td><input type="button" value="${ordItemVO.ord_id}" id="ord_detail1" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#reviewed<%= no1 %>"}></td>
 																	<!--改成modal彈跳視窗 -->
 																	<td style=" margin-bottom: auto"><img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${ordItemVO.prod_id}" alt="" width="50px" style="margin-bottom: auto"></td>
 																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${ordItemVO.prod_id}">${prodSvc.getOneProd(ordItemVO.prod_id).prod_name}</a></td>
@@ -288,6 +787,160 @@
 																	<td style=" margin-bottom: auto">${ordItemVO.ord_item_review}</td>
 																	<td style=" margin-bottom: auto">${ordItemVO.ord_item_rv_des}</td>
 																</tr>
+																
+																
+																<!--訂單明細modal -->
+<div class="modal" id="reviewed<%= no1 %>" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+								                <div class="modal-dialog modal-lg" role="document">
+								                    <div class="modal-content">
+								                        <div class="modal-header">
+								                            <h3 class="modal-title" id="largeModalLabel">訂單明細</h3>
+								                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								                                <span aria-hidden="true">&times;</span>
+								                            </button>
+								                        </div>
+								                        <div class="modal-body">
+		<div class="container">
+			<div class="form-group" style="width:700px">
+							<h3>訂單內容</h3>
+							<div class="container">
+								<hr>
+								<div class="row">
+									<div class="col-xs-3 col-sm-3">
+										<img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${ordItemVO.prod_id}" alt="" width="200px">
+									</div>
+									<div class="col-xs-6 col-sm-6">
+										<h5>${prodSvc.getOneProd(ordItemVO.prod_id).prod_name}
+											<span style="font-size: 1em; color: Tomato; text-indent:50px;">
+												<i class="fas fa-coins"></i>
+												<b>${prodSvc.getOneProd(ordItemVO.prod_id).prod_price}</b>
+											</span>
+											X ${ordItemVO.ord_item_qty}
+										</h5>
+									</div>
+								</div>
+							</div>
+							
+			</div>
+						<br>
+						<div class="form-group" style="width:700px">
+							<h3>收件人資訊</h3>
+							<hr>
+<!-- 							<table> -->
+<%-- 								<tr><th>收件人</th><td>${ordSvc.getOneOrd(ordItemVO.ord_id).ord_receiver}</td></tr> --%>
+<%-- 								<tr><th>收件人電話</th><td>${ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_tel}</td></tr> --%>
+<%-- 								<tr><th>收件人地址</th><td>${ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_add}</td></tr> --%>
+<%-- 								<tr><th>收件備註</th><td>${ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_comm==null? "無" : ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_comm}</td></tr> --%>
+<!-- 							</table> -->
+								<span>收件人　　　${ordSvc.getOneOrd(ordItemVO.ord_id).ord_receiver}</span><br>
+								<span>收件人電話　${ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_tel}</span><br>
+								<span>收件人地址　${ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_add}</span><br>
+								<span>收件備註　　${ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_comm==null? "無" : ordSvc.getOneOrd(ordItemVO.ord_id).ord_rc_comm}</span><br>
+						</div>
+						<br>
+						<div class="form-group" style="width:700px; display: ${ordItemVO.ord_item_rt_status.equals("已檢舉")? "" : "none"}" >
+							<h3>檢舉資訊</h3>
+							<hr>
+<!-- 							<table> -->
+<%-- 								<tr><th>檢舉狀態</th><td>${ordItemVO.ord_item_rt_status}</td></tr> --%>
+<%-- 								<tr><th>檢舉時間</th><td>${ordItemVO.ord_item_rt_date}</td></tr> --%>
+<%-- 								<tr><th>檢舉理由</th><td>${ordItemVO.ord_item_rt_comm} <br> ${ordItemVO.ord_item_rt_pic} </td></tr> --%>
+<%-- 								<tr><th>檢舉審核結果</th><td>${ordItemVO.ord_item_review==null? "未審核": ordItemVO.ord_item_review}</td></tr> --%>
+<%-- 								<tr><th>檢舉審核描述</th><td>${ordItemVO.ord_item_rv_des==null? "未審核": ordItemVO.ord_item_rv_des}</td></tr> --%>
+<!-- 							</table> -->
+								<span>檢舉狀態　　　${ordItemVO.ord_item_rt_status}</span><br>
+								<span>檢舉時間　　　${ordItemVO.ord_item_rt_date}</span><br>
+								<span>檢舉理由　　　${ordItemVO.ord_item_rt_comm}</span><br>
+								<span>檢舉照片<br></span>
+								<span style="padding-left:100px">${ordItemVO.ord_item_rt_pic}</span><br><br>
+								<span>檢舉審核結果　${ordItemVO.ord_item_review==null? "未審核": ordItemVO.ord_item_review}</span><br>
+								<span>檢舉審核描述　${ordItemVO.ord_item_rv_des==null? "未審核": ordItemVO.ord_item_rv_des}</span><br>
+						</div>
+						<br>
+						<div class="form-group" style="width:700px">
+							<h3 style="display:inline">訂單狀態 </h3>
+							<c:choose>
+							    <c:when test="${ordItemVO.ord_item_rt_status.equals('已檢舉')}">
+							        <span><h4 style="display:inline; padding-left:30px">已檢舉</h4></span>
+							    </c:when>
+							    <c:when test="${ordItemVO.ord_item_rt_status.equals('未檢舉')}">
+							        <span><h4 style="display:inline">已收貨</h4></span>
+							    </c:when>
+							    <c:when test="${ordItemVO.ord_item_rc_status==null}">
+							        <span><h4 style="display:inline; padding-left:30px">待收貨</h4></span>
+							    </c:when>
+							    <c:otherwise>
+							    </c:otherwise>
+							</c:choose>
+							<hr>
+							
+						</div>
+						<br>
+						<div class="form-group" style="width:700px">
+							<h3>訂單歷史</h3>
+							<hr>
+							
+								<div class="container">
+									<div class="row">
+										<div class="col-md-12">
+											<div style="display:inline-block;width:700px">
+												<ul class="timeline timeline-horizontal">
+													<li class="timeline-item" style="width:170px">
+														<div class="timeline-badge ${ordSvc.getOneOrd(ordItemVO.ord_id).ord_date==null? '':'primary'}"><i class="glyphicon glyphicon-time" style="font-size: 1em;"></i></div>
+														<div class="timeline-panel">
+															<div class="timeline-heading">訂單成立
+																<p><small class="text-muted"><fmt:formatDate value="${ordSvc.getOneOrd(ordItemVO.ord_id).ord_date}" pattern="yyyy-MM-dd HH:mm:ss"/></small></p>
+															</div>
+														</div>
+													</li>
+													<li class="timeline-item">
+														<div class="timeline-badge ${ordItemVO.ord_item_sp_date==null? '':'primary'}"><i class="glyphicon glyphicon-time" style="font-size: 1em;"></i></div>
+														<div class="timeline-panel">
+															<div class="timeline-heading">出貨時間
+																<p><small class="text-muted"><fmt:formatDate value="${ordItemVO.ord_item_sp_date}" pattern="yyyy-MM-dd HH:mm:ss"/></small></p>
+															</div>
+														</div>
+													</li>
+													<li class="timeline-item">
+														<div class="timeline-badge ${ordItemVO.ord_item_rc_date==null? '':'primary'}"><i class="glyphicon glyphicon-time" style="font-size: 1em;"></i></div>
+														<div class="timeline-panel">
+															<div class="timeline-heading">收貨時間
+																<p><small class="text-muted"><fmt:formatDate value="${ordItemVO.ord_item_rc_date}" pattern="yyyy-MM-dd HH:mm:ss"/></small></p>
+															</div>
+														</div>
+													</li>
+													<li class="timeline-item">
+														<div class="timeline-badge ${ordItemVO.ord_item_rt_date==null? '':'primary'}"><i class="glyphicon glyphicon-time" style="font-size: 1em;"></i></div>
+														<div class="timeline-panel">
+															<div class="timeline-heading">檢舉時間
+																<p><small class="text-muted"><fmt:formatDate value="${ordItemVO.ord_item_rt_date}" pattern="yyyy-MM-dd HH:mm:ss"/></small></p>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+						</div>
+					</div>
+						
+					</div>
+								                        <div class="modal-footer">
+								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+<!-- 								                            <button type="button" class="btn btn-primary">送出</button> -->
+								                        </div>
+								                    </div>
+								                </div>
+								            </div>	
+								                
+
+
+<!--訂單明細modal -->
+																
+																
+																
 															</c:if>
 														</c:forEach>
 													</tbody>
@@ -321,99 +974,7 @@
     <!-- /#right-panel -->
     
 
-<!--    加上檢舉彈跳modal  -->
-<c:if test="${ReviewModal!=null}">
 
-<div class="modal fade" id="ReviewModal" tabindex="-1" role="dialog" aria-labelledby="ReviewModal" aria-hidden="true" style="overflow: hidden">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-				
-			<div class="modal-header" style="height:auto">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title" id="myModalLabel">The Bootstrap modal-header</h3>
-            </div>
-			
-			<div class="modal-body">
-<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
-               <jsp:include page="/front-end/ord/listOneReviewModal.jsp" />
-<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
-			</div>
-			
-			<div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-		
-		</div>
-	</div>
-</div>
-
-        <script>
-    		 $("#ReviewModal").modal({show: true});
-        </script>
-</c:if>
-<!--    加上審核彈跳modal  -->   
-
-
-
-<!--    加上明細彈跳modal  -->
-<c:if test="${openModal!=null}">
-
-<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="overflow: hidden">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-				
-			<div class="modal-header" style="height:500px">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title" id="myModalLabel">The Bootstrap modal-header</h3>
-            </div>
-			
-			<div class="modal-body">
-<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
-               <jsp:include page="/front-end/ord/listOneOrdDetailModal.jsp" />
-<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
-			</div>
-			
-			<div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-		
-		</div>
-	</div>
-</div>
-
-        <script>
-    		 $("#basicModal").modal({show: true});
-        </script>
-</c:if>
-<!--    加上明細彈跳modal  -->   
-    
-
-    <!-- Scripts -->
-<!--     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-<!--     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script> -->
-    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/main.js"></script>
-
-    <!--  Chart js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
-
-    <!--Chartist Chart-->
-    <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script>
-
-<!--     <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script> -->
-<!--     <script src="https://cdn.jsdelivr.net/npm/flot-pie@1.0.0/src/jquery.flot.pie.min.js"></script> -->
-<!--     <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script> -->
-
-<!--     <script src="https://cdn.jsdelivr.net/npm/simpleweather@3.1.0/jquery.simpleWeather.min.js"></script> -->
-    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/init/weather-init.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
-    <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/init/fullcalendar-init.js"></script>
 
 	<script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/datatables.min.js"></script>
     <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
@@ -425,7 +986,6 @@
     <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="<%=request.getContextPath()%>/backend_UI_template/assets/js/init/datatables-init.js"></script>
-
 
 
     

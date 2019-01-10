@@ -63,30 +63,39 @@ div {
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
 	
-	<div class="container">
-			<div class="row">
+<!-- 	<div class="container"> -->
+<!-- 			<div class="row"> -->
 
-			<!-- 左側邊list-group -->
-			<div class="col-xs-12 col-sm-3">
-				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
-					<h3>捐贈紀錄</h3>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心捐款紀錄</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄</a></h5>
-					<hr>
-				</div>
-			</div>
-		</div>
-	</div>
+<!-- 			<!-- 左側邊list-group --> 
+<!-- 			<div class="col-xs-12 col-sm-3"> -->
+<!-- 				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto"> -->
+<!-- 					<h3>捐贈紀錄</h3> -->
+<!-- 					<hr> -->
+<%-- 					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心捐款紀錄</a></h5> --%>
+<!-- 					<hr> -->
+<%-- 					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄</a></h5> --%>
+<!-- 					<hr> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	
 	
 	<section class="training-area section-gap">
 		<div class="container">
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
 				<div class="row">
-					<div class="col-lg-3 cl-md-3" style="top: 180px; bottom: auto;"></div> <!-- position: fixed -->
-					<div class="col-xs-12 col-sm-9">
+					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;">
+						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
+							<h3>捐贈紀錄</h3>
+							<hr>
+							<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllMoneyDon.jsp">愛心捐款紀錄</a></h5>
+							<hr>
+							<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄</a></h5>
+							<hr>
+						</div>
+					</div> <!-- position: fixed -->
+					<div class="col-xs-12 col-sm-10">
 						<div class="row">
 							<div class="page-header">
 							<%-- 錯誤表列 --%>

@@ -326,14 +326,14 @@ public class ProdServlet extends HttpServlet {
 				System.out.println("prod_review_des="+prod_review_des);
 				
 				
-				if (prod_review==null || "0".equals(prod_review)) {
-					errorMsgs.add("請選擇審核結果");
-					System.out.println("請選擇審核結果");
-				}
-				if (prod_review_des==null || prod_review_des.trim().length()==0) {
-					errorMsgs.add("請填寫審核結果說明");
-					System.out.println("請填寫審核結果說明");
-				}
+//				if (prod_review==null || "0".equals(prod_review)) {
+//					errorMsgs.add("請選擇審核結果");
+//					System.out.println("請選擇審核結果");
+//				}
+//				if (prod_review_des==null || prod_review_des.trim().length()==0) {
+//					errorMsgs.add("請填寫審核結果說明");
+//					System.out.println("請填寫審核結果說明");
+//				}
 				
 				/***************************2.開始查詢資料****************************************/
 				ProdService prodSvc = new ProdService();
@@ -371,9 +371,12 @@ public class ProdServlet extends HttpServlet {
 				prodSvc.updateProd(prodVO);
 				session.setAttribute("reviewprodVO", prodVO);         // 資料庫取出的prodVO物件,存入req
 				session.setAttribute("reviewprodImgList", prodImgList);         // 資料庫取出的prodVO物件,存入req
-				String url = "/back-end/product/back_shop.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_prod_input.jsp
-				successView.forward(req, res);
+//				String url = "/back-end/product/back_shop.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_prod_input.jsp
+//				successView.forward(req, res);
+				
+				out.println(1); //送回ajax一定要是json格式，不然會錯誤，因為ajax有設定dataType: 'json',也可不設定
+				System.out.println("OKOKOKOKOK");
 
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {

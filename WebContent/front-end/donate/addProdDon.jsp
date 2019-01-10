@@ -55,7 +55,7 @@ div {
 				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
 					<h3>愛心捐贈</h3>
 					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></h5>
+					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp">愛心捐款</a></h5>
 					<hr>
 					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></h5>
 					<hr>

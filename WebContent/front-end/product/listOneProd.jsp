@@ -325,6 +325,8 @@ display:none;
 								style="top: 150px; bottom: auto;">
 								<div class="row">
 									<div class="col-lg-9 cl-md-9" style="top: 30px; bottom: auto;">
+										<h4>商品詳情</h4>
+										<hr>
 										<div class="">
 												${prodVO.prod_des}
 										</div>

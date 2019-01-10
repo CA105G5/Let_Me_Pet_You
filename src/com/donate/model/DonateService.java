@@ -55,6 +55,10 @@ public class DonateService {
 		
 		return donateVO;
 	}
+	
+	public void updateDonate(DonateVO donateVO) {
+		dao.update(donateVO);
+	}
 
 	public void deleteDonate(String donate_id) {
 		dao.delete(donate_id);
@@ -66,5 +70,13 @@ public class DonateService {
 
 	public List<DonateVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public Integer getAllByDate(String year, String month) {
+		return dao.getAllByDate(year, month);
+	}
+	
+	public List<DonateVO> getAllByMem(String memb_id) {
+		return dao.getAllByMem(memb_id);
 	}
 }

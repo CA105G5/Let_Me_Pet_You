@@ -100,14 +100,14 @@ dl {
   color: black;
   height: 50px; 
   font-size:20px;
-/*   width:50%; */
+  width:50%; 
 }
 
 .tabPanel-widget > label {
   border-right: 1px solid #fff; 
   height: 50px; 
   text-align: center;
-/*   width:50%; */
+  width:50%; 
 }
 
 /**
@@ -132,12 +132,12 @@ dl {
 
 .tabPanel-widget label:nth-child(5),
 .tabPanel-widget h2:nth-child(7) {
-  left: 9em;
+  left: 21.4em;
 }
 
 .tabPanel-widget label:nth-child(9),
 .tabPanel-widget h2:nth-child(11) {
-  left: 18em;
+  left: 21.4em;
 }
 
 /**
@@ -262,6 +262,18 @@ dl {
 /* tab panel */
 
 
+/* 卷軸滑動 */
+ .scrollable{
+   overflow: auto;
+   width: 70px; /* adjust this width depending to amount of text to display */
+   height: 80px; /* adjust height depending on number of options to display */
+   border: 1px silver solid;
+ }
+ .scrollable select{
+   border: none;
+ }
+
+
 </style>
 </head>
 <body>
@@ -289,13 +301,13 @@ dl {
 	
 	<section class="training-area section-gap">
 		<div class="container">
-			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
+			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 30px; bottom: auto;">
 				<div class="row">
 					<div class="col-lg-3 cl-md-3" style="top: 180px; bottom: auto;">
 						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
 							<h3>愛心捐贈</h3>
 							<hr>
-							<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></h5>
+							<h5><a href="<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp">愛心捐款</a></h5>
 							<hr>
 							<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></h5>
 							<hr>
@@ -320,9 +332,9 @@ dl {
 							<br>
 							
 							<div class="tabPanel-widget" style="width:1000px;" >
-								<label for="tab-1" tabindex="0" style="height:50px; width:50%"></label>
+								<label for="tab-1" tabindex="0"></label>
 								<input id="tab-1" type="radio" name="tabs" checked="true" aria-hidden="true" style="height:50px">
-								<h2>轉帳捐款</h2>
+								<h2 style="padding-top:12px"><b style="color:black">轉帳捐款</b></h2>
 								<div>
 									<h4>
 										收款帳號資訊: <br>
@@ -331,7 +343,8 @@ dl {
 										銀行帳號：1234567-7654321<br>
 										可臨櫃填寫匯款單，也可使用ATM轉帳，轉帳後請填寫下表捐款資訊。<br>
 									</h4>
-<%-- 									<form METHOD="post" ACTION="<%=request.getContextPath()%>//donate/donate.do" enctype="multipart/form-data"> --%>
+									<br>
+<%-- 									<form METHOD="post" ACTION="<%=request.getContextPath()%>/donate/donate.do" enctype="multipart/form-data"> --%>
 				                        <div class="card">
 				                            <div class="card-header"><strong><i class="glyphicon glyphicon-user"></i>　基本資料</strong><small></small></div>
 				                            <div class="card-body card-block">
@@ -353,19 +366,23 @@ dl {
 				                            <div class="card-body card-block">
 				                                <div class="form-group">
 				                                	<label for="cardnum" class=" form-control-label">轉出銀行</label><span id="bank_error" style="color:red"></span>
-				                                	<div class="form-select" id="default-select" style="display:inline">
-														<select style="width: 120px" id="prod_qty" name="bank_id">
+				                                	<div class="form-select" id="default-select" style="display:inline" style="overflow-y:scroll;height:100px">
+													<!--如果將id="default-select"拿掉可以實現卷軸，但是畫面會變很醜 -->
+														<select style="width: 120px" id="trn_bank" name="bank_id">
 															<option value="0">銀行代碼</option>
-															<c:forEach var="trn_bankVO" items="${bankDAO.getAll()}">
+															<c:forEach var="bankVO" items="${bankDAO.getAll()}">
 																<option value="${bankVO.bank_id}">${bankVO.bank_id}　${bankVO.bank_name}</option>
 															</c:forEach>
 														</select>
+<%-- 															<c:forEach var="bankVO" items="${bankDAO.getAll()}"> --%>
+<%-- 																<span>${bankVO.bank_id}　${bankVO.bank_name}</span> --%>
+<%-- 															</c:forEach> --%>
 													</div>
 				                                </div>
 				                                <br>
 				                                <br>
 				                                <div class="form-group">
-				                                	<label for="month" class=" form-control-label">轉出帳號</label><br><span id="account_error" style="color:red"></span>
+				                                	<label for="month" class=" form-control-label">轉出帳號</label><span id="account_error" style="color:red"></span><br>
 					                                <input type="text" id="trn_account" name="donate_src_trn" placeholder="轉出帳號" class="form-control" style="width:25%;display:inline">
 				                                </div>
 				                            </div>
@@ -373,7 +390,7 @@ dl {
 				                        <br>
 				                        <br>
 				                        <div class="card">
-				                            <div class="card-header"><strong><i class="fa fa-usd"></i>　捐贈金額</strong><small></small></div><span id="money_error" style="color:red"></span>
+				                            <div class="card-header"><strong><i class="fa fa-usd"></i>　捐贈金額</strong><span id="money_error" style="color:red"></span></div>
 				                            <div class="card-body card-block">
 				                                <input type="text" id="trn_money" name="trn_donate_amount" placeholder="請輸入捐款金額" class="form-control">
 				                            </div>
@@ -388,18 +405,20 @@ dl {
 										<br>
 										<input type="hidden" name="action" value="transfer_donate">
 										<input type="hidden" name="donate_src" value="轉帳">
-				            			<input type = "submit" id="submit_transfer" value = "捐款" style="text-align:center;">
+				            			<input type = "submit" id="submit_trn" value = "捐款" style="text-align:center;">
 										<br>
 <!-- 									</form> -->
 								
 							    </div>
 							    
-							    <label for="tab-2" tabindex="0"></label>
-							    <input id="tab-2" type="radio" name="tabs" aria-hidden="true" style="height:50px">
-							    <h2>信用卡捐款</h2>
+							    <label for="tab-2" tabindex="0" style="width: 526px;"></label>
+							    <input id="tab-2" type="radio" name="tabs" aria-hidden="true" checked="true">
+							    <h2 style="padding-top:12px"><b style="color:black">信用卡捐款</b></h2>
 							    <div>
+							    <br>
 <%-- 							    	<form METHOD="post" ACTION="<%=request.getContextPath()%>/donate/donate.do"> --%>
-				                         <div class="card-header"><strong><i class="glyphicon glyphicon-user"></i>　基本資料</strong><small></small></div>
+				                        <div class="card"> 
+				                         	<div class="card-header"><strong><i class="glyphicon glyphicon-user"></i>　基本資料</strong><small></small></div>
 				                            <div class="card-body card-block">
 				                                <div class="form-group"><label for="name" class=" form-control-label">姓名</label><span id="cre_name_error" style="color:red"></span>
 				                                	<input type="text" id="cred_name" name="donate_name" placeholder="請輸入您的姓名" class="form-control">
@@ -411,6 +430,7 @@ dl {
 				                                	<input type="text" id="cred_email" name="donate_mail" placeholder="請輸入您的e-mail" class="form-control">
 				                                </div>
 				                            </div>
+				                        </div>
 				                        <br>
 				                        <br>
 				                        <div class="card">
@@ -467,8 +487,8 @@ dl {
 	<script>
 	
 	//確認捐款
-	var c=0;
 		$("#submit_credit").click(function(){
+			var c=0;
 			$('#cre_name_error').text('');
 			$('#cre_phone_error').text('');
 			$('#cre_mail_error').text('');
@@ -478,6 +498,11 @@ dl {
 			$('#cre_num_error').text('');
 			
 			console.log("33333");
+			console.log("$('#cred_name').val()"+$('#cred_name').val());
+			console.log("$('#cred_tel').val()"+$('#cred_tel').val());
+			console.log("$('#cred_email').val()"+$('#cred_email').val());
+			console.log("$('#cred_num').val()"+$('#cred_num').val());
+			console.log("$('#cred_money').val()"+$('#cred_money').val());
 			if($('#cred_name').val() == null || $('#cred_name').val().trim().length==0){
 				$('#cre_name_error').text('　　請輸入姓名');
 				c++;
@@ -512,7 +537,7 @@ dl {
 			else {
 				console.log("ajax");
 					$.ajax({
-						url: '<%=request.getContextPath()%>/donate/donate.do?action=credit_donate',
+						url: '<%=request.getContextPath()%>/donate/donate.do?action=insert_cre',
 						type: "post",
 						data: { 'action': 'insert_cre', 'donate_name': $('#cred_name').val(), 'donate_phone':$('#cred_tel').val(),
 								'donate_mail': $('#cred_email').val(), 'donate_src_cre': $('#cred_num').val(), 'donate_amount': $('#cred_money').val(),
@@ -522,7 +547,76 @@ dl {
 							console.log("success="+res);
 							swal("完成", "浪我陪你動物救援平台感謝您的捐助", "success").catch(swal.noop);
 							console.log("11111111");
-			    			setInterval(function() { window.location.href = '<%=request.getContextPath()%>/donate/addMoneyDon.jsp';}, 2000);
+			    			setInterval(function() { window.location.href = '<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp';}, 2000);
+						
+						},
+						error: function(res){
+							console.log("error="+res);
+						}
+					
+					});
+					
+			}
+		});
+	
+	//確認捐款
+		$("#submit_trn").click(function(){
+			var c=0;
+			$('#name_error').text('');
+			$('#phone_error').text('');
+			$('#mail_error').text('');
+			$('#bank_error').text('');
+			$('#account_error').text('');
+			$('#money_error').text('');
+			
+			console.log("33333");
+			console.log("$('#trn_name').val()"+$('#trn_name').val());
+			console.log("$('#trn_tel').val()"+$('#trn_tel').val());
+			console.log("$('#trn_email').val()"+$('#trn_email').val());
+			console.log("$('#trn_account').val()"+$('#trn_account').val());
+			console.log("$('#trn_money').val()"+$('#trn_money').val());
+			console.log("$('#trn_bank').val()"+$('#trn_bank').val());
+			if($('#trn_name').val() == null || $('#trn_name').val().trim().length==0){
+				$('#name_error').text('　　請輸入姓名');
+				c++;
+			} 
+			if($('#trn_tel').val() == null || $('#trn_tel').val().trim().length==0){
+				$('#phone_error').text('　　請輸入電話');
+				c++;
+			} 
+			if($('#trn_email').val() == null || $('#trn_email').val().trim().length==0){
+				$('#mail_error').text('　　請輸入e-mail');
+				c++;
+			} 
+			if($('#trn_account').val() == null || $('#trn_account').val().trim().length==0){
+				$('#account_error').text('　　請輸入轉帳帳號');
+				c++;
+			} 
+			if($('#trn_money').val() == null || $('#trn_money').val().trim().length==0){
+				$('#money_error').text('　　請輸入捐款金額');
+				c++;
+			} 
+			if($('#trn_bank').val() == 0){
+				$('#bank_error').text('　　請輸入轉帳銀行');
+				c++;
+			} 
+			if(c!=0){
+				return;
+			}
+			else {
+				console.log("ajax");
+					$.ajax({
+						url: '<%=request.getContextPath()%>/donate/donate.do?action=insert_trn',
+						type: "post",
+						data: { 'action': 'insert_trn', 'donate_name': $('#trn_name').val(), 'donate_phone':$('#trn_tel').val(),
+								'donate_mail': $('#trn_email').val(), 'donate_src_trn': $('#trn_account').val(), 'donate_amount': $('#trn_money').val(),
+								'donate_src' : '轉帳', 'bank_id' : $('#trn_bank').val()},
+						dataType: 'json',
+						success: function(res){
+							console.log("success="+res);
+							swal("完成", "浪我陪你動物救援平台感謝您的捐助", "success").catch(swal.noop);
+							console.log("11111111");
+			    			setInterval(function() { window.location.href = '<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp';}, 2000);
 						
 						},
 						error: function(res){
