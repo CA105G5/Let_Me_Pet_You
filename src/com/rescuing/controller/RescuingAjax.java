@@ -42,7 +42,7 @@ public class RescuingAjax extends HttpServlet{
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back_end/rescue/back_done_rescue.jsp");
+							.getRequestDispatcher("/back-end/rescue/back_done_rescue.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -55,7 +55,7 @@ public class RescuingAjax extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back_end/rescue/back_done_rescue.jsp");
+						.getRequestDispatcher("/back-end/rescue/back_done_rescue.jsp");
 				failureView.forward(req, res);
 
 			}
@@ -73,7 +73,7 @@ public class RescuingAjax extends HttpServlet{
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back_end/rescue/back_done_rescue.jsp");
+							.getRequestDispatcher("/back-end/rescue/back_done_rescue.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -86,13 +86,47 @@ public class RescuingAjax extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back_end/rescue/back_done_rescue.jsp");
+						.getRequestDispatcher("/back-end/rescue/back_done_rescue.jsp");
 				failureView.forward(req, res);
 
 			}
 
 		}
-	
+		if ("doneReport".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			System.out.println(req.getParameter("rsc_id"));
+			System.out.println(req.getParameter("rscing_rv_des"));
+			System.out.println(req.getParameterValues("rscing_ptcp"));
+			System.out.println(req.getParameter("reporter"));
+			System.out.println(req.getParameter("rsc_id"));
+
+			try {
+//
+//				String rsc_id = req.getParameter("rsc_id");
+//				String rscing_rv_des = req.getParameter("rscing_rv_des");
+//				
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/rescue/rescueReport.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+
+				/*************************** 2.開始新增資料 ***************************************/
+				 RescuingService rescuingSvc = new RescuingService();
+
+
+			
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/rescue/rescueReport.jsp");
+				failureView.forward(req, res);
+
+			}
+
+		}
 	
 	}
 }

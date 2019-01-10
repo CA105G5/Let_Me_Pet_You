@@ -76,18 +76,6 @@ table{
 					<div class="col-xs-12 col-sm-9">
 						<div class="row">
 							
-							<%-- 錯誤表列 --%>
-							<c:if test="${not empty errorMsgs}">
-								<div>
-									<font style="color:red">請修正以下錯誤:</font>
-									<ul>
-									    <c:forEach var="message" items="${errorMsgs}">
-											<li style="color:red">${message}</li>
-										</c:forEach>
-									</ul>
-								</div>
-							</c:if>
-							
 							<form>
    								<h1>完成案例報告</h1>
    								<br>
@@ -99,33 +87,6 @@ table{
 								<br>
 								<div class="single-element-widget mt-30 ">
 								<h4>一起參與的會員：</h4>
-<!-- 									<div id="scroll"> -->
-<%-- 									<c:forEach var="rescuingVO2" items="${listRescuingMem}"> --%>
-									
-<!-- 									<div class="switch-wrap d-flex justify-content-between" style="width:30%"> -->
-<!-- 										<table style="text-align:center"> -->
-										
-<!-- 										<tr> -->
-										
-<!-- 										<td> -->
-<!-- 										<div class="primary-checkbox" style="height:20px;width:20px"> -->
-<%-- 											<label for="${rescuingVO2.rscing_ptcp}"></label> --%>
-<%-- 											<input type="checkbox" id="${rescuingVO2.rscing_ptcp}"> --%>
-<!-- 										</div> -->
-<!-- 										</td> -->
-<!-- 										<td> -->
-<%-- 										<img style="width:80px;height:80px"src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memSvc.getOneMem(rescuingVO2.rscing_ptcp).memb_id}" alt=""> --%>
-<!-- 										</td> -->
-										
-<%-- 										<td style="width:100px;text-aling:center" >${memSvc.getOneMem(rescuingVO2.rscing_ptcp).memb_nick}</td> --%>
-<!-- 										</tr> -->
-										
-<!-- 										</table> -->
-<!-- 									</div> -->
-<%-- 									</c:forEach>	 --%>
-<!-- 									</div> -->
-									
-									
 									 
 									    <div class="switch-wrap justify-content-between " id="scroll">
 									    <c:forEach var="rescuingVO2" items="${listRescuingMem}">
@@ -156,7 +117,7 @@ table{
 								</div>
 								<br>
 								<br>
-								<h4>完成描述</h4>
+								<h4>完成描述：</h4>
 						  		<textarea name="rscing_rv_des" id="rscing_rv_des" rows="10" cols="80"><%= (rescuingVO.getRscing_rv_des()==null)? "" : rescuingVO.getRscing_rv_des()%></textarea>
 			            		<script> CKEDITOR.replace( 'rscing_rv_des', {}); </script> 
 			            		<br>
@@ -180,47 +141,62 @@ table{
 $(document).ready(function() {
 	
 	$("#done").click(function(){
+		if($('rscing_rv_des').val()==""){
+			swal({
+	    	     title: "錯誤!",
+	    	     text: "完成描述請勿空白!",
+	    	     type: "warning",
+	    	    
+	    	});
+			return false;
+		}else{
 // 		 var $this = $(this);
 		 console.log("rsc_id="+$('rsc_id').val());
 		 console.log("checkbox"+$('[name="rscing_ptcp"]').val());
-// 		 swal({
-// 			  title: "確定送出報告?",
-// 			  text: "送出後無法更改!",
-// 			  type: "warning",
-// 			  showCancelButton: true,
-// 	        	  showCloseButton: true,
-// 			}).then(
-// 			function(result){
-// 			  if (result) {
-// 				  console.log("11111");
-// 				  $.ajax({
-// 	     		     type: "POST",
-<%-- 	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do",  --%>
-// 	     			 data:{"action":"doneReport","rsc_id":$this.attr('id'),"vlt_id":$this.val()},
-// 	     			 datatype:"json",
-// 	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
-// 	     			 success:function(data){
-// 	     				swal({
-// 				    	     title: "完成!",
-// 				    	     text: "已送出報告!",
-// 				    	     type: "success",
+		 swal({
+			  title: "確定送出報告?",
+			  text: "送出後無法更改!",
+			  type: "warning",
+			  showCancelButton: true,
+	   		  showCloseButton: true,
+			}).then(
+			function(result){
+			  if (result) {
+				  console.log("11111");
+				  $.ajax({
+	     		     type: "POST",
+	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do", 
+	     			 data:{
+	     				 "action":"doneReport",
+	     				 "rsc_id":$('rsc_id').val(),
+	     				 "rscing_ptcp":$('[name="rscing_ptcp"]').val(),
+	     				 "rscing_rv_des":$('rscing_rv_des').val(),
+	     				 "reporter":(${rescuingVO2.rscing_ptcp})
+	     				 },
+	     			 datatype:"json",
+	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+	     			 success:function(data){
+	     				swal({
+				    	     title: "完成!",
+				    	     text: "已送出報告!",
+				    	     type: "success",
 				    	    
-// 				    	}).then(
-// 				    			function(result){
-// 				    		if(result){
-// 				    		setTimeout("window.location.reload()",100);
-// 				    	}
-// 				    		}
-// 				    			)
+				    	}).then(
+				    			function(result){
+				    		if(result){
+				    		setTimeout("window.location.reload()",100);
+				    	}
+				    		}
+				    			)
      	     			 
 	     				
 
 	     			 }
-// 	     		 }) 
-// 			  }
-// 			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
-//         		swal("取消", "取消分派", "error");
-//         }).catch(swal.noop);
+	     		 }) 
+			  }
+			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+        		swal("取消", "取消送出!", "error");
+        }).catch(swal.noop);
 		
 		
 		
@@ -229,7 +205,7 @@ $(document).ready(function() {
 		
 		
 		
-		
+		}
 		
 	});
 	
