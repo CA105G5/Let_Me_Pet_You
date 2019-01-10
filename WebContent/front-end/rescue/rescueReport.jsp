@@ -84,7 +84,7 @@ table{
 								<br>
 								<h4>填寫會員暱稱：</h4>
 								<input type="text" name="memb_nick" value="${memSvc.getOneMem(rescuingVO.rscing_ptcp).memb_nick}" readonly="readonly" required="" class="single-input">
-								<input type="hidden" name="reporter" value="${rescuingVO.rscing_ptcp}">
+								<input type="hidden" name="reporter" id="reporter" value="${rescuingVO.rscing_ptcp}">
 								<br>
 								<div class="single-element-widget mt-30 ">
 								<h4>一起參與的會員：</h4>
@@ -94,6 +94,7 @@ table{
 									    <c:if test="${rescuingVO2.rscing_ptcp!=rescuingVO.rscing_ptcp}" var="condition" scope="page">
 									        <div class="checkbox">
 									            <label><input style="height: 20px;margin-top: 0px;bottom: 50px;top: 40px;width: 20px;" type="checkbox" name="rscing_ptcp" value="${rescuingVO2.rscing_ptcp}">
+									            
 									            <table style="text-align:center">
 									            <tr>
 									            <td>
@@ -110,7 +111,7 @@ table{
 									        </div>
 									        </c:if>
 									    </c:forEach>
-									    <div class="checkbox"><input type="hidden" name="rscing_ptcp" value="${rescuingVO.rscing_ptcp}"></div>
+									    <div class="checkbox"><input type="hidden" name="rscing_ptcp" checked value="${rescuingVO.rscing_ptcp}"></div>
 										</div>
 									
 
@@ -120,11 +121,11 @@ table{
 								<br>
 								<h4>完成描述：</h4>
 						  		<textarea name="rscing_rv_des" id="rscing_rv_des" rows="10" cols="80"><%= (rescuingVO.getRscing_rv_des()==null)? "" : rescuingVO.getRscing_rv_des()%></textarea>
-			            		<script> CKEDITOR.replace( 'rscing_rv_des', {}); </script> 
+			            		<script> CKEDITOR.replace("rscing_rv_des"); </script> 
 			            		<br>
 								<br>
 								<br>
-								<button class="genric-btn success circle arrow" id="done">送出報告<span class="lnr lnr-arrow-right"></span></button>
+								<div class="genric-btn success circle arrow" id="done">送出報告</div>
 							</form>
 						</div>
 					</div>
@@ -141,8 +142,11 @@ table{
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$("#done").click(function(){
-		if($('rscing_rv_des').val()==""){
+	$('#done').click(function(e){
+		<%System.out.println("000000000000");%>
+		 console.log(CKEDITOR.instances.rscing_rv_des.getData());
+		 console.log($(':checked').val());
+		if(CKEDITOR.instances.rscing_rv_des.getData()==""){
 			swal({
 	    	     title: "錯誤!",
 	    	     text: "完成描述請勿空白!",
@@ -154,50 +158,55 @@ $(document).ready(function() {
 // 		 var $this = $(this);
 		 console.log("rsc_id="+$('rsc_id').val());
 		 console.log("checkbox"+$('[name="rscing_ptcp"]').val());
-		 swal({
-			  title: "確定送出報告?",
-			  text: "送出後無法更改!",
-			  type: "warning",
-			  showCancelButton: true,
-	   		  showCloseButton: true,
-			}).then(
-			function(result){
-			  if (result) {
-				  console.log("11111");
-				  $.ajax({
-	     		     type: "POST",
-	     			 url: "<%=request.getContextPath()%>/back_end/rescuing/RescuingAjax.do", 
-	     			 data:{
-	     				 "action":"doneReport",
-	     				 "rsc_id":$('rsc_id').val(),
-	     				 "rscing_ptcp":$('[name="rscing_ptcp"]').val(),
-	     				 "rscing_rv_des":$('rscing_rv_des').val(),
-	     				 "reporter":($('reporter').val())
-	     				 },
-	     			 datatype:"json",
-	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
-	     			 success:function(data){
-	     				swal({
-				    	     title: "完成!",
-				    	     text: "已送出報告!",
-				    	     type: "success",
+		 $('input[name="rscing_ptcp"]:checked').each(function(){
+			 console.log("---------------!!!!!!!!!!!!!!!!!!!!!" + $(this).val());
+// 			 console.log($(e));
+// 			 console.log($(e.target));
+		 });
+// 		 swal({
+// 			  title: "確定送出報告?",
+// 			  text: "送出後無法更改!",
+// 			  type: "warning",
+// 			  showCancelButton: true,
+// 	   		  showCloseButton: true,
+// 			}).then(
+// 			function(result){
+// 			  if (result) {
+// 				  console.log("11111");
+// 				  $.ajax({
+// 	     		     type: "POST",
+<%-- 	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do",  --%>
+// 	     			 data:{
+// 	     				 "action":"doneReport",
+// 	     				 "rsc_id":$('#rsc_id').val(),
+// 	     				 "rscing_ptcp":$(':checked').val(),
+// 	     				 "rscing_rv_des":CKEDITOR.instances.rscing_rv_des.getData(),
+// 	     				 "reporter":($('#reporter').val())
+// 	     				 },
+// 	     			 datatype:"json",
+// 	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+// 	     			 success:function(data){
+// 	     				swal({
+// 				    	     title: "完成!",
+// 				    	     text: "已送出報告!",
+// 				    	     type: "success",
 				    	    
-				    	}).then(
-				    			function(result){
-				    		if(result){
-				    		setTimeout("window.location.reload()",100);
-				    	}
-				    		}
-				    			)
+// 				    	}).then(
+// 				    			function(result){
+// 				    		if(result){
+// 				    		setTimeout("window.location.reload()",100);
+// 				    	}
+// 				    		}
+// 				    			)
      	     			 
 	     				
 
-	     			 }
-	     		 }) 
-			  }
-			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
-        		swal("取消", "取消送出!", "error");
-        }).catch(swal.noop);
+// 	     			 }
+// 	     		 }) 
+// 			  }
+// 			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+//         		swal("取消", "取消送出!", "error");
+//         }).catch(swal.noop);
 		
 		
 		

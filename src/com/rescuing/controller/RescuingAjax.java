@@ -2,6 +2,7 @@ package com.rescuing.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -95,17 +96,26 @@ public class RescuingAjax extends HttpServlet{
 		if ("doneReport".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			System.out.println(req.getParameter("rsc_id"));
-			System.out.println(req.getParameter("rscing_rv_des"));
-			System.out.println(req.getParameterValues("rscing_ptcp"));
-			System.out.println(req.getParameter("reporter"));
-			System.out.println(req.getParameter("rsc_id"));
+			System.out.println("111"+req.getParameter("rsc_id"));
+			System.out.println("222"+req.getParameter("rscing_rv_des"));
+			System.out.println("333"+req.getParameterValues("rscing_ptcp"));
+			System.out.println("444"+req.getParameter("reporter"));
+			
 
 			try {
-//
-//				String rsc_id = req.getParameter("rsc_id");
-//				String rscing_rv_des = req.getParameter("rscing_rv_des");
-//				
+				String rsc_id = req.getParameter("rsc_id");
+				String rscing_rv_des = req.getParameter("rscing_rv_des");
+				
+				ArrayList doneRescueMemslist = new ArrayList();
+				if(req.getParameterValues("rscing_ptcp")!=null) {
+				String[] rscing_ptcps = req.getParameterValues("rscing_ptcp");
+					for (int i = 0; i <rscing_ptcps.length; i++){
+						doneRescueMemslist.add(rscing_ptcps[i]);
+					}
+				}
+				System.out.println("list"+doneRescueMemslist);
+				String repoter = req.getParameter("reporter");
+			
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/rescue/rescueReport.jsp");
