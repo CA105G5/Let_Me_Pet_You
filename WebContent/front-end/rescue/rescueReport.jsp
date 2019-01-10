@@ -88,7 +88,7 @@ table{
 								</div>
 							</c:if>
 							
-							<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do" enctype="multipart/form-data">
+							<form METHOD="post" >
    								<h1>完成案例報告</h1>
    								<br>
 								<h4>救援案例編號：</h4>					  			
@@ -162,7 +162,7 @@ table{
 			            		<br>
 								<br>
 								<br>
-								<button class="genric-btn success circle arrow" id="done">完成救援<span class="lnr lnr-arrow-right"></span></button>
+								<button class="genric-btn success circle arrow" id="done">送出報告<span class="lnr lnr-arrow-right"></span></button>
 							</form>
 						</div>
 					</div>
@@ -179,7 +179,7 @@ table{
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$('#done').click(function(){
+	$("#done").click(function(){
 // 		 var $this = $(this);
 		 console.log("rsc_id="+$('rsc_id').val());
 		 console.log("checkbox"+$('[name="rscing_ptcp"]').val());
