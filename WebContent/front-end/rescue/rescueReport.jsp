@@ -146,7 +146,7 @@ $(document).ready(function() {
 			swal({
 	    	     title: "錯誤!",
 	    	     text: "完成描述請勿空白!",
-	    	     type: "warning",
+	    	     type: "error",
 	    	    
 	    	});
 			return false;
@@ -166,7 +166,7 @@ $(document).ready(function() {
 				  console.log("11111");
 				  $.ajax({
 	     		     type: "POST",
-	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do", 
+	     			 url: "<%=request.getContextPath()%>/back_end/rescuing/RescuingAjax.do", 
 	     			 data:{
 	     				 "action":"doneReport",
 	     				 "rsc_id":$('rsc_id').val(),
