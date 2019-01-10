@@ -215,7 +215,7 @@ $(document).ready(function() {
      	     			 
 	     				
 
-// 	     			 }
+	     			 }
 // 	     		 }) 
 // 			  }
 // 			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
