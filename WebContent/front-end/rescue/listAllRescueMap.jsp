@@ -38,6 +38,7 @@ div {
 /*       	#map { height: 55%; width:55%} */
       	div#map {position: relative;overflow: hidden;width:800px;height:600px;}
 </style>
+
 </head>
 <body>
 
@@ -52,7 +53,7 @@ div {
 <!-- 				  <input id="address" type="textbox" /> -->
 <!-- 				  <input type="button" value="查詢" onclick="codeAddress()"/> -->
 <!-- 				</div>		 -->
-	    		<div id="map"></div>
+	    		<div id="mymap"></div>
     
     		</div>
     	</div>
@@ -60,14 +61,14 @@ div {
     
     <script type="text/javascript">
 
-    var map;
+    var mymap;
 	var markers = [];
 	//台灣經、緯度
     var myLatLng = {lat: 23.973875, lng: 120.982024};
 	var geocoder;
     function initMap() {
 	  geocoder = new google.maps.Geocoder();
-      map = new google.maps.Map(document.getElementById('map'), {
+      mymap = new google.maps.Map(document.getElementById('mymap'), {
 	  //lat:緯度、lng:經度、zoom:數字越大放越大
         center: myLatLng,
         zoom: 7.8
@@ -114,10 +115,10 @@ div {
 
 
     </script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKTq4JnBzGP4UWtr5xe0c_wDQlWUbVrXU&callback=initMap">
-    </script>
 
+<script async defer
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKTq4JnBzGP4UWtr5xe0c_wDQlWUbVrXU&callback=initMap">
+</script>
 
 </body>
 </html>

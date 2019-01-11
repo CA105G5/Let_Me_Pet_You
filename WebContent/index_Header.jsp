@@ -31,9 +31,7 @@
 <!-- Site Title -->
 <title>浪我陪你</title>
 
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
-	rel="stylesheet">
+
 <!--
 			CSS
 			============================================= -->
@@ -246,7 +244,7 @@ i.fa-shopping-cart:hover {
 <!-- 		下面這個會讓tab-panel和會員的下拉彈跳選單衝突 -->
 <%-- 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script> --%>
 <!-- 		下面這個會讓tab-panel和會員的下拉彈跳選單衝突 -->
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
