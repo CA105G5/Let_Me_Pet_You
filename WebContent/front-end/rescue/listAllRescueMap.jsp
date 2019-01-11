@@ -36,7 +36,7 @@ div {
 <style type="text/css">
 /*       	html, body { height: 100% } */
 /*       	#map { height: 55%; width:55%} */
-      	div#map {position: relative;overflow: hidden;width:auto;height: 700px;}
+      	div#map {position: relative;overflow: hidden;width:800px;height:600px;}
 </style>
 </head>
 <body>
@@ -115,7 +115,7 @@ div {
 
     </script>
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKTq4JnBzGP4UWtr5xe0c_wDQlWUbVrXU">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKTq4JnBzGP4UWtr5xe0c_wDQlWUbVrXU&callback=initMap">
     </script>
 
 

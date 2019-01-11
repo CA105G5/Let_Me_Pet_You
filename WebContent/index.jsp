@@ -22,7 +22,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 		<meta charset="UTF-8">
 		<!-- Site Title -->
 <title>會員前端頁面</title>
-<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
+
 			<%--
 			CSS
 			============================================= --%>
