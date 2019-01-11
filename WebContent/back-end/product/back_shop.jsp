@@ -203,7 +203,7 @@ transform: translateY(4px);
 </style>
 </head>
 
-<body>
+<body onload="connect();" onunload="disconnect();">
 
 	<jsp:include page="/back-end/product/back_shop_Header.jsp" flush="true" />
 	
@@ -340,43 +340,43 @@ transform: translateY(4px);
 <%-- 										<img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${ordItemVO.prod_id}" alt="" width="200px"> --%>
 										
 										<!-- Slideshow container -->
-										<div class="slideshow-container">
+										<div class="slideshow-container" >
 												
 											<!-- Full-width images with number and caption text -->
 											<% int i =1; %> 
 											<c:forEach var="prodImgVO" items="${prodImgSvc.getOneProdImg(prodVO.prod_id)}">
-												<div class="mySlides" >
+												<div class="mySlides<%=no %>" >
 			<!-- 							    <div class="mySlides fade"> -->
-													<div class="numbertext"><%=i%>/${prodImgSvc.getOneProdImg(prodVO.prod_id).size()}</div>
-													<img src="<%=request.getContextPath()%>/util/PicReader2?prod_img_id=${prodImgVO.prod_img_id}" style="width:ˇ300px; text-align:center">
+													<div class="numbertext" style="color:gray"><%=i%>/${prodImgSvc.getOneProdImg(prodVO.prod_id).size()}</div>
+													<img src="<%=request.getContextPath()%>/util/PicReader2?prod_img_id=${prodImgVO.prod_img_id}">
 													<div class="text"> </div>
 												</div>
-												<% i++; %> 
+												<% i++; %>  
 											</c:forEach>
 													
 											<!-- Next and previous buttons -->
-											<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-											<a class="next" onclick="plusSlides(1)">&#10095;</a>
+											<a class="prev" onclick="plusSlides<%=no %>(-1)">&#10094;</a>
+											<a class="next" onclick="plusSlides<%=no %>(1)">&#10095;</a>
 										</div>
 										<br>
 												
 										<!-- The dots/circles -->
-										<div>
+										<div style="display: table; margin: 0 auto;">
 			<!-- 						<div style="text-align:center"> -->
 											<% int j =1; %> 
 											<c:forEach var="prodImgVO" items="${prodImgSvc.getOneProdImg(prodVO.prod_id)}">
-												<span class="dot" onclick="currentSlide(<%=j%>)"></span> 
+												<span class="dot<%=no %> dot" onclick="currentSlide<%=no %>(<%=j%>)"></span> 
 												<% j++; %> 
 											</c:forEach>
 										</div>
 									</div>
 									<div class="col-xs-6 col-sm-6">
-										<h5>${prodVO.prod_name}
+										<h3>${prodVO.prod_name}
 											<span style="font-size: 1em; color: Tomato; text-indent:50px;">
 												<i class="fas fa-coins"></i>
 												<b>${prodVO.prod_price}</b>
 											</span>
-										</h5>
+										</h3>
 										<br>
 										<h4>商品資訊: <p>${prodVO.prod_info}</p></h4>
 										<h4>捐贈數量: ${prodVO.prod_qty}</h4>
@@ -447,8 +447,10 @@ transform: translateY(4px);
 								                    </div>
 								                </div>	
 											</div>	
-<!-- 審核 -->
 											
+											
+											
+<!-- 審核 -->
 											
 <script type="text/javascript">
 (function($) {
@@ -465,7 +467,8 @@ transform: translateY(4px);
 // 		 return false;
 		 
 		 var has_empty = false;
-		    
+		 
+		 var $review_result = $("#review_result<%=no %>").val();
 		 if ($("#review_result<%=no %>").val()==0){
 			 $("#result_error<%=no %>").text("請選擇審核結果");
 			 has_empty = true;
@@ -501,12 +504,24 @@ transform: translateY(4px);
 	    		success: function(res){
 	    			console.log("0000000000");
 	    			console.log(res);
-	    			swal({
-	    				title: "完成!",
-	    				text: "已完成審核",
-	    				type: "success",
-	    				timer: 3000
-	    			});
+	    			
+	    			if ($review_result=='通過'){
+		    			swal({
+		    				title: "完成!",
+		    				text: "審核通過，產品已推播上架!",
+		    				type: "success",
+		    				timer: 3000
+		    			});
+		    			 var jsonObj = {"prod_id" : '${prodVO.prod_id}', "prod_name" : '${prodVO.prod_name}', "prod_price" : '${prodVO.prod_price}'};
+		    		     webSocket.send(JSON.stringify(jsonObj));
+	    			} else{
+	    				swal({
+		    				title: "完成!",
+		    				text: "產品審核不通過!",
+		    				type: "success",
+		    				timer: 3000
+		    			});
+	    			}
 	    			console.log("11111111");
 	    			setInterval(function() { window.location.href = '<%=request.getContextPath()%>/back-end/product/back_shop.jsp';}, 2000);
 	    			console.log("22222222");
@@ -521,6 +536,45 @@ transform: translateY(4px);
 })(jQuery);
 	
 </script>	
+
+
+<!-- 幻燈片js -->
+<script type="text/javascript">
+	var slideIndex = 1;
+	showSlides<%=no %>(slideIndex);
+	
+	// Next/previous controls
+	function plusSlides<%=no %>(n) {
+	  showSlides<%=no %>(slideIndex += n);
+	  console.log("plusSlides_slideIndex=" + slideIndex);
+	}
+	
+	// Thumbnail image controls
+	function currentSlide<%=no %>(n) {
+	  showSlides<%=no %>(slideIndex = n);
+	  console.log("currentSlide=" + slideIndex);
+	}
+	
+	function showSlides<%=no %>(n) {
+	  var i;
+	  var slides = document.getElementsByClassName("mySlides<%=no %>");
+	  var dots = document.getElementsByClassName("dot<%=no %>");
+	  if (n > slides.length) {slideIndex = 1} 
+	  if (n < 1) {slideIndex = slides.length}
+	  var $no = <%=no %>;
+	  console.log("slides.length="+slides.length);
+	  console.log("$no="+$no);
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = "none"; 
+	  }
+	  for (i = 0; i < dots.length; i++) {
+	      dots[i].className = dots[i].className.replace(" active", "");
+	  }
+	  slides[slideIndex-1].style.display = "block"; 
+	  dots[slideIndex-1].className += " active";
+	}
+</script>
+<!-- 幻燈片js -->  	
 											
 					
 								            
@@ -675,35 +729,40 @@ transform: translateY(4px);
       	});
   	</script>
   	<!-- backend datatable  -->
-  	
-<script type="text/javascript">
-	var slideIndex = 1;
-	showSlides(slideIndex);
+
+
+
+<!-- 商品上架推播 -->
+<script>
+    
+    var MyPoint = "/ProductEchoServer";
+    var host = window.location.host;
+    var path = window.location.pathname;
+    var webCtx = path.substring(0, path.indexOf('/', 1));
+    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+    
+	var statusOutput = document.getElementById("statusOutput");
+	var webSocket;
 	
-	// Next/previous controls
-	function plusSlides(n) {
-	  showSlides(slideIndex += n);
+	function connect() {
+		// 建立 websocket 物件
+		webSocket = new WebSocket(endPointURL);
+		
+		webSocket.onopen = function(event) {
+			
+		};
+
+		webSocket.onmessage = function(event) {
+
+		};
+
+		webSocket.onclose = function(event) {
+			
+		};
 	}
 	
-	// Thumbnail image controls
-	function currentSlide(n) {
-	  showSlides(slideIndex = n);
-	}
-	
-	function showSlides(n) {
-	  var i;
-	  var slides = document.getElementsByClassName("mySlides");
-	  var dots = document.getElementsByClassName("dot");
-	  if (n > slides.length) {slideIndex = 1} 
-	  if (n < 1) {slideIndex = slides.length}
-	  for (i = 0; i < slides.length; i++) {
-	      slides[i].style.display = "none"; 
-	  }
-	  for (i = 0; i < dots.length; i++) {
-	      dots[i].className = dots[i].className.replace(" active", "");
-	  }
-	  slides[slideIndex-1].style.display = "block"; 
-	  dots[slideIndex-1].className += " active";
+	function disconnect () {
+		webSocket.close();
 	}
 
 </script>

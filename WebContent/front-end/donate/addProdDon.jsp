@@ -150,7 +150,11 @@ div {
 								<div class="input-group">
 									<label class="input-group-addon" style="width: 150px;">愛心商品描述</label>
 						  			<textarea name="prod_des" id="prod_des" rows="10" cols="80"><%= (prodVO==null)? "" : prodVO.getProd_des()%></textarea>
-			            			<script> CKEDITOR.replace( 'prod_des', {}); </script> 
+			            			<script> CKEDITOR.replace( 'prod_des', {
+			            				extraPlugins: 'easyimage',
+			            			    cloudServices_tokenUrl: 'https://36758.cke-cs.com/token/dev/g529dLeMZwwIpbMNAdeiRdeIbIjTrMw6aq0ncGUTnfbb08SqLh6Z2I87wBM3',
+			            			    cloudServices_uploadUrl: 'https://36758.cke-cs.com/easyimage/upload/',
+			            			}); </script> 
 			            			<br>
 								</div>
 								<br>

@@ -26,6 +26,9 @@
 <title>Horse Club</title>
 
 <script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <style type="text/css">
 p {
@@ -274,6 +277,11 @@ dl {
  }
 
 
+/* DatePicker */
+label{margin-left: 20px;}
+#datepicker{width:180px; margin: 0 20px 20px 20px;}
+#datepicker > span:hover{cursor: pointer;}
+
 </style>
 </head>
 <body>
@@ -332,7 +340,7 @@ dl {
 							<br>
 							
 							<div class="tabPanel-widget" style="width:1000px;" >
-								<label for="tab-1" tabindex="0"></label>
+								<label for="tab-1" tabindex="0" style="right: 0px;margin-right: 0px; margin-left: 0px;"></label>
 								<input id="tab-1" type="radio" name="tabs" checked="true" aria-hidden="true" style="height:50px">
 								<h2 style="padding-top:12px"><b style="color:black">轉帳捐款</b></h2>
 								<div>
@@ -348,13 +356,13 @@ dl {
 				                        <div class="card">
 				                            <div class="card-header"><strong><i class="glyphicon glyphicon-user"></i>　基本資料</strong><small></small></div>
 				                            <div class="card-body card-block">
-				                                <div class="form-group"><label for="name" class=" form-control-label">姓名</label><span id="name_error" style="color:red"></span>
+				                                <div class="form-group"><label for="trn_name" class=" form-control-label">姓名</label><span id="name_error" style="color:red"></span>
 				                                	<input type="text" id="trn_name" name="donate_name" placeholder="請輸入您的姓名" class="form-control">
 				                                </div>
-				                                <div class="form-group"><label for="tel" class=" form-control-label">電話</label><span id="phone_error" style="color:red"></span>
+				                                <div class="form-group"><label for="trn_tel" class=" form-control-label">電話</label><span id="phone_error" style="color:red"></span>
 				                                	<input type="text" id="trn_tel" name="donate_phone" placeholder="請輸入您的電話" class="form-control">
 				                                </div>
-				                                <div class="form-group"><label for="email" class=" form-control-label">信箱</label><span id="mail_error" style="color:red"></span>
+				                                <div class="form-group"><label for="trn_email" class=" form-control-label">信箱</label><span id="mail_error" style="color:red"></span>
 				                                	<input type="text" id="trn_email" name="donate_mail" placeholder="請輸入您的e-mail" class="form-control">
 				                                </div>
 				                            </div>
@@ -365,7 +373,7 @@ dl {
 				                            <div class="card-header"><strong><i class="glyphicon glyphicon-credit-card"></i>　帳戶資料</strong><small></small></div>
 				                            <div class="card-body card-block">
 				                                <div class="form-group">
-				                                	<label for="cardnum" class=" form-control-label">轉出銀行</label><span id="bank_error" style="color:red"></span>
+				                                	<label for="trn_bank" class=" form-control-label">轉出銀行</label><span id="bank_error" style="color:red"></span>
 				                                	<div class="form-select" id="default-select" style="display:inline" style="overflow-y:scroll;height:100px">
 													<!--如果將id="default-select"拿掉可以實現卷軸，但是畫面會變很醜 -->
 														<select style="width: 120px" id="trn_bank" name="bank_id">
@@ -381,16 +389,32 @@ dl {
 				                                </div>
 				                                <br>
 				                                <br>
+				                                <br>
 				                                <div class="form-group">
-				                                	<label for="month" class=" form-control-label">轉出帳號</label><span id="account_error" style="color:red"></span><br>
+				                                	<label for="trn_account" class=" form-control-label">轉出帳號</label><span id="account_error" style="color:red"></span><br>
 					                                <input type="text" id="trn_account" name="donate_src_trn" placeholder="轉出帳號" class="form-control" style="width:25%;display:inline">
 				                                </div>
+				                                <br>
+<!-- 				                                <div class="form-group" id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy"> -->
+<!-- 													<label for="trn_date" class=" form-control-label">轉出日期</label><span id="date_error" style="color:red"></span><br> -->
+<!-- 													<input class="form-control" id="trn_date" type="text" readonly /> -->
+<!-- 													<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
+<!-- 												</div> -->
+												<div class="form-group">
+<!-- 									                <div class='input-group date'> -->
+									                	<label for="datepicker" class=" form-control-label">轉出日期</label><span id="date_error" style="color:red"></span><br>
+									                    <input type='text' class="form-control" id='datepicker' style="width:25%;display:inline;margin-left: 0px;margin-right: -5px;">
+									                    <span class="input-group-addon" style="display:inline;padding-top: 9px;padding-bottom: 5px;">
+									                        <span class="glyphicon glyphicon-calendar"></span>
+									                    </span>
+<!-- 									                </div> -->
+									            </div>
 				                            </div>
 				                        </div>
 				                        <br>
 				                        <br>
 				                        <div class="card">
-				                            <div class="card-header"><strong><i class="fa fa-usd"></i>　捐贈金額</strong><span id="money_error" style="color:red"></span></div>
+				                            <div class="card-header"><strong><i class="fa fa-usd"></i><label for="trn_money" class=" form-control-label">　捐贈金額</label></strong><span id="money_error" style="color:red"></span></div>
 				                            <div class="card-body card-block">
 				                                <input type="text" id="trn_money" name="trn_donate_amount" placeholder="請輸入捐款金額" class="form-control">
 				                            </div>
@@ -411,7 +435,7 @@ dl {
 								
 							    </div>
 							    
-							    <label for="tab-2" tabindex="0" style="width: 526px;"></label>
+							    <label for="tab-2" tabindex="0" style="width: 427.5px;right: 0px;border-right-width: 0px;margin-left: 0px;left: 500;left: 427.5px;"></label>
 							    <input id="tab-2" type="radio" name="tabs" aria-hidden="true" checked="true">
 							    <h2 style="padding-top:12px"><b style="color:black">信用卡捐款</b></h2>
 							    <div>
@@ -568,6 +592,7 @@ dl {
 			$('#bank_error').text('');
 			$('#account_error').text('');
 			$('#money_error').text('');
+			$('#date_error').text('');
 			
 			console.log("33333");
 			console.log("$('#trn_name').val()"+$('#trn_name').val());
@@ -600,6 +625,10 @@ dl {
 				$('#bank_error').text('　　請輸入轉帳銀行');
 				c++;
 			} 
+			if($('#datepicker').val() == 0){
+				$('#date_error').text('　　請輸入轉帳日期');
+				c++;
+			} 
 			if(c!=0){
 				return;
 			}
@@ -610,7 +639,7 @@ dl {
 						type: "post",
 						data: { 'action': 'insert_trn', 'donate_name': $('#trn_name').val(), 'donate_phone':$('#trn_tel').val(),
 								'donate_mail': $('#trn_email').val(), 'donate_src_trn': $('#trn_account').val(), 'donate_amount': $('#trn_money').val(),
-								'donate_src' : '轉帳', 'bank_id' : $('#trn_bank').val()},
+								'donate_src' : '轉帳', 'bank_id' : $('#trn_bank').val(), 'donate_date': $('#datepicker').val()},
 						dataType: 'json',
 						success: function(res){
 							console.log("success="+res);
@@ -631,7 +660,21 @@ dl {
 		
 		$("ul.nav-menu li").attr('class', "" );
 		$("#shop").attr('class', 'menu-active menu-has-children' )
+		
+		
+// 		DatePicker
+//         $(function () {
+//             $('#datetimepicker1').datetimepicker();
+//         });
 
+		$(function() {
+			$( "#datepicker" ).datepicker({
+				showOtherMonths : true,
+			    hideIfNoPrevNext : true,
+			    minDate : "-60d",
+			    maxDate : "+0d"
+			});
+		});
 	</script>
 
 

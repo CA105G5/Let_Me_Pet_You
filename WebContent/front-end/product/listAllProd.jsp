@@ -39,6 +39,7 @@
 	}
 	
 %>
+<jsp:useBean id="prodSvc" scope="page" class="com.prod.model.ProdService" />
 
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -105,7 +106,7 @@ div {
 
 </style>
 </head>
-<body>
+<body onload="connect();" onunload="disconnect();">
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
 	
@@ -231,6 +232,51 @@ div {
 							<br>
 							<br>
 							
+<!--產品推播modal -->
+<div class="modal" id="product_push_modal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="largeModalLabel">新產品上架囉</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="form-group" style="width:700px">
+						<h5>快點擊商品連結前往查看吧~~~</h5>
+						<div class="container">
+							<hr>
+							<a id="broadcast_product_link" href="" style="text-decoration:none;">
+							<div class="row">
+								<div class="col-xs-3 col-sm-3">
+									<img class="img-fluid" src="" alt="" width="300px">
+								</div>
+								<div class="col-xs-6 col-sm-6">
+									<h5><span id="broadcast_prod_name"></span>
+										<span style="font-size: 1em; color: Tomato; text-indent:50px;">
+											<i class="fas fa-coins"></i>
+										</span>
+										<span id="broadcast_prod_price"></span>
+									</h5>
+								</div>
+							</div>
+							</a>
+						</div>
+					</div>
+					<br>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+			</div>
+		</div>
+	</div>
+</div>	
+								                
+<!--產品推播modal -->
+							
 							
 						</div>
 						<div style="float:center"><%@ include file="/front-end/product/pages/page2.file" %></div>
@@ -271,6 +317,59 @@ div {
 		$("ul.nav-menu li").attr('class', "" );
 		$("#shop").attr('class', 'menu-active menu-has-children' );
 	</script>
+	
+	
+<!-- 商品上架推播 -->
+<script>
+    var MyPoint = "/ProductEchoServer";
+    var host = window.location.host;
+    var path = window.location.pathname;
+    var webCtx = path.substring(0, path.indexOf('/', 1));
+    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+    console.log("endPointURL="+endPointURL);
+    
+	var webSocket;
+	
+	function connect() {
+		// 建立 websocket 物件
+		webSocket = new WebSocket(endPointURL);
+		console.log("websocket已連線");
+		
+		webSocket.onopen = function(event) {
+
+		};
+
+		webSocket.onmessage = function(event) {
+			
+	        var jsonObj = JSON.parse(event.data);
+	        var prod_id = jsonObj.prod_id;
+	        var prod_name = jsonObj.prod_name;
+	        var prod_price = jsonObj.prod_price;
+	        var img_src = '<%=request.getContextPath()%>/util/PicReader?prod_id=' + prod_id;
+	        var prod_link = '<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=' + prod_id;
+	        console.log("img_src="+img_src);
+	        console.log("prod_link=" + prod_link);
+	        console.log("prod_name=" + prod_name);
+	        console.log("prod_price=" + prod_price);
+	        $("#product_push_modal").find("img").attr("src", img_src);
+	        $("#broadcast_product_link").attr("href", prod_link);
+	        $("#broadcast_prod_name").text(prod_name);
+	        $("#broadcast_prod_price").text(prod_price);
+			$('#product_push_modal').modal('show');
+		};
+
+		webSocket.onclose = function(event) {
+			
+		};
+	}
+	
+	
+	function disconnect () {
+		webSocket.close();
+	}
+
+	
+</script>
 	
 	
 </body>

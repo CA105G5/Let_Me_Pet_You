@@ -50,11 +50,7 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 			Timestamp date = donateVO.getDonate_date();
 			if (date==null) {
 				date = new Timestamp(new Date().getTime());
-			} else {
-				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String time = df.format(date);
-				date = Timestamp.valueOf(time);
-			}
+			} 
 			System.out.println("donateVO.getDonate_coin()"+donateVO.getDonate_coin());
 			System.out.println("donateVO.getMemb_id()"+donateVO.getMemb_id());
 			System.out.println("donateVO.getDonate_src()"+donateVO.getDonate_src());

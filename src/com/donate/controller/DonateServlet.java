@@ -2,6 +2,7 @@ package com.donate.controller;
 
 import java.io.*;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -269,7 +270,7 @@ public class DonateServlet extends HttpServlet {
 	        	// send the ErrorPage view.
 	        	req.setAttribute("errorMsgs", errorMsgs);
 	        	
-	        	try {
+//	        	try {
 	        		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 	        		String bank_id = req.getParameter("bank_id");
 	        		
@@ -325,14 +326,21 @@ public class DonateServlet extends HttpServlet {
 //	        			errorMsgs.add("請輸入轉帳日期");
 //	        		}
 	        		
-//	        		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//					String time = df.format(donate_date);
-//					Timestamp date = Timestamp.valueOf(time);
+	        		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+	        		Date time;
+	        		Timestamp date=null;
+					try {
+						time = df.parse(donate_date);
+						date = new java.sql.Timestamp(time.getTime());
+						System.out.println("date="+date);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
 	        		
 	        		DonateVO donateVO = new DonateVO();
 	        		donateVO.setBank_id(bank_id);
 	        		donateVO.setDonate_amount(donate_amount_int);
-//	        		donateVO.setDonate_date(date);
+	        		donateVO.setDonate_date(date);
 //	        		donateVO.setDonate_private(donate_private_status);
 	        		donateVO.setDonate_src(donate_src);
 	        		donateVO.setDonate_src_trn(donate_src_trn);
@@ -369,12 +377,12 @@ public class DonateServlet extends HttpServlet {
 					System.out.println("!!!!!!!!!!!");
 	        		
 	        		/***************************其他可能的錯誤處理**********************************/
-	        	} catch (Exception e) {
-	        		errorMsgs.add(e.getMessage());
-	        		RequestDispatcher failureView = req
-	        				.getRequestDispatcher("/emp/addDonate.jsp");
-	        		failureView.forward(req, res);
-	        	}
+//	        	} catch (Exception e) {
+//	        		errorMsgs.add(e.getMessage());
+//	        		RequestDispatcher failureView = req
+//	        				.getRequestDispatcher("/emp/addDonate.jsp");
+//	        		failureView.forward(req, res);
+//	        	}
 	        }
 	        
 			
