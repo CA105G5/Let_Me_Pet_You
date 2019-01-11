@@ -8,9 +8,7 @@
 
 <%
 	RescueVO rescueVO  = (RescueVO) request.getAttribute("rescueVO");
-	MemService memSvc = new MemService();
-	MemVO memVO = memSvc.getOneMem("M000000001");
-	session.setAttribute("memVO",memVO);
+	MemVO memVO =(MemVO) session.getAttribute("memVO");
 %>
 
 <!DOCTYPE html>

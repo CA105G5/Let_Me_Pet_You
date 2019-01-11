@@ -118,30 +118,19 @@ div {
 													<input type="hidden"name="rsc_id" value="${rescuingVO.rsc_id}">
 													<input type="hidden"name="rscing_ptcp" value="${rescuingVO.rscing_ptcp}">
 													
-<%-- 													<c:if test="${rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_sta !='完成救援送審中'}" var="condition" scope="page"> --%>
-<!-- 													<button class="genric-btn success circle arrow">完成救援<span class="lnr lnr-arrow-right"></span></button> -->
-<%-- 													</c:if> --%>
-<%-- 													<c:if test="${((rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_sta)=='完成救援送審中')and(rescuingVO.rscing_rv_des==null)}" scope="page"> --%>
-<!-- 													<button class="genric-btn success circle arrow disable">已有會員送出完成報告<span class="lnr lnr-arrow-right"></span></button> -->
-<%-- 													</c:if> --%>
-<%-- 													<c:if test="${((rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_sta))=='完成救援送審中')and(rescuingVO.rscing_rv_des!=null)}" scope="page"> --%>
-<!-- 													<button class="genric-btn success circle arrow disable">已送出完成報告<span class="lnr lnr-arrow-right"></span></button> -->
-<%-- 													</c:if> --%>
 													<c:choose>
 													<c:when test="${rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_sta !='完成救援送審中'}"> 
 													<button class="genric-btn success circle arrow">完成救援<span class="lnr lnr-arrow-right"></span></button>
 													</c:when>   
 													<c:when test="${rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_sta=='完成救援送審中'}"> 
 													<c:choose>
-													<c:when test="${rescuingVO.rscing_rv_des==null}">
-													<button class="genric-btn success circle arrow" disabled="disabled" title="救援專區">已有會員送出完成報告</button>
+													<c:when test="${rescuingVO.rscing_cdes==null}">
+													<div class="genric-btn success circle arrow " style="cursor: not-allowed" disabled="disabled" title="救援專區">已有會員送出完成報告</div>
 													</c:when>
 													<c:otherwise>
-													<button class="genric-btn success circle arrow" disabled="disabled" title="救援專區">已送出完成報告</button>
+													<div class="genric-btn success circle arrow " style="cursor: not-allowed" disabled="disabled" title="救援專區">已送出完成報告</div>
 													</c:otherwise>
 													</c:choose>
-													
-													
 													</c:when>   
 													</c:choose> 
 													</form>

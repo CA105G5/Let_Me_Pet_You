@@ -98,14 +98,14 @@ public class RescuingAjax extends HttpServlet{
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			System.out.println("111"+req.getParameter("rsc_id"));
-			System.out.println("222"+req.getParameter("rscing_rv_des"));
+			System.out.println("222"+req.getParameter("rscing_cdes"));
 			System.out.println("333"+req.getParameterValues("rscing_ptcp[]"));
 			System.out.println("444"+req.getParameter("reporter"));
 			
 
 			try {
 				String rsc_id = req.getParameter("rsc_id");
-				String rscing_rv_des = req.getParameter("rscing_rv_des");
+				String rscing_cdes = req.getParameter("rscing_cdes");
 				
 				ArrayList<String>  doneRescueMemslist = new ArrayList<String>();
 				if(req.getParameterValues("rscing_ptcp[]")!=null) {
@@ -116,6 +116,7 @@ public class RescuingAjax extends HttpServlet{
 					}
 				}
 				System.out.println("list"+doneRescueMemslist);
+				System.out.println("cdes"+rscing_cdes);
 				String reporter = req.getParameter("reporter");
 			
 				RescuingVO rescuingVO = new RescuingVO();
@@ -123,7 +124,7 @@ public class RescuingAjax extends HttpServlet{
 				rescuingVO.setRscing_ptcp(reporter);
 				rescuingVO.setRscing_ctime(new Timestamp(new Date().getTime()));
 				rescuingVO.setRscing_sta("完成案例送審中");
-				rescuingVO.setRscing_rv_des(rscing_rv_des);
+				rescuingVO.setRscing_cdes(rscing_cdes);
 				
 				
 				

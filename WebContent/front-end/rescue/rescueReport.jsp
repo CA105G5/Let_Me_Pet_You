@@ -87,8 +87,14 @@ table{
 								<input type="hidden" name="reporter" id="reporter" value="${rescuingVO.rscing_ptcp}">
 								<br>
 								<div class="single-element-widget mt-30 ">
-								<h4>一起參與的會員：</h4>
-									 
+								
+								
+									 <c:choose>
+									 <c:when test="${listRescuingMem.size()==1}">
+									 <h4 style="color:red">無其它會員參與救援</h4>
+									 </c:when>
+									 <c:otherwise>
+									 <h4>一起參與的會員：</h4>
 									    <div class="switch-wrap justify-content-between " id="scroll">
 									    <c:forEach var="rescuingVO2" items="${listRescuingMem}">
 									    <c:if test="${rescuingVO2.rscing_ptcp!=rescuingVO.rscing_ptcp}" var="condition" scope="page">
@@ -102,26 +108,24 @@ table{
 										</td>
 										
 										<td style="width:100px;text-aling:center" >${memSvc.getOneMem(rescuingVO2.rscing_ptcp).memb_nick}</td>
-									            
-									            
-									            
+
 									            </tr>
 									            </table>
 									            </label>
 									        </div>
 									        </c:if>
 									    </c:forEach>
-									    
 										</div>
-									
+									</c:otherwise>
+									</c:choose>
 
 								
 								</div>
 								<br>
 								<br>
 								<h4>完成描述：</h4>
-						  		<textarea name="rscing_rv_des" id="rscing_rv_des" rows="10" cols="80"><%= (rescuingVO.getRscing_rv_des()==null)? "" : rescuingVO.getRscing_rv_des()%></textarea>
-			            		<script> CKEDITOR.replace("rscing_rv_des"); </script> 
+						  		<textarea name="rscing_cdes" id="rscing_cdes" rows="10" cols="80"><%= (rescuingVO.getRscing_cdes()==null)? "" : rescuingVO.getRscing_cdes()%></textarea>
+			            		<script> CKEDITOR.replace("rscing_cdes"); </script> 
 			            		<br>
 								<br>
 								<br>
@@ -143,9 +147,9 @@ $(document).ready(function() {
 	$('#done').click(function(e){
 		var doneRescueMemslist =[];
 		<%System.out.println("000000000000");%>
-		 console.log(CKEDITOR.instances.rscing_rv_des.getData());
+		 console.log(CKEDITOR.instances.rscing_cdes.getData());
 		 
-		if(CKEDITOR.instances.rscing_rv_des.getData()==""){
+		if(CKEDITOR.instances.rscing_cdes.getData()==""){
 			swal({
 	    	     title: "錯誤!",
 	    	     text: "完成描述請勿空白!",
@@ -179,7 +183,7 @@ $(document).ready(function() {
 	     				 "action":"doneReport",
 	     				 "rsc_id":$('#rsc_id').val(),
 	     				 "rscing_ptcp":doneRescueMemslist,
-	     				 "rscing_rv_des":CKEDITOR.instances.rscing_rv_des.getData(),
+	     				 "rscing_cdes":CKEDITOR.instances.rscing_cdes.getData(),
 	     				 "reporter":($('#reporter').val())
 	     				 },
 	     			 datatype:"json",
@@ -193,7 +197,7 @@ $(document).ready(function() {
 				    	}).then(
 				    			function(result){
 				    		if(result){
-				    		setTimeout("window.location.reload()",100);
+				    		setTimeout("document.location.href='<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp'",100);
 				    	}
 				    		}
 				    			)

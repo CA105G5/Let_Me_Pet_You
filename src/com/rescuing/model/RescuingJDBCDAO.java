@@ -58,7 +58,7 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 	private static final String UPDATE_NO_PASS_MEM = 
 			"UPDATE RESCUING set rscing_sta = ? where rsc_id = ? AND rscing_ptcp = ?";
 	private static final String UPDATE_DONE_REPORT = 
-			"UPDATE RESCUING set rscing_sta = ?,rscing_ctime = ?,rscing_rv_des = ? where rsc_id = ? AND rscing_ptcp = ?";
+			"UPDATE RESCUING set rscing_sta = ?,rscing_ctime = ?,rscing_cdes = ? where rsc_id = ? AND rscing_ptcp = ?";
 	@Override
 	public void insert(RescuingVO rescuingVO) {
 		Connection con = null;
@@ -943,7 +943,7 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 	public void updateDoneReport(RescuingVO rescuingVO, List<String> doneRescueMemslist) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		
 		PreparedStatement pstmt2 = null;
 		
 		try {
