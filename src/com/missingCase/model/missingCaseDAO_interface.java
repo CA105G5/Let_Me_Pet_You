@@ -9,4 +9,5 @@ public interface missingCaseDAO_interface {
     public missingCaseVO findByPrimaryKey(String missing_case_id);
     public List<missingCaseVO> getAll();
     public void updateStatus(missingCaseVO missingCaseVO);
+    public List<missingCaseVO> getCount();
 }

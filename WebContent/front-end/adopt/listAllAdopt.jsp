@@ -86,40 +86,7 @@ h4 {
 
 	<section class="service-page-area section-gap ">
 		<div class="container">
-			<div class="row d-flex justify-content-center">
-				<div class="pb-40 header-text text-center">
-					<div id="carousel-id" class="carousel slide" data-ride="carousel">
-						<!-- 幻燈片小圓點區 -->
-						<ol class="carousel-indicators">
-							<li data-target="#carousel-id" data-slide-to="0" class="active"></li>
-							<li data-target="#carousel-id" data-slide-to="1" class=""></li>
-						</ol>
-						<!-- 幻燈片主圖區 -->
-						<div class="carousel-inner">
-							<div class="item active">
-								<img src="https://api.fnkr.net/testimg/2800x700/aaaaaa" alt=""
-									id="hello">
-								<div class="container">
-									<div class="carousel-caption"></div>
-								</div>
-							</div>
-							<div class="item">
-								<img src="https://api.fnkr.net/testimg/2800x700/aaaaaa" alt="">
-								<div class="container">
-									<div class="carousel-caption"></div>
-								</div>
-							</div>
-						</div>
-						<!-- 上下頁控制區 -->
-						<a class="left carousel-control" href="#carousel-id"
-							data-slide="prev"><span
-							class="glyphicon glyphicon-chevron-left"></span></a> <a
-							class="right carousel-control" href="#carousel-id"
-							data-slide="next"><span
-							class="glyphicon glyphicon-chevron-right"></span></a>
-					</div>
-				</div>
-			</div>
+			
 
 
 
@@ -144,7 +111,7 @@ h4 {
 										pattern="yyyy-MM-dd" />
 								</p>
 								<a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}">
-								<button type="button" class="btn btn-outline-primary">查看詳情</button>
+								<button type="button" class="genric-btn info-border circle">查看詳情</button>
 								</a>
 							</div>
 

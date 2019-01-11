@@ -91,7 +91,6 @@ div {
 			<div class="row d-flex justify-content-center ">
 				<div class="col-md-9 pb-40 header-text text-center">
 					<h1 class="pb-10">認養案例新增</h1>
-					<p>hello.</p>
 				</div>
 			</div>
 			<div class="row">
@@ -163,7 +162,11 @@ div {
 									name="adopt_des" placeholder="Messege"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'Messege'"></textarea>
-								<script> CKEDITOR.replace( 'adopt_des', {}); </script> 
+								<script> CKEDITOR.replace( 'adopt_des', {
+				                   extraPlugins: 'easyimage',
+				                      cloudServices_tokenUrl: 'https://36758.cke-cs.com/token/dev/g529dLeMZwwIpbMNAdeiRdeIbIjTrMw6aq0ncGUTnfbb08SqLh6Z2I87wBM3',
+				                      cloudServices_uploadUrl: 'https://36758.cke-cs.com/easyimage/upload/',}); 
+								</script>
 							</div>
 							<br>
 							<input type="hidden" name="action" value="insert">

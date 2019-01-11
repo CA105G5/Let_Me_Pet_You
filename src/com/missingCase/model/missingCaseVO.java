@@ -13,6 +13,7 @@ public class missingCaseVO {
 	private String missing_status_shelve;
 	private byte[] missing_photo;
 	private String missing_type;
+	private int count;
 	
 	public String getMissing_type() {
 		return missing_type;
@@ -84,6 +85,14 @@ public class missingCaseVO {
 
 	public void setMissing_photo(byte[] missing_photo) {
 		this.missing_photo = missing_photo;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 }

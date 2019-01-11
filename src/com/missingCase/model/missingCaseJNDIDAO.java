@@ -25,6 +25,7 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 	private static final String DELETE = "DELETE FROM missing_case where missing_case_id = ?";
 	private static final String UPDATE = "UPDATE missing_case set memb_id=?, missing_date=?, missing_name=?, missing_des=?, missing_loc=?, missing_status_shelve=?, missing_photo=?, missing_type=? where missing_case_id = ?";
 	private static final String UPDATE_STATUS = "UPDATE missing_case set missing_status_shelve=? where missing_case_id=?";
+	private static final String GET_COUNT = "select missing_type, count(missing_type) from missing_case group by missing_type";
 
 	// 新增
 	@Override
@@ -304,6 +305,49 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 		}
 		return list;
 	}
-	
-	
+
+	// 分組
+	@Override
+	public List<missingCaseVO> getCount() {
+		List<missingCaseVO> list = new ArrayList<missingCaseVO>();
+		missingCaseVO missingCaseVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_COUNT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				missingCaseVO = new missingCaseVO();
+				missingCaseVO.setMissing_type(rs.getString("missing_type"));
+				missingCaseVO.setCount(rs.getInt("count(missing_type)"));
+				list.add(missingCaseVO);
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
 }

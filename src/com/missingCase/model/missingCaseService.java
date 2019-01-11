@@ -68,4 +68,8 @@ public class missingCaseService {
 	public List<missingCaseVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<missingCaseVO> getCount(){
+		return dao.getCount();
+	}
 }

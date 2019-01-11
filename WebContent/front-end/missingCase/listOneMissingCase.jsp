@@ -103,10 +103,10 @@
 							</ul>	
 						</div>
 							<a href="#">
-								<h3>${missingCaseVO.missing_name}</h3>
+								<h1>${missingCaseVO.missing_name}</h1>
 							</a>
 							<div class="content-wrap">
-								<p>${missingCaseVO.missing_des}</p>
+								<p><h3>${missingCaseVO.missing_des}</h3></p>
 							</div>
 						</div>
 
@@ -161,9 +161,9 @@
 								<div class="col-sm-12 nav-right justify-content-end d-flex">
 									<div class="post-details">
 										<p>連絡失主</p>
-										<h4 class="text-uppercase">
+										<h3 class="text-uppercase">
 											<a href="#">${memSvc.getOneMem(missingCaseVO.memb_id).memb_nick}</a>
-										</h4>
+										</h3>
 									</div>
 									<div class="thumb">
 										<img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${missingCaseVO.memb_id}" alt="">

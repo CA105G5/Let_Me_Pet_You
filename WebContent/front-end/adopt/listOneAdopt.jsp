@@ -92,10 +92,10 @@
 								data-target="#exampleModalCenter">申請</button>
 						</div>
 							<a href="#">
-								<h3>${adoptionVO.adopt_species}</h3>
+								<h1>${adoptionVO.adopt_species}</h1>
 							</a>
 							<div class="content-wrap">
-								<p>${adoptionVO.adopt_des}</p>
+								<p><h3>${adoptionVO.adopt_des}</h3></p>
 							</div>
 						</div>
 
@@ -148,9 +148,9 @@
 								<div class="col-sm-12 nav-right justify-content-end d-flex">
 									<div class="post-details">
 										<p>連絡失主</p>
-										<h4 class="text-uppercase">
+										<h3 class="text-uppercase">
 											<a href="#">${memSvc.getOneMem(adoptionVO.adopt_sponsor).memb_nick}</a>
-										</h4>
+										</h3>
 									</div>
 									<div class="thumb">
 										<img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${adoptionVO.adopt_sponsor}" alt="">
@@ -346,7 +346,11 @@
 	<script>
 	$('#apply').click(function(e){
 		if(${AdoptApplyVO.memb_id == membVO.memb_id && AdoptApplyVO.adopt_id == adopt_id}){
-			swal("申請失敗！你已經申請過了!","","warning！");
+			swal({
+				title: "你已經申請過了！",
+				type: "warning", 
+				showCloseButton: true,
+			});
 			return false;
 		}
 	});	

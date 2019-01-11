@@ -1,47 +1,37 @@
 
 //我使用D3.js V5的版本
-<%@page import="com.missingMsg.model.missingMsgVO"%>
+<%@page import="com.missingCase.model.missingCaseVO"%>
+<%@page import="com.missingCase.model.missingCaseService"%>
 <%@page import="java.util.List"%>
-<%@page import="com.missingMsg.model.missingMsgService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
 <%
-missingMsgService missingMsgSvc = new missingMsgService();
-List<missingMsgVO> list = missingMsgSvc.findByCase("S000000002");
+missingCaseService missingCaseSvc = new missingCaseService();
+List<missingCaseVO> list = missingCaseSvc.getCount();
 pageContext.setAttribute("list", list);
-
 
 %>
 <div id="tag" style="border: 1px solid #eee; height: 320px; width:525px;"></div>
 
-<script></script>
-<c:forEach var="missingMsgVO" items="${list}" varStatus="i">
-
-
-
-</c:forEach>
 <script>
-    //取得d3顏色
+//取得d3顏色
     var fill = d3.scaleOrdinal(d3.schemeCategory10);
-
+    var data = [];
 	function randomNumber(){
 		return Math.random() * 100;
 	}
     //文字雲/關鍵字，及字型大小（這邊只放三個）
-    var data = [
-        {text: "菲歐拉", size: randomNumber()},
-        {text: "費德提克", size: randomNumber()},
-		{text: "伊莉絲", size: randomNumber()},
-		{text: "蒙多醫生", size: randomNumber()},
-		{text: "黛安娜", size: randomNumber()},
-		{text: "達瑞文", size: randomNumber()},
-		{text: "庫奇", size: randomNumber()},
-		{text: "科加斯", size: randomNumber()},
-        {text: "卡莎碧雅", size: randomNumber()}
-    ];
+    
+  <%for(missingCaseVO mm: list) {
+	String i = mm.getMissing_type();
+	int x = mm.getCount();
+	System.out.println(i);
+	System.out.println(x);%>
+data.push({text:"<%=i%>", size:<%=x*12%>});
+<% }%>
     //取得呈現處的寬、高
     var w = parseInt(d3.select("#tag").style("width"), 10);
     var h = parseInt(d3.select("#tag").style("height"), 10);
