@@ -250,7 +250,7 @@ public class ProdCartServlet extends HttpServlet {
 					System.out.println("111");
 			        Map.Entry pair = (Map.Entry)it.next();
 			        System.out.println(pair.getKey() + " = " + pair.getValue());
-			        if (prodSvc.getOneProd((String)pair.getKey()).getProd_stock()==0 || prodSvc.getOneProd((String)pair.getKey()).getProd_status().equals("下架")) {
+			        if (prodSvc.getOneProd((String)pair.getKey()).getProd_stock()==0 || "下架".equals(prodSvc.getOneProd((String)pair.getKey()).getProd_status())) {
 			        	it.remove(); 
 			        	jedis.hdel("Cart:"+ memb_id , (String)pair.getKey());
 					}
