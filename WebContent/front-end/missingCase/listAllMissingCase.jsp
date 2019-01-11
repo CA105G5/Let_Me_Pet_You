@@ -83,13 +83,10 @@ h4 {
 
 	<jsp:include page="/index_Header.jsp"
 		flush="true" />
-
-
-
+		
+		
 	<section class="service-page-area section-gap ">
 		<div class="container">
-			
-
 			<!-- 右邊 -->
 			<div class="row">
 				<%@ include file="page1.file"%>
