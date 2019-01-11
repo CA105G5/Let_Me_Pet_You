@@ -1336,6 +1336,42 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 	}
 
+	@Override
+	public boolean isMemIDExist(String memb_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean isMemberIDExist = false;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, password);
+			pstmt = con.prepareStatement(CHECK_ID_EXIST);
+			pstmt.setString(1,memb_id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			isMemberIDExist = rs.next();
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}return isMemberIDExist;
+	}
+
 
 
 	
