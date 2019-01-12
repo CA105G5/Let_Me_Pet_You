@@ -216,7 +216,7 @@ i.fa-shopping-cart:hover {
 			                                <p class="red">未讀的訊息有:</p>
 			                                
 			                                <c:forEach var="ntfVO" items="${list}">
-												<a class="dropdown-item media" href="<%=request.getContextPath()%>/front-end/ntf/ntf.do?action=sort_type&ntf_src_id=${ntfVO.ntf_src_id}">
+												<a class="dropdown-item media" href="<%=request.getContextPath()%>/front-end/ntf/ntf.do?action=sort_type&ntf_id=${ntfVO.ntf_id}">
 			                                    <i class="fa fa-check"></i>
 			                                    <p>${ntfVO.ntf_dt}</p>
 			                                	</a>
