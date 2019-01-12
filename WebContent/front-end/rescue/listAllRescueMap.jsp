@@ -16,7 +16,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>救援地圖</title>
+<title>浪我陪你-救援地圖</title>
 
 
 <script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
@@ -36,7 +36,7 @@ div {
 <style type="text/css">
 /*       	html, body { height: 100% } */
 /*       	#map { height: 55%; width:55%} */
-      	div#map {position: relative;overflow: hidden;width:800px;height:600px;}
+      	div#map {position: relative;overflow: hidden;width:1140px;height:600px;}
 </style>
 
 </head>
@@ -48,11 +48,7 @@ div {
 	
 		<div class="container">
 			<div class="row d-flex justify-content-center">
-
-<!-- 				<div> -->
-<!-- 				  <input id="address" type="textbox" /> -->
-<!-- 				  <input type="button" value="查詢" onclick="codeAddress()"/> -->
-<!-- 				</div>		 -->
+				<h1 style="margin-top: 0px">今日救援地圖</h1>
 	    		<div id="map"></div>
     
     		</div>
@@ -60,80 +56,58 @@ div {
     
     
     <script type="text/javascript">
+ 
+    var map, memMarker, mylat, mylng;
+    var markers = [];
+    var geolocation = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCKTq4JnBzGP4UWtr5xe0c_wDQlWUbVrXU';
 
-    var map;
-	var markers = [];
-	//台灣經、緯度
-    var myLatLng = {lat: 23.973875, lng: 120.982024};
-	var geocoder;
     function initMap() {
-	  geocoder = new google.maps.Geocoder();
-      map = new google.maps.Map(document.getElementById('map'), {
-	  //lat:緯度、lng:經度、zoom:數字越大放越大
-        center: myLatLng,
-        zoom: 10
-      });
-	  //建立地圖 marker 的集合
-	  //var marker_config = [{
-		//position: {lat: 25.04, lng: 121.512},
-		//map: map
-		//title:'總統府'
-	  //},{
-		//position: {lat: 25.035, lng: 121.519},
-		//map: map
-		//title:'中正紀念堂'
-	  //},{
-		//position:{lat: 23.973875, lng: 120.982025},
-		//map:map
-	  //}];
+        navigator.geolocation.getCurrentPosition((position) => {
+            console.log(position.coords);
+            mylat = position.coords.latitude;
+            mylng = position.coords.longitude;
+            // 初始化地圖
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: { lat: mylat, lng: mylng }
+            });
+            var memIcon = {
+            	    url: "<%=request.getContextPath()%>/images/memMaker.png", // url
+            	    scaledSize: new google.maps.Size(50, 50), // scaled size
+            	    origin: new google.maps.Point(0,0), // origin
+            	    anchor: new google.maps.Point(0,0) // anchor
+            	};
+			//會員的位置
+            memMarker = new google.maps.Marker({
+                position: { lat: mylat, lng: mylng },
+                map: map,
+                icon:memIcon,
+                title:'目前位置',
+                animation: google.maps.Animation.BOUNCE
+            });
+			
+      	  //建立地圖 marker 的集合
+      	  //var marker_config = [{
+      		//position: {lat: 25.04, lng: 121.512},
+      		//map: map
+      		//title:'總統府'
+      	  //},{
+      		//position: {lat: 25.035, lng: 121.519},
+      		//map: map
+      		//title:'中正紀念堂'
+      	  //},{
+      		//position:{lat: 23.973875, lng: 120.982025},
+      		//map:map
+      	  //}];
 
-	  //標出 marker
-	  //marker_config.forEach(function(e,i){
-		//markers[i] = new google.maps.Marker(e);
-		//markers[i].setMap(map);
-	  //});
-	}  
-	function codeAddress() {
-		geocoder = new google.maps.Geocoder();
-		var address = document.getElementById('address').value;
-		geocoder.geocode( { 'address': address}, function(results, status) {
-			if (status == 'OK') {
-				LatLng = results[0].geometry.location;
-				console.log(results[0].geometry.location.lat());
-				console.log(results[0].geometry.location.lng());
-				// map.setCenter(results[0].geometry.location);
-				// var marker = new google.maps.Marker({
-				// 	map: map,
-				// 	position: results[0].geometry.location,
-				// 	title:"緯度："+results[0].geometry.location.lat()+" , 經度："+results[0].geometry.location.lng()
-				// });
-			} else {
-				alert('Geocode was not successful for the following reason: ' + status);
-			}
-		});
-	}
-	window.onload = function() {
-		  var startPos;
-		  var geoOptions = {
-		     timeout: 10 * 1000
-		  }
+      	  //標出 marker
+      	  //marker_config.forEach(function(e,i){
+      		//markers[i] = new google.maps.Marker(e);
+      		//markers[i].setMap(map);
+      	  //});
+        });
+    }
 
-		  var geoSuccess = function(position) {
-		    startPos = position;
-		    document.getElementById('startLat').innerHTML = startPos.coords.latitude;
-		    document.getElementById('startLon').innerHTML = startPos.coords.longitude;
-		  };
-		  var geoError = function(error) {
-		    console.log('Error occurred. Error code: ' + error.code);
-		    // error.code can be:
-		    //   0: unknown error
-		    //   1: permission denied
-		    //   2: position unavailable (error response from location provider)
-		    //   3: timed out
-		  };
-
-		  navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
-		};
 
     </script>
 
