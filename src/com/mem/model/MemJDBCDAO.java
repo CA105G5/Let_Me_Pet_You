@@ -49,7 +49,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	
 	//安卓SQL指令
 	private static final String FIND_BY_ID_PASWD = "SELECT * FROM MEMBERS WHERE memb_acc = ? AND memb_psw = ?";
-	private static final String CHECK_ID_EXIST = "SELECT memb_acc FROM MEMBERS WHERE memb_acc = ?";
+	private static final String CHECK_ID_EXIST = "SELECT memb_acc AND memb_id FROM MEMBERS WHERE memb_acc = ?";
 	private static final String FIND_PHOTO_BY_MEMACC = "SELECT memb_photo FROM MEMBERS WHERE memb_acc = ?";
 	
 
@@ -1168,7 +1168,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	
 	//安卓確認會員帳密
 	@Override
-	public boolean isMemAcc(String memb_acc, String memb_psw) {
+	public boolean isMemAcc(MemVO memVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean isMember = false;
@@ -1177,8 +1177,20 @@ public class MemJDBCDAO implements MemDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, password);
 			pstmt = con.prepareStatement(FIND_BY_ID_PASWD);
-			pstmt.setString(1,memb_acc);
-			pstmt.setString(2,memb_psw);
+			
+	
+			pstmt.setString(1,memVO.getMemb_id());
+			pstmt.setString(2,memVO.getMemb_acc());
+			pstmt.setString(3,memVO.getMemb_psw());
+			pstmt.setString(4, memVO.getMemb_name());
+			pstmt.setString(5, memVO.getMemb_nick());
+			pstmt.setString(6, memVO.getMemb_email());
+			pstmt.setString(7, memVO.getMemb_cellphone());
+			pstmt.setString(8, memVO.getMemb_gender());
+			pstmt.setInt(9, memVO.getMemb_balance());
+	
+			
+			
 			ResultSet rs = pstmt.executeQuery();
 			isMember = rs.next();
 		}catch(ClassNotFoundException ce){
@@ -1336,41 +1348,6 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 	}
 
-	@Override
-	public boolean isMemIDExist(String memb_id) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		boolean isMemberIDExist = false;
-		
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, password);
-			pstmt = con.prepareStatement(CHECK_ID_EXIST);
-			pstmt.setString(1,memb_id);
-			
-			ResultSet rs = pstmt.executeQuery();
-			isMemberIDExist = rs.next();
-		}catch(ClassNotFoundException ce){
-			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
-		}catch(SQLException se){
-			throw new RuntimeException("A database error occured."+se.getMessage());
-		}finally {
-			if(pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if(con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}return isMemberIDExist;
-	}
 
 
 

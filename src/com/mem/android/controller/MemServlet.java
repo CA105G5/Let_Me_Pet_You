@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mem.model.MemDAO_interface;
 import com.mem.model.MemJDBCDAO;
 import com.mem.model.MemVO;
-
+import com.rescue.model.RescueVO;
 import com.android.main.*;
 
 import com.google.gson.Gson;
@@ -44,9 +44,8 @@ public class MemServlet extends HttpServlet {
 
 		
 		if ("isMemAcc".equals(action)) {  
-			String memb_acc = jsonObject.get("memb_acc").getAsString();
-			String memb_psw = jsonObject.get("memb_psw").getAsString();
-			writeText(res,	String.valueOf(MemDao.isMemAcc(memb_acc, memb_psw)));
+			MemVO memVO = gson.fromJson(jsonObject.get("MemVO").getAsString(), MemVO.class);
+			writeText(res, String.valueOf(MemDao.isMemAcc(memVO)));
 		} else if ("isMemExist".equals(action)) {
 			String memb_acc = jsonObject.get("memb_acc").getAsString();
 			writeText(res, String.valueOf(MemDao.isMemExist(memb_acc)));
