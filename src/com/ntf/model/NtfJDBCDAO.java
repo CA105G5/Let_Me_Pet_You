@@ -23,7 +23,7 @@ public class NtfJDBCDAO implements NtfDAO_interface{
 	private static final String DELETE_STMT="DELETE FROM NOTIFICATIONS where ntf_id=?";
 	private static final String GET_ONE_STMT="SELECT * FROM NOTIFICATIONS where ntf_id=?";
 	private static final String GET_ALL_STMT="SELECT * FROM NOTIFICATIONS order by ntf_id";
-	private static final String MEMBER_GET_ALL_STMT="SELECT * FROM NOTIFICATIONS where memb_id =? order by ntf_id desc";
+	private static final String MEMBER_GET_ALL_STMT="SELECT * FROM NOTIFICATIONS where memb_id =? AND ntf_sta = '未讀'  order by ntf_id desc";
 	public static void main(String[] args) {
 		//checked
 		NtfJDBCDAO dao = new NtfJDBCDAO();

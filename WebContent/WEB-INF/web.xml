@@ -388,4 +388,12 @@
     <servlet-name>AdoptMsgReportServlet</servlet-name>
     <url-pattern>/front-end/adopt/AdoptMsgReportServlet.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>NtfServlet</servlet-name>
+    <servlet-class>com.ntf.controller.NtfServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NtfServlet</servlet-name>
+    <url-pattern>/front-end/ntf/ntf.do</url-pattern>
+  </servlet-mapping>
 </web-app>

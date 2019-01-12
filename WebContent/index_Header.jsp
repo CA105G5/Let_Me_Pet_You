@@ -1,5 +1,7 @@
 <%@page import="com.mem.model.MemVO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.*"%>
+<%@page import="com.ntf.model.*"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	
 <!-- 	這版是套首頁的版本 -->
@@ -8,6 +10,7 @@
 	MemVO memVO = (MemVO) session.getAttribute("memVO");
 	System.out.println("111111111111111111111111111="+session.getId());
 	System.out.println( "是否登入:"+ (memVO != null));
+	
 	
 %>
 
@@ -105,6 +108,7 @@ i.fa-shopping-cart:hover {
 </head>
 <body>
 	<jsp:useBean id="MemberService" scope="page" class="com.mem.model.MemService"/>
+	<jsp:useBean id="ntfSvc" scope="page" class="com.ntf.model.NtfService"/>
 	<header id="header" id="home" style="height:115px">
 		<div class="container">
 			<div class="row header-top align-items-center">
@@ -189,26 +193,38 @@ i.fa-shopping-cart:hover {
 								<%
 									out.print(memVO.getMemb_nick()+"，你好");
 								%>
-								<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout"><img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">登出</a><br>
+								<a href="<%=request.getContextPath()%>/front-end/members/mem.do?action=logout">
+								<img style="width:40px;height:40px" class="img-fluid" src="<%=request.getContextPath()%>/images/logout.png" data-toggle="tooltip" data-placement="left" title="登出">
+								登出
+								</a><br>
 								<div class="dropdown for-notification" style="display:inline">
-			                            <button class="" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0px;color:#007bff;background-color:#ffffff;border-width:0px;width:18px;height:18px">
+			                            <button class="" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+			                            style="padding:0px;color:#007bff;background-color:#ffffff;border-width:0px;width:18px;height:18px">
 			                                <i class="fa fa-bell"></i>
-			                                <div style="margin:0px;padding:0px;width:13px;height:13px"><h6 style="background-color:#ff0000;color:white;margin-top: -20;margin-bottom: 0px;margin-right: -10;margin-left: 10px;">3</h6></div>
+			                                <div style="margin:0px;padding:0px;width:13px;height:13px">
+			                                	<h6 style="background-color:#ff0000;color:white;margin-top: -20;margin-bottom: 0px;margin-right: -10;margin-left: 10px;">
+			                                	<%
+													List<NtfVO> list = ntfSvc.getAllNtfsFromSameMember(memVO.getMemb_id());
+													pageContext.setAttribute("list",list);
+													if(list.size()>0)
+													out.print(list.size());													
+												%>
+			                                	</h6>
+			                                </div>
 			                            </button>
 			                            <div class="dropdown-menu" aria-labelledby="notification">
 			                                <p class="red">未讀的訊息有:</p>
-			                                <a class="dropdown-item media" href="#">
+			                                
+			                                <c:forEach var="ntfVO" items="${list}">
+												<a class="dropdown-item media" href="https://tw.yahoo.com/">
 			                                    <i class="fa fa-check"></i>
-			                                    <p>123456789123456789123456789123456789123456789</p>
-			                                </a>
-			                                <a class="dropdown-item media" href="#">
-			                                    <i class="fa fa-info"></i>
-			                                    <p>Server #2 overloaded.</p>
-			                                </a>
-			                                <a class="dropdown-item media" href="#">
-			                                    <i class="fa fa-warning"></i>
-			                                    <p>Server #3 overloaded.</p>
-			                                </a>
+			                                    <p>${ntfVO.ntf_dt}</p>
+			                                	</a>
+												
+											</c:forEach>
+			                                
+			                                
+			                                
 			                            </div>
 			                   </div>
 								&nbsp;&nbsp;&nbsp;
