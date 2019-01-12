@@ -1284,7 +1284,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 					con.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}
+				} 
 			}
 		}return isMemTest;
 	}

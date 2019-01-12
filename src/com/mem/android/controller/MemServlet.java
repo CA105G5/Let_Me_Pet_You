@@ -54,7 +54,7 @@ public class MemServlet extends HttpServlet {
 //			writeText(res, memb_acc == null ? "" : gson.toJson(memb_acc));
 			writeText(res, gson.toJson(MemDao.findByAccount(memb_acc)));//將DAO的findByAccount(欄位)包成gson
 		}else if ("isMem".equals(action)) {
-			String memb_acc = jsonObject.get("memb_acc").getAsString();
+			String memb_acc = jsonObject.get("memb_acc").getAsString(); 
 			String memb_id = jsonObject.get("memb_id").getAsString();
 			String memb_psw = jsonObject.get("memb_psw").getAsString();
 			writeText(res, gson.toJson(MemDao.isMem(memb_acc, memb_id, memb_psw)));

@@ -10,7 +10,7 @@ import com.missingCase.model.missingCaseVO;
 import com.rescue.model.RescueVO;
 import com.rescuing.model.RescuingVO;
 
-public interface MemDAO_interface {
+public interface MemDAO_interface { 
 	public void insert(MemVO memVO); 
 	public void update(MemVO memVO);
 	public void updateMemWithOrdItemAndCurDt(MemVO memVO, CurDtVO curDTVO, Connection con);
