@@ -53,7 +53,7 @@ div {
 <!-- 				  <input id="address" type="textbox" /> -->
 <!-- 				  <input type="button" value="查詢" onclick="codeAddress()"/> -->
 <!-- 				</div>		 -->
-	    		<div id="mymap"></div>
+	    		<div id="map"></div>
     
     		</div>
     	</div>
@@ -61,17 +61,17 @@ div {
     
     <script type="text/javascript">
 
-    var mymap;
+    var map;
 	var markers = [];
 	//台灣經、緯度
     var myLatLng = {lat: 23.973875, lng: 120.982024};
 	var geocoder;
     function initMap() {
 	  geocoder = new google.maps.Geocoder();
-      mymap = new google.maps.Map(document.getElementById('mymap'), {
+      map = new google.maps.Map(document.getElementById('map'), {
 	  //lat:緯度、lng:經度、zoom:數字越大放越大
         center: myLatLng,
-        zoom: 7.8
+        zoom: 10
       });
 	  //建立地圖 marker 的集合
 	  //var marker_config = [{
@@ -112,7 +112,28 @@ div {
 			}
 		});
 	}
+	window.onload = function() {
+		  var startPos;
+		  var geoOptions = {
+		     timeout: 10 * 1000
+		  }
 
+		  var geoSuccess = function(position) {
+		    startPos = position;
+		    document.getElementById('startLat').innerHTML = startPos.coords.latitude;
+		    document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+		  };
+		  var geoError = function(error) {
+		    console.log('Error occurred. Error code: ' + error.code);
+		    // error.code can be:
+		    //   0: unknown error
+		    //   1: permission denied
+		    //   2: position unavailable (error response from location provider)
+		    //   3: timed out
+		  };
+
+		  navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+		};
 
     </script>
 
