@@ -74,7 +74,7 @@ div {
     var map, memMarker, mylat, mylng;
     var markers = [];
     var geolocation = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCKTq4JnBzGP4UWtr5xe0c_wDQlWUbVrXU';
-
+	var infoWindows =[];
     function initMap() {
         navigator.geolocation.getCurrentPosition((position) => {
             console.log(position.coords);
@@ -101,7 +101,8 @@ div {
                 title:'目前位置',
                 animation: google.maps.Animation.BOUNCE
             });
-//             var results=$(".rsc").size();
+		
+		
 			 console.log("rsc(0)"+$(".rsc:eq(0)").attr('id'));
 			 console.log("lat"+$(".rsc:eq(0) > input[name='rsc_lat']").val());
 			 console.log("lng"+$(".rsc:eq(0) > input[name='rsc_lon']").val());
@@ -111,24 +112,86 @@ div {
 			for (var i = 0; i < $(".rsc").size() ; i++) {
 				
 				var rsc = "eq"+i;
+				var idid = ".rsc:eq("+i+")";
+				var rscid = $(idid).attr('id');
 				var latlat = ".rsc:eq(" + i + ") > input[name='rsc_lat']";
 				var lnglng = ".rsc:eq(" + i + ") > input[name='rsc_lon']";
-				console.log("rsc====="+rsc);
-				console.log("rsclat====="+latlat);
-				console.log("rsclng====="+lnglng);
 				var srclat = $(latlat).val();
 				var srclng = $(lnglng).val();
-				console.log("srclat=="+srclat);
-				console.log("srclng=="+srclng);
-			var marker = new google.maps.Marker({
+				var titletitle = ".rsc:eq(" + i + ") > input[name='rsc_name']";
+				var srctitle = $(titletitle).val();
+				var stasta = ".rsc:eq(" + i + ") > input[name='rsc_sta']";
+				var srcsta = $(stasta).val();
+				console.log(srcsta);
+				var rscIcon={            	    
+						url: "<%=request.getContextPath()%>/images/memMaker.png", // url
+	            	    scaledSize: new google.maps.Size(50, 50), // scaled size
+//	             	    origin: new google.maps.Point(0,0), // origin
+//	             	    anchor: new google.maps.Point(0,0) // anchor
+				}
+				switch (srcsta) {
+				  case "待救援":
+				    rscIcon.url="<%=request.getContextPath()%>/images/memMaker.png";
+				    break;
+				  case "救援中":
+					  rscIcon.url="<%=request.getContextPath()%>/images/memMaker.png";
+				    break;
+				  case "完成救援送審中":
+					  rscIcon.url="<%=request.getContextPath()%>/images/memMaker.png";
+				    break;
+				  case "分派給志工":
+					  rscIcon.url="<%=request.getContextPath()%>/images/memMaker.png";
+				    break;
+				  case "完成救援":
+					  rscIcon.url="<%=request.getContextPath()%>/images/memMaker.png";
+				    break;
+				  case "志工已完成":
+					  rscIcon.url="<%=request.getContextPath()%>/images/memMaker.png";
+				    break;
+				 
+				}
+
+				var marker= new google.maps.Marker({
 	    		position: {lat:parseFloat(srclat),lng:parseFloat(srclng)},
 	    		map: map,
-	    		title: ''
+	    		title: srctitle,
+	    		icon:rscIcon
 	  		});
+				
+				var content = "<h4>"+srctitle+"</h4>"+"<div class='justify-content-between d-flex'>"
+				+"<a href="
+				+"<%=request.getContextPath()%>/"
+				+"front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id="
+				+rscid
+				+">"
+				+"<img class='img-fluid' style='width:100px;height:100px'src="
+				+"<%=request.getContextPath()%>/"
+				+"back-end/rescue/rescueImg.do?rsc_id="
+			    +rscid
+				+" alt=''>"
+				+"</div></a>"
+				+"<div>"
+				+"狀態:"
+				+srcsta
+				+"</div>";
+				
+				attachSecretMessage(marker,content) ;
+			
 			}
-    	  
+			function attachSecretMessage(marker, content) {
+				var infowindow = new google.maps.InfoWindow({
+					content: content ,
+					size: new google.maps.Size(200, 200)
+				});
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(marker.get('map'), marker);
+				});
+			}
+      	  
+      	  
         });
-    }
+        }
+    
 
 
     </script>
