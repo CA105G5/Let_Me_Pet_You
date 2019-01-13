@@ -59,6 +59,15 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			"UPDATE RESCUING set rscing_sta = ? where rsc_id = ? AND rscing_ptcp = ?";
 	private static final String UPDATE_DONE_REPORT = 
 			"UPDATE RESCUING set rscing_sta = ?,rscing_ctime = ?,rscing_cdes = ? where rsc_id = ? AND rscing_ptcp = ?";
+	
+	
+	//安卓指令
+//	private static final String JOIN_RESCUE =
+//			"UPDATE RESCUING SET rscing_sta = "
+	
+	
+	
+	
 	@Override
 	public void insert(RescuingVO rescuingVO) {
 		Connection con = null;

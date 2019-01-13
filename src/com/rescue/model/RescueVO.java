@@ -31,6 +31,11 @@ public class RescueVO implements java.io.Serializable{
 		 
 	}
 	
+	public RescueVO(String rsc_id, String rsc_sta) {
+	        this.rsc_id = rsc_id;
+	        this.rsc_sta = rsc_sta;
+	    }
+	
 	public RescueVO (String rsc_name, String rsc_add, String rsc_sponsor, Double rsc_lat, Double rsc_lon, Timestamp rsc_btime, String rsc_reg, String rsc_des, byte[] rsc_img, String rsc_sta) {
         this.rsc_name = rsc_name;
         this.rsc_add = rsc_add;

@@ -232,6 +232,14 @@
     <url-pattern>/rescue/RescueServlet.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>AndroidRescuingServlet</servlet-name>
+    <servlet-class>com.rescuing.android.controller.RescuingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AndroidRescuingServlet</servlet-name>
+    <url-pattern>/rescuing/RescuingServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>DonateServlet</servlet-name>
     <servlet-class>com.donate.controller.DonateServlet</servlet-class>
   </servlet>

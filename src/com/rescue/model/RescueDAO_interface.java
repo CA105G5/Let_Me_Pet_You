@@ -21,7 +21,7 @@ public interface RescueDAO_interface {
   
     //安卓功能
     byte[] getImage(String rsc_id);
-    boolean updateCase(RescueVO rescueVO);
+    boolean updateCase(String rsc_id);
     boolean addCase(RescueVO rescueVO);
 //    boolean findByRscId(String rsc_id);
     public List<RescueVO> getAllRescue();  
