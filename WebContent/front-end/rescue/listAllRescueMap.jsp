@@ -106,11 +106,16 @@ div {
 			 console.log("lat"+$(".rsc:eq(0) > input[name='rsc_lat']").val());
 			 console.log("lng"+$(".rsc:eq(0) > input[name='rsc_lon']").val());
 			 console.log("name"+$(".rsc:eq(0) > input[name='rsc_name']").val());
-			 
+			 console.log("lat"+parseFloat($(".rsc:eq(0) > input[name='rsc_lat']").val()));
       	  //建立地圖 marker 的集合
 			for (var i = 0; i < $(".rsc").size() ; i++) {
+				
+				var srclat = parseFloat($(".rsc:eq(i) > input[name='rsc_lat']").val());
+				var srclng = parseFloat($(".rsc:eq(i) > input[name='rsc_lon']").val());
+				console.log("srclat"+srclat);
+				console.log("srclng"+srclng);
 			var marker = new google.maps.Marker({
-	    		position: {lat:parseInt($(".rsc:eq(i) > input[name='rsc_lat']").val()),lng:parseInt($(".rsc:eq(i) > input[name='rsc_lon']").val())},
+	    		position: {lat:srclat,lng:srclng},
 	    		map: map,
 	    		title: ''
 	  		});
