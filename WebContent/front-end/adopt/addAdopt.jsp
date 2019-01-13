@@ -1,3 +1,4 @@
+<%@page import="com.mem.model.MemVO"%>
 <%@page import="com.Adoption.model.AdoptionVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -5,6 +6,8 @@
 
 <%
 	AdoptionVO adoptionVO = (AdoptionVO) request.getAttribute("adoptionVO");
+
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
 %>
 
 
@@ -53,7 +56,7 @@
 	href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="<%=request.getContextPath()%>/ckeditor2/ckeditor.js"></script>
+<script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 <script src="jquery-3.3.1.min.js"></script>
 <!-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab -->
 <link rel="stylesheet"
@@ -153,7 +156,7 @@ div {
 								<label class="genric-btn info-border small" for="adopt_img" >選擇圖片</label>
 								</div>
 								
-								<input name="adopt_sponsor" type="hidden" value="M000000005">
+								<input name="adopt_sponsor" type="hidden" value="<%=(memVO ==null)? "" : memVO.getMemb_id()%>">
 							</div>
 							<div class="col-lg-8 form-group">
 								<h5>領養內容描述：</h5>

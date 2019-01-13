@@ -143,9 +143,16 @@ public class missingCaseServlet extends HttpServlet {
 				String missing_status_shelve = null;
 				String missing_type = req.getParameter("missing_type");
 
-				Part part = req.getPart("upfile");
-				if (part.getSubmittedFileName().equals(null) && part.getSubmittedFileName().trim().length() == 0) {
-					errorMsgs.add("請上傳寵物照片");
+				if (missing_type == null || missing_type.trim().length() == 0) {
+					errorMsgs.add("請輸入寵物種類");
+				}
+				
+				
+				Part part = req.getPart("missing_img");
+				if (req.getPart("missing_img").getSubmittedFileName() == null
+						|| req.getPart("missing_img").getSubmittedFileName().length() == 0
+						|| req.getPart("missing_img").getContentType() == null) {
+					errorMsgs.add("請上傳照片");
 				}
 				InputStream is = part.getInputStream();
 				byte[] missing_photo = transbyte(is);

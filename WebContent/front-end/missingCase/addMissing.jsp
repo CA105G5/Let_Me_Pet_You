@@ -1,9 +1,13 @@
+<%@page import="com.mem.model.MemVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.missingCase.model.*"%>
 
 <%
 	missingCaseVO missingCaseVO = (missingCaseVO) request.getAttribute("missingCaseVO");
+
+
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
 %>
 
 
@@ -52,7 +56,7 @@
 	href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="<%=request.getContextPath()%>/ckeditor2/ckeditor.js"></script>
+<script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 <!-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -79,7 +83,7 @@ div {
 <style>
 </style>
 </head>
-<body>
+<body onload="connect();" onunload="disconnect();">
 
 	<jsp:include page="/index_Header.jsp"
 		flush="true" />
@@ -88,6 +92,16 @@ div {
 			<div class="row d-flex justify-content-center ">
 				<div class="col-md-9 pb-40 header-text text-center">
 					<h1 class="pb-10">失蹤案例新增</h1>
+					<c:if test="${not empty errorMsgs}">
+								<div>
+									<font style="color:red">請修正以下錯誤:</font>
+									<ul>
+									    <c:forEach var="message" items="${errorMsgs}">
+											<li style="color:red">${message}</li>
+										</c:forEach>
+									</ul>
+								</div>
+							</c:if>
 				</div>
 			</div>
 			
@@ -137,7 +151,7 @@ div {
                                     	<img width="250" height="200" src="<%=request.getContextPath()%>/front-end/donate/noPic.png" style="padding-right: 30px;"/>
                                     </div>
                                     <div style="text-align:center">
-								<input type="file" class="upl custom-file-input" name="adopt_img" id="missing_img">
+								<input type="file" class="upl custom-file-input" name="missing_img" id="missing_img">
 								<label class="genric-btn info-border small" for="missing_img" >選擇圖片</label>
 								</div>
                                 </div>
@@ -155,8 +169,12 @@ div {
                                     </script>
                                 </div>
                             </div>
+                            <input type="hidden" name="action" value="insert">
+                            <input type="hidden" name="missing_status_shelve" value="上架">
+                            <input type="hidden" name="membno" value="<%=(memVO ==null)? "" : memVO.getMemb_id()%>">
+                            
                             <div align="center">
-                            <input type="submit"  value="送出"  style="width:120px;height:40px;font-size:20px;">
+                            <input type="submit"  value="送出"  style="width:120px;height:40px;font-size:20px;" onclick="sendMessage();">
                             </div>
                         </div>
                         </form>
@@ -221,7 +239,52 @@ div {
 				}
 			}
 		}
+		
+	<!--推播-->
+	    var MyPoint = "/missingCaseEchoServer";
+	    var host = window.location.host;
+	    var path = window.location.pathname;
+	    var webCtx = path.substring(0, path.indexOf('/', 1));
+	    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+	    
+		var statusOutput = document.getElementById("statusOutput");
+		var webSocket;
+		
+		function connect() {
+			// 建立 websocket 物件
+			webSocket = new WebSocket(endPointURL);
+			
+			webSocket.onopen = function(event) {
+				
+			};
+
+			webSocket.onmessage = function(event) {
+
+			};
+
+			webSocket.onclose = function(event) {
+				
+			};
+		}
+		
+		function sendMessage() {
+			swal("新增成功！","","success");
+		   
+			var missing_url = "<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp";
+			
+			 var jsonObj = {"missing_url" : missing_url};
+			 webSocket.send(JSON.stringify(jsonObj));
+		}
+
+		
+		
+		
+		function disconnect () {
+			webSocket.close();
+		}
 	
+		
+		
 	</script>
 </body>
 </html>

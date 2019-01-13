@@ -79,7 +79,7 @@ h4 {
 }
 </style>
 </head>
-<body>
+<body onload="connect();" onunload="disconnect();">
 
 	<jsp:include page="/index_Header.jsp"
 		flush="true" />
@@ -135,7 +135,47 @@ h4 {
 			<%@ include file="page2.file"%>
 		</div>
 	</section>
+<script>
+var MyPoint = "/missingCaseEchoServer";
+var host = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf('/', 1));
+var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+console.log("endPointURL="+endPointURL);
 
+var webSocket;
+
+function connect() {
+	// 建立 websocket 物件
+	webSocket = new WebSocket(endPointURL);
+	console.log("websocket已連線");
+	
+	webSocket.onopen = function(event) {
+
+	};
+
+	webSocket.onmessage = function(event) {
+		
+		 var jsonObj = JSON.parse(event.data);
+		 var missing_url = jsonObj.missing_url;
+		console.log("missing_url"+missing_url);
+		
+	};
+
+	webSocket.onclose = function(event) {
+		
+	};
+}
+
+
+function disconnect () {
+	webSocket.close();
+}
+
+
+
+
+</script>
 
 
 </body>
