@@ -3,7 +3,11 @@ package com.rescue.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -15,6 +19,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.rescue.model.*;
 
 
@@ -262,7 +270,61 @@ public class RescueServlet extends HttpServlet{
 				}
 			}   
 		
-		
+			if ("rescueMap".equals(action)) {
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxx");
+				List<String> errorMsgs = new LinkedList<String>();
+				req.setAttribute("errorMsgs", errorMsgs);
+				JSONArray allRescuearray = new JSONArray();
+				try {
+
+					
+
+					if (!errorMsgs.isEmpty()) {
+						
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("/front-end/rescue/listAllRescue.jsp");
+						failureView.forward(req, res);
+						return;
+					}
+
+					/*************************** 2.開始新增資料 ***************************************/
+					RescueService rescueSvc = new RescueService();
+					List<RescueVO> allRescueList = rescueSvc.getAll();
+
+
+					// 回傳全部留言
+
+					for (RescueVO rescueVO : allRescueList) {
+						JSONObject obj = new JSONObject();
+						DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						obj.put("rsc_id", rescueVO.getRsc_id());
+						obj.put("rsc_name", rescueVO.getRsc_name());
+						obj.put("rsc_lat", rescueVO.getRsc_lat());
+						obj.put("rsc_lon", rescueVO.getRsc_lon());
+						obj.put("rsc_sponsor", rescueVO.getRsc_sponsor());
+						obj.put("rsc_btime", sdf.format(rescueVO.getRsc_btime()));
+						obj.put("rsc_sta", rescueVO.getRsc_sta());
+						allRescuearray.put(obj);
+
+					}
+					
+				} catch (Exception e) {
+					errorMsgs.add(e.getMessage());
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/rescue/listAllRescue.jsp");
+					failureView.forward(req, res);
+
+				}
+//				res.setContentType("text/plain");
+//				res.setCharacterEncoding("UTF-8");
+//				PrintWriter out = res.getWriter();
+//				out.write(allRescuearray.toString());
+//				out.flush();
+//				out.close();
+				req.setAttribute("allRescuearray", allRescuearray); // 資料庫取出的list物件,存入request
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/rescue/listAllRescueMap.jsp"); // 成功轉交
+				successView.forward(req, res);
+			}
 		
 		
 		

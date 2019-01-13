@@ -67,7 +67,7 @@ div {
 					<hr>
 					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
 					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do?action=rescueMap">今日救援地圖</a></h5>
 					<hr>
 					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
 					<hr>
@@ -109,7 +109,6 @@ div {
 													<td><%=no %></td>
 													<td style=" margin-bottom: auto"><fmt:formatDate value="${rescuingVO.rscing_btime}" type="both" /></td>
 													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescuingVO.rsc_id}">${rescuingVO.rsc_id}</a></td>
-													<jsp:useBean id="rescueSvc2" scope="page" class="com.rescue.model.RescueService"/>
 													<td style=" margin-bottom: auto">${memSvc.getOneMem(rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_sponsor).memb_id}<br>暱稱：${memSvc.getOneMem(rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_sponsor).memb_nick}</td>
 													<td style=" margin-bottom: auto"><fmt:formatDate value="${rescueSvc.getOneRescue(rescuingVO.rsc_id).rsc_btime}" type="both" /></td>
 													<td style=" margin-bottom: auto">

@@ -130,14 +130,6 @@ div {
 										<div class="comment-wrap col-sm-8">
 											<ul>
 										
-<%-- 											<c:if test="${rescueVO.rsc_sta=='待救援' or rescueVO.rsc_sta=='救援中'}"> --%>
-											
-<%-- 												<a href="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do?rsc_id=${rescueVO.rsc_id}&rscing_ptcp=${memVO.memb_id}&action=insert"  --%>
-<!-- 												class="genric-btn primary">加入救援</a> -->
-											
-<!-- 												<a href="#" class="genric-btn disable">已加入救援</a> -->
-											
-<%-- 											</c:if> --%>
 											
 											<c:if test="${rescueVO.rsc_sta=='待救援' or rescueVO.rsc_sta=='救援中'}">
 											

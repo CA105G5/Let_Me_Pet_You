@@ -38,7 +38,6 @@ public class RescueAjax extends HttpServlet {
 		if ("getChange".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			JSONArray array = new JSONArray();
 			try {
 
 				String rsc_id = req.getParameter("rsc_id");
