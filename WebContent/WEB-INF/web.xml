@@ -223,13 +223,21 @@
     <servlet-name>AndroidVolunteerServlet</servlet-name>
     <url-pattern>/volunteer/VolunteerServlet.do</url-pattern>
   </servlet-mapping>
-  <servlet>
+  <servlet> 
     <servlet-name>AndroidRescueServlet</servlet-name>
     <servlet-class>com.rescue.android.controller.RescueServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AndroidRescueServlet</servlet-name>
     <url-pattern>/rescue/RescueServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AndroidRescuingServlet</servlet-name>
+    <servlet-class>com.rescuing.android.controller.RescuingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AndroidRescuingServlet</servlet-name>
+    <url-pattern>/rescuing/RescuingServlet.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>DonateServlet</servlet-name>

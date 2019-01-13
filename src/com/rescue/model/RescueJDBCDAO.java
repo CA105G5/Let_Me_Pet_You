@@ -53,14 +53,13 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 	//安卓指令
 	private static final String FIND_PHOTO_BY_RSCID = 
 			"SELECT rsc_img FROM RESCUE WHERE rsc_id = ?";
-	private static final String UPDATE_RESCUE_CASE =
-			"UPDATE RESCUE SET rsc_name=?,rsc_add=?,rsc_des=?,rsc_img=?,rsc_sponsor=?,vlt_id=?,rsc_lat=?,rsc_lon=?,rsc_sta=?,rsc_stm_time=?,rsc_stm_url=?,rsc_stm_sta=?,rsc_btime=?,rsc_coin=?,rsc_etime=?,rsc_reg=?,rsc_rt_status=?,ntf_vlt_dt=?,ntf_vlt_link=?,ntf_vlt_sta=?,ntf_vlt_time=? WHERE rsc_id = ?";
+	private static final String UPDATE_JOIN_RESCUE =
+			"UPDATE RESCUE set rsc_sta='救援中' where rsc_id = ?";
 	private static final String INSERT_RESCUE_CASE = 
-			"INSERT INTO RESCUE (rsc_id,rsc_name,rsc_add,rsc_des,rsc_img,rsc_sponsor,vlt_id,rsc_lat,rsc_lon,rsc_sta,rsc_stm_time,rsc_stm_url,rsc_stm_sta,rsc_btime,rsc_coin,rsc_etime,rsc_reg,rsc_rt_status,ntf_vlt_dt,ntf_vlt_link,ntf_vlt_sta,ntf_vlt_time) VALUES ('R'||LPAD(to_char(volunteer_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			"INSERT INTO RESCUE (rsc_id,rsc_name,rsc_add,rsc_des,rsc_img,rsc_sponsor,rsc_lat,rsc_lon,rsc_sta,rsc_btime,rsc_coin,rsc_reg) VALUES ('R'||LPAD(to_char(volunteer_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_RESCUE = 
-			"SELECT rsc_id,rsc_name,rsc_add,rsc_des,rsc_sponsor,vlt_id,rsc_lat,rsc_lon,rsc_sta,to_char(rsc_stm_time,'yyyy-mm-dd hh24:mi:ss') rsc_stm_time,rsc_stm_url,rsc_stm_sta,to_char(rsc_btime,'yyyy-mm-dd hh24:mi:ss') rsc_btime,rsc_coin,to_char(rsc_etime,'yyyy-mm-dd hh24:mi:ss') rsc_etime,rsc_reg,rsc_rt_status,ntf_vlt_dt,ntf_vlt_link,ntf_vlt_sta,to_char(ntf_vlt_time,'yyyy-mm-dd hh24:mi:ss') ntf_vlt_time FROM RESCUE order by rsc_id";
-	
-	
+			"SELECT rsc_id,rsc_name,rsc_add,rsc_des,rsc_sponsor,vlt_id,rsc_lat,rsc_lon,rsc_sta,to_char(rsc_stm_time,'yyyy-mm-dd hh24:mi:ss') rsc_stm_time,rsc_stm_url,rsc_stm_sta,to_char(rsc_btime,'yyyy-mm-dd hh24:mi:ss') rsc_btime,rsc_coin,to_char(rsc_etime,'yyyy-mm-dd hh24:mi:ss') rsc_etime,rsc_reg,rsc_rt_status,ntf_vlt_dt,ntf_vlt_link,ntf_vlt_sta,to_char(ntf_vlt_time,'yyyy-mm-dd hh24:mi:ss') ntf_vlt_time FROM RESCUE WHERE rsc_sta = '待救援'  order by rsc_id";
+
 	
 	@Override
 	public void insert(RescueVO rescueVO) {
@@ -950,41 +949,24 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 	}
 
 	@Override
-	public boolean updateCase(RescueVO rescueVO) {
+	public boolean updateCase(String rsc_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		boolean isRescueCase = false;
+		boolean isUpdateCase = false;
 
 		try {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE_RESCUE_CASE);
-
-			pstmt.setString(1, rescueVO.getRsc_name());
-			pstmt.setString(2, rescueVO.getRsc_add());
-			pstmt.setString(3, rescueVO.getRsc_des());
-			pstmt.setBytes(4, rescueVO.getRsc_img());
-			pstmt.setString(5, rescueVO.getRsc_sponsor());
-			pstmt.setString(6, rescueVO.getVlt_id());
-			pstmt.setDouble(7, rescueVO.getRsc_lat());
-			pstmt.setDouble(8, rescueVO.getRsc_lon());
-			pstmt.setString(9, rescueVO.getRsc_sta());
-			pstmt.setTimestamp(10, rescueVO.getRsc_stm_time());
-			pstmt.setString(11, rescueVO.getRsc_stm_url());
-			pstmt.setString(12, rescueVO.getRsc_stm_sta());
-			pstmt.setTimestamp(13, rescueVO.getRsc_btime());
-			pstmt.setInt(14, rescueVO.getRsc_coin());
-			pstmt.setTimestamp(15, rescueVO.getRsc_etime());
-			pstmt.setString(16, rescueVO.getRsc_reg());
-			pstmt.setString(17, rescueVO.getRsc_rt_status());
-			pstmt.setString(18, rescueVO.getNtf_vlt_dt());
-			pstmt.setString(19, rescueVO.getNtf_vlt_link());
-			pstmt.setString(20, rescueVO.getNtf_vlt_sta());
-			pstmt.setTimestamp(21, rescueVO.getNtf_vlt_time());
-			pstmt.setString(22, rescueVO.getRsc_id());
+			pstmt = con.prepareStatement(UPDATE_JOIN_RESCUE);
+			
+			pstmt.setString(1,rsc_id);
+		
 
 			int rowsUpdated = pstmt.executeUpdate();
+			if(rowsUpdated>0) {
+				isUpdateCase = true;
+			}
 			System.out.println("Changed " + rowsUpdated + "rows");
 
 			// Handle any driver errors
@@ -1012,7 +994,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 				}
 			}
 		}
-		return isRescueCase;
+		return isUpdateCase;
 
 	}
 

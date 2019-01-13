@@ -1,4 +1,4 @@
-package com.rescue.android.controller;
+package com.rescuing.android.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,7 +22,7 @@ import util.ImageUtil;
 
 
 
-public class RescueServlet extends HttpServlet {
+public class RescuingServlet extends HttpServlet {
 	private final static String CONTENT_TYPE = "text/html; charset=UTF-8";
 
 	@Override
