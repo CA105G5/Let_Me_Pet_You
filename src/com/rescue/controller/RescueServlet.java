@@ -193,7 +193,7 @@ public class RescueServlet extends HttpServlet{
 							rescueVO.setRsc_lat(new Double(24.9460628));
 							rescueVO.setRsc_lon(new Double(121.1992745));
 							rescueVO.setRsc_btime(rsc_btime);
-							rescueVO.setRsc_coin(new Integer(500));
+							rescueVO.setRsc_coin(new Integer(20));
 							rescueVO.setRsc_reg(rsc_reg);
 							rescueVO.setRsc_img(rsc_img);
 							rescueVO.setRsc_des(rsc_des);

@@ -23,15 +23,17 @@ public class AdoptMsgReportService {
 		return dao.getAll();
 	}
 	
-	public AdoptMsgReportVO updataStatus(String adopt_msg_rt_status, String adopt_msg_id) {
+	public AdoptMsgReportVO updateStatus(String adopt_msg_rt_status, String adopt_msg_rt_id) {
 		AdoptMsgReportVO adoptMsgReportVO = new AdoptMsgReportVO();
 		adoptMsgReportVO.setAdopt_msg_rt_status(adopt_msg_rt_status);
-		adoptMsgReportVO.setAdopt_msg_id(adopt_msg_id);
-		dao.update(adoptMsgReportVO);
+		adoptMsgReportVO.setAdopt_msg_rt_id(adopt_msg_rt_id);
+		dao.updateStatus(adoptMsgReportVO);
 		
 		return adoptMsgReportVO;
 	}
-	
+	public AdoptMsgReportVO getOneAdoptMsgRt(String adopt_msg_rt_id) {
+		return dao.findByPrimaryKey(adopt_msg_rt_id);
+	}
 	
 	
 	

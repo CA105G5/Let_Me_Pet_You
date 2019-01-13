@@ -8,7 +8,7 @@ public interface AdoptMsgReportDAO_Interface {
 	public void insert(AdoptMsgReportVO adoptMsgReportVO);
 	public void update(AdoptMsgReportVO adoptMsgReportVO);
 	public void delete(String adopt_msg_rt_id);
-	public List<AdoptMsgReportVO> findByPrimaryKey(String adopt_msg_rt_id);
+	public AdoptMsgReportVO findByPrimaryKey(String adopt_msg_rt_id);
 	public List<AdoptMsgReportVO> getAll();
 	public void updateStatus(AdoptMsgReportVO adoptMsgReportVO);
 }

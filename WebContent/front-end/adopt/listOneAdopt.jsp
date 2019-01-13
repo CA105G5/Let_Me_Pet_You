@@ -20,12 +20,14 @@
 	String url = request.getContextPath() +"/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id;
 	session.setAttribute("adopt",url);
 	
+	
 	AdoptApplyService adoptApplySvc = new AdoptApplyService();
 	List<AdoptApplyVO> list2 =  adoptApplySvc.getAllApply();
 	pageContext.setAttribute("list2", list2);
 %>
 
 <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
+<jsp:useBean id="adoptMsgRtSvc" scope="page" class="com.AdoptMsgReport.moedl.AdoptMsgReportService" />
 <html>
 <head>
 <meta name="viewport"
@@ -193,6 +195,7 @@
 							</form>
 
 							<c:forEach var="adoptMsgVO" items="${list}" varStatus="i">
+							<c:if test="${adoptMsgRtSvc.getOneAdoptMsgRt(adoptMsgVO.adopt_msg_id).adopt_msg_rt_status !='通過'}">
 								<div class="comment-list" id="m${i.index}">
 									<div class="single-comment justify-content-between d-flex">
 										<div class="user justify-content-between d-flex">
@@ -332,7 +335,7 @@
 	</script>
 							
 							
-							
+							</c:if>
 							</c:forEach>
 						</div>
 

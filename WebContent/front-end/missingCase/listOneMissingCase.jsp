@@ -11,6 +11,8 @@
 	missingCaseVO missingCaseVO = (missingCaseVO) request.getAttribute("missingCaseVO");
 	String missing_case_id = request.getParameter("missing_case_id");
 	missingMsgService missingMsgSvc = new missingMsgService();
+	
+	
 	List<missingMsgVO> list = missingMsgSvc.findByCase(missing_case_id);
 	pageContext.setAttribute("list", list);
 
@@ -172,6 +174,8 @@
 							</div>
 
 						</section>
+						
+<!---------------------------------------------- 以下是留言區------------------------------------------------------ -->
 						<div class="comment-sec-area">
 							<h3 class="text-uppercase" style="color: red">留言區</h3>
 							<br>
@@ -201,7 +205,6 @@
 									style="margin-left: 1020px" value="送出">
 
 							</form>
-
 							<c:forEach var="missingMsgVO" items="${list}" varStatus="i">
 								<div class="comment-list" id="m${i.index}">
 									<div class=" justify-content-between d-flex">
@@ -243,7 +246,7 @@
 									</div>
 								</div>
 								
-								<!--留言檢舉彈出區-->
+<!--------------------------------------------留言檢舉彈出區------------------------>
 							<div class="modal fade" id="${missingMsgVO.missing_msg_id}" tabindex="-1"
 								role="dialog" aria-labelledby="#${missingMsgVO.missing_msg_id}"
 								aria-hidden="true">

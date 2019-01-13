@@ -37,38 +37,22 @@
 			CSS
 			============================================= -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
-<link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
-<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
-<!-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab -->
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-<!-- https://fontawesome.com/ 自己的css-->
+	href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="js/jquery-1.12.3.min.js"></script>
 <link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
-	crossorigin="anonymous">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-	
-<script defer src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/ckeditor2/ckeditor.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="js/jquery-1.12.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
 <style type="text/css">
 p {
 	　 font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
@@ -174,47 +158,13 @@ div {
                             <input type="hidden" name="membno" value="<%=(memVO ==null)? "" : memVO.getMemb_id()%>">
                             
                             <div align="center">
-                            <input type="submit"  value="送出"  style="width:120px;height:40px;font-size:20px;" onclick="sendMessage();">
+                            <input type="submit"  value="送出"  style="width:120px;height:40px;font-size:20px;" id="submit">
                             </div>
                         </div>
                         </form>
                     </div>
 				</div>
 			</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			</div>
 		</div>
 			<script>
@@ -247,7 +197,6 @@ div {
 	    var webCtx = path.substring(0, path.indexOf('/', 1));
 	    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
 	    
-		var statusOutput = document.getElementById("statusOutput");
 		var webSocket;
 		
 		function connect() {
@@ -271,7 +220,12 @@ div {
 			swal("新增成功！","","success");
 		   
 			var missing_url = "<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp";
-			
+			var missingName = $('#missingName').val().trim();
+			var hiredate = $('#hiredate').val().trim();
+			var missingDes = $('#missingDes').val().trim();
+			var missing_type = $('#missing_type').val().trim();
+			var loc = $('#loc').val().trim();
+			var missing_img = $('#missing_img').val().trim();
 			 var jsonObj = {"missing_url" : missing_url};
 			 webSocket.send(JSON.stringify(jsonObj));
 		}

@@ -20,7 +20,7 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 	@OnOpen
 	public void onOpen(Session userSession) throws IOException {
 		allSessions.add(userSession);
-		System.out.println(userSession.getId() + ": 已連線66666");
+		System.out.println(userSession.getId() + ": 已連線");
 //		userSession.getBasicRemote().sendText("WebSocket 連線成功");
 	}
 

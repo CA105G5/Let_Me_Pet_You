@@ -112,7 +112,7 @@ pageContext.setAttribute("list", list);
 
 <body>
 
-	<jsp:include page="/back-end/rescue/back_rescue_header.jsp" flush="true" />
+	<jsp:include page="/back-end/product/back_shop_Header.jsp" flush="true" />
 	
  <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
@@ -122,18 +122,25 @@ pageContext.setAttribute("list", list);
         
         <!-- Content -->
        
-        
-        <div class="content">
-            <div class="animated fadeIn">
-                <div class="row">
+       
+       
+       <div class="card">
+                                <div class="card-header">
+                                    <h4>認養案例列表</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="custom-tab">
 
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">認養案例列表</strong>
-                            </div>
-                            <div class="card-body">
-                                <table style="text-align:center" id="bootstrap-data-table" class="table table-striped table-bordered">
+                                        <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                <a class="nav-item nav-link active" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="true">待審核</a>
+                                                <a class="nav-item nav-link" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="false">上架中</a>
+                                                <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">下架中</a>
+                                            </div>
+                                        </nav>
+                                        <div class="tab-content pl-3 pt-2" id="nav-tabContent">
+                                            <div class="tab-pane fade show active" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
+                                                <table style="text-align:center" id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                         	<th style="width: 30px">序號</th>
@@ -146,11 +153,12 @@ pageContext.setAttribute("list", list);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% int no=0;%>
+                                        <% int bo=0;%>
 										<c:forEach var="adoptionVO" items="${list}">
-												<% no++; %>
+										<c:if test="${adoptionVO.adopt_apply_status == '未審核'}">
+												<% bo++; %>
 												<tr>
-													<td><%=no %></td>
+													<td><%=bo %></td>
 													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}">${adoptionVO.adopt_id}</a></td>
 													<td style=" margin-bottom: auto">${memSvc.getOneMem(adoptionVO.adopt_sponsor).memb_nick}</td>
 													<td style=" margin-bottom: auto">
@@ -204,17 +212,134 @@ pageContext.setAttribute("list", list);
 								                </div>
 								            </div>
 								        <%-- 										</c:if> --%>
+										</c:if>
 										</c:forEach>
                                     </tbody>
                                 </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
+                                                <table style="text-align:center" id="bootstrap-data-table2" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                        	<th style="width: 30px">序號</th>
+                                            <th>認養案例編號</th>
+                                            <th>認養發起會員</th>
+                                            <th>認養申請時間</th>
+                                            <th>案例審核狀態</th>
+                                            <th>上架狀態</th>
+                                            <th>案例詳情</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% int co=0;%>
+										<c:forEach var="adoptionVO" items="${list}">
+										<c:if test="${adoptionVO.adopt_status == '上架'}">
+												<% co++; %>
+												<tr>
+													<td><%=co %></td>
+													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}">${adoptionVO.adopt_id}</a></td>
+													<td style=" margin-bottom: auto">${memSvc.getOneMem(adoptionVO.adopt_sponsor).memb_nick}</td>
+													<td style=" margin-bottom: auto">
+														<fmt:formatDate value="${adoptionVO.adopt_btime}" pattern="yyyy-MM-dd" />
+													</td>
+													<td style=" margin-bottom: auto" align="center">
+													<c:if test="${adoptionVO.adopt_apply_status == '未審核'}"></c:if><c:if test="${adoptionVO.adopt_apply_status == '通過'}">審核通過</c:if><c:if test="${adoptionVO.adopt_apply_status == '不通過'}">審核未通過</c:if>
+													<c:if test="${adoptionVO.adopt_apply_status == '未審核'}">
+														<table style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;"><tr style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;"><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+															<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																<input type="hidden" name="adopt_id" value="${adoptionVO.adopt_id}">
+																<input type="hidden" name="adopt_apply_status" value="通過">
+																<input type="hidden" name="adopt_status" value="上架">
+																<input type="hidden" name="action" value="changeStatus">
+																<input style="width:100%;" type="submit" value="通過"  class="btn btn-success">
+															</FORM>
+															</td><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																<input type="hidden" name="adopt_id" value="${adoptionVO.adopt_id}">
+																<input type="hidden" name="adopt_apply_status" value="不通過">
+																<input type="hidden" name="adopt_status" value="下架">
+																<input type="hidden" name="action" value="changeStatus">
+																		<input style="width:100%;" type="submit" value="不通過"  class="btn btn-warning">
+																	</FORM>
+															</td><tr></table></c:if>
+													</td>
+													<td style=" margin-bottom: auto">
+													<c:if test="${adoptionVO.adopt_status == '未上架'}">未上架</c:if><c:if test="${adoptionVO.adopt_status == '上架'}">上架中</c:if><c:if test="${adoptionVO.adopt_status == '下架'}">下架中</c:if>
+													</td>
+													<td>
+													<a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}" class="btn btn-outline-primary">點擊查看</a>
+													</td>
+												</tr>
+								        <%-- 										</c:if> --%>
+										</c:if>
+										</c:forEach>
+                                    </tbody>
+                                </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="custom-nav-contact" role="tabpanel" aria-labelledby="custom-nav-contact-tab">
+                                                <table style="text-align:center" id="bootstrap-data-table1" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                        	<th style="width: 30px">序號</th>
+                                            <th>認養案例編號</th>
+                                            <th>認養發起會員</th>
+                                            <th>認養申請時間</th>
+                                            <th>案例審核狀態</th>
+                                            <th>上架狀態</th>
+                                            <th>案例詳情</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% int eo=0;%>
+										<c:forEach var="adoptionVO" items="${list}">
+										<c:if test="${adoptionVO.adopt_status == '下架'}">
+												<% eo++; %>
+												<tr>
+													<td><%=eo %></td>
+													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}">${adoptionVO.adopt_id}</a></td>
+													<td style=" margin-bottom: auto">${memSvc.getOneMem(adoptionVO.adopt_sponsor).memb_nick}</td>
+													<td style=" margin-bottom: auto">
+														<fmt:formatDate value="${adoptionVO.adopt_btime}" pattern="yyyy-MM-dd" />
+													</td>
+													<td style=" margin-bottom: auto" align="center">
+													<c:if test="${adoptionVO.adopt_apply_status == '未審核'}"></c:if><c:if test="${adoptionVO.adopt_apply_status == '通過'}">審核通過</c:if><c:if test="${adoptionVO.adopt_apply_status == '不通過'}">審核未通過</c:if>
+													<c:if test="${adoptionVO.adopt_apply_status == '未審核'}">
+														<table style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;"><tr style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;"><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+															<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																<input type="hidden" name="adopt_id" value="${adoptionVO.adopt_id}">
+																<input type="hidden" name="adopt_apply_status" value="通過">
+																<input type="hidden" name="adopt_status" value="上架">
+																<input type="hidden" name="action" value="changeStatus">
+																<input style="width:100%;" type="submit" value="通過"  class="btn btn-success">
+															</FORM>
+															</td><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																<input type="hidden" name="adopt_id" value="${adoptionVO.adopt_id}">
+																<input type="hidden" name="adopt_apply_status" value="不通過">
+																<input type="hidden" name="adopt_status" value="下架">
+																<input type="hidden" name="action" value="changeStatus">
+																		<input style="width:100%;" type="submit" value="不通過"  class="btn btn-warning">
+																	</FORM>
+															</td><tr></table></c:if>
+													</td>
+													<td style=" margin-bottom: auto">
+													<c:if test="${adoptionVO.adopt_status == '未上架'}">未上架</c:if><c:if test="${adoptionVO.adopt_status == '上架'}">上架中</c:if><c:if test="${adoptionVO.adopt_status == '下架'}">下架中</c:if>
+													</td>
+													<td>
+													<a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}" class="btn btn-outline-primary">點擊查看</a>
+													</td>
+												</tr>
+								        <%-- 										</c:if> --%>
+										</c:if>
+										</c:forEach>
+                                    </tbody>
+                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div><!-- .animated -->
-        </div><!-- .content -->
         </div><!-- .content -->   
         <!-- /.content -->
         <div class="clearfix"></div>
