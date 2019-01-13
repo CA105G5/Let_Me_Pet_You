@@ -74,16 +74,25 @@ div {
     var map, memMarker, mylat, mylng;
     var markers = [];
     var geolocation = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCKTq4JnBzGP4UWtr5xe0c_wDQlWUbVrXU';
-	var infoWindows =[];
+	var infoWindows;
+	var center;
+	var geocoder;
+	var directionsService;
+	var directionsDisplay;
     function initMap() {
-        navigator.geolocation.getCurrentPosition((position) => {
-            console.log(position.coords);
-            mylat = position.coords.latitude;
-            mylng = position.coords.longitude;
+        navigator.geolocation.getCurrentPosition(myFlow) 
+    }
+    
+    function myFlow(a) {
+            
+    	center = {
+                lat: a.coords.latitude,
+                lng: a.coords.longitude
+            };
             // 初始化地圖
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 12,
-              center: { lat: mylat, lng: mylng }
+              center: { lat: a.coords.latitude, lng: a.coords.longitude }
 //             center:{lat:24.967533,lng:121.191896}
             });
             var memIcon = {
@@ -94,15 +103,16 @@ div {
             	};
 			//會員的位置
             memMarker = new google.maps.Marker({
-             	position: { lat: mylat, lng: mylng },
+             	position: { lat: a.coords.latitude,
+                    lng: a.coords.longitude },
 //                 position: { lat:24.967533,lng:121.191896},
                 map: map,
                 icon:memIcon,
                 title:'目前位置',
+                clickable:true,
                 animation: google.maps.Animation.BOUNCE
             });
-		
-		
+
 			 console.log("rsc(0)"+$(".rsc:eq(0)").attr('id'));
 			 console.log("lat"+$(".rsc:eq(0) > input[name='rsc_lat']").val());
 			 console.log("lng"+$(".rsc:eq(0) > input[name='rsc_lon']").val());
@@ -119,10 +129,10 @@ div {
 				var srclat = $(latlat).val();
 				var srclng = $(lnglng).val();
 				var titletitle = ".rsc:eq(" + i + ") > input[name='rsc_name']";
-				var srctitle = $(titletitle).val();
 				var stasta = ".rsc:eq(" + i + ") > input[name='rsc_sta']";
 				var srcsta = $(stasta).val();
 				console.log(srcsta);
+				var srctitle = ($(titletitle).val())+"("+srcsta+")";
 				var rscIcon={            	    
 						url: "<%=request.getContextPath()%>/images/memMaker.png", // url
 	            	    scaledSize: new google.maps.Size(50, 50), // scaled size
@@ -158,21 +168,24 @@ div {
 	    		icon:rscIcon
 	  		});
 				
-				var content = "<h4>"+srctitle+"</h4>"+"<div class='justify-content-between d-flex'>"
+				var content = "<div style='display: flex;flex-direction:column'>"
+				+"<h4>"+srctitle+"</h4>"+"<div class='justify-content-between'>"
 				+"<a href="
 				+"<%=request.getContextPath()%>/"
 				+"front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id="
 				+rscid
 				+">"
-				+"<img class='img-fluid' style='width:100px;height:100px'src="
+				+"<img class='img-fluid' style='width:100px;height:100px;display:block; margin:auto'src="
 				+"<%=request.getContextPath()%>/"
 				+"back-end/rescue/rescueImg.do?rsc_id="
 			    +rscid
-				+" alt=''>"
+				+" alt='' title='點擊查看詳情'>"
 				+"</div></a>"
-				+"<div>"
+				+"<div style='text-align:center'>"
 				+"狀態:"
 				+srcsta
+				+"</div>"
+				+"<input type='button' onClick=getDir("+parseFloat(srclat) +","+ parseFloat(srclng)+") value='Go!'>"
 				+"</div>";
 				
 				attachSecretMessage(marker,content) ;
@@ -187,11 +200,63 @@ div {
 					infowindow.open(marker.get('map'), marker);
 				});
 			}
+
+		    
+		    
+			geocoder = new google.maps.Geocoder();
+		    directionsService = new google.maps.DirectionsService();
+		    directionsDisplay = new google.maps.DirectionsRenderer({
+		        suppressMarkers: false
+		    });
+		    directionsDisplay.setMap(map);
+		    directionsDisplay.setPanel(document.getElementById("directionsPanel"));
       	  
-      	  
-        });
         }
-    
+        
+    function getDir(lat,lng) {
+//      geocoder.geocode({
+//          'address': center
+//      },
+
+//      function (results, status) {
+//          if (status == google.maps.GeocoderStatus.OK) {
+//              var origin = results[0].geometry.location;
+ console.log("getDir_lat==="+lat);
+ console.log("getDir_lng==="+lng);
+             var destination = new google.maps.LatLng(lat, lng);
+
+             console.log("center_lat="+center.lat+", center_lng"+center.lng);
+             var request = {
+                 origin: center,
+                 destination: destination,
+                 travelMode: google.maps.DirectionsTravelMode.DRIVING
+             };
+
+             
+             directionsService.route(request, function (result, status) {
+                 if (status == 'OK') {
+                     // 回傳路線上每個步驟的細節
+                     console.log(result.routes[0].legs[0].steps);
+                     directionsDisplay.setDirections(result);
+                     $("#instruction").text(result.routes[0].legs[0].steps);
+                 } else {
+                     console.log("======"+status);
+                 }
+             });
+             
+//              directionsService.route(request, function (response, status) {
+//                  if (status == google.maps.DirectionsStatus.OK) {
+//                      directionsDisplay.setDirections(response);
+//                  }
+//              });
+
+//          } else {
+//              document.getElementById('clientAddress').value =
+//              "Directions cannot be computed at this time.";
+//          }
+//      });
+ }
+
 
 
     </script>
