@@ -101,26 +101,20 @@ div {
                 title:'目前位置',
                 animation: google.maps.Animation.BOUNCE
             });
-// 			$(".rsc").each{
-				
-// 			}
+//             var results=$(".rsc").size();
+			 console.log("rsc(0)"+$(".rsc:eq(0)").attr('id'));
+			 console.log("lat"+$(".rsc:eq(0) > input[name='rsc_lat']").val());
+			 console.log("lng"+$(".rsc:eq(0) > input[name='rsc_lon']").val());
+			 console.log("name"+$(".rsc:eq(0) > input[name='rsc_name']").val());
+			 
       	  //建立地圖 marker 的集合
-//             var markers = [
-//                 {
-//                   position : { lat: 25.033977, lng: 121.563998 },
-//                   map:map,
-//                   title:'小明的位置'
-//               },
-//               {
-//                   position : { lat: 25.034385, lng: 121.566047 },
-//                   map:map,
-//                   title:'大雄的位置'
-//               }
-//               ];
-      	  
-//               for (var i= 0; markers.length >i ; i++) {
-//                 var marker = new google.maps.Marker(data[i]);
-//               }
+			for (var i = 0; i < $(".rsc").size() ; i++) {
+			var marker = new google.maps.Marker({
+	    		position: {lat:parseInt($(".rsc:eq(i) > input[name='rsc_lat']").val()),lng:parseInt($(".rsc:eq(i) > input[name='rsc_lon']").val())},
+	    		map: map,
+	    		title: ''
+	  		});
+			}
     	  
         });
     }
