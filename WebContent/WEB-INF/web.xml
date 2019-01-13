@@ -223,7 +223,7 @@
     <servlet-name>AndroidVolunteerServlet</servlet-name>
     <url-pattern>/volunteer/VolunteerServlet.do</url-pattern>
   </servlet-mapping>
-  <servlet>
+  <servlet> 
     <servlet-name>AndroidRescueServlet</servlet-name>
     <servlet-class>com.rescue.android.controller.RescueServlet</servlet-class>
   </servlet>
