@@ -16,7 +16,7 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 
 	private static final String INSERT_ADOPT_MSG_RT = "INSERT INTO ADOPT_MSG_RT (ADOPT_MSG_RT_ID,ADOPT_MSG_ID,MEMB_ID,ADOPT_MSG_RT_COMM) values ('AMR'||LPAD(to_char(adopt_msg_rt_seq.NEXTVAL),7,'0'),?,?,?)";
 	private static final String UPDATE = "SELECT * FROM ADOPT_MSG_RT WHERE ADOPT_MSG_ID=?";
-	private static final String GET_ONE_ADOPT_MSG_RT = "SELECT * FROM ADOPT_MSG_RT WHERE ADOPT_MSG_RT_ID=?";
+	private static final String GET_ONE_ADOPT_MSG_RT = "SELECT * FROM ADOPT_MSG_RT WHERE ADOPT_MSG_ID=?";
 	private static final String GET_ALL_ADOPT_MSG_RT = "SELECT * FROM ADOPT_MSG_RT ORDER BY ADOPT_MSG_RT_ID";
 	private static final String DELETE = "DELETE FROM ADOPT_MSG_RT WHERE ADOPT_MSG_RT_ID=?";
 	private static final String UPDATE_STATUS = "UPDATE adopt_msg_rt set adopt_msg_rt_status=? where adopt_msg_rt_id=?";
@@ -196,7 +196,7 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 
 	// 查一個
 	@Override
-	public List<AdoptMsgReportVO> findByPrimaryKey(String adopt_msg_rt_id) {
+	public AdoptMsgReportVO findByPrimaryKey(String adopt_msg_id) {
 		List<AdoptMsgReportVO> list = new ArrayList<AdoptMsgReportVO>();
 		AdoptMsgReportVO adoptMsgReportVO = null;
 		Connection con = null;
@@ -209,7 +209,7 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(GET_ONE_ADOPT_MSG_RT);
-			pstmt.setString(1, adopt_msg_rt_id);
+			pstmt.setString(1, adopt_msg_id);
 
 			rs = pstmt.executeQuery();
 
@@ -223,7 +223,7 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 				adoptMsgReportVO.setAdopt_msg_rt_comm(rs.getString("adopt_msg_rt_comm"));
 				adoptMsgReportVO.setAdopt_msg_rv_des(rs.getString("adopt_msg_rv_des"));
 				adoptMsgReportVO.setAdopt_msg_rt_status(rs.getString("adopt_msg_rt_status"));
-				list.add(adoptMsgReportVO);
+				
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -255,7 +255,7 @@ public class AdoptMsgReportJDBCDAO implements AdoptMsgReportDAO_Interface {
 				}
 			}
 		}
-		return list;
+		return adoptMsgReportVO;
 	}
 
 	@Override

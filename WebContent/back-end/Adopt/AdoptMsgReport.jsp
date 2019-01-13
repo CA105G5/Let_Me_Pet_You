@@ -153,7 +153,31 @@ pageContext.setAttribute("list", list);
 								<button type="button" class="btn btn-outline-primary">查看案例</button>
 							</a></td>
                                         <td style=" margin-bottom: auto">${adoptMsgReportVO.adopt_msg_rt_comm}</td>
-                                        <td style=" margin-bottom: auto">${adoptMsgReportVO.adopt_msg_rt_status}</td>
+                                        <td style=" margin-bottom: auto">
+                                        <c:if test="${adoptMsgReportVO.adopt_msg_rt_status == '未審核'}"></c:if>
+                                        <c:if test="${adoptMsgReportVO.adopt_msg_rt_status == '通過'}">通過</c:if>
+                                        <c:if test="${adoptMsgReportVO.adopt_msg_rt_status == '未通過'}">未通過</c:if>
+                                        <c:if test="${adoptMsgReportVO.adopt_msg_rt_status == '未審核'}">
+                                        <table style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;"><tr style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;"><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+															<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/adopt/AdoptMsgReportServlet.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																<input type="hidden" name="adopt_msg_rt_status" value="通過">
+																<input type="hidden" name="adopt_msg_rt_id" value="${adoptMsgReportVO.adopt_msg_rt_id}">
+																<input type="hidden" name="action" value="changeStatus">
+																<input style="width:100%;" type="submit" value="通過"  class="btn btn-success">
+															</FORM>	
+															</td><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/adopt/AdoptMsgReportServlet.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																<input type="hidden" name="adopt_msg_rt_status" value="未通過">
+																<input type="hidden" name="adopt_msg_rt_id" value="${adoptMsgReportVO.adopt_msg_rt_id}">
+																<input type="hidden" name="action" value="changeStatus">
+																		<input style="width:100%;" type="submit" value="不通過"  class="btn btn-warning">
+																	</FORM>
+															</td><tr></table></c:if>
+                                        
+                                        
+                                        
+                                        
+                                        </td>
                                     </tr>
                                  </c:forEach>
                                 </tbody>

@@ -59,6 +59,8 @@
 <!-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<script src="../static/js/admin/bootstrap-notify.min.js"></script>
+<link href="../static/css/login/animate.css" rel="stylesheet" />
 
 <!-- https://fontawesome.com/ 自己的css-->
 
