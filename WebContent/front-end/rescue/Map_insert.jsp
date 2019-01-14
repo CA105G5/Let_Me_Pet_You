@@ -8,9 +8,7 @@
 
 <%
 	RescueVO rescueVO  = (RescueVO) request.getAttribute("rescueVO");
-	MemService memSvc = new MemService();
-	MemVO memVO = memSvc.getOneMem("M000000001");
-	session.setAttribute("memVO",memVO);
+	MemVO memVO =(MemVO) session.getAttribute("memVO");
 %>
 
 <!DOCTYPE html>
@@ -53,44 +51,20 @@ body {
   width: 500px;
 }
 
-.kd-tabbed-vert.header-links .kd-tabbutton a {
-  color: #757575;
-  display: inline-block;
-  height: 100%;
-  padding: 0 24px;
-  width: 500px;
-}
 
-.kd-tabbed-vert.header-links .kd-tabbutton {
-  padding: 0;
-}
-
-.kd-tabbed-vert.header-links .kd-tabbutton.selected a {
-  color: #03a9f4;
-}
-
-.kd-tabbed-vert.header-links .kd-tabbutton a:focus {
-  text-decoration: none;
-}
-
-p.top-desc {
-  padding: 1em 1em .1em 1em;
-}
-
-p.bottom-desc {
-  padding: 0em 1em 1em 1em;
-}
 
 </style>
 </head>
 <body>
 
+	<jsp:include page="/index_Header.jsp" flush="true" />
+
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb2lDof7yMn-TTXwt2hwVm4y92t1AqvyU&callback=initMap&libraries=places" async defer></script>
-<body>
-<textarea placeholder="Enter Area name to populate Latitude and Longitude" name="address" onFocus="initializeAutocomplete()" id="locality" ></textarea><br>
 
-<input id="address" type="hidden" style="width:600px;"/><br/>
+<input placeholder="Enter Area name to populate Latitude and Longitude" name="address" onFocus="initializeAutocomplete()" id="locality" ><br>
+
+<input id="address" type="text" name="rsc_add" style="width:600px;"/><br/>
 <!-- <input type="text" name="city" id="city" placeholder="City" value="" ><br> -->
 <input type="hidden" name="latitude" id="latitude" placeholder="Latitude" value="" ><br>
 <input type="hidden" name="longitude" id="longitude" placeholder="Longitude" value="" ><br>

@@ -163,8 +163,8 @@ public class RescueServlet extends HttpServlet{
 //						errorMsgs.add("請輸入正確的地址");
 					}
 					//經緯度
-					String rsc_lat = req.getParameter("rsc_lat").trim();
-					String rsc_lon = req.getParameter("rsc_lon").trim();
+					Double rsc_lat = new Double(req.getParameter("rsc_lat"));
+					Double rsc_lon = new Double(req.getParameter("rsc_lon"));
 					//圖片
 						byte[] rsc_img = null;
 						Part part = req.getPart("rsc_img");
@@ -191,8 +191,8 @@ public class RescueServlet extends HttpServlet{
 							rescueVO.setRsc_name(rsc_name);
 							rescueVO.setRsc_add(rsc_add);
 							rescueVO.setRsc_sponsor(rsc_sponsor);
-							rescueVO.setRsc_lat(new Double(24.9460628));
-							rescueVO.setRsc_lon(new Double(121.1992745));
+							rescueVO.setRsc_lat(rsc_lat);
+							rescueVO.setRsc_lon(rsc_lon);
 							rescueVO.setRsc_btime(rsc_btime);
 							rescueVO.setRsc_coin(new Integer(20));
 							rescueVO.setRsc_reg(rsc_reg);
@@ -271,61 +271,61 @@ public class RescueServlet extends HttpServlet{
 				}
 			}   
 		
-			if ("rescueMap".equals(action)) {
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxx");
-				List<String> errorMsgs = new LinkedList<String>();
-				req.setAttribute("errorMsgs", errorMsgs);
-				JSONArray allRescuearray = new JSONArray();
-				try {
-
-					
-
-					if (!errorMsgs.isEmpty()) {
-						
-						RequestDispatcher failureView = req
-								.getRequestDispatcher("/front-end/rescue/listAllRescue.jsp");
-						failureView.forward(req, res);
-						return;
-					}
-
-					/*************************** 2.開始新增資料 ***************************************/
-					RescueService rescueSvc = new RescueService();
-					List<RescueVO> allRescueList = rescueSvc.getAll();
-
-
-					// 回傳全部留言
-
-					for (RescueVO rescueVO : allRescueList) {
-						JSONObject obj = new JSONObject();
-						DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						obj.put("rsc_id", rescueVO.getRsc_id());
-						obj.put("rsc_name", rescueVO.getRsc_name());
-						obj.put("rsc_lat", rescueVO.getRsc_lat());
-						obj.put("rsc_lon", rescueVO.getRsc_lon());
-						obj.put("rsc_sponsor", rescueVO.getRsc_sponsor());
-						obj.put("rsc_btime", sdf.format(rescueVO.getRsc_btime()));
-						obj.put("rsc_sta", rescueVO.getRsc_sta());
-						allRescuearray.put(obj);
-
-					}
-					
-				} catch (Exception e) {
-					errorMsgs.add(e.getMessage());
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/rescue/listAllRescue.jsp");
-					failureView.forward(req, res);
-
-				}
-//				res.setContentType("text/plain");
-//				res.setCharacterEncoding("UTF-8");
-//				PrintWriter out = res.getWriter();
-//				out.write(allRescuearray.toString());
-//				out.flush();
-//				out.close();
-				req.setAttribute("allRescuearray", allRescuearray); // 資料庫取出的list物件,存入request
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/rescue/listAllRescueMap.jsp"); // 成功轉交
-				successView.forward(req, res);
-			}
+//			if ("rescueMap".equals(action)) {
+//				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxx");
+//				List<String> errorMsgs = new LinkedList<String>();
+//				req.setAttribute("errorMsgs", errorMsgs);
+//				JSONArray allRescuearray = new JSONArray();
+//				try {
+//
+//					
+//
+//					if (!errorMsgs.isEmpty()) {
+//						
+//						RequestDispatcher failureView = req
+//								.getRequestDispatcher("/front-end/rescue/listAllRescue.jsp");
+//						failureView.forward(req, res);
+//						return;
+//					}
+//
+//					/*************************** 2.開始新增資料 ***************************************/
+//					RescueService rescueSvc = new RescueService();
+//					List<RescueVO> allRescueList = rescueSvc.getAll();
+//
+//
+//					// 回傳
+//
+//					for (RescueVO rescueVO : allRescueList) {
+//						JSONObject obj = new JSONObject();
+//						DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//						obj.put("rsc_id", rescueVO.getRsc_id());
+//						obj.put("rsc_name", rescueVO.getRsc_name());
+//						obj.put("rsc_lat", rescueVO.getRsc_lat());
+//						obj.put("rsc_lon", rescueVO.getRsc_lon());
+//						obj.put("rsc_sponsor", rescueVO.getRsc_sponsor());
+//						obj.put("rsc_btime", sdf.format(rescueVO.getRsc_btime()));
+//						obj.put("rsc_sta", rescueVO.getRsc_sta());
+//						allRescuearray.put(obj);
+//
+//					}
+//					
+//				} catch (Exception e) {
+//					errorMsgs.add(e.getMessage());
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/front-end/rescue/listAllRescue.jsp");
+//					failureView.forward(req, res);
+//
+//				}
+////				res.setContentType("text/plain");
+////				res.setCharacterEncoding("UTF-8");
+////				PrintWriter out = res.getWriter();
+////				out.write(allRescuearray.toString());
+////				out.flush();
+////				out.close();
+//				req.setAttribute("allRescuearray", allRescuearray); // 資料庫取出的list物件,存入request
+//				RequestDispatcher successView = req.getRequestDispatcher("/front-end/rescue/listAllRescueMap.jsp"); // 成功轉交
+//				successView.forward(req, res);
+//			}
 		
 		
 		
