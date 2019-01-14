@@ -85,7 +85,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 		                <div class="carousel-caption">
 		                    <h1>Help~~~~~~</h1>
 <!-- 		                    <p>請救救我...</p> -->
-		                    <p><a class="btn btn-lg btn-primary" href="#" role="button">即刻救援</a></p>
+		                    <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp" role="button">即刻救援</a></p>
 		                </div>
 		            </div>
 		        </div>
@@ -96,7 +96,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 		                <div class="carousel-caption">
 		                    <h1>以領養代替購買</h1>
 <!-- 		                    <p>愛我請照顧我一輩子</p> -->
-		                    <p><a class="btn btn-lg btn-primary" href="#" role="button">線上認養</a></p>
+		                    <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/front-end/adopt/listAllAdopt.jsp" role="button">線上認養</a></p>
 		                </div>
 		            </div>
 		        </div>
@@ -107,7 +107,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 		                <div class="carousel-caption">
 		                    <h1>他們找不到回家的路...</h1>
 <!-- 		                    <p>請幫助他們找到主人</p> -->
-		                    <p><a class="btn btn-lg btn-primary" href="#" role="button">失蹤詳情</a></p>
+		                    <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp" role="button">失蹤詳情</a></p>
 		                </div>
 		            </div>
 		        </div>

@@ -160,7 +160,7 @@ div {
 														<c:forEach var="donateVO" items="${list}">
 <%-- 															<c:if test="${donateVO.donate_status==null}" var="condition" scope="page"> --%>
 																<% no++; %>
-																<tr>
+																<tr id="${donateVO.donate_id}" style="color: ${donateVO.donate_id.equals(donate_id)? 'orange':''}">
 <%-- 																	<td><%=no %></td> --%>
 																	<td style=" margin-bottom: auto">${donateVO.donate_name}</td>
 																	<td style=" margin-bottom: auto"><fmt:formatDate value="${donateVO.donate_date}" pattern="yyyy-MM-dd"/></td>

@@ -75,84 +75,31 @@
             <div class="animated fadeIn">
                 <div class="row">
 					<div class="col-lg-6">
-					    <div class="card">
+					    <div class="card"  style="margin-top:300px;margin-left:500px">
                             <div class="card-header">
-                                <strong class="card-title">Custom Table</strong>
+                                <strong class="card-title">愛心幣明細</strong>
                             </div>
                             <div class="table-stats order-table ov-h">
-                                <table class="table ">
+                                <table class="table">
                                     <thead>
                                         <tr>
                                             <th class="serial">#</th>
-                                            <th class="avatar">Avatar</th>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Product</th>
-                                            <th>Quantity</th>
-                                            <th>Status</th>
+                                            <th>愛心幣來源</th>
+                                            <th>愛心幣詳情</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="serial">1.</td>
-                                            <td class="avatar">
-                                                <div class="round-img">
-                                                    <a href="#"><img class="rounded-circle" src="images/avatar/1.jpg" alt=""></a>
-                                                </div>
-                                            </td>
-                                            <td> #5469 </td>
-                                            <td>  <span class="name">Louis Stanley</span> </td>
-                                            <td> <span class="product">iMax</span> </td>
-                                            <td><span class="count">231</span></td>
-                                            <td>
-                                                <span class="badge badge-complete">Complete</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="serial">2.</td>
-                                            <td class="avatar">
-                                                <div class="round-img">
-                                                    <a href="#"><img class="rounded-circle" src="images/avatar/2.jpg" alt=""></a>
-                                                </div>
-                                            </td>
-                                            <td> #5468 </td>
-                                            <td>  <span class="name">Gregory Dixon</span> </td>
-                                            <td> <span class="product">iPad</span> </td>
-                                            <td><span class="count">250</span></td>
-                                            <td>
-                                                <span class="badge badge-complete">Complete</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="serial">3.</td>
-                                            <td class="avatar">
-                                                <div class="round-img">
-                                                    <a href="#"><img class="rounded-circle" src="images/avatar/3.jpg" alt=""></a>
-                                                </div>
-                                            </td>
-                                            <td> #5467 </td>
-                                            <td>  <span class="name">Catherine Dixon</span> </td>
-                                            <td> <span class="product">SSD</span> </td>
-                                            <td><span class="count">222250</span></td>
-                                            <td>
-                                                <span class="badge badge-complete">Complete</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="serial">4.</td>
-                                            <td class="avatar">
-                                                <div class="round-img">
-                                                    <a href="#"><img class="rounded-circle" src="images/avatar/4.jpg" alt=""></a>
-                                                </div>
-                                            </td>
-                                            <td> #5466 </td>
-                                            <td>  <span class="name">Mary Silva</span> </td>
-                                            <td> <span class="product">Magic Mouse</span> </td>
-                                            <td><span class="count">250</span></td>
-                                            <td>
-                                                <span class="badge badge-pending">Pending</span>
-                                            </td>
-                                        </tr>
+                                    <% int count=0; %>
+                                        
+                                            <c:forEach var="curdtVO" items="${list}">
+                                            	<tr>
+                                           			<td class="serial"><%=++count %></td>
+													<td>${curdtVO.cur_src_id}</td>
+													<td>${curdtVO.cur_dt}</td>
+												</tr>
+											</c:forEach>
+                                        
+                                        
                                     </tbody>
                                 </table>
                             </div> <!-- /.table-stats -->
@@ -166,32 +113,7 @@
 
 
 
-<div class="container">
-			<div class="h1"></div>
-			
-			<div class="page-header">
-			  <h1 align="center">愛心幣明細</h1>
-			</div>
-<table class="table table-bordered table-striped table-hover table-condensed">
-	<tr>
-		<th>愛心幣來源</th>
-		<th>愛心幣詳情</th>
-		
-	</tr>
-	<%@ include file="page1.file" %>
-	<c:forEach var="curdtVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
-		<tr>
-			<td>${curdtVO.cur_src_id}</td>
-			<td>${curdtVO.cur_dt}</td>
-			
-			
-		</tr>
-	</c:forEach>
 
-</table>
-</div>
-<%@ include file="page2.file" %>
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
@@ -217,9 +139,5 @@
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>			
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
-
-<%-- RWD--%>
-<!-- <script src="https://code.jquery.com/jquery.js"></script> -->
-<!-- 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </body>
 </html>

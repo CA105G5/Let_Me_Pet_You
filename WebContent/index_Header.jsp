@@ -110,7 +110,7 @@ i.fa-shopping-cart:hover {
 	<jsp:useBean id="MemberService" scope="page" class="com.mem.model.MemService"/>
 	<jsp:useBean id="ntfSvc" scope="page" class="com.ntf.model.NtfService"/>
 	<header id="header" id="home" style="height:115px">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row header-top align-items-center">
 				<div class="col-lg-3 col-sm-3 menu-top-left">
 					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid"
@@ -188,7 +188,7 @@ i.fa-shopping-cart:hover {
 								
 							
 								
-								<a href="<%=request.getContextPath()%>/front-end/members/listAllNtfs.jsp"><i class="fa fa-bell"></i></a>
+<%-- 								<a href="<%=request.getContextPath()%>/front-end/members/listAllNtfs.jsp"><i class="fa fa-bell"></i></a> --%>
 								
 								<%
 									out.print(memVO.getMemb_nick()+"，你好");
@@ -213,8 +213,8 @@ i.fa-shopping-cart:hover {
 			                                </div>
 			                            </button>
 			                            <div class="dropdown-menu" aria-labelledby="notification">
+			                                <% if(list.size()==0){out.print("目前沒有未讀的通知");} else{%>
 			                                <p class="red">未讀的訊息有:</p>
-			                                
 			                                <c:forEach var="ntfVO" items="${list}">
 												<a class="dropdown-item media" href="<%=request.getContextPath()%>/front-end/ntf/ntf.do?action=sort_type&ntf_id=${ntfVO.ntf_id}">
 			                                    <i class="fa fa-check"></i>
@@ -222,7 +222,7 @@ i.fa-shopping-cart:hover {
 			                                	</a>
 												
 											</c:forEach>
-			                                
+			                                <%} %>
 			                                
 			                                
 			                            </div>
@@ -243,14 +243,7 @@ i.fa-shopping-cart:hover {
 
 	</header>
 	<!-- #header -->
-	<br>
-	<br>
 
-	<br>
-	<br>
-
-	<br>
-	<br>
 	
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 	<script
