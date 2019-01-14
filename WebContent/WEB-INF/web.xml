@@ -295,6 +295,21 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
+   <filter>
+    <filter-name>VolunteerLoginFilter</filter-name>
+    <filter-class>filters.VolunteerLoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>VolunteerLoginFilter</filter-name>
+    <url-pattern>/front-end/volunteer/volunteer_index.jsp</url-pattern>
+    <url-pattern>/front-end/volunteer/volunteer_info.jsp</url-pattern>
+    <url-pattern>/front-end/volunteer/volunteer_rescue.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
   <servlet>
     <servlet-name>missingMsgServlet</servlet-name>
     <servlet-class>com.missingMsg.controller.missingMsgServlet</servlet-class>
