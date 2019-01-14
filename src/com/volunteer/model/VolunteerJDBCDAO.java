@@ -639,7 +639,7 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 			
 			con.commit();
 			con.setAutoCommit(true);
-			System.out.println("已成功分派救援給志工");
+			System.out.println("志工已成功救援");
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "

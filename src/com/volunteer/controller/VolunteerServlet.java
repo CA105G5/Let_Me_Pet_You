@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.*;
 
 import javax.servlet.*;
@@ -30,6 +31,9 @@ public class VolunteerServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		
 		String action =req.getParameter("action");
 		
 		
@@ -639,13 +643,16 @@ public class VolunteerServlet extends HttpServlet{
 			successView.forward(req, res);
 		}
 		if ("rescue_done_by_volunteer".equals(action)) {
+			System.out.println("bbbiiiggg");
 			String rsc_id = req.getParameter("rsc_id");
 			String vlt_id = req.getParameter("vlt_id");
 			VolunteerService vltSvc = new VolunteerService();
 			vltSvc.rescue_done_by_volunteer(rsc_id, vlt_id);
-			RequestDispatcher successView = 
-					req.getRequestDispatcher("/front-end/volunteer/volunteer_rescue.jsp");
-			successView.forward(req, res);
+			req.setAttribute("flag", "yes");
+			out.print("111");
+//			RequestDispatcher successView = 
+//					req.getRequestDispatcher("/front-end/volunteer/volunteer_rescue.jsp");
+//			successView.forward(req, res);
 		}
 		
 	}

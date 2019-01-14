@@ -75,12 +75,20 @@ System.out.println( "是否登入:"+ (memVO != null));
 		        <li data-target="#carousel-id" data-slide-to="0" class="active"></li>
 		        <li data-target="#carousel-id" data-slide-to="1" class=""></li>
 		        <li data-target="#carousel-id" data-slide-to="2" class=""></li>
+		        <li data-target="#carousel-id" data-slide-to="3" class=""></li>
 		    </ol>
 		    <!-- 幻燈片主圖區 -->
 		    <div class="carousel-inner">
-		        <div class="item active">
+		    	<div class="item active">
+		        	<img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel5.png" alt="" style="width:2000px;height:850px">
+<%-- 		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel3.jpg" alt=""> --%>
+		            <div class="container">
+		                
+		            </div>
+		        </div>
+		        <div class="item">
 <!-- 		        	<img src="https://api.fnkr.net/testimg/2800x700/aaaaaa" alt=""> -->
-		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel1.jpg" alt="" style="width:2000px;height:800px"> 
+		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel1.jpg" alt="" style="width:2000px;height:850px"> 
 		            <div class="container">
 		                <div class="carousel-caption">
 		                    <h1>Help~~~~~~</h1>
@@ -90,7 +98,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 		            </div>
 		        </div>
 		        <div class="item">
-		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel2.jpg" alt="" style="width:2000px;height:800px">
+		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel2.jpg" alt="" style="width:2000px;height:850px">
 <%-- 		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel2.jpg" alt=""> --%>
 		            <div class="container">
 		                <div class="carousel-caption">
@@ -101,7 +109,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 		            </div>
 		        </div>
 		        <div class="item">
-		        	<img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel3.jpg" alt="" style="width:2000px;height:800px">
+		        	<img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel3.jpg" alt="" style="width:2000px;height:850px">
 <%-- 		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel3.jpg" alt=""> --%>
 		            <div class="container">
 		                <div class="carousel-caption">
@@ -111,6 +119,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 		                </div>
 		            </div>
 		        </div>
+		        
 		    </div>
 			<a class="left carousel-control" href="#carousel-id" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
 		    <a class="right carousel-control" href="#carousel-id" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -123,22 +132,22 @@ System.out.println( "是否登入:"+ (memVO != null));
 		
 			  
 	<%-- 黑底logo區 --%>			  
-<section class="banner-area relative" id="home">	
-				<div class="overlay overlay-bg"></div>
-				<div class="container">				
-					<div class="row fullscreen d-flex align-items-center justify-content-start">
-						<div class="banner-content col-lg-12">
-							<h6 class="text-white" >Respect All Lifes</h6>
-							<span class="bar"></span>
-							<h1 class="text-white">
-								浪我陪你 <br>
-								LET ME PET YOU
-							</h1>
+<!-- <section class="banner-area relative" id="home">	 -->
+<!-- 				<div class="overlay overlay-bg"></div> -->
+<!-- 				<div class="container">				 -->
+<!-- 					<div class="row fullscreen d-flex align-items-center justify-content-start"> -->
+<!-- 						<div class="banner-content col-lg-12"> -->
+<!-- 							<h6 class="text-white" >Respect All Lifes</h6> -->
+<!-- 							<span class="bar"></span> -->
+<!-- 							<h1 class="text-white"> -->
+<!-- 								浪我陪你 <br> -->
+<!-- 								LET ME PET YOU -->
+<!-- 							</h1> -->
 							
-						</div>
-					</div>
-				</div>
-			</section>
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</section> -->
 		
 	
 <%-- 鼓勵救援區 --%>			
