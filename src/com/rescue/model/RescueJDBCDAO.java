@@ -16,6 +16,7 @@ import com.ntf.model.NtfJDBCDAO;
 import com.ntf.model.NtfVO;
 import com.rescueCoin.model.RescueCoinVO;
 import com.rescuing.model.RescuingJDBCDAO;
+import com.rescuing.model.RescuingVO;
 import com.volunteer.model.VolunteerJDBCDAO;
 
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Rescue;
@@ -49,11 +50,12 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			"UPDATE RESCUE set ntf_vlt_sta=? where rsc_id = ?";
     private static final String UPDATE_BY_PASS = 
     		"UPDATE RESCUE set rsc_sta=?,rsc_etime= ? where rsc_id = ?";
+	
 	//安卓指令
 	private static final String FIND_PHOTO_BY_RSCID = 
 			"SELECT rsc_img FROM RESCUE WHERE rsc_id = ?";
 	private static final String UPDATE_JOIN_RESCUE =
-			"UPDATE RESCUE set rsc_sta='救援中' where rsc_id = ?";
+			"UPDATE RESCUE set rsc_sta='救援中'  where rsc_id = ?";
 	private static final String INSERT_RESCUE_CASE = 
 			"INSERT INTO RESCUE (rsc_id,rsc_name,rsc_add,rsc_des,rsc_img,rsc_sponsor,rsc_lat,rsc_lon,rsc_sta,rsc_btime,rsc_coin,rsc_reg) VALUES ('R'||LPAD(to_char(volunteer_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_RESCUE = 
@@ -814,50 +816,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		return list;
 	}
-
-	@Override
-	public void updateByDoneVolunteer(String rsc_id, Connection con) {
-		PreparedStatement pstmt = null;
-
-		try {
-
-			
-			//修改rescue
-            pstmt = con.prepareStatement(UPDATE_BY_PASS);
-			
-			pstmt.setString(1,new String("志工已完成"));
-			pstmt.setTimestamp(2, new Timestamp(new Date().getTime()));
-			pstmt.setString(3,rsc_id);
-			pstmt.executeUpdate();
-			
-			
-			// Handle any driver errors
-		} catch (SQLException se) {
-			if (con != null) {
-				try {
-					// 3●設定於當有exception發生時之catch區塊內
-					System.err.print("Transaction is being ");
-					System.err.println("rolled back-由-rescue");
-					con.rollback();
-				} catch (SQLException excep) {
-					throw new RuntimeException("rollback error occured. "
-							+ excep.getMessage());
-				}
-			}
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-		}
-		
-	}
+	
 	public static void main(String[] args) {
 
 		RescueJDBCDAO dao = new RescueJDBCDAO();
@@ -989,38 +948,62 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			}
 		} return picture;
 	}
-
+	
 	@Override
-	public boolean updateCase(String rsc_id) {
+	public boolean updateCase(String rsc_id, String rscing_ptcp) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean isUpdateCase = false;
-
+		
 		try {
-
+			
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+    		
+    		
 			pstmt = con.prepareStatement(UPDATE_JOIN_RESCUE);
-			
-			pstmt.setString(1,rsc_id);
+			pstmt.setString(1, rsc_id);
 		
-
+			
+			
 			int rowsUpdated = pstmt.executeUpdate();
+			
 			if(rowsUpdated>0) {
 				isUpdateCase = true;
+				RescuingJDBCDAO rescuingJDBCDAO = new RescuingJDBCDAO();
+				rescuingJDBCDAO.joinRescuing(rsc_id, rscing_ptcp, con);
 			}
-			System.out.println("Changed " + rowsUpdated + "rows");
+			
+			// 2●設定於 pstm.executeUpdate()之後
+			con.commit();
 
+			System.out.println("Changed " + rowsUpdated + "rows");
+			
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
 					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
 		} finally {
+			try {
+				con.setAutoCommit(true);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -1037,7 +1020,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			}
 		}
 		return isUpdateCase;
-
+		
 	}
 
 	@Override
@@ -1169,6 +1152,11 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		return list;
 	}
 
+	@Override
+	public void updateByDoneVolunteer(String rsc_id, Connection con) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 

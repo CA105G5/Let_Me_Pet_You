@@ -1099,6 +1099,50 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 //		}
 	}
 
+	@Override
+	public boolean joinRescuing(String rsc_id, String rscing_ptcp, Connection con) {
+		PreparedStatement pstmt = null;
+		boolean isjoinRescuing = false;
+		try {
+
+			pstmt = con.prepareStatement(INSERT_STMT);
+
+			pstmt.setString(1, rsc_id);
+			pstmt.setString(2, rscing_ptcp);
+			pstmt.setTimestamp(3, new Timestamp(new Date().getTime()));
+			pstmt.setString(4, "救援中");
+			
+			int rowsUpdated =pstmt.executeUpdate();
+//			System.out.println("Changed " + rowsUpdated + "rows");
+			
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescing");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		return isjoinRescuing;
+		
+	}
+
 
 
 

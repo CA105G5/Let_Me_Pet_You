@@ -24,5 +24,6 @@ public interface RescuingDAO_interface {
   public List<RescuingVO> getAll(Map<String, String[]> map);
   
   	//安卓功能
-  
+  	public boolean joinRescuing(String rsc_id,String rscing_ptcp, Connection con);
+  	
 }
