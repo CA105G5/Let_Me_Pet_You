@@ -162,8 +162,9 @@ public class RescueServlet extends HttpServlet{
 //					}else if(!rsc_add.trim().matches(mailReg)) {
 //						errorMsgs.add("請輸入正確的地址");
 					}
-
-					
+					//經緯度
+					String rsc_lat = req.getParameter("rsc_lat").trim();
+					String rsc_lon = req.getParameter("rsc_lon").trim();
 					//圖片
 						byte[] rsc_img = null;
 						Part part = req.getPart("rsc_img");

@@ -15,7 +15,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>新增救援</title>
+<title>浪我陪你-新增救援</title>
 
 <script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 
