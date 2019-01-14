@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.missingMsg.model.missingMsgService;
 import com.missingMsgReport.model.missingMsgReportService;
 import com.missingMsgReport.model.missingMsgReportVO;
 
@@ -83,6 +84,26 @@ public class missingMsgReportServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 
+		}
+		
+		if ("updateStatus".equals(action)) {
+			try {
+				String missing_msg_rt_sta = req.getParameter("missing_msg_rt_sta");
+				String missing_msg_rt_id = req.getParameter("missing_msg_rt_id");
+				
+				missingMsgReportService missingMsgRtSvc = new missingMsgReportService();
+				missingMsgRtSvc.updateStatus(missing_msg_rt_sta, missing_msg_rt_id);
+				
+				String url = "/back-end/missingCase/back_listAllMissingMsgReport.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			} catch (Exception e) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/missingCase/back_listAllMissingMsgReport.jsp");
+				failureView.forward(req, res);
+			}
+			
+			
+			
 		}
 
 	}

@@ -31,8 +31,8 @@ public class AdoptMsgReportService {
 		
 		return adoptMsgReportVO;
 	}
-	public AdoptMsgReportVO getOneAdoptMsgRt(String adopt_msg_rt_id) {
-		return dao.findByPrimaryKey(adopt_msg_rt_id);
+	public AdoptMsgReportVO getOneAdoptMsgRt(String adopt_msg_id) {
+		return dao.findByPrimaryKey(adopt_msg_id);
 	}
 	
 	

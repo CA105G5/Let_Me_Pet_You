@@ -121,55 +121,72 @@
 	<!-- Right Panel -->
 	<div class="right-panel">
 		<div class="content">
-			<div class="col-xl-12">
-				<div class="card">
-					<div class="card-body">
-						<h4 class="box-title">失蹤留言檢舉管理</h4>
-					</div>
-					<div class="card-body--">
-						<div class="table-stats order-table ov-h">
-							<table class="table ">
-								<thead>
-									<tr>
-										<th class="serial">#</th>
-										<th>留言編號</th>
-										<th>檢舉會員</th>
-										<th>檢舉時間</th>
-										<th class="avatar">失蹤留言檢舉原因</th>
-										<th>檢舉狀態</th>
-									</tr>
-								</thead>
-								<tbody>
-									<%@ include file="page1.file"%>
-									<c:forEach var="missingMsgReportVO" items="${list}"
-										begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-										<tr>
-											<td class="serial"><%=++x%></td>
-											<td class="avatar">${missingMsgReportVO.missing_msg_id}
-											</td>
-											<td><span class="name">${memSvc.getOneMem(missingMsgReportVO.memb_id).memb_nick}</span></td>
-											<td><span class=""><fmt:formatDate
-														value="${missingMsgReportVO.missing_msg_rt_time}" pattern="yyyy-MM-dd" /></span></td>
-											<td><span class="product">${missingMsgReportVO.missing_msg_rt_cont }</span>
-											</td>
-											<td><select name="bootstrap-data-table_length"
-												aria-controls="bootstrap-data-table"
-												class="form-control form-control-sm status">
-												<option value="${missingMsgReportVO.missing_msg_rt_id}">未審核</option>
-												<option value="${reportMissingVO.missing_msg_rt_id}">通過</option>
-												<option value="${reportMissingVO.missing_msg_rt_id}">未通過</option>
-											</select></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-							<%@ include file="page2.file"%>
-						</div>
-						<!-- /.table-stats -->
-					</div>
-				</div>
-				<!-- /.card -->
-			</div>
+			<div class="animated fadeIn">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">失蹤案例留言檢舉</strong>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">留言檢舉編號</th>
+                                        <th scope="col">檢舉會員</th>
+                                        <th scope="col">留言所屬案例</th>
+                                        <th scope="col">檢舉原因</th>
+                                        <th scope="col">檢舉狀態</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="missingMsgReportVO" items="${list}">
+                                    <tr>
+                                        <td style=" margin-bottom: auto">${missingMsgReportVO.missing_msg_id}</td>
+                                        <td style=" margin-bottom: auto">${memSvc.getOneMem(missingMsgReportVO.memb_id).memb_nick}</td>
+                                        <td style=" margin-bottom: auto">
+                                       <a href="<%=request.getContextPath()%>/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id=${missingMsgSvc.findByMsg(missingMsgReportVO.missing_msg_id).missing_case_id}">
+								<button type="button" class="btn btn-outline-primary">查看案例</button>
+										</a>
+										</td>
+                                        <td style=" margin-bottom: auto">${adoptMsgReportVO.adopt_msg_rt_comm}</td>
+                                        <td style=" margin-bottom: auto">
+                                        <c:if test="${missingMsgReportVO.missing_msg_rt_sta == '未審核'}"></c:if>
+                                        <c:if test="${missingMsgReportVO.missing_msg_rt_sta == '通過'}">通過</c:if>
+                                        <c:if test="${missingMsgReportVO.missing_msg_rt_sta == '未通過'}">未通過</c:if>
+                                        <c:if test="${missingMsgReportVO.missing_msg_rt_sta == '未審核'}">
+                                        <table style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;"><tr style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;"><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+															<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/missingCase/missingMsgReport.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																<input type="hidden" name="missing_msg_rt_sta" value="通過">
+																<input type="hidden" name="missing_msg_rt_id" value="${missingMsgReportVO.missing_msg_rt_id}">
+																<input type="hidden" name="action" value="updateStatus">
+																<input style="width:100%;" type="submit" value="通過"  class="btn btn-success">
+															</FORM>	
+															</td><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/adopt/AdoptMsgReportServlet.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																<input type="hidden" name="missing_msg_rt_sta" value="未通過">
+																<input type="hidden" name="missing_msg_rt_id" value="${missingMsgReportVO.missing_msg_rt_id}">
+																<input type="hidden" name="action" value="updateStatus">
+																		<input style="width:100%;" type="submit" value="不通過"  class="btn btn-warning">
+																	</FORM>
+															</td><tr></table></c:if>
+                                        
+                                        
+                                        
+                                        
+                                        </td>
+                                    </tr>
+                                 </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+
+
+                </div>
+            </div>
 			<!-- /.col-lg-8 -->
 
 		</div>
@@ -226,6 +243,8 @@
 		<script src="jquery-3.3.1.min.js"></script>
 	<!--Local Stuff-->
 	<script type="text/javascript">
+	
+	
 	$(document).ready(function(){	
 		 $('.status').change(function(){
 // 		alert($("option:selected", this).text())

@@ -69,9 +69,10 @@ public class reportMissingServlet extends HttpServlet {
 				reportMissingVO = reportMissingSvc.addReportMissing(missing_case_id, memb_id, report_missing_cont,
 						report_missing_sta, report_missing_time);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "http://localhost:8081/CA105G5/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id="+missing_case_id;
+				String url = "http://localhost:8081/CA105G5/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id="
+						+ missing_case_id;
 				res.sendRedirect(url); // 新增成功後轉交回該檢舉案例
-				
+
 				return;
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
@@ -81,7 +82,23 @@ public class reportMissingServlet extends HttpServlet {
 			}
 
 		}
+		if ("changeStatus".equals(action)) {
 
+			try {
+				String report_missing_sta = req.getParameter("report_missing_sta");
+				String report_missing_id = req.getParameter("report_missing_id");
+
+				reportMissingService reportMissingSvc = new reportMissingService();
+				reportMissingSvc.updateStatus(report_missing_sta, report_missing_id);
+
+				String url = "/back-end/missingCase/back_MissingCaseReport.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			} catch (Exception e) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/missingCase/back_MissingCaseReport.jsp");
+				failureView.forward(req, res);
+			}
+		}
 	}
 
 }

@@ -16,7 +16,7 @@ public class missingMsgReportJDBCDAO implements missingMsgReportDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO missing_msg_rt(missing_msg_rt_id,missing_msg_id,memb_id,missing_msg_rt_cont,missing_msg_rt_sta,missing_msg_rt_time) VALUES ('SMR'||LPAD(to_char(missing_msg_rt_seq.NEXTVAL), 7, '0'),  ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT missing_msg_rt_id,missing_msg_id,memb_id,missing_msg_rt_cont,missing_msg_rt_sta,to_char(missing_msg_rt_time,'yyyy-mm-dd hh24:mi:ss')missing_msg_rt_time FROM missing_msg_rt order by missing_msg_rt_id";
-	private static final String GET_ONE_STMT = "SELECT missing_msg_rt_id,missing_msg_id,memb_id,missing_msg_rt_cont,missing_msg_rt_sta,to_char(missing_msg_rt_time,'yyyy-mm-dd hh24:mi:ss')missing_msg_rt_time FROM missing_msg_rt where missing_msg_rt_id = ?";
+	private static final String GET_ONE_STMT = "SELECT missing_msg_rt_id,missing_msg_id,memb_id,missing_msg_rt_cont,missing_msg_rt_sta,to_char(missing_msg_rt_time,'yyyy-mm-dd hh24:mi:ss')missing_msg_rt_time FROM missing_msg_rt where missing_msg_id = ?";
 	private static final String DELETE = "DELETE FROM missing_msg_rt where missing_msg_rt_id = ?";
 	private static final String UPDATE = "UPDATE missing_msg_rt set missing_msg_id=?, memb_id=?, missing_msg_rt_cont=?, missing_msg_rt_sta=?, missing_msg_rt_time=? where missing_msg_rt_id = ?";
 	private static final String UPDATE_STATUS = "UPDATE missing_msg_rt set missing_msg_rt_sta=? where missing_msg_rt_id=?";
@@ -195,7 +195,7 @@ public class missingMsgReportJDBCDAO implements missingMsgReportDAO_interface {
 
 	// 單獨查詢
 	@Override
-	public missingMsgReportVO findByPrimaryKey(String missing_msg_rt_id) {
+	public missingMsgReportVO findByPrimaryKey(String missing_msg_id) {
 
 		missingMsgReportVO missingMsgReportVO = null;
 		Connection con = null;
@@ -208,7 +208,7 @@ public class missingMsgReportJDBCDAO implements missingMsgReportDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setString(1, missing_msg_rt_id);
+			pstmt.setString(1, missing_msg_id);
 
 			rs = pstmt.executeQuery();
 

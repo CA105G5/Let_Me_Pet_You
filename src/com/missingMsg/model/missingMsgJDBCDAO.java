@@ -216,7 +216,7 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 	}
 	// 單獨查詢
 	@Override
-	public List<missingMsgVO> findByMsg(String missing_msg_id) {
+	public missingMsgVO findByMsg(String missing_msg_id) {
 		List<missingMsgVO> list = new ArrayList<missingMsgVO>();
 		
 		missingMsgVO missingMsgVO = null;
@@ -272,7 +272,7 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 				}
 			}
 		}
-		return list;
+		return missingMsgVO;
 	}
 
 	// 查全部
@@ -357,15 +357,15 @@ public class missingMsgJDBCDAO implements missingMsgDAO_interface {
 //		dao.delete("SM00000003");
 
 		// 單獨查詢
-		List<missingMsgVO> listOne = dao.findByMsg("SM00000002");
-		for(missingMsgVO msg : listOne) {
-		System.out.print(msg.getMissing_msg_id() + ",");
-		System.out.print(msg.getMissing_case_id() + ",");
-		System.out.print(msg.getMemb_id() + ",");
-		System.out.print(msg.getMissing_msg_date() + ",");
-		System.out.println(msg.getMissing_msg_cont());
-		System.out.println();
-		}
+//		List<missingMsgVO> listOne = dao.findByMsg("SM00000002");
+//		for(missingMsgVO msg : listOne) {
+//		System.out.print(msg.getMissing_msg_id() + ",");
+//		System.out.print(msg.getMissing_case_id() + ",");
+//		System.out.print(msg.getMemb_id() + ",");
+//		System.out.print(msg.getMissing_msg_date() + ",");
+//		System.out.println(msg.getMissing_msg_cont());
+//		System.out.println();
+//		}
 
 		// 查全部
 //		List<missingMsgVO> list = dao.getAll();

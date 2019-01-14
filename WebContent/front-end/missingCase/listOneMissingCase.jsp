@@ -25,6 +25,7 @@
 	
 %>
 <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" />
+<jsp:useBean id="missingMsgRtSvc" scope="page" class="com.missingMsgReport.model.missingMsgReportService" />
 <html>
 <head>
 <meta name="viewport"
@@ -140,7 +141,7 @@
 												value="<%=request.getParameter("missing_case_id")%>">
 											<input type="hidden" name="memb_id"
 												value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
-											<input type="hidden" name="report_missing_sta" value="待審核">
+											<input type="hidden" name="report_missing_sta" value="未審核">
 											<input type="hidden" name="report_missing_time"
 												value="<%=report_missing_time%>"> <input
 												type="hidden" name="action" value="insert">
@@ -206,6 +207,7 @@
 
 							</form>
 							<c:forEach var="missingMsgVO" items="${list}" varStatus="i">
+							<c:if test="${missingMsgRtSvc.getOneMissingRt(missingMsgVO.missing_msg_id).missing_msg_rt_sta !='通過' }">
 								<div class="comment-list" id="m${i.index}">
 									<div class=" justify-content-between d-flex">
 										<div class="user justify-content-between d-flex">
@@ -331,7 +333,7 @@
 	});
 	</script>					
 							
-							
+							</c:if>
 							</c:forEach>
 						</div>
 

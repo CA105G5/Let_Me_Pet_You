@@ -38,4 +38,8 @@ public class missingMsgReportService {
 		
 		return missingMsgReportVO;
 	}
+	
+	public missingMsgReportVO getOneMissingRt(String missing_msg_rt_id) {
+		return dao.findByPrimaryKey(missing_msg_rt_id);
+	}
 }
