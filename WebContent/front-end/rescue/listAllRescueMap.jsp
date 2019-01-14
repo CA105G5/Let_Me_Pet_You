@@ -46,9 +46,9 @@ div {
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
 	
-		<div class="container">
-			<div class="row d-flex justify-content-center">
-				<h1 style="margin-top: 0px">今日救援地圖</h1>
+		<div class="container" >
+			<div class="row d-flex justify-content-center" style="margin-top:100px">
+				<h1 >今日救援地圖</h1>
 	    		<div id="map"></div>
     
     		</div>
@@ -141,22 +141,22 @@ div {
 				}
 				switch (srcsta) {
 				  case "待救援":
-				    rscIcon.url="<%=request.getContextPath()%>/images/memMaker.png";
+				    rscIcon.url="<%=request.getContextPath()%>/images/sta_red.png";
 				    break;
 				  case "救援中":
-					  rscIcon.url="<%=request.getContextPath()%>/images/memMaker.png";
+					  rscIcon.url="<%=request.getContextPath()%>/images/sta_yellow.png";
 				    break;
 				  case "完成救援送審中":
-					  rscIcon.url="<%=request.getContextPath()%>/images/memMaker.png";
+					  rscIcon.url="<%=request.getContextPath()%>/images/sta_purple.png";
 				    break;
 				  case "分派給志工":
-					  rscIcon.url="<%=request.getContextPath()%>/images/memMaker.png";
+					  rscIcon.url="<%=request.getContextPath()%>/images/sta_blue.png";
 				    break;
 				  case "完成救援":
-					  rscIcon.url="<%=request.getContextPath()%>/images/memMaker.png";
+					  rscIcon.url="<%=request.getContextPath()%>/images/sta_green.png";
 				    break;
 				  case "志工已完成":
-					  rscIcon.url="<%=request.getContextPath()%>/images/memMaker.png";
+					  rscIcon.url="<%=request.getContextPath()%>/images/sta_green.png";
 				    break;
 				 
 				}
@@ -165,7 +165,8 @@ div {
 	    		position: {lat:parseFloat(srclat),lng:parseFloat(srclng)},
 	    		map: map,
 	    		title: srctitle,
-	    		icon:rscIcon
+	    		icon:rscIcon,
+	    		animation: google.maps.Animation.DROP
 	  		});
 				
 				var content = "<div style='display: flex;flex-direction:column'>"
