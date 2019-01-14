@@ -239,7 +239,7 @@ i.fa-shopping-cart:hover {
 				<div class="col-lg-1 col-sm-1 menu-top-left"></div>
 			</div>
 		</div>
-		<hr>
+		<hr> 
 			    
 		
 
