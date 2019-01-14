@@ -112,7 +112,8 @@ i.fa-shopping-cart:hover {
 	<header id="header" id="home" style="height:115px">
 		<div class="container">
 			<div class="row header-top align-items-center">
-				<div class="col-lg-3 col-sm-3 menu-top-left">
+			<div class="col-lg-1 col-sm-1 menu-top-left"></div>
+				<div class="col-lg-2 col-sm-2 menu-top-left">
 					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid"
 						src="<%=request.getContextPath()%>/horse_UI_template/img/logo2.png" width="200" alt="">
 					</a>
@@ -171,7 +172,7 @@ i.fa-shopping-cart:hover {
 				</div>
 				
 				
-				<div class="col-lg-3 col-sm-3">
+				<div class="col-lg-2 col-sm-2">
 					<div class="row">
 						<div id="cart-container" class="col-lg-1 col-sm-1">
 							<a id="cart_icon"><i class="fa fa-shopping-cart fa-1x" aria-hidden="true"></i></a>
@@ -235,6 +236,7 @@ i.fa-shopping-cart:hover {
 						</div>
 					</div>
 				</div>
+				<div class="col-lg-1 col-sm-1 menu-top-left"></div>
 			</div>
 		</div>
 		<hr>
