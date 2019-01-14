@@ -57,39 +57,8 @@
 <%-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab --%>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<style>#success_message{ display: none;}</style>
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 600px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
 
 </head>
 <body bgcolor='white'>
@@ -106,62 +75,123 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="pet.do" name="form1" enctype="multipart/form-data">
+
 <div class="container">
-			<div class="h1"></div>
-			
-			<div class="page-header">
-			  <h1 align="center">新增寵物資料</h1>
-			</div>
-<table class="table table-bordered table-striped table-hover table-condensed">
-	<tr><td>寵物姓名:<font color=red><b>*必填</b></font></td>
-		<td><input type="TEXT" name="pet_name" size="30" 
-			 value="<%= (petVO==null)? "" : petVO.getPet_name()%>" />
-		</td>
-	</tr>
-	<tr>
-		<td>寵物性別:</td>
-		<td><input type="RADIO" name="pet_gender" size="45" 
-			 value="M" ${(petVO.pet_gender=='M')? 'checked':'' }/>公
-				 
-			 
-		<input type="RADIO" name="pet_gender" size="45" 
-			 value="F" ${(petVO.pet_gender=='F')? 'checked':'' }/>母</td>
-			 
-	</tr>
-	<tr>
-		<td>出生日期:</td>
-		<td><input  type="text" name="pet_birth" id="f_date1" value="<%= (petVO==null)? "" : petVO.getPet_birth()%>"></td>
-	</tr>
-	
-	<tr>
-		<td>寵物描述:</td>
-		<td><textarea name="pet_descr" rows="5" cols="80"><%= (petVO==null)? "" : petVO.getPet_descr()%></textarea>
-		</td>
-	</tr>
-	<tr>
-		<td>寵物類型:</td>
-		<td><select name="pet_type" size="1">
+
+    <form class="well form-horizontal" action="pet.do" method="post"  id="contact_form" enctype="multipart/form-data">
+<fieldset>
+
+<!-- Form Name -->
+<legend align="center">新增寵物資料</legend>
+
+
+<!-- Text input-->
+       <div class="form-group">
+  <label class="col-md-4 control-label">寵物姓名:</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span> -->
+<input type="TEXT" name="pet_name" size="30" value="<%= (petVO==null)? "" : petVO.getPet_name()%>" /><font color=red><b>*必填</b></font>
+    </div>
+  </div>
+</div>
+
+
+<!-- radio checks -->
+ <div class="form-group">
+                        <label class="col-md-4 control-label">寵物性別:</label>
+                        <div class="col-md-4" >
+                            <div class="radio" >
+                                <label>
+                                <input type="RADIO" name="pet_gender" size="45" 
+			 							value="M" ${(petVO.pet_gender=='M')? 'checked':'' }/>公
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                <input type="RADIO" name="pet_gender" size="45" 
+			 							value="F" ${(petVO.pet_gender=='F')? 'checked':'' }/>母
+                                </label>
+                            </div>
+                        </div>
+</div>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label">出生日期:</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
+<input  type="text" name="pet_birth" id="f_date1" value="<%= (petVO==null)? "" : petVO.getPet_birth()%>">
+    </div>
+</div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label">寵物描述:</label>  
+   <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span> -->
+  <textarea name="pet_descr" rows="5" cols="80"><%= (petVO==null)? "" : petVO.getPet_descr()%></textarea>
+    </div>
+  </div>
+</div>
+   
+<div class="form-group"> 
+  <label class="col-md-4 control-label">寵物類型:</label>
+    <div class="col-md-4 selectContainer">
+    <div class="input-group">
+<!--         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span> -->
+    <select name="pet_type" size="1">
 		<option value="" ${(petVO.pet_type =='')? 'selected':''}>請選擇寵物種類
 		<option value="貓" ${(petVO.pet_type =="貓")? "selected":""}>貓
 		<option value="狗" ${(petVO.pet_type =='狗')? 'selected':''}>狗
 		<option value="飛禽" ${(petVO.pet_type =='飛禽')? 'selected':''}>飛禽
 		<option value="其他" ${(petVO.pet_type =='其他')? 'selected':''}>其他
-		    </select>
-		</td>
-	</tr>
-	<tr><td> 寵物照片:</td>
-		<td><input type="file" class="upl" name="upfile" id="file01">
+	</select>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<!-- Photo area -->
+  
+<div class="form-group">
+  <label class="col-md-4 control-label">寵物照片</label>
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <input type="file" class="upl" name="upfile" id="file01">
 		<img class="preview" src=""/>
 		<div class="size"></div>
-		</td>
-	</tr>
-</table>
+  </div>
+  </div>
 </div>
-<br>
-<input type="hidden" name="action" value="addPet">
-<input type="hidden" name="memb_id" value="${memVO.memb_id}">
-<div align="center"><input type="submit" value="送出新增"></div></FORM>
+
+<!-- Success message -->
+<!-- <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div> -->
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+  	<input type="hidden" name="action" value="addPet">
+	<input type="hidden" name="memb_id" value="${memVO.memb_id}">
+    <button type="submit" class="btn btn-warning" >新增寵物 <span class="glyphicon glyphicon-send"></span></button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+    </div><!-- /.container -->
+
+
+
 <%-- 模板後script 加在自己的script前--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -201,7 +231,7 @@
 <script>
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
-	       theme: 'dark',              //theme: 'dark',
+	       theme: 'normal',              //theme: 'dark',
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',

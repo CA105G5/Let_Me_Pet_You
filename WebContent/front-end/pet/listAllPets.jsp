@@ -54,38 +54,24 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ela Admin - HTML5 Admin Template</title>
+    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
-  table {
-	width: 600px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
+    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/manager/assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/manager/assets/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
 </head>
 <body bgcolor='white'>
@@ -101,44 +87,66 @@
 			<div class="page-header">
 			  <h1 align="center">寵物資料</h1>
 			</div>
-<table class="table table-bordered table-striped table-hover table-condensed">
-	<tr>
-		<th>寵物姓名</th>
-		<th>寵物性別</th>
-		<th>出生日期</th>
-		<th>死亡日期</th>
-		<th>寵物描述</th>
-		<th>寵物狀態</th>
-		<th>寵物類型</th>
-		<th>寵物照片</th>
-	</tr>
-	<%@ include file="page1.file" %>
-	<c:forEach var="petVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<div class="col-lg-12">
+		                    <div class="card"   style="margin-bottom:150px;margin-left:50px;margin-right:50px">
+		                        <div class="card-body" style="padding:0px;">
+		                            <table class="table">
+		                                <thead  style="background-color:#FFBB00;border:0px" >
+		                                    <tr>
+		                                      <th scope="col">#</th>
+		                                      <th scope="col">寵物姓名</th>
+		                                      <th scope="col">寵物性別</th>
+		                                      <th scope="col">出生日期</th>
+		                                      <th scope="col">死亡日期</th>
+		                                      <th scope="col">寵物描述</th>
+		                                      <th scope="col">寵物狀態</th>
+		                                      <th scope="col">寵物類型</th>
+		                                      <th scope="col">寵物照片</th>
+		                                      <th scope="col">修改寵物資料</th>
+		                                  </tr>
+		                              </thead>
+		                              <tbody>
+		                              <% int count=0; %>
+                                            <c:forEach var="petVO" items="${list}">
 		
-		<tr>
-			<td>${petVO.pet_name}</td>
-			<td>${petVO.pet_gender=='M'? '公':(petVO.pet_gender=='F'?'母':'')}</td>
-			<td>${petVO.pet_birth}</td>
-			<td>${petVO.pet_death}</td>
-			<td><textarea name="pet_descr" rows="5" cols="10">${petVO.pet_descr}</textarea></td>
-			<td>${petVO.pet_status}</td>
-			<td>${petVO.pet_type}</td>
-			<td><img src="<%=request.getContextPath()%>/front-end/pet/petImg.do?pet_id=${petVO.pet_id}"/></td>
-			 <td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/pet/pet.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="pet_id"  value="${petVO.pet_id}">
-			     <input type="hidden" name="action"	value="updatePetFromlistAll"></FORM>
-			</td>
-			
-		</tr>
-	</c:forEach>
+												<tr>
+												<th scope="row" class="serial"><%=++count %></th>
+													<td>${petVO.pet_name}</td>
+													<td>${petVO.pet_gender=='M'? '公':(petVO.pet_gender=='F'?'母':'')}</td>
+													<td>${petVO.pet_birth}</td>
+													<td>${petVO.pet_death}</td>
+													<td><textarea name="pet_descr" rows="5" cols="10">${petVO.pet_descr}</textarea></td>
+													<td>${petVO.pet_status}</td>
+													<td>${petVO.pet_type}</td>
+													<td><img src="<%=request.getContextPath()%>/front-end/pet/petImg.do?pet_id=${petVO.pet_id}"/></td>
+													 <td>
+													  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/pet/pet.do" style="margin-bottom: 0px;">
+													     <input type="submit" value="修改">
+													     <input type="hidden" name="pet_id"  value="${petVO.pet_id}">
+													     <input type="hidden" name="action"	value="updatePetFromlistAll"></FORM>
+													</td>
+													
+												</tr>
+											</c:forEach>
+		                            </tbody>
+		                        </table>
+		
+		                    </div>
+		                </div>
+		            </div>
 
-</table>
 <div align="center"><a href="<%=request.getContextPath()%>/front-end/pet/addPets.jsp">增加一筆寵物資料</a></div>
 </div>
-<%@ include file="page2.file" %>
 
+
+
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+<script src="<%=request.getContextPath()%>/back-end/manager/assets/js/main.js"></script>
 <%-- 模板後script 加在自己的script前--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

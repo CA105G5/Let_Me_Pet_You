@@ -20,6 +20,8 @@ public interface VolunteerDAO_interface {
     //登入志工
     public VolunteerVO findByAccount(String vlt_mail);
     public RescueVO volunteerCheckOut(String vlt_id);
+    //志工完成救援
+    public void rescue_done_by_volunteer(String rsc_id,String vlt_id);
     //安卓功能
     boolean isVltMail(String vlt_mail, String vlt_psw);//確認志工存在
 	boolean isVltExist(String vlt_mail);

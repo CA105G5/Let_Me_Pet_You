@@ -149,7 +149,7 @@ pageContext.setAttribute("list_adoptapply",list_adoptapply);
 												</table>
 															        
 									        </div>
-									        <div role="tabpanel" class="tab-pane active" id="tab2">
+									        <div role="tabpanel" class="tab-pane" id="tab2">
 												<table id="table2" class="table table-striped table-bordered table-hover" style="width:800px">
 														
 													<thead>

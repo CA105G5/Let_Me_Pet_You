@@ -638,6 +638,15 @@ public class VolunteerServlet extends HttpServlet{
 					req.getRequestDispatcher("/front-end/volunteer/volunteer_rescue.jsp");
 			successView.forward(req, res);
 		}
+		if ("rescue_done_by_volunteer".equals(action)) {
+			String rsc_id = req.getParameter("rsc_id");
+			String vlt_id = req.getParameter("vlt_id");
+			VolunteerService vltSvc = new VolunteerService();
+			vltSvc.rescue_done_by_volunteer(rsc_id, vlt_id);
+			RequestDispatcher successView = 
+					req.getRequestDispatcher("/front-end/volunteer/volunteer_rescue.jsp");
+			successView.forward(req, res);
+		}
 		
 	}
 	

@@ -50,38 +50,24 @@ pageContext.setAttribute("list",list);
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ela Admin - HTML5 Admin Template</title>
+    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
-  table {
-	width: 600px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
+    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/manager/assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/manager/assets/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <jsp:include page="/index_Header.jsp" flush="true" />
@@ -97,38 +83,50 @@ pageContext.setAttribute("list",list);
 			<div class="page-header">
 			  <h1 align="center">你的所有失蹤寵物</h1>
 			</div>
-<table class="table table-bordered table-striped table-hover table-condensed">
-	<tr>
-		<th>失蹤日期</th>
-		<th>失蹤寵物名</th>
-		<th>失蹤描述</th>
-		<th>失蹤位置</th>
-		<th>寵物照片</th>
-		<th>寵物類型</th>
+			<div class="col-lg-12">
+		                    <div class="card"   style="margin-top:150px;margin-bottom:150px;margin-left:100px;margin-right:100px">
+		                        <div class="card-body" style="padding:0px;">
+		                            <table class="table">
+		                                <thead  style="background-color:#FFBB00;border:0px" >
+		                                    <tr>
+		                                      <th scope="col">#</th>
+		                                      <th scope="col">失蹤日期</th>
+		                                      <th scope="col">失蹤寵物名</th>
+		                                      <th scope="col">失蹤描述</th>
+		                                      <th scope="col">失蹤位置</th>
+		                                      <th scope="col">寵物照片</th>
+		                                      <th scope="col">寵物類型</th>
+		                                  </tr>
+		                              </thead>
+		                              <tbody>
+		                              <% int count=0; %>
+                                            <c:forEach var="missingCaseVO" items="${list}">
+                                            	<tr>
+                                           			<th scope="row" class="serial"><%=++count %></th>
+													<td>${missingCaseVO.missing_date}</td>
+													<td>${missingCaseVO.missing_name}</td>
+													<td>${missingCaseVO.missing_des}</td>
+													<td>${missingCaseVO.missing_loc}</td>
+													<td><img class="img-fluid" src="<%=request.getContextPath()%>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id}" alt="" width="50px" style="margin-bottom: auto"></td>
+													<td>${missingCaseVO.missing_type}</td>
+												</tr>
+											</c:forEach>
+		                            </tbody>
+		                        </table>
 		
-	</tr>
-	<%@ include file="page1.file" %>
-	<c:forEach var="missingCaseVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
-		<tr>
-			<td>${missingCaseVO.missing_date}</td>
-			<td>${missingCaseVO.missing_name}</td>
-			<td>${missingCaseVO.missing_des}</td>
-			<td>${missingCaseVO.missing_loc}</td>
-			<td><img class="img-fluid" src="<%=request.getContextPath()%>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id}" alt="" width="50px" style="margin-bottom: auto"></td>
-			<td>${missingCaseVO.missing_type}</td>
-			
-			
-		</tr>
-	</c:forEach>
+		                    </div>
+		                </div>
+		            </div>
 
-</table>
-</div>
-<div align="center"><%@ include file="page2.file" %></div>
 <%}else{ %>
 	<h1 style="color:green;font-size:60px" align="center">您目前沒有失蹤的寵物</h1>
 <%}%>
-
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+<script src="<%=request.getContextPath()%>/back-end/manager/assets/js/main.js"></script>
 <%-- 模板後script 加在自己的script前--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

@@ -70,15 +70,12 @@
 </head>
 <body>
 <jsp:include page="/index_Header.jsp" flush="true" />
-
+                	<div align="center"><h1>愛心幣明細 </h1></div>
 <div class="content">
             <div class="animated fadeIn">
                 <div class="row">
                 		<div class="col-lg-12">
-		                    <div class="card"   style="margin-top:300px;margin-left:150px;margin-right:150px">
-		                        <div class="card-header" style="background-color:#00DDAA" align="center">
-		                            <strong class="card-title">愛心幣明細</strong>
-		                        </div>
+		                    <div class="card"   style="margin-top:150px;margin-bottom:150px;margin-left:150px;margin-right:150px">
 		                        <div class="card-body" style="padding:0px;">
 		                            <table class="table">
 		                                <thead  style="background-color:#FFBB00;border:0px" >

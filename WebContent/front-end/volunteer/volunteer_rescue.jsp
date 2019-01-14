@@ -133,14 +133,11 @@ System.out.println("111111111111111111111111111="+session.getId());
 								
 								</table>
 								<br>
-								<input type="hidden" name="action" value="updatebyvolunteer">
-                                <input type="hidden" name="vlt_id" value="<%=volunteerVO.getVlt_id()%>">
-                                <input type="hidden" name="vlt_registerdate" value="<%=volunteerVO.getVlt_registerdate()%>">
-                                <input type="hidden" name="vlt_reg" value="<%=volunteerVO.getVlt_reg()%>">
-                                <input type="hidden" name="vlt_name" value="<%=volunteerVO.getVlt_name()%>">
-                                <input type="hidden" name="vlt_gender" value="<%=volunteerVO.getVlt_gender()%>">
-                                <input type="hidden" name="vlt_mail" value="<%=volunteerVO.getVlt_mail()%>">
-									
+								<input type="hidden" name="action" value="rescue_done_by_volunteer">
+								<input type="hidden" name="rsc_id" value="<%=rescueVO.getRsc_id()%>">
+								<input type="hidden" name="vlt_id" value="<%=volunteerVO.getVlt_id()%>">
+                                
+								<button  class="btn btn-default btn-lg btn-block text-center">完成救援</button>	
 								
 								
 						</div>

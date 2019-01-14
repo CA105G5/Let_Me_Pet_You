@@ -99,5 +99,8 @@ public class VolunteerService {
 	public RescueVO volunteerCheckOut(String vlt_id) {
 		return dao.volunteerCheckOut(vlt_id);
 	}
+	public void rescue_done_by_volunteer(String rsc_id, String vlt_id) {
+		dao.rescue_done_by_volunteer(rsc_id, vlt_id);
+	}
 
 }

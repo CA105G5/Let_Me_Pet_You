@@ -1,5 +1,6 @@
 package com.rescue.model;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
  
@@ -26,6 +27,9 @@ public class RescueService {
 	}
 	public void updateByDoneReport(String rsc_id,java.sql.Connection con) {
 		dao.updateByDoneReport(rsc_id,con);
+	}
+	public void updateByDoneVolunteer(String rsc_id,java.sql.Connection con) {
+		dao.updateByDoneVolunteer(rsc_id,con);
 	}
 	public void deleteRescue(String rsc_id) {
 		dao.delete(rsc_id);

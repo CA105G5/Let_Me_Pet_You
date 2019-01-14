@@ -62,12 +62,25 @@ public class NtfServlet extends HttpServlet {
 					//由ntf_src_id查詢出對應VO，並設定在req裡面
 					
 					//依照關鍵字找尋要轉交哪個畫面，用String中的contains來判斷
-					
-					//轉交
-					RequestDispatcher rescueView = 
-							req.getRequestDispatcher("/back-end/members/select_page.jsp");
-					rescueView.forward(req, res);
-					return;
+							if(ntf_dt.contains("未通過!")
+							 ||ntf_dt.contains("已派志工前往")) {
+								System.out.println("3");
+								//轉交
+								RequestDispatcher orderView = 
+										req.getRequestDispatcher("/front-end/members/listAllRescue.jsp");
+								orderView.forward(req, res);
+								return;
+										
+							}
+							if(ntf_dt.contains("已發送愛心幣")) {
+							   System.out.println("4");
+								//轉交
+								RequestDispatcher checkView = 
+										req.getRequestDispatcher("/front-end/members/cur_dt.jsp");
+								checkView.forward(req, res);
+								return;
+												
+							}					
 				}else if(ntf_src_id.matches(type_adopt)) {
 					System.out.println("adopt");
 					//由ntf_src_id查詢出對應VO，並設定在req裡面

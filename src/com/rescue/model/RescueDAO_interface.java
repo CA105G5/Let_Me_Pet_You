@@ -12,6 +12,7 @@ public interface RescueDAO_interface {
     public void updateByNoPass(String rsc_id,java.sql.Connection con);
     public void updateByManager(RescueVO rescueVO);
     public void updateByDoneReport(String rsc_id, java.sql.Connection con);
+    public void updateByDoneVolunteer(String rsc_id, java.sql.Connection con);
     public void delete(String rsc_id);
     public RescueVO findByPrimaryKey(String rsc_id);
     public List<RescueVO> getAll(); 
