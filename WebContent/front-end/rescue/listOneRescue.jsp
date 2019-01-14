@@ -44,8 +44,21 @@ session.setAttribute("memVO",memVO);
 <!DOCTYPE html>
 <html>
 <head>
+<!-- Mobile Specific Meta -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Favicon--> 
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
+<!-- Author Meta -->
+<meta name="author" content="codepixer">
+<!-- Meta Description -->
+<meta name="description" content="">
+<!-- Meta Keyword -->
+<meta name="keywords" content="">
+<!-- meta character set -->
 <meta charset="UTF-8">
-<title>救援案例</title>
+<!-- Site Title -->
+<title>浪我陪你-救援案例</title>
 
 
 <script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>

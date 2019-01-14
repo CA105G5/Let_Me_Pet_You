@@ -29,6 +29,8 @@
 <!-- Site Title -->
 <title>浪我陪你-新增救援</title>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
 
 <script src="<%=request.getContextPath()%>/ckeditor2/ckeditor.js"></script>
 <style type="text/css">
@@ -149,7 +151,8 @@ body {
                                     <textarea name="rsc_des" id="rsc_des"></textarea>
                                     <script>
                                     CKEDITOR.replace( 'rsc_des', {
-     				                   extraPlugins: 'easyimage',
+     				                   removePlugins:'image',
+                                    	extraPlugins: 'easyimage',
      				                      cloudServices_tokenUrl: 'https://36758.cke-cs.com/token/dev/g529dLeMZwwIpbMNAdeiRdeIbIjTrMw6aq0ncGUTnfbb08SqLh6Z2I87wBM3',
      				                      cloudServices_uploadUrl: 'https://36758.cke-cs.com/easyimage/upload/',}); 
                                     </script>
@@ -159,7 +162,7 @@ body {
                             <input type="hidden" name="rsc_sponsor" value="${memVO.memb_id}">
                             <div align="center">
                             
-                            <input type="submit" class="genric-btn primary" value="送出"  style="width:120px;height:40px;font-size:20px;" id="submit">
+                            <button class="genric-btn primary" style="width:120px;height:40px;font-size:20px;" id="submit">送出</button>
                             <br>
                             <br>
                             </div>
@@ -218,9 +221,9 @@ var c;
 $(function initMap() {
 	console.log("map");
     window.navigator.geolocation.getCurrentPosition(myFlow);
+}
 
-  
-});
+);
 
 function myFlow(a) {
 	
@@ -372,6 +375,9 @@ function myFlow(a) {
       
   }
 </script>
+
+
+
 
 
 </body>
