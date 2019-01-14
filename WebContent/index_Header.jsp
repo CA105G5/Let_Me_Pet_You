@@ -110,7 +110,7 @@ i.fa-shopping-cart:hover {
 	<jsp:useBean id="MemberService" scope="page" class="com.mem.model.MemService"/>
 	<jsp:useBean id="ntfSvc" scope="page" class="com.ntf.model.NtfService"/>
 	<header id="header" id="home" style="height:115px">
-		<div class="container-fluid">
+		<div class="container">
 			<div class="row header-top align-items-center">
 				<div class="col-lg-3 col-sm-3 menu-top-left">
 					<a href="<%=request.getContextPath()%>/index.jsp"> <img class="img-fluid"
@@ -243,7 +243,14 @@ i.fa-shopping-cart:hover {
 
 	</header>
 	<!-- #header -->
+	<br>
+	<br>
 
+	<br>
+	<br>
+
+	<br>
+	<br>
 	
 	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 	<script

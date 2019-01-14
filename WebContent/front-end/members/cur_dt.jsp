@@ -74,40 +74,38 @@
 <div class="content">
             <div class="animated fadeIn">
                 <div class="row">
-					<div class="col-lg-6">
-					    <div class="card"  style="margin-top:300px;margin-left:500px">
-                            <div class="card-header">
-                                <strong class="card-title">愛心幣明細</strong>
-                            </div>
-                            <div class="table-stats order-table ov-h">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="serial">#</th>
-                                            <th>愛心幣來源</th>
-                                            <th>愛心幣詳情</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <% int count=0; %>
-                                        
+                		<div class="col-lg-12">
+		                    <div class="card"   style="margin-top:300px;margin-left:150px;margin-right:150px">
+		                        <div class="card-header" style="background-color:#00DDAA" align="center">
+		                            <strong class="card-title">愛心幣明細</strong>
+		                        </div>
+		                        <div class="card-body" style="padding:0px;">
+		                            <table class="table">
+		                                <thead  style="background-color:#FFBB00;border:0px" >
+		                                    <tr>
+		                                      <th scope="col">#</th>
+		                                      <th scope="col">愛心幣來源</th>
+		                                      <th scope="col">愛心幣詳情</th>
+		                                  </tr>
+		                              </thead>
+		                              <tbody>
+		                              <% int count=0; %>
                                             <c:forEach var="curdtVO" items="${list}">
                                             	<tr>
-                                           			<td class="serial"><%=++count %></td>
+                                           			<th scope="row" class="serial"><%=++count %></th>
 													<td>${curdtVO.cur_src_id}</td>
 													<td>${curdtVO.cur_dt}</td>
 												</tr>
 											</c:forEach>
-                                        
-                                        
-                                    </tbody>
-                                </table>
-                            </div> <!-- /.table-stats -->
-                        </div>
-                    </div>
-       			 </div>
-               </div>
-          </div>
+		                            </tbody>
+		                        </table>
+		
+		                    </div>
+		                </div>
+		            </div>
+       			</div>
+            </div>
+        </div>
 
 
 
