@@ -14,12 +14,12 @@ System.out.println( "是否登入:"+ (managerVO != null));
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - HTML5 Admin Template</title>
+    <title>LET ME PET YOU</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
+    <link rel="apple-touch-icon" href="<%=request.getContextPath()%>/images/logo3.png">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
@@ -83,11 +83,13 @@ System.out.println( "是否登入:"+ (managerVO != null));
                    
                     <li class="menu-title active"><a href="index.html">後台管理</a></li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>救援管理</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-plus-square"></i>救援管理</a>
                         <ul class="sub-menu children dropdown-menu">                            
-                        	<li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">救援案例管理</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">審核檢舉救援案例</a></li>
-                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">審核檢舉救援留言</a></li>
+                        	<li><i class="fa fa-list-ul"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescue.jsp">救援案例列表</a></li>
+                            <li><i class="fa fa-exclamation-circle"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp">逾時案例列表</a></li>
+                            <li><i class="fa fa-wpforms"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_done_rescue.jsp">完成的救援審核</a></li>
+                            <li><i class="fa fa-flag"></i><a href="ui-cards.html">救援檢舉審核</a></li>
+                            <li><i class="fa fa-comments"></i><a href="ui-alerts.html">救援留言檢舉審核</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
