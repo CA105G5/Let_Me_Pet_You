@@ -12,7 +12,7 @@
 <%-- Mobile Specific Meta --%>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
-		<link rel="shortcut icon" href="img/fav.png">
+		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 		<!-- Author Meta -->
 		<meta name="author" content="codepixer">
 		<!-- Meta Description -->
@@ -23,7 +23,7 @@
 		<meta charset="UTF-8">
 		<!-- Site Title -->
 
-<title>會員資料 - listOneMember.jsp</title>
+<title>浪我陪你-會員資料</title>
 
 <%-- 放自己css前 --%>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 

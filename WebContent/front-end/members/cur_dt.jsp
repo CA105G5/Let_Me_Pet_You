@@ -16,7 +16,7 @@
 <%-- Mobile Specific Meta --%>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
-		<link rel="shortcut icon" href="img/fav.png">
+		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 		<!-- Author Meta -->
 		<meta name="author" content="codepixer">
 		<!-- Meta Description -->
@@ -25,7 +25,7 @@
 		<meta name="keywords" content="">
 		<!-- meta character set -->
 		<meta charset="UTF-8">
-<title>愛心幣明細</title>
+<title>浪我陪你-愛心幣明細</title>
 <%-- 放自己css前 --%>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<%--
@@ -54,7 +54,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">

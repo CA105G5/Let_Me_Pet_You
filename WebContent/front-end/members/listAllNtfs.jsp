@@ -17,7 +17,7 @@ pageContext.setAttribute("list",list);
 <%-- Mobile Specific Meta --%>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
-		<link rel="shortcut icon" href="img/fav.png">
+		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 		<!-- Author Meta -->
 		<meta name="author" content="codepixer">
 		<!-- Meta Description -->
@@ -26,7 +26,7 @@ pageContext.setAttribute("list",list);
 		<meta name="keywords" content="">
 		<!-- meta character set -->
 		<meta charset="UTF-8">
-<title>所有通知</title>
+<title>浪我陪你-所有通知</title>
 <%-- 放自己css前 --%>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<%--

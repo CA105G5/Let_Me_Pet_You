@@ -21,7 +21,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-<title>會員前端頁面</title>
+<title>浪我陪你-首頁</title>
 
 			<%--
 			CSS
