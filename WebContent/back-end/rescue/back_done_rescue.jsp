@@ -159,7 +159,7 @@ if (rescuingReviewList==null){
 												<% no++; %>
 												<tr>
 													<td><%=no %></td>
-													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescuingVO.rsc_id}">${rescuingVO.rsc_id}</a></td>
+													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescuingVO.rsc_id}" target="_blank">${rescuingVO.rsc_id}</a></td>
 													<td style=" margin-bottom: auto">${rescuingVO.rscing_ptcp}<br>暱稱：${memSvc.getOneMem(rescuingVO.rscing_ptcp).memb_nick}</td>
 													<td style=" margin-bottom: auto">
 														<button type="button" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#${rescuingVO.rsc_id}">完成報告</button>
@@ -167,9 +167,7 @@ if (rescuingReviewList==null){
 													<td style=" margin-bottom: auto"><fmt:formatDate value="${rescuingVO.rscing_ctime}" type="both" /></td>
 													<td style=" margin-bottom: auto">
 											
-														<select name="bootstrap-data-table_length"
-															aria-controls="bootstrap-data-table"
-															class="form-control form-control-sm status">
+														<select name="select" class="form-control-sm status">
 															<option value="">請選擇</option>
 															<option value="完成救援">通過</option>
 															<option value="不通過">不通過</option>

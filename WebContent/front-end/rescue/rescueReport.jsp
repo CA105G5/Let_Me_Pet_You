@@ -138,7 +138,12 @@ table{
 								<br>
 								<h4>完成描述：</h4>
 						  		<textarea name="rscing_cdes" id="rscing_cdes" rows="10" cols="80"><%= (rescuingVO.getRscing_cdes()==null)? "" : rescuingVO.getRscing_cdes()%></textarea>
-			            		<script> CKEDITOR.replace("rscing_cdes"); </script> 
+			            		<script> 
+			            		CKEDITOR.replace("rscing_cdes", {
+  				                   	removePlugins:'image',
+                               		extraPlugins: 'easyimage',
+				                    cloudServices_tokenUrl: 'https://36758.cke-cs.com/token/dev/g529dLeMZwwIpbMNAdeiRdeIbIjTrMw6aq0ncGUTnfbb08SqLh6Z2I87wBM3',
+				                    cloudServices_uploadUrl: 'https://36758.cke-cs.com/easyimage/upload/',}); </script> 
 			            		<br>
 								<br>
 								<br>

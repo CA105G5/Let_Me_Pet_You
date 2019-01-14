@@ -80,7 +80,7 @@ div {
 					<hr>
 					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
 					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do?action=rescueMap">今日救援地圖</a></h5>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
 					<hr>
 					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
 					<hr>

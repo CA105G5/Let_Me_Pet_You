@@ -61,7 +61,7 @@ div {
 	<jsp:include page="/index_Header.jsp" flush="true" />
 	
 		<div class="container" >
-			<div class="row d-flex justify-content-center" style="margin-top:100px">
+			<div class="row d-flex justify-content-center" >
 				<h1 >今日救援地圖</h1>
 	    		<div id="map"></div>
     
@@ -105,7 +105,7 @@ div {
             };
             // 初始化地圖
             map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
+                zoom: 13,
               center: { lat: a.coords.latitude, lng: a.coords.longitude }
 //             center:{lat:24.967533,lng:121.191896}
             });
