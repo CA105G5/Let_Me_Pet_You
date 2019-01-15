@@ -254,6 +254,7 @@ function myFlow(a) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				if (results[0]) {
 					$('#latitude,#longitude').show();
+					$('#locality').val(results[0].formatted_address);
 					$('#address').val(results[0].formatted_address);
 					$('#latitude').val(myMarker.getPosition().lat());
 					$('#longitude').val(myMarker.getPosition().lng());

@@ -279,7 +279,7 @@ public class VolunteerServlet extends HttpServlet{
 				if (vlt_tel == null || vlt_tel.trim().length() == 0) {
 					errorMsgs.add("手機號碼請勿空白");
 				}else if(!vlt_tel.trim().matches(telReg)) {
-					errorMsgs.add("請輸入正確的手機號碼");
+					errorMsgs.add("請輸入正確的手機號碼!ex.09XX-XXXXXX");
 				}
 				//可值勤日
 				String vlt_duty_day = req.getParameter("vlt_duty_day").trim();

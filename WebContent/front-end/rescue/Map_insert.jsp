@@ -78,7 +78,7 @@ body {
 <input placeholder="Enter Area name to populate Latitude and Longitude" name="address" onFocus="initializeAutocomplete()" id="locality" ><br>
 
 <input id="address" type="text" name="rsc_add" style="width:600px;"/><br/>
-<!-- <input type="text" name="city" id="city" placeholder="City" value="" ><br> -->
+<input type="text" name="city" id="city" placeholder="City" value="" ><br>
 <input type="hidden" name="latitude" id="latitude" placeholder="Latitude" value="" ><br>
 <input type="hidden" name="longitude" id="longitude" placeholder="Longitude" value="" ><br>
 <input type="hidden" name="place_id" id="location_id" placeholder="Location Ids" value="" ><br>
@@ -138,7 +138,9 @@ function myFlow(a) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				if (results[0]) {
 					$('#latitude,#longitude').show();
+					$('#locality').val(results[0].formatted_address);
 					$('#address').val(results[0].formatted_address);
+					$('#city').val(results[0].address_components[2].long_name);
 					$('#latitude').val(myMarker.getPosition().lat());
 					$('#longitude').val(myMarker.getPosition().lng());
 					infowindow.setContent(results[0].formatted_address);
@@ -154,6 +156,7 @@ function myFlow(a) {
 	    			if (results[0]) {
 	    				$('#locality').val(results[0].formatted_address);
 	    				$('#address').val(results[0].formatted_address);
+	    				$('#city').val(results[0].address_components[2].long_name);
 	    				$('#latitude').val(myMarker.getPosition().lat());
 	    				$('#longitude').val(myMarker.getPosition().lng());
 	    				infowindow.setContent(results[0].formatted_address);
@@ -188,12 +191,12 @@ function myFlow(a) {
 
 <script type="text/javascript">
   function initializeAutocomplete(){
-    var input = document.getElementById('locality');
-    // var options = {
-    //   types: ['(regions)'],
-    //   componentRestrictions: {country: "IN"}
-    // };
-    var options = {}
+//     var input = document.getElementById('locality');
+//     var options = {
+//       types: ['(regions)'],
+//       componentRestrictions: {country: "IN"}
+//     };
+//     var options = {}
 
     var autocomplete = new google.maps.places.Autocomplete(input, options);
 
