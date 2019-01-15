@@ -118,7 +118,7 @@ div {
 						
 						
 							<c:forEach var="rescueVO" items="${listAllRescue_ByCompositeQuery}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-
+									
 									<div class="col-lg-3 cl-md-3">
 										<div class="single-service-page">
 											<div class="thumb relative">
@@ -127,16 +127,18 @@ div {
 													src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="">
 												
 											</div>
-											<div class="details">
+											<div class="details" >
 												<div class="title justify-content-between d-flex">
 													<a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">
 													<h4>${rescueVO.rsc_name}</h4></a>
 												</div>
-												<div>狀態：${rescueVO.rsc_sta}</div>
+												<div><fmt:formatDate value="${rescueVO.rsc_btime}" type="DATE"/></div>
+												<div><fmt:formatDate value="${rescueVO.rsc_btime}" type="TIME"/></div>
+												<div class="sta">${rescueVO.rsc_sta}</div>
 											</div>
 										</div>
 									</div>
-
+								
 							</c:forEach>
 							<br>
 							<br>
@@ -183,6 +185,39 @@ div {
 		});
 	</script>
 	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			for (var i = 0; i < $(".details").size() ; i++) {
+				var staa = ".details:eq(" + i + ") > div.sta";	
+				var stasta = $(staa).text();
+
+				switch (stasta) {
+				  case "待救援":
+				   $(staa).css("color","red");
+				    break;
+				  case "救援中":
+					$(staa).css("color","orange");
+				    break;
+				  case "完成救援送審中":
+					$(staa).css("color","purple");
+				    break;
+				  case "分派給志工":
+					$(staa).css("color","blue");  
+				    break;
+				  case "完成救援":
+					$(staa).css("color","green");  
+				    break;
+				  case "志工已完成":
+					$(staa).css("color","green");
+				    break;
+				 
+				}
+				 
+				
+			}
+		    });
+		
+	</script>
 	
 </body>
 </html>

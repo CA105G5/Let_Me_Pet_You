@@ -121,11 +121,11 @@ body {
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-map-marked-alt" style="color:#ff9933"></i></div>
                                         <input type="text" class="form-control" placeholder="救援案例地點" 
-								  		    name="address" onFocus="initializeAutocomplete()" id="locality" >
+								  		    name="rsc_add" onFocus="initializeAutocomplete()" id="locality" >
                                     </div>
                                 </div>
                                 <div style="display:none">
-								<input id="address" type="hidden" name="rsc_add" style="width:600px;"/><br/>
+<!-- 								<input id="address" type="hidden" name="rsc_add" style="width:600px;"/><br/> -->
 								<input type="hidden" name="rsc_lat" id="latitude" placeholder="Latitude" value="" ><br>
 								<input type="hidden" name="rsc_lon" id="longitude" placeholder="Longitude" value="" ><br>
 								<input type="hidden" name="place_id" id="location_id" placeholder="Location Ids" value="" ><br>

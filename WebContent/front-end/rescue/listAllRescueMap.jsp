@@ -74,7 +74,7 @@ div {
     		<input type="hidden" name="rsc_lat" value="${rescueVO.rsc_lat}">
     		<input type="hidden" name="rsc_lon" value="${rescueVO.rsc_lon}">
     		<input type="hidden" name="rsc_sponsor" value="${rescueVO.rsc_sponsor}">
-    		<input type="hidden" name="rsc_btime" value="${rescueVO.rsc_btime}">
+    		<input type="hidden" name="rsc_btime" value="<fmt:formatDate value="${rescueVO.rsc_btime}" type="both"/>">
     		<input type="hidden" name="rsc_sta" value="${rescueVO.rsc_sta}">
     		</div>
     		</c:forEach>
@@ -142,6 +142,8 @@ div {
 				var lnglng = ".rsc:eq(" + i + ") > input[name='rsc_lon']";
 				var srclat = $(latlat).val();
 				var srclng = $(lnglng).val();
+				var timetime =  ".rsc:eq(" + i + ") > input[name='rsc_btime']"
+				var srctime = $(timetime).val();
 				var titletitle = ".rsc:eq(" + i + ") > input[name='rsc_name']";
 				var stasta = ".rsc:eq(" + i + ") > input[name='rsc_sta']";
 				var srcsta = $(stasta).val();
@@ -197,10 +199,12 @@ div {
 				+" alt='' title='點擊查看詳情'>"
 				+"</div></a>"
 				+"<div style='text-align:center'>"
-				+"狀態:"
-				+srcsta
+				+"發起時間:"
+				+srctime
 				+"</div>"
-				+"<input type='button' onClick=getDir("+parseFloat(srclat) +","+ parseFloat(srclng)+") value='Go!'>"
+				+"<div align='center'>"
+				+"<input type='button'class='genric-btn info circle arrow small' onClick=getDir("+parseFloat(srclat) +","+ parseFloat(srclng)+") value='Go!'>"
+				+"</div>"
 				+"</div>";
 				
 				attachSecretMessage(marker,content) ;
