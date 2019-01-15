@@ -8,6 +8,13 @@
 
 
 	MemVO memVO = (MemVO) session.getAttribute("memVO");
+	
+	java.sql.Timestamp missingDate = null;
+	try {
+		missingDate = missingCaseVO.getMissing_date();
+	 } catch (Exception e) {
+		 missingDate = new java.sql.Timestamp(System.currentTimeMillis());
+	 }
 %>
 
 
@@ -53,6 +60,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
 <script src="js/jquery-1.12.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
+
 <style type="text/css">
 p {
 	　 font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
@@ -63,6 +71,9 @@ div {
 	font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
 		monospace;
 }
+
+
+
 </style>
 <style>
 </style>
@@ -126,7 +137,7 @@ div {
                                     <label class=" form-control-label">失蹤日期：</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="far fa-clock"></i></div>
-                                        <input class="form-control" name="hiredate">
+                                        <input class="form-control" name="hiredate" id="hiredate">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -167,7 +178,7 @@ div {
 			</div>
 			</div>
 		</div>
-			<script>
+<script>
 		var i;
 		var files = $("#form :file"); //若只有單一表格要做動態樣式，則可以使用css選擇器
 		$("#missing_img").change(function() {
@@ -237,8 +248,32 @@ div {
 			webSocket.close();
 		}
 	
-		
+
 		
 	</script>
+
 </body>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<style>
+.xdsoft_datetimepicker .xdsoft_datepicker {
+	width:  300px;   /* width:  300px; */
+}
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	height: 151px;   /* height:  151px; */
+}
+</style>
+<script>
+$.datetimepicker.setLocale('zh');
+$('#hiredate').datetimepicker({
+       theme: '',              //theme: 'dark',
+       timepicker:true,       //timepicker:true,
+       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+       format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
+	   value: '<%=missingDate%>', // value:   new Date(),
+
+	});
+
+</script>
 </html>
