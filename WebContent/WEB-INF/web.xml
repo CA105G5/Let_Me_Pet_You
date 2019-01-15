@@ -422,4 +422,7 @@
     <servlet-name>NtfServlet</servlet-name>
     <url-pattern>/front-end/ntf/ntf.do</url-pattern>
   </servlet-mapping>
+  <listener>
+    <listener-class>com.rescue.controller.RescueEchoServer</listener-class>
+  </listener>
 </web-app>
