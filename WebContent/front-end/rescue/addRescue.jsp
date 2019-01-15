@@ -84,16 +84,22 @@ body {
 						</c:if>
 				</div>
 			</div>
-			
-			<div class="content">
-           
+			</div>
+			<div class="content-fulid">
 				<div class="row">
-					<div class="col-sm-12">		
+				<div class="col-sm-1">
+					<div style="position: fixed">
+                    	<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">	
+                	</div>
+                </div>
+					<div class="col-sm-10">		
 						<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/rescue/rescue.do" enctype="multipart/form-data">
                         	<div class="card">
                             <div class="card-header">
+                            
                                 <strong>救援案例新增</strong>
                             </div>
+                            
                             <div class="card-body card-block">
                                 <div class="form-group">
                                     <label class=" form-control-label" >救援案例名稱：</label>
@@ -168,11 +174,23 @@ body {
                             </div>
                         </div>
                         </form>
+                        
                     </div>
+                    <div class="col-sm-1"></div>
 				</div>
 			</div>
-		</div>
-		<img style="width:60px;height:60px; src="<%=request.getContextPath()%>/images/magicbtn.png">	
+<script type="text/javascript">
+			$('#miracleBtn').click(function(){
+				console.log('1111111111111111');
+				$('#rsc_name').val('野豬失足卡水溝　翻肚四腳朝天');
+				$('#reg_id').val('REG0000004');
+				
+				
+				
+				
+			});
+</script>		
+		
 	
 <script>
 		var i;
