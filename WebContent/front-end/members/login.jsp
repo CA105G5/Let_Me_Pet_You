@@ -81,7 +81,7 @@
   <div class="col-md-4 inputGroupContainer">
   <div class="input-group">
   
-  <input  name="memb_acc" class="form-control"  type="text">
+  <input id="memb_acc"  name="memb_acc" class="form-control"  type="text">
     </div>
   </div>
 </div>
@@ -93,7 +93,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
 <!--   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> -->
-  <input name="memb_psw" class="form-control"  type="password" >
+  <input id="memb_psw" name="memb_psw" class="form-control"  type="password" >
     </div>
   </div>
 </div>
@@ -109,7 +109,7 @@
 
 </fieldset>
 </form>
-
+<button id="miracleBtn"></button>
     </div><!-- /.container -->
     <div align="center"><a href="<%=request.getContextPath()%>/front-end/members/forget_psw.jsp">我忘記密碼了</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/front-end/members/addMembers.jsp">註冊成為新會員</a></div>
     
@@ -136,6 +136,15 @@
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>			
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
-
+<script type="text/javascript">
+			$('#miracleBtn').click(function(){
+				console.log('1111111111111111');
+				$('#memb_acc').val('ppp');
+				$('#memb_psw').val('123');
+				
+				
+				
+			});
+			</script>
 </body>
 </html>

@@ -816,7 +816,49 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		return list;
 	}
-	
+	@Override
+	public void updateByDoneVolunteer(String rsc_id, Connection con) {
+		PreparedStatement pstmt = null;
+
+		try {
+
+			
+			//修改rescue
+            pstmt = con.prepareStatement(UPDATE_BY_PASS);
+			
+			pstmt.setString(1,new String("志工已完成"));
+			pstmt.setTimestamp(2, new Timestamp(new Date().getTime()));
+			pstmt.setString(3,rsc_id);
+			pstmt.executeUpdate();
+			
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
 	public static void main(String[] args) {
 
 		RescueJDBCDAO dao = new RescueJDBCDAO();
@@ -1152,11 +1194,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		return list;
 	}
 
-	@Override
-	public void updateByDoneVolunteer(String rsc_id, Connection con) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 
 

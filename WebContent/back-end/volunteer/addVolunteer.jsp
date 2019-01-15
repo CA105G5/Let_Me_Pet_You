@@ -28,9 +28,9 @@
 		</c:forEach>
 	</ul>
 </c:if>
-<div class="container" style="margin-top:300px;margin-left:500px">
+<div class="container">
 					<div class="row">
-						<div class="col-lg-offset-3 col-lg-6">	
+						<div class=" col-lg-12">	
                <div class="card">
                         <div class="card-header" align="center">§Ó¤u·s¼W</div>
                         <div class="card-body card-block">
@@ -106,7 +106,7 @@
  </div>             
 
 				
-			
+<button id="miracleBtn335"></button>	
 
 
               
@@ -121,6 +121,14 @@
 
 
 
+<script type="text/javascript">
+			$('#miracleBtn335').click(function(){
+				console.log('1111111111111111');
 
+				
+				
+				
+			});
+			</script>
 </body>
 </html>

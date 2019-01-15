@@ -77,7 +77,7 @@
   <div class="col-md-4 inputGroupContainer">
   <div class="input-group">
   
-  <input  name="memb_acc" placeholder="至多20碼英文大小寫數字" class="form-control"  type="text"  value="<%= (memVO==null)? "" : memVO.getMemb_acc()%>">
+  <input id="memb_acc"  name="memb_acc" placeholder="至多20碼英文大小寫數字" class="form-control"  type="text"  value="<%= (memVO==null)? "" : memVO.getMemb_acc()%>">
     </div>
   </div>
 </div>
@@ -89,7 +89,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
 <!--   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> -->
-  <input name="memb_psw" placeholder="至多20碼英文大小寫數字" class="form-control"  type="text" value="<%= (memVO==null)? "" : memVO.getMemb_psw()%>">
+  <input id="memb_psw" name="memb_psw" placeholder="至多20碼英文大小寫數字" class="form-control"  type="text" value="<%= (memVO==null)? "" : memVO.getMemb_psw()%>">
     </div>
   </div>
 </div>
@@ -100,7 +100,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
 <!--         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span> -->
-  <input name="memb_name" placeholder="eg. 王小明" class="form-control"  type="text" value="<%= (memVO==null)? "" : memVO.getMemb_name()%>">
+  <input id="memb_name" name="memb_name" placeholder="eg. 王小明" class="form-control"  type="text" value="<%= (memVO==null)? "" : memVO.getMemb_name()%>">
     </div>
   </div>
 </div>
@@ -113,7 +113,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
 <!--         <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> -->
-  <input name="memb_nick" placeholder="eg. 大衛海鮮" class="form-control" type="text" value="<%= (memVO==null)? "" : memVO.getMemb_nick()%>">
+  <input id="memb_nick" name="memb_nick" placeholder="eg. 大衛海鮮" class="form-control" type="text" value="<%= (memVO==null)? "" : memVO.getMemb_nick()%>">
     </div>
   </div>
 </div>
@@ -125,7 +125,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
 <!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
-  <input name="memb_email" placeholder="eg. xxx@gmail.com" class="form-control" type="text" value="<%= (memVO==null)? "" : memVO.getMemb_email()%>">
+  <input id="memb_email" name="memb_email" placeholder="eg. xxx@gmail.com" class="form-control" type="text" value="<%= (memVO==null)? "" : memVO.getMemb_email()%>">
     </div>
   </div>
 </div>
@@ -136,7 +136,7 @@
                         <div class="col-md-4" >
                             <div class="radio" >
                                 <label>
-                                	<input type="RADIO" name="memb_gender" size="45" 
+                                	<input id="memb_gender_M" type="RADIO" name="memb_gender" size="45" 
 			 							value="M" ${(memVO.memb_gender=='M')? 'checked':'' }/>男
                                 </label>
                             </div>
@@ -261,7 +261,7 @@
 
 </fieldset>
 </form>
-
+<button id="miracleBtn" style="background-color:blue"></button>
     </div><!-- /.container -->
 
 
@@ -290,6 +290,7 @@
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 			<script src="https://code.jquery.com/jquery.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+			
 <script>
 $(function (){
 	 
@@ -320,6 +321,18 @@ $(function (){
     
 })
 </script>
+<script type="text/javascript">
+			$('#miracleBtn').click(function(){
+				console.log('1111111111111111');
+				$('#memb_acc').val('ppp');
+				$('#memb_psw').val('123');
+				$('#memb_name').val('吳永志');
+				$('#memb_nick').val('peter1');
+				$('#memb_email').val('wspishandsome@gmail.com');
+				
+				
+			});
+			</script>
 </body>
 
 

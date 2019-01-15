@@ -6,6 +6,7 @@ import com.mem.model.MemVO;
 import com.ntf.model.NtfJDBCDAO;
 import com.ntf.model.NtfVO;
 import com.rescue.model.RescueJDBCDAO;
+import com.rescue.model.RescueService;
 import com.rescue.model.RescueVO;
 import com.rescuing.model.RescuingJDBCDAO;
 
@@ -633,7 +634,7 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 			pstmt.executeUpdate();
 
 			//改變救援
-			RescueJDBCDAO dao1 = new RescueJDBCDAO();
+			RescueService dao1 = new RescueService();
 		    dao1.updateByDoneVolunteer(rsc_id, con);
 			
 			

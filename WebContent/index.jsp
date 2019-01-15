@@ -88,7 +88,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 		        </div>
 		        <div class="item">
 <!-- 		        	<img src="https://api.fnkr.net/testimg/2800x700/aaaaaa" alt=""> -->
-		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel1.jpg" alt="" style="width:2000px;height:850px"> 
+		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel6.jpg" alt="" style="width:2000px;height:850px"> 
 		            <div class="container">
 		                <div class="carousel-caption">
 		                    <h1>Help~~~~~~</h1>
@@ -148,7 +148,109 @@ System.out.println( "是否登入:"+ (memVO != null));
 <!-- 					</div> -->
 <!-- 				</div> -->
 <!-- 			</section> -->
-		
+				<!-- Start upcoming-event Area -->
+				<section class="upcoming-event-area section-gap">
+					<div class="container">
+						<div class="row d-flex justify-content-center">
+							<div class="col-md-9 pb-40 header-text text-center">
+								<h1 class="pb-10">Checkout our Upcoming Events</h1>
+								<p>
+									Who are in extremely love with eco friendly system.
+								</p>
+							</div>
+						</div>							
+						<div class="row align-items-center upcoming-wrap">
+							<div class="col-lg-6 upcoming-left">
+								<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/pages/ev1.jpg" alt="">
+							</div>
+							<div class="col-lg-6 upcoming-right">
+								<a href="#"><h4>即刻救援，世界因你而變</h4></a>
+								<p class="meta">
+									<span>1st February</span>
+									at Central government museum
+								</p>
+								<p>
+									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
+								</p>
+								<a class="primary-btn text-uppercase" href="#">view details</a>
+							</div>
+						</div>
+						<div class="row align-items-center upcoming-wrap">
+							<div class="col-lg-8 upcoming-left">
+								<a href="#"><h4>線上認養，杜絕惡意繁殖</h4></a>
+								<p class="meta">
+									<span>2st February</span>
+									at Central government museum
+								</p>
+								<p>
+									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
+									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
+									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
+									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
+									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
+									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
+									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
+									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
+								</p>
+								<a class="primary-btn text-uppercase" href="#">view details</a>
+							</div>									
+							<div class="col-lg-4 upcoming-right">
+								<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/animal3.jpg" alt="">
+							</div>					
+						</div>	
+						<div class="row align-items-center upcoming-wrap">
+							<div class="col-lg-6 upcoming-left">
+								<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/animal2.jpg" alt="" style="display:block;width: 100%;height:auto">
+							</div>	
+							<div class="col-lg-6 upcoming-right">
+								<a href="#"><h4>失蹤協尋，找到回家的路</h4></a>
+								<p class="meta">
+									<span>3st February</span>
+									at Central government museum
+								</p>
+								<p>
+									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
+								</p>
+								<a class="primary-btn text-uppercase" href="#">view details</a>
+							</div>
+						</div>
+						<div class="row align-items-center upcoming-wrap">
+							<div class="col-lg-6 order-1 upcoming-left">
+								<a href="#"><h4>商品捐贈，換取大量愛心幣</h4></a>
+								<p class="meta">
+									<span>4st February</span>
+									at Central government museum
+								</p>
+								<p>
+									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
+								</p>
+								<a class="primary-btn text-uppercase" href="#">view details</a>
+							</div>								
+							<div class="col-lg-6 order-2 upcoming-right">
+								<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/shop.jpg" alt="">
+							</div>							
+						</div>
+						<div class="row align-items-center upcoming-wrap">
+							<div class="col-lg-6 upcoming-left">
+								<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/shop.gif" alt="">
+							</div>
+							<div class="col-lg-6 upcoming-right">
+								<a href="#"><h4>魔幻商城，商品應有盡有</h4></a>
+								<p class="meta">
+									<span>1st February</span>
+									at Central government museum
+								</p>
+								<p>
+									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
+								</p>
+								<a class="primary-btn text-uppercase" href="#">view details</a>
+							</div>
+						</div>
+																										
+						</div>
+					</div>	
+				</section>
+			<!-- End upcoming-event Area -->	
 	
 <%-- 鼓勵救援區 --%>			
 			<section class="about-video-area section-gap">

@@ -34,12 +34,12 @@
 	                            <div class="card-body card-block">
 	                                
 	                                    <div class="row form-group">
-	                                        <div class="col col-md-3"><label for="hf-email" class=" form-control-label">帳號:</label></div>
-	                                        <div class="col-12 col-md-9"><input type="text" id="hf-email" name="ma_acc" placeholder="" class="form-control"><span class="help-block"></span></div>
+	                                        <div class="col col-md-3"><label for="ma_acc" class=" form-control-label">帳號:</label></div>
+	                                        <div class="col-12 col-md-9"><input type="text" id="ma_acc" name="ma_acc" placeholder="" class="form-control" value=""><span class="help-block"></span></div>
 	                                    </div>
 	                                    <div class="row form-group">
-	                                        <div class="col col-md-3"><label for="hf-password" class=" form-control-label">密碼:</label></div>
-	                                        <div class="col-12 col-md-9"><input type="password" id="hf-password" name="ma_psw" placeholder="" class="form-control"><span class="help-block"></span></div>
+	                                        <div class="col col-md-3"><label for="ma_psw" class=" form-control-label">密碼:</label></div>
+	                                        <div class="col-12 col-md-9"><input type="password" id="ma_psw" name="ma_psw" placeholder="" class="form-control" value=""><span class="help-block"></span></div>
 	                                    </div>
 	                                    <input type="hidden" name="action" value="login">
 	                                
@@ -58,8 +58,17 @@
 						</div>
 					</div>
 </div>
-					
-    
+	<button id="miracleBtn"></button>				
+ <script type="text/javascript">
+			$('#miracleBtn').click(function(){
+				console.log('1111111111111111');
+				$('#ma_acc').val('hmkuo');
+				$('#ma_psw').val('123456');
+				
+				
+				
+			});
+</script>   
 
     
 
