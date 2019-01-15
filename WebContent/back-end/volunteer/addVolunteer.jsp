@@ -10,6 +10,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>志工資料新增 </title>
+<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 
 
 
@@ -38,21 +39,21 @@
                             	<div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon">志工信箱(帳號):</div>
-                                        <input type="email" id="email3" name="vlt_mail" class="form-control" value="<%= (volunteerVO==null)? "" : volunteerVO.getVlt_mail()%>">
+                                        <input type="email" id="vlt_mail" name="vlt_mail" class="form-control" value="<%= (volunteerVO==null)? "" : volunteerVO.getVlt_mail()%>">
                                         <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon">志工姓名:</div>
-                                        <input type="text" id="username3" name="vlt_name" class="form-control" value="<%= (volunteerVO==null)? "" : volunteerVO.getVlt_name()%>">
+                                        <input type="text" id="vlt_name" name="vlt_name" class="form-control" value="<%= (volunteerVO==null)? "" : volunteerVO.getVlt_name()%>">
                                         <div class="input-group-addon"><i class="fa fa-user"></i></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon">手機號碼:</div>
-                                        <input type="text" id="phone3" name="vlt_tel" class="form-control" value="<%= (volunteerVO==null)? "" : volunteerVO.getVlt_tel()%>">
+                                        <input type="text" id="vlt_tel" name="vlt_tel" class="form-control" value="<%= (volunteerVO==null)? "" : volunteerVO.getVlt_tel()%>">
                                         <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
                                     </div>
                                 </div>
@@ -74,7 +75,7 @@
                                         <div class="input-group-addon">服務區域:<font color=red><b>*</b></font></div>
                                         <select size="1" name="reg_id">
 											<c:forEach var="regionVO" items="${regionSvc.all}">
-												<option value="${regionVO.reg_id}" ${(volunteerVO.vlt_reg==regionVO.reg_id)? 'selected':'' } >${regionVO.reg_name}
+												<option id="${regionVO.reg_id}" value="${regionVO.reg_id}" ${(volunteerVO.vlt_reg==regionVO.reg_id)? 'selected':'' } >${regionVO.reg_name}
 											</c:forEach>
 										</select>
                                         
@@ -106,7 +107,7 @@
  </div>             
 
 				
-<button id="miracleBtn335"></button>	
+<button id="miracleBtn"></button>	
 
 
               
@@ -120,15 +121,17 @@
 
 
 
-
 <script type="text/javascript">
-			$('#miracleBtn335').click(function(){
+			$('#miracleBtn').click(function(){
 				console.log('1111111111111111');
-
-				
-				
+				$('#vlt_mail').val('wspishandsome@gmail.com');
+				$('#vlt_name').val('汪世平');
+				$('#vlt_tel').val('0987-654321');
+				$("#inline-radio1").prop("checked",true);
+				$("#REG0000004").prop("selected",true);
 				
 			});
-			</script>
+</script> 
+
 </body>
 </html>

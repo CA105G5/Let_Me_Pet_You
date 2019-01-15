@@ -125,139 +125,14 @@ System.out.println( "是否登入:"+ (memVO != null));
 		    <a class="right carousel-control" href="#carousel-id" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 		</div>  
 		
-		
-		
-		
-		
-		
-			  
-	<%-- 黑底logo區 --%>			  
-<!-- <section class="banner-area relative" id="home">	 -->
-<!-- 				<div class="overlay overlay-bg"></div> -->
-<!-- 				<div class="container">				 -->
-<!-- 					<div class="row fullscreen d-flex align-items-center justify-content-start"> -->
-<!-- 						<div class="banner-content col-lg-12"> -->
-<!-- 							<h6 class="text-white" >Respect All Lifes</h6> -->
-<!-- 							<span class="bar"></span> -->
-<!-- 							<h1 class="text-white"> -->
-<!-- 								浪我陪你 <br> -->
-<!-- 								LET ME PET YOU -->
-<!-- 							</h1> -->
-							
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</section> -->
-				<!-- Start upcoming-event Area -->
-				<section class="upcoming-event-area section-gap">
-					<div class="container">
-						<div class="row d-flex justify-content-center">
-							<div class="col-md-9 pb-40 header-text text-center">
-								<h1 class="pb-10">Checkout our Upcoming Events</h1>
-								<p>
-									Who are in extremely love with eco friendly system.
-								</p>
-							</div>
-						</div>							
-						<div class="row align-items-center upcoming-wrap">
-							<div class="col-lg-6 upcoming-left">
-								<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/pages/ev1.jpg" alt="">
-							</div>
-							<div class="col-lg-6 upcoming-right">
-								<a href="#"><h4>即刻救援，世界因你而變</h4></a>
-								<p class="meta">
-									<span>1st February</span>
-									at Central government museum
-								</p>
-								<p>
-									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
-								</p>
-								<a class="primary-btn text-uppercase" href="#">view details</a>
-							</div>
-						</div>
-						<div class="row align-items-center upcoming-wrap">
-							<div class="col-lg-8 upcoming-left">
-								<a href="#"><h4>線上認養，杜絕惡意繁殖</h4></a>
-								<p class="meta">
-									<span>2st February</span>
-									at Central government museum
-								</p>
-								<p>
-									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
-									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
-									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
-									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
-									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
-									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
-									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
-									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
-								</p>
-								<a class="primary-btn text-uppercase" href="#">view details</a>
-							</div>									
-							<div class="col-lg-4 upcoming-right">
-								<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/animal3.jpg" alt="">
-							</div>					
-						</div>	
-						<div class="row align-items-center upcoming-wrap">
-							<div class="col-lg-6 upcoming-left">
-								<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/animal2.jpg" alt="" style="display:block;width: 100%;height:auto">
-							</div>	
-							<div class="col-lg-6 upcoming-right">
-								<a href="#"><h4>失蹤協尋，找到回家的路</h4></a>
-								<p class="meta">
-									<span>3st February</span>
-									at Central government museum
-								</p>
-								<p>
-									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
-								</p>
-								<a class="primary-btn text-uppercase" href="#">view details</a>
-							</div>
-						</div>
-						<div class="row align-items-center upcoming-wrap">
-							<div class="col-lg-6 order-1 upcoming-left">
-								<a href="#"><h4>商品捐贈，換取大量愛心幣</h4></a>
-								<p class="meta">
-									<span>4st February</span>
-									at Central government museum
-								</p>
-								<p>
-									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
-								</p>
-								<a class="primary-btn text-uppercase" href="#">view details</a>
-							</div>								
-							<div class="col-lg-6 order-2 upcoming-right">
-								<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/shop.jpg" alt="">
-							</div>							
-						</div>
-						<div class="row align-items-center upcoming-wrap">
-							<div class="col-lg-6 upcoming-left">
-								<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/shop.gif" alt="">
-							</div>
-							<div class="col-lg-6 upcoming-right">
-								<a href="#"><h4>魔幻商城，商品應有盡有</h4></a>
-								<p class="meta">
-									<span>1st February</span>
-									at Central government museum
-								</p>
-								<p>
-									inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially.
-								</p>
-								<a class="primary-btn text-uppercase" href="#">view details</a>
-							</div>
-						</div>
-																										
-						</div>
-					</div>	
-				</section>
-			<!-- End upcoming-event Area -->	
+	
 	
 <%-- 鼓勵救援區 --%>			
 			<section class="about-video-area section-gap">
 			
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-6 about-video-left">
+						<div class="col-lg-6 about-video-left ">
 							<h6 class="text-uppercase">Latest video that needs your help</h6>
 							<h1>
 								即刻救援 <br>
@@ -271,19 +146,20 @@ System.out.println( "是否登入:"+ (memVO != null));
 							</p>
 							<a class="primary-btn" href="#">Get Started Now</a>
 						</div>
-						<div class="col-lg-6 about-video-right justify-content-center align-items-center d-flex">
-							<a class="play-btn" href="https://www.youtube.com/watch?v=ARA0AxrnHdM"><img class="img-fluid mx-auto" src="<%=request.getContextPath()%>/horse_UI_template/img/play.png" alt=""></a>
+						<div class="col-lg-6 justify-content-center align-items-center d-flex">
+						<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/fish2.png" alt="" style="display:block;width: 100%;height:auto">
+<%-- 							<a class="play-btn" href="https://www.youtube.com/watch?v=ARA0AxrnHdM"><img class="img-fluid mx-auto" src="<%=request.getContextPath()%>/horse_UI_template/img/play.png" alt=""></a> --%>
 						</div>
 					</div>
 				</div>	
 			</section>
 			
-	<%-- 失蹤協尋區 --%>	
+	<%-- 認養區 --%>	
 	<section class="home-about-area section-gap">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 home-about-left">
-							<img class="mx-auto d-block img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/about-img.png" alt="">
+							<img class="mx-auto d-block img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/adopt.jpg" alt="">
 						</div>
 						<div class="col-lg-6 home-about-right">
 							<h6 class="text-uppercase">Brand new app to blow your mind</h6>
@@ -300,8 +176,81 @@ System.out.println( "是否登入:"+ (memVO != null));
 					</div>
 				</div>	
 			</section>	
+	<%-- 失蹤協尋區 --%>			
+			<section class="about-video-area section-gap">
 			
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 about-video-left ">
+							<h6 class="text-uppercase">Latest video that needs your help</h6>
+							<h1>
+								即刻救援 <br>
+								世界因你而變 
+							</h1>
+							<p>
+								<span>We are here to listen from you deliver exellence</span>
+							</p>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis.
+							</p>
+							<a class="primary-btn" href="#">Get Started Now</a>
+						</div>
+						<div class="col-lg-6 justify-content-center align-items-center d-flex">
+						<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/white.jpg" alt="" style="display:block;width: 100%;height:auto">
+<%-- 							<a class="play-btn" href="https://www.youtube.com/watch?v=ARA0AxrnHdM"><img class="img-fluid mx-auto" src="<%=request.getContextPath()%>/horse_UI_template/img/play.png" alt=""></a> --%>
+						</div>
+					</div>
+				</div>	
+			</section>		
+		<%-- 捐贈區 --%>	
+	<section class="home-about-area section-gap">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 home-about-left">
+							<img class="mx-auto d-block img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/donate.jpg" alt="">
+						</div>
+						<div class="col-lg-6 home-about-right">
+							<h6 class="text-uppercase">Brand new app to blow your mind</h6>
+							<h1>Please contact us <br>
+							if you found them</h1>
+							<p>
+								<span>We are here to listen from you deliver exellence</span>
+							</p>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis.
+							</p>
+							<a class="primary-btn" href="#">Get Started Now</a>
+						</div>
+					</div>
+				</div>	
+	</section>
+
+			<%-- 商城區 --%>			
+			<section class="about-video-area section-gap">
 			
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 about-video-left ">
+							<h6 class="text-uppercase">Latest video that needs your help</h6>
+							<h1>
+								即刻救援 <br>
+								世界因你而變 
+							</h1>
+							<p>
+								<span>We are here to listen from you deliver exellence</span>
+							</p>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmo d tempor incididunt ut labore et dolore magna aliqua.
+							</p>
+							<a class="primary-btn" href="#">Get Started Now</a>
+						</div>
+						<div class="col-lg-6 justify-content-center align-items-center d-flex">
+						<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/shopcat.jpg" alt="" style="display:block;width: 100%;height:auto">
+<%-- 							<a class="play-btn" href="https://www.youtube.com/watch?v=ARA0AxrnHdM"><img class="img-fluid mx-auto" src="<%=request.getContextPath()%>/horse_UI_template/img/play.png" alt=""></a> --%>
+						</div>
+					</div>
+				</div>	
+			</section>		
 	<%-- 鼓勵捐贈區 --%>		
 				<section class="price-area section-gap">
 				<div class="container">

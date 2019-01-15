@@ -156,7 +156,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
 <!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
-  <input name="memb_cellphone" placeholder="eg. 0987654321" class="form-control"  type="text" value="<%= (memVO==null)? "" : memVO.getMemb_cellphone()%>">
+  <input id="memb_cellphone" name="memb_cellphone" placeholder="eg. 0987654321" class="form-control"  type="text" value="<%= (memVO==null)? "" : memVO.getMemb_cellphone()%>">
     </div>
 </div>
 </div>
@@ -167,7 +167,7 @@
    <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
 <!--         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span> -->
-  <input name="memb_cre_type" placeholder="eg. vista" class="form-control" type="text" value="<%= (memVO==null)? "" : memVO.getMemb_cre_type()%>">
+  <input id="memb_cre_type" name="memb_cre_type" placeholder="eg. vista" class="form-control" type="text" value="<%= (memVO==null)? "" : memVO.getMemb_cre_type()%>">
     </div>
   </div>
 </div>
@@ -179,7 +179,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
 <!--         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> -->
-  <input name="memb_cre_name" placeholder="eg. 王小明" class="form-control"  type="text" value="<%= (memVO==null)? "" : memVO.getMemb_cre_name()%>">
+  <input id="memb_cre_name" name="memb_cre_name" placeholder="eg. 王小明" class="form-control"  type="text" value="<%= (memVO==null)? "" : memVO.getMemb_cre_name()%>">
     </div>
   </div>
 </div>
@@ -190,7 +190,7 @@
     <div class="col-md-4 selectContainer">
     <div class="input-group">
 <!--         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span> -->
-    <select name="memb_cre_year" class="form-control selectpicker" style="padding-bottom: 0px;">
+    <select id="memb_cre_year" name="memb_cre_year" class="form-control selectpicker" style="padding-bottom: 0px;">
 		<option value="" ${(memVO.memb_cre_year =='')? 'selected':''}>請選擇年份
 		<option value="2019" ${(memVO.memb_cre_year =="2019")? "selected":""}>2019年
 		<option value="2020" ${(memVO.memb_cre_year =='2020')? 'selected':''}>2020年
@@ -199,7 +199,7 @@
 		<option value="2023" ${(memVO.memb_cre_year =='2023')? 'selected':''}>2023年
 		<option value="2024" ${(memVO.memb_cre_year =='2024')? 'selected':''}>2024年
 		<option value="2025" ${(memVO.memb_cre_year =='2025')? 'selected':''}>2025年
-		<option value="2026" ${(memVO.memb_cre_year =='2026')? 'selected':''}>2026年
+		<option id="memb_cre_year_2026" value="2026" ${(memVO.memb_cre_year =='2026')? 'selected':''}>2026年
 	</select>
   </div>
 </div>
@@ -211,7 +211,7 @@
     <div class="input-group">
 <!--         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span> -->
     
-    <select name="memb_cre_month" class="form-control selectpicker" style="padding-bottom: 0px;">
+    <select id="memb_cre_month" name="memb_cre_month" class="form-control selectpicker" style="padding-bottom: 0px;">
 		<option value="" ${(memVO.memb_cre_month =='')? 'selected':''}>請選擇月份
 		<option value="1" ${(memVO.memb_cre_month =='1')? 'selected':''}>1月
 		<option value="2" ${(memVO.memb_cre_month =='2')? 'selected':''}>2月
@@ -224,7 +224,7 @@
 		<option value="9" ${(memVO.memb_cre_month =='9')? 'selected':''}>9月
 		<option value="10" ${(memVO.memb_cre_month =='10')? 'selected':''}>10月
 		<option value="11" ${(memVO.memb_cre_month =='11')? 'selected':''}>11月
-		<option value="12" ${(memVO.memb_cre_month =='12')? 'selected':''}>12月
+		<option value="12" id="memb_cre_month_12" ${(memVO.memb_cre_month =='12')? 'selected':''}>12月
 		    </select>
   </div>
 </div>
@@ -241,7 +241,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <input type="file" class="upl" name="upfile" id="file01">
-		<img class="preview" src=""/>
+		<img id="image_magic" class="preview" src=""/>
 		<div class="size"></div>
   </div>
   </div>
@@ -329,6 +329,14 @@ $(function (){
 				$('#memb_name').val('吳永志');
 				$('#memb_nick').val('peter1');
 				$('#memb_email').val('wspishandsome@gmail.com');
+				$('#memb_cellphone').val('0963852741');
+				$('#memb_cre_type').val('vista');
+				$('#memb_cre_name').val('吳永志');
+				$('#memb_gender_M').prop("checked",true);
+				$('#memb_cre_year_2026').prop("selected",true);
+				$('#memb_cre_month_12').prop("selected",true);
+<%--  				$('#image_magic').attr('src', '<%=request.getContextPath()%>/horse_UI_template/img/carousel6.jpg') --%>
+				
 				
 				
 			});
