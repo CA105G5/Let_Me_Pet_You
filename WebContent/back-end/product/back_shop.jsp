@@ -27,6 +27,7 @@
 %>	
 
 <jsp:useBean id="prodImgSvc" scope="page" class="com.prodimg.model.ProdImgService" />
+<jsp:useBean id="rescueSvc" scope="page" class="com.rescue.model.RescueService" />
 	
 	
 <!doctype html>
@@ -203,7 +204,8 @@ transform: translateY(4px);
 </style>
 </head>
 
-<body onload="connect();" onunload="disconnect();">
+<!-- <body onload="connect(); connectRescue()" onunload="disconnect(); disconnectRescue()"> -->
+<body onload="connectRescue()" onunload="disconnectRescue()">
 
 	<jsp:include page="/back-end/product/back_shop_Header.jsp" flush="true" />
 	
@@ -658,6 +660,50 @@ transform: translateY(4px);
 													</tbody>
 												</table>
   </div>
+  
+  <!--救援推播modal -->
+<div class="modal" id="product_push_modal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="largeModalLabel">有新的逾時案例尚待分派</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="form-group" style="width:700px">
+						<a id="broadcast_rescue_link" href='<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp' style="text-decoration:none;">
+							<h5>請盡快分派志工前往救援.....</h5>
+						</a>
+						<div class="container" id="info">
+							<hr>
+<!-- 							<div class="row"> -->
+<!-- 								<div class="col-xs-3 col-sm-3"> -->
+<!-- 									<img class="img-fluid" src="" alt="" width="300px"> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-xs-6 col-sm-6"> -->
+<!-- 									<h5><span id="broadcast_rescue_name"></span> -->
+<!-- 									</h5> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+						</div>
+					</div>
+					<br>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+			</div>
+		</div>
+	</div>
+</div>	
+								                
+<!--救援推播modal -->
+  
+  
+  
 
 </div>
                             
@@ -730,6 +776,78 @@ transform: translateY(4px);
   	</script>
   	<!-- backend datatable  -->
 
+
+
+<!-- 救援推播 -->
+<script>
+    
+    var MyPoint_res = "/RescueEchoServer";
+    var host_res = window.location.host;
+    var path_res = window.location.pathname;
+    var webCtx_res = path_res.substring(0, path_res.indexOf('/', 1));
+    var endPointURL_res = "ws://" + window.location.host + webCtx_res + MyPoint_res;
+    
+	var webSocket_res;
+	
+	function connectRescue() {
+		// 建立 websocket 物件
+		webSocket_res = new WebSocket(endPointURL_res);
+		console.log("websocket_rescue已連線");
+		
+		webSocket_res.onopen = function(event) {
+			
+		};
+
+		webSocket_res.onmessage = function(event) {
+			var jsonObj = JSON.parse(event.data);
+			var length = Object.keys(jsonObj).length;
+			
+			console.log("jsonObj==="+jsonObj); 
+			console.log("Object.keys(jsonObj).length==="+Object.keys(jsonObj).length); 
+			console.log("length==="+length); 
+			
+			var i =0;
+			for (i=0; i<length;i++){
+				var res_id = Object.keys(jsonObj)[i];
+				var res_name = jsonObj[Object.keys(jsonObj)[i]]
+				console.log("res_id===="+Object.keys(jsonObj)[i]); 
+				console.log("res_name==="+jsonObj[Object.keys(jsonObj)[i]]); 
+				$("#info").html("");
+				$("#info").append(
+						"<hr>"+
+						"<div class='row'>"+
+							"<div class='col-xs-3 col-sm-3'>"+
+								"<img class='img-fluid' src="+
+								"<%=request.getContextPath()%>/"+
+								"back-end/rescue/rescueImg.do?rsc_id="+
+								res_id+ " alt='' title='點擊查看詳情' style='width:100px;'>"+
+							"</div>"+
+							"<a href='<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp' style='text-decoration:none;'>"+
+								"<div class='col-xs-12 col-sm-12' style='padding-top:50px'>"+
+									"<h5><span>"+res_name+"</span>"+
+									"</h5>"+
+								"</div>"+
+							"</a>"+
+						"</div>");
+						
+			
+			}
+
+	        console.log("img_src=====");
+			$('#product_push_modal').modal('show');
+
+		};
+
+		webSocket_res.onclose = function(event) {
+			
+		};
+	}
+	
+	function disconnectRescue() {
+		webSocket_res.close();
+	}
+
+</script>
 
 
 <!-- 商品上架推播 -->
