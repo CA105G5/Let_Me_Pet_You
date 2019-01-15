@@ -127,10 +127,10 @@ div {
 													src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="">
 												
 											</div>
-											<div class="details" >
-												<div class="title justify-content-between d-flex">
+											<div class="details" style="height:250px">
+												<div style="height:105px" class="title justify-content-between d-flex">
 													<a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">
-													<h4>${rescueVO.rsc_name}</h4></a>
+													<h4 >${rescueVO.rsc_name}</h4></a>
 												</div>
 												<div><fmt:formatDate value="${rescueVO.rsc_btime}" type="DATE"/></div>
 												<div><fmt:formatDate value="${rescueVO.rsc_btime}" type="TIME"/></div>

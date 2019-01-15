@@ -172,7 +172,7 @@ body {
 				</div>
 			</div>
 		</div>
-			
+		<img style="width:60px;height:60px; src="<%=request.getContextPath()%>/images/magicbtn.png">	
 	
 <script>
 		var i;
