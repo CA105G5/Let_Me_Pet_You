@@ -7,7 +7,8 @@
 VolunteerVO volunteerVO = (VolunteerVO) session.getAttribute("volunteerVO");
 
 System.out.println("111111111111111111111111111="+session.getId());
-
+String flag = (String) request.getAttribute("complete");
+System.out.println("111111111111"+flag);
 %>
 <jsp:useBean id="regionSvc" scope="page" class="com.region.model.RegionService"/>
 <!DOCTYPE html>
@@ -16,7 +17,7 @@ System.out.println("111111111111111111111111111="+session.getId());
 		<!-- Mobile Specific Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
-		<link rel="shortcut icon" href="img/fav.png">
+		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 		<!-- Author Meta -->
 		<meta name="author" content="codepixer">
 		<!-- Meta Description -->
@@ -26,7 +27,7 @@ System.out.println("111111111111111111111111111="+session.getId());
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>LET ME PET YOU</title>
+		<title>LET ME PET YOU-志工基本資料</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<!--
@@ -82,6 +83,9 @@ System.out.println("111111111111111111111111111="+session.getId());
 
  		</style>	
         <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+                <!-- sweetAlert -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
 		</head>
 		<body background="images/volunteerbkk.jpg" style="background-repeat: repeat;">
 			<div class="container">
@@ -90,7 +94,7 @@ System.out.println("111111111111111111111111111="+session.getId());
 					
 				</div>
 				<div class="col-xs-12 col-sm-8">
-					<a href="index_volunteer.html">
+					<a href="<%=request.getContextPath()%>/index.jsp">
 						<img style="width:90%;height:90%;"class="img-fluid" src="images/logo2.png" title="前往官網">
 					</a>
 				</div>
@@ -160,7 +164,7 @@ System.out.println("111111111111111111111111111="+session.getId());
                                 <input type="hidden" name="vlt_gender" value="<%=volunteerVO.getVlt_gender()%>">
                                 <input type="hidden" name="vlt_mail" value="<%=volunteerVO.getVlt_mail()%>">
 									
-								<button  class="btn btn-default btn-lg btn-block text-center">修改/儲存</button>
+								<input type="submit" id="done" class="btn btn-default btn-lg btn-block text-center">修改/儲存</button>
 								
 						</div>
 						
@@ -169,17 +173,38 @@ System.out.println("111111111111111111111111111="+session.getId());
 
 			
 			</form>
+			<br>
+			<br>
+			<div align="center"><a href="<%=request.getContextPath()%>/front-end/volunteer/volunteer_index.jsp" class=" genric-btn success-border circle">回上一頁</a></div>
+			
 			</section>
-
+			
+ <%if ("yes".equals(flag)){%>
+    	<script>
+	//自訂預設值
+	swal({
+	            title: "修改完成!",
+	            html: "資料已更新!",
+	            type: "success", // type can be "success", "error", "warning", "info", "question"
+	            
+	        		showCloseButton: true,
+	        });
+	</script>
+	
+    <% flag = "";} %>
+    
 
 		
 
+
+		
+	
 
 	
 		
 
 			<!-- End -->
-			<script>
+<script>
 			$(function (){
 				 
 			    function format_float(num, pos)
@@ -205,9 +230,11 @@ System.out.println("111111111111111111111111111="+session.getId());
 			 
 			    $("body").on("change", ".upl", function (){
 			        preview(this);
-			    })
+			    });
 			    
-			})
+			   
+			
+			});	
 </script>
 
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>

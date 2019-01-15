@@ -240,6 +240,8 @@ public class VolunteerServlet extends HttpServlet{
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("volunteerVO", volunteerVO);         // 資料庫取出的empVO物件,存入req
+				req.setAttribute("complete","yes");
+				System.out.println("handsome");
 				String url = "/front-end/volunteer/volunteer_info.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
@@ -344,6 +346,8 @@ public class VolunteerServlet extends HttpServlet{
 				VolunteerVO volunteerVO1 = volunteerSvc.getOneVolunteer(vlt_id);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("volunteerVO", volunteerVO1); // 資料庫update成功後,正確的的empVO物件,存入req
+				req.setAttribute("complete","yes");
+				System.out.println("handsome");
 				String url = "/front-end/volunteer/volunteer_info.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
@@ -393,7 +397,7 @@ public class VolunteerServlet extends HttpServlet{
 				if (vlt_tel == null || vlt_tel.trim().length() == 0) {
 					errorMsgs.add("手機號碼請勿空白");
 				}else if(!vlt_tel.trim().matches(telReg)) {
-					errorMsgs.add("請輸入正確的手機號碼");
+					errorMsgs.add("請輸入正確的手機號碼!ex.09XX-XXXXXX");
 				}
 				
 				String vlt_duty_day = req.getParameter("vlt_duty_day").trim();

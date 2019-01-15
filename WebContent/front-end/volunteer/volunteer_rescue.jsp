@@ -17,7 +17,7 @@ String flag = (String) request.getAttribute("flag");
 		<!-- Mobile Specific Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
-		<link rel="shortcut icon" href="img/fav.png">
+		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 		<!-- Author Meta -->
 		<meta name="author" content="codepixer">
 		<!-- Meta Description -->
@@ -27,7 +27,7 @@ String flag = (String) request.getAttribute("flag");
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>LET ME PET YOU</title>
+		<title>LET ME PET YOU-志工救援</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<!--
@@ -45,9 +45,12 @@ String flag = (String) request.getAttribute("flag");
 
 		<style>
 		
-		*{
+	  *{
 			font-family:Georgia,Microsoft JhengHei,sans-serif;
 		
+		}
+		h1{
+		font-family:Georgia,Microsoft JhengHei,sans-serif;
 		}
 		.booking-right table th{
 			color: #fff;
@@ -94,7 +97,7 @@ String flag = (String) request.getAttribute("flag");
 					
 				</div>
 				<div class="col-xs-12 col-sm-8">
-					<a href="index_volunteer.html">
+					<a href="<%=request.getContextPath()%>/index.jsp">
 						<img style="width:90%;height:90%;"class="img-fluid" src="images/logo2.png" title="前往官網">
 					</a>
 				</div>
@@ -109,9 +112,11 @@ String flag = (String) request.getAttribute("flag");
 			</div>
         </div>
 		<% if(rescueVO == null){ %>
+			<br><br><br>
 			<div align="center">	<h1 style="color:green;font-size:100px">
 								目前尚未被分配救援案例
-									</h1></div>
+									</h1></div><br><br><br>
+			<div align="center"><a href="<%=request.getContextPath()%>/front-end/volunteer/volunteer_index.jsp" class=" genric-btn success-border circle">回上一頁</a></div>
 		 <%  }else{ %>
 				<form METHOD="post" ACTION="volunteer.do" name="form1" enctype="multipart/form-data">
 			<div class="container">
@@ -128,8 +133,8 @@ String flag = (String) request.getAttribute("flag");
 								<tr><th>救援案例地點：</th><td>${rescueVO.rsc_add}</td></tr>
 <!-- 								<tr><th>救援案例描述:</th><td></td></tr> -->
 
-								<tr><th>救援案例緯度：</th><td>${rescueVO.rsc_lat}</td></tr>
-								<tr><th>救援案例經度：</th><td>${rescueVO.rsc_lon}</td></tr>
+<%-- 								<tr><th>救援案例緯度：</th><td>${rescueVO.rsc_lat}</td></tr> --%>
+<%-- 								<tr><th>救援案例經度：</th><td>${rescueVO.rsc_lon}</td></tr> --%>
 								<tr><th>救援案例發起時間：</th><td>${rescueVO.rsc_btime}</td></tr>
 								<tr><th>救援案例照片:</th><td><img style="width:200px;height:200px" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}"/></td></tr>
 
@@ -148,7 +153,8 @@ String flag = (String) request.getAttribute("flag");
 				</div>
 </form>
 				
-				
+		<br><br><br>
+			<div align="center"><a href="<%=request.getContextPath()%>/front-end/volunteer/volunteer_index.jsp" class=" genric-btn success-border circle">回上一頁</a></div>		
 		<%}%>
 <script>
 		 $("#done").on('click', function () {

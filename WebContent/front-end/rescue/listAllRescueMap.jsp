@@ -93,6 +93,7 @@ div {
 	var geocoder;
 	var directionsService;
 	var directionsDisplay;
+	var infocp = -1;
     function initMap() {
         navigator.geolocation.getCurrentPosition(myFlow) 
     }
@@ -199,9 +200,11 @@ div {
 				+" alt='' title='點擊查看詳情'>"
 				+"</div></a>"
 				+"<div style='text-align:center'>"
+				+"<br>"
 				+"發起時間:"
 				+srctime
 				+"</div>"
+				+"<br>"
 				+"<div align='center'>"
 				+"<input type='button'class='genric-btn info circle arrow small' onClick=getDir("+parseFloat(srclat) +","+ parseFloat(srclng)+") value='Go!'>"
 				+"</div>"
@@ -216,7 +219,14 @@ div {
 					size: new google.maps.Size(200, 200)
 				});
 				google.maps.event.addListener(marker, 'click', function() {
-					infowindow.open(marker.get('map'), marker);
+// 					infowindow.open(marker.get('map'), marker);
+					infocp = infocp * -1;
+				    if(infocp > 0){
+				      infowindow.open(marker.get('map'), marker);
+				    }else{
+				      infowindow.close();
+				    }
+					
 				});
 			}
 

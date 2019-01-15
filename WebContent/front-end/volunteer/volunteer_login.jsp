@@ -7,7 +7,7 @@
 		<!-- Mobile Specific Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
-		<link rel="shortcut icon" href="img/fav.png">
+		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 		<!-- Author Meta -->
 		<meta name="author" content="codepixer">
 		<!-- Meta Description -->
@@ -17,9 +17,8 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>LET ME PET YOU</title>
-
-		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
+		<title>LET ME PET YOU-志工登入</title>
+        
 			<!--
 			CSS
 			============================================= -->
@@ -50,7 +49,7 @@
 			
 			<div class="container">
 			<div class="row d-flex justify-content-center">
-				<a href="index_volunteer.html">
+				<a href="<%=request.getContextPath()%>/index.jsp">
 					<img style="width:95%;height:95%;"class="img-fluid" src="images/logo2.png" title="前往官網">
 				</a>
 			</div>
