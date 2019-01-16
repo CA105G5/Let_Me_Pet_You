@@ -149,7 +149,7 @@
 							<div class="row justify-content-between">
 								<div class="col-sm-12 nav-right justify-content-end d-flex">
 									<div class="post-details">
-										<p>連絡失主</p>
+										<p>認養發起人</p>
 										<h3 class="text-uppercase">
 											<a href="#">${memSvc.getOneMem(adoptionVO.adopt_sponsor).memb_nick}</a>
 										</h3>

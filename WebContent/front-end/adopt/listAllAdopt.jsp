@@ -95,7 +95,6 @@ h4 {
 				<%@ include file="page1.file"%>
 				<c:forEach var="adoptionVO" items="${list}"
 					begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-					<c:if test="${adoptionVO.adopt_status == '上架'}">
 					<div class="col-lg-4 col-md-6">
 						<div class="single-service-page">
 							<div class="thumbs relative">
@@ -118,7 +117,6 @@ h4 {
 
 						</div>
 					</div>
-					</c:if>
 				</c:forEach>
 
 			</div>

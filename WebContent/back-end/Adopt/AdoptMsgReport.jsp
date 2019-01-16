@@ -139,7 +139,8 @@ pageContext.setAttribute("list", list);
                                         <th scope="col">留言檢舉編號</th>
                                         <th scope="col">檢舉會員</th>
                                         <th scope="col">留言所屬案例</th>
-                                        <th scope="col">檢舉內容</th>
+                                        <th scope="col">留言內容</th>
+                                        <th scope="col">檢舉原因</th>
                                         <th scope="col">狀態</th>
                                     </tr>
                                 </thead>
@@ -152,6 +153,7 @@ pageContext.setAttribute("list", list);
                                         <a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptMsgSvc.getOneMsg(adoptMsgReportVO.adopt_msg_id).adopt_id}">
 								<button type="button" class="btn btn-outline-primary">查看案例</button>
 							</a></td>
+                                        <td style=" margin-bottom: auto">${adoptMsgSvc.getOneMsg(adoptMsgReportVO.adopt_msg_id).adopt_msg_comm}</td>
                                         <td style=" margin-bottom: auto">${adoptMsgReportVO.adopt_msg_rt_comm}</td>
                                         <td style=" margin-bottom: auto">
                                         <c:if test="${adoptMsgReportVO.adopt_msg_rt_status == '未審核'}"></c:if>

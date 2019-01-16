@@ -11,5 +11,6 @@ public interface AdoptionDAO_Interface {
 	public List<AdoptionVO> getAll();
 	public void changeStatus(String adopt_id, String adopt_apply_status, String adopt_status);
 	public void updateStatus(AdoptApplyVO adoptApplyVO, java.sql.Connection con);
+	public List<AdoptionVO> getAllBack();
 
 }

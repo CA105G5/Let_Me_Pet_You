@@ -5,9 +5,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
-	missingCaseService missingCaseSvc = new missingCaseService();
-	List<missingCaseVO> list = missingCaseSvc.getAll();
+List<missingCaseVO> list = (List) session.getAttribute("listEmps_ByCompositeQuery");
 	pageContext.setAttribute("list", list);
+if(list ==null){
+	missingCaseService missingCaseSvc = new missingCaseService();
+	 list = missingCaseSvc.getAll();
+	pageContext.setAttribute("list", list);
+	
+}
 %>
 
 
@@ -105,9 +110,8 @@ h4 {
 			<div align="right"><a href="test.jsp" class="genric-btn info circle arrow">寵物種類統計<span class="lnr lnr-arrow-right"></span></a></div>
 			<br>
 			<div class="row">
-				<%@ include file="page1.file"%>
-				<c:forEach var="missingCaseVO" items="${list}"
-					begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+
+				<c:forEach var="missingCaseVO" items="${list}">
 					<div class="col-lg-4 col-md-6">
 						<div class="single-service-page">
 							<div class="thumbs relative">
@@ -148,7 +152,7 @@ h4 {
 				</c:forEach>
 
 			</div>
-			<%@ include file="page2.file"%>
+
 		</div>
 	</section>
 <script>

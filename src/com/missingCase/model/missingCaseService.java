@@ -2,6 +2,7 @@ package com.missingCase.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 public class missingCaseService {
 	private missingCaseDAO_interface dao;
@@ -67,6 +68,9 @@ public class missingCaseService {
 
 	public List<missingCaseVO> getAll() {
 		return dao.getAll();
+	}
+	public List<missingCaseVO> getAll(Map<String, String[]> map) {
+		return dao.getAll(map);
 	}
 	
 	public List<missingCaseVO> getCount(){

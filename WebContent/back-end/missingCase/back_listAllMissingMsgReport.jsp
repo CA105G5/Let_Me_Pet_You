@@ -171,10 +171,6 @@
 																		<input style="width:100%;" type="submit" value="不通過"  class="btn btn-warning">
 																	</FORM>
 															</td><tr></table></c:if>
-                                        
-                                        
-                                        
-                                        
                                         </td>
                                     </tr>
                                  </c:forEach>

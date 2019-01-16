@@ -87,8 +87,7 @@
 		<div class="container" style="top: 180px">
 			<div class="row d-flex justify-content-center">
 				<div class="col-md-9 pb-40 header-text text-center">
-					<h1 class="pb-10"></h1>
-					<p>Who are in extremely love with eco friendly system.</p>
+						<h1 class="pb-10">單一案例瀏覽</h1>
 				</div>
 			</div>
 			<div class="container">
@@ -103,6 +102,9 @@
 							<ul class="tags">
 								<li><fmt:formatDate value="${missingCaseVO.missing_date}"
 										pattern="yyyy-MM-dd" /></li>
+								<c:if test="${missingCaseVO.memb_id == membVO.memb_id}">	
+								<li><button class="genric-btn danger circle arrow" type="submit" id="down" style="margin-left: 900px;">我要下架</button></li>
+							</c:if>		
 							</ul>
 								
 						<div style="float:right;">
@@ -380,7 +382,39 @@
 		
 	});
 	
-	
+	$('#down').click(function(e){
+		swal({
+            title: "確定下架？",
+            html: "確定後案例就會下架囉！",
+            type: "question", 
+            showCancelButton: true,
+        	showCloseButton: true,
+        }).then(
+	        	  function (result) {
+	                  if (result) {
+	                	  console.log("11111111111111");
+	                	 $.ajax({
+	                			url : '<%=request.getContextPath()%>/missingCaseAjax.do',
+	                			type : 'Post',
+	    						data : {
+	    							action : 'getChange',
+	    							status : '下架',
+	    							missing_case_id : '${missingCaseVO.missing_case_id}',
+	    						},
+	    						success: function(result){
+	    							swal("完成！案例已下架！", "", "success");
+	    							setTimeout(function(){window.location.href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp"},3000);
+	    						}
+	                	 })
+	                      
+	                  }
+	              }, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
+	             		swal("取消", "案例未被下架！", "error");
+	   	       }).catch(swal.noop);
+		
+		
+		
+	})
 	
 
 	</script>

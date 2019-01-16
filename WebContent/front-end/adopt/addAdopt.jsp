@@ -166,6 +166,7 @@ div {
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'Messege'"></textarea>
 								<script> CKEDITOR.replace( 'adopt_des', {
+									removePlugins:'image',
 				                   extraPlugins: 'easyimage',
 				                      cloudServices_tokenUrl: 'https://36758.cke-cs.com/token/dev/g529dLeMZwwIpbMNAdeiRdeIbIjTrMw6aq0ncGUTnfbb08SqLh6Z2I87wBM3',
 				                      cloudServices_uploadUrl: 'https://36758.cke-cs.com/easyimage/upload/',}); 

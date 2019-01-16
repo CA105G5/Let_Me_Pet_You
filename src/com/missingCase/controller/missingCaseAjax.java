@@ -55,6 +55,17 @@ public class missingCaseAjax extends HttpServlet {
 				missingCaseVO = missingCaseSvc.updateStatus(missing_case_id, status);
 
 			}
+			
+			
+			JSONObject obj = new JSONObject();
+			obj.put("missing_case_id", missing_case_id);
+			
+			res.setContentType("text/plain");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(obj.toString());
+			out.flush();
+			out.close();
 		}
 
 		if ("addMsg".equals(action)) {

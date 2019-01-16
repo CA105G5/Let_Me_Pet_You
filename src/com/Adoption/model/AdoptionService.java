@@ -47,6 +47,9 @@ public class AdoptionService {
 	public List<AdoptionVO> getAll(){
 		return dao.getAll();
 	}
+	public List<AdoptionVO> getAllBack(){
+		return dao.getAllBack();
+	}
 	public void changeStatus(String adopt_id, String adopt_apply_status, String adopt_status) {
 		dao.changeStatus(adopt_id, adopt_apply_status, adopt_status);
 	}

@@ -35,7 +35,7 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>Horse Club</title>
+<title>新增救援案例</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
@@ -60,7 +60,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
 <script src="js/jquery-1.12.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
-
+<script>
+        window.onload = function(){
+              if(window.localStorage.lastSearch != undefined){
+                 document.getElementById("searchtext").value = window.localStorage.lastSearch; 
+              }  
+            };
+</script>
 <style type="text/css">
 p {
 	　 font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
@@ -71,7 +77,16 @@ div {
 	font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
 		monospace;
 }
+#map {
+  height: 430px;
+  position: relative;
+  width: 500px;
+}
 
+.maps-frame {
+  height: 430px;
+  width: 500px;
+}
 </style>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb2lDof7yMn-TTXwt2hwVm4y92t1AqvyU&callback=initMap&libraries=places" async defer></script>
 
@@ -113,7 +128,7 @@ div {
                                     <label class=" form-control-label" >寵物名稱：</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-dog"></i></div>
-                                        <input class="form-control" name="missingName">
+                                        <input class="form-control" name="missingName" value="<%= (missingCaseVO ==null)?"" : missingCaseVO.getMissing_name()%>">
                                     </div>
                                     <small class="form-text text-muted">ex. 小白/阿明/乖乖</small>
                                 </div>
@@ -121,14 +136,14 @@ div {
                                     <label class=" form-control-label">寵物種類：</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-paw"></i></div>
-                                        <input class="form-control" name="missing_type">
+                                        <input class="form-control" name="missing_type" value="<%= (missingCaseVO ==null)?"" : missingCaseVO.getMissing_type()%>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class=" form-control-label">失蹤地點：</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fas fa-map-marker-alt"></i></div>
-                                        <input class="form-control" name="loc" onFocus="initializeAutocomplete()">
+                                        <input class="form-control" name="loc" onFocus="initializeAutocomplete()" id="loc" value="<%= (missingCaseVO ==null)?"" : missingCaseVO.getMissing_loc()%>">
                                     </div>
                                     <div id="map"></div>
                                 </div>
@@ -136,7 +151,7 @@ div {
                                     <label class=" form-control-label">失蹤日期：</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="far fa-clock"></i></div>
-                                        <input class="form-control" name="hiredate" id="hiredate">
+                                        <input class="form-control" name="hiredate" id="hiredate" value="<%= (missingCaseVO ==null)?"" : missingCaseVO.getMissing_date()%>">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -154,9 +169,10 @@ div {
                                     <div class="input-group">
                                     <small class="form-text text-muted">可放入圖片</small>
                                     </div>
-                                    <textarea name="missingDes"></textarea>
+                                    <textarea name="missingDes"><%= (missingCaseVO ==null)?"" : missingCaseVO.getMissing_des()%></textarea>
                                     <script>
                                     CKEDITOR.replace( 'missingDes', {
+                                    	removePlugins:'image',
      				                   extraPlugins: 'easyimage',
      				                      cloudServices_tokenUrl: 'https://36758.cke-cs.com/token/dev/g529dLeMZwwIpbMNAdeiRdeIbIjTrMw6aq0ncGUTnfbb08SqLh6Z2I87wBM3',
      				                      cloudServices_uploadUrl: 'https://36758.cke-cs.com/easyimage/upload/',}); 
@@ -253,7 +269,7 @@ div {
 
 </body>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<%-- <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script> --%>
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <style>
 .xdsoft_datetimepicker .xdsoft_datepicker {
@@ -337,8 +353,11 @@ function myFlow(a) {
 		});
 	    
 	    google.maps.event.addListener(myMarker, 'dragend', function(evt){
-	        document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
-	        geocoder.geocode({'latLng': myMarker.getPosition()}, function(results, status) {
+// 	        document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
+	        console.log("!!!!!");
+			geocoder.geocode({'latLng': myMarker.getPosition()}, function(results, status) {
+				console.log("status=="+status);
+				console.log("results=="+results);
 	    		if (status == google.maps.GeocoderStatus.OK) {
 	    			if (results[0]) {
 	    				$('#loc').val(results[0].formatted_address);
@@ -354,7 +373,7 @@ function myFlow(a) {
 	    });
 
 	    google.maps.event.addListener(myMarker, 'dragstart', function(evt){
-	        document.getElementById('current').innerHTML = '<p>Currently dragging marker...</p>';
+// 	        document.getElementById('current').innerHTML = '<p>Currently dragging marker...</p>';
 	    });
 	    
 	    map.setCenter(myMarker.position);
@@ -390,6 +409,8 @@ function myFlow(a) {
       var place = autocomplete.getPlace();
       var lat = place.geometry.location.lat();
       var lng = place.geometry.location.lng();
+      console.log("lat==="+lat);
+      console.log("lng==="+lng);
       var placeId = place.place_id;
       // to set city name, using the locality param
       var componentForm = {
@@ -402,9 +423,9 @@ function myFlow(a) {
           document.getElementById("loc").value = val;
         }
       }
-      document.getElementById("latitude").value = lat;
-      document.getElementById("longitude").value = lng;
-      document.getElementById("location_id").value = placeId;
+//       document.getElementById("#latitude").value = lat;
+//       document.getElementById("#longitude").value = lng;
+//       document.getElementById("#location_id").value = placeId;
       $('#address').val(place.name);
       console.log("111111"+place.address_components[0].long_name);
       

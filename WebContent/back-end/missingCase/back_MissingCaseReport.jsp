@@ -136,7 +136,7 @@
                                     <tr>
                                         <th scope="col">留言檢舉編號</th>
                                         <th scope="col">檢舉會員</th>
-                                        <th scope="col">案例名稱</th>
+                                        <th scope="col">被檢舉案例</th>
                                         <th scope="col">檢舉內容</th>
                                         <th scope="col">狀態</th>
                                     </tr>

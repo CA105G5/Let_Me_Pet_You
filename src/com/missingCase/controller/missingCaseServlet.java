@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.missingCase.model.*;
@@ -30,7 +32,8 @@ public class missingCaseServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-
+		HttpSession session = req.getSession();
+		
 		if ("getOne_For_Display".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 //			 Store this set in the request scope, in case we need to
@@ -140,7 +143,7 @@ public class missingCaseServlet extends HttpServlet {
 				} else if (!loc.trim().matches(loceReg)) { // 以下正則(規)表示式(regular-expression)
 					errorMsgs.add("請輸入正確的地點");
 				}
-				String missing_status_shelve = null;
+				String missing_status_shelve = req.getParameter("missing_status_shelve");
 				String missing_type = req.getParameter("missing_type");
 
 				if (missing_type == null || missing_type.trim().length() == 0) {
@@ -177,7 +180,7 @@ public class missingCaseServlet extends HttpServlet {
 
 				/*************************** 2.開始新增資料 ***************************************/
 				missingCaseService missingCaseSvc = new missingCaseService();
-				missingCaseVO = missingCaseSvc.addMissingCase(membno, hiredate, missingDes, missingName, loc, null,
+				missingCaseVO = missingCaseSvc.addMissingCase(membno, hiredate, missingDes, missingName, loc, missing_status_shelve,
 						missing_photo, missing_type);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
@@ -434,6 +437,26 @@ public class missingCaseServlet extends HttpServlet {
 //						.getRequestDispatcher("/front-end/missingCase/listAllMissingCase.jsp");
 //				failureView.forward(req, res);
 //			}
+		}
+		
+		if("listEmps_ByCompositeQuery".equals(action)) {
+//			try {
+				Map<String, String[]> map = req.getParameterMap();
+				
+				missingCaseService missingCaseSvc = new missingCaseService();
+				List<missingCaseVO> list = missingCaseSvc.getAll(map);
+				System.out.println("list=" + list);
+				session.setAttribute("listEmps_ByCompositeQuery", list); // 資料庫取出的list物件,存入request
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/missingCase/listAllMissingCase_ByCompositeQuery.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+				successView.forward(req, res);
+	
+//			} catch (Exception e) {
+//				System.out.println("1111184564968465165");
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/missingCase/listAllMissingCase.jsp");
+//				failureView.forward(req, res);
+//			}
+			
 		}
 	}
 

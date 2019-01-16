@@ -37,7 +37,7 @@ body, html {
 }
 
 body {
-	background: deeppink;
+	background: #33CCFF;
 }
 
 main#box {
@@ -341,7 +341,7 @@ String i = mm.getMissing_type();
 int x = mm.getCount();
 System.out.println(i);
 System.out.println(x);%>
-data.push({text:"<%=i%>", size:<%=x*12%>});
+data.push({text:"<%=i%>", size:<%=x*18%>});
 <% }%>
 
 //取得呈現處的寬、高

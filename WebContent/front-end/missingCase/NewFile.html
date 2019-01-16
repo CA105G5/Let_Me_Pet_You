@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="BIG5">
+<title>Insert title here</title>
+</head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js"></script>
+<body>
+<div class="row">
+  <div class="col-xs-4 text-center">
+    時
+  </div>
+  <div class="col-xs-4 text-center">
+    分
+  </div>
+  <div class="col-xs-4 text-center">
+    秒
+  </div>
+  <div class="col-xs-4 text-center">
+    <input type="text" id="hour" class="dial" data-min="0" data-max="11" data-width="100%" data-readOnly="true">
+  </div>
+  <div class="col-xs-4 text-center">
+    <input type="text" id="min" class="dial" data-min="1" data-max="59" data-width="100%" data-readOnly="true">
+  </div>
+  <div class="col-xs-4 text-center">
+    <input type="text" id="sec" class="dial" data-min="1" data-max="59" data-width="100%" data-readOnly="true">
+  </div>
+</div>
+
+
+<script>
+$('.dial').knob();
+
+function setTime() {
+  $('#hour').val(moment().get('hour') - 12).trigger('change');
+  $('#min').val(moment().get('minute')).trigger('change');
+  $('#sec').val(moment().get('second')).trigger('change');
+}
+
+setInterval(function() {
+  setTime();
+}, 1000);
+
+setTime();
+</script>
+</body>
+</html>

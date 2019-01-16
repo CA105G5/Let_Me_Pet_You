@@ -20,7 +20,7 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 		}
 	}
 	private static final String INSERT_STMT = "INSERT INTO missing_case(missing_case_id,memb_id,missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo,missing_type) VALUES ('S'||LPAD(to_char(missing_case_seq.NEXTVAL), 9, '0'), ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT missing_case_id,memb_id,to_char(missing_date,'yyyy-mm-dd hh24:mi:ss')missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo,missing_type FROM missing_case order by missing_date";
+	private static final String GET_ALL_STMT = "SELECT missing_case_id,memb_id,to_char(missing_date,'yyyy-mm-dd hh24:mi:ss')missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo,missing_type FROM missing_case where MISSING_STATUS_SHELVE='上架' order by missing_date desc";
 	private static final String GET_ONE_STMT = "SELECT missing_case_id,memb_id,to_char(missing_date,'yyyy-mm-dd hh24:mi:ss')missing_date,missing_name,missing_des,missing_loc,missing_status_shelve,missing_photo,missing_type FROM missing_case where missing_case_id = ?";
 	private static final String DELETE = "DELETE FROM missing_case where missing_case_id = ?";
 	private static final String UPDATE = "UPDATE missing_case set memb_id=?, missing_date=?, missing_name=?, missing_des=?, missing_loc=?, missing_status_shelve=?, missing_photo=?, missing_type=? where missing_case_id = ?";
@@ -71,6 +71,69 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 
 	}
 
+	@Override
+	public List<missingCaseVO> getAll(Map<String, String[]> map) {
+		List<missingCaseVO> list = new ArrayList<missingCaseVO>();
+		missingCaseVO missingCaseVO = null;
+	
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		try {
+			
+			con = ds.getConnection();
+			String finalSQL = "select * from missing_case "
+		          + jdbcUtil_CompositeQuery_MissingCase.get_WhereCondition(map)
+		          + " order by missing_date desc";
+			pstmt = con.prepareStatement(finalSQL);
+			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				missingCaseVO = new missingCaseVO();
+				missingCaseVO.setMissing_case_id(rs.getString("missing_case_id"));
+				missingCaseVO.setMemb_id(rs.getString("memb_id"));
+				missingCaseVO.setMissing_date(rs.getTimestamp("missing_date"));
+				missingCaseVO.setMissing_name(rs.getString("missing_name"));
+				missingCaseVO.setMissing_des(rs.getString("missing_des"));
+				missingCaseVO.setMissing_loc(rs.getString("missing_loc"));
+				missingCaseVO.setMissing_status_shelve(rs.getString("missing_status_shelve"));
+				missingCaseVO.setMissing_photo(rs.getBytes("missing_photo"));
+				missingCaseVO.setMissing_type(rs.getString("missing_type"));
+				list.add(missingCaseVO);
+			}
+	
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
 	// 修改
 	@Override
 	public void update(missingCaseVO missingCaseVO) {

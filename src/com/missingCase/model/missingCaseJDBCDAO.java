@@ -454,4 +454,10 @@ public class missingCaseJDBCDAO implements missingCaseDAO_interface {
 
 		return baos.toByteArray(); // 將ByteArrayOutputStream轉成ByteArray
 	}
+
+	@Override
+	public List<missingCaseVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

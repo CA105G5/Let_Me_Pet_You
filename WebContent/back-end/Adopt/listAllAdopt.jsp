@@ -8,7 +8,7 @@
 	
 <%
 AdoptionService adoptionSvc = new AdoptionService();
-List<AdoptionVO> list = adoptionSvc.getAll();
+List<AdoptionVO> list = adoptionSvc.getAllBack();
 pageContext.setAttribute("list", list);
 %>	
 	

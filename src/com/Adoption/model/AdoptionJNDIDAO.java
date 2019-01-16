@@ -32,7 +32,9 @@ public class AdoptionJNDIDAO implements AdoptionDAO_Interface{
 	private static final String GET_ONE_ADOPT =
 			"SELECT * FROM ADOPTION WHERE ADOPT_ID=?";
 	private static final String GET_ALL_ADOPT =
-			"SELECT * FROM ADOPTION ORDER BY ADOPT_BTIME";
+			"SELECT * FROM ADOPTION  where ADOPT_STATUS='上架' ORDER BY ADOPT_BTIME desc";
+	private static final String GET_ALL_ADOPT_BACK =
+			"SELECT * FROM ADOPTION  ORDER BY ADOPT_BTIME desc";
 	private static final String UPDATE =
 			"UPDATE ADOPTION SET ADOPT_SPECIES=?,ADOPT_SPONSOR=?,ADOPT_STATUS=?,ADOPT_APPLY_STATUS=?,ADOPT_BTIME=?,ADOPT_ETIME=?,ADOPT_DES=?,ADOPT_IMG=? WHERE ADOPT_ID=?";
 	
@@ -353,6 +355,67 @@ public class AdoptionJNDIDAO implements AdoptionDAO_Interface{
 					e.printStackTrace(System.err);
 				}
 			} 
+		}
+		return list;
+	}
+
+//查全部
+	@Override
+	public List<AdoptionVO> getAllBack() {
+
+		List<AdoptionVO> list = new ArrayList<AdoptionVO>();
+		AdoptionVO adoptionVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_ADOPT_BACK);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				adoptionVO = new AdoptionVO();
+				adoptionVO.setAdopt_id(rs.getString("adopt_id"));
+				adoptionVO.setAdopt_species(rs.getString("adopt_species"));
+				adoptionVO.setAdopt_sponsor(rs.getString("adopt_sponsor"));
+				adoptionVO.setAdopt_status(rs.getString("adopt_status"));
+				adoptionVO.setAdopt_apply_status(rs.getString("adopt_apply_status"));
+				adoptionVO.setAdopt_btime(rs.getTimestamp("adopt_btime"));
+				adoptionVO.setAdopt_etime(rs.getTimestamp("adopt_etime"));
+				adoptionVO.setAdopt_des(rs.getString("adopt_des"));
+				adoptionVO.setAdopt_img(rs.getBytes("adopt_img"));
+				list.add(adoptionVO);
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
 		}
 		return list;
 	}
