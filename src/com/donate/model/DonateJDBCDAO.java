@@ -260,9 +260,9 @@ public class DonateJDBCDAO implements DonateDAO_interface {
 				donateVO.setDonate_src_cre(rs.getString("donate_src_cre"));
 				donateVO.setDonate_src_trn(rs.getString("donate_src_trn"));
 				donateVO.setDonate_status(rs.getString("donate_status"));
-				donateVO.setDonate_name(rs.getString("donate_name"));
-				donateVO.setDonate_phone(rs.getString("donate_phone"));
-				donateVO.setDonate_mail(rs.getString("donate_mail"));
+				donateVO.setDonate_status(rs.getString("donate_name"));
+				donateVO.setDonate_status(rs.getString("donate_phone"));
+				donateVO.setDonate_status(rs.getString("donate_mail"));
 			}
 
 			// Handle any driver errors
