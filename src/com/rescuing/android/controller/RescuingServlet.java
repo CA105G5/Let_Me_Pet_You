@@ -45,7 +45,7 @@ public class RescuingServlet extends HttpServlet {
 		JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
 		
 		System.out.println(jsonObject.toString());
-		String action = jsonObject.get("action").getAsString();
+		String action = jsonObject.get("action").getAsString(); 
 
 		if ("getRescuingMember".equals(action)) {
 			String rsc_id = jsonObject.get("rsc_id").getAsString();
