@@ -425,4 +425,8 @@
   <listener>
     <listener-class>com.rescue.controller.RescueEchoServer</listener-class>
   </listener>
+  <context-param>
+    <param-name>org.apache.tomcat.websocket.textBufferSize</param-name>
+    <param-value>6144000</param-value>
+  </context-param>
 </web-app>

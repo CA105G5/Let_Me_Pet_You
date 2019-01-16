@@ -15,8 +15,15 @@
 	
 	List<missingMsgVO> list = missingMsgSvc.findByCase(missing_case_id);
 	pageContext.setAttribute("list", list);
+	
+	String owner = missingCaseVO.getMemb_id();
+	String missing_name = missingCaseVO.getMissing_name();
 
+	String memb_id= null;
 	MemVO membVO = (MemVO) session.getAttribute("memVO");
+	if(membVO!=null){
+		memb_id = membVO.getMemb_id();
+	}
 	pageContext.setAttribute("membVO", membVO);
 	Timestamp missing_msg_date = new Timestamp(System.currentTimeMillis());
 	Timestamp report_missing_time = new Timestamp(System.currentTimeMillis());
@@ -60,8 +67,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
 <script src="js/jquery-1.12.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
+
+<style>
+	#openChat:hover{
+		cursor: pointer;
+	}
+
+</style>
+
+
 </head>
-<body>
+<body onload="connect();" onunload="disconnect();">
 
 	<jsp:include page="/index_Header.jsp"
 		flush="true" />
@@ -166,6 +182,9 @@
 										<p>連絡失主</p>
 										<h3 class="text-uppercase">
 											<a href="#">${memSvc.getOneMem(missingCaseVO.memb_id).memb_nick}</a>
+											<a id="openChat" onclick="window.open('<%=request.getContextPath()%>/util/chat.jsp', 'Chat', config='height=500, width=500');">
+												<i class="fa fa-commenting"></i>
+											</a>
 										</h3>
 									</div>
 									<div class="thumb">
@@ -365,6 +384,76 @@
 	
 
 	</script>
+	
+	
+	<!-- 聊天室js   -->
+<script>
+
+	var MyPoint = "/MissingEchoServer/"+"<%=missing_case_id%>";
+	var host = window.location.host;
+	var path = window.location.pathname;
+	var webCtx = path.substring(0, path.indexOf('/', 1));
+	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+	
+	var webSocket;
+	console.log("endPointURL==="+endPointURL);
+	console.log("memb_id==="+"<%=memb_id%>");
+	console.log("owner==="+"<%=owner%>");
+	
+	function connect() {
+		console.log("endPointURL==="+endPointURL);
+		
+		// 建立 websocket 物件
+		webSocket = new WebSocket(endPointURL);
+		
+		webSocket.onopen = function(event) {
+			
+		};
+	
+		webSocket.onmessage = function(event) {
+			 var jsonObj = JSON.parse(event.data);
+		     var $missing_case_id = jsonObj.missing_case_id;
+		     var $missing_owner = jsonObj.missing_owner;
+		     var $memb_id = "<%=memb_id%>";
+			 console.log("memb_id==="+"<%=memb_id%>");
+			 console.log("missing_owner==="+$missing_owner);
+			 console.log("missingCase===onMeaasge==="+$missing_case_id);
+			 if (<%=memb_id!=null%> && $memb_id == $missing_owner){
+				 console.log("失主在線上===");
+				 window.open('<%=request.getContextPath()%>/util/chat.jsp', 'Chat', config='height=500, width=500');
+			 }
+	        
+		};
+	
+		webSocket.onclose = function(event) {
+// 			updateStatus("已從聊天室離線");
+		};
+	}
+	
+	
+	
+	function disconnect () {
+		webSocket.close();
+	}
+	
+	
+	
+
+	$('#openChat').on('click', function () {
+		<%session.setAttribute("missing_case_id", missing_case_id);%>
+		<%session.setAttribute("missing_name", missing_name);%>
+		var jsonObj = {"missing_case_id" : "<%=missing_case_id%>", "missing_owner":"<%=owner%>"};
+	    webSocket.send(JSON.stringify(jsonObj));
+<%-- 		window.open('<%=request.getContextPath()%>/util/chat.jsp', 'Chat', config='height=500, width=500'); --%>
+	});
+
+	
+	
+
+</script>
+<!-- 聊天室js   -->
+	
+	
 
 </body>
 </html>
