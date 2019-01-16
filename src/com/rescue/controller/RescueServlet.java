@@ -147,11 +147,11 @@ public class RescueServlet extends HttpServlet{
 					/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 					//名稱
 					String rsc_name = req.getParameter("rsc_name");
-					String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+					String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
 					if (rsc_name == null || rsc_name.trim().length() == 0) {
 						errorMsgs.add("案例名稱: 請勿空白");
 					} else if(!rsc_name.trim().matches(nameReg)) { //以下練習正則(規)表示式(regular-expression)
-						errorMsgs.add("案例名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+						errorMsgs.add("案例名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
 		            }
 					//地區
 					String rsc_reg = req.getParameter("reg_id").trim();

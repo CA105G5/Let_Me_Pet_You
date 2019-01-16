@@ -134,7 +134,7 @@ div {
 												</div>
 												<div><fmt:formatDate value="${rescueVO.rsc_btime}" type="DATE"/></div>
 												<div><fmt:formatDate value="${rescueVO.rsc_btime}" type="TIME"/></div>
-												<div class="sta">${rescueVO.rsc_sta}</div>
+												<div class="sta" style="font-weight:bold;">${rescueVO.rsc_sta}</div>
 											</div>
 										</div>
 									</div>
