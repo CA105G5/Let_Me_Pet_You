@@ -24,6 +24,5 @@ public interface RescueDAO_interface {
     byte[] getImage(String rsc_id);
     boolean updateCase(String rsc_id, String rscing_ptcp);
     boolean addCase(RescueVO rescueVO);
-//    boolean findByRscId(String rsc_id);
     public List<RescueVO> getAllRescue();  
 }

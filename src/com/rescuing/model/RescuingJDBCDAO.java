@@ -1,5 +1,6 @@
 package com.rescuing.model;
 
+import java.security.spec.DSAGenParameterSpec;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,6 +23,7 @@ import com.volunteer.model.VolunteerJDBCDAO;
 
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Rescuing;
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
+import sun.nio.cs.ext.ISCII91;
 
  
 
@@ -1027,6 +1029,85 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 		
 	}
 	
+	
+	//安卓新增方法
+	@Override
+	public boolean updateDoneReport(String rsc_id, String rscing_ptcp, String rscing_cdes, List<String> doneRescueMemslist) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		boolean isUpdateDoneReport = false;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+    		//救援改狀態
+    		RescueJDBCDAO dao = new RescueJDBCDAO();
+    		dao.updateByDoneReport(rsc_id, con);
+    		//報告者的資料改變
+    		pstmt = con.prepareStatement(UPDATE_DONE_REPORT);
+			pstmt.setString(1,new String("完成救援送審中"));
+			pstmt.setTimestamp(2,new Timestamp(new Date().getTime()));
+		    pstmt.setString(3, rscing_cdes);
+			pstmt.setString(4, rsc_id);
+			pstmt.setString(5, rscing_ptcp);
+
+			pstmt.executeUpdate();
+	       //參與者改變狀態
+ 		   for(String i:doneRescueMemslist) {
+ 			  updateByJoinRsc(rsc_id,i,con);
+		    }
+ 		    
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("已送審中");
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt2 != null) {
+				try {
+					pstmt2.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return isUpdateDoneReport;
+	}
 
 	public static void main(String[] args) {
 
@@ -1138,6 +1219,51 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 					se.printStackTrace(System.err);
 				}
 			}
+		}
+		return isjoinRescuing;
+		
+	}
+
+	@Override
+	public boolean joinRescuing(String rsc_id, String rscing_ptcp) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean isjoinRescuing = false;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(INSERT_STMT);
+
+			pstmt.setString(1, rsc_id);
+			pstmt.setString(2, rscing_ptcp);
+			pstmt.setTimestamp(3, new Timestamp(new Date().getTime()));
+			pstmt.setString(4, "救援中");
+			
+			int rowsUpdated =pstmt.executeUpdate();
+//			System.out.println("Changed " + rowsUpdated + "rows");
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		} 
+
 		}
 		return isjoinRescuing;
 		

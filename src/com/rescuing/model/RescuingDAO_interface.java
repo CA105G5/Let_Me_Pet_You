@@ -25,5 +25,6 @@ public interface RescuingDAO_interface {
   
   	//安卓功能
   	public boolean joinRescuing(String rsc_id,String rscing_ptcp, Connection con);
-  	
+  	public boolean joinRescuing(String rsc_id,String rscing_ptcp);
+  	boolean updateDoneReport(String rsc_id, String rscing_ptcp, String rscing_cdes, List<String> doneRescueMemslist);
 }

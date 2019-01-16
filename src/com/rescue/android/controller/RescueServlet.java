@@ -55,7 +55,6 @@ public class RescueServlet extends HttpServlet {
 			RescueVO rescueVO = gson.fromJson(jsonObject.get("Rescue").getAsString(), RescueVO.class);
 			writeText(res, String.valueOf(rescueDao.addCase(rescueVO)));
 		}else if ("updateCase".equals(action)) {
-			System.out.println("test");
 			String rsc_id = jsonObject.get("rsc_id").getAsString();
 			String rscing_ptcp = jsonObject.get("rscing_ptcp").getAsString();
 			System.out.println(rscing_ptcp);

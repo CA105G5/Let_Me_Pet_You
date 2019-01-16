@@ -30,7 +30,7 @@ public interface MemDAO_interface {
 	
 	//安卓功能
 	boolean isMemAcc(MemVO memVO);//確認會員存在
-	boolean isMem(String memb_acc, String memb_id, String memb_psw);
+	boolean isMem(String memb_acc, String memb_psw);
 	boolean isMemExist(String memb_acc);
 	byte[] getImage(String memb_acc);
 	 

@@ -51,7 +51,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	private static final String FIND_BY_ID_PASWD = "SELECT * FROM MEMBERS WHERE memb_acc = ? AND memb_psw = ?";
 	private static final String CHECK_ID_EXIST = "SELECT memb_acc AND memb_id FROM MEMBERS WHERE memb_acc = ?";
 	private static final String FIND_PHOTO_BY_MEMACC = "SELECT memb_photo FROM MEMBERS WHERE memb_acc = ?";
-	private static final String FIND_BY_ID_ACC_PAWD = "SELECT * FROM MEMBERS WHERE memb_acc = ? AND memb_id = ? AND memb_psw = ?";
+	private static final String FIND_BY_ID_ACC_PAWD = "SELECT * FROM MEMBERS WHERE memb_acc = ? AND memb_psw = ?";
 
 	public static void main(String[] args) {
 		//checked
@@ -1252,7 +1252,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	}
 	
 	@Override
-	public boolean isMem(String memb_acc, String memb_id, String memb_psw) {
+	public boolean isMem(String memb_acc, String memb_psw) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean isMemTest = false;
@@ -1262,8 +1262,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 			con = DriverManager.getConnection(url, userid, password);
 			pstmt = con.prepareStatement(FIND_BY_ID_ACC_PAWD);
 			pstmt.setString(1,memb_acc);
-			pstmt.setString(2, memb_id);
-			pstmt.setString(3, memb_psw);
+//			pstmt.setString(2, memb_id);
+			pstmt.setString(2, memb_psw);
 			
 			ResultSet rs = pstmt.executeQuery();
 			isMemTest = rs.next();

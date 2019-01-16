@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -17,6 +18,9 @@ import com.google.gson.JsonObject;
 import com.rescue.model.RescueDAO_interface;
 import com.rescue.model.RescueJDBCDAO;
 import com.rescue.model.RescueVO;
+import com.rescuing.model.RescuingDAO_interface;
+import com.rescuing.model.RescuingJDBCDAO;
+import com.rescuing.model.RescuingVO;
 
 import util.ImageUtil;
 
@@ -28,7 +32,7 @@ public class RescuingServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		ServletContext context = getServletContext();
-		RescueDAO_interface rescueDao = new RescueJDBCDAO();
+		RescuingDAO_interface rescuingDao = new RescuingJDBCDAO();
 		Gson gson = new Gson();
 
 		BufferedReader br = req.getReader();
@@ -43,38 +47,46 @@ public class RescuingServlet extends HttpServlet {
 		System.out.println(jsonObject.toString());
 		String action = jsonObject.get("action").getAsString();
 
-		if ("getAllRescue".equals(action)) {
-			List<RescueVO> rescueList = rescueDao.getAllRescue();
-			writeText(res,gson.toJson(rescueList));
-		} else if ("findByPrimaryKey".equals(action)) {
+		if ("updateDoneReport".equals(action)) {
+//			String rsc_id = jsonObject.get("rsc_id").getAsString();
+//			String rscing_ptcp = jsonObject.get("rscing_ptcp").getAsString();
+//			String rscing_cdes = jsonObject.get("rscing_cdes").getAsString();
+//			List<String> ptcplist = new ArrayList<String>();
+//				if(req.getParameterValues("rscing_ptcp[]")!=null) {
+//				String[] rscing_ptcps = req.getParameterValues("rscing_ptcp[]");
+//				System.out.println("length"+rscing_ptcps.length);
+//				for (int i = 0; i <rscing_ptcps.length; i++){
+//					ptcplist.add(rscing_ptcps[i]);
+//				}		
+//			writeText(res,gson.toJson(ptcplist));
+		} else if ("joinRescuing".equals(action)) {
 			String rsc_id = jsonObject.get("rsc_id").getAsString();
-			RescueVO rescueVO = rescueDao.findByPrimaryKey(rsc_id);
-			rescueVO.setRsc_img(null);
-			writeText(res, gson.toJson(rescueVO));
-		}else if ("addcase".equals(action)) { 
-			RescueVO rescueVO = gson.fromJson(jsonObject.get("Rescue").getAsString(), RescueVO.class);
-			writeText(res, String.valueOf(rescueDao.addCase(rescueVO)));
+			String rscing_ptcp = jsonObject.get("rscing_ptcp").getAsString();
+			writeText(res, String.valueOf(rescuingDao.joinRescuing(rsc_id, rscing_ptcp)));
+//		}else if ("addcase".equals(action)) { 
+//			RescueVO rescueVO = gson.fromJson(jsonObject.get("Rescue").getAsString(), RescueVO.class);
+//			writeText(res, String.valueOf(rescueDao.addCase(rescueVO)));
 //		}else if ("updateCase".equals(action)) {
 //			String rsc_id = jsonObject.get("rsc_id").getAsString();
 //			writeText(res, String.valueOf(rescueDao.updateCase(rsc_id)));
 			// 圖片請求
-		} else if ("getImage".equals(action)) {
-			OutputStream os = res.getOutputStream();
-			String rsc_id = jsonObject.get("rsc_id").getAsString();
-			int imageSize = jsonObject.get("imageSize").getAsInt();
-			byte[] image = rescueDao.getImage(rsc_id);
-			if (image != null) {
-				// 縮圖 in server side
-				image = ImageUtil.shrink(image, imageSize);
-				res.setContentType("image/jpeg");
-				res.setContentLength(image.length);
-			}
-			os.write(image);
+//		} else if ("getImage".equals(action)) {
+//			OutputStream os = res.getOutputStream();
+//			String rsc_id = jsonObject.get("rsc_id").getAsString();
+//			int imageSize = jsonObject.get("imageSize").getAsInt();
+//			byte[] image = rescuingDao.getImage(rsc_id);
+//			if (image != null) {
+//				// 縮圖 in server side
+//				image = ImageUtil.shrink(image, imageSize);
+//				res.setContentType("image/jpeg");
+//				res.setContentLength(image.length);
+//		}
+//			os.write(image);
 
 		} else {
 			writeText(res, "");
+		
 		}
-
 	}
 
 	private void writeText(HttpServletResponse res, String outText) throws IOException {
