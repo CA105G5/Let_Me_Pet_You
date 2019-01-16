@@ -206,7 +206,7 @@ div {
 				+"</div>"
 				+"<br>"
 				+"<div align='center'>"
-				+"<input type='button'class='genric-btn info circle arrow small' onClick=getDir("+parseFloat(srclat) +","+ parseFloat(srclng)+") value='Go!'>"
+				+"<input type='button'class='genric-btn info circle arrow small' onClick=getDir("+parseFloat(srclat) +","+ parseFloat(srclng)+") value='Go!' title='規劃路線'>"
 				+"</div>"
 				+"</div>";
 				
