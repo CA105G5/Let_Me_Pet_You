@@ -22,6 +22,8 @@ import org.json.JSONObject;
 import com.rescue.model.RescueService;
 import com.rescue.model.RescueVO;
 
+import util.Send;
+
 
 
 
@@ -50,7 +52,10 @@ public class RescueAjax extends HttpServlet {
 				rescueVO.setNtf_vlt_dt("你有一份救援任務，請盡速完成!!!");
 				rescueVO.setNtf_vlt_sta("未讀");
 				rescueVO.setNtf_vlt_time(new Timestamp(new Date().getTime()));
-				
+				Send se = new Send();
+			 	String[] tel ={"0979089890"};
+			 	String message = "你有一份救援任務，請盡速完成!!";
+			 	se.sendMessage(tel , message);
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req

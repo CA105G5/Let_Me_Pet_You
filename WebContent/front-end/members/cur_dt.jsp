@@ -9,6 +9,8 @@
   CurDtService curdtSvc = new CurDtService();
   List<CurDtVO> list=curdtSvc.getAllCurdtsFromSameMember(memb_id);
   pageContext.setAttribute("list",list);
+  String ntf_src_id = (String)request.getAttribute("ntf_src_id");
+  System.out.println("來源編號:"+ntf_src_id);
 %>
 
 <html> 
@@ -88,7 +90,8 @@
 		                              <tbody>
 		                              <% int count=0; %>
                                             <c:forEach var="curdtVO" items="${list}">
-                                            	<tr>
+                                             
+                                            	<tr id="${curdtVO.cur_src_id}">
                                            			<th scope="row" class="serial"><%=++count %></th>
 													<td>${curdtVO.cur_src_id}</td>
 													<td>${curdtVO.cur_dt}</td>
@@ -103,7 +106,26 @@
        			</div>
             </div>
         </div>
+        
+        
+<% if(ntf_src_id != null){
+System.out.println("有進script1");
+%>
 
+<script type="text/javascript">
+<%
+System.out.println("有進script2");
+System.out.println("ntf_src_id="+ntf_src_id);
+%>
+$(function(){
+	$("#<%=ntf_src_id%>").css("background-color","#77DDFF");
+});
+			
+</script>
+	
+	
+	
+<%	}%>
 
 
 

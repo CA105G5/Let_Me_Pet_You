@@ -66,6 +66,7 @@ public class NtfServlet extends HttpServlet {
 							 ||ntf_dt.contains("已派志工前往")) {
 								System.out.println("3");
 								//轉交
+								req.setAttribute("ntf_src_id", ntf_src_id);
 								RequestDispatcher orderView = 
 										req.getRequestDispatcher("/front-end/members/listAllRescue.jsp");
 								orderView.forward(req, res);
@@ -75,6 +76,7 @@ public class NtfServlet extends HttpServlet {
 							if(ntf_dt.contains("已發送愛心幣")) {
 							   System.out.println("4");
 								//轉交
+							   req.setAttribute("ntf_src_id", ntf_src_id);
 								RequestDispatcher checkView = 
 										req.getRequestDispatcher("/front-end/members/cur_dt.jsp");
 								checkView.forward(req, res);

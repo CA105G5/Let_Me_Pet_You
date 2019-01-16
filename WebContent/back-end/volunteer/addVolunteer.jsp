@@ -107,7 +107,7 @@
  </div>             
 
 				
-<button id="miracleBtn"></button>	
+<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">
 
 
               
@@ -124,8 +124,8 @@
 <script type="text/javascript">
 			$('#miracleBtn').click(function(){
 				console.log('1111111111111111');
-				$('#vlt_mail').val('wspishandsome@gmail.com');
-				$('#vlt_name').val('汪世平');
+				$('#vlt_mail').val('ca105demo@gmail.com');
+				$('#vlt_name').val('商商');
 				$('#vlt_tel').val('0987-654321');
 				$("#inline-radio1").prop("checked",true);
 				$("#REG0000004").prop("selected",true);

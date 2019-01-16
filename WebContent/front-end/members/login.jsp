@@ -109,7 +109,7 @@
 
 </fieldset>
 </form>
-<button id="miracleBtn"></button>
+<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">
     </div><!-- /.container -->
     <div align="center"><a href="<%=request.getContextPath()%>/front-end/members/forget_psw.jsp">我忘記密碼了</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/front-end/members/addMembers.jsp">註冊成為新會員</a></div>
     

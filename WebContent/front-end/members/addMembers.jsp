@@ -261,7 +261,7 @@
 
 </fieldset>
 </form>
-<button id="miracleBtn" style="background-color:blue"></button>
+<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">
     </div><!-- /.container -->
 
 

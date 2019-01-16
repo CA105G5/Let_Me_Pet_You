@@ -241,7 +241,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				  </div>
 				  
 				</div>
-				<div class="panel panel-primary">
+				<div class="panel panel-warning">
 				  <div class="panel-heading">
 				    <h3 class="panel-title">捐贈管理</h3>
 				  </div>
@@ -254,7 +254,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				  </div>
 				  
 				</div>
-				<div class="panel panel-warning">
+				<div class="panel panel-primary">
 				  <div class="panel-heading">
 				    <h3 class="panel-title">志工管理</h3>
 				  </div>

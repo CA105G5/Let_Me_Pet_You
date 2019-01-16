@@ -59,7 +59,7 @@
 						</div>
 					</div>
 </div>
-	<button id="miracleBtn"></button>				
+	<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">			
  <script type="text/javascript">
 			$('#miracleBtn').click(function(){
 				console.log('1111111111111111');

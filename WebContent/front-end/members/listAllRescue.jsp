@@ -22,7 +22,7 @@ map2.put("rscing_ptcp",new String[] {memVO.getMemb_id()});
 RescuingService rescueingSvc = new RescuingService();
 List<RescuingVO> list2 =rescueingSvc.getAll(map2);
 pageContext.setAttribute("list2",list2);
-
+String ntf_src_id = (String)request.getAttribute("ntf_src_id");
 // String tab = (String) request.getAttribute("tab");
 // System.out.println("tab=" + tab);
 // Integer tab_int = null;
@@ -31,7 +31,7 @@ pageContext.setAttribute("list2",list2);
 // 	tab_int = new Integer(tab);
 // }
 %>
-
+<jsp:useBean id="rescueSvc2" scope="page" class="com.rescue.model.RescueService" />
 <html>
 <head>
 <%-- Mobile Specific Meta --%>
@@ -150,7 +150,7 @@ pageContext.setAttribute("list2",list2);
 														<c:forEach var="rescueVO" items="${list}">
 															
 																<% no++; %>
-															<tr>
+															<tr id="${rescueVO.rsc_id}">
 																<td><%=no %></td>
 																<td>${rescueVO.rsc_name}</td>
 																<td>${rescueVO.rsc_add}</td>
@@ -168,7 +168,8 @@ pageContext.setAttribute("list2",list2);
 													<thead>
 														<tr class="success">
 															<th style="width: 30px">序號</th>
-															
+															<th>救援名稱</th>
+															<th>救援地址</th>
 															<th>救援狀態</th>
 														</tr>
 													</thead>
@@ -177,9 +178,11 @@ pageContext.setAttribute("list2",list2);
 														<% int no2=0;%>
 														
 														<c:forEach var="rescuingVO" items="${list2}">
-																<% no2++; %>
-															<tr>
+																<% no2++;%>
+															<tr id="${rescuingVO.rsc_id}">
 																<td><%=no2 %></td>
+																<td>${rescueSvc2.getOneRescue(rescuingVO.rsc_id).rsc_name}</td>
+																<td>${rescueSvc2.getOneRescue(rescuingVO.rsc_id).rsc_add}</td>
 																<td>${rescuingVO.rscing_sta}</td>
 																
 															</tr>
@@ -204,7 +207,23 @@ pageContext.setAttribute("list2",list2);
 			</div>
 		</div>
 	</section>
+<% if(ntf_src_id != null){
+%>
 
+<script type="text/javascript">
+<%
+System.out.println("ntf_src_id="+ntf_src_id);
+%>
+$(function(){
+	$("#<%=ntf_src_id%>").css("background-color","#77DDFF");
+<%-- 	$("#<%=ntf_src_id%>").parent().parent().parent().parent().attr("class","tab-pane active") ;  --%>
+});
+			
+</script>
+	
+	
+	
+<%	}%>
 
 
 <%-- 模板後script 加在自己的script前--%>
