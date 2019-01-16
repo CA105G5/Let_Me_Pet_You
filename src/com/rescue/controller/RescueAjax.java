@@ -21,6 +21,8 @@ import org.json.JSONObject;
 
 import com.rescue.model.RescueService;
 import com.rescue.model.RescueVO;
+import com.volunteer.model.VolunteerService;
+import com.volunteer.model.VolunteerVO;
 
 import util.Send;
 
@@ -48,6 +50,10 @@ public class RescueAjax extends HttpServlet {
 				String rsc_id = req.getParameter("rsc_id");
 				String vlt_id = req.getParameter("vlt_id");
 				
+				VolunteerService vltSvc = new VolunteerService();
+				VolunteerVO vltVO = vltSvc.getOneVolunteer(vlt_id);
+				
+				
 				RescueVO rescueVO = new RescueVO();
 				rescueVO.setRsc_id(rsc_id);
 				rescueVO.setVlt_id(vlt_id);
@@ -56,7 +62,8 @@ public class RescueAjax extends HttpServlet {
 				rescueVO.setNtf_vlt_sta("未讀");
 				rescueVO.setNtf_vlt_time(new Timestamp(new Date().getTime()));
 				Send se = new Send();
-			 	String[] tel ={"0979089890"};
+				System.out.println(cellMinusDash(vltVO.getVlt_tel()));
+			 	String[] tel ={cellMinusDash(vltVO.getVlt_tel())};
 			 	String message = "你有一份救援任務，請盡速完成!!!";
 			 	
 			 	se.sendMessage(tel , message);
@@ -84,5 +91,13 @@ public class RescueAjax extends HttpServlet {
 		}
 	
 	
-			}
+	}
+	public static String cellMinusDash(String a) {
+		String[] b = a.split("-");
+		StringBuffer sb = new StringBuffer();
+		for(int i = 0; i<b.length;i++) {
+			sb.append(b[i]);
+		}
+		return sb.toString();
+	}
 }
