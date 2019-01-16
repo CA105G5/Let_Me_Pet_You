@@ -106,7 +106,7 @@ body {
                                     <div class="input-group">
                                         <div class="input-group-addon"><i style="color:red" class="fa fa-registered"></i></div>
                                         <input type="text" class="form-control" placeholder="救援案例名稱" 
-						  				   value="<%= (rescueVO==null)? "" : rescueVO.getRsc_name()%>" id="rsc_name" name="rsc_name" >
+						  				   value="<%= (rescueVO==null)? "" : rescueVO.getRsc_name()%>" id="rsc_name" name="rsc_name" required>
                                     	</div>      
                                 	</div>
                                 	<jsp:useBean id="regionSvc" scope="page" class="com.region.model.RegionService" />
@@ -114,8 +114,8 @@ body {
                                     <label class=" form-control-label">地區：</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-globe-asia" style="color:#33d6ff"></i></div>
-                                        <select class="form-control custom-control" id="reg_id" name="reg_id" style="width: 100px; height:32px;">
-										<option value="請選擇">請選擇
+                                        <select class="form-control custom-control" id="reg_id" name="reg_id" style="width: 100px; height:32px;"required="required">
+										<option value="">請選擇
 									    <c:forEach var="regionVO" items="${regionSvc.all}">
 										<option value="${regionVO.reg_id}" ${(rescueVO.rsc_reg==regionVO.reg_id)? 'selected':'' } >${regionVO.reg_name}
 									    </c:forEach>
@@ -159,6 +159,7 @@ body {
                                     CKEDITOR.replace( 'rsc_des', {
      				                   removePlugins:'image',
                                     	extraPlugins: 'easyimage',
+                                    	height:500,
      				                      cloudServices_tokenUrl: 'https://36758.cke-cs.com/token/dev/g529dLeMZwwIpbMNAdeiRdeIbIjTrMw6aq0ncGUTnfbb08SqLh6Z2I87wBM3',
      				                      cloudServices_uploadUrl: 'https://36758.cke-cs.com/easyimage/upload/',}); 
                                     </script>

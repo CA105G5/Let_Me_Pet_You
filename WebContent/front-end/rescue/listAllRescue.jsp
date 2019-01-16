@@ -119,7 +119,7 @@ div {
 						
 							<c:forEach var="rescueVO" items="${listAllRescue_ByCompositeQuery}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 									
-									<div class="col-lg-3 cl-md-3">
+									<div class="col-lg-3 cl-md-3" title="查看詳情">
 										<div class="single-service-page">
 											<div class="thumb relative">
 												<div class="overlay-bg"></div>

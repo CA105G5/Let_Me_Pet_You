@@ -140,9 +140,7 @@ div {
 								</div>
 								<div class="bottom-meta">
 									<div class="user-details row align-items-center">
-										<div class="comment-wrap col-sm-8">
-											<ul>
-										
+										<div class="comment-wrap col-sm-6">
 											
 											<c:if test="${rescueVO.rsc_sta=='待救援' or rescueVO.rsc_sta=='救援中'}">
 											
@@ -160,27 +158,16 @@ div {
 												
 												<%}%>
 											
-											
 											</c:if>
 											
-											</ul>
 										</div>
 										
-										
-										
-										
-										
-										
-										
-<!-- 										<div class="social-wrap col-lg-6"> -->
-<!-- 											<ul> -->
-<!-- 												<li><a href="#"><i class="fa fa-facebook"></i></a></li> -->
-<!-- 												<li><a href="#"><i class="fa fa-twitter"></i></a></li> -->
-<!-- 												<li><a href="#"><i class="fa fa-dribbble"></i></a></li> -->
-<!-- 												<li><a href="#"><i class="fa fa-behance"></i></a></li> -->
-<!-- 											</ul> -->
+										<div class="col-sm-6">
 											
-<!-- 										</div> -->
+
+
+											
+										</div>
 									</div>
 								</div>
 

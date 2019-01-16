@@ -142,6 +142,7 @@ table{
 			            		CKEDITOR.replace("rscing_cdes", {
   				                   	removePlugins:'image',
                                		extraPlugins: 'easyimage',
+                               		height:500,
 				                    cloudServices_tokenUrl: 'https://36758.cke-cs.com/token/dev/g529dLeMZwwIpbMNAdeiRdeIbIjTrMw6aq0ncGUTnfbb08SqLh6Z2I87wBM3',
 				                    cloudServices_uploadUrl: 'https://36758.cke-cs.com/easyimage/upload/',}); </script> 
 			            		<br>

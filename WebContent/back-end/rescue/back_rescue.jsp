@@ -188,8 +188,8 @@
 																<tr>
 																	<td><%=no %></td>
 																	<td><img style="width:150px;height:150px" class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="" style="margin-bottom: auto"></td>
-																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">${rescueVO.rsc_id}</a></td>
-																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">${rescueVO.rsc_name}</a></td>
+																	<td style=" margin-bottom: auto">${rescueVO.rsc_id}</td>
+																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}" target="_blank">${rescueVO.rsc_name}</a></td>
 																	<td style=" margin-bottom: auto">${rescueVO.rsc_sponsor}<br>暱稱：${memSvc.getOneMem(rescueVO.rsc_sponsor).memb_nick}</td>
 																	<td style=" margin-bottom: auto">${regionSvc.getOneRegion(rescueVO.rsc_reg).reg_name}</td>
 																	<td style=" margin-bottom: auto"><fmt:formatDate value="${rescueVO.rsc_btime}" type="both" /></td>
@@ -231,7 +231,7 @@
 																<tr>
 																	<td><%=no1 %></td>
 																	<td><img style="width:150px;height:150px" class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="" style="margin-bottom: auto"></td>
-																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">${rescueVO.rsc_id}</a></td>
+																	<td style=" margin-bottom: auto">${rescueVO.rsc_id}</td>
 																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}">${rescueVO.rsc_name}</a></td>
 																	<td style=" margin-bottom: auto">${rescueVO.rsc_sponsor}<br>暱稱：${memSvc.getOneMem(rescueVO.rsc_sponsor).memb_nick}</td>
 																	<td style=" margin-bottom: auto">${regionSvc.getOneRegion(rescueVO.rsc_reg).reg_name}</td>

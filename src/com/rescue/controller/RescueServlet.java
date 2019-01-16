@@ -153,7 +153,10 @@ public class RescueServlet extends HttpServlet{
 						errorMsgs.add("案例名稱:長度必需在2到20之間");
 		            }
 					//地區
-					String rsc_reg = req.getParameter("reg_id").trim();
+					String rsc_reg = req.getParameter("reg_id");
+					if(rsc_reg == null || rsc_reg.trim().length() ==0) {
+						errorMsgs.add("地區請勿空白");
+					}
 					//地點(利用map取到經緯度)
 					String rsc_add = req.getParameter("rsc_add");
 					if (rsc_add == null || rsc_add.trim().length() == 0) {

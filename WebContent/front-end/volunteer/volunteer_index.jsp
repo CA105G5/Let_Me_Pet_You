@@ -42,6 +42,7 @@ System.out.println("111111111111111111111111111="+session.getId());
 			<link rel="stylesheet" href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
 
 		<style>
+		
 		 .img:hover{
             zoom:1;
             transform: scale(1.2);
@@ -59,7 +60,7 @@ System.out.println("111111111111111111111111111="+session.getId());
 				<div class="col-xs-12 col-sm-3"></div>
 				<div class="col-xs-12 col-sm-9">
 					<div class="row d-flex justify-content-end " style="align-items:center">
-					<h2 style="color:deeppink">${volunteerVO.vlt_name},您好</h2>
+					<h2 style="color:deeppink; font-family:Georgia,Microsoft JhengHei,sans-serif">${volunteerVO.vlt_name},您好</h2>
 						<a href="<%=request.getContextPath()%>/front-end/volunteer/volunteer.do?action=logout">
 							<img style="width:60px;height:60px;"class="img img-fluid" src="images/logout.png" title="登出">
 						</a>
