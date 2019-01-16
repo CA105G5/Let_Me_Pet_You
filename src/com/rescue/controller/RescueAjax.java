@@ -34,6 +34,9 @@ public class RescueAjax extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
+		
 		String action = req.getParameter("action");
 		System.out.println(action);
 		
@@ -54,7 +57,8 @@ public class RescueAjax extends HttpServlet {
 				rescueVO.setNtf_vlt_time(new Timestamp(new Date().getTime()));
 				Send se = new Send();
 			 	String[] tel ={"0979089890"};
-			 	String message = "你有一份救援任務，請盡速完成!!";
+			 	String message = "你有一份救援任務，請盡速完成!!!";
+			 	
 			 	se.sendMessage(tel , message);
 				
 				if (!errorMsgs.isEmpty()) {
