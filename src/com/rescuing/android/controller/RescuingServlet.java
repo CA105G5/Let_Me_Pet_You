@@ -47,18 +47,9 @@ public class RescuingServlet extends HttpServlet {
 		System.out.println(jsonObject.toString());
 		String action = jsonObject.get("action").getAsString();
 
-		if ("updateDoneReport".equals(action)) {
-//			String rsc_id = jsonObject.get("rsc_id").getAsString();
-//			String rscing_ptcp = jsonObject.get("rscing_ptcp").getAsString();
-//			String rscing_cdes = jsonObject.get("rscing_cdes").getAsString();
-//			List<String> ptcplist = new ArrayList<String>();
-//				if(req.getParameterValues("rscing_ptcp[]")!=null) {
-//				String[] rscing_ptcps = req.getParameterValues("rscing_ptcp[]");
-//				System.out.println("length"+rscing_ptcps.length);
-//				for (int i = 0; i <rscing_ptcps.length; i++){
-//					ptcplist.add(rscing_ptcps[i]);
-//				}		
-//			writeText(res,gson.toJson(ptcplist));
+		if ("getRescuingMember".equals(action)) {
+			String rsc_id = jsonObject.get("rsc_id").getAsString();
+			writeText(res, new Gson().toJson(rescuingDao.getRescuingMember(rsc_id)));
 		} else if ("joinRescuing".equals(action)) {
 			String rsc_id = jsonObject.get("rsc_id").getAsString();
 			String rscing_ptcp = jsonObject.get("rscing_ptcp").getAsString();

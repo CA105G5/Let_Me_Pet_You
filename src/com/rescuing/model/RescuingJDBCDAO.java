@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.tomcat.dbcp.dbcp2.PStmtKey;
+
 import com.CurrencyDetail.model.CurDtJDBCDAO;
 import com.mem.model.MemJDBCDAO;
 import com.ntf.model.NtfJDBCDAO;
@@ -61,11 +63,7 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			"UPDATE RESCUING set rscing_sta = ? where rsc_id = ? AND rscing_ptcp = ?";
 	private static final String UPDATE_DONE_REPORT = 
 			"UPDATE RESCUING set rscing_sta = ?,rscing_ctime = ?,rscing_cdes = ? where rsc_id = ? AND rscing_ptcp = ?";
-	
-	
-	//安卓指令
-//	private static final String JOIN_RESCUE =
-//			"UPDATE RESCUING SET rscing_sta = "
+			
 	
 	
 	
@@ -1029,14 +1027,66 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 		
 	}
 	
+	//安卓查餐與救援會員之方法
+	public List<String> getRescuingMember(String rsc_id) {
+		List<String> memblist = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_MEM);
+			
+			pstmt.setString(1, rsc_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				memblist = new ArrayList<>();
+				memblist.add(rs.getString("rscing_ptcp"));
+			}
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return memblist;
+		
+	}
 	
-	//安卓新增方法
+	
+	
 	@Override
 	public boolean updateDoneReport(String rsc_id, String rscing_ptcp, String rscing_cdes, List<String> doneRescueMemslist) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
-		boolean isUpdateDoneReport = false;
+		boolean isupdateDoneReport = false;
+		
 		try {
 
 			Class.forName(driver);
@@ -1106,7 +1156,7 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 				}
 			}
 		}
-		return isUpdateDoneReport;
+		return isupdateDoneReport;
 	}
 
 	public static void main(String[] args) {
@@ -1232,6 +1282,7 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
+			con.setAutoCommit(false);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, rsc_id);
@@ -1240,14 +1291,33 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			pstmt.setString(4, "救援中");
 			
 			int rowsUpdated =pstmt.executeUpdate();
-//			System.out.println("Changed " + rowsUpdated + "rows");
-			
+			if(rowsUpdated>0) {
+				isjoinRescuing = true;
+				RescueJDBCDAO rescueJDBCDAO = new RescueJDBCDAO();
+				rescueJDBCDAO.updateCase(rsc_id, rscing_ptcp, con);
+			}
+			con.commit();
+			System.out.println("Changed " + rowsUpdated + "rows");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
 		}finally {
+			try {
+				con.setAutoCommit(true);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();

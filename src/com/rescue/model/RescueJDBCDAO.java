@@ -1064,6 +1064,52 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		return isUpdateCase;
 		
 	}
+	
+	@Override
+	public boolean updateCase(String rsc_id, String rscing_ptcp, Connection con) {
+		PreparedStatement pstmt = null;
+		boolean isUpdateCase = false;
+		
+		try {
+			
+			pstmt = con.prepareStatement(UPDATE_JOIN_RESCUE);
+			pstmt.setString(1, rsc_id);
+			
+			
+			
+			int rowsUpdated = pstmt.executeUpdate();
+			
+//			if(rowsUpdated>0) {
+//				isUpdateCase = true;
+//				RescuingJDBCDAO rescuingJDBCDAO = new RescuingJDBCDAO();
+//				rescuingJDBCDAO.joinRescuing(rsc_id, rscing_ptcp, con);
+//			}
+			
+			System.out.println("Changed " + rowsUpdated + "rows");
+			
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		return isUpdateCase;
+	}
 
 	@Override
 	public boolean addCase(RescueVO rescueVO) {
