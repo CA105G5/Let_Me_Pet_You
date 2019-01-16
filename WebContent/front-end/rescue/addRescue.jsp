@@ -154,7 +154,7 @@ body {
                                     <div class="input-group">
                                     <small class="form-text text-muted">可放入圖片</small>
                                     </div>
-                                    <textarea name="rsc_des" id="rsc_des"></textarea>
+                                    <textarea rows="30" cols="80" name="rsc_des" id="rsc_des"></textarea>
                                     <script>
                                     CKEDITOR.replace( 'rsc_des', {
      				                   removePlugins:'image',
@@ -182,7 +182,7 @@ body {
 <script type="text/javascript">
 			$('#miracleBtn').click(function(){
 				console.log('1111111111111111');
-				$('#rsc_name').val('野豬失足卡水溝　翻肚四腳朝天');
+				$('#rsc_name').val('野豬失足卡水溝翻肚四腳朝天');
 				$('#reg_id').val('REG0000004');
 				
 				
