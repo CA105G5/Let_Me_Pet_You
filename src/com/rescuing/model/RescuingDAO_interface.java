@@ -16,7 +16,7 @@ public interface RescuingDAO_interface {
     public void updateDoneReport(RescuingVO rescuingVO,List<String> doneRescueMemslist);
     public void updateByManagerPass(RescueVO rescueVO);
     public void updateByManagerNoPass(String rsc_id,String rscing_rv_des);
-    public void delete(String rsc_id,String rscing_ptcp);
+    public void delete(String rsc_id,String rscing_ptcp); 
     public RescuingVO findByPrimaryKey(String rsc_id);
     public RescuingVO findself(String rsc_id,String rscing_ptcp);
     public List<RescuingVO> getAll();

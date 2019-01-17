@@ -1238,7 +1238,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.printStackTrace(); 
 				}
 			}
 			if(con != null) {

@@ -7,7 +7,7 @@ public class RescuingVO implements java.io.Serializable{
 	private String rsc_id;
 	private String rscing_ptcp;
 	private Timestamp rscing_btime;
-	private String rscing_sta;
+	private String rscing_sta; 
 	private String rscing_cdes;
 	private Timestamp rscing_ctime;
 	private Timestamp rscing_etime;
