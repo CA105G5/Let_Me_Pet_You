@@ -284,7 +284,49 @@ System.out.println( "是否登入:"+ (managerVO != null));
         
     </div>
     <!-- /#right-panel -->
-
+ <!--救援推播modal -->
+<div class="modal" id="rescue_push_modal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="largeModalLabel">有新的逾時案例尚待分派</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="form-group" style="width:700px">
+						<a id="broadcast_rescue_link" href='<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp' style="text-decoration:none;">
+							<h5>請盡快分派志工前往救援.....</h5>
+						</a>
+						<div class="container" id="info">
+							<hr>
+<!-- 							<div class="row"> -->
+<!-- 								<div class="col-xs-3 col-sm-3"> -->
+<!-- 									<img class="img-fluid" src="" alt="" width="300px"> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-xs-6 col-sm-6"> -->
+<!-- 									<h5><span id="broadcast_rescue_name"></span> -->
+<!-- 									</h5> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+						</div>
+					</div>
+					<br>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+			</div>
+		</div>
+	</div>
+</div>	
+								                
+<!--救援推播modal -->
+  
+  
+  
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
@@ -559,7 +601,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
 			}
 
 	        console.log("img_src=====");
-			$('#product_push_modal').modal('show');
+			$('#rescue_push_modal').modal('show');
 
 		};
 
