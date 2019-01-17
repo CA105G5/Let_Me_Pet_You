@@ -1109,7 +1109,10 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			pstmt.setString(4, rsc_id);
 			pstmt.setString(5, rscing_ptcp);
 
-			pstmt.executeUpdate();
+			
+			if(pstmt.executeUpdate()>0) {
+				isupdateDoneReport = true;				
+			}
 	       //參與者改變狀態
  		   for(String i:doneRescueMemslist) {
  			  updateByJoinRsc(rsc_id,i,con);
@@ -1120,10 +1123,22 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			System.out.println("已送審中");
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
+			try {
+				con.rollback();
+				
+			}catch (SQLException sql) {
+				sql.printStackTrace();
+			}
 			throw new RuntimeException("Couldn't load database driver. "
 					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
+			try {
+				con.rollback();
+				
+			}catch (Exception ex) {
+				ex.printStackTrace();
+			}
 			if (con != null) {
 				try {
 					// 3●設定於當有exception發生時之catch區塊內

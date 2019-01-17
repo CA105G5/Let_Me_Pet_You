@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.taglibs.standard.lang.jstl.parser.Token;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.rescue.model.RescueDAO_interface;
 import com.rescue.model.RescueJDBCDAO;
 import com.rescue.model.RescueVO;
@@ -44,7 +48,6 @@ public class RescuingServlet extends HttpServlet {
 		System.out.println("input: " + jsonIn);
 		JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
 		
-		System.out.println(jsonObject.toString());
 		String action = jsonObject.get("action").getAsString(); 
 
 		if ("getRescuingMember".equals(action)) {
@@ -54,9 +57,14 @@ public class RescuingServlet extends HttpServlet {
 			String rsc_id = jsonObject.get("rsc_id").getAsString();
 			String rscing_ptcp = jsonObject.get("rscing_ptcp").getAsString();
 			writeText(res, String.valueOf(rescuingDao.joinRescuing(rsc_id, rscing_ptcp)));
-//		}else if ("addcase".equals(action)) { 
-//			RescueVO rescueVO = gson.fromJson(jsonObject.get("Rescue").getAsString(), RescueVO.class);
-//			writeText(res, String.valueOf(rescueDao.addCase(rescueVO)));
+		}else if ("updateDoneReport".equals(action)) { 
+			String rsc_id = jsonObject.get("rsc_id").getAsString();
+			String rscing_ptcp = jsonObject.get("rscing_ptcp").getAsString();
+			String rscing_cdes = jsonObject.get("rscing_cdes").getAsString();
+			String doneRescueMemslist = jsonObject.get("doneRescueMemslist").getAsString();
+			Type type = new TypeToken<List<String>>() {}.getType();
+			List<String> Memblist = gson.fromJson(doneRescueMemslist, type);
+			writeText(res, String.valueOf(rescuingDao.updateDoneReport(rsc_id, rscing_ptcp, rscing_cdes, Memblist)));
 //		}else if ("updateCase".equals(action)) {
 //			String rsc_id = jsonObject.get("rsc_id").getAsString();
 //			writeText(res, String.valueOf(rescueDao.updateCase(rsc_id)));

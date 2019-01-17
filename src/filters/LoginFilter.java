@@ -11,7 +11,7 @@ public class LoginFilter implements Filter {
 	public void init(FilterConfig config) {
 		this.config = config;
 	}
-
+ 
 	public void destroy() {
 		config = null;
 	}

@@ -29,7 +29,7 @@ public class RescuingServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		
+		 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
