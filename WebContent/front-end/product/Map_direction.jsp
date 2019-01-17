@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ page import="com.rescue.model.*"%>
+<%@ page import="com.prod.controller.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.mem.model.*"%>
@@ -11,6 +12,10 @@
 	MemService memSvc = new MemService();
 	MemVO memVO = memSvc.getOneMem("M000000001");
 	session.setAttribute("memVO",memVO);
+	
+	
+// 	String liveId = ListBroadcasts.getLiveId();
+// 	System.out.println("liveId=="+liveId);
 %>
 
 <!DOCTYPE html>
@@ -129,7 +134,56 @@ p.bottom-desc {
 	<input type="text" class="form-control" placeholder="救援案例地點" value="<%= (rescueVO==null)? "" : rescueVO.getRsc_add()%>" id="rsc_add" name="rsc_add" style="width: 500px;">
 </div>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/live_stream?channel=UCvlH0X2eqSZzN8_gGIuUkSg" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/live_stream?channel=UCVgO39Bk5sMo66-6o6Spn6Q" frameborder="0" allowfullscreen></iframe>
+  
+  
+  
+  <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+//       var tag = document.createElement('script');
+
+//       tag.src = "https://www.youtube.com/iframe_api";
+//       var firstScriptTag = document.getElementsByTagName('script')[0];
+//       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+//       // 3. This function creates an <iframe> (and YouTube player)
+//       //    after the API code downloads.
+//       var player;
+//       function onYouTubeIframeAPIReady() {
+//         player = new YT.Player('player', {
+//           height: '390',
+//           width: '640',
+<%--           videoId: '<%=liveId%>', --%>
+//           events: {
+//             'onReady': onPlayerReady,
+//             'onStateChange': onPlayerStateChange
+//           }
+//         });
+//       }
+
+//       // 4. The API will call this function when the video player is ready.
+//       function onPlayerReady(event) {
+//         event.target.playVideo();
+//       }
+
+//       // 5. The API calls this function when the player's state changes.
+//       //    The function indicates that when playing a video (state=1),
+//       //    the player should play for six seconds and then stop.
+//       var done = false;
+//       function onPlayerStateChange(event) {
+//         if (event.data == YT.PlayerState.PLAYING && !done) {
+//           setTimeout(stopVideo, 6000);
+//           done = true;
+//         }
+//       }
+//       function stopVideo() {
+//         player.stopVideo();
+//       }
+    </script>
+
 
 <div class="container">
         <div class="col-sm-6 col-sm-offset-3">

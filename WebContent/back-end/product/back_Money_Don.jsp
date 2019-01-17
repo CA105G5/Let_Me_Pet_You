@@ -78,111 +78,22 @@
 
 
 
+    
+<!-- datatable -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend_UI_template/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+<!-- datatable -->
+
+    
 <!-- sweetAlert -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
-
-
+    
 
 
 
    <style>
    
-	* {box-sizing:border-box}
-	
-	/* Slideshow container */
-	.slideshow-container {
-	  max-width: 1000px;
-	  position: relative;
-	  margin: auto;
-	}
-	
-	/* Hide the images by default */
-	.mySlides {
-	  display: none;
-	}
-	
-	/* Next & previous buttons */
-	.prev, .next {
-	  cursor: pointer;
-	  position: absolute;
-	  top: 50%;
-	  width: auto;
-	  margin-top: -22px;
-	  padding: 16px;
-	  color: white;
-	  font-weight: bold;
-	  font-size: 18px;
-	  transition: 0.6s ease;
-	  border-radius: 0 3px 3px 0;
-	  user-select: none;
-	}
-	
-	/* Position the "next button" to the right */
-	.next {
-	  right: 0;
-	  border-radius: 3px 0 0 3px;
-	}
-	
-	/* On hover, add a black background color with a little bit see-through */
-	.prev:hover, .next:hover {
-	  background-color: rgba(0,0,0,0.8);
-	}
-	
-	/* Caption text */
-	.text {
-	  color: #f2f2f2;
-	  font-size: 15px;
-	  padding: 8px 12px;
-	  position: absolute;
-	  bottom: 8px;
-	  width: 100%;
-	  text-align: center;
-	}
-	
-	/* Number text (1/3 etc) */
-	.numbertext {
-	  color: #f2f2f2;
-	  font-size: 12px;
-	  padding: 8px 12px;
-	  position: absolute;
-	  top: 0;
-	}
-	
-	/* The dots/bullets/indicators */
-	.dot {
-	  cursor: pointer;
-	  height: 15px;
-	  width: 15px;
-	  margin: 0 2px;
-	  background-color: #bbb;
-	  border-radius: 50%;
-	  display: inline-block;
-	  transition: background-color 0.6s ease;
-	}
-	
-	.active, .dot:hover {
-	  background-color: #717171;
-	}
-	
-	/* Fading animation */
-	.fade {
-	  -webkit-animation-name: fade;
-	  -webkit-animation-duration: 5s;
-	  animation-name: fade;
-	  animation-duration: 5s;
-	}
-	
-	@-webkit-keyframes fade {
-	  from {opacity: .6} 
-	  to {opacity: 1}
-	}
-	
-	@keyframes fade {
-	  from {opacity: .6} 
-	  to {opacity: 1}
-	}
-	
 /* button click動畫 */ 
 .button { 
   display: inline-block; 
@@ -212,7 +123,7 @@ transform: translateY(4px);
 
 <body>
 
-	<jsp:include page="/back-end/product/back_shop_Header.jsp" flush="true" />
+	<jsp:include page="/back-end/manager/back_end_index_header.jsp" flush="true" />
 	
  <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
@@ -267,7 +178,7 @@ transform: translateY(4px);
       <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding w3-border-red"><h4>款項待確認</h4></div>
     </a>
     <a href="javascript:void(0)" onclick="openTab(event, 'reviewed');">
-      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"><h4>款項已確認</h4></div>
+      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"><h4>歷史捐款紀錄查詢</h4></div>
     </a>
   </div>
 
@@ -368,7 +279,19 @@ transform: translateY(4px);
   </div>
 
   <div id="reviewed" class="w3-container city" style="display:none" style="width:1100px">
-    <p> </p> 
+   <br>
+    <p style="display:inline; padding-left:15px">依捐款年月份查詢　</p> 
+	
+    
+    <select style="width: 120px" id="donate_month" name="donate_month" style="display:inline">
+		<option value="0">All</option>
+		<option value="2018-12">2018/12</option>
+		<option value="2019-01">2019/01</option>
+	</select>
+<!-- 	<br> -->
+<!-- 	<br> -->
+	<p style="display:inline"><h3 id="total" style="display:inline; padding-left:50px">目前收到捐款總計 $ </h3></p> 
+	<br>
     <table id="bootstrap-data-table" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
 														<tr class="success">
@@ -384,27 +307,36 @@ transform: translateY(4px);
 														</tr>
 													</thead>
 													<tbody>
+													
+														<script> var total = 0;</script>
 														<% int no2=0;%>
 														<c:forEach var="donateVO" items="${list}">
 															<c:if test="${donateVO.donate_status.equals('已收到')}" var="condition" scope="page">
 																<% no2++; %>
-																<tr>
+																<tr class="aaa">
 <%-- 																	<td><%=no2 %></td> --%>
 																	<td style=" margin-bottom: auto">${donateVO.donate_name}</td>
 																	<td style=" margin-bottom: auto">${donateVO.donate_phone}</td>
 <%-- 																	<td style=" margin-bottom: auto">${donateVO.donate_mail}</td> --%>
-																	<td style=" margin-bottom: auto"><fmt:formatDate value="${donateVO.donate_date}" pattern="yyyy-MM-dd"/></td>
+																	<td class="info" style=" margin-bottom: auto"><fmt:formatDate value="${donateVO.donate_date}" pattern="yyyy-MM-dd"/></td>
 																	<td style=" margin-bottom: auto">${donateVO.donate_src}</td>
 																	<td style=" margin-bottom: auto">${donateVO.donate_amount}</td>
 																	<td style=" margin-bottom: auto">${donateVO.donate_src_trn==null? donateVO.donate_src_cre : donateVO.donate_src_trn}</td>
 																	<td style=" margin-bottom: auto">已確認</td>
 																	<td style=" margin-bottom: auto">${donateVO.donate_coin}</td>
 																</tr>
+																
+																<script>
+																	total += ${donateVO.donate_amount};
+																</script>
 															</c:if>
 														</c:forEach>
 													</tbody>
 												</table>
-  </div>
+<!--   </div> -->
+
+<!-- <p style="display:inline"><h3 id="total">目前收到捐款總計 $ </h3></p>  -->
+
 
 </div>
                             
@@ -467,6 +399,85 @@ transform: translateY(4px);
   	</script>
   	<!-- backend datatable  -->
   	
+  	<script>
+	(function($) {
+		$('#total').text("目前收到所有捐款總計 $" + total);
+	})(jQuery);
+	
+	(function($) {
+		$('#donate_month').on('change', function(){
+			console.log("111111");
+			console.log($('#donate_month').val());
+			console.log($('#donate_month').val()!=0);
+			console.log($('#bootstrap-data-table_filter').find(":input").attr("type"));
+			
+			var $search = $('#bootstrap-data-table_filter').find(":input");
+			$search.val('');
+			$('#total').text('');
+			
+			if($('#donate_month').val()!=0){
+				$search.val($('#donate_month').val());
+				$search.focus();
+				
+			} else{
+				$('#total').text("目前收到所有捐款總計 $" + total);
+			}
+			
+			//setup event
+ 			$search.keypress(function(event) {
+ 			    if ((event.keyCode) == 13) {
+ 			        alert('keypress triggered');
+ 			    }
+ 			});
+			
+ 			e = jQuery.Event("keyup");
+			e.which = 13; //enter charecter 13 used
+			e.keyCode = 13;
+			$search.trigger(e);
+			
+			if($('#donate_month').val()!=0){
+				$.ajax({
+					url: '<%=request.getContextPath()%>/donate/donate.do?action=check_total_by_month',
+					type: "get",
+					data: { 'action': 'check_total_by_month', 
+							'donate_year': $('#donate_month').val().substring(0,4), 
+							'donate_month': $('#donate_month').val().substring(5),
+						  },
+					dataType: 'json',
+					success: function(res){
+						console.log("0000000000");
+						console.log(res);
+						$('#total').text($('#donate_month').val().substring(0,4)+"年"+$('#donate_month').val().substring(5)+"月收到捐款總計 $" + res);
+	
+					},
+					error: function(res){
+						console.log("eeeeeeee");
+						console.log("res="+res);
+					}
+				
+				});
+			}
+
+// 			var total2 = 0;
+// 			$(".info").each(function(){
+			
+// 				if($('#donate_month').val()==0){
+// 					console.log("00000"+$(this).next().next().text());
+// 					$('#total').text("目前收到所有捐款總計 $" + total);
+// 				}	else if($(this).html().substring(0,7)==$('#donate_month').val()){
+// 					console.log("$$$$$$$"+$(this).next().next().text());
+// 					total2= total2 + parseInt($(this).next().next().text());
+// 					$('#total').text($('#donate_month').val().substring(0,4)+"年"+$('#donate_month').val().substring(5)+"月收到捐款總計 $" + total2);
+// 				}
+				
+// 			});
+			
+			
+		});
+	})(jQuery);
+	
+	
+</script>
 
   	
 

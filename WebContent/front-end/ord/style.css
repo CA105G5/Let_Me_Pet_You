@@ -74,6 +74,19 @@ body {
   cursor: pointer;
 }
 
+.like-btn-fix {
+  position: absolute;
+  top: 9px;
+  left: 15px;
+  display: inline-block;
+  background: url('twitter-heart-fix.png');
+  width: 60px;
+  height: 60px;
+  background-size: 2900%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
 .is-active {
   animation-name: animate;
   animation-duration: .8s;

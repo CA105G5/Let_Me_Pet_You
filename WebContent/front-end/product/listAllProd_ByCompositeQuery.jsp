@@ -58,7 +58,7 @@
 <meta charset="UTF-8">
 <!-- Site Title -->
 <title>愛心商城</title>
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <style type="text/css">
 p {
@@ -168,28 +168,37 @@ div {
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
 				<div class="row">
 					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;">
-						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
+						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 130px; position: fixed; bottom: auto"> 
 					<h3>商品分類</h3>
-					<hr>
+<!-- 					<hr> -->
+						 
 					    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" name="form1">
-					        <h5><b>選擇動物:</b></h5>
+					         <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
+						    	<p style="height:16px">動物</p>
+						 	 </div>
 						        <label><input type="checkbox" name="prod_ani_type_id" value="貓"> 貓</label>　　
 								<label><input type="checkbox" name="prod_ani_type_id" value="狗"> 狗</label>　<br>
 								<label><input type="checkbox" name="prod_ani_type_id" value="兔"> 兔</label>　　
 								<label><input type="checkbox" name="prod_ani_type_id" value="飛禽"> 飛禽</label>　<br>
 								<label><input type="checkbox" name="prod_ani_type_id" value="其他"> 其他</label>　<br>
-					        <hr>
-					       	<h5><b>選擇商品種類:</b></h5>
+<!-- 					        <hr> -->
+<!-- 					       	<h5><b style="background-color:bisque; color:black">商品種類</b></h5> -->
+							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
+						    	<p style="height:16px">商品種類</p>
+						 	 </div>
 					       		<label><input type="checkbox" name="prod_type_id" value="食" > 食</label>　　
 								<label><input type="checkbox" name="prod_type_id" value="衣" > 衣</label>　<br>
 								<label><input type="checkbox" name="prod_type_id" value="住" > 住</label>　　
 								<label><input type="checkbox" name="prod_type_id" value="行" > 行</label>　<br>
 								<label><input type="checkbox" name="prod_type_id" value="育" > 育</label>　　
 								<label><input type="checkbox" name="prod_type_id" value="樂" > 樂</label>　<br>
-<%--  					        <%= Arrays.asList(prod_type_id).contains("樂")? "checked":"" %>  --%>
+<%-- 					        <%= Arrays.asList(prod_type_id).contains("樂")? "checked":"" %>  --%>
 					        
-					        <hr>
-					       	<h5><b>選擇價格區間:</b></h5>
+<!--  					        <hr>  -->
+<!--  					       	<h5><b style="background-color:bisque; color:black">價格區間</b></h5>  -->
+							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
+						    	<p style="height:16px">價格區間</p>
+						 	 </div>
 					       		<label><input type="radio" name="prod_price" value="0 and 50" <%= "0 and 50".equals(prod_price)? "checked":"" %> > $ 50以下</label>　<br>
 								<label><input type="radio" name="prod_price" value="50 and 100" <%= "50 and 100".equals(prod_price)? "checked":"" %>> $ 50~100</label>　<br>
 								<label><input type="radio" name="prod_price" value="101 and 200" <%= "101 and 200".equals(prod_price)? "checked":"" %>> $ 101~200</label>　<br>
