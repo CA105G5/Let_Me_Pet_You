@@ -267,6 +267,8 @@
     <url-pattern>/front-end/members/listMyMissingPets.jsp</url-pattern>
     <url-pattern>/front-end/missingCase/addMissing.jsp</url-pattern>
     <url-pattern>/front-end/donate/listAllProdDon.jsp</url-pattern>
+    <url-pattern>/front-end/donate/listAllMoneyDon.jsp</url-pattern>
+    <url-pattern>/front-end/donate/addProdDon.jsp</url-pattern>
     <url-pattern>/front-end/ord/listAllOrd.jsp</url-pattern>
     <url-pattern>/front-end/ord/listAllOrd_Ship.jsp</url-pattern>
     <url-pattern>/front-end/ord/cart_Receiver.jsp</url-pattern>
