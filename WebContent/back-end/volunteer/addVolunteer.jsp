@@ -126,7 +126,7 @@
 				console.log('1111111111111111');
 				$('#vlt_mail').val('ca105demo@gmail.com');
 				$('#vlt_name').val('°Ó°Ó');
-				$('#vlt_tel').val('0987-654321');
+				$('#vlt_tel').val('0979-089890');
 				$("#inline-radio1").prop("checked",true);
 				$("#REG0000004").prop("selected",true);
 				

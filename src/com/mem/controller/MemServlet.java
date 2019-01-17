@@ -427,6 +427,7 @@ public class MemServlet extends HttpServlet {
 		if("logout".equals(action)) {
 			HttpSession session = req.getSession();
 			session.setAttribute("memVO", null);
+			session.setAttribute("location", null);
 			res.sendRedirect(req.getContextPath()+"/index.jsp");
 			return;
 		}
