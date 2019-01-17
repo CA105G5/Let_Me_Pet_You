@@ -83,7 +83,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
                    
                     <li class="menu-title active"><a href="index.html">後台管理</a></li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>救援管理</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-plus-square"></i>救援管理</a>
                         <ul class="sub-menu children dropdown-menu">                            
                         	<li><i class="fa fa-list-ul"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescue.jsp">救援案例列表</a></li>
                             <li><i class="fa fa-exclamation-circle"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp">逾時案例列表</a></li>
