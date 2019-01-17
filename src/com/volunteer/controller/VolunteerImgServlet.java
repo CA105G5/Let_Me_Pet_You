@@ -23,7 +23,7 @@ public class VolunteerImgServlet extends HttpServlet{
 		VolunteerService volunteerSvc = new VolunteerService();
 		byte[] pic = volunteerSvc.getOneVolunteer(vlt_id).getVlt_img();
 		if(pic != null) {
-//			pic = ImageUtil.shrink(pic,200);	
+			pic = ImageUtil.shrink(pic,200);	
 			res.setContentType("image/jpeg");
 			res.setContentLength(pic.length);
 		}
