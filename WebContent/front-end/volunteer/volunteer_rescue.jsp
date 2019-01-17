@@ -185,7 +185,7 @@ String flag = (String) request.getAttribute("flag");
 		    						            
 		    						        		showCloseButton: true,
 		    						        });
-		    						setInterval(function(){window.location.href = "<%=request.getContextPath()%>/front-end/volunteer/volunteer_rescue.jsp";},3000);
+		    						setInterval(function(){window.location.href = "<%=request.getContextPath()%>/front-end/volunteer/volunteer_rescue.jsp";},1000);
 		    						
 		    					},
 		    					error: function(res){

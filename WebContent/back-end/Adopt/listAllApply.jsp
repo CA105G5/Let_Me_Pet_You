@@ -112,7 +112,7 @@ pageContext.setAttribute("list", list);
 
 <body>
 
-	<jsp:include page="/back-end/rescue/back_rescue_header.jsp" flush="true" />
+	<jsp:include page="/back-end/manager/back_end_index_header.jsp" flush="true" />
 	
  <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
