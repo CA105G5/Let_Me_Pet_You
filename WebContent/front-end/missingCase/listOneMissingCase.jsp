@@ -448,13 +448,32 @@
 			 var jsonObj = JSON.parse(event.data);
 		     var $missing_case_id = jsonObj.missing_case_id;
 		     var $missing_owner = jsonObj.missing_owner;
+		     var $missing_name = jsonObj.missing_name;
 		     var $memb_id = "<%=memb_id%>";
-			 console.log("memb_id==="+"<%=memb_id%>");
+		     console.log("memb_id==="+"<%=memb_id%>");
 			 console.log("missing_owner==="+$missing_owner);
 			 console.log("missingCase===onMeaasge==="+$missing_case_id);
+			 console.log("missing_name===onMeaasge==="+$missing_name);
 			 if (<%=memb_id!=null%> && $memb_id == $missing_owner){
-				 console.log("失主在線上===");
-				 window.open('<%=request.getContextPath()%>/util/chat.jsp', 'Chat', config='height=500, width=500');
+			 	console.log("失主在線上===");
+				$.ajax({
+					url: '<%=request.getContextPath()%>/front-end/missingCase/miss.do',
+					type: "get",
+					data: { 'action': 'openChat', 'missing_case_id': $missing_case_id, 'missing_name': $missing_name },
+					dataType: 'json',
+					success: function(res){
+						console.log("res==="+res);
+						window.open('<%=request.getContextPath()%>/util/chat.jsp', 'Chat', config='height=500, width=500');
+					},
+					error: function(res){
+						console.log(res);
+					}
+
+				});
+				
+				<%--=<%session.setAttribute("missing_case_id", $missing_case_id);%> --%>
+				<%--<%session.setAttribute("missing_name", $missing_name);%> --%>
+				
 			 }
 	        
 		};
@@ -474,11 +493,15 @@
 	
 
 	$('#openChat').on('click', function () {
+// 給自己用的
 		<%session.setAttribute("missing_case_id", missing_case_id);%>
 		<%session.setAttribute("missing_name", missing_name);%>
-		var jsonObj = {"missing_case_id" : "<%=missing_case_id%>", "missing_owner":"<%=owner%>"};
+// 給自己用的
+
+// 若失主在線上做跳窗推播用的
+		var jsonObj = {"missing_case_id" : "<%=missing_case_id%>", "missing_owner":"<%=owner%>","missing_name":"<%=missing_name%>"};
 	    webSocket.send(JSON.stringify(jsonObj));
-<%-- 		window.open('<%=request.getContextPath()%>/util/chat.jsp', 'Chat', config='height=500, width=500'); --%>
+// 若失主在線上做跳窗推播用的
 	});
 
 	

@@ -3,6 +3,7 @@ package com.missingCase.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,41 @@ public class missingCaseServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
+		
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		System.out.println("action=" + action);
+		
+		if ("openChat".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String missing_case_id = req.getParameter("missing_case_id");
+				String missing_name = req.getParameter("missing_name");
+
+				System.out.println("missing_case_id====="+missing_case_id);
+				System.out.println("missing_name====="+missing_name);
+				/*************************** 2.開始查詢資料 *****************************************/
+
+				
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				session.setAttribute("missing_case_id", missing_case_id);
+				session.setAttribute("missing_name", missing_name);
+				
+				out.println(1);
+				
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/missingCase/listAllMissingCase.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			
+		}
 		
 		if ("getOne_For_Display".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
