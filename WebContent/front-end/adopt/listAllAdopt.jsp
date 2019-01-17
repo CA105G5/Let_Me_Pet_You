@@ -123,6 +123,11 @@ h4 {
 			<%@ include file="page2.file"%>
 		</div>
 	</section>
+<script>
+$("ul.nav-menu li").attr('class', "" );
+$("#adopt").attr('class', 'menu-active menu-has-children' )
 
+
+</script>
 </body>
 </html>

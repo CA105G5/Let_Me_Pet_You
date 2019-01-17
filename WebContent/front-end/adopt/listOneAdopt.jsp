@@ -358,7 +358,9 @@
 		}
 	});	
 	
-	
+	$("ul.nav-menu li").attr('class', "" );
+	$("#adopt").attr('class', 'menu-active menu-has-children' )
+
 	
 	</script>
 	</c:if>

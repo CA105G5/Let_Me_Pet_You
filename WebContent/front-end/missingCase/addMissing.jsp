@@ -468,5 +468,9 @@ function myFlow(a) {
       
       
   }
+  $("ul.nav-menu li").attr('class', "" );
+  $("#missing").attr('class', 'menu-active menu-has-children' )
+
+  
 </script>
 </html>

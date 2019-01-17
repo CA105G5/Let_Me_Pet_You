@@ -107,16 +107,16 @@ System.out.println( "是否登入:"+ (managerVO != null));
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>認養管理</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="tables-basic.html">審核認養案例</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">認養案例結案管理</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">審核檢舉認養留言</a></li>
+                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/listAllAdopt.jsp">審核認養案例</a></li>
+                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/listAllApply.jsp">認養案例申請者管理</a></li>
+                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/AdoptMsgReport.jsp">審核檢舉認養留言</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>失蹤協尋管理</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">審核檢舉失蹤案例</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">審核檢舉失蹤案例留言</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back_listAllMissingCaseReport.jsp">審核檢舉失蹤案例</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back_MissingMsgReport.jsp">審核檢舉失蹤案例留言</a></li>
                         </ul>
                     </li>
 
