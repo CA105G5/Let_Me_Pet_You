@@ -25,7 +25,7 @@ import com.rescuing.model.RescuingVO;
 import util.ImageUtil;
 
 
-
+ 
 public class RescuingServlet extends HttpServlet {
 	private final static String CONTENT_TYPE = "text/html; charset=UTF-8";
 

@@ -1087,7 +1087,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			
 			System.out.println("Changed " + rowsUpdated + "rows");
 			
-		} catch (SQLException se) {
+		} catch (SQLException se) { 
 			if (con != null) {
 				try {
 					// 3●設定於當有exception發生時之catch區塊內

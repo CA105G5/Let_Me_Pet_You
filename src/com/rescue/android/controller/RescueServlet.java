@@ -72,7 +72,7 @@ public class RescueServlet extends HttpServlet {
 				image = ImageUtil.shrink(image, imageSize);
 				res.setContentType("image/jpeg");
 				res.setContentLength(image.length);
-			}
+			} 
 			os.write(image);
 
 		} else {

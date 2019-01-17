@@ -1029,7 +1029,7 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 	
 	//安卓查餐與救援會員之方法
 	public List<String> getRescuingMember(String rsc_id) {
-		List<String> memblist = null;
+		List<String> memblist = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -1043,10 +1043,15 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 			
 			rs = pstmt.executeQuery();
 			
+			System.out.println("===========DAO==============");
+			
 			while(rs.next()) {
-				memblist = new ArrayList<>();
-				memblist.add(rs.getString("rscing_ptcp"));
+				String mem = rs.getString("rscing_ptcp");
+				memblist.add(mem);
 			}
+			 
+			System.out.println("size = " + memblist.size());
+			
 		}catch(ClassNotFoundException ce){
 			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
 		}catch(SQLException se){

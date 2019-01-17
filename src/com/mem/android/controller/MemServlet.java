@@ -46,7 +46,7 @@ public class MemServlet extends HttpServlet {
 		if ("isMemAcc".equals(action)) {  
 			MemVO memVO = gson.fromJson(jsonObject.get("MemVO").getAsString(), MemVO.class);
 			writeText(res, String.valueOf(MemDao.isMemAcc(memVO)));
-		} else if ("isMemExist".equals(action)) {
+		} else if ("isMemExist".equals(action)) { 
 			String memb_acc = jsonObject.get("memb_acc").getAsString();
 			writeText(res, String.valueOf(MemDao.isMemExist(memb_acc)));
 		}else if ("findByAccount".equals(action)) {
