@@ -86,11 +86,11 @@ h4 {
 
 	<section class="service-page-area section-gap ">
 		<div class="container">
-			
-
-
-
-			<!-- 右邊 -->
+			<div class="row d-flex justify-content-center">
+				<div class="col-md-9 pb-40 header-text text-center">
+						<h1 class="pb-10">認養案例瀏覽</h1>
+				</div>
+			</div>			<!-- 右邊 -->
 			<div class="row">
 				<%@ include file="page1.file"%>
 				<c:forEach var="adoptionVO" items="${list}"
@@ -99,7 +99,7 @@ h4 {
 						<div class="single-service-page">
 							<div class="thumbs relative">
 								<div class="overlay-bg"></div>
-								<img class="img-fluid"
+								<img class="img" width="350" height="240"
 									src="<%=request.getContextPath() %>/front-end/adopt/adoptImg.do?adopt_id=${adoptionVO.adopt_id }"
 									alt="">
 							</div>

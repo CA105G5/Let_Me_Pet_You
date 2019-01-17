@@ -233,7 +233,7 @@
 									<div class=" justify-content-between d-flex">
 										<div class="user justify-content-between d-flex">
 											<div class="thumb">
-												<img src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${missingMsgVO.memb_id}" alt="">
+												<img width="200" height="200" src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${missingMsgVO.memb_id}" alt="">
 											</div>
 											<div class="desc">
 												<h5>
