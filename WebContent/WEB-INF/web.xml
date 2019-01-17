@@ -289,7 +289,11 @@
   <filter-mapping>
     <filter-name>ManagerLoginFilter</filter-name>
     <url-pattern>/back-end/manager/back_end_index.jsp</url-pattern>
-    <url-pattern>/back-end/product/back_shop.jsp</url-pattern>
+    <url-pattern>/back-end/Adopt/*</url-pattern>
+    <url-pattern>/back-end/missingCase/*</url-pattern>
+    <url-pattern>/back-end/product/*</url-pattern>
+    <url-pattern>/back-end/rescue/*</url-pattern>
+    <url-pattern>/back-end/volunteer/*</url-pattern>
     <url-pattern>/back-end/ord/back_listAllOrd.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>

@@ -217,6 +217,8 @@ System.out.println("ntf_src_id="+ntf_src_id);
 $(function(){
 	$("#<%=ntf_src_id%>").css("background-color","#77DDFF");
 <%-- 	$("#<%=ntf_src_id%>").parent().parent().parent().parent().attr("class","tab-pane active") ;  --%>
+// 	$("ul.nav-menu li").attr('class', "" );
+// 	$("#member").attr('class', 'menu-active menu-has-children' )
 });
 			
 </script>

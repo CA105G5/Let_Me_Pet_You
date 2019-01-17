@@ -175,7 +175,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 							<p>
 								認養須知及流程:<br>
 								1.填寫申請表單<br>
-								2.專人到府評估是否有能力照顧寵物<br>
+								2.專人評估是否有能力照顧寵物<br>
 								3.辦理認養手續<br>
 								4.新飼主、寵物電腦資料登記<br>
 								5.植入晶片/狂犬病疫苗<br>
@@ -206,8 +206,11 @@ System.out.println( "是否登入:"+ (memVO != null));
 							<p>
 								<span>流浪在外的寵物無法開心過生活，請幫助他們找到回家的路</span>
 							</p>
+<!-- 							<p> -->
+<!-- 								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis. -->
+<!-- 							</p> -->
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis.
+								在合法的寵物登記站施打晶片後，寵物的資訊就會登錄到政府的寵物管理系統中。如果狗狗散步時遺失被別人拾獲而帶去獸醫院，或是被捕狗大隊帶往收容所時，都可以經過晶片的掃描後，找到飼主的資訊，讓狗狗能重回主人懷抱。但是如果狗狗身上沒晶片，那在法律上牠就是沒有飼主的狗，撿獲的人可以自己登記成為牠的主人。同樣地，被帶往收容所的話，超過公告時間而未被認養者，也許會難逃安樂死的命運。
 							</p>
 							<a class="primary-btn" href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤詳情</a>
 						</div>
@@ -232,10 +235,14 @@ System.out.println( "是否登入:"+ (memVO != null));
 							<p>
 								<span>伸出小小的手散發大大的愛</span>
 							</p>
+<!-- 							<p> -->
+<!-- 								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis. -->
+<!-- 							</p> -->
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis.
+								物資捐贈與捐款並不盡然相同，物資並非「越多越好」。物資有其限制，物件的規格、尺寸都會影響與單位需求的貼合程度。舉例來說，市面上的筆記型電腦型號多不勝數，單位的用途可能是行政文書、辦活動、教學等，若資訊不夠完整透明，就很有可能造成錯捐與過剩。物資也有其即時性，受捐單位服務的案家若發生突發狀況，有較為緊急的需求，來不及上網公告或申請公益勸募，就必須臨時召募。此時若社福單位未於收受捐物結束後即時更新募捐資訊，就可能發生物資大量湧入的狀況。
 							</p>
-							<a class="primary-btn" href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈詳情</a>
+							<div align="right"><a class="primary-btn" href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈詳情</a></div>
+							
 						</div>
 					</div>
 				</div>	
@@ -253,10 +260,13 @@ System.out.println( "是否登入:"+ (memVO != null));
 								商品應有盡有 
 							</h1>
 							<p>
-								<span>We are here to listen from you deliver exellence</span>
+								<span>您的寵物也非常樂意在此逛逛</span>
 							</p>
+<!-- 							<p> -->
+<!-- 								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmo d tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmo d tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmo d tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmo d tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmo d tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmo d tempor incididunt ut labore et dolore magna aliqua. -->
+<!-- 							</p> -->
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmo d tempor incididunt ut labore et dolore magna aliqua.
+								寵物商城內的商品皆來自愛心人士的捐贈，內含貓、狗、飛禽及其他寵物類型的食衣住行育樂，商品應有盡有，在商城內購物皆須使用愛心幣。您可以透過動物救援、捐贈物資以及捐款來獲得愛心幣。寵物商城內的商品皆來自愛心人士的捐贈，內含貓、狗、飛禽及其他寵物類型的食衣住行育樂，商品應有盡有，在商城內購物皆須使用愛心幣。您可以透過動物救援、捐贈物資以及捐款來獲得愛心幣。寵物商城內的商品皆來自愛心人士的捐贈，內含貓、狗、飛禽及其他寵物類型的食衣住行育樂，商品應有盡有，在商城內購物皆須使用愛心幣。您可以透過動物救援、捐贈物資以及捐款來獲得愛心幣。寵物商城內的商品皆來自愛心人士的捐贈，內含貓、狗、飛禽及其他寵物類型的食衣住行育樂，商品應有盡有，在商城內購物皆須使用愛心幣。您可以透過動物救援、捐贈物資以及捐款來獲得愛心幣。
 							</p>
 							<a class="primary-btn" href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城購物</a>
 						</div>
