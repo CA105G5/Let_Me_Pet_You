@@ -174,7 +174,7 @@ public class missingCaseServlet extends HttpServlet {
 
 				String loc = req.getParameter("loc");
 				String loceReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
-				if (loc == null || missingName.trim().length() == 0) {
+				if (loc == null || missingName.trim().length() == 0) { 
 					errorMsgs.add("失蹤地點請勿空白");
 				} else if (!loc.trim().matches(loceReg)) { // 以下正則(規)表示式(regular-expression)
 					errorMsgs.add("請輸入正確的地點");

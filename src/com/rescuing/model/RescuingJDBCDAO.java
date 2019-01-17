@@ -1096,7 +1096,7 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			// 1●設定於 pstm.executeUpdate()之前
+			// 1●設定於 pstm.executeUpdate()之前 
     		con.setAutoCommit(false);
     		//救援改狀態
     		RescueJDBCDAO dao = new RescueJDBCDAO();

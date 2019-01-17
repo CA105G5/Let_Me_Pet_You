@@ -109,7 +109,7 @@ public class RescueServlet extends HttpServlet {
 //			byte[] rsc_img = Base64.getDecoder().decode(jsonObject.get("rsc_img").getAsString().getBytes())));
 //			System.out.println(rsc_img);
 //			
-//
+// 
 //		} 
 		else {
 			writeText(res, "");

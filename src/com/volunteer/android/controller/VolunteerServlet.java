@@ -33,7 +33,7 @@ public class VolunteerServlet extends HttpServlet {
 		System.out.println("input: " + jsonIn);
 		VolunteerDAO_interface vltDao = new VolunteerJDBCDAO();
 		JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
-		String action = jsonObject.get("action").getAsString();
+		String action = jsonObject.get("action").getAsString(); 
 
 		
 		if ("isVltMail".equals(action)) {  

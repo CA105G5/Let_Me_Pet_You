@@ -1,6 +1,6 @@
 package com.rescue.model;
 
-public class RescueAndroid {
+public class RescueAndroid { 
 
 	public RescueAndroid() {
 		// TODO Auto-generated constructor stub

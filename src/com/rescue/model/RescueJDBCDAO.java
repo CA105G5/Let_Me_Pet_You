@@ -998,7 +998,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		boolean isUpdateCase = false;
 		
 		try {
-			
+			 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			// 1●設定於 pstm.executeUpdate()之前
