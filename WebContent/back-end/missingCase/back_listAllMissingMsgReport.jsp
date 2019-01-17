@@ -115,8 +115,7 @@
 
 <body>
 
-	<jsp:include page="/back-end/missingCase/back_missingCase_Header.jsp"
-		flush="true" />
+	<jsp:include page="/back-end/manager/back_end_index_header.jsp" flush="true" />
 
 	<!-- Right Panel -->
 	<div class="right-panel">
