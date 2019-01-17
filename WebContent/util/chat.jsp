@@ -19,7 +19,7 @@
 		memb_id = memVO.getMemb_id();
 		memb_nick = memVO.getMemb_nick();
 	} else{
-		memb_nick="訪客";
+		memb_nick="visitor";
 	}
 %>
 
@@ -333,7 +333,7 @@
 	    	</div>
 	    	<ul class="messages">
 	    		<div class="">
-<%-- 	    		<span style="color:	#00CED1"><b><%=memb_nick==null? "訪客":memb_nick%></b></span>　成功連線至聊天室 --%>
+<%-- 	    		<span style="color:	#00CED1"><b><%=memb_nick==null? "visitor":memb_nick%></b></span>　成功連線至聊天室 --%>
 <!-- 	    		<span style="color:	#00CED1" id="online_name"><b></b></span>　成功連線至聊天室 -->
 	    		</div>
 	    		<br>

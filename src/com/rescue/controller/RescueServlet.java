@@ -203,6 +203,7 @@ public class RescueServlet extends HttpServlet{
 							rescueVO.setRsc_sta("待救援");
 
 					
+						
 
 					// Send the use back to the form, if there were errors
 					if (!errorMsgs.isEmpty()) {
