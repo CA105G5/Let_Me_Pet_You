@@ -82,14 +82,21 @@
 	<jsp:include page="/index_Header.jsp"
 		flush="true" />
 
-	<!-- End banner Area -->
-	<section class="blog-posts-area section-gap">
-		<div class="container" style="top: 180px">
-			<div class="row d-flex justify-content-center">
-				<div class="col-md-9 pb-40 header-text text-center">
-						<h1 class="pb-10">單一案例瀏覽</h1>
+<div class="row d-flex justify-content-center" style="background-image: url(https://www.i-adopt.com.tw/frontend/images/banner/adopt.jpg); height: 250px;width: 1900px;margin-left: 7.5px;margin-right: 0px;">
+				<div class="col-md-9 pb-40 header-text text-center" style="margin-top: 100px;">
+						<h1 class="pb-10"> 失蹤詳情</h1>
 				</div>
 			</div>
+	<!-- End banner Area -->
+	<section class="blog-posts-area section-gap">
+	<nav aria-label="breadcrumb">
+			  <ol class="breadcrumb" style="margin-left: 850px;">
+			    <li class="breadcrumb-item" style="font-weight: 900;"><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤寵物</a></li>
+			    <li class="breadcrumb-item active" aria-current="page" style="font-weight: 900;">失蹤寵物詳情</li>
+			  </ol>
+		</nav>
+		<div class="container" style="top: 180px">
+			
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 post-list blog-post-list">
@@ -298,7 +305,7 @@
 													value="<%=request.getParameter("missing_case_id")%>">
 												<input type="hidden" name="memb_id"
 													value="<%=(membVO == null) ? "" : membVO.getMemb_id()%>">
-												<input type="hidden" name="missing_msg_rt_sta" value="待審核">
+												<input type="hidden" name="missing_msg_rt_sta" value="未審核">
 												<input type="hidden" name="missing_msg_rt_time"
 													value="<%=missing_msg_rt_time%>"> <input
 													type="hidden" name="action" value="insert">

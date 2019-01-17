@@ -87,13 +87,14 @@ h4 {
 
 	<jsp:include page="/index_Header.jsp"
 		flush="true" />
-	<section class="service-page-area section-gap ">
-		<div class="container">
-		<div class="row d-flex justify-content-center">
-				<div class="col-md-9 pb-40 header-text text-center">
-						<h1 class="pb-10">失蹤案例瀏覽</h1>
+		<div class="row d-flex justify-content-center" style="background-image: url(https://www.i-adopt.com.tw/frontend/images/banner/adopt.jpg); height: 250px;width: 1900px;margin-left: 7.5px;margin-right: 0px;">
+				<div class="col-md-9 pb-40 header-text text-center" style="margin-top: 100px;">
+						<h1 class="pb-10"> 寵物失蹤</h1>
 				</div>
 			</div>
+	<section class="service-page-area section-gap ">
+		
+		<div class="container">
 			<!-- 右邊 -->
 			<div>
 			<label style="font-size:x-large;">請輸入查詢條件</label>

@@ -27,7 +27,7 @@
 <!-- meta character set --> 
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>Horse Club</title>
+<title>浪我陪你</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
@@ -84,13 +84,14 @@ h4 {
 	<jsp:include page="/index_Header.jsp"
 		flush="true" />
 
+	<div class="row d-flex justify-content-center" style="background-image: url(https://www.i-adopt.com.tw/frontend/images/banner/adopt.jpg); height: 250px;width: 1900px;margin-left: 7.5px;margin-right: 0px;">
+				<div class="col-md-9 pb-40 header-text text-center" style="margin-top: 100px;">
+						<h1 class="pb-10"> 寵物認養</h1>
+				</div>
+			</div>
 	<section class="service-page-area section-gap ">
 		<div class="container">
-			<div class="row d-flex justify-content-center">
-				<div class="col-md-9 pb-40 header-text text-center">
-						<h1 class="pb-10">認養案例瀏覽</h1>
-				</div>
-			</div>			<!-- 右邊 -->
+					<!-- 右邊 -->
 			<div class="row">
 				<%@ include file="page1.file"%>
 				<c:forEach var="adoptionVO" items="${list}"
@@ -110,7 +111,7 @@ h4 {
 										pattern="yyyy-MM-dd" />
 								</p>
 								<a href="<%=request.getContextPath()%>/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id=${adoptionVO.adopt_id}">
-								<button type="button" class="genric-btn info-border circle">查看詳情</button>
+								<button type="button" class="genric-btn info-border circle">瞭解更多</button>
 								</a>
 							</div>
 

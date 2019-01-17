@@ -135,6 +135,7 @@
                                         <th scope="col">留言檢舉編號</th>
                                         <th scope="col">檢舉會員</th>
                                         <th scope="col">留言所屬案例</th>
+                                        <th scope="col">留言內容</th>
                                         <th scope="col">檢舉原因</th>
                                         <th scope="col">檢舉狀態</th>
                                     </tr>
@@ -149,7 +150,8 @@
 								<button type="button" class="btn btn-outline-primary">查看案例</button>
 										</a>
 										</td>
-                                        <td style=" margin-bottom: auto">${adoptMsgReportVO.adopt_msg_rt_comm}</td>
+                                        <td style=" margin-bottom: auto">${missingMsgSvc.findByMsg(missingMsgReportVO.missing_msg_id).missing_msg_cont}</td>
+                                        <td style=" margin-bottom: auto">${missingMsgReportVO.missing_msg_rt_cont}</td>
                                         <td style=" margin-bottom: auto">
                                         <c:if test="${missingMsgReportVO.missing_msg_rt_sta == '未審核'}"></c:if>
                                         <c:if test="${missingMsgReportVO.missing_msg_rt_sta == '通過'}">通過</c:if>
