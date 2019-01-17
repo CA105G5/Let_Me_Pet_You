@@ -19,13 +19,14 @@ public class RegionJDBCDAO implements RegionDAO_interface{
 	private static final String INSERT_STMT = 
 			"INSERT INTO REGION (reg_id,reg_name) VALUES ('REG'||LPAD(to_char(region_seq.NEXTVAL), 7, '0'), ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT reg_id,reg_name FROM REGION order by reg_id";
+			"SELECT reg_id,reg_name FOM REGION order by reg_id";
 	private static final String GET_ONE_STMT = 
 			"SELECT reg_id,reg_name FROM REGION where reg_id = ?";
 	private static final String DELETE = 
 			"DELETE FROM REGION where reg_id = ?";
 	private static final String UPDATE = 
 			"UPDATE REGION set reg_name =? where reg_id = ?";
+
 
 	@Override
 	public void insert(RegionVO regionVO) {
