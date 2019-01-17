@@ -67,7 +67,7 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 	     };
 	     
 	     Calendar cal = new GregorianCalendar();
-//	     timer.schedule(task, cal.getTime(), 30*60*1000); 
+	     timer.schedule(task, cal.getTime(), 1*60*1000); 
 	}
 	
 	public void contextDestroyed(ServletContextEvent event) {

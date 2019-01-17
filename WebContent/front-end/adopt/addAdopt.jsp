@@ -141,7 +141,7 @@ div {
 						<div class="row">
 							<div class="col-lg-4 form-group">
 								<h5>寵物種類：</h5>
-								<input name="adopt_species" placeholder="Enter species"
+								<input name="adopt_species" id="adopt_species" placeholder="Enter species"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'Enter species'"
 									class="common-input mb-20 form-control" required="" type="text">
@@ -164,7 +164,7 @@ div {
 								<textarea class="single-textarea form-group"
 									name="adopt_des" placeholder="Messege"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Messege'"></textarea>
+									onblur="this.placeholder = 'Messege'" id="adopt_des"></textarea>
 								<script> CKEDITOR.replace( 'adopt_des', {
 									removePlugins:'image',
 				                   extraPlugins: 'easyimage',
@@ -176,6 +176,7 @@ div {
 							<input type="hidden" name="action" value="insert">
 							<input type="submit"  style="margin-left: 750px;" value="送出">
 					</form>
+					<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">	
 				</div>
 			</div>
 		</div>
@@ -206,6 +207,18 @@ div {
 		$("ul.nav-menu li").attr('class', "" );
 		$("#adopt").attr('class', 'menu-active menu-has-children' )
 
+		
+			$('#miracleBtn').click(function(){
+				console.log('1111111111111111');
+				$('#adopt_species').val('單身狗');
+				$('#adopt_des').val('我好寂寞，一個人孤單的過著日子，是否妳也和我一樣孤單呢？快把我這隻黃金單身狗領養回家吧～');
+				
+				
+				
+			});
+		
+		
+		
 	</script>
 </body>
 

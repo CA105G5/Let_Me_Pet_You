@@ -3,15 +3,40 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.mem.model.*"%>
+<%@ page import="com.rescuing.model.*"%>
 <%@ page import="java.util.*"%>
 
 
 <%
 RescueVO rescueVO  = (RescueVO) request.getAttribute("rescueVO");
-System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
-System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("rsc_id"));
-MemService memSvc1 = new MemService();
-MemVO memVO = memSvc1.getOneMem("M000000005");
+String rsc_id = rescueVO.getRsc_id();
+// System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
+// System.out.println("listOneRescue.jsp得到從RescueServlet.java傳過來的請求參數值"+request.getParameter("rsc_id"));
+
+// MemVO memVOinit = new MemVO();
+// memVOinit.setMemb_id("M000000005");
+// session.setAttribute("memVO", memVOinit);
+
+MemVO memVO =(MemVO) session.getAttribute("memVO");
+String memb_id="";
+if (memVO !=null){
+	memb_id = memVO.getMemb_id();
+}else{
+	memb_id="";
+}
+
+Map<String, String[]> map = new TreeMap<String, String[]>();
+map.put("rsc_id",new String[] {rsc_id});
+map.put("rscing_ptcp",new String[] {memb_id});
+
+RescuingService rescuingSvc2 = new RescuingService();
+List<RescuingVO> list =rescuingSvc2.getAll(map);
+
+
+
+
+// MemService memSvc1 = new MemService();
+// MemVO memVO = memSvc1.getOneMem("M000000005");
 session.setAttribute("memVO",memVO);
 %>
 <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService"/>
@@ -19,40 +44,23 @@ session.setAttribute("memVO",memVO);
 <!DOCTYPE html>
 <html>
 <head>
+<!-- Mobile Specific Meta -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Favicon--> 
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
+<!-- Author Meta -->
+<meta name="author" content="codepixer">
+<!-- Meta Description -->
+<meta name="description" content="">
+<!-- Meta Keyword -->
+<meta name="keywords" content="">
+<!-- meta character set -->
 <meta charset="UTF-8">
-<title>救援案例</title>
+<!-- Site Title -->
+<title>浪我陪你-救援案例</title>
 
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/linearicons.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/bootstrap.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/magnific-popup.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/nice-select.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/animate.min.css">
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/owl.carousel.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/horse_UI_template/css/main.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
-	crossorigin="anonymous">
 <script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 
 <style type="text/css">
@@ -70,7 +78,29 @@ div {
 </head>
 <body>
 
-<%-- 	<jsp:include page="/front-end/rescue/rescue_header.jsp" flush="true" /> --%>
+	<jsp:include page="/index_Header.jsp" flush="true" />
+	<div class="container">
+			<div class="row">
+
+<!-- 				左側邊list-group -->
+ 				<div class="col-xs-12 col-sm-3">
+				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
+					<h3>救援</h3>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
+					<hr>
+					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp">待完成救援案例</a></h5>
+					<hr>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
 		
 				<!-- Start blog-posts Area -->
 			<section class="blog-posts-area section-gap">
@@ -78,7 +108,7 @@ div {
 					<div class="row justify-content-center">
 						<div class="col-sm-8 post-list blog-post-list">
 							<div class="single-post">
-								<img class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="">
+								<img style="width:auto;height:500px; class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="">
 								
 								
 									<h1>
@@ -90,12 +120,12 @@ div {
 										地點：${rescueVO.rsc_add}
 									</p>
 									<p>
-										發起時間：${rescueVO.rsc_btime}
+										發起時間：<fmt:formatDate value="${rescueVO.rsc_btime}" type="both" />
 									</p>
 									
 									<c:if test="${not empty rescueVO.rsc_etime}">
 					                <p>
-										完成時間：${rescueVO.rsc_etime}
+										完成時間：<fmt:formatDate value="${rescueVO.rsc_etime}" type="both" />
 									</p>
 				                    </c:if>
 									
@@ -110,27 +140,34 @@ div {
 								</div>
 								<div class="bottom-meta">
 									<div class="user-details row align-items-center">
-										<div class="comment-wrap col-sm-8">
-											<ul>
-										
+										<div class="comment-wrap col-sm-6">
+											
 											<c:if test="${rescueVO.rsc_sta=='待救援' or rescueVO.rsc_sta=='救援中'}">
 											
-												<a href="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do?rsc_id=${rescueVO.rsc_id}&rscing_ptcp=${memVO.memb_id}&action=insert" 
-												class="genric-btn primary">加入救援</a>
+												<% if(memVO == null){ %>
+												<h3 style="color:red">請先登入才可加入救援 </h3>
+													 
+												
+												<%}else if (list.isEmpty()){ %>
+													
+														<a href="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do?rsc_id=${rescueVO.rsc_id}&rscing_ptcp=${memVO.memb_id}&action=insert" 
+														class="genric-btn primary">加入救援</a>
+												<%}else{%>
+												
+														<a href="#" class="genric-btn disable">已加入救援</a>
+												
+												<%}%>
 											
-												<a href="#" class="genric-btn disable">已加入救援</a>
 											</c:if>
-											</ul>
-										</div>
-<!-- 										<div class="social-wrap col-lg-6"> -->
-<!-- 											<ul> -->
-<!-- 												<li><a href="#"><i class="fa fa-facebook"></i></a></li> -->
-<!-- 												<li><a href="#"><i class="fa fa-twitter"></i></a></li> -->
-<!-- 												<li><a href="#"><i class="fa fa-dribbble"></i></a></li> -->
-<!-- 												<li><a href="#"><i class="fa fa-behance"></i></a></li> -->
-<!-- 											</ul> -->
 											
-<!-- 										</div> -->
+										</div>
+										
+										<div class="col-sm-6">
+											
+
+
+											
+										</div>
 									</div>
 								</div>
 
@@ -140,7 +177,7 @@ div {
                                     <div class="row ">
                                         <div class="col-sm-3 nav-left justify-content-start d-flex">
                                             <div class="thumb">
-                                                <img style="width:100px;height:100px"  src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memSvc.getOneMem(rescueVO.rsc_sponsor).memb_id}" alt="">
+                                                <img style="width:auto;height:100px"  src="<%=request.getContextPath()%>/back-end/members/memImg.do?memb_id=${memSvc.getOneMem(rescueVO.rsc_sponsor).memb_id}" alt="">
                                             </div>
                                             <div class="post-details">
                                                 <p>救援發起者</p>
@@ -306,25 +343,9 @@ div {
 
 
 
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/easing.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/hoverIntent.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/superfish.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.ajaxchimp.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.magnific-popup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/owl.carousel.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.sticky.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.nice-select.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/parallax.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/waypoints.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>
-	<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
+
+
+
+	
 </body>
 </html>

@@ -88,92 +88,111 @@ div {
 							</c:if>
 							<form METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" enctype="multipart/form-data">
 								<div class="card">
-			                        <div class="card-header">
-										<strong>救援案例新增</strong>
+			                        <div class="card-header" style="text-align:left">
+										<strong>愛心商品捐贈</strong>
 		                            </div>
-									
+									<br>
 									<div class="card-body card-block">
-										<div class="form-group">
-											<label class=" form-control-label" >救援案例名稱：</label>
-											<div class="input-group">
-												<label class="input-group-addon" style="width: 150px;">愛心商品名稱</label>
-									  			<input type="text" class="form-control" placeholder="愛心商品名稱" 
-									  				   value="<%= (prodVO==null)? "" : prodVO.getProd_name()%>" id="prod_name" name="prod_name" style="width: 500px;">
-											</div>
-										</div>
-										<br>
-										<div class="input-group">
-											<label class="input-group-addon" for="prod_qty" style="width: 150px;">捐贈數量</label>
-										  	<input type="text" class="form-control" placeholder="捐贈數量" 
-										  		   value="<%= (prodVO==null)? "" : prodVO.getProd_qty()%>" id="prod_qty" name="prod_qty" style="width: 500px;">
-										</div>
-										<br>
-										<div class="input-group">
-											<label class="input-group-addon" for="prod_price" style="width: 150px;">愛心商品價格</label>
-										  	<input type="text" class="form-control" placeholder="愛心商品價格" 
-										  		   value="<%= (prodVO==null)? "" : prodVO.getProd_price()%>" id="prod_price" name="prod_price" style="width: 500px;">
-										</div>
-										<br>
-										<div class="input-group">
-											<label class="input-group-addon" style="width: 150px;">愛心商品種類</label>
-		<!-- 						  			<input type="text" class="form-control" placeholder="愛心商品種類" id="prod_type_id" name="prod_type_id" style="width: 500px;"> -->
-											<select class="form-control custom-control" id="prod_type_id" name="prod_type_id" style="width: 500px; height:32px;">
-											
-											    <option value="食" ${ prodVO.prod_type_id.equals("食")? "selected":""}>食</option>
+										<div class="form-group" style="text-align:left">
+											<label class=" form-control-label" >愛心商品名稱</label>
+			                                <div class="input-group">
+			                                    <div class="input-group-addon"><i style="color:orange" class="fas fa-bookmark"></i></div>
+			                                    <input type="text" class="form-control" placeholder="愛心商品名稱" 
+									  				   value="<%= (prodVO==null)? "" : prodVO.getProd_name()%>" id="prod_name" name="prod_name" >
+			                                </div>      
+			                            </div>
+			                            <br>
+										<div class="form-group" style="text-align:left">
+											<label class=" form-control-label" >捐贈數量</label>
+			                                <div class="input-group">
+			                                    <div class="input-group-addon"><i style="color:green" class="fas fa-infinity"></i></div>
+			                                    <input type="text" class="form-control" placeholder="捐贈數量" 
+									  				   value="<%= (prodVO==null)? "" : prodVO.getProd_qty()%>" id="prod_qty" name="prod_qty" >
+			                                </div>      
+			                            </div>
+			                            <br>
+										<div class="form-group" style="text-align:left">
+											<label class=" form-control-label" >愛心商品價格</label>
+			                                <div class="input-group">
+			                                    <div class="input-group-addon"><i style="color:brown" class="fas fa-coins"></i></div>
+			                                    <input type="text" class="form-control" placeholder="愛心商品價格" 
+									  				   value="<%= (prodVO==null)? "" : prodVO.getProd_price()%>" id="prod_price" name="prod_price" >
+			                                </div>      
+			                            </div>
+			                            <br>
+			                            <div class="form-group" style="text-align:left">
+		                                    <label class=" form-control-label">愛心商品種類</label>
+		                                    <div class="input-group">
+		                                        <div class="input-group-addon"><i style="gray" class="fas fa-rocket"></i></div>
+		                                        <select class="form-control custom-control" id="prod_type_id" name="prod_type_id" style="width: 100px; height:32px;" required="required">
+												<option value="">請選擇
+												<option value="食" ${ prodVO.prod_type_id.equals("食")? "selected":""}>食</option>
 											    <option value="衣" ${ prodVO.prod_type_id.equals("衣")? "selected":""}>衣</option>
 											    <option value="住" ${ prodVO.prod_type_id.equals("住")? "selected":""}>住</option>
 											    <option value="行" ${ prodVO.prod_type_id.equals("行")? "selected":""}>行</option>
 											    <option value="育" ${ prodVO.prod_type_id.equals("育")? "selected":""}>育</option>
 											    <option value="樂" ${ prodVO.prod_type_id.equals("樂")? "selected":""}>樂</option>
+												
 										  	</select>
-										</div>
-										<br>
-										<div class="input-group">
-											<label class="input-group-addon" style="width: 150px;">愛心商品使用對象</label>
-		<!-- 						  			<input type="text" class="form-control" placeholder="愛心商品使用對象" id="prod_ani_type_id" name="prod_ani_type_id" style="width: 500px;"> -->
-											<select class="form-control custom-control" id="prod_ani_type_id" name="prod_ani_type_id" style="width: 500px; height:32px;">
-											    <option value="貓" ${ prodVO.prod_ani_type_id.equals("貓")? "selected":""}>貓</option>
+		                                    </div>
+		                                </div>
+		                                <br>
+		                                <div class="form-group" style="text-align:left">
+		                                    <label class=" form-control-label">愛心商品使用對象</label>
+		                                    <div class="input-group">
+		                                        <div class="input-group-addon"><i style="color:lightblue" class="fas fa-bone"></i></i></div>
+		                                        <select class="form-control custom-control" id="prod_ani_type_id" name="prod_ani_type_id" style="width: 100px; height:32px;" required="required">
+												<option value="">請選擇
+												<option value="貓" ${ prodVO.prod_ani_type_id.equals("貓")? "selected":""}>貓</option>
 											    <option value="狗" ${ prodVO.prod_ani_type_id.equals("狗")? "selected":""}>狗</option>
 											    <option value="飛禽" ${ prodVO.prod_ani_type_id.equals("飛禽")? "selected":""}>飛禽</option>
 											    <option value="兔" ${ prodVO.prod_ani_type_id.equals("兔")? "selected":""}>兔</option>
 											    <option value="其他" ${ prodVO.prod_ani_type_id.equals("其他")? "selected":""}>其他</option>
+												
 										  	</select>
-										
-										</div>
-										<br>
-										<div class="input-group">
-											<label class="input-group-addon" style="width: 150px;">愛心商品資訊</label>
-		    								<textarea class="form-control custom-control" rows="5" style="resize:none; width: 500px;" id="prod_info" name="prod_info"><%= (prodVO==null)? "" : prodVO.getProd_info() %></textarea>     
-										</div>
-										<br>
-										<div class="input-group">
-											<label class="input-group-addon" style="width: 150px;">上傳照片</label>
-								  			<input type="file" class="form-control" id="prod_img" name="prod_img" multiple style="width: 500px;">
-								  			<br>
-								  			<br>
-								  			<br>
-								  			<br>
-								  			<br>
-								  			<DIV id="preview"><img src="<%=request.getContextPath()%>/front-end/donate/noPic.png" width="100px" style="bottom-padding: 50px"></DIV>
-		<!-- 						  			<input type="file" class="form-control" id="prod_ani_type_id" name="prod_ani_type_id" style="margin-left:150px;"> -->
-		<!-- 									<label class="form-control" for="prod_ani_type_id" style="text-align:center; ">選擇檔案</label> -->
-										</div>
-										<br>
-										<div class="input-group">
-											<label class="input-group-addon" style="width: 150px;">愛心商品描述</label>
-								  			<textarea name="prod_des" id="prod_des" rows="10" cols="80"><%= (prodVO==null)? "" : prodVO.getProd_des()%></textarea>
-					            			<script> CKEDITOR.replace( 'prod_des', {
+		                                    </div>
+		                                </div>
+		                                <br>
+		                                <div class="form-group" style="text-align:left">
+											<label class=" form-control-label" >愛心商品資訊</label>
+			                                <div class="input-group">
+			                                    <div class="input-group-addon"><i style="color:purple" class="fas fa-plus-circle"></i></div>
+			                                    <textarea class="form-control custom-control" rows="5" style="resize:none;" id="prod_info" name="prod_info"><%= (prodVO==null)? "" : prodVO.getProd_info() %></textarea>
+			                                </div>      
+			                            </div>
+			                            <br>
+			                            <div class="form-group" style="text-align:left">
+		                                    <label class=" form-control-label">上傳商品照片</label>
+		                                    <div class="input-group" id="preview">
+		                                    	<img width="300" height="200" src="<%=request.getContextPath()%>/front-end/donate/noPic.png" style="padding-right: 30px;"/>
+		                                    </div>
+		                                    <div style="width:270px;text-align:center">
+												<input type="file" class="upl custom-file-input" id="prod_img" name="prod_img" multiple >
+												<label class="genric-btn info-border small" for="prod_img" >選擇圖片</label>
+											</div>
+		                                </div>
+		                                <br>
+										<div class="form-group" style="text-align:left">
+		                                    <label class=" form-control-label">愛心商品描述</label>
+		                                    <div class="input-group">
+		                                    </div>
+		                                    <textarea rows="30" cols="80" name="prod_des" id="prod_des"><%= (prodVO==null)? "" : prodVO.getProd_des()%></textarea>
+		                                    <script> CKEDITOR.replace( 'prod_des', {
 					            				extraPlugins: 'easyimage',
+					            				height:300,
 					            			    cloudServices_tokenUrl: 'https://36758.cke-cs.com/token/dev/g529dLeMZwwIpbMNAdeiRdeIbIjTrMw6aq0ncGUTnfbb08SqLh6Z2I87wBM3',
 					            			    cloudServices_uploadUrl: 'https://36758.cke-cs.com/easyimage/upload/',
 					            			}); </script> 
-					            			<br>
-										</div>
+		                                </div>
 									</div>
-									<br>
-										<input type="hidden" name="action" value="insert">
-				            			<input type = "submit" value = "新增" style="text-align:center;">
-									<br>
+									
+									<input type="hidden" name="action" value="insert">
+		                            <div align="center">
+		                            	<button class="genric-btn primary" style="width:120px;height:40px;font-size:20px;" id="submit">送出</button>
+			                            <br>
+			                            <br>
+		                            </div>
+									
 							</div>
 							</form>
 						</div>
@@ -220,10 +239,18 @@ div {
 	
 <!-- 神奇小按鈕 -->
 	<script type="text/javascript">
-				$('#miracleBtn').click(function(){
+				$(function(){
+					$('#miracleBtn').click(function(){
 					console.log('1111111111111111');
-					$('#rsc_name').val('野豬失足卡水溝翻肚四腳朝天');
-					$('#reg_id').val('REG0000004');
+					$('#prod_name').val('消臭大師森林香狗尿墊');
+					$('#prod_qty').val('10');
+					$('#prod_price').val('20');
+					$('#prod_type_id').val('住');
+					$('#prod_ani_type_id').val('狗');
+					$('#prod_info').val('【產品名稱】消臭大師森林香狗尿墊LL42片<br>'+
+							'【產品規格】LL42片，尺寸約44cm*60cm<br>'+
+							'【產品產地】日本<br>');
+					});
 				});
 	</script>
 

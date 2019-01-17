@@ -87,10 +87,13 @@ h4 {
 
 	<jsp:include page="/index_Header.jsp"
 		flush="true" />
-		
-		
 	<section class="service-page-area section-gap ">
 		<div class="container">
+		<div class="row d-flex justify-content-center">
+				<div class="col-md-9 pb-40 header-text text-center">
+						<h1 class="pb-10">失蹤案例瀏覽</h1>
+				</div>
+			</div>
 			<!-- 右邊 -->
 			<div>
 			<label style="font-size:x-large;">請輸入查詢條件</label>
@@ -112,7 +115,7 @@ h4 {
 						<div class="single-service-page">
 							<div class="thumbs relative">
 								<div class="overlay-bg"></div>
-								<img class="img-fluid"
+								<img class="img" width="350" height="240"
 									src="<%=request.getContextPath() %>/missingcase/missingcase.do?missingcaseno=${missingCaseVO.missing_case_id }"
 									alt="">
 							</div>

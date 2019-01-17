@@ -74,7 +74,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
     </style>
 </head>
 
-<body>
+<body onload="connectRescue()" onunload="disconnectRescue()">
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
@@ -95,16 +95,16 @@ System.out.println( "是否登入:"+ (managerVO != null));
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>認養管理</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="tables-basic.html">審核認養案例</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">認養案例結案管理</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">審核檢舉認養留言</a></li>
+                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/listAllAdopt.jsp">審核認養案例</a></li>
+                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/listAllApply.jsp">認養案例申請者管理</a></li>
+                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/AdoptMsgReport.jsp">審核檢舉認養留言</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>失蹤協尋管理</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">審核檢舉失蹤案例</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">審核檢舉失蹤案例留言</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/missingCase/back_MissingCaseReport.jsp">審核檢舉失蹤案例</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/missingCase/back_listAllMissingMsgReport.jsp">審核檢舉失蹤案例留言</a></li>
                         </ul>
                     </li>
 
@@ -118,7 +118,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
                     <li class="menu-item-has-children dropdown">
                         <a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>捐贈管理</a>
                         <ul class="sub-menu children dropdown-menu">                            
-                            <li><i class="fa fa-id-badge"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心捐款管理</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp">愛心捐款管理</a></li>
                             <li><i class="fa fa-bars"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心物資管理</a></li>
                         </ul>
                     </li>
@@ -188,6 +188,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				  </div>
 <!-- 				  <div class="panel-body">
 				    
+				    
 				  </div> -->
 				  <div class="list-group">
 				  	<a href="<%=request.getContextPath()%>/back-end/rescue/back_rescue.jsp" class="list-group-item">救援案例列表</a>
@@ -204,9 +205,9 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				    
 				  </div> -->
 				  <div class="list-group">
-				  	<a href="#" class="list-group-item">審核認養案例</a>
-				  	<a href="#" class="list-group-item">認養案例結案管理</a>
-				  	<a href="#" class="list-group-item">審核檢舉認養留言</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/Adopt/listAllAdopt.jsp" class="list-group-item">審核認養案例</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/Adopt/listAllApply.jsp" class="list-group-item">認養案例申請者管理</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/Adopt/AdoptMsgReport.jsp" class="list-group-item">審核檢舉認養留言</a>
 				  </div>
 				  
 				</div>
@@ -219,8 +220,8 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				    
 				  </div> -->
 				  <div class="list-group">
-				  	<a href="#" class="list-group-item">審核檢舉失蹤案例</a>
-				  	<a href="#" class="list-group-item">審核檢舉失蹤案例留言</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/missingCase/back_MissingCaseReport.jsp" class="list-group-item">審核檢舉失蹤案例</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/missingCase/back_listAllMissingMsgReport.jsp" class="list-group-item">審核檢舉失蹤案例留言</a>
 				  </div>
 				  
 				</div>
@@ -249,7 +250,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				    
 				  </div> -->
 				  <div class="list-group">
-				  	<a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="list-group-item">愛心捐款管理</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp.jsp" class="list-group-item">愛心捐款管理</a>
 				  	<a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="list-group-item">愛心物資管理</a>
 				  </div>
 				  
@@ -284,7 +285,49 @@ System.out.println( "是否登入:"+ (managerVO != null));
         
     </div>
     <!-- /#right-panel -->
-
+ <!--救援推播modal -->
+<div class="modal" id="rescue_push_modal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="largeModalLabel">有新的逾時案例尚待分派</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="form-group" style="width:700px">
+						<a id="broadcast_rescue_link" href='<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp' style="text-decoration:none;">
+							<h5>請盡快分派志工前往救援.....</h5>
+						</a>
+						<div class="container" id="info">
+							<hr>
+<!-- 							<div class="row"> -->
+<!-- 								<div class="col-xs-3 col-sm-3"> -->
+<!-- 									<img class="img-fluid" src="" alt="" width="300px"> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-xs-6 col-sm-6"> -->
+<!-- 									<h5><span id="broadcast_rescue_name"></span> -->
+<!-- 									</h5> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+						</div>
+					</div>
+					<br>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+			</div>
+		</div>
+	</div>
+</div>	
+								                
+<!--救援推播modal -->
+  
+  
+  
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
@@ -502,6 +545,77 @@ System.out.println( "是否登入:"+ (managerVO != null));
             // Bar Chart #flotBarChart End
         });
     </script>
+    <!-- 救援推播 -->
+<script>
+    
+    var MyPoint_res = "/RescueEchoServer";
+    var host_res = window.location.host;
+    var path_res = window.location.pathname;
+    var webCtx_res = path_res.substring(0, path_res.indexOf('/', 1));
+    var endPointURL_res = "ws://" + window.location.host + webCtx_res + MyPoint_res;
+    console.log("endPointURL_res"+endPointURL_res);
+    
+	var webSocket_res;
+	
+	function connectRescue() {
+		// 建立 websocket 物件
+		webSocket_res = new WebSocket(endPointURL_res);
+		console.log("websocket_rescue已連線");
+		
+		webSocket_res.onopen = function(event) {
+			
+		};
+
+		webSocket_res.onmessage = function(event) {
+			var jsonObj = JSON.parse(event.data);
+			var length = Object.keys(jsonObj).length;
+			
+			console.log("jsonObj==="+jsonObj); 
+			console.log("Object.keys(jsonObj).length==="+Object.keys(jsonObj).length); 
+			console.log("length==="+length); 
+			
+			var i =0;
+			for (i=0; i<length;i++){
+				var res_id = Object.keys(jsonObj)[i];
+				var res_name = jsonObj[Object.keys(jsonObj)[i]]
+				console.log("res_id===="+Object.keys(jsonObj)[i]); 
+				console.log("res_name==="+jsonObj[Object.keys(jsonObj)[i]]); 
+				$("#info").html("");
+				$("#info").append(
+						"<hr>"+
+						"<div class='row'>"+
+							"<div class='col-xs-3 col-sm-3'>"+
+								"<img class='img-fluid' src="+
+								"<%=request.getContextPath()%>/"+
+								"back-end/rescue/rescueImg.do?rsc_id="+
+								res_id+ " alt='' title='點擊查看詳情' style='width:100px;'>"+
+							"</div>"+
+							"<a href='<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp' style='text-decoration:none;'>"+
+								"<div class='col-xs-12 col-sm-12' style='padding-top:50px'>"+
+									"<h5><span>"+res_name+"</span>"+
+									"</h5>"+
+								"</div>"+
+							"</a>"+
+						"</div>");
+						
+			
+			}
+
+	        console.log("img_src=====");
+			$('#rescue_push_modal').modal('show');
+
+		};
+
+		webSocket_res.onclose = function(event) {
+			
+		};
+	}
+	
+	function disconnectRescue() {
+		webSocket_res.close();
+	}
+
+</script>
     <script src="https://code.jquery.com/jquery.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>

@@ -71,7 +71,7 @@
  		    <div class="col-lg-4 col-md-6 booking-right">
 				<h3 class="mb-20" align="center">請輸入帳號密碼</h3>
 					<form METHOD="post" ACTION="volunteer.do" >
-					<div>帳號：<input class="form-control" type="email" name="vlt_mail" placeholder="Email Address" value="${param.vlt_mail}" required=""><p style="color:red">${errorMsgs.vlt_mail}</p></div>
+					<div>帳號：<input class="form-control" type="email" id="vlt_mail" name="vlt_mail" placeholder="Email Address" value="${param.vlt_mail}" required=""><p style="color:red">${errorMsgs.vlt_mail}</p></div>
 					<div>密碼：<input class="form-control" type="password" name="vlt_pw" placeholder="password" required=""><p style="color:red">${errorMsgs.vlt_pw}</p></div>
 						<input type="hidden" name="action" value="login">
 						<button class="btn btn-default btn-lg btn-block text-center">登入</button>
@@ -83,7 +83,7 @@
 			
 			</section>
 
-		
+<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">		
 
 
 	
@@ -109,6 +109,13 @@
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/jquery.counterup.min.js"></script>			
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
-			
+			<script type="text/javascript">
+			$('#miracleBtn').click(function(){
+				console.log('1111111111111111');
+				$('#vlt_mail').val('ca105demo@gmail.com');
+				
+				
+			});
+			</script> 
 		</body>
 	</html>

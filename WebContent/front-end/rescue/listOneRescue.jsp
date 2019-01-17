@@ -108,7 +108,7 @@ div {
 					<div class="row justify-content-center">
 						<div class="col-sm-8 post-list blog-post-list">
 							<div class="single-post">
-								<img style="width:auto;height:500px; class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="">
+								<img style="width:auto;height:500px;display:block; margin:auto;" class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="">
 								
 								
 									<h1>
@@ -164,7 +164,7 @@ div {
 										
 										<div class="col-sm-6">
 											
-
+												
 
 											
 										</div>

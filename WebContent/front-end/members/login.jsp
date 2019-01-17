@@ -110,6 +110,7 @@
 </fieldset>
 </form>
 <img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">
+<img id="miracleBtn2" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn2.png">
     </div><!-- /.container -->
     <div align="center"><a href="<%=request.getContextPath()%>/front-end/members/forget_psw.jsp">我忘記密碼了</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/front-end/members/addMembers.jsp">註冊成為新會員</a></div>
     
@@ -140,6 +141,14 @@
 			$('#miracleBtn').click(function(){
 				console.log('1111111111111111');
 				$('#memb_acc').val('ppp');
+				$('#memb_psw').val('123');
+				
+				
+				
+			});
+			$('#miracleBtn2').click(function(){
+				console.log('1111111111111111');
+				$('#memb_acc').val('david');
 				$('#memb_psw').val('123');
 				
 				

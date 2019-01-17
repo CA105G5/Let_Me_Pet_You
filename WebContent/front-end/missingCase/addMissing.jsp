@@ -128,7 +128,7 @@ div {
                                     <label class=" form-control-label" >寵物名稱：</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-dog"></i></div>
-                                        <input class="form-control" name="missingName" value="<%= (missingCaseVO ==null)?"" : missingCaseVO.getMissing_name()%>">
+                                        <input class="form-control" name="missingName" id="missingName" value="<%= (missingCaseVO ==null)?"" : missingCaseVO.getMissing_name()%>">
                                     </div>
                                     <small class="form-text text-muted">ex. 小白/阿明/乖乖</small>
                                 </div>
@@ -136,14 +136,14 @@ div {
                                     <label class=" form-control-label">寵物種類：</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-paw"></i></div>
-                                        <input class="form-control" name="missing_type" value="<%= (missingCaseVO ==null)?"" : missingCaseVO.getMissing_type()%>">
+                                        <input class="form-control" name="missing_type" id="missing_type" value="<%= (missingCaseVO ==null)?"" : missingCaseVO.getMissing_type()%>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class=" form-control-label">失蹤地點：</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fas fa-map-marker-alt"></i></div>
-                                        <input class="form-control" name="loc" onFocus="initializeAutocomplete()" id="loc" value="<%= (missingCaseVO ==null)?"" : missingCaseVO.getMissing_loc()%>">
+                                        <input class="form-control" name="loc" id="loc" onFocus="initializeAutocomplete()" id="loc" value="<%= (missingCaseVO ==null)?"" : missingCaseVO.getMissing_loc()%>">
                                     </div>
                                     <div id="map"></div>
                                 </div>
@@ -185,9 +185,11 @@ div {
                             
                             <div align="center">
                             <input type="submit"  value="送出"  style="width:120px;height:40px;font-size:20px;" id="submit">
+                            <img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">	
                             </div>
                         </div>
                         </form>
+                        
                     </div>
 				</div>
 			</div>
@@ -264,7 +266,14 @@ div {
 		}
 	
 
-		
+		$('#miracleBtn').click(function(){
+			console.log('1111111111111111');
+			$('#missingName').val('小龜龜');
+			$('#missing_type').val('其他');
+			
+			
+		});
+	
 	</script>
 
 </body>
