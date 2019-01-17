@@ -1123,18 +1123,18 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 	 
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_RESCUE_CASE);
-
+			
 			pstmt.setString(1, rescueVO.getRsc_name());
 			pstmt.setString(2, rescueVO.getRsc_add());
 			pstmt.setString(3, rescueVO.getRsc_des());
-			pstmt.setString(4, rescueVO.getVlt_id());
-			pstmt.setDouble(5, rescueVO.getRsc_lat());
-			pstmt.setDouble(6, rescueVO.getRsc_lon());
-			pstmt.setString(7, rescueVO.getRsc_sta());
-			pstmt.setTimestamp(8, rescueVO.getRsc_stm_time());
-			pstmt.setTimestamp(9, rescueVO.getRsc_btime());
-			pstmt.setInt(10, rescueVO.getRsc_coin());
-			pstmt.setTimestamp(11, rescueVO.getRsc_etime());
+			pstmt.setBytes(4, rescueVO.getRsc_img());
+			pstmt.setString(5, rescueVO.getRsc_sponsor());
+//			pstmt.setDouble(6, rescueVO.getRsc_lat());
+//			pstmt.setDouble(7, rescueVO.getRsc_lon());
+			pstmt.setString(8, "待救援");
+			pstmt.setTimestamp(9, new Timestamp(new Date().getTime()));
+			pstmt.setString(10, rescueVO.getRsc_reg());
+			pstmt.setInt(11, new Integer(20));
 			
 
 			int rowsUpdated =pstmt.executeUpdate();

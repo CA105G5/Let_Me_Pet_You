@@ -43,22 +43,14 @@ public class VolunteerServlet extends HttpServlet {
 		} else if ("isVltExist".equals(action)) {
 			String vlt_mail = jsonObject.get("vlt_mail").getAsString();
 			writeText(res, String.valueOf(vltDao.isVltExist(vlt_mail)));
-//		}else if ("isMembAccExist".equals(action)) {
-//			String memb_acc = jsonObject.get("memb_acc").getAsString();
-//			writeText(res, String.valueOf(MemDao.isMembAccExist(memb_acc)));
+		}else if ("rescueByVlt".equals(action)) {
+			String rsc_id = jsonObject.get("rsc_id").getAsString();
+			String vlt_id = jsonObject.get("vlt_id").getAsString();
+			writeText(res, String.valueOf(vltDao.rescueByVlt(rsc_id, vlt_id)));
 //		} else if (action.equals("insert")) {
 //			MemVO memVO = gson.fromJson(jsonObject.get("memVO").getAsString(), MemVO.class);
 //			writeText(res, String.valueOf(MemDao.insert(memVO)));
-//		} else if (action.equals("findByPrimaryKey")) {
-//			String memb_id = jsonObject.get("memb_id").getAsString();
-//			MemVO memVO = MemDao.findByPrimaryKey(memb_id);
-//			writeText(res, memVO == null ? "" : gson.toJson(memVO));
-//		} else if (action.equals("updateFromClient")) {
-//			MemVO memVO = gson.fromJson(jsonObject.get("memVO").getAsString(), MemVO.class);
-//			writeText(res, String.valueOf(MemDao.updateFromClient(memVO)));
-//		} else if (action.equals("delete")) {
-//			String memb_id = jsonObject.get("memb_id").getAsString();
-//			writeText(res, String.valueOf(MemDao.delete(memb_id)));
+//
 		}
 	}
 

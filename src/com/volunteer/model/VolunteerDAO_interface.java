@@ -25,4 +25,5 @@ public interface VolunteerDAO_interface {
     //安卓功能
     boolean isVltMail(String vlt_mail, String vlt_psw);//確認志工存在
 	boolean isVltExist(String vlt_mail);
+	public boolean rescueByVlt(String rsc_id,String vlt_id);
 }
