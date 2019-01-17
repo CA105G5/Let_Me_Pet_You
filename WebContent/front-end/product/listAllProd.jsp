@@ -104,6 +104,142 @@ div {
     -ms-filter:"alpha(opacity=100)";
 }
 
+
+/* checkbox樣式 */
+/* The container */
+.check_ctn {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.check_ctn input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.check_ctn:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.check_ctn input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.check_ctn input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.check_ctn .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+/* radio button樣式 */
+/* The radio_ctn */
+.radio_ctn {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.radio_ctn input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.radio_checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.radio_ctn:hover input ~ .radio_checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio_ctn input:checked ~ .radio_checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radio_checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio_ctn input:checked ~ .radio_checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio_ctn .radio_checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+
 </style>
 </head>
 <body onload="connect();" onunload="disconnect();">
@@ -116,7 +252,7 @@ div {
 	<!-- ++++++++++++ Page Content Goes Here ++++++++++++ -->
 	
 	
-	<div class="container">
+	<div class="container content-fulid">
 			<div class="row">
 
 			
@@ -163,35 +299,84 @@ div {
 	</div>
 	
 
-	<section class="training-area section-gap">
-		<div class="container">
-			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
+	<section class="training-area">
+		<div class="container-fluid">
+<!-- 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;"> -->
 				<div class="row">
-					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;">
-						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 130px; position: fixed; bottom: auto"> 
-					<h3>商品分類</h3>
+					<div class="col-xs-3 offset-xs-1 col-md-2 offset-md-1 " style="top: 180px; bottom: auto;">
+					<div id="sider" class="n-browse-nav m-sticky-on" style="top: 110px; position: fixed; bottom: auto"> 
+					<h3>分類查詢</h3>
 <!-- 					<hr> -->
 						 
 					    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" name="form1">
+					    <hr>
 					         <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
 						    	<p style="height:16px">動物</p>
 						 	 </div>
-						        <label><input type="checkbox" name="prod_ani_type_id" value="貓"> 貓</label>　　
-								<label><input type="checkbox" name="prod_ani_type_id" value="狗"> 狗</label>　<br>
-								<label><input type="checkbox" name="prod_ani_type_id" value="兔"> 兔</label>　　
-								<label><input type="checkbox" name="prod_ani_type_id" value="飛禽"> 飛禽</label>　<br>
-								<label><input type="checkbox" name="prod_ani_type_id" value="其他"> 其他</label>　<br>
-<!-- 					        <hr> -->
-<!-- 					       	<h5><b style="background-color:bisque; color:black">商品種類</b></h5> -->
+							 	 <label class="check_ctn" style="display:inline; font-size:16px">貓
+							 	 	<input type="checkbox" name="prod_ani_type_id" value="貓">
+								  		<span class="checkmark"></span>
+								 </label>
+								 &nbsp&nbsp&nbsp
+							 	 <label class="check_ctn" style="display:inline; font-size:16px">狗
+							 	 	<input type="checkbox" name="prod_ani_type_id" value="狗">
+								  		<span class="checkmark"></span>
+								 </label>
+								 <br>
+								 <br>
+							 	 <label class="check_ctn" style="display:inline; font-size:16px">兔
+							 	 	<input type="checkbox" name="prod_ani_type_id" value="兔">
+								  		<span class="checkmark"></span>
+								 </label>
+								 &nbsp&nbsp&nbsp
+							 	 <label class="check_ctn" style="display:inline; font-size:16px">飛禽
+							 	 	<input type="checkbox" name="prod_ani_type_id" value="飛禽">
+								  		<span class="checkmark"></span>
+								 </label>
+								 <br>
+								 <br>
+							 	 <label class="check_ctn" style="display:inline; font-size:16px">其他
+							 	 	<input type="checkbox" name="prod_ani_type_id" value="其他">
+								  		<span class="checkmark"></span>
+								 </label>
+								 <br>
+								 <br>
 							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
 						    	<p style="height:16px">商品種類</p>
 						 	 </div>
-					       		<label><input type="checkbox" name="prod_type_id" value="食" > 食</label>　　
-								<label><input type="checkbox" name="prod_type_id" value="衣" > 衣</label>　<br>
-								<label><input type="checkbox" name="prod_type_id" value="住" > 住</label>　　
-								<label><input type="checkbox" name="prod_type_id" value="行" > 行</label>　<br>
-								<label><input type="checkbox" name="prod_type_id" value="育" > 育</label>　　
-								<label><input type="checkbox" name="prod_type_id" value="樂" > 樂</label>　<br>
+
+
+
+<!-- 								<hr> -->
+								<label class="check_ctn" style="display:inline; font-size:16px">食
+							 	 	<input type="checkbox" name="prod_type_id" value="食">
+								  		<span class="checkmark"></span>
+								 </label>
+								 &nbsp&nbsp&nbsp
+							 	 <label class="check_ctn" style="display:inline; font-size:16px">衣
+							 	 	<input type="checkbox" name="prod_type_id" value="衣">
+								  		<span class="checkmark"></span>
+								 </label>
+								 <br>
+								 <br>
+							 	 <label class="check_ctn" style="display:inline; font-size:16px">住
+							 	 	<input type="checkbox" name="prod_type_id" value="住">
+								  		<span class="checkmark"></span>
+								 </label>
+								 &nbsp&nbsp&nbsp
+							 	 <label class="check_ctn" style="display:inline; font-size:16px">樂
+							 	 	<input type="checkbox" name="prod_type_id" value="樂">
+								  		<span class="checkmark"></span>
+								 </label>
+								 <br>
+								 <br>
+								
+<!-- 					       		<label><input type="checkbox" name="prod_type_id" value="食" > 食</label>　　 -->
+<!-- 								<label><input type="checkbox" name="prod_type_id" value="衣" > 衣</label>　<br> -->
+<!-- 								<label><input type="checkbox" name="prod_type_id" value="住" > 住</label>　　 -->
+<!-- 								<label><input type="checkbox" name="prod_type_id" value="行" > 行</label>　<br> -->
+<!-- 								<label><input type="checkbox" name="prod_type_id" value="育" > 育</label>　　 -->
+<!-- 								<label><input type="checkbox" name="prod_type_id" value="樂" > 樂</label>　<br> -->
 <%-- 					        <%= Arrays.asList(prod_type_id).contains("樂")? "checked":"" %>  --%>
 					        
 <!--  					        <hr>  -->
@@ -199,28 +384,54 @@ div {
 							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
 						    	<p style="height:16px">價格區間</p>
 						 	 </div>
-					       		<label><input type="radio" name="prod_price" value="0 and 50" <%= "0 and 50".equals(prod_price)? "checked":"" %> > $ 50以下</label>　<br>
-								<label><input type="radio" name="prod_price" value="50 and 100" <%= "50 and 100".equals(prod_price)? "checked":"" %>> $ 50~100</label>　<br>
-								<label><input type="radio" name="prod_price" value="101 and 200" <%= "101 and 200".equals(prod_price)? "checked":"" %>> $ 101~200</label>　<br>
-								<label><input type="radio" name="prod_price" value="200" <%= "200".equals(prod_price)? "checked":"" %>> $ 200以上</label>　<br>
-							<br>
+<%-- 					       		<label><input type="radio" name="prod_price" value="0 and 50" <%= "0 and 50".equals(prod_price)? "checked":"" %> > $ 50以下</label>　<br> --%>
+<%-- 								<label><input type="radio" name="prod_price" value="50 and 100" <%= "50 and 100".equals(prod_price)? "checked":"" %>> $ 50~100</label>　<br> --%>
+<%-- 								<label><input type="radio" name="prod_price" value="101 and 200" <%= "101 and 200".equals(prod_price)? "checked":"" %>> $ 101~200</label>　<br> --%>
+<%-- 								<label><input type="radio" name="prod_price" value="200" <%= "200".equals(prod_price)? "checked":"" %>> $ 200以上</label>　<br> --%>
+<!-- 							<br> -->
+
+<!-- 								<hr> -->
+								<label class="radio_ctn" style="display:inline; font-size:16px">$ 50以下
+							 	 	<input type="radio" name="prod_price" value="0 and 50" >
+								  		<span class="radio_checkmark"></span>
+								 </label>
+								 <br>
+								 <br>
+							 	 <label class="radio_ctn" style="display:inline; font-size:16px">$ 50~100
+							 	 	<input type="radio" name="prod_price" value="50 and 100">
+<%-- 							 	 	<input type="radio" name="prod_price" value="50 and 100" <%= "50 and 100".equals(prod_price)? "checked":"" %>> --%>
+								  		<span class="radio_checkmark"></span>
+								 </label>
+								 <br>
+								 <br>
+<!-- 							 	 <label class="radio_ctn" style="display:inline">$ 101~200 -->
+<%-- 							 	 	<input type="radio" name="prod_price" value="101 and 200" <%= "101 and 200".equals(prod_price)? "checked":"" %>> --%>
+<!-- 								  		<span class="radio_checkmark"></span> -->
+<!-- 								 </label> -->
+<!-- 								 &nbsp&nbsp&nbsp -->
+<!-- 							 	 <label class="radio_ctn" style="display:inline">$ 200以上 -->
+<%-- 							 	 	<input type="radio" name="prod_price" value="200" <%= "200".equals(prod_price)? "checked":"" %>> --%>
+<!-- 								  		<span class="radio_checkmark"></span> -->
+<!-- 								 </label> -->
+
+
 							<input type="submit" value="查詢">
         					<input type="hidden" name="action" value="listAll_ByCompositeQuery">
 					    
 					     </FORM>
 
-				</div>
+					</div>
 						
 					
 					
 					
 					</div> <!-- position: fixed -->
-					<div class="col-xs-12 col-sm-10" >
+					<div class="col-xs-7 col-sm-8" style="top: 15px; bottom: auto;">
 						<div class="row">
 						<%@ include file="/front-end/product/pages/page1.file" %> 
 							<c:forEach var="prodVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 <%-- 								<c:if test="${prodVO.prod_status.equals('上架')}" var="condition" scope="page"> --%>
-									<div class="col-lg-3 cl-md-3" style="height:320px;">
+									<div class="col-lg-3 col-md-3" style="height:320px;">
 										<div class="single-training">
 											<div class="thumb relative">
 												<div class="overlay-bg"></div>
@@ -296,7 +507,7 @@ div {
 					</div>
 
 				</div>
-			</div>
+<!-- 			</div> -->
 		</div>
 	</section>
 	
