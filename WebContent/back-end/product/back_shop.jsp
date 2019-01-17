@@ -207,11 +207,20 @@ box-shadow: 0 5px #666;
 transform: translateY(4px); 
 } 
 
+/* div.content{ */
+/*   overflow-x: scroll; */
+/* } */
+
+html {
+    overflow-x: scroll; 
+    overflow-y: scroll;
+  }
+
 </style>
 </head>
 
-<!-- <body onload="connect(); connectRescue()" onunload="disconnect(); disconnectRescue()"> -->
-<body onload="connectRescue()" onunload="disconnectRescue()">
+<body onload="connect()" onunload="disconnect()">
+<!-- <body onload="connectRescue()" onunload="disconnectRescue()"> -->
 
 	<jsp:include page="/back-end/manager/back_end_index_header.jsp" flush="true" />
 	
@@ -222,35 +231,35 @@ transform: translateY(4px);
 <!--         </header> -->
         
         <!-- Content -->
-        <div class="breadcrumbs">
-            <div class="breadcrumbs-inner">
-                <div class="row m-0">
-                    <div class="col-sm-4">
-                        <div class="page-header float-left">
-                            <div class="page-title">
-                                <h1>Dashboard</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="page-header float-right">
-                            <div class="page-title">
-                                <ol class="breadcrumb text-right">
-                                    <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">Table</a></li>
-                                    <li class="active">Data table</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="content">
+<!--         <div class="breadcrumbs"> -->
+<!--             <div class="breadcrumbs-inner"> -->
+<!--                 <div class="row m-0"> -->
+<!--                     <div class="col-sm-12"> -->
+<!--                         <div class="page-header float-left"> -->
+<!--                             <div class="page-title"> -->
+<!--                                 <h1>Dashboard</h1> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     <div class="col-sm-12"> -->
+<!--                         <div class="page-header float-right"> -->
+<!--                             <div class="page-title"> -->
+<!--                                 <ol class="breadcrumb text-right"> -->
+<!--                                     <li><a href="#">Dashboard</a></li> -->
+<!--                                     <li><a href="#">Table</a></li> -->
+<!--                                     <li class="active">Data table</li> -->
+<!--                                 </ol> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+        <div class="content" style="height: 100%">
             <div class="animated fadeIn">
                 <div class="row">
 
-                    <div class="col-md-12">
+                    <div class="col-xs-12">
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">愛心商品捐贈審核</strong>
@@ -339,17 +348,19 @@ transform: translateY(4px);
 								                            </button>
 								                        </div>
 								                        <div class="modal-body">
-					<div class="container">
+					<div class="form-group col-xs-12 col-sm-12">
 						<h3>商品內容</h3>
 						<hr>
-						<div class="form-group" style="width:700px">
-							<div class="container">
-								<div class="row">
-									<div class="col-xs-6 col-sm-6">
+					</div>
+<!-- 						<div class="form-group" style="width:700px"> -->
+<!-- 						<div class="form-group col-xs-12 col-sm-12"> -->
+<!-- 							<div class="container"> -->
+<!-- 								<div class="row"> -->
+									<div class="col-xs-12 col-sm-12">
 <%-- 										<img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${ordItemVO.prod_id}" alt="" width="200px"> --%>
 										
 										<!-- Slideshow container -->
-										<div class="slideshow-container" >
+										<div class="slideshow-container col-xs-12 col-sm-12" >
 												
 											<!-- Full-width images with number and caption text -->
 											<% int i =1; %> 
@@ -368,6 +379,7 @@ transform: translateY(4px);
 											<a class="next_slide" onclick="plusSlides<%=no %>(1)">&#10095;</a>
 										</div>
 										<br>
+										<br>
 												
 										<!-- The dots/circles -->
 										<div style="display: table; margin: 0 auto;">
@@ -379,7 +391,8 @@ transform: translateY(4px);
 											</c:forEach>
 										</div>
 									</div>
-									<div class="col-xs-6 col-sm-6">
+									<div class="form-group col-xs-12 col-sm-12">
+										<hr>
 										<h3>${prodVO.prod_name}
 											<span style="font-size: 1em; color: Tomato; text-indent:50px;">
 												<i class="fas fa-coins"></i>
@@ -392,22 +405,29 @@ transform: translateY(4px);
 										<h4>產品分類: ${prodVO.prod_type_id}</h4>
 										<h4>適用動物: ${prodVO.prod_ani_type_id}</h4>
 									</div>
-								</div>
-							</div>
-						</div>
-						<br>
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<br> -->
+						
+<!-- 						<div class="form-group" style="width:700px"> -->
+						<div class="form-group col-xs-12 col-sm-12">
 						<hr>
-						<div class="form-group" style="width:700px">
 							<h3>商品詳情</h3>
+							<br>
 							${prodVO.prod_des}
 						</div>
 						
 						
-						<hr>
+<!-- 						<hr> -->
 						<br>
+							<div class="form-group col-xs-12 col-sm-12">
+							<hr>
 											<h3>商品審核</h3>
-											<hr>
-						<div class="form-group" style="width:700px">
+											
+							</div>
+<!-- 						<div class="form-group" style="width:700px"> -->
+												<div class="form-group col-xs-12 col-sm-12">
 <!-- 												<div class="input-group-icon mt-10 col-xs-8 col-sm-8" style="height: 100px; "> -->
 <%-- 													<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" style="text-align: center; margin-bottom: auto"> --%>
 <!-- 														<div class="input-group-icon mt-10" style="width: 200px; "> -->
@@ -422,18 +442,22 @@ transform: translateY(4px);
 																	</select>
 																</div>
 															</div>
+												</div>
 															
 												<br>
 <!-- 												<div class="col-xs-10 col-sm-10"> -->
+												<div class="form-group col-xs-12 col-sm-12">
+													<i class="glyphicon glyphicon-comment"></i>
 													審核原因: <br><span id="reason_error<%=no %>" style="color:red"></span>
-													<textarea name="prod_review_des" class="form-control custom-control" id="reason<%=no %>" rows="5" style="resize:none; width: 740px;">${ prodVO.prod_review_des==null? "": prodVO.prod_review_des}</textarea>
+													<textarea name="prod_review_des" class="form-control custom-control" id="reason<%=no %>" rows="5">${ prodVO.prod_review_des==null? "": prodVO.prod_review_des}</textarea>
 <!-- 												</div> -->
+												</div>
 											
 						
 						
-						</div>
+<!-- 						</div> -->
 						<br>
-						<div class="form-group" style="width:700px" >
+						<div class="form-group col-xs-12 col-sm-12">
 							<input type="hidden" name="prod_id"  id="product_id" value="${prodVO.prod_id}">
 							<input type="hidden" name="action"	value="getOne_For_Review_Update">
 							<input type="button" value="提交" class="button" id="submit<%=no %>">
@@ -447,7 +471,7 @@ transform: translateY(4px);
 						
 						
 									
-					</div>
+<!-- 					</div> -->
 													</div>
 								                        <div class="modal-footer">
 <!-- 								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button> -->
@@ -825,7 +849,7 @@ transform: translateY(4px);
 				$("#info").append(
 						"<hr>"+
 						"<div class='row'>"+
-							"<div class='col-xs-3 col-sm-3'>"+
+							"<div class='col-xs-12 col-sm-12'>"+
 								"<img class='img-fluid' src="+
 								"<%=request.getContextPath()%>/"+
 								"back-end/rescue/rescueImg.do?rsc_id="+

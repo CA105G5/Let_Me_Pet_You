@@ -118,7 +118,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
                     <li class="menu-item-has-children dropdown">
                         <a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>捐贈管理</a>
                         <ul class="sub-menu children dropdown-menu">                            
-                            <li><i class="fa fa-id-badge"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心捐款管理</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp">愛心捐款管理</a></li>
                             <li><i class="fa fa-bars"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心物資管理</a></li>
                         </ul>
                     </li>
@@ -249,7 +249,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				    
 				  </div> -->
 				  <div class="list-group">
-				  	<a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="list-group-item">愛心捐款管理</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp.jsp" class="list-group-item">愛心捐款管理</a>
 				  	<a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="list-group-item">愛心物資管理</a>
 				  </div>
 				  
