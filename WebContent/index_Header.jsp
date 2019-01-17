@@ -156,9 +156,9 @@ i.fa-shopping-cart:hover {
 										</ul>
 									</li>
 								
-									<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈</a>
+									<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp">捐贈</a>
 										<ul>
-											<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></li>
+											<li><a href="<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp">愛心捐款</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></li>
 										</ul>
 									</li>
