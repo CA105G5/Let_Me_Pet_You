@@ -6,7 +6,7 @@
 
 <%@ page import="java.util.*"%>
 <%@ page import="com.prod.model.ProdService"%>
-<%@ page import="com.prod.model.ProdVO"%>
+<%@ page import="com.prod.model.ProdVO"%>  
 
 <%
 	List<ProdVO> list;
