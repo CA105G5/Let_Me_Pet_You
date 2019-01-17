@@ -17,7 +17,7 @@ String flag = (String) request.getAttribute("flag");
 		<!-- Mobile Specific Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
-		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
+		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/vlogo.png">
 		<!-- Author Meta -->
 		<meta name="author" content="codepixer">
 		<!-- Meta Description -->
