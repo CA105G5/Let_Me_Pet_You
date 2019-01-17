@@ -364,4 +364,10 @@ public class reportMissingJDBCDAO implements reportMissingDAO_interface {
 //		}
 	}
 
+	@Override
+	public void updateStatus(String report_missing_sta, String report_missing_id, String missing_case_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

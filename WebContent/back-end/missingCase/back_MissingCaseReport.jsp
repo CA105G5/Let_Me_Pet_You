@@ -160,13 +160,15 @@
 															<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/missingCase/reportMissing.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
 																<input type="hidden" name="report_missing_sta" value="通過">
 																<input type="hidden" name="report_missing_id" value="${reportMissingVO.report_missing_id}">
+																<input type="hidden" name="missing_case_id" value="${reportMissingVO.missing_case_id}">
 																<input type="hidden" name="action" value="changeStatus">
 																<input style="width:100%;" type="submit" value="通過"  class="btn btn-success">
 															</FORM>	
 															</td><td style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
-																	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/adopt/AdoptMsgReportServlet.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
+																	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/missingCase/reportMissing.do" style="padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;">
 																<input type="hidden" name="report_missing_sta" value="未通過">
 																<input type="hidden" name="report_missing_id" value="${reportMissingVO.report_missing_id}">
+																<input type="hidden" name="missing_case_id" value="${reportMissingVO.missing_case_id}">
 																<input type="hidden" name="action" value="changeStatus">
 																		<input style="width:100%;" type="submit" value="不通過"  class="btn btn-warning">
 																	</FORM>

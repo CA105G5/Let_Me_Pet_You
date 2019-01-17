@@ -9,4 +9,5 @@ public interface reportMissingDAO_interface {
 	    public reportMissingVO findByPrimaryKey(String report_missing_id);
 	    public List<reportMissingVO> getAll();
 	    public void updateStatus(reportMissingVO reportMissingVO);
+	    public void updateStatus(String report_missing_sta, String report_missing_id,String missing_case_id);
 }

@@ -87,9 +87,12 @@ public class reportMissingServlet extends HttpServlet {
 			try {
 				String report_missing_sta = req.getParameter("report_missing_sta");
 				String report_missing_id = req.getParameter("report_missing_id");
-
+				String missing_case_id = req.getParameter("missing_case_id");
+				System.out.println(missing_case_id);
+				System.out.println(report_missing_id);
+				System.out.println(report_missing_sta);
 				reportMissingService reportMissingSvc = new reportMissingService();
-				reportMissingSvc.updateStatus(report_missing_sta, report_missing_id);
+				reportMissingSvc.updateStatus(report_missing_sta, report_missing_id, missing_case_id);
 
 				String url = "/back-end/missingCase/back_MissingCaseReport.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

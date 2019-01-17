@@ -41,4 +41,7 @@ public class reportMissingService {
 	public reportMissingVO getOneReport(String report_missing_id) {
 		return dao.findByPrimaryKey(report_missing_id);
 	}
+	public void updateStatus(String report_missing_sta, String report_missing_id,String missing_case_id) {
+		dao.updateStatus(report_missing_sta, report_missing_id, missing_case_id);
+	}
 }

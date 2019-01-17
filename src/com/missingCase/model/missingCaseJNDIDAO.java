@@ -212,6 +212,44 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 		}
 	}
 
+	public void updateStatus(String missing_case_id, Connection con) {
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+			
+			pstmt.setString(1, "下架");
+			pstmt.setString(2, missing_case_id);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-通知");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+		}
+	}
+	
 	// 刪除
 	@Override
 	public void delete(String missing_case_id) {
@@ -411,6 +449,12 @@ public class missingCaseJNDIDAO implements missingCaseDAO_interface {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public List<missingCaseVO> getAllBack() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -99,7 +99,7 @@ h4 {
 			<label><input type="radio" name="missing_type" value="貓"><span>貓</span></label>
 			<label><input type="radio" name="missing_type" value="其他"><span>其他</span></label>
 			<input type="hidden" name="action" value="listEmps_ByCompositeQuery">
-			<button class="genric-btn success-border small" type="submit" >送出查詢</button>
+			<button class="genric-btn info small" type="submit" >送出查詢</button>
 			</form>
 			</div>
 			<div align="right"><a href="test.jsp" class="genric-btn info circle arrow">寵物種類統計<span class="lnr lnr-arrow-right"></span></a></div>
