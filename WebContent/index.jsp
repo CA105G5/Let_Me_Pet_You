@@ -144,7 +144,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 							<p>
 								提供案例新增、加入救援、地圖導航、直播服務以提供最佳救援品質。
 							</p>
-							<a class="primary-btn" href="#">前往救援</a>
+							<a class="primary-btn" href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">前往救援</a>
 						</div>
 						<div class="col-lg-6 justify-content-center align-items-center d-flex">
 						<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/fish2.png" alt="" style="display:block;width: 100%;height:auto">
@@ -181,7 +181,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 								5.植入晶片/狂犬病疫苗<br>
 								6.回新家<br>
 							</p>
-							<a class="primary-btn" href="#">前往認養</a>
+							<a class="primary-btn" href="<%=request.getContextPath()%>/front-end/adopt/listAllAdopt.jsp">前往認養</a>
 							</div>
 							<div class="col-lg-6">
 							<br><br><br><br><br><br><br><br>
@@ -209,7 +209,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 							<p>
 								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis.
 							</p>
-							<a class="primary-btn" href="#">查看詳情</a>
+							<a class="primary-btn" href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤詳情</a>
 						</div>
 						<div class="col-lg-6 justify-content-center align-items-center d-flex">
 						<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/white.jpg" alt="" style="display:block;width: 100%;height:auto">
@@ -235,7 +235,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 							<p>
 								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis.
 							</p>
-							<a class="primary-btn" href="#">查看詳情</a>
+							<a class="primary-btn" href="<%=request.getContextPath()%>/front-end/donate/don_Main.jsp">捐贈詳情</a>
 						</div>
 					</div>
 				</div>	
@@ -258,7 +258,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 							<p>
 								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmo d tempor incididunt ut labore et dolore magna aliqua.
 							</p>
-							<a class="primary-btn" href="#">查看詳情</a>
+							<a class="primary-btn" href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城購物</a>
 						</div>
 						<div class="col-lg-6 justify-content-center align-items-center d-flex">
 						<img class="img-fluid" src="<%=request.getContextPath()%>/horse_UI_template/img/shopcat.jpg" alt="" style="display:block;width: 100%;height:auto">
