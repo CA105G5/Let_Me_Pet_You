@@ -239,6 +239,14 @@
     <servlet-name>AndroidRescuingServlet</servlet-name>
     <url-pattern>/rescuing/RescuingServlet.do</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>AndroidRegionServlet</servlet-name>
+    <servlet-class>com.region.android.controller.RegionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AndroidRegionServlet</servlet-name>
+    <url-pattern>/region/RegionServlet.do</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>DonateServlet</servlet-name>
     <servlet-class>com.donate.controller.DonateServlet</servlet-class>
