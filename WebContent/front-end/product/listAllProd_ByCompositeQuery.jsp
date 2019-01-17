@@ -340,7 +340,7 @@ div {
 								  		<span class="checkmark"></span>
 								 </label>
 								 <br>
-								 <br>
+<!-- 								 <br> -->
 							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
 						    	<p style="height:16px">商品種類</p>
 						 	 </div>
@@ -369,7 +369,7 @@ div {
 								  		<span class="checkmark"></span>
 								 </label>
 								 <br>
-								 <br>
+<!-- 								 <br> -->
 								
 <!-- 					       		<label><input type="checkbox" name="prod_type_id" value="食" > 食</label>　　 -->
 <!-- 								<label><input type="checkbox" name="prod_type_id" value="衣" > 衣</label>　<br> -->
@@ -432,7 +432,7 @@ div {
 											<div class="thumb relative">
 												<div class="overlay-bg"></div>
 												<img class="img-fluid"
-													src="<%=request.getContextPath()%>/util/PicReader?prod_id=${prodVO.prod_id}" alt="">
+													src="<%=request.getContextPath()%>/util/PicReader?prod_id=${prodVO.prod_id}" alt=""  style="height:180px">
 												<!-- 												<a class="admission-btn" href="#">Admission	Going on</a> -->
 											</div>
 											<div class="details" style="height:70px">

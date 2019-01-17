@@ -307,11 +307,11 @@ label{margin-left: 20px;}
 <!-- 		</div> -->
 <!-- 	</div> -->
 	
-	<section class="training-area section-gap">
+<!-- 	<section class="training-area section-gap"> -->
 		<div class="container">
-			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 30px; bottom: auto;">
+<!-- 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 30px; bottom: auto;"> -->
 				<div class="row">
-					<div class="col-lg-3 cl-md-3" style="top: 180px; bottom: auto;">
+					<div class="col-lg-3 cl-md-3" style="top: 0px; bottom: auto;">
 						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
 							<h3>愛心捐贈</h3>
 							<hr>
@@ -320,6 +320,9 @@ label{margin-left: 20px;}
 							<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></h5>
 							<hr>
 						</div>
+						<div style="margin-top: 250px;position: fixed">
+                    		<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">	
+                		</div>
 					</div> <!-- position: fixed -->
 					<div class="col-xs-12 col-sm-9">
 						<div class="row">
@@ -414,7 +417,7 @@ label{margin-left: 20px;}
 				                        <br>
 				                        <br>
 				                        <div class="card">
-				                            <div class="card-header"><strong><i class="fa fa-usd"></i><label for="trn_money" class=" form-control-label">　捐贈金額</label></strong><span id="money_error" style="color:red"></span></div>
+				                            <div class="card-header"><strong><i class="fa fa-usd"></i><label for="trn_money" class=" form-control-label">捐贈金額</label></strong><span id="money_error" style="color:red"></span></div>
 				                            <div class="card-body card-block">
 				                                <input type="text" id="trn_money" name="trn_donate_amount" placeholder="請輸入捐款金額" class="form-control">
 				                            </div>
@@ -429,8 +432,11 @@ label{margin-left: 20px;}
 										<br>
 										<input type="hidden" name="action" value="transfer_donate">
 										<input type="hidden" name="donate_src" value="轉帳">
-				            			<input type = "submit" id="submit_trn" value = "捐款" style="text-align:center;">
-										<br>
+<!-- 				            		<input type = "submit" id="submit_trn" value = "捐款" style="text-align:center;"> -->
+				            			<div align="center">
+			                            	<button class="genric-btn primary" style="width:120px;height:40px;font-size:20px;" id="submit_trn">捐款</button>
+				                            <br>
+			                            </div>
 <!-- 									</form> -->
 								
 							    </div>
@@ -464,8 +470,8 @@ label{margin-left: 20px;}
 				                                	<input type="text" id="cred_num" name="donate_src_cre" placeholder="請輸入信用卡號" class="form-control" style="width:25%">
 				                                </div>
 				                                <div class="form-group"><label for="month" class=" form-control-label">有效年月</label><span id="cre_date_error" style="color:red"></span><br>
-					                                <input type="text" id="cred_year" name="credit_year" placeholder="有效年份" class="form-control" maxlength="2" style="width:12%;display:inline">
 					                                <input type="text" id="cred_month" name="credit_month" placeholder="有效月份" class="form-control" maxlength="2" style="width:12%; display:inline" >
+					                                <input type="text" id="cred_year" name="credit_year" placeholder="有效年份" class="form-control" maxlength="2" style="width:12%;display:inline">
 				                                </div>
 				                                <div class="form-group"><label for="vat" class=" form-control-label">安全碼</label><span id="cre_vat_error" style="color:red"></span>
 				                                	<input type="text" id="cred_vat" name="credit_vat" placeholder="安全碼" class="form-control" maxlength="3"　style="width:12%">
@@ -484,8 +490,12 @@ label{margin-left: 20px;}
 										<br>
 										<input type="hidden" name="action" value="insert_cre">
 										<input type="hidden" name="donate_src" value="信用卡">
-				            			<input type="submit" id="submit_credit" value = "捐款" style="text-align:center;">
-										<br>
+<!-- 				            		<input type="submit" id="submit_credit" value = "捐款" style="text-align:center;"> -->
+										<div align="center">
+			                            	<button class="genric-btn primary" style="width:120px;height:40px;font-size:20px;" id="submit_credit">捐款</button>
+				                            <br>
+			                            </div>
+
 <!-- 									</form> -->
 							    
 							    </div>
@@ -496,8 +506,8 @@ label{margin-left: 20px;}
 
 				</div>
 			</div>
-		</div>
-	</section>
+<!-- 		</div> -->
+<!-- 	</section> -->
 	
 	
 	<script>
@@ -667,6 +677,36 @@ label{margin-left: 20px;}
 			    maxDate : "+0d"
 			});
 		});
+	</script>
+	
+	<!-- 神奇小按鈕 -->
+	<script type="text/javascript">
+		var c=0;
+				$(function(){
+					$('#miracleBtn').click(function(){
+						c++;
+						console.log('1111111111111111');
+						if (c%2==1){
+							$('#trn_name').val('Peter');
+							$('#trn_tel').val('0966888888');
+							$('#trn_email').val('peter123@gmail.com');
+		// 					$('#trn_bank').val('004');
+							$('#trn_account').val('311951060333093');
+							$('#datepicker').val('01/18/2019');
+							$('#trn_money').val('66666');
+						} else{
+							$('#cred_name').val('Peter');
+							$('#cred_tel').val('0966888888');
+							$('#cred_email').val('peter123@gmail.com');
+		// 					$('#trn_bank').val('004');
+							$('#cred_num').val('847390285031894');
+							$('#cred_year').val('22');
+							$('#cred_month').val('01');
+							$('#cred_vat').val('666');
+							$('#cred_money').val('66666');
+						}
+					});
+				});
 	</script>
 
 

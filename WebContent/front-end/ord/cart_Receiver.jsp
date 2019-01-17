@@ -67,7 +67,7 @@ div {
 		$("#step_info").attr("class","current")
 	</script>
 	
-<form action="<%=request.getContextPath()%>/ord/ord.do" method="post" class="form" novalidate="novalidate">	
+<form action="<%=request.getContextPath()%>/ord/ord.do" method="post" class="form_submit" novalidate="novalidate">	
 	<div style="height:auto; padding-top: 25px;">
 	    <h5 style="text-align:center">本次結帳總金額:　　<i class="fas fa-coins"></i> <b id="amount">${amount}　　</b></h5>
 	    
@@ -122,6 +122,9 @@ div {
 	</div>
 	
     <div class="row" style="height:auto; padding-top: 25px;">
+   		<div style="margin-top: 250px; margin-left: 250px; position: fixed">
+        	<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">	
+        </div>
     	<div class="col-lg-6 col-lg-offset-3">
 			<div class="card">
 <!-- 		    	<div class="card-header"> -->
@@ -266,8 +269,8 @@ div {
 		var pattern = /^[\u002B]?[0-9]{10,15}$/; 
 		$(function () {
 			event.preventDefault();
-		$('.form').submit(function () {
-			var $this = $('.form');
+		$("#check_Confirm").click(function () {
+			var $this = $('.form_submit');
  			$('#error_name').text('');
  			$('#error_tel').text('');
  			$('#error_add').text('');
@@ -353,6 +356,19 @@ div {
 		
 		
 		
+	</script>
+	
+	<!-- 神奇小按鈕 -->
+	<script type="text/javascript">
+				$(function(){
+					$('#miracleBtn').click(function(){
+					console.log('1111111111111111');
+					$('#ord_receiver').val('Peter');
+					$('#ord_rc_tel').val('0966888888');
+					$('#ord_rc_add').val('中大路300號中壢資策會');
+					$('#ord_rc_comm').val('謝謝賣家~~~~~');
+					});
+				});
 	</script>
 
 

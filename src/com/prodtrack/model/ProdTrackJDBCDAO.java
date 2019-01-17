@@ -17,7 +17,7 @@ public class ProdTrackJDBCDAO implements ProdTrackDAO_interface {
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO prod_track (PROD_ID, MEMB_ID) VALUES (?, ?)";
-	private static final String GET_ALL_STMT = "SELECT PROD_ID, MEMB_ID FROM prod_track order by PROD_ID";
+	private static final String GET_ALL_STMT = "SELECT PROD_ID, MEMB_ID FROM prod_track order by PROD_ID desc";
 	private static final String GET_ONE_STMT = "SELECT PROD_ID, MEMB_ID FROM prod_track where MEMB_ID=?";
 	private static final String DELETE = "DELETE FROM prod_track where PROD_ID=? and MEMB_ID=?";
 	private static final String UPDATE = "UPDATE PROD_TRACK set PROD_ID=?, MEMB_ID=? where PROD_ID=? and MEMB_ID=?";
