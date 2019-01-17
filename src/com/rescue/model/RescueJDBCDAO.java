@@ -57,7 +57,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 	private static final String UPDATE_JOIN_RESCUE =
 			"UPDATE RESCUE set rsc_sta='救援中'  where rsc_id = ?";
 	private static final String INSERT_RESCUE_CASE = 
-			"INSERT INTO RESCUE (rsc_id,rsc_name,rsc_add,rsc_des,rsc_img,rsc_sponsor,rsc_lat,rsc_lon,rsc_sta,rsc_btime,rsc_coin,rsc_reg) VALUES ('R'||LPAD(to_char(volunteer_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?)";
+			"INSERT INTO RESCUE (rsc_id, rsc_name, rsc_add, rsc_des, rsc_img, rsc_sponsor, rsc_lat, rsc_lon, rsc_sta, rsc_btime, rsc_reg) VALUES ('R'||LPAD(to_char(volunteer_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_RESCUE = 
 			"SELECT rsc_id,rsc_name,rsc_add,rsc_des,rsc_sponsor,vlt_id,rsc_lat,rsc_lon,rsc_sta,to_char(rsc_stm_time,'yyyy-mm-dd hh24:mi:ss') rsc_stm_time,rsc_stm_url,rsc_stm_sta,to_char(rsc_btime,'yyyy-mm-dd hh24:mi:ss') rsc_btime,rsc_coin,to_char(rsc_etime,'yyyy-mm-dd hh24:mi:ss') rsc_etime,rsc_reg,rsc_rt_status,ntf_vlt_dt,ntf_vlt_link,ntf_vlt_sta,to_char(ntf_vlt_time,'yyyy-mm-dd hh24:mi:ss') ntf_vlt_time FROM RESCUE WHERE rsc_sta = '待救援' OR rsc_sta = '救援中' order by rsc_id";
 
@@ -1124,20 +1124,34 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_RESCUE_CASE);
 			
+			System.out.println("aaaaaaaaaaa");
+			System.out.println("rescueVO.getRsc_name()"+rescueVO.getRsc_name());
+			System.out.println("rescueVO.getRsc_add()"+rescueVO.getRsc_add());
+			System.out.println("rescueVO.getRsc_des()"+rescueVO.getRsc_des());
+			System.out.println("rescueVO.getRsc_img()"+rescueVO.getRsc_img());
+			System.out.println("rescueVO.getRsc_sponsor()"+rescueVO.getRsc_sponsor());
+			System.out.println("rescueVO.getRsc_lat()"+rescueVO.getRsc_lat());
+			System.out.println("rescueVO.getRsc_lon()"+rescueVO.getRsc_lon());
+			System.out.println("rescueVO.getRsc_reg()"+rescueVO.getRsc_reg());
 			pstmt.setString(1, rescueVO.getRsc_name());
 			pstmt.setString(2, rescueVO.getRsc_add());
 			pstmt.setString(3, rescueVO.getRsc_des());
 			pstmt.setBytes(4, rescueVO.getRsc_img());
 			pstmt.setString(5, rescueVO.getRsc_sponsor());
-//			pstmt.setDouble(6, rescueVO.getRsc_lat());
-//			pstmt.setDouble(7, rescueVO.getRsc_lon());
+			pstmt.setDouble(6, rescueVO.getRsc_lat());
+			pstmt.setDouble(7, rescueVO.getRsc_lon());
 			pstmt.setString(8, "待救援");
 			pstmt.setTimestamp(9, new Timestamp(new Date().getTime()));
 			pstmt.setString(10, rescueVO.getRsc_reg());
-			pstmt.setInt(11, new Integer(20));
+//			pstmt.setInt(11, new Integer(20));
+			System.out.println("bbbbbbbbbbb");
 			
 
 			int rowsUpdated =pstmt.executeUpdate();
+			if(rowsUpdated>0) {
+				isAddRescueCase = true;
+			}
+			System.out.println("cccccccc");
 			System.out.println("Changed " + rowsUpdated + "rows");
 
 			// Handle any driver errors
