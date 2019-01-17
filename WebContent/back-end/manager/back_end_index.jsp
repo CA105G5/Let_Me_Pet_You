@@ -188,6 +188,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				  </div>
 <!-- 				  <div class="panel-body">
 				    
+				    
 				  </div> -->
 				  <div class="list-group">
 				  	<a href="<%=request.getContextPath()%>/back-end/rescue/back_rescue.jsp" class="list-group-item">救援案例列表</a>
