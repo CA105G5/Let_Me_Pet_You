@@ -258,7 +258,11 @@
 
 
 
+<script>
+$("ul.nav-menu li").attr('class', "" );
+$("#member").attr('class', 'menu-active menu-has-children' )
 
+</script>
 
 <%-- 模板後script 加在自己的script前--%>
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>

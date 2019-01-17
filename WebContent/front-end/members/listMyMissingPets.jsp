@@ -121,6 +121,11 @@ pageContext.setAttribute("list",list);
 <%}else{ %>
 	<h1 style="color:green;font-size:60px" align="center">您目前沒有失蹤的寵物</h1>
 <%}%>
+<script>
+$("ul.nav-menu li").attr('class', "" );
+$("#member").attr('class', 'menu-active menu-has-children' )
+
+</script>
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>

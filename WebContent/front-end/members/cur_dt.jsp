@@ -126,7 +126,11 @@ $(function(){
 	
 	
 <%	}%>
+<script>
+$("ul.nav-menu li").attr('class', "" );
+$("#member").attr('class', 'menu-active menu-has-children' )
 
+</script>
 
 
 

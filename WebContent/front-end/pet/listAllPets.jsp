@@ -139,7 +139,11 @@
 </div>
 
 
+<script>
+$("ul.nav-menu li").attr('class', "" );
+$("#member").attr('class', 'menu-active menu-has-children' )
 
+</script>
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>

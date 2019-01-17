@@ -224,7 +224,11 @@ $(function(){
 	
 	
 <%	}%>
+<script>
+$("ul.nav-menu li").attr('class', "" );
+$("#member").attr('class', 'menu-active menu-has-children' )
 
+</script>
 
 <%-- 模板後script 加在自己的script前--%>
 				<!-- 注意!!! 若有多個jquery會衝突 -->

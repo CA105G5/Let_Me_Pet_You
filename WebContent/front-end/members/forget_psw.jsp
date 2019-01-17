@@ -139,7 +139,11 @@
     
     
     <div align="center"><a href="<%=request.getContextPath()%>/front-end/members/login.jsp">前往登入頁面</a></div>
-    
+<script>
+$("ul.nav-menu li").attr('class', "" );
+$("#member").attr('class', 'menu-active menu-has-children' )
+
+</script>    
  		  
 			  
 			  
