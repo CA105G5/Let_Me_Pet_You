@@ -52,6 +52,10 @@ div {
 		monospace;
 }
 
+.test-object-has-zipcode .zipcode{
+	width:88px;
+}
+
 
 </style>
 </head>
@@ -344,6 +348,7 @@ div {
 			
 			});
 		});
+		
 		
 		
 		

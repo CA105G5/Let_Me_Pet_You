@@ -501,14 +501,6 @@ label{margin-left: 20px;}
 	
 	
 	<script>
-		
-		$("ul.nav-menu li").attr('class', "" );
-		$("#donate").attr('class', 'menu-active menu-has-children' )
-		 
-		 
-	</script>
-	
-	<script>
 	
 	//確認捐款
 		$("#submit_credit").click(function(){
@@ -571,7 +563,7 @@ label{margin-left: 20px;}
 							console.log("success="+res);
 							swal("完成", "浪我陪你動物救援平台感謝您的捐助", "success").catch(swal.noop);
 							console.log("11111111");
-			    			setInterval(function() { window.location.href = '<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp';}, 2000);
+			    			setInterval(function() { window.location.href = '<%=request.getContextPath()%>/front-end/donate/listAllMoneyDon.jsp';}, 2000);
 						
 						},
 						error: function(res){
@@ -645,7 +637,7 @@ label{margin-left: 20px;}
 							console.log("success="+res);
 							swal("完成", "浪我陪你動物救援平台感謝您的捐助", "success").catch(swal.noop);
 							console.log("11111111");
-			    			setInterval(function() { window.location.href = '<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp';}, 2000);
+			    			setInterval(function() { window.location.href = '<%=request.getContextPath()%>/front-end/donate/listAllMoneyDon.jsp';}, 2000);
 						
 						},
 						error: function(res){
@@ -659,7 +651,7 @@ label{margin-left: 20px;}
 
 		
 		$("ul.nav-menu li").attr('class', "" );
-		$("#shop").attr('class', 'menu-active menu-has-children' )
+		$("#donate").attr('class', 'menu-active menu-has-children' )
 		
 		
 // 		DatePicker

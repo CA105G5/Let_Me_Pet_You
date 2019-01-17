@@ -62,7 +62,7 @@ div {
 	<jsp:include page="/front-end/ord/cart_Header.jsp"
 		flush="true" />
 		
-	<div class="shopping-cart" style="height:auto">
+	<div class="shopping-cart" style="height:auto; width:900px">
       	<div class="title">
         	購物車清單
      	</div>
@@ -89,7 +89,7 @@ div {
 	          <img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${prod_id}" alt="" width="100">
 	        </div>
 	
-	        <div class="description">
+	        <div class="description" style="width:150px">
 	          <span>
 	          	<a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${prod_id}">
 	          		${prodSvc.getOneProd(prod_id).prod_name}
@@ -100,7 +100,7 @@ div {
 <!-- 	          <span>White</span> -->
 	        </div>
 	
-	        <div class="quantity">
+	        <div class="quantity" style="margin-right: 30px;">
 	          <button class="minus-btn" type="button" name="button" ${prodSvc.getOneProd(prod_id).prod_stock==0? "disabled":""}>
 <!-- 	            <img src="minus.svg" alt="" /> -->
 					<i class="glyphicon glyphicon-minus" style="color:gray"></i>
@@ -111,9 +111,9 @@ div {
 					<i class="glyphicon glyphicon-plus" style="color:gray"></i>
 	          </button>
 	        </div>
-	        <span>${prodSvc.getOneProd(prod_id).prod_stock==0? '無庫存': ''}</span>
+	        <span style="width:150px; margin-top:25px; color:orange">${prodSvc.getOneProd(prod_id).prod_stock==0? '無庫存': ''}</span>
 	
-	        <div class="total-price">
+	        <div class="total-price" style="margin-right:10px">
 	        	<i class="fas fa-coins"></i><b>  ${prodSvc.getOneProd(prod_id).prod_price}</b>
 	        </div>
 	      </div>

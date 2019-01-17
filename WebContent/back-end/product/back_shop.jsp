@@ -46,8 +46,20 @@
 
 <!--     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script> -->
 
+	
+	<!-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<!-- https://fontawesome.com/ 自己的css-->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+	crossorigin="anonymous">
+	
+	
 <!--     加上審核彈跳modal -->
-<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <!-- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <!--     加上審核彈跳modal -->
@@ -59,25 +71,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<!-- w3 CSS tabs -->
-	
-	<!-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-<!-- https://fontawesome.com/ 自己的css-->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
-	crossorigin="anonymous">
 
 
+    
+<!-- datatable -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend_UI_template/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+<!-- datatable -->
 
+    
 <!-- sweetAlert -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
-
-
-
+    
 
 
    <style>
@@ -97,7 +103,7 @@
 	}
 	
 	/* Next & previous buttons */
-	.prev, .next {
+	.prev_slide, .next_slide {
 	  cursor: pointer;
 	  position: absolute;
 	  top: 50%;
@@ -113,13 +119,13 @@
 	}
 	
 	/* Position the "next button" to the right */
-	.next {
+	.next_slide {
 	  right: 0;
 	  border-radius: 3px 0 0 3px;
 	}
 	
 	/* On hover, add a black background color with a little bit see-through */
-	.prev:hover, .next:hover {
+	.prev_slide:hover, .next_slide:hover {
 	  background-color: rgba(0,0,0,0.8);
 	}
 	
@@ -207,7 +213,7 @@ transform: translateY(4px);
 <!-- <body onload="connect(); connectRescue()" onunload="disconnect(); disconnectRescue()"> -->
 <body onload="connectRescue()" onunload="disconnectRescue()">
 
-	<jsp:include page="/back-end/product/back_shop_Header.jsp" flush="true" />
+	<jsp:include page="/back-end/manager/back_end_index_header.jsp" flush="true" />
 	
  <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
@@ -270,7 +276,8 @@ transform: translateY(4px);
  	<p> </p> 
     <table id="bootstrap-data-table2" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
-														<tr class="success">
+<!-- 														<tr class="success"> -->
+														<tr>
 															<th style="width: 30px">序號</th>
 															<th style="width: 100px">照片</th>
 															<th>商品編號</th>
@@ -357,8 +364,8 @@ transform: translateY(4px);
 											</c:forEach>
 													
 											<!-- Next and previous buttons -->
-											<a class="prev" onclick="plusSlides<%=no %>(-1)">&#10094;</a>
-											<a class="next" onclick="plusSlides<%=no %>(1)">&#10095;</a>
+											<a class="prev_slide" onclick="plusSlides<%=no %>(-1)">&#10094;</a>
+											<a class="next_slide" onclick="plusSlides<%=no %>(1)">&#10095;</a>
 										</div>
 										<br>
 												
@@ -443,7 +450,7 @@ transform: translateY(4px);
 					</div>
 													</div>
 								                        <div class="modal-footer">
-								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+<!-- 								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button> -->
 <!-- 								                            <button type="button" class="btn btn-primary">Confirm</button> -->
 								                        </div>
 								                    </div>
@@ -605,7 +612,8 @@ transform: translateY(4px);
     <p> </p> 
     <table id="bootstrap-data-table" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
-														<tr class="success">
+<!-- 														<tr class="success"> -->
+														<tr>
 															<th style="width: 30px">序號</th>
 															<th style="width: 100px">照片</th>
 															<th>商品編號</th>
@@ -786,6 +794,7 @@ transform: translateY(4px);
     var path_res = window.location.pathname;
     var webCtx_res = path_res.substring(0, path_res.indexOf('/', 1));
     var endPointURL_res = "ws://" + window.location.host + webCtx_res + MyPoint_res;
+    console.log("endPointURL_res"+endPointURL_res);
     
 	var webSocket_res;
 	
@@ -805,13 +814,14 @@ transform: translateY(4px);
 			console.log("jsonObj==="+jsonObj); 
 			console.log("Object.keys(jsonObj).length==="+Object.keys(jsonObj).length); 
 			console.log("length==="+length); 
-			$("#info").html("");
+			
 			var i =0;
 			for (i=0; i<length;i++){
 				var res_id = Object.keys(jsonObj)[i];
 				var res_name = jsonObj[Object.keys(jsonObj)[i]]
 				console.log("res_id===="+Object.keys(jsonObj)[i]); 
 				console.log("res_name==="+jsonObj[Object.keys(jsonObj)[i]]); 
+				$("#info").html("");
 				$("#info").append(
 						"<hr>"+
 						"<div class='row'>"+

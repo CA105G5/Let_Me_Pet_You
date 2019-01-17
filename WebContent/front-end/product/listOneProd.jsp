@@ -52,6 +52,8 @@
 <meta charset="BIG5">
 <title>愛心商品</title>
 
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/ord/style.css" media="screen" title="no title" charset="utf-8">
+
 
 
 <style type="text/css">
@@ -309,13 +311,16 @@ display:none;
 									
 							<div style="text-align:right;">
 <!-- 								<input type="submit" value="加入購物車" class="genric-btn primary-border circle button" style="width: 120px;" id="cartBtn"> -->
-								<a href="#" class="genric-btn primary-border circle button" style="width: 120px;" id="cartBtn">加入購物車</a>	
+								<a href="#" class="genric-btn primary-border circle button" style="width: 150px;" id="cartBtn">加入購物車</a>	
 								<!-- modal屬性 data-toggle="modal" data-target="#staticModal" -->
 							</div>
 							<br>
 							<div style="text-align:right;">
-								<i class="glyphicon glyphicon-heart-empty" style="color: red; font-size:20px"  id="heart"></i>
-								<input type="submit" value="收藏" class="button button genric-btn primary-border circle" id="favBtn" style="width: 120px;">
+<!-- 								<i class="glyphicon glyphicon-heart-empty" style="color: red; font-size:20px"  id="heart"></i> -->
+								<div class="buttons" style="display:inline">
+						        	<span class="like-btn" id="like-btn" style="display:inline; padding-right:30px"></span>
+						        </div>
+								<input type="submit" value="收藏" class="button button genric-btn primary-border circle" id="favBtn" style="width: 150px; display:inline">
 							</div> 
 						</div>
 					</div>
@@ -432,7 +437,8 @@ $.ajax({
 		console.log(res);
 		if (res=="1"){
 			t=1;
-			$("#heart").attr("class", "glyphicon glyphicon-heart");
+			 $("#like-btn").toggleClass('is-active');
+// 			$("#heart").attr("class", "glyphicon glyphicon-heart");
 		}
 	},
 	error: function(res){
@@ -445,6 +451,7 @@ $.ajax({
 
 // 加入/取消追蹤 & 愛心切換
 $("#favBtn").click(function(){
+	$("#like-btn").toggleClass('is-active');
 	console.log("favfavfav");
 	console.log('${prodVO.prod_id}');
 	++t;
@@ -477,10 +484,11 @@ $("#favBtn").click(function(){
 					if (res==0){
 						alert("請登入");
 					} else {
-						$("#heart").attr("class", "glyphicon glyphicon-heart");
+// 						$("#like-btn").toggleClass('is-active');
+// 						$("#heart").attr("class", "glyphicon glyphicon-heart");
 						console.log("11111");
 //	 					alert("商品已加入追蹤");
-						swal("完成", "商品已加入追蹤", "success").catch(swal.noop);
+// 						swal("完成", "商品已加入追蹤", "success").catch(swal.noop);
 					}
 				},
 				error: function(res){
@@ -500,10 +508,11 @@ $("#favBtn").click(function(){
 					if (res==0){
 						alert("請登入");
 					} else {
-						$("#heart").attr("class", "glyphicon glyphicon-heart-empty");
+// 						$("#like-btn").toggleClass('is-active');
+// 						$("#heart").attr("class", "glyphicon glyphicon-heart-empty");
 						console.log("22222");
 //	 					alert("商品已取消追蹤");
-						swal("完成", "商品已取消追蹤", "warning").catch(swal.noop);
+// 						swal("完成", "商品已取消追蹤", "warning").catch(swal.noop);
 					}
 				},
 				error: function(res){

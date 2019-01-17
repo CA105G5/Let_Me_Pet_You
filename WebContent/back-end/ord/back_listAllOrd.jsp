@@ -81,7 +81,17 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <!-- w3 CSS tabs -->
 
+    
+<!-- datatable -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend_UI_template/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+<!-- datatable -->
 
+    
+<!-- sweetAlert -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
+    
 
 
    <style>
@@ -307,13 +317,39 @@ bottom: 0px;
 left: 43px;
 }
         
+        
+/* button click動畫 */ 
+.button { 
+  display: inline-block; 
+  padding: 15px 25px; 
+  font-size: 24px; 
+  cursor: pointer; 
+  text-align: center; 
+  text-decoration: none; 
+  outline: none; 
+  color: #fff; 
+  background-color: #4CAF50; 
+  border: none; 
+  border-radius: 15px; 
+  box-shadow: 0 9px #999; 
+} 
+	
+.button:hover {background-color: #3e8e41}
+	
+.button:active { 
+background-color: #3e8e41; 
+box-shadow: 0 5px #666; 
+transform: translateY(4px); 
+} 
+
+
 
     </style>
 </head>
 
 <body>
 
-	<jsp:include page="/back-end/product/back_shop_Header.jsp" flush="true" />
+	<jsp:include page="/back-end/manager/back_end_index_header.jsp" flush="true" />
 	
  <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
@@ -482,7 +518,8 @@ left: 43px;
  		    		<textarea class="form-control" id="reason<%=no%>" rows="5" placeholder="請輸入審核理由"></textarea> 
  		    		</div> 
  		    		<br>
- 		    		<input type="submit" value="送出" id="submit<%=no %>">
+ 		    		<input type="button" value="提交" class="button" id="submit<%=no %>">
+<%--  		    		<input type="submit" value="送出" id="submit<%=no %>"> --%>
 <%--  		    		<input type="button" value="提交" class="button" id="submit<%=no %>" onclick="reviewSubmit()"> --%>
  		    		<input type="hidden" name="prod_id" id="product_id" value='${ordItemVO.prod_id}'>
 					<input type="hidden" name="ord_id"  id="ord_id" value='${ordItemVO.ord_id}'>
@@ -493,7 +530,7 @@ left: 43px;
 								                        
 								                        </div>
 								                        <div class="modal-footer">
-								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+<!-- 								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button> -->
 <!-- 								                            <button type="button" class="btn btn-primary">Confirm</button> -->
 								                        </div>
 								                    </div>
