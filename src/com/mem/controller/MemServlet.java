@@ -503,7 +503,7 @@ public class MemServlet extends HttpServlet {
 							.getRequestDispatcher("/front-end/members/forget_psw.jsp");
 					failureView.forward(req, res);
 					
-					
+					 
 				}
 			}catch(Exception e) {
 				errorMsgs.add("發生其他例外:" + e.getMessage());

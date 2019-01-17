@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.volunteer.model.*"%>
-
+ 
 <%
   VolunteerVO volunteerVO = (VolunteerVO) request.getAttribute("volunteerVO");
 %>
