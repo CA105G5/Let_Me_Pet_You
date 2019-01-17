@@ -671,7 +671,7 @@ public class VolunteerJDBCDAO implements VolunteerDAO_interface {
 			}
 			if (con != null) {
 				try {
-					con.close();
+					con.close(); 
 				} catch (Exception e) {
 					e.printStackTrace(System.err); 
 				}

@@ -1299,7 +1299,7 @@ public class RescuingJDBCDAO implements RescuingDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean isjoinRescuing = false;
-		try {
+		try { 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			con.setAutoCommit(false);

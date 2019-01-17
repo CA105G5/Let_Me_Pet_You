@@ -1165,11 +1165,11 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
-				try {
+				try { 
 					pstmt.close();
 				} catch (SQLException se) {
 					se.printStackTrace(System.err);
-				}
+				} 
 			}
 			if (con != null) {
 				try {
