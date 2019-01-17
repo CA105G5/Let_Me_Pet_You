@@ -151,20 +151,20 @@ i.fa-shopping-cart:hover {
 											<li><a href="<%=request.getContextPath()%>/front-end/prodtrack/listAllProdTrack.jsp">我的追蹤商品</a></li>
 										</ul>
 									</li>
-									<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">救援</a>
+									<li class="menu-has-children" id="rescue"><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">救援</a>
 										<ul>
 											<li><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援案例</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp">待完成救援案例</a></li>
 										</ul>
 									</li>
-									<li class="menu-has-children"><a href="<%=request.getContextPath()%>/front-end/adopt/listAllAdopt.jsp">認養</a>
+									<li class="menu-has-children" id="adopt"><a href="<%=request.getContextPath()%>/front-end/adopt/listAllAdopt.jsp">認養</a>
 										<ul>
 											<li><a href="<%=request.getContextPath()%>/front-end/adopt/addAdopt.jsp">新增認養案例</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/adopt/listAllAdopt.jsp">認養案例瀏覽</a></li>
 										</ul>
 									</li>
-									<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤</a>
+									<li class="menu-has-children" id="missing"><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤</a>
 								    	<ul>
 											<li><a href="<%=request.getContextPath()%>/front-end/missingCase/addMissing.jsp">新增失蹤案例</a></li>
 											<li><a href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp">失蹤案例瀏覽</a></li>
