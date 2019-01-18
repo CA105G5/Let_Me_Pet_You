@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ page import="com.rescue.model.*"%>
+<%@ page import="com.rscRt.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.mem.model.*"%>
@@ -32,7 +33,11 @@ map.put("rscing_ptcp",new String[] {memb_id});
 RescuingService rescuingSvc2 = new RescuingService();
 List<RescuingVO> list =rescuingSvc2.getAll(map);
 
-
+Map<String, String[]> map2 = new TreeMap<String, String[]>();
+map.put("rsc_id",new String[] {rsc_id});
+map.put("memb_id",new String[] {memb_id});
+RscRtService rscRtSvc = new RscRtService();
+List<RscRtVO> rtlist =rscRtSvc.getAll(map2);
 
 
 // MemService memSvc1 = new MemService();
@@ -72,6 +77,18 @@ p {
 div {
 	font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
 		monospace;
+}
+.btn-rt {
+    background-color: #222;
+    color: #fff;
+    border: 1px solid #222;
+    padding: 8px 30px;
+    display: block;
+
+}
+.btn-rt:hover{
+background-color: #fff;
+color: #222;
 }
 
 </style>
@@ -148,10 +165,14 @@ div {
 												<h3 style="color:red">請先登入才可加入救援 </h3>
 													 
 												
-												<%}else if (list.isEmpty()){ %>
-													
-														<a href="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do?rsc_id=${rescueVO.rsc_id}&rscing_ptcp=${memVO.memb_id}&action=insert" 
-														class="genric-btn primary">加入救援</a>
+												<%}else if (list.isEmpty()){%>
+													<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/rescuing/rescuing.do">
+													<input type="hidden" name="action" value="insert">
+													<input type="hidden" name="rsc_id" value="${rescueVO.rsc_id}">
+													<input type="hidden" name="rscing_ptcp" value="${memVO.memb_id}">
+													<button class="genric-btn primary" title="加入救援">加入救援</button>
+													</form>
+
 												<%}else{%>
 												
 														<a href="#" class="genric-btn disable">已加入救援</a>
@@ -163,10 +184,21 @@ div {
 										</div>
 										
 										<div class="col-sm-6">
-											
-												
-
-											
+											<c:if test="${rescueVO.rsc_sta=='待救援' or rescueVO.rsc_sta=='救援中'}">
+											<% if(memVO != null){ %>
+											<c:choose>
+											 <c:when test="${rtlist.isEmpty() and rescueVO.rsc_rt_status!='已檢舉'}">
+											 	<div class="btn-rt genric-btn">檢舉</div>
+											 </c:when>
+											<c:when test="${rtlist.isEmpty() and rescueVO.rsc_rt_status=='已檢舉'}">
+											 	<div class="btn-rt genric-btn disable">已被檢舉</div>
+											 </c:when>
+												<c:otherwise>
+												<div class="btn-rt genric-btn disable">已檢舉</div>
+												</c:otherwise>
+											</c:choose>
+											<%}%>
+											</c:if>
 										</div>
 									</div>
 								</div>
