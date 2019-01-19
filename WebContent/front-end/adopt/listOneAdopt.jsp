@@ -17,8 +17,8 @@
 	pageContext.setAttribute("list", list);
 	MemVO membVO = (MemVO) session.getAttribute("memVO");
 	pageContext.setAttribute("membVO", membVO);
-	String url = request.getContextPath() +"/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id;
-	session.setAttribute("adopt",url);
+// 	String url = request.getContextPath() +"/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="+adopt_id;
+// 	session.setAttribute("adopt",url);
 	
 	
 	AdoptApplyService adoptApplySvc = new AdoptApplyService();
