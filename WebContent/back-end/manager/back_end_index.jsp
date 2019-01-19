@@ -250,7 +250,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				    
 				  </div> -->
 				  <div class="list-group">
-				  	<a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp.jsp" class="list-group-item">愛心捐款管理</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp" class="list-group-item">愛心捐款管理</a>
 				  	<a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="list-group-item">愛心物資管理</a>
 				  </div>
 				  
