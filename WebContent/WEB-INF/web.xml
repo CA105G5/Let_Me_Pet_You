@@ -430,9 +430,9 @@
     <servlet-name>NtfServlet</servlet-name>
     <url-pattern>/front-end/ntf/ntf.do</url-pattern>
   </servlet-mapping>
-<!--   <listener> -->
-<!--     <listener-class>com.rescue.controller.RescueEchoServer</listener-class> -->
-<!--   </listener> -->
+  <listener>
+    <listener-class>com.rescue.controller.RescueEchoServer</listener-class>
+  </listener>
   <context-param>
     <param-name>org.apache.tomcat.websocket.textBufferSize</param-name>
     <param-value>6144000</param-value>
