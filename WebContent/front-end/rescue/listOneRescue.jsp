@@ -34,11 +34,11 @@ RescuingService rescuingSvc2 = new RescuingService();
 List<RescuingVO> list =rescuingSvc2.getAll(map);
 
 Map<String, String[]> map2 = new TreeMap<String, String[]>();
-map.put("rsc_id",new String[] {rsc_id});
-map.put("memb_id",new String[] {memb_id});
+map2.put("rsc_id",new String[] {rsc_id});
+map2.put("memb_id",new String[] {memb_id});
 RscRtService rscRtSvc = new RscRtService();
 List<RscRtVO> rtlist =rscRtSvc.getAll(map2);
-
+System.out.println("rtlist"+rtlist);
 
 // MemService memSvc1 = new MemService();
 // MemVO memVO = memSvc1.getOneMem("M000000005");
@@ -89,6 +89,12 @@ div {
 .btn-rt:hover{
 background-color: #fff;
 color: #222;
+}
+.btn-rt.genric-btn.disable {
+    color: #222222, 0.3;
+    background: #ffc107;
+    border: 1px solid transparent;
+    cursor: not-allowed;
 }
 
 </style>
@@ -186,17 +192,17 @@ color: #222;
 										<div class="col-sm-6">
 											<c:if test="${rescueVO.rsc_sta=='待救援' or rescueVO.rsc_sta=='救援中'}">
 											<% if(memVO != null){ %>
-											<c:choose>
-											 <c:when test="${rtlist.isEmpty() and rescueVO.rsc_rt_status!='已檢舉'}">
-											 	<div class="btn-rt genric-btn">檢舉</div>
-											 </c:when>
-											<c:when test="${rtlist.isEmpty() and rescueVO.rsc_rt_status=='已檢舉'}">
-											 	<div class="btn-rt genric-btn disable">已被檢舉</div>
-											 </c:when>
-												<c:otherwise>
-												<div class="btn-rt genric-btn disable">已檢舉</div>
-												</c:otherwise>
-											</c:choose>
+												<%if(rtlist.isEmpty()){ %>
+													<%if(rescueVO.getRsc_rt_status()=="已檢舉"){%>
+												 	<div class="btn-rt genric-btn disable">已被檢舉</div>
+													<%}else{%>
+												 	<button type="button" class="btn-rt genric-btn" data-toggle="modal" data-target="#exampleModalCenter" >檢舉</button>
+	
+												 	<%} %>
+												 <%}else{%>
+													
+													<div class="btn-rt genric-btn disable">已檢舉</div>
+												<%}%>	
 											<%}%>
 											</c:if>
 										</div>
@@ -369,7 +375,46 @@ color: #222;
 					</div>
 				</div>	
 			</section>	
-
+			
+						<!--案例檢舉彈出區-->
+						<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLongTitle"
+											style="margin-left: 200px;">請輸入檢舉原因:</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/rscRt/rscRt.do">
+											<div class="input-group mb-3">
+											<input type="text" class="form-control"
+													name="rsc_rt_comm" aria-label="Default"
+													aria-describedby="inputGroup-sizing-default">
+											</div>
+											<input type="hidden" name="rsc_id"
+												value="${rescueVO.rsc_id}">
+											<input type="hidden" name="memb_id"
+												value="${memVO.memb_id}">
+											<input type="hidden" name="requestURL"
+												value="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}"> 
+											<input type="hidden" name="action" value="insert">
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">取消</button>
+										<input type="submit" class="btn btn-primary" value="送出">
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- 檢舉結束 -->
 	
 	
 
