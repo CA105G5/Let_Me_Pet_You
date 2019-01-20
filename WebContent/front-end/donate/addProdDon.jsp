@@ -51,7 +51,7 @@ div {
 		<div class="row">
 
 			<!-- 左側邊list-group -->
-			<div class="col-xs-12 col-sm-3">
+			<div class="col-xs-12 col-sm-3" style="top: 0px; bottom: auto;">
 				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
 					<h3>愛心捐贈</h3>
 					<hr>
@@ -64,15 +64,7 @@ div {
                     	<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">	
                 </div>
 			</div>
-		</div>
-	</div>
-	
-	<section class="training-area section-gap">
-		<div class="container">
-			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
-				<div class="row">
-					<div class="col-lg-3 cl-md-3" style="top: 180px; bottom: auto;"></div> <!-- position: fixed -->
-					<div class="col-md-9 pb-40 header-text text-center"style="padding-bottom: 0px">
+					<div class="col-md-9 pb-40 header-text text-center" style="padding-bottom: 0px">
 						<div class="row">
 							<h1 class="pb-10">愛心商品捐贈</h1>
 							<%-- 錯誤表列 --%>
@@ -200,8 +192,6 @@ div {
 
 				</div>
 			</div>
-		</div>
-	</section>
 	
 	<script>
 		var i;

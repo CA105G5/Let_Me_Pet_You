@@ -6,7 +6,7 @@
 
 <%@ page import="java.util.*"%>
 <%@ page import="com.prod.model.ProdService"%>
-<%@ page import="com.prod.model.ProdVO"%>  
+<%@ page import="com.prod.model.ProdVO"%>
 
 <%
 	List<ProdVO> list;
@@ -340,7 +340,7 @@ div {
 								  		<span class="checkmark"></span>
 								 </label>
 								 <br>
-								 <br>
+<!-- 								 <br> -->
 							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
 						    	<p style="height:16px">商品種類</p>
 						 	 </div>
@@ -369,7 +369,7 @@ div {
 								  		<span class="checkmark"></span>
 								 </label>
 								 <br>
-								 <br>
+<!-- 								 <br> -->
 								
 <!-- 					       		<label><input type="checkbox" name="prod_type_id" value="食" > 食</label>　　 -->
 <!-- 								<label><input type="checkbox" name="prod_type_id" value="衣" > 衣</label>　<br> -->

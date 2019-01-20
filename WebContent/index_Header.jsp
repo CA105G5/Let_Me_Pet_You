@@ -219,7 +219,7 @@ i.fa-shopping-cart:hover {
 			                            style="padding:0px;color:#007bff;background-color:#ffffff;border-width:0px;width:18px;height:18px">
 			                                <i class="fa fa-bell"></i>
 			                                <div style="margin:0px;padding:0px;width:13px;height:13px">
-			                                	<h6 style="background-color:#ff0000;color:white;margin-top: -20;margin-bottom: 0px;margin-right: -10;margin-left: 10px;">
+			                                	<h6 style="background-color:#ff0000;color:white;margin-top: -20px;margin-bottom: 0px;margin-right: -10px;margin-left: 10px;">
 			                                	<%
 													List<NtfVO> list = ntfSvc.getAllNtfsFromSameMember(memVO.getMemb_id());
 													pageContext.setAttribute("list",list);

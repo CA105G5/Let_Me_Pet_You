@@ -53,7 +53,7 @@
 <!--     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script> -->
 
 <!--     加上審核彈跳modal -->
-<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <!-- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <!--     加上審核彈跳modal -->
@@ -118,6 +118,11 @@ box-shadow: 0 5px #666;
 transform: translateY(4px); 
 } 
 
+html {
+    overflow-x: scroll; 
+    overflow-y: scroll;
+  }
+
 </style>
 </head>
 
@@ -132,31 +137,31 @@ transform: translateY(4px);
 <!--         </header> -->
         
         <!-- Content -->
-        <div class="breadcrumbs">
-            <div class="breadcrumbs-inner">
-                <div class="row m-0">
-                    <div class="col-sm-4">
-                        <div class="page-header float-left">
-                            <div class="page-title">
-                                <h1>Dashboard</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="page-header float-right">
-                            <div class="page-title">
-                                <ol class="breadcrumb text-right">
-                                    <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">Table</a></li>
-                                    <li class="active">Data table</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="content">
+<!--         <div class="breadcrumbs"> -->
+<!--             <div class="breadcrumbs-inner"> -->
+<!--                 <div class="row m-0"> -->
+<!--                     <div class="col-sm-4"> -->
+<!--                         <div class="page-header float-left"> -->
+<!--                             <div class="page-title"> -->
+<!--                                 <h1>Dashboard</h1> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     <div class="col-sm-8"> -->
+<!--                         <div class="page-header float-right"> -->
+<!--                             <div class="page-title"> -->
+<!--                                 <ol class="breadcrumb text-right"> -->
+<!--                                     <li><a href="#">Dashboard</a></li> -->
+<!--                                     <li><a href="#">Table</a></li> -->
+<!--                                     <li class="active">Data table</li> -->
+<!--                                 </ol> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+        <div class="content" style="height: 200%">
             <div class="animated fadeIn">
                 <div class="row">
 

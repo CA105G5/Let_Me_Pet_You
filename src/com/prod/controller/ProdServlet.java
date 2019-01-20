@@ -35,7 +35,6 @@ public class ProdServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		String action = req.getParameter("action");
 		System.out.println("action=" + action);
-		System.out.println("?????????????");
 		
 		HttpSession session = req.getSession();
 		
@@ -660,7 +659,7 @@ public class ProdServlet extends HttpServlet {
 			ProdVO prodVO = new ProdVO();
 			System.out.println("得到從addProdDon.jsp設定的屬性"+req.getAttribute("Test"));
 
-//			try {
+			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 //				String memb_id = req.getParameter("memb_id");
 				String prod_type_id = req.getParameter("prod_type_id");
@@ -833,13 +832,13 @@ public class ProdServlet extends HttpServlet {
 				successView.forward(req, res);		
 				
 				/***************************其他可能的錯誤處理**********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add(e.getMessage());
-//				req.setAttribute("prodVO", prodVO);
-//				System.out.println("@@@@@@@@@@");
-//				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/donate/addProdDon.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				req.setAttribute("prodVO", prodVO);
+				System.out.println("@@@@@@@@@@");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/donate/addProdDon.jsp");
+				failureView.forward(req, res);
+			}
 		}
 		
 		

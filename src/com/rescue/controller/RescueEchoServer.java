@@ -40,13 +40,13 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 		    	 List<RescueVO> list = new RescueService().getAllDelay();
 		         List<String> toRsc = new ArrayList();
 		         JSONObject jsonObj = new JSONObject();
-		         System.out.println("現在時間="+new Date());
+		         System.out.println("現在時間RescueEchoServer="+new Date());
 		         for (RescueVO resVO: list) {
 		         	System.out.println("====="+resVO.getRsc_id());
 		         	if (resVO.getRsc_etime()==null && new Date().getTime()-resVO.getRsc_btime().getTime()>=60*60*2000) {
-			         	System.out.println("=====================");
-			         	System.out.println("救援案例編號="+resVO.getRsc_id());
-			         	System.out.println("救援案例開始時間="+resVO.getRsc_btime());
+			         	System.out.println("RescueEchoServer=====================");
+			         	System.out.println("救援案例編號RescueEchoServer="+resVO.getRsc_id());
+			         	System.out.println("救援案例開始時間RescueEchoServer="+resVO.getRsc_btime());
 			         	toRsc.add(resVO.getRsc_id());
 			         	String rsc_name = rescueSvc.getOneRescue(resVO.getRsc_id()).getRsc_name();
 			         	try {
@@ -59,15 +59,15 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 		         sendRescueToAll(allSessions, jsonObj.toString());
 		            	
 			     System.out.println("This is Task"+ count);
-			     System.out.println("工作排定的時間 = " + new Date(scheduledExecutionTime()));
-			     System.out.println("工作執行的時間 = " + new Date() + "\n"); 
-			     System.out.println("待分配救援案例="+toRsc);
+			     System.out.println("工作排定的時間RescueEchoServer = " + new Date(scheduledExecutionTime()));
+			     System.out.println("工作執行的時間 RescueEchoServer= " + new Date() + "\n"); 
+			     System.out.println("待分配救援案例RescueEchoServer="+toRsc);
 			     count++;
 		     }
 	     };
 	     
 	     Calendar cal = new GregorianCalendar();
-	     timer.schedule(task, cal.getTime(), 1*60*1000); 
+//	     timer.schedule(task, cal.getTime(), 1*60*1000); 
 	}
 	
 	public void contextDestroyed(ServletContextEvent event) {
@@ -89,7 +89,7 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 			if (session.isOpen())
 				session.getAsyncRemote().sendText(message);
 		}
-		System.out.println("Message received: " + message);
+		System.out.println("Message received:RescueEchoServer " + message);
 	}
 	
 	public void sendRescueToAll(Set<Session> allSessions, String message) {

@@ -41,8 +41,8 @@ public class OrdJNDIDAO implements OrdDAO_interface {
 	}
 
 	private static final String INSERT_STMT = "INSERT INTO ord (ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM) VALUES ('O'|| to_char(sysdate,'yyyymmdd')||'-'||LPAD(to_char(ORD_id_seq.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord order by ORD_ID";
-	private static final String GET_ALL_ORD_BY_MEM = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord where memb_id = ? order by ORD_ID";
+	private static final String GET_ALL_STMT = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord order by ORD_ID desc";
+	private static final String GET_ALL_ORD_BY_MEM = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord where memb_id = ? order by ORD_ID desc";
 	private static final String GET_ONE_STMT = "SELECT ORD_ID, MEMB_ID, ORD_DATE, ORD_TOTAL,ORD_RECEIVER, ORD_RC_TEL, ORD_RC_ADD, ORD_RC_COMM FROM ord where ORD_ID = ?";
 	private static final String DELETE = "DELETE FROM ord where ORD_ID = ?";
 	private static final String UPDATE = "UPDATE ord set MEMB_ID=?, ORD_DATE=?, ORD_TOTAL=?,ORD_RECEIVER=?, ORD_RC_TEL=?, ORD_RC_ADD=?, ORD_RC_COMM=? where ORD_ID = ?";

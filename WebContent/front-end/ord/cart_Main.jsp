@@ -61,7 +61,10 @@ div {
 
 	<jsp:include page="/front-end/ord/cart_Header.jsp"
 		flush="true" />
-		
+	
+	<div style="margin-top: 100px; margin-left: 300px; position: fixed" id="miracleBtn">
+        	<i style="color:pink" class="fas fa-bolt"></i>
+    </div>
 	<div class="shopping-cart" style="height:auto; width:900px">
       	<div class="title">
         	購物車清單
@@ -441,6 +444,14 @@ div {
    
     </script>
     
+    <!-- 神奇小按鈕 -->
+	<script type="text/javascript">
+				$(function(){
+					$('#miracleBtn').click(function(){
+						window.location.href = '<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp';
+					});
+				});
+	</script>
     
 
 

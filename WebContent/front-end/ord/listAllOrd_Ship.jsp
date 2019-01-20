@@ -398,7 +398,8 @@ left: 43px;
 		    				    	     timer: 3000
 		    				    	});
 		    						console.log("11111111");
-		    						window.location.href = "<%=request.getContextPath()%>/front-end/ord/listAllOrd_Ship.jsp";
+<%-- 		    						window.location.href = "<%=request.getContextPath()%>/front-end/ord/listAllOrd_Ship.jsp"; --%>
+		    						setInterval(function() { window.location.href = '<%=request.getContextPath()%>/front-end/ord/listAllOrd_Ship.jsp';}, 2000);
 		    						console.log("22222222");
 		    					},
 		    					error: function(res){

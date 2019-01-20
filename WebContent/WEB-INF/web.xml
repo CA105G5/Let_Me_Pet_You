@@ -151,6 +151,14 @@
     <servlet-name>RescuingServlet</servlet-name>
     <url-pattern>/front-end/rescuing/rescuing.do</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>RscRtServlet</servlet-name>
+    <servlet-class>com.rscRt.controller.RscRtServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RscRtServlet</servlet-name>
+    <url-pattern>/front-end/rscRt/rscRt.do</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>PicReader</servlet-name>
     <servlet-class>util.PicReader</servlet-class>
@@ -223,7 +231,7 @@
     <servlet-name>AndroidVolunteerServlet</servlet-name>
     <url-pattern>/volunteer/VolunteerServlet.do</url-pattern>
   </servlet-mapping>
-  <servlet> 
+  <servlet>
     <servlet-name>AndroidRescueServlet</servlet-name>
     <servlet-class>com.rescue.android.controller.RescueServlet</servlet-class>
   </servlet>
@@ -239,7 +247,7 @@
     <servlet-name>AndroidRescuingServlet</servlet-name>
     <url-pattern>/rescuing/RescuingServlet.do</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>AndroidRegionServlet</servlet-name>
     <servlet-class>com.region.android.controller.RegionServlet</servlet-class>
   </servlet>
@@ -303,7 +311,7 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
-   <filter>
+  <filter>
     <filter-name>VolunteerLoginFilter</filter-name>
     <filter-class>filters.VolunteerLoginFilter</filter-class>
   </filter>

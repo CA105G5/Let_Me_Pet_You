@@ -96,12 +96,12 @@ public class RescueServlet extends HttpServlet {
 			String rsc_id = jsonObject.get("rsc_id").getAsString();
 			int imageSize = jsonObject.get("imageSize").getAsInt();
 			byte[] image = rescueDao.getImage(rsc_id);
-			if (image != null) {
+			if (image != null) {  
 				// 縮圖 in server side
 				image = ImageUtil.shrink(image, imageSize);
 				res.setContentType("image/jpeg");
 				res.setContentLength(image.length);
-			} 
+			}  
 			os.write(image);
 		}
 			
