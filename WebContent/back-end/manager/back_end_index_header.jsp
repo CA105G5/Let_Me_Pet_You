@@ -93,7 +93,7 @@ System.out.println( "是否登入:"+ (managerVO != null));
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                    
-                    <li class="menu-title active"><a href="index.html">後台管理</a></li><!-- /.menu-title -->
+                    <li class="menu-title active">後台管理</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-plus-square"></i>救援管理</a>
                         <ul class="sub-menu children dropdown-menu">                            
