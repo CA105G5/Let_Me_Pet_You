@@ -176,9 +176,6 @@ pageContext.setAttribute("list", list);
 																	</FORM>
 															</td><tr></table></c:if>
                                         
-                                        
-                                        
-                                        
                                         </td>
                                     </tr>
                                  </c:forEach>

@@ -206,9 +206,9 @@
 						
 <!---------------------------------------------- 以下是留言區------------------------------------------------------ -->
 						<div class="comment-sec-area">
-							<h3 class="text-uppercase" style="color: red">留言區</h3>
+							<h3 class="text-uppercase" style="color: red; font-weight:bold;">留言區</h3>
 							<br>
-							<h4 class="pb50">Leave a Reply...</h4>
+							<h4 class="pb50">我有話想說....</h4>
 
 
 							<form
@@ -243,9 +243,9 @@
 												<img width="200" height="200" src="<%=request.getContextPath()%>/front-end/members/memImg.do?memb_id=${missingMsgVO.memb_id}" alt="">
 											</div>
 											<div class="desc">
-												<h5>
-													<a href="#">${memSvc.getOneMem(missingMsgVO.memb_id).memb_nick}</a>
-												</h5>
+												<strong>
+													<a href="#" style="color:#EE7700;">${memSvc.getOneMem(missingMsgVO.memb_id).memb_nick}</a>
+												</strong>
 												
 						<div style="float:right">
 							<ul class="nav-menu">
@@ -265,11 +265,11 @@
 						</div>
 								<br>				
 												
-												<p class="date">
+												<p class="date" style="color:#BB5500;">
 													<fmt:formatDate value="${missingMsgVO.missing_msg_date}"
 														pattern="yyyy-MM-dd" />
 												</p>
-												<p class="comment">${missingMsgVO.missing_msg_cont}</p>
+												<p class="comment"><h2>${missingMsgVO.missing_msg_cont}</h2></p>
 											</div>
 											<input type="hidden" name="missing_msg_id" value="${missingMsgVO.missing_msg_id}">
 										</div>
