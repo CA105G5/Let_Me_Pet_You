@@ -9,7 +9,8 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>志工資料新增 </title>
+<title>浪我陪你-新增志工</title>
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/images/backlogo.png">
 <script src="<%=request.getContextPath()%>/horse_UI_template/js/vendor/jquery-2.2.4.min.js"></script>
 
 
