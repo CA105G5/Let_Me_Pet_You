@@ -12,7 +12,8 @@
   String ntf_src_id = (String)request.getAttribute("ntf_src_id");
   System.out.println("來源編號:"+ntf_src_id);
 %>
-
+<jsp:useBean id="rescueSvc" scope="page" class="com.rescue.model.RescueService" />
+<jsp:useBean id="orderSvc" scope="page" class="com.ord.model.OrdService" />
 <html> 
 <head>
 <%-- Mobile Specific Meta --%>
@@ -90,10 +91,17 @@
 		                              <tbody>
 		                              <% int count=0; %>
                                             <c:forEach var="curdtVO" items="${list}">
-                                             
+                                           
                                             	<tr id="${curdtVO.cur_src_id}">
                                            			<th scope="row" class="serial"><%=++count %></th>
-													<td>${curdtVO.cur_src_id}</td>
+													<td><c:if test="${curdtVO.cur_src_id.contains('R')}">
+														救援案例名稱:${rescueSvc.getOneRescue(curdtVO.cur_src_id).rsc_name}
+														</c:if>
+													<c:if test="${curdtVO.cur_src_id.contains('O')}">
+														訂單:
+													</c:if>
+													
+													</td>
 													<td>${curdtVO.cur_dt}</td>
 												</tr>
 											</c:forEach>

@@ -1,10 +1,105 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="com.rescue.model.*"%>
+<%@page import="com.rescuing.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.manager.model.*"%>
+<%@page import="com.Adoption.model.*"%>
+<%@page import="com.AdoptApply.model.*"%>
+<%@page import="com.AdoptMsgReport.moedl.*"%>
+<%@page import="com.reportMissing.model.*"%>
+<%@page import="com.missingMsgReport.model.missingMsgReportVO"%>
+<%@page import="com.missingMsgReport.model.missingMsgReportService"%>
+<%@page import="com.orditem.model.*"%>
+<%@page import="com.donate.model.*"%>
+<%@page import="com.prod.model.*"%>
 <%
 ManagerVO managerVO = (ManagerVO) session.getAttribute("managerVO");
 System.out.println("111111111111111111111111111="+session.getId());
 System.out.println( "是否登入:"+ (managerVO != null));
+
+List<RescueVO> rescueReviewList;
+rescueReviewList = (List<RescueVO>) request.getAttribute("rescueReviewList");
+if (rescueReviewList==null){
+	RescueService rescueSvc = new RescueService(); 
+	rescueReviewList = rescueSvc.getAll();
+	pageContext.setAttribute("rescueReviewList", rescueReviewList);
+	request.setAttribute("Test", "Test");
+	System.out.println("rescueReviewList= " + rescueReviewList);
+}
+
+List<RescueVO> rescueDelayList;
+rescueDelayList = (List<RescueVO>) request.getAttribute("rescueDelayList");
+if (rescueDelayList==null){
+	RescueService rescueSvc = new RescueService(); 
+	rescueDelayList = rescueSvc.getAllDelay();
+	pageContext.setAttribute("rescueDelayList", rescueDelayList);
+	request.setAttribute("Test", "Test");
+	System.out.println("rescueDelayList= " + rescueDelayList);
+}
+
+List<RescuingVO> rescuingReviewList;
+rescuingReviewList = (List<RescuingVO>) request.getAttribute("rescuingReviewList");
+if (rescuingReviewList==null){
+	RescuingService rescuingSvc = new RescuingService(); 
+	rescuingReviewList = rescuingSvc.getAll();
+	pageContext.setAttribute("rescuingReviewList", rescuingReviewList);
+	request.setAttribute("Test", "Test");
+	System.out.println("rescuingReviewList= " + rescuingReviewList);
+}
+
+AdoptionService adoptionSvc = new AdoptionService();
+List<AdoptionVO> adoptionlist = adoptionSvc.getAllBack();
+pageContext.setAttribute("adoptionlist", adoptionlist);
+
+AdoptApplyService adoptApplySvc = new AdoptApplyService();
+List<AdoptApplyVO> adoptApplylist = adoptApplySvc.getAllApply();
+pageContext.setAttribute("adoptApplylist", adoptApplylist);
+
+AdoptMsgReportService adoptMsgReportSvc = new AdoptMsgReportService();
+List<AdoptMsgReportVO> adoptMsgReportlist = adoptMsgReportSvc.listAllReport();
+pageContext.setAttribute("adoptMsgReportlist", adoptMsgReportlist);
+
+reportMissingService reportMissingSvc = new reportMissingService();
+List<reportMissingVO> reportMissinglist = reportMissingSvc.listAllReport();
+pageContext.setAttribute("reportMissinglist", reportMissinglist);
+
+missingMsgReportService missingMsgReportSvc = new missingMsgReportService();
+List<missingMsgReportVO> missingMsgReportlist = missingMsgReportSvc.listAllReport();
+pageContext.setAttribute("missingMsgReportlist", missingMsgReportlist);
+
+List<OrdItemVO> ordItemlist;
+ordItemlist = (List<OrdItemVO>) request.getAttribute("ordItemlist");
+if (ordItemlist==null){
+//		OrdService ordSvc = new OrdService(); 
+//		List<OrdVO> ordList = ordSvc.getOrdByMem("M000000001"); 
+//		System.out.println("ordList.size()=" + ordList.size());
+	OrdItemService ordItemSvc = new OrdItemService(); 
+	ordItemlist = ordItemSvc.getAll();
+	System.out.println("ordItemlist.size()=" + ordItemlist.size());
+	pageContext.setAttribute("ordItemlist", ordItemlist);
+	request.setAttribute("Test", "Test");
+}
+
+List<DonateVO> donatelist;
+donatelist = (List<DonateVO>) request.getAttribute("list");
+if (donatelist==null){
+	DonateService donSvc = new DonateService(); 
+	donatelist = donSvc.getAll();
+	pageContext.setAttribute("donatelist", donatelist);
+	request.setAttribute("Test", "Test");
+	System.out.println("donatelist.size()="+donatelist.size());
+}
+
+List<ProdVO> prodReviewList;
+prodReviewList = (List<ProdVO>) request.getAttribute("prodReviewList");
+if (prodReviewList==null){
+	ProdService prodSvc = new ProdService(); 
+	prodReviewList = prodSvc.getAll();
+	pageContext.setAttribute("prodReviewList", prodReviewList);
+	request.setAttribute("Test", "Test");
+	System.out.println("prodReviewList= " + prodReviewList);
+}
 %>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -191,9 +286,48 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				    
 				  </div> -->
 				  <div class="list-group">
-				  	<a href="<%=request.getContextPath()%>/back-end/rescue/back_rescue.jsp" class="list-group-item">救援案例列表</a>
-				  	<a href="<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp" class="list-group-item">逾時案例列表</a>
-				  	<a href="<%=request.getContextPath()%>/back-end/rescue/back_done_rescue.jsp" class="list-group-item">完成的救援審核</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/rescue/back_rescue.jsp" class="list-group-item">救援案例列表
+				  	<% int no1=0;%>
+				  										<c:forEach var="rescueVO" items="${rescueReviewList}">
+															<c:if test="${rescueVO.rsc_sta =='待救援' or rescueVO.rsc_sta == '救援中'}" var="condition" scope="page">
+																<% no1++; %>
+															</c:if>
+														</c:forEach>
+					<%if(no1>0){ %>									
+				  	<font>:有</font>
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no1%></font>
+				  	<font>個未完成救援案例</font>
+				  	<%} %>
+				  	</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp" class="list-group-item">逾時案例列表
+				  	<% int no2=0;%>
+				  										<c:forEach var="rescueVO" items="${rescueDelayList}">
+															<c:if test="${(rescueVO.rsc_sta =='待救援' or rescueVO.rsc_sta == '救援中')&&(rescueVO.vlt_id == null)}" var="condition" scope="page">
+																<% no2++; %>
+															</c:if>
+														</c:forEach>
+					<%if(no2>0){ %>									
+				  	<font>:有</font>
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no2%></font>
+				  	<font>個逾時案例</font>
+				  	<%} %>
+				  	
+				  	
+				  	</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/rescue/back_done_rescue.jsp" class="list-group-item">完成的救援審核
+				  	<% int no3=0;%>
+				  	<c:forEach var="rescuingVO" items="${rescuingReviewList}">
+				  		<c:if test="${rescuingVO.rscing_sta =='完成救援送審中' and rescuingVO.rscing_cdes != null}" var="condition" scope="page">
+				  		<% no3++; %>
+						</c:if>
+					</c:forEach>
+					<%if(no3>0){ %>									
+				  	<font>:有</font>
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no3%></font>
+				  	<font>個待審核完成的救援</font>
+				  	<%} %>
+				  	
+				  	</a>
 				  </div>
 				  
 				</div>	
@@ -205,9 +339,47 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				    
 				  </div> -->
 				  <div class="list-group">
-				  	<a href="<%=request.getContextPath()%>/back-end/Adopt/listAllAdopt.jsp" class="list-group-item">審核認養案例</a>
-				  	<a href="<%=request.getContextPath()%>/back-end/Adopt/listAllApply.jsp" class="list-group-item">認養案例申請者管理</a>
-				  	<a href="<%=request.getContextPath()%>/back-end/Adopt/AdoptMsgReport.jsp" class="list-group-item">審核檢舉認養留言</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/Adopt/listAllAdopt.jsp" class="list-group-item">審核認養案例
+				  	<% int no4=0;%>
+				  						<c:forEach var="adoptionVO" items="${adoptionlist}">
+										<c:if test="${adoptionVO.adopt_apply_status == '未審核'}">
+										<% no4++; %>	
+										</c:if>
+										</c:forEach>
+
+					<%if(no4>0){ %>									
+				  	<font>:有</font>
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no4%></font>
+				  	<font>個待審核認養案例</font>
+				  	<%} %>
+				  	</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/Adopt/listAllApply.jsp" class="list-group-item">認養案例申請者管理
+				  	<% int no5=0;%>
+				  						<c:forEach var="adoptApplyVO" items="${adoptApplylist}">
+				  						<c:if test="${adoptApplyVO.adopt_id_status == '未審核'}">
+				  						<% no5++; %>
+				  						</c:if>
+										</c:forEach>
+					<%if(no5>0){ %>									
+				  	<font>:有</font>
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no5%></font>
+				  	<font>個認養申請者</font>
+				  	<%} %>
+				  	</a>
+				  	
+				  	<a href="<%=request.getContextPath()%>/back-end/Adopt/AdoptMsgReport.jsp" class="list-group-item">審核檢舉認養留言
+				  	<% int no6=0;%>
+				  						<c:forEach var="adoptMsgReportVO" items="${adoptMsgReportlist}">
+                                        <c:if test="${adoptMsgReportVO.adopt_msg_rt_status == '未審核'}">
+                                        <% no6++; %>
+										</c:if>
+                                 </c:forEach>
+					<%if(no6>0){ %>									
+				  	<font>:有</font>
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no6%></font>
+				  	<font>個待審核檢舉認養留言</font>
+				  	<%} %>
+				  	</a>
 				  </div>
 				  
 				</div>
@@ -220,8 +392,35 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				    
 				  </div> -->
 				  <div class="list-group">
-				  	<a href="<%=request.getContextPath()%>/back-end/missingCase/back_MissingCaseReport.jsp" class="list-group-item">審核檢舉失蹤案例</a>
-				  	<a href="<%=request.getContextPath()%>/back-end/missingCase/back_listAllMissingMsgReport.jsp" class="list-group-item">審核檢舉失蹤案例留言</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/missingCase/back_MissingCaseReport.jsp" class="list-group-item">審核檢舉失蹤案例
+				  	<% int no7=0;%>
+				  						<c:forEach var="reportMissingVO" items="${reportMissinglist}">
+                                        <c:if test="${reportMissingVO.report_missing_sta == '未審核'}">
+                                        <% no7++; %>
+                                       </c:if>
+                                 </c:forEach>
+					<%if(no7>0){ %>									
+				  	<font>:有</font>
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no7%></font>
+				  	<font>個待審核檢舉失蹤案例</font>
+				  	<%} %>
+				  	</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/missingCase/back_listAllMissingMsgReport.jsp" class="list-group-item">審核檢舉失蹤案例留言
+				  	<% int no8=0;%>
+				  					<c:forEach var="missingMsgReportVO" items="${missingMsgReportlist}">
+                                        <c:if test="${missingMsgReportVO.missing_msg_rt_sta == '未審核'}">
+                                        <% no8++; %>
+										</c:if>
+                                 </c:forEach>
+				  					
+				  					
+				  						
+					<%if(no8>0){ %>									
+				  	<font>:有</font>
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no8%></font>
+				  	<font>個待審核檢舉失蹤案例留言</font>
+				  	<%} %>
+				  	</a>
 				  </div>
 				  
 				</div>
@@ -238,7 +437,21 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				    
 				  </div> -->
 				  <div class="list-group">
-				  	<a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" class="list-group-item">審核訂單檢舉</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" class="list-group-item">審核訂單檢舉
+				  	<% int no9=0;%>
+				  					<c:forEach var="ordItemVO" items="${ordItemlist}">
+															<c:if test="${ordItemVO.ord_item_rt_status.equals('已檢舉') && ordItemVO.ord_item_review!=null}" var="condition" scope="page">
+				  					<% no9++; %>
+										</c:if>
+                                 </c:forEach>
+				  					
+				  						
+					<%if(no9>0){ %>									
+				  	<font>:有</font>
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no9%></font>
+				  	<font>個待審核</font>
+				  	<%} %>
+				  	</a>
 				  </div>
 				  
 				</div>
@@ -250,8 +463,35 @@ System.out.println( "是否登入:"+ (managerVO != null));
 				    
 				  </div> -->
 				  <div class="list-group">
-				  	<a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp" class="list-group-item">愛心捐款管理</a>
-				  	<a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="list-group-item">愛心物資管理</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp" class="list-group-item">愛心捐款管理
+				  	<% int no10=0;%>
+				  					<c:forEach var="donateVO" items="${donatelist}">
+															<c:if test="${donateVO.donate_status==null || donateVO.donate_status.equals('待確認')}" var="condition" scope="page">
+															<% no10++; %>
+															</c:if>
+														</c:forEach>
+				  					
+				  					
+				  						
+					<%if(no10>0){ %>									
+				  	<font>:有</font>
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no10%></font>
+				  	<font>個款項待確認</font>
+				  	<%} %>
+				  	</a>
+				  	<a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="list-group-item">愛心物資管理
+				  	<% int no11=0;%>
+				  		<c:forEach var="prodVO" items="${prodReviewList}">
+															<c:if test="${prodVO.prod_review==null}" var="condition" scope="page">
+				  	<% no11++; %>
+															</c:if>
+														</c:forEach>
+					<%if(no11>0){ %>									
+				  	<font>:有</font>
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no11%></font>
+				  	<font>個待審核</font>
+				  	<%} %>
+				  	</a>
 				  </div>
 				  
 				</div>
