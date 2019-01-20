@@ -82,7 +82,7 @@ if (ordItemlist==null){
 }
 
 List<DonateVO> donatelist;
-donatelist = (List<DonateVO>) request.getAttribute("list");
+donatelist = (List<DonateVO>) request.getAttribute("donatelist");
 if (donatelist==null){
 	DonateService donSvc = new DonateService(); 
 	donatelist = donSvc.getAll();
@@ -109,7 +109,7 @@ if (prodReviewList==null){
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - HTML5 Admin Template</title>
+    <title>浪我陪你-後台首頁</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -440,7 +440,7 @@ if (prodReviewList==null){
 				  	<a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" class="list-group-item">審核訂單檢舉
 				  	<% int no9=0;%>
 				  					<c:forEach var="ordItemVO" items="${ordItemlist}">
-															<c:if test="${ordItemVO.ord_item_rt_status.equals('已檢舉') && ordItemVO.ord_item_review!=null}" var="condition" scope="page">
+										<c:if test="${ordItemVO.ord_item_rt_status.equals('已檢舉') && ordItemVO.ord_item_review==null}" var="condition" scope="page">
 				  					<% no9++; %>
 										</c:if>
                                  </c:forEach>
@@ -466,10 +466,10 @@ if (prodReviewList==null){
 				  	<a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp" class="list-group-item">愛心捐款管理
 				  	<% int no10=0;%>
 				  					<c:forEach var="donateVO" items="${donatelist}">
-															<c:if test="${donateVO.donate_status==null || donateVO.donate_status.equals('待確認')}" var="condition" scope="page">
-															<% no10++; %>
-															</c:if>
-														</c:forEach>
+										<c:if test="${donateVO.donate_status==null || donateVO.donate_status.equals('待確認')}" var="condition" scope="page">
+											<% no10++; %>
+										</c:if>
+									</c:forEach>
 				  					
 				  					
 				  						
@@ -482,10 +482,10 @@ if (prodReviewList==null){
 				  	<a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="list-group-item">愛心物資管理
 				  	<% int no11=0;%>
 				  		<c:forEach var="prodVO" items="${prodReviewList}">
-															<c:if test="${prodVO.prod_review==null}" var="condition" scope="page">
+							<c:if test="${prodVO.prod_review==null}" var="condition" scope="page">
 				  	<% no11++; %>
-															</c:if>
-														</c:forEach>
+							</c:if>
+						</c:forEach>
 					<%if(no11>0){ %>									
 				  	<font>:有</font>
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no11%></font>

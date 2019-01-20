@@ -4,8 +4,8 @@
 <html>
 <head>
 
-<title>管理員登入畫面</title>
-
+<title>浪我陪你-管理員登入</title>
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/backlogo.png">
 			
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
