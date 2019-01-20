@@ -391,9 +391,10 @@ color: #222;
 										</button>
 									</div>
 									<div class="modal-body">
+									<span id="comm_error" style="color:red"></span>
 										<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/rscRt/rscRt.do">
 											<div class="input-group mb-3">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" id="rsc_rt_comm"
 													name="rsc_rt_comm" aria-label="Default"
 													aria-describedby="inputGroup-sizing-default">
 											</div>
@@ -402,13 +403,13 @@ color: #222;
 											<input type="hidden" name="memb_id"
 												value="${memVO.memb_id}">
 											<input type="hidden" name="requestURL"
-												value="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}"> 
+												value="/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescueVO.rsc_id}"> 
 											<input type="hidden" name="action" value="insert">
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">取消</button>
-										<input type="submit" class="btn btn-primary" value="送出">
+										<input id="submit" type="submit" class="btn btn-primary" value="送出">
 									</div>
 									</form>
 								</div>
@@ -416,8 +417,29 @@ color: #222;
 						</div>
 						<!-- 檢舉結束 -->
 	
-	
 
+<script>
+// (function($){
+	$('#submit').on('click',function(){
+		
+		 if ($("#rsc_rt_comm").val()==null || $("#rsc_rt_comm").val().trim().length==0){
+			 console.log("555555555555555555555");
+			
+			 	$("#comm_error").text("檢舉原因請勿空白!");
+			 
+			 	 return false;
+		 } 
+		
+		 
+		
+	})
+	
+	
+	
+// })
+
+
+</script>
 
 
 
