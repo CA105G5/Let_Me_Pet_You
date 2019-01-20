@@ -14,7 +14,7 @@ import com.rescuing.model.RescuingVO;
 public class MemService {
 	private MemDAO_interface dao; 
 	public MemService() {
-		dao = new MemJDBCDAO();
+		dao = new MemJNDIDAO();
 	}
 	public MemVO addMem(String memb_acc, 
 						String memb_psw,

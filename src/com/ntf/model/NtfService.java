@@ -8,7 +8,7 @@ import com.pet.model.PetVO;
 public class NtfService {
 	private NtfDAO_interface dao;
 	public NtfService() {
-		dao = new NtfJDBCDAO();	
+		dao = new NtfJNDIDAO();	
 	}
 	public List<NtfVO> getAllNtfsFromSameMember(String memb_id){
 		return dao.getAllNtfsFromSameMember(memb_id);
