@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.rescue.model.RescueService;
 import com.rescue.model.RescueVO;
 import com.rescuing.model.RescuingService;
+import com.rscRt.model.RscRtService;
 
 public class RscRtAjax extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -30,25 +31,25 @@ public class RscRtAjax extends HttpServlet{
 			
 			try {
 
-				String rsc_id = req.getParameter("rsc_id");
+				String rsc_rt_id = req.getParameter("rsc_rt_id");
 				
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/rescue/back_done_rescue.jsp");
+							.getRequestDispatcher("/back-end/rescue/back_rescueRt.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 
 				/*************************** 2.開始新增資料 ***************************************/
-			   RescueService rescueSvc = new RescueService();
-			   RescueVO rescueVO = rescueSvc.getOneRescue(rsc_id);
-			   RescuingService rescuingSvc = new RescuingService();
-			   rescuingSvc.updateByManagerPass(rescueVO);
+			   RscRtService rscrtSvc = new RscRtService();
+			   String rsc_id = rscrtSvc.getOneRscRt(rsc_rt_id).getRsc_id();
+			   rscrtSvc.updateByPassRt(rsc_rt_id, rsc_id);
+				
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/rescue/back_done_rescue.jsp");
+						.getRequestDispatcher("/back-end/rescue/back_rescueRt.jsp");
 				failureView.forward(req, res);
 
 			}
@@ -61,25 +62,26 @@ public class RscRtAjax extends HttpServlet{
 			
 			try {
 
-				String rsc_id = req.getParameter("rsc_id");
-				String rscing_rv_des = req.getParameter("rscing_rv_des");
+				String rsc_rt_id = req.getParameter("rsc_rt_id");
+				String rsc_rv_des = req.getParameter("rsc_rv_des");
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/rescue/back_done_rescue.jsp");
+							.getRequestDispatcher("/back-end/rescue/back_rescueRt.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 
 				/*************************** 2.開始新增資料 ***************************************/
-				 RescuingService rescuingSvc = new RescuingService();
-				 rescuingSvc.updateByManagerNoPass(rsc_id,rscing_rv_des);
-
+				RscRtService rscrtSvc = new RscRtService();
+				String rsc_id = rscrtSvc.getOneRscRt(rsc_rt_id).getRsc_id();
+				String memb_id = rscrtSvc.getOneRscRt(rsc_rt_id).getMemb_id();
+				rscrtSvc.updateByNoPassRt(rsc_rt_id, rsc_rv_des, rsc_id, memb_id);
 			
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/rescue/back_done_rescue.jsp");
+						.getRequestDispatcher("/back-end/rescue/back_rescueRt.jsp");
 				failureView.forward(req, res);
 
 			}

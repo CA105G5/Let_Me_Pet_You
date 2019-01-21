@@ -72,6 +72,7 @@ div {
     		<div style="display:none">
     		<form>
     		<c:forEach var="rescueVO" items="${allRescueList}">
+    		<c:if test="${rescueVO.rsc_sta !='下架'}" var="condition" scope="page">
     		<div class="rsc" style="display:none" id="${rescueVO.rsc_id}">
     		<input type="hidden" name="rsc_name" value="${rescueVO.rsc_name}">
     		<input type="hidden" name="rsc_lat" value="${rescueVO.rsc_lat}">
@@ -80,6 +81,7 @@ div {
     		<input type="hidden" name="rsc_btime" value="<fmt:formatDate value="${rescueVO.rsc_btime}" type="both"/>">
     		<input type="hidden" name="rsc_sta" value="${rescueVO.rsc_sta}">
     		</div>
+    		</c:if>
     		</c:forEach>
     		</form>
     		</div>

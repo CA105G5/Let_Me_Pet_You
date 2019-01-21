@@ -42,8 +42,10 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 			"DELETE FROM RSC_RT where rsc_rt_id = ?";
 	private static final String UPDATE = 
 			"UPDATE RSC_RT set rsc_id = ?,memb_id = ?,rsc_rt_time = ?,rsc_rt_comm = ?,rsc_rv_des = ?,rsc_rt_status = ? where rsc_rt_id = ?";
-	
-	
+	private static final String UPDATE_PASS =
+			"UPDATE RSC_RT set rsc_rt_status = ? where rsc_rt_id = ?";
+	private static final String UPDATE_NO_PASS =
+			"UPDATE RSC_RT set rsc_rt_status = ?,rsc_rv_des = ? where rsc_rt_id = ?";
 	
 	@Override
 	public void insert(RscRtVO rscRtVO) {
@@ -412,6 +414,134 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 		}
 		return list;
 	}
+	@Override
+	public void updateByPassRt(String rsc_rt_id, String rsc_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+			//修改救援檢舉表格
+    		pstmt = con.prepareStatement(UPDATE_PASS);
+    		pstmt.setString(1,"通過");
+		    pstmt.setString(2,rsc_rt_id);
+			//修改救援表格狀態
+		    RescueJDBCDAO dao = new RescueJDBCDAO();
+		    dao.updateByPassRt(rsc_id, con);			
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("檢舉救援通過已下架");
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	@Override
+	public void updateByNoPassRt(String rsc_rt_id, String rsc_rv_des, String rsc_id,String memb_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+			//修改救援檢舉表格
+    		pstmt = con.prepareStatement(UPDATE_NO_PASS);
+    		pstmt.setString(1,"不通過");
+    		pstmt.setString(2,rsc_rv_des);
+		    pstmt.setString(3,rsc_rt_id);
+			//修改救援表格狀態
+		    RescueJDBCDAO dao = new RescueJDBCDAO();
+		    dao.updateByNoPassRt(rsc_id, con);
+		    
+		    NtfJDBCDAO dao2 = new NtfJDBCDAO();
+			
+				NtfVO ntfVO = new NtfVO();
+				ntfVO.setMemb_id(memb_id);
+				ntfVO.setNtf_src_id(rsc_id);
+				ntfVO.setNtf_dt("救援編號:"+rsc_id+"，檢舉不通過，原因:"+rsc_rv_des);
+				dao2.insert(ntfVO,con);
+			
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("檢舉救援不通過已通知會員");
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rscrt");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
 	public static void main(String[] args) {
 
 		RscRtJDBCDAO dao = new RscRtJDBCDAO();
@@ -482,6 +612,10 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 			System.out.println();
 		}
 	}
+
+
+
+	
 
 
 }

@@ -738,7 +738,90 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		
 	}
-	
+	@Override
+	public void updateByPassRt(String rsc_id, Connection con) {
+		PreparedStatement pstmt = null;
+
+		try {
+
+			
+			//修改rescue
+            pstmt = con.prepareStatement(UPDATE_RSC_STA);
+			
+			pstmt.setString(1,new String("下架"));
+			pstmt.setString(2,rsc_id);
+			pstmt.executeUpdate();
+			
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	@Override
+	public void updateByNoPassRt(String rsc_id, Connection con) {
+		PreparedStatement pstmt = null;
+
+		try {
+
+			
+			//修改rescue
+            pstmt = con.prepareStatement(UPDATE_RSC_RT_STATUS);
+			
+			pstmt.setString(1,new String("未檢舉"));
+			pstmt.setString(2,rsc_id);
+			pstmt.executeUpdate();
+			
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
 	@Override
 	public List<RescueVO> getAllDelay() {
 		List<RescueVO> list = new ArrayList<RescueVO>();
@@ -1296,6 +1379,10 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		return list;
 	}
+
+
+
+
 
 
 

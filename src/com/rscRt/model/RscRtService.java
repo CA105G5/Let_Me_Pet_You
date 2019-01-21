@@ -19,6 +19,12 @@ public class RscRtService {
 		
 		dao.update(rscRtVO);
 	}
+	public void updateByPassRt(String rsc_rt_id,String rsc_id) {
+		dao.updateByPassRt(rsc_rt_id,rsc_id);
+	}
+	 public void updateByNoPassRt(String rsc_rt_id,String rsc_rv_des,String rsc_id,String memb_id) {
+		 dao.updateByNoPassRt(rsc_rt_id, rsc_rv_des, rsc_id,memb_id);
+	 }
 	public void deleteRscRt(String rsc_rt_id) {
 		dao.delete(rsc_rt_id);
 	}

@@ -175,7 +175,7 @@ if (rscRtReviewList==null){
 															<option value="通過">通過</option>
 															<option value="不通過">不通過</option>
 														</select>
-														<div style="display:none">${rescuingVO.rsc_id}</div>
+														<div style="display:none">${rscRtVO.rsc_rt_id}</div>
 													</td>
 												</tr>
 									       <div class="modal fade" id="${rscRtVO.rsc_id}" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
@@ -299,31 +299,31 @@ if (rscRtReviewList==null){
        				}).then(function(result){
        			  		if (result) {
        				  
-// 	       				  $.ajax({
-// 	       	     		     type: "POST",
-<%-- 	        	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do",  --%>
-// 	       	     			 data:{"action":"doneRscPass","rsc_id":$this.next().text()},
-// 	       	     			 datatype:"json",
-// 	       	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
-// 	       	     			 success:function(data){
-// 	       	     				swal({
-// 		    				    	     title: "完成!",
-// 		    				    	     text: "已發通知給會員!",
-// 		    				    	     type: "success",
+	       				  $.ajax({
+	       	     		     type: "POST",
+	        	     			 url: "<%=request.getContextPath()%>/back-end/rscRt/RscRtAjax.do", 
+	       	     			 data:{"action":"rscRtPass","rsc_rt_id":$this.next().text()},
+	       	     			 datatype:"json",
+	       	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+	       	     			 success:function(data){
+	       	     				swal({
+		    				    	     title: "完成!",
+		    				    	     text: "案例已下架!",
+		    				    	     type: "success",
 		    				    	    
-// 		    				    	}).then(
-// 		    				    			function(result){
-// 		    				    				if(result){
-// 		    				    					$this.parent().parent().css("display","none")
-// 		    				    				}
-// 		    				    			}
-// 		    				    		)
-// 	       	     			 }
-//        	     		 	}) 
+		    				    	}).then(
+		    				    			function(result){
+		    				    				if(result){
+		    				    					$this.parent().parent().css("display","none")
+		    				    				}
+		    				    			}
+		    				    		)
+	       	     			 }
+       	     		 	}) 
        			  	 }
        			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
 	            		swal("取消", "取消審核", "error");
-		        	}).catch(swal.noop);
+       			}).catch(swal.noop);
 
         			 	 
         		 }else{
@@ -346,27 +346,27 @@ if (rscRtReviewList==null){
            				}).then(function (result) {
            				  console.log(result);
 								
-//           				  $.ajax({
-//           	     		     type: "POST",
-<%--            	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do",  --%>
-//           	     			 data:{"action":"doneRscNoPass","rsc_id":$this.next().text(),"rscing_rv_des":result},
-//           	     			 datatype:"json",
-//           	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
-//           	     			 success:function(data){
-//           	     				swal({
-//   	    				    	     title: "完成!",
-//   	    				    	     text: "已發通知給會員!",
-//   	    				    	     type: "success",
+          				  $.ajax({
+          	     		     type: "POST",
+           	     			 url: "<%=request.getContextPath()%>/back-end/rscRt/RscRtAjax.do", 
+          	     			 data:{"action":"RscRtNoPass","rsc_rt_id":$this.next().text(),"rsc_rv_des":result},
+          	     			 datatype:"json",
+          	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
+          	     			 success:function(data){
+          	     				swal({
+  	    				    	     title: "完成!",
+  	    				    	     text: "已發通知給會員!",
+  	    				    	     type: "success",
    	    				    	    
-//   	    				    	}).then(
-//   	    				    			function(result){
-//   	    				    				if(result){
-//   	    				    					$this.parent().parent().css("display","none")
-//   	    				    				}
-//   	    				    			}
-//   	    				    		)
-//           	     			 }
-//           	     		 }) 
+  	    				    	}).then(
+  	    				    			function(result){
+  	    				    				if(result){
+  	    				    					$this.parent().parent().css("display","none")
+  	    				    				}
+  	    				    			}
+  	    				    		)
+          	     			 }
+          	     		 }) 
            				}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
 								swal("取消", "取消審核", "error");
 							 }).catch(swal.noop);

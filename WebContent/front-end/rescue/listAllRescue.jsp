@@ -130,7 +130,7 @@ li>a:hover{
 						
 						
 							<c:forEach var="rescueVO" items="${listAllRescue_ByCompositeQuery}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-									
+									<c:if test="${rescueVO.rsc_sta !='下架'}" var="condition" scope="page">
 									<div class="col-lg-3 cl-md-3" title="查看詳情">
 										<div class="single-service-page">
 											<div class="thumb relative">
@@ -150,7 +150,7 @@ li>a:hover{
 											</div>
 										</div>
 									</div>
-								
+								</c:if>
 							</c:forEach>
 							<br>
 							<br>
