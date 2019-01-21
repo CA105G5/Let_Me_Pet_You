@@ -64,10 +64,10 @@ div {
 			<div class="justify-content-center" >
 				<div align="center"><h1>今日救援地圖</h1></div>
 				
-				<div ><img id="tips" style="width:60px;height:60px;cursor: pointer;"class="img img-fluid" src="<%=request.getContextPath()%>/images/lightoff.png" title="提示"></div>
+				<div style="height:81px" ><img id="tips" style="width:60px;height:60px;cursor: pointer;"class="img img-fluid" src="<%=request.getContextPath()%>/images/lightoff.png" title="提示"></div>
 	    		<br>
 	    		<div id="map"></div>
-    
+   
     		</div>
     		<div style="display:none">
     		<form>

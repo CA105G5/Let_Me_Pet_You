@@ -160,6 +160,14 @@
     <url-pattern>/front-end/rscRt/rscRt.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>RscRtAjax</servlet-name>
+    <servlet-class>com.rscRt.controller.RscRtAjax</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RscRtAjax</servlet-name>
+    <url-pattern>/back-end/rscRt/RscRtAjax.do</url-pattern>
+  </servlet-mapping>
+   <servlet>
     <servlet-name>PicReader</servlet-name>
     <servlet-class>util.PicReader</servlet-class>
   </servlet>
