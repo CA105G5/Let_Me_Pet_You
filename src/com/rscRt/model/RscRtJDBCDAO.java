@@ -12,8 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-
-
+import com.ntf.model.NtfJDBCDAO;
+import com.ntf.model.NtfVO;
+import com.rescue.model.RescueJDBCDAO;
+import com.rescuing.model.RescuingJDBCDAO;
+import com.volunteer.model.VolunteerJDBCDAO;
 
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_RscRt;
 
@@ -51,25 +54,47 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+			//修改rescue
+    		pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, rscRtVO.getRsc_id());
+			
+    		pstmt.setString(1, rscRtVO.getRsc_id());
 			pstmt.setString(2, rscRtVO.getMemb_id());
 			pstmt.setTimestamp(3, rscRtVO.getRsc_rt_time());
 			pstmt.setString(4, rscRtVO.getRsc_rt_comm());
 			pstmt.setString(5, rscRtVO.getRsc_rv_des());
 			pstmt.setString(6, rscRtVO.getRsc_rt_status());
 		
-
-			int rowsUpdated =pstmt.executeUpdate();
-			System.out.println("Changed " + rowsUpdated + "rows");
-
+			pstmt.executeUpdate();
+//			System.out.println("Changed " + rowsUpdated + "rows");
+			//改變救援檢舉狀態
+			RescueJDBCDAO dao =new RescueJDBCDAO();
+			dao.updateByRt(rscRtVO.getRsc_id(), con);
+			
+			
+			
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("已成功改變案例檢舉狀態");
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
 					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -89,7 +114,6 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 				}
 			}
 		}
-		
 		
 	}
 

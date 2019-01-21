@@ -97,7 +97,8 @@ body {
                         	<div class="card">
                             <div class="card-header">
                             
-                                <strong>救援案例新增</strong>
+                                <strong>救援案例新增</strong> <small style="color:red">以下皆為必填!</small>
+
                             </div>
                             
                             <div class="card-body card-block">

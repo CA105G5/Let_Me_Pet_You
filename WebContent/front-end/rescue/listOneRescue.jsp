@@ -96,33 +96,43 @@ color: #222;
     border: 1px solid transparent;
     cursor: not-allowed;
 }
+li>a{
+	color:black;
+}
+li>a:hover{
+	text-decoration:none;
+	color:red;
+}
 
 </style>
 </head>
 <body>
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
-	<div class="container">
-			<div class="row">
-
-<!-- 				左側邊list-group -->
- 				<div class="col-xs-12 col-sm-3">
-				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
-					<h3>救援</h3>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp">待完成救援案例</a></h5>
-					<hr>
-					
+		<div class="row d-flex justify-content-center" style="background-image: url(http://www.savedogs.org/upload/Masthead/r/rw4cztmo87qqjof8mm5wovypicoyu4cl1hx0/main.jpg); height: 250px;width: 1900px;margin-left: 7.5px;margin-right: 0px;">
+				<div class="col-md-9 pb-40 header-text text-center" style="margin-top: 100px;">
+				<br><br><br>
+				<h1 class="pb-10"style="color:white;">搶救生命，分秒必爭</h1>
 				</div>
 			</div>
-		</div>
-	</div>
+	
+	<div class="container-fulid">
+			<div class="row">
+				<div class="col-xs-12 col-sm-1"></div>
+<!-- 				左側邊list-group -->
+ 				<div class="col-xs-12 col-sm-2">
+				<div class="single-widget category-widget">
+						<h2 class="title" style="margin-bottom: 10px;">救援</h2>
+							<ul>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp" class="justify-content-between align-items-center d-flex"><h4>新增救援</h4></a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp" class="justify-content-between align-items-center d-flex"><h4>今日救援地圖</h4></a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp" class="justify-content-between align-items-center d-flex"><h4>救援案例總覽</h4></a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp" class="justify-content-between align-items-center d-flex"><h4>待完成救援案例</h4></a></li>
+					
+							</ul>
+					</div>
+				</div>
+		
 	
 		
 				<!-- Start blog-posts Area -->
@@ -188,12 +198,12 @@ color: #222;
 											</c:if>
 											
 										</div>
-										
-										<div class="col-sm-6">
+										<div class="col-sm-3"></div>
+										<div class="col-sm-3">
 											<c:if test="${rescueVO.rsc_sta=='待救援' or rescueVO.rsc_sta=='救援中'}">
 											<% if(memVO != null){ %>
 												<%if(rtlist.isEmpty()){ %>
-													<%if(rescueVO.getRsc_rt_status()=="已檢舉"){%>
+													<%if(rescueVO.getRsc_rt_status().equals("已檢舉")){%>
 												 	<div class="btn-rt genric-btn disable">已被檢舉</div>
 													<%}else{%>
 												 	<button type="button" class="btn-rt genric-btn" data-toggle="modal" data-target="#exampleModalCenter" >檢舉</button>
@@ -222,145 +232,11 @@ color: #222;
                                                 <h4 class="text-uppercase">${memSvc.getOneMem(rescueVO.rsc_sponsor).memb_nick}</h4>
                                             </div>
                                         </div>
-<!--                                         <div class="col-sm-3 nav-right justify-content-end d-flex"> -->
-<!--                                             <div class="post-details"> -->
-<!--                                                 <p>Prev Post</p> -->
-<!--                                                 <h4 class="text-uppercase"><a href="#">A Discount Toner</a></h4> -->
-<!--                                             </div>              -->
-<!--                                             <div class="thumb"> -->
-<!--                                                 <img src="img/blog/next.jpg" alt=""> -->
-<!--                                             </div>                          -->
-<!--                                         </div> -->
+
                                     </div>
                                 </div>    
                             </section>
-                            <!-- End nav Area -->
 
-<!--                             Start comment-sec Area -->
-<!--                             <section class="comment-sec-area pt-80 pb-80"> -->
-<!--                                 <div class="container"> -->
-<!--                                     <div class="row flex-column"> -->
-<!--                                         <h5 class="text-uppercase pb-80">05 Comments</h5> -->
-<!--                                         <br> -->
-<!--                                         <div class="comment-list"> -->
-<!--                                             <div class="single-comment justify-content-between d-flex"> -->
-<!--                                                 <div class="user justify-content-between d-flex"> -->
-<!--                                                     <div class="thumb"> -->
-<!--                                                         <img src="img/blog/c1.jpg" alt=""> -->
-<!--                                                     </div> -->
-<!--                                                     <div class="desc"> -->
-<!--                                                         <h5><a href="#">Emilly Blunt</a></h5> -->
-<!--                                                         <p class="date">December 4, 2017 at 3:12 pm </p> -->
-<!--                                                         <p class="comment"> -->
-<!--                                                             Never say goodbye till the end comes! -->
-<!--                                                         </p> -->
-<!--                                                     </div> -->
-<!--                                                 </div> -->
-<!--                                                 <div class="reply-btn"> -->
-<!--                                                        <a href="" class="btn-reply text-uppercase">reply</a>  -->
-<!--                                                 </div> -->
-<!--                                             </div> -->
-<!--                                         </div> -->
-<!--                                         <div class="comment-list left-padding"> -->
-<!--                                             <div class="single-comment justify-content-between d-flex"> -->
-<!--                                                 <div class="user justify-content-between d-flex"> -->
-<!--                                                     <div class="thumb"> -->
-<!--                                                         <img src="img/blog/c2.jpg" alt=""> -->
-<!--                                                     </div> -->
-<!--                                                     <div class="desc"> -->
-<!--                                                         <h5><a href="#">Emilly Blunt</a></h5> -->
-<!--                                                         <p class="date">December 4, 2017 at 3:12 pm </p> -->
-<!--                                                         <p class="comment"> -->
-<!--                                                             Never say goodbye till the end comes! -->
-<!--                                                         </p> -->
-<!--                                                     </div> -->
-<!--                                                 </div> -->
-<!--                                                 <div class="reply-btn"> -->
-<!--                                                        <a href="" class="btn-reply text-uppercase">reply</a>  -->
-<!--                                                 </div> -->
-<!--                                             </div> -->
-<!--                                         </div> -->
-<!--                                         <div class="comment-list left-padding"> -->
-<!--                                             <div class="single-comment justify-content-between d-flex"> -->
-<!--                                                 <div class="user justify-content-between d-flex"> -->
-<!--                                                     <div class="thumb"> -->
-<!--                                                         <img src="img/blog/c3.jpg" alt=""> -->
-<!--                                                     </div> -->
-<!--                                                     <div class="desc"> -->
-<!--                                                         <h5><a href="#">Emilly Blunt</a></h5> -->
-<!--                                                         <p class="date">December 4, 2017 at 3:12 pm </p> -->
-<!--                                                         <p class="comment"> -->
-<!--                                                             Never say goodbye till the end comes! -->
-<!--                                                         </p> -->
-<!--                                                     </div> -->
-<!--                                                 </div> -->
-<!--                                                 <div class="reply-btn"> -->
-<!--                                                        <a href="" class="btn-reply text-uppercase">reply</a>  -->
-<!--                                                 </div> -->
-<!--                                             </div> -->
-<!--                                         </div> -->
-<!--                                         <div class="comment-list"> -->
-<!--                                             <div class="single-comment justify-content-between d-flex"> -->
-<!--                                                 <div class="user justify-content-between d-flex"> -->
-<!--                                                     <div class="thumb"> -->
-<!--                                                         <img src="img/blog/c4.jpg" alt=""> -->
-<!--                                                     </div> -->
-<!--                                                     <div class="desc"> -->
-<!--                                                         <h5><a href="#">Emilly Blunt</a></h5> -->
-<!--                                                         <p class="date">December 4, 2017 at 3:12 pm </p> -->
-<!--                                                         <p class="comment"> -->
-<!--                                                             Never say goodbye till the end comes! -->
-<!--                                                         </p> -->
-<!--                                                     </div> -->
-<!--                                                 </div> -->
-<!--                                                 <div class="reply-btn"> -->
-<!--                                                        <a href="" class="btn-reply text-uppercase">reply</a>  -->
-<!--                                                 </div> -->
-<!--                                             </div> -->
-<!--                                         </div> -->
-<!--                                         <div class="comment-list"> -->
-<!--                                             <div class="single-comment justify-content-between d-flex"> -->
-<!--                                                 <div class="user justify-content-between d-flex"> -->
-<!--                                                     <div class="thumb"> -->
-<!--                                                         <img src="img/blog/c5.jpg" alt=""> -->
-<!--                                                     </div> -->
-<!--                                                     <div class="desc"> -->
-<!--                                                         <h5><a href="#">Emilly Blunt</a></h5> -->
-<!--                                                         <p class="date">December 4, 2017 at 3:12 pm </p> -->
-<!--                                                         <p class="comment"> -->
-<!--                                                             Never say goodbye till the end comes! -->
-<!--                                                         </p> -->
-<!--                                                     </div> -->
-<!--                                                 </div> -->
-<!--                                                 <div class="reply-btn"> -->
-<!--                                                        <a href="" class="btn-reply text-uppercase">reply</a>  -->
-<!--                                                 </div> -->
-<!--                                             </div> -->
-<!--                                         </div>                                                                                                                                                                 -->
-<!--                                     </div> -->
-<!--                                 </div>     -->
-<!--                             </section> -->
-<!--                             End comment-sec Area -->
-                            
-<!--                             Start commentform Area -->
-<!--                             <section class="commentform-area pt-80"> -->
-<!--                                 <div class="container"> -->
-<!--                                     <h5 class="pb-50">Leave a Reply</h5> -->
-<!--                                     <div class="row flex-row d-flex"> -->
-<!--                                         <div class="col-lg-4 col-md-6"> -->
-<!--                                             <input name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" type="text"> -->
-<!--                                             <input name="email" placeholder="Enter your email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your email'" class="common-input mb-20 form-control" required="" type="email"> -->
-<!--                                             <input name="Subject" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your Subject'" class="common-input mb-20 form-control" required="" type="text"> -->
-
-<!--                                         </div> -->
-<!--                                         <div class="col-lg-8 col-md-6"> -->
-<!--                                             <textarea class="form-control mb-10" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea> -->
-<!--                                             <a class="primary-btn mt-20" href="#">Comment</a> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div>     -->
-<!--                             </section> -->
-<!--                             End commentform Area -->
 
 
 							</div>																		
@@ -373,9 +249,11 @@ color: #222;
 							
 						</div>
 					</div>
-				</div>	
 			</section>	
 			
+			<div class="col-xs-12 col-sm-1"></div>
+			</div>
+	</div>
 						<!--案例檢舉彈出區-->
 						<div class="modal fade" id="exampleModalCenter" tabindex="-1"
 							role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -423,7 +301,7 @@ color: #222;
 	$('#submit').on('click',function(){
 		
 		 if ($("#rsc_rt_comm").val()==null || $("#rsc_rt_comm").val().trim().length==0){
-			 console.log("555555555555555555555");
+			 
 			
 			 	$("#comm_error").text("檢舉原因請勿空白!");
 			 

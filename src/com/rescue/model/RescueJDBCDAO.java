@@ -50,7 +50,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			"UPDATE RESCUE set ntf_vlt_sta=? where rsc_id = ?";
     private static final String UPDATE_BY_PASS = 
     		"UPDATE RESCUE set rsc_sta=?,rsc_etime= ? where rsc_id = ?";
-	
+	private static final String UPDATE_RSC_RT_STATUS =
+			"UPDATE RESCUE set rsc_rt_status=? where rsc_id = ?";
 	//安卓指令
 	private static final String FIND_PHOTO_BY_RSCID = 
 			"SELECT rsc_img FROM RESCUE WHERE rsc_id = ?";
@@ -859,6 +860,48 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		
 	}
+	@Override
+	public void updateByRt(String rsc_id, Connection con) {
+		PreparedStatement pstmt = null;
+
+		try {
+
+			
+			//修改rescue
+            pstmt = con.prepareStatement(UPDATE_RSC_RT_STATUS);
+			
+			pstmt.setString(1,new String("已檢舉"));
+			pstmt.setString(2,rsc_id);
+			pstmt.executeUpdate();
+			
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-rescue");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
 	public static void main(String[] args) {
 
 		RescueJDBCDAO dao = new RescueJDBCDAO();
@@ -1253,6 +1296,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		return list;
 	}
+
+
 
 
 
