@@ -1,10 +1,109 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="com.rescue.model.*"%>
+<%@page import="com.rescuing.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.manager.model.*"%>
+<%@page import="com.Adoption.model.*"%>
+<%@page import="com.AdoptApply.model.*"%>
+<%@page import="com.AdoptMsgReport.moedl.*"%>
+<%@page import="com.reportMissing.model.*"%>
+<%@page import="com.missingMsgReport.model.missingMsgReportVO"%>
+<%@page import="com.missingMsgReport.model.missingMsgReportService"%>
+<%@page import="com.orditem.model.*"%>
+<%@page import="com.donate.model.*"%>
+<%@page import="com.prod.model.*"%>
 <%
 ManagerVO managerVO = (ManagerVO) session.getAttribute("managerVO");
 System.out.println("111111111111111111111111111="+session.getId());
 System.out.println( "是否登入:"+ (managerVO != null));
+List<RescueVO> rescueReviewList;
+rescueReviewList = (List<RescueVO>) request.getAttribute("rescueReviewList");
+if (rescueReviewList==null){
+	RescueService rescueSvc = new RescueService(); 
+	rescueReviewList = rescueSvc.getAll();
+	pageContext.setAttribute("rescueReviewList", rescueReviewList);
+	request.setAttribute("Test", "Test");
+	System.out.println("rescueReviewList= " + rescueReviewList);
+}
+
+List<RescueVO> rescueDelayList;
+rescueDelayList = (List<RescueVO>) request.getAttribute("rescueDelayList");
+if (rescueDelayList==null){
+	RescueService rescueSvc = new RescueService(); 
+	rescueDelayList = rescueSvc.getAllDelay();
+	pageContext.setAttribute("rescueDelayList", rescueDelayList);
+	request.setAttribute("Test", "Test");
+	System.out.println("rescueDelayList= " + rescueDelayList);
+}
+
+List<RescuingVO> rescuingReviewList;
+rescuingReviewList = (List<RescuingVO>) request.getAttribute("rescuingReviewList");
+if (rescuingReviewList==null){
+	RescuingService rescuingSvc = new RescuingService(); 
+	rescuingReviewList = rescuingSvc.getAll();
+	pageContext.setAttribute("rescuingReviewList", rescuingReviewList);
+	request.setAttribute("Test", "Test");
+	System.out.println("rescuingReviewList= " + rescuingReviewList);
+}
+
+AdoptionService adoptionSvc = new AdoptionService();
+List<AdoptionVO> adoptionlist = adoptionSvc.getAllBack();
+pageContext.setAttribute("adoptionlist", adoptionlist);
+
+AdoptApplyService adoptApplySvc = new AdoptApplyService();
+List<AdoptApplyVO> adoptApplylist = adoptApplySvc.getAllApply();
+pageContext.setAttribute("adoptApplylist", adoptApplylist);
+
+AdoptMsgReportService adoptMsgReportSvc = new AdoptMsgReportService();
+List<AdoptMsgReportVO> adoptMsgReportlist = adoptMsgReportSvc.listAllReport();
+pageContext.setAttribute("adoptMsgReportlist", adoptMsgReportlist);
+
+reportMissingService reportMissingSvc = new reportMissingService();
+List<reportMissingVO> reportMissinglist = reportMissingSvc.listAllReport();
+pageContext.setAttribute("reportMissinglist", reportMissinglist);
+
+missingMsgReportService missingMsgReportSvc = new missingMsgReportService();
+List<missingMsgReportVO> missingMsgReportlist = missingMsgReportSvc.listAllReport();
+pageContext.setAttribute("missingMsgReportlist", missingMsgReportlist);
+
+List<OrdItemVO> ordItemlist;
+ordItemlist = (List<OrdItemVO>) request.getAttribute("ordItemlist");
+if (ordItemlist==null){
+//		OrdService ordSvc = new OrdService(); 
+//		List<OrdVO> ordList = ordSvc.getOrdByMem("M000000001"); 
+//		System.out.println("ordList.size()=" + ordList.size());
+	OrdItemService ordItemSvc = new OrdItemService(); 
+	ordItemlist = ordItemSvc.getAll();
+	System.out.println("ordItemlist.size()=" + ordItemlist.size());
+	pageContext.setAttribute("ordItemlist", ordItemlist);
+	request.setAttribute("Test", "Test");
+}
+
+List<DonateVO> donatelist;
+donatelist = (List<DonateVO>) request.getAttribute("donatelist");
+if (donatelist==null){
+	DonateService donSvc = new DonateService(); 
+	donatelist = donSvc.getAll();
+	pageContext.setAttribute("donatelist", donatelist);
+	request.setAttribute("Test", "Test");
+	System.out.println("donatelist.size()="+donatelist.size());
+}
+
+List<ProdVO> prodReviewList;
+prodReviewList = (List<ProdVO>) request.getAttribute("prodReviewList");
+if (prodReviewList==null){
+	ProdService prodSvc = new ProdService(); 
+	prodReviewList = prodSvc.getAll();
+	pageContext.setAttribute("prodReviewList", prodReviewList);
+	request.setAttribute("Test", "Test");
+	System.out.println("prodReviewList= " + prodReviewList);
+}
+
+
+
+
+
 %>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -87,52 +186,189 @@ System.out.println( "是否登入:"+ (managerVO != null));
 </head>
 
 <body>
-    <!-- Left Panel -->
+<!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                   
+                   <% int no1=0;%>
+				  										<c:forEach var="rescueVO" items="${rescueReviewList}">
+															<c:if test="${rescueVO.rsc_sta =='待救援' or rescueVO.rsc_sta == '救援中'}" var="condition" scope="page">
+																<% no1++; %>
+															</c:if>
+														</c:forEach>
+					<% int no2=0;%>
+				  										<c:forEach var="rescueVO" items="${rescueDelayList}">
+															<c:if test="${(rescueVO.rsc_sta =='待救援' or rescueVO.rsc_sta == '救援中')&&(rescueVO.vlt_id == null)}" var="condition" scope="page">
+																<% no2++; %>
+															</c:if>
+														</c:forEach>
+					<% int no3=0;%>
+				  	<c:forEach var="rescuingVO" items="${rescuingReviewList}">
+				  		<c:if test="${rescuingVO.rscing_sta =='完成救援送審中' and rescuingVO.rscing_cdes != null}" var="condition" scope="page">
+				  		<% no3++; %>
+						</c:if>
+					</c:forEach>																		
                     <li class="menu-title active">後台管理</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-plus-square"></i>救援管理</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-plus-square"></i>救援管理
+                        <%if((no1+no2+no3)>0){ %>									
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=(no1+no2+no3)%></font>
+				  	<%} %>
+                        </a>
                         <ul class="sub-menu children dropdown-menu">                            
-                        	<li><i class="fa fa-list-ul"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescue.jsp">救援案例列表</a></li>
-                            <li><i class="fa fa-exclamation-circle"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp">逾時案例列表</a></li>
-                            <li><i class="fa fa-wpforms"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_done_rescue.jsp">完成的救援審核</a></li>
+                        	<li><i class="fa fa-list-ul"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescue.jsp">救援案例列表
+					<%if(no1>0){ %>									
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no1%></font>
+				  	<%} %>
+                        	</a></li>
+                            <li><i class="fa fa-exclamation-circle"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp">逾時案例列表
+                      <%if(no2>0){ %>									
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no2%></font>
+				  	<%} %>      
+                            </a></li>
+                            <li><i class="fa fa-wpforms"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_done_rescue.jsp">完成的救援審核
+                    <%if(no3>0){ %>									
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no3%></font>
+				  	<%} %>        
+                            </a></li>
                             <li><i class="fa fa-flag"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescueRt.jsp">救援檢舉審核</a></li>
                              <li><i class="fa fa-comments"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescueMsgRt.jsp">救援留言檢舉審核</a></li>
+                            
                         </ul>
                     </li>
+                    
+                    <% int no4=0;%>
+				  						<c:forEach var="adoptionVO" items="${adoptionlist}">
+										<c:if test="${adoptionVO.adopt_apply_status == '未審核'}">
+										<% no4++; %>	
+										</c:if>
+										</c:forEach>
+                    <% int no5=0;%>
+				  						<c:forEach var="adoptApplyVO" items="${adoptApplylist}">
+				  						<c:if test="${adoptApplyVO.adopt_id_status == '未審核'}">
+				  						<% no5++; %>
+				  						</c:if>
+										</c:forEach>
+                    <% int no6=0;%>
+				  						<c:forEach var="adoptMsgReportVO" items="${adoptMsgReportlist}">
+                                        <c:if test="${adoptMsgReportVO.adopt_msg_rt_status == '未審核'}">
+                                        <% no6++; %>
+										</c:if>
+                                 </c:forEach>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>認養管理</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>認養管理
+                        <%if((no4+no5+no6)>0){ %>									
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=(no4+no5+no6)%></font>
+				  	<%} %>
+                        </a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/listAllAdopt.jsp">審核認養案例</a></li>
-                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/listAllApply.jsp">認養案例申請者管理</a></li>
-                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/AdoptMsgReport.jsp">審核檢舉認養留言</a></li>
+                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/listAllAdopt.jsp">審核認養案例
+                            <%if(no4>0){ %>									
+						  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no4%></font>
+						  	<%} %>
+                            </a></li>
+                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/listAllApply.jsp">認養案例申請者管理
+                            <%if(no5>0){ %>									
+						  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no5%></font>
+						  	<%} %>
+                            </a></li>
+                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/AdoptMsgReport.jsp">審核檢舉認養留言
+                            <%if(no6>0){ %>									
+						  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no6%></font>
+						  	<%} %>
+                            </a></li>
                         </ul>
                     </li>
-                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>失蹤協尋管理</a>
+                    
+                    <% int no7=0;%>
+				  						<c:forEach var="reportMissingVO" items="${reportMissinglist}">
+                                        <c:if test="${reportMissingVO.report_missing_sta == '未審核'}">
+                                        <% no7++; %>
+                                       </c:if>
+                                 </c:forEach>
+                    <% int no8=0;%>
+				  					<c:forEach var="missingMsgReportVO" items="${missingMsgReportlist}">
+                                        <c:if test="${missingMsgReportVO.missing_msg_rt_sta == '未審核'}">
+                                        <% no8++; %>
+										</c:if>
+                                 </c:forEach>
+                    
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>失蹤協尋管理
+                        <%if((no7+no8)>0){ %>									
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=(no7+no8)%></font>
+				  	<%} %>
+                        </a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/missingCase/back_MissingCaseReport.jsp">審核檢舉失蹤案例</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/missingCase/back_listAllMissingMsgReport.jsp">審核檢舉失蹤案例留言</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/missingCase/back_MissingCaseReport.jsp">審核檢舉失蹤案例
+                            <%if(no7>0){ %>									
+						  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no7%></font>
+						  	<%} %>
+                            </a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/missingCase/back_listAllMissingMsgReport.jsp">審核檢舉失蹤案例留言
+                            <%if(no8>0){ %>									
+						  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no8%></font>
+						  	<%} %>
+                            </a></li>
                         </ul>
                     </li>
 
+							<% int no9=0;%>
+				  					<c:forEach var="ordItemVO" items="${ordItemlist}">
+										<c:if test="${ordItemVO.ord_item_rt_status.equals('已檢舉') && ordItemVO.ord_item_review==null}" var="condition" scope="page">
+				  					<% no9++; %>
+										</c:if>
+                                 </c:forEach>
+
+
+
                     <li class="menu-item-has-children dropdown">
-                        <a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>訂單管理</a>
+                        <a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>訂單管理
+                        <%if(no9>0){ %>									
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no9%></font>
+				  	<%} %>
+                        </a>
                         <ul class="sub-menu children dropdown-menu">                            
-                            <li><i class="fa fa-id-card-o"></i><a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp">審核訂單檢舉</a></li>
+                            <li><i class="fa fa-id-card-o"></i><a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp">審核訂單檢舉
+                            <%if(no9>0){ %>									
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no9%></font>
+				  	<%} %>
+                            </a></li>
                         </ul>
                     </li>
 
+								<% int no10=0;%>
+				  					<c:forEach var="donateVO" items="${donatelist}">
+										<c:if test="${donateVO.donate_status==null || donateVO.donate_status.equals('待確認')}" var="condition" scope="page">
+											<% no10++; %>
+										</c:if>
+									</c:forEach>
+							<% int no11=0;%>
+				  		<c:forEach var="prodVO" items="${prodReviewList}">
+							<c:if test="${prodVO.prod_review==null}" var="condition" scope="page">
+				  	<% no11++; %>
+							</c:if>
+						</c:forEach>
+
+
                     <li class="menu-item-has-children dropdown">
-                        <a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>捐贈管理</a>
+                        <a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>捐贈管理
+                        <%if((no10+no11)>0){ %>									
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=(no10+no11)%></font>
+				  	<%} %>
+                        </a>
                         <ul class="sub-menu children dropdown-menu">                            
-                            <li><i class="fa fa-id-badge"></i><a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp">愛心捐款管理</a></li>
-<%--                             <li><i class="fa fa-id-badge"></i><a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don_Total.jsp">愛心捐款查詢</a></li> --%>
-                            <li><i class="fa fa-bars"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心物資管理</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp">愛心捐款管理
+                            <%if(no10>0){ %>									
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no10%></font>
+				  	<%} %>
+                            </a></li>
+                            <li><i class="fa fa-bars"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心物資管理
+                            <%if(no11>0){ %>									
+				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no11%></font>
+				  	<%} %>
+                            </a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">

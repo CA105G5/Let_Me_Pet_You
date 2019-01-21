@@ -41,7 +41,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 <%-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab --%>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-			
+		
 <style>
   table#table-1 {
 	width: 450px;
@@ -84,6 +84,12 @@ System.out.println( "是否登入:"+ (memVO != null));
 </head>
 <body bgcolor='white'>
 <jsp:include page="/index_Header.jsp" flush="true" />
+
+
+
+
+
+
 
 
 
