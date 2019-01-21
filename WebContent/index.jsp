@@ -61,6 +61,24 @@ System.out.println( "是否登入:"+ (memVO != null));
     color: blue;
     display: inline;
   }
+  .carousel-fade .carousel-inner .item{  
+    opacity:0;  
+    -webkit-transition-property:opacity ;  
+    -moz-transition-property:opacity ;  
+    -ms-transition-property:opacity ;  
+    -o-transition-property:opacity ;  
+    transition-property:opacity ;
+}
+.carousel-fade .carousel-inner .active{  
+    opacity: 1;
+}
+.carousel-fade .carousel-inner .active.left,.carousel-fade .carousel-inner .active.right{  
+    left: 0;  
+    opacity: 0;
+}
+.carousel-fade .carousel-inner .next.left,.carousel-fade .carousel-inner .prev.right {
+    opacity: 1;
+}
 </style>
 
 </head>
@@ -69,7 +87,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 
 
 
-<div id="carousel-id" class="carousel slide" data-ride="carousel">
+<div id="carousel-id" class=" carousel-fade carousel slide" data-ride="carousel">
 		    <!-- 幻燈片小圓點區 -->
 		    <ol class="carousel-indicators">
 		        <li data-target="#carousel-id" data-slide-to="0" class="active"></li>
