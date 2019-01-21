@@ -9,7 +9,7 @@ public class RescueService {
 	public RescueDAO_interface dao;
 	
 	public RescueService() {
-		dao = new RescueJDBCDAO();
+		dao = new RescueJNDIDAO();
 	}
 	
 	public void addRescue(RescueVO rescueVO) {

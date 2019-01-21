@@ -12,7 +12,7 @@ public class RescuingService {
 public RescuingDAO_interface dao;
 	
 	public RescuingService() {
-		dao = new RescuingJDBCDAO();
+		dao = new RescuingJNDIDAO();
 	}
 	
 	public void addRescuing(RescuingVO rescuingVO) {

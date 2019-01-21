@@ -9,7 +9,7 @@ public class RscRtService {
 	public RscRtDAO_interface dao;
 	
 	public RscRtService() {
-		dao = new RscRtJDBCDAO();
+		dao = new RscRtJNDIDAO();
 	}
 	
 	public void addRscRt(RscRtVO rscRtVO) {
