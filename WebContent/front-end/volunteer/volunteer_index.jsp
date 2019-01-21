@@ -62,7 +62,7 @@ System.out.println("111111111111111111111111111="+session.getId());
 					<div class="row d-flex justify-content-end " style="align-items:center">
 					<h2 style="color:deeppink; font-family:Georgia,Microsoft JhengHei,sans-serif">${volunteerVO.vlt_name},您好</h2>
 						<a href="<%=request.getContextPath()%>/front-end/volunteer/volunteer.do?action=logout">
-							<img style="width:60px;height:60px;"class="img img-fluid" src="images/logout.png" title="登出">
+							<img style="width:60px;height:60px;"class="img img-fluid" src="<%=request.getContextPath()%>/images/logout.png" title="登出">
 						</a>
 					</div>
 				</div>

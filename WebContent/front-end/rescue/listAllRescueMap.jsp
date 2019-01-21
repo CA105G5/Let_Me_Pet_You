@@ -63,6 +63,7 @@ div {
 		<div class="container" >
 			<div class="row d-flex justify-content-center" >
 				<h1 >今日救援地圖</h1>
+				<div><img style="width:60px;height:60px;"class="img img-fluid" src="images/lightoff.png" title="提示"></div>
 	    		<div id="map"></div>
     
     		</div>
