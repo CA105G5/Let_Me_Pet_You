@@ -56,7 +56,10 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 						}
 		         	}
 		         }
-		         sendRescueToAll(allSessions, jsonObj.toString());
+		         System.out.println("待救援案例有"+toRsc.size()+"筆");
+		         if(toRsc.size()>0) {
+		        	 sendRescueToAll(allSessions, jsonObj.toString());
+		         }
 		            	
 			     System.out.println("This is Task"+ count);
 			     System.out.println("工作排定的時間RescueEchoServer = " + new Date(scheduledExecutionTime()));

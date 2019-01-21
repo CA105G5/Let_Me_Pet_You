@@ -126,6 +126,7 @@ public class NtfServlet extends HttpServlet {
 					//將ord_id(ntf_src_id)以及prod_name(自己抓ntf_dt)設定在req裡面
 					req.setAttribute("ord_id", ntf_src_id);
 					req.setAttribute("prod_name", ntf_dt.split("\\[|\\]")[1]);//須從ntf_dt抓商品名
+					req.setAttribute("ntf_dt", ntf_dt);//須從ntf_dt抓商品名
 					
 					//依照關鍵字找尋要轉交哪個畫面，用String中的contains來判斷
 					if(ntf_dt.contains("請盡快出貨")

@@ -61,8 +61,11 @@ div {
 	<jsp:include page="/index_Header.jsp" flush="true" />
 	
 		<div class="container" >
-			<div class="row d-flex justify-content-center" >
-				<h1 >今日救援地圖</h1>
+			<div class="justify-content-center" >
+				<div align="center"><h1>今日救援地圖</h1></div>
+				
+				<div ><img id="tips" style="width:60px;height:60px;cursor: pointer;"class="img img-fluid" src="<%=request.getContextPath()%>/images/lightoff.png" title="提示"></div>
+	    		<br>
 	    		<div id="map"></div>
     
     		</div>
@@ -293,6 +296,23 @@ div {
 <script async defer
    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKTq4JnBzGP4UWtr5xe0c_wDQlWUbVrXU&callback=initMap">
 </script>
+<script>
+$(document).ready(function(){
+	var c=0;
+	$('#tips').click(function(){
+		c++;
+		if (c%2==1){
+			$(this).attr('src','<%=request.getContextPath()%>/images/maptips.PNG');
+			$(this).css({'width':'468px','height':'81px'});
+		} else {
+			$(this).attr('src','<%=request.getContextPath()%>/images/lightoff.png');
+			$(this).css({'width':'60px','height':'60px'});
+		}
+	})
+	
+	
+})
 
+</script>
 </body>
 </html>

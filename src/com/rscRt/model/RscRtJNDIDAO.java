@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.ntf.model.NtfJDBCDAO;
 import com.ntf.model.NtfVO;
 import com.rescue.model.RescueJDBCDAO;
@@ -25,12 +30,20 @@ import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_RscRt;
 
 
 
-public class RscRtJDBCDAO implements RscRtDAO_interface{
-
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA105G5";
-	String passwd = "123456";
+public class RscRtJNDIDAO implements RscRtDAO_interface{
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+//	String driver = "oracle.jdbc.driver.OracleDriver";
+//	String url = "jdbc:oracle:thin:@localhost:1521:XE";
+//	String userid = "CA105G5";
+//	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO RSC_RT (rsc_rt_id,rsc_id,memb_id,rsc_rt_time,rsc_rt_comm,rsc_rv_des,rsc_rt_status) VALUES ('RR'||LPAD(to_char(rsc_rt_seq.NEXTVAL), 13, '0'),?,?,?,?,?,?)";
@@ -52,8 +65,8 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			// 1●設定於 pstm.executeUpdate()之前
     		con.setAutoCommit(false);
 			//修改rescue
@@ -79,10 +92,6 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 			con.setAutoCommit(true);
 			System.out.println("已成功改變案例檢舉狀態");
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			if (con != null) {
 				try {
@@ -124,8 +133,8 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, rscRtVO.getRsc_id());
@@ -141,10 +150,6 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 			System.out.println("Changed " + rowsUpdated + "rows");
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -176,8 +181,8 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1,rsc_rt_id);
@@ -186,11 +191,7 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 			System.out.println("Changed " + rowsUpdated + "rows");
 			
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -225,8 +226,8 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1,rsc_rt_id);
@@ -248,11 +249,7 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -293,8 +290,8 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -312,11 +309,7 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -358,8 +351,8 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 		try {
 			
 			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 
 			String finalSQL = "select * from rsc_rt "
 			          + jdbcUtil_CompositeQuery_RscRt.get_WhereCondition(map)
@@ -380,11 +373,7 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 				rscRtVO.setRsc_rt_status(rs.getString("rsc_rt_status"));
 				list.add(rscRtVO); // Store the row in the List
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 		} finally {
@@ -412,76 +401,6 @@ public class RscRtJDBCDAO implements RscRtDAO_interface{
 		}
 		return list;
 	}
-	public static void main(String[] args) {
-
-		RscRtJDBCDAO dao = new RscRtJDBCDAO();
-
-		 //新增
-//		RscRtVO rscRtVO1 = new RscRtVO();
-//
-//		rscRtVO1.setRsc_id("R000000003");
-//		rscRtVO1.setMemb_id("M000000008");
-//		rscRtVO1.setRsc_rt_time(new Timestamp(new Date().getTime()));
-//		rscRtVO1.setRsc_rt_comm("XXX");
-//		rscRtVO1.setRsc_rv_des("XXX");
-//		rscRtVO1.setRsc_rt_status("XXX");
-//		dao.insert(rscRtVO1);
-
-		// 修改
-//		RscRtVO rscRtVO2 = new RscRtVO();
-//		rscRtVO2.setRsc_rt_id("RR0000000000003");
-//		rscRtVO2.setRsc_id("R000000003");
-//		rscRtVO2.setMemb_id("M000000008");
-//		rscRtVO2.setRsc_rt_comm("XXX");
-//		rscRtVO2.setRsc_rv_des("XXX");
-//		rscRtVO2.setRsc_rt_status("XXX");
-//		dao.update(rscRtVO2);
-
-		// 刪除
-//		dao.delete("RR0000000000003");
-
-//		// 查詢
-//		RscRtVO rscRtVO3 = dao.findByPrimaryKey("RR0000000000001");
-//		System.out.print(rscRtVO3.getRsc_id() + ",");
-//		System.out.print(rscRtVO3.getMemb_id() + ",");
-//		System.out.print(rscRtVO3.getRsc_rt_time() + ",");
-//		System.out.print(rscRtVO3.getRsc_rt_comm() + ",");
-//		System.out.print(rscRtVO3.getRsc_rv_des() + ",");
-//		System.out.print(rscRtVO3.getRsc_rt_status() + ",");
-//		System.out.println(rscRtVO3.getRsc_rt_id()+ ",");
-//		System.out.println("---------------------");
-//
-		// 查詢
-//		List<RscRtVO> list = dao.getAll();
-//		for (RscRtVO aRsc : list) {
-//			System.out.print(aRsc.getRsc_id() + ",");
-//			System.out.print(aRsc.getMemb_id() + ",");
-//			System.out.print(aRsc.getRsc_rt_time() + ",");
-//			System.out.print(aRsc.getRsc_rt_comm() + ",");
-//			System.out.print(aRsc.getRsc_rv_des() + ",");
-//			System.out.print(aRsc.getRsc_rt_status() + ",");
-//			System.out.print(aRsc.getRsc_rt_id()+ ",");
-//			System.out.println();
-//			
-//		}
-		
-	//複合查詢
-		
-		Map<String, String[]> map = new TreeMap<String, String[]>();
-		map.put("rsc_rt_id", new String[] { "RR0000000000001" });
-		map.put("action", new String[] { "getXXX" });
-		List<RscRtVO> list = dao.getAll(map);
-		for (RscRtVO aRsc : list) {
-			System.out.print(aRsc.getRsc_id() + ",");
-			System.out.print(aRsc.getMemb_id() + ",");
-			System.out.print(aRsc.getRsc_rt_time() + ",");
-			System.out.print(aRsc.getRsc_rt_comm() + ",");
-			System.out.print(aRsc.getRsc_rv_des() + ",");
-			System.out.print(aRsc.getRsc_rt_status() + ",");
-			System.out.print(aRsc.getRsc_rt_id()+ ",");
-			System.out.println();
-		}
-	}
-
+	
 
 }

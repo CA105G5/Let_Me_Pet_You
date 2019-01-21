@@ -60,6 +60,13 @@ table{
     height: 350px;
     overflow: scroll;
 }
+li>a{
+	color:black;
+}
+li>a:hover{
+	text-decoration:none;
+	color:red;
+}
 
 
 </style>
@@ -67,31 +74,39 @@ table{
 <body>
 
 <jsp:include page="/index_Header.jsp" flush="true" />
-	
+		<div class="row d-flex justify-content-center" style="background-image: url(http://www.savedogs.org/upload/Masthead/r/rw4cztmo87qqjof8mm5wovypicoyu4cl1hx0/main.jpg); height: 280px;width: 1900px;margin-left: 7.5px;margin-right: 0px;">
+				<div class="col-md-9 pb-40 header-text text-center" style="margin-top: 100px;">
+				<br><br><br>
+				<h1 class="pb-10"style="color:white;">搶救生命，分秒必爭</h1>
+				</div>
+			</div>
 	
 	<section style="padding-top:30px" class="training-area section-gap">
-		<div class="container">
+		<div class="container-fulid">
+		
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
 				<div class="row">
+				<div class="col-xs-12 col-sm-1"></div>
 					<div class="col-xs-12 col-sm-2" style="top: 10px; bottom: auto;">
-						<h3>救援</h3>
-						<hr>
-						<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
-						<hr>
-						<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
-						<hr>
-						<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
-						<hr>
-						<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp">待完成救援案例</a></h5>
-						<hr>
+						<div class="single-widget category-widget"style="padding-top: 20px;">
+						<h2 class="title" style="margin-bottom:10px;padding-top:0px;margin-top:0px">救援</h2>
+							<ul>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp" class="justify-content-between align-items-center d-flex"><h4>新增救援</h4></a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp" class="justify-content-between align-items-center d-flex"><h4>今日救援地圖</h4></a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp" class="justify-content-between align-items-center d-flex"><h4>救援案例總覽</h4></a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp" class="justify-content-between align-items-center d-flex"><h4>待完成救援案例</h4></a></li>
+					
+							</ul>
+					</div>
 					</div> <!-- position: fixed -->
 					<div class="col-xs-12 col-sm-1"></div>
-					<div class="col-xs-12 col-sm-9">
+					<div class="col-xs-12 col-sm-7">
 						<div class="row">
 							
 							<form>
    								<h1>完成案例報告</h1>
    								<br>
+   								
 								<h4>救援案例編號：</h4>					  			
 								<input type="text" id="rsc_id" name="rsc_id" value="${rescuingVO.rsc_id}" readonly="readonly" required="" class="single-input">
 								<br>
@@ -136,7 +151,7 @@ table{
 								</div>
 								<br>
 								<br>
-								<h4>完成描述：</h4>
+								<h4>完成描述：<strong style="color:red">必填!</strong></h4>
 						  		<textarea name="rscing_cdes" id="rscing_cdes" rows="10" cols="80"><%= (rescuingVO.getRscing_cdes()==null)? "" : rescuingVO.getRscing_cdes()%></textarea>
 			            		<script> 
 			            		CKEDITOR.replace("rscing_cdes", {
@@ -152,7 +167,7 @@ table{
 							</form>
 						</div>
 					</div>
-
+					<div class="col-xs-12 col-sm-1"></div>
 				</div>
 			</div>
 		</div>

@@ -61,6 +61,13 @@ div {
 	font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
 		monospace;
 }
+li>a{
+	color:black;
+}
+li>a:hover{
+	text-decoration:none;
+	color:red;
+}
 
 </style>
 </head>
@@ -69,34 +76,36 @@ div {
 
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
-	
-			<div class="container">
+	<div class="row d-flex justify-content-center" style="background-image: url(http://www.savedogs.org/upload/Masthead/r/rw4cztmo87qqjof8mm5wovypicoyu4cl1hx0/main.jpg); height: 280px;width: 1900px;margin-left: 7.5px;margin-right: 0px;">
+				<div class="col-md-9 pb-40 header-text text-center" style="margin-top: 100px;">
+				<br><br><br>
+				<h1 class="pb-10"style="color:white;">搶救生命，分秒必爭</h1>
+				</div>
+			</div>
+			<div class="container-fulid">
 			<div class="row">
-
+				<div class="col-xs-12 col-sm-1"></div>
 <!-- 				左側邊list-group -->
  				<div class="col-xs-12 col-sm-2">
-				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
-					<h3>救援</h3>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp">待完成救援案例</a></h5>
-					<hr>
+				<div class="single-widget category-widget">
+						<h2 class="title" style="margin-bottom:10px;padding-top:0px;margin-top:0px">救援</h2>
+							<ul>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp" class="justify-content-between align-items-center d-flex"><h4>新增救援</h4></a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp" class="justify-content-between align-items-center d-flex"><h4>今日救援地圖</h4></a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp" class="justify-content-between align-items-center d-flex"><h4>救援案例總覽</h4></a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp" class="justify-content-between align-items-center d-flex"><h4>待完成救援案例</h4></a></li>
 					
-				</div>
+							</ul>
+					</div>
 			</div>
 		
 		
-			<div class="col-xs-12 col-sm-10">
+			<div class="col-xs-12 col-sm-8">
 				<div class="content">
             <div class="animated fadeIn">
                 <div class="row">
 
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="padding-top:40px;">
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">待完成的救援</strong>
@@ -165,6 +174,7 @@ div {
 						
 			
 		</div>
+		<div class="col-xs-12 col-sm-1"></div>
 	</div>
 </div>
 	

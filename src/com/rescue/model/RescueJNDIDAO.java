@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.ntf.model.NtfJDBCDAO;
 import com.ntf.model.NtfVO;
 import com.rescueCoin.model.RescueCoinVO;
@@ -23,12 +28,21 @@ import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Rescue;
 import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Volunteer;
 
  
-public class RescueJDBCDAO implements RescueDAO_interface{
+public class RescueJNDIDAO implements RescueDAO_interface{
 	
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA105G5";
-	String passwd = "123456";
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+//	String driver = "oracle.jdbc.driver.OracleDriver";
+//	String url = "jdbc:oracle:thin:@localhost:1521:XE";
+//	String userid = "CA105G5";
+//	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO RESCUE (rsc_id,rsc_name,rsc_add,rsc_des,rsc_img,rsc_sponsor,vlt_id,rsc_lat,rsc_lon,rsc_sta,rsc_stm_time,rsc_stm_url,rsc_stm_sta,rsc_btime,rsc_coin,rsc_etime,rsc_reg,rsc_rt_status,ntf_vlt_dt,ntf_vlt_link,ntf_vlt_sta,ntf_vlt_time) VALUES ('R'||LPAD(to_char(volunteer_seq.NEXTVAL), 9, '0'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -70,9 +84,9 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 		try {
 
-			Class.forName(driver);
+			
 	
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, rescueVO.getRsc_name());
@@ -101,10 +115,6 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			System.out.println("Changed " + rowsUpdated + "rows");
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -136,8 +146,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, rescueVO.getRsc_name());
@@ -167,10 +177,6 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			System.out.println("Changed " + rowsUpdated + "rows");
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -202,8 +208,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1,rsc_id);
@@ -212,10 +218,6 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			System.out.println("Changed " + rowsUpdated + "rows");
 			
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -252,8 +254,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, rsc_id);
@@ -290,11 +292,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -336,8 +334,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -370,10 +368,6 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -416,8 +410,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		try {
 			
 			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 
 			String finalSQL = "select * from rescue "
 			          + jdbcUtil_CompositeQuery_Rescue.get_WhereCondition(map)
@@ -452,11 +446,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 				rescueVO.setNtf_vlt_time(rs.getTimestamp("ntf_vlt_time"));
 				list.add(rescueVO); // Store the row in the List
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 		} finally {
@@ -535,8 +525,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			// 1●設定於 pstm.executeUpdate()之前
     		con.setAutoCommit(false);
 			//修改rescue
@@ -572,10 +562,6 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			con.setAutoCommit(true);
 			System.out.println("已成功分派救援給志工");
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			if (con != null) {
 				try {
@@ -750,8 +736,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_DELAY_STMT);
 			rs = pstmt.executeQuery();
 
@@ -784,10 +770,6 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -902,96 +884,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		}
 		
 	}
-	public static void main(String[] args) {
-
-		RescueJDBCDAO dao = new RescueJDBCDAO();
-
-		// 新增
-		RescueVO rescueVO1 = new RescueVO();
-//
-//		rescueVO1.setRsc_name("有貓卡樹上");
-//		rescueVO1.setRsc_add("326桃園市楊梅區中山北路一段390巷41號");
-//		rescueVO1.setRsc_sponsor("M000000003");
-//		rescueVO1.setRsc_lat(new Double(24.9460628));
-//		rescueVO1.setRsc_lon(new Double(121.1992745));
-//		rescueVO1.setRsc_btime(new Timestamp(new Date().getTime()));
-//		rescueVO1.setRsc_coin(new Integer(500));
-//		rescueVO1.setRsc_reg("REG0000004");
-//		dao.insert(rescueVO1);
-
-//		// 修改
-//		RescueVO rescueVO2 = new RescueVO();
-//		rescueVO2.setRsc_id("R000000007");
-//		rescueVO2.setRsc_name("有貓卡樹上");
-//		rescueVO2.setRsc_add("326桃園市楊梅區中山北路一段390巷41號");
-//		rescueVO2.setRsc_sponsor("M000000003");
-//		rescueVO2.setRsc_lat(new Double(24.9460628));
-//		rescueVO2.setRsc_lon(new Double(121.1992745));
-//		rescueVO2.setRsc_coin(new Integer(1000));
-//		rescueVO2.setRsc_reg("REG0000004");
-//		dao.update(rescueVO2);
-
-		// 刪除
-//		dao.delete("R000000007");
-
-		// 查詢
-//		RescueVO rescueVO3 = dao.findByPrimaryKey("R000000001");
-//		System.out.print(rescueVO3.getRsc_id() + ",");
-//		System.out.print(rescueVO3.getRsc_name() + ",");
-//		System.out.print(rescueVO3.getRsc_add() + ",");
-//		System.out.print(rescueVO3.getRsc_sponsor() + ",");
-//		System.out.print(rescueVO3.getRsc_lat() + ",");
-//		System.out.print(rescueVO3.getRsc_lon() + ",");
-//		System.out.print(rescueVO3.getRsc_coin()+ ",");
-//		System.out.println(rescueVO3.getRsc_reg());
-//		System.out.println("---------------------");
-//
-		// 查詢
-//		List<RescueVO> list = dao.getAll();
-//		for (RescueVO aRsc : list) {
-//			System.out.print(aRsc.getVlt_id() + ",");
-//			System.out.print(aRsc.getRsc_name() + ",");
-//			System.out.print(aRsc.getRsc_add() + ",");
-//			System.out.print(aRsc.getRsc_sponsor() + ",");
-//			System.out.print(aRsc.getRsc_lat() + ",");
-//			System.out.print(aRsc.getRsc_lon() + ",");
-//			System.out.print(aRsc.getRsc_coin()+ ",");
-//			System.out.print(aRsc.getRsc_reg());
-//			System.out.println();
-//		}
-		List<RescueVO> list = dao.getAllDelay();
-		for (RescueVO aRsc : list) {
-			System.out.print(aRsc.getRsc_id() + ",");
-			System.out.print(aRsc.getRsc_name() + ",");
-			System.out.print(aRsc.getRsc_add() + ",");
-			System.out.print(aRsc.getRsc_sponsor() + ",");
-			System.out.print(aRsc.getRsc_lat() + ",");
-			System.out.print(aRsc.getRsc_lon() + ",");
-			System.out.print(aRsc.getRsc_coin()+ ",");
-			System.out.print(aRsc.getRsc_reg());
-			System.out.println();
-		}
-		
-		
-//		複合查詢
-		
-//		Map<String, String[]> map = new TreeMap<String, String[]>();
-//		map.put("rsc_id", new String[] { "R000000001" });
-//		map.put("action", new String[] { "getXXX" });
-//		List<RescueVO> list = dao.getAll(map);
-//		for (RescueVO aRsc : list) {
-//			System.out.print(aRsc.getVlt_id() + ",");
-//			System.out.print(aRsc.getRsc_name() + ",");
-//			System.out.print(aRsc.getRsc_add() + ",");
-//			System.out.print(aRsc.getRsc_sponsor() + ",");
-//			System.out.print(aRsc.getRsc_lat() + ",");
-//			System.out.print(aRsc.getRsc_lon() + ",");
-//			System.out.print(aRsc.getRsc_coin()+ ",");
-//			System.out.print(aRsc.getRsc_reg());
-//			System.out.println();
-//		}
-	}
-
+	
 	//安卓
 	@Override
 	public byte[] getImage(String rsc_id) {
@@ -1001,8 +894,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(FIND_PHOTO_BY_RSCID);
 			
 			pstmt.setString(1,rsc_id);
@@ -1012,8 +905,6 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			picture = rs.getBytes(1); 
 		}
 			
-		}catch(ClassNotFoundException ce){
-			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
 		}catch(SQLException se){
 			throw new RuntimeException("A database error occured."+se.getMessage());
 		}finally {
@@ -1042,8 +933,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		
 		try {
 			 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			// 1●設定於 pstm.executeUpdate()之前
     		con.setAutoCommit(false);
     		
@@ -1067,11 +958,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			System.out.println("Changed " + rowsUpdated + "rows");
 			
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			if (con != null) {
 				try {
 					// 3●設定於當有exception發生時之catch區塊內
@@ -1162,9 +1049,9 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 		
 		try {
 
-			Class.forName(driver);
+			
 	 
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_RESCUE_CASE);
 			
 			System.out.println("aaaaaaaaaaa");
@@ -1198,11 +1085,7 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			System.out.println("Changed " + rowsUpdated + "rows");
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -1236,8 +1119,8 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_RESCUE);
 			rs = pstmt.executeQuery();
 
@@ -1263,10 +1146,6 @@ public class RescueJDBCDAO implements RescueDAO_interface{
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
