@@ -86,7 +86,6 @@ System.out.println( "是否登入:"+ (memVO != null));
 <!-- End WOWSlider.com HEAD section -->
 </head>
 <body bgcolor='white'>
-<jsp:include page="/index_Header.jsp" flush="true" />
 
 
 
@@ -94,18 +93,18 @@ System.out.println( "是否登入:"+ (memVO != null));
 <!-- Start WOWSlider.com BODY section -->
 <div id="wowslider-container1">
 <div class="ws_images"><ul>
-		<li><img src="data1/images/big6.jpg" alt="big6" title="" id="wows1_0"/></li>
-		<li><img src="data1/images/big2.jpg" alt="big2" title="" id="wows1_1"/></li>
-		<li><img src="data1/images/big3.jpg" alt="big3" title="" id="wows1_2"/></li>
-		<li><a href="http://wowslider.net"><img src="data1/images/big7.jpg" alt="html slider" title="" id="wows1_3"/></a></li>
-		<li><img src="data1/images/big8.jpg" alt="big8" title="" id="wows1_4"/></li>
+		<li><img src="data1/images/big6.jpg" alt="big6" title="big6" id="wows1_0"/></li>
+		<li><img src="data1/images/big2.jpg" alt="big2" title="big2" id="wows1_1"/></li>
+		<li><img src="data1/images/big3.jpg" alt="big3" title="big3" id="wows1_2"/></li>
+		<li><a href="http://wowslider.net"><img src="data1/images/big7.jpg" alt="html slider" title="big7" id="wows1_3"/></a></li>
+		<li><img src="data1/images/big8.jpg" alt="big8" title="big8" id="wows1_4"/></li>
 	</ul></div>
 	<div class="ws_bullets"><div>
-		<a href="#" title="big6"><span><img src="data1/tooltips/big6.jpg" alt="big6"/></span></a>
-		<a href="#" title="big2"><span><img src="data1/tooltips/big2.jpg" alt="big2"/></span></a>
-		<a href="#" title="big3"><span><img src="data1/tooltips/big3.jpg" alt="big3"/></span></a>
-		<a href="#" title="big7"><span><img src="data1/tooltips/big7.jpg" alt="big7"/></span></a>
-		<a href="#" title="big8"><span><img src="data1/tooltips/big8.jpg" alt="big8"/></span></a>
+		<a href="#" title="big6"><span><img src="data1/tooltips/big6.jpg" alt="big6"/>1</span></a>
+		<a href="#" title="big2"><span><img src="data1/tooltips/big2.jpg" alt="big2"/>2</span></a>
+		<a href="#" title="big3"><span><img src="data1/tooltips/big3.jpg" alt="big3"/>3</span></a>
+		<a href="#" title="big7"><span><img src="data1/tooltips/big7.jpg" alt="big7"/>4</span></a>
+		<a href="#" title="big8"><span><img src="data1/tooltips/big8.jpg" alt="big8"/>5</span></a>
 	</div></div><div class="ws_script" style="position:absolute;left:-99%"><a href="http://wowslider.net">javascript slideshow</a> by WOWSlider.com v8.8</div>
 <div class="ws_shadow"></div>
 </div>	
