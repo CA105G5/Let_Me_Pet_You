@@ -80,7 +80,10 @@ System.out.println( "是否登入:"+ (memVO != null));
     opacity: 1;
 }
 </style>
-
+<!-- Start WOWSlider.com HEAD section -->
+<link rel="stylesheet" type="text/css" href="engine1/style.css" />
+<script type="text/javascript" src="engine1/jquery.js"></script>
+<!-- End WOWSlider.com HEAD section -->
 </head>
 <body bgcolor='white'>
 <jsp:include page="/index_Header.jsp" flush="true" />
@@ -88,66 +91,32 @@ System.out.println( "是否登入:"+ (memVO != null));
 
 
 
+<!-- Start WOWSlider.com BODY section -->
+<div id="wowslider-container1">
+<div class="ws_images"><ul>
+		<li><img src="data1/images/big6.jpg" alt="big6" title="big6" id="wows1_0"/></li>
+		<li><img src="data1/images/big2.jpg" alt="big2" title="big2" id="wows1_1"/></li>
+		<li><img src="data1/images/big3.jpg" alt="big3" title="big3" id="wows1_2"/></li>
+		<li><a href="http://wowslider.net"><img src="data1/images/big7.jpg" alt="html slider" title="big7" id="wows1_3"/></a></li>
+		<li><img src="data1/images/big8.jpg" alt="big8" title="big8" id="wows1_4"/></li>
+	</ul></div>
+	<div class="ws_bullets"><div>
+		<a href="#" title="big6"><span><img src="data1/tooltips/big6.jpg" alt="big6"/>1</span></a>
+		<a href="#" title="big2"><span><img src="data1/tooltips/big2.jpg" alt="big2"/>2</span></a>
+		<a href="#" title="big3"><span><img src="data1/tooltips/big3.jpg" alt="big3"/>3</span></a>
+		<a href="#" title="big7"><span><img src="data1/tooltips/big7.jpg" alt="big7"/>4</span></a>
+		<a href="#" title="big8"><span><img src="data1/tooltips/big8.jpg" alt="big8"/>5</span></a>
+	</div></div><div class="ws_script" style="position:absolute;left:-99%"><a href="http://wowslider.net">javascript slideshow</a> by WOWSlider.com v8.8</div>
+<div class="ws_shadow"></div>
+</div>	
+<script type="text/javascript" src="engine1/wowslider.js"></script>
+<script type="text/javascript" src="engine1/script.js"></script>
+<!-- End WOWSlider.com BODY section -->
 
 
 
 
-
-<div id="carousel-id" class=" carousel-fade carousel slide" data-ride="carousel">
-		    <!-- 幻燈片小圓點區 -->
-		    <ol class="carousel-indicators">
-		        <li data-target="#carousel-id" data-slide-to="0" class="active"></li>
-		        <li data-target="#carousel-id" data-slide-to="1" class=""></li>
-		        <li data-target="#carousel-id" data-slide-to="2" class=""></li>
-		        <li data-target="#carousel-id" data-slide-to="3" class=""></li>
-		    </ol>
-		    <!-- 幻燈片主圖區 -->
-		    <div class="carousel-inner">
-		    	<div class="item active">
-		        	<img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel5.png" alt="" style="width:2000px;height:850px">
-<%-- 		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel3.jpg" alt=""> --%>
-		            <div class="container">
-		                
-		            </div>
-		        </div>
-		        <div class="item">
-<!-- 		        	<img src="https://api.fnkr.net/testimg/2800x700/aaaaaa" alt=""> -->
-		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel6.jpg" alt="" style="width:2000px;height:850px"> 
-		            <div class="container">
-		                <div class="carousel-caption">
-		                    <h1>Help~~~~~~</h1>
-<!-- 		                    <p>請救救我...</p> -->
-		                    <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp" role="button">即刻救援</a></p>
-		                </div>
-		            </div>
-		        </div>
-		        <div class="item">
-		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel2.jpg" alt="" style="width:2000px;height:850px">
-<%-- 		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel2.jpg" alt=""> --%>
-		            <div class="container">
-		                <div class="carousel-caption">
-		                    <h1>以領養代替購買</h1>
-<!-- 		                    <p>愛我請照顧我一輩子</p> -->
-		                    <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/front-end/adopt/listAllAdopt.jsp" role="button">線上認養</a></p>
-		                </div>
-		            </div>
-		        </div>
-		        <div class="item">
-		        	<img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel3.jpg" alt="" style="width:2000px;height:850px">
-<%-- 		            <img src="<%=request.getContextPath()%>/horse_UI_template/img/carousel3.jpg" alt=""> --%>
-		            <div class="container">
-		                <div class="carousel-caption">
-		                    <h1>他們找不到回家的路...</h1>
-<!-- 		                    <p>請幫助他們找到主人</p> -->
-		                    <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/front-end/missingCase/listAllMissingCase.jsp" role="button">失蹤詳情</a></p>
-		                </div>
-		            </div>
-		        </div>
-		        
-		    </div>
-			<a class="left carousel-control" href="#carousel-id" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-		    <a class="right carousel-control" href="#carousel-id" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-		</div>  
+ 
 		
 	
 	
