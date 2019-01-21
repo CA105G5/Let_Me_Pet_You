@@ -98,19 +98,19 @@ div {
 		<div class="container">
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
 				<div class="row">
-					<div class="col-xs-12 col-sm-2" style="top: 0px; bottom: auto;">
-						<h3>救援</h3>
-						<hr>
-						<h5><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp">新增救援</a></h5>
-						<hr>
-						<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp">今日救援地圖</a></h5>
-						<hr>
-						<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp">救援案例總覽</a></h5>
-						<hr>
-						<h5><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp">待完成救援案例</a></h5>
-						<hr>
-					</div> <!-- position: fixed -->
-					<div class="col-xs-12 col-sm-1"></div>
+					<div class="col-xs-12 col-sm-3 sidebar" style="top: 0px; bottom: auto;">
+					<div class="single-widget category-widget">
+						<h4 class="title">救援</h4>
+							<ul>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/addRescue.jsp" class="justify-content-between align-items-center d-flex">新增救援</a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescueMap.jsp" class="justify-content-between align-items-center d-flex">今日救援地圖</a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/listAllRescue.jsp" class="justify-content-between align-items-center d-flex">救援案例總覽</a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/rescue/listMemRescue.jsp" class="justify-content-between align-items-center d-flex">待完成救援案例</a></li>
+					
+							</ul>
+					</div>
+					</div>
+					
 					<div class="col-xs-12 col-sm-9">
 						<div class="row">
 						<%@ include file="/front-end/product/pages/page1_ByCompositeQuery.file" %> 
