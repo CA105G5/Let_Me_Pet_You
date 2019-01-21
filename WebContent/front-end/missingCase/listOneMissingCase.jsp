@@ -134,7 +134,7 @@
 								<h1>${missingCaseVO.missing_name}</h1>
 							</a>
 							<div class="content-wrap">
-								<p><h3>${missingCaseVO.missing_des}</h3></p>
+								<p><h2>${missingCaseVO.missing_des}</h2></p>
 							</div>
 						</div>
 
@@ -208,7 +208,7 @@
 						<div class="comment-sec-area">
 							<h3 class="text-uppercase" style="color: red; font-weight:bold;">留言區</h3>
 							<br>
-							<h4 class="pb50">我有話想說....</h4>
+							<h4 class="pb50" style="font-weight:bold;">我有話想說....</h4>
 
 
 							<form
