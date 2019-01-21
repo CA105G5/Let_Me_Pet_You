@@ -74,7 +74,7 @@ li>a:hover{
 <body>
 
 <jsp:include page="/index_Header.jsp" flush="true" />
-		<div class="row d-flex justify-content-center" style="background-image: url(http://www.savedogs.org/upload/Masthead/r/rw4cztmo87qqjof8mm5wovypicoyu4cl1hx0/main.jpg); height: 250px;width: 1900px;margin-left: 7.5px;margin-right: 0px;">
+		<div class="row d-flex justify-content-center" style="background-image: url(http://www.savedogs.org/upload/Masthead/r/rw4cztmo87qqjof8mm5wovypicoyu4cl1hx0/main.jpg); height: 280px;width: 1900px;margin-left: 7.5px;margin-right: 0px;">
 				<div class="col-md-9 pb-40 header-text text-center" style="margin-top: 100px;">
 				<br><br><br>
 				<h1 class="pb-10"style="color:white;">搶救生命，分秒必爭</h1>

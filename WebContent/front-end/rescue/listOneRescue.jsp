@@ -109,7 +109,7 @@ li>a:hover{
 <body>
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
-		<div class="row d-flex justify-content-center" style="background-image: url(http://www.savedogs.org/upload/Masthead/r/rw4cztmo87qqjof8mm5wovypicoyu4cl1hx0/main.jpg); height: 250px;width: 1900px;margin-left: 7.5px;margin-right: 0px;">
+		<div class="row d-flex justify-content-center" style="background-image: url(http://www.savedogs.org/upload/Masthead/r/rw4cztmo87qqjof8mm5wovypicoyu4cl1hx0/main.jpg); height: 280px;width: 1900px;margin-left: 7.5px;margin-right: 0px;">
 				<div class="col-md-9 pb-40 header-text text-center" style="margin-top: 100px;">
 				<br><br><br>
 				<h1 class="pb-10"style="color:white;">搶救生命，分秒必爭</h1>
@@ -134,12 +134,12 @@ li>a:hover{
 				</div>
 		
 	
-		
+		<div class="col-xs-12 col-sm-8">
 				<!-- Start blog-posts Area -->
 			<section class="blog-posts-area section-gap">
 				<div class="container">
 					<div class="row justify-content-center">
-						<div class="col-sm-8 post-list blog-post-list">
+						<div class="col-sm-11 post-list blog-post-list">
 							<div class="single-post">
 								<img style="width:auto;height:500px;display:block; margin:auto;" class="img-fluid" src="<%=request.getContextPath()%>/back-end/rescue/rescueImg.do?rsc_id=${rescueVO.rsc_id}" alt="">
 								
@@ -241,7 +241,7 @@ li>a:hover{
 
 							</div>																		
 						</div>
-						
+						<div class="col-sm-1"><img id='qrcode' src='#'/></div>
                            
 
 									
@@ -250,7 +250,7 @@ li>a:hover{
 						</div>
 					</div>
 			</section>	
-			
+		</div>
 			<div class="col-xs-12 col-sm-1"></div>
 			</div>
 	</div>
@@ -316,6 +316,9 @@ li>a:hover{
 	
 // })
 
+var text='${rescueVO.rsc_id}';
+
+$("#qrcode").attr("src","http://chart.apis.google.com/chart?cht=qr&chl="+ text +"&chs=120x120");
 
 </script>
 
