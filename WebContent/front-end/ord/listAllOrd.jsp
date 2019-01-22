@@ -37,10 +37,16 @@
 		tab_int = new Integer(tab);
 	}
 	
+	String ntf_src_id = (String)request.getAttribute("ntf_src_id");
+	String ntf_prod_name = (String)request.getAttribute("prod_name");
+	String ntf_dt = (String)request.getAttribute("ntf_dt");
+	
+	
 	System.out.println("updateProdDon.jsp得到從ProdServlet.java傳過來的屬性"+request.getAttribute("Test"));
 	System.out.println("updateProdDon.jsp得到從ProdServlet.java傳過來的請求參數值"+request.getParameter("whichPage"));
 	System.out.println("updateProdDon.jsp得到從ProdServlet.java傳過來的請求參數值"+request.getParameter("prod_id"));
 %>
+
 <jsp:useBean id="ordSvc" scope="page" class="com.ord.model.OrdService" />
 <jsp:useBean id="prodSvc" scope="page" class="com.prod.model.ProdService" />
 		
@@ -268,6 +274,43 @@ bottom: 0px;
 left: 43px;
 }
 
+/* button click動畫 */ 
+.button { 
+  display: inline-block; 
+  padding: 15px 25px; 
+  font-size: 24px; 
+  cursor: pointer; 
+  text-align: center; 
+  text-decoration: none; 
+  outline: none; 
+  color: #fff; 
+  background-color: #4CAF50; 
+  border: none; 
+  border-radius: 15px; 
+  box-shadow: 0 9px #999; 
+} 
+	
+.button:hover {background-color: #3e8e41}
+	
+.button:active { 
+background-color: #3e8e41; 
+box-shadow: 0 5px #666; 
+transform: translateY(4px); 
+} 
+
+html {
+    overflow-x: scroll; 
+    overflow-y: scroll;
+  }
+  
+li>a{
+	color:black;
+}
+li>a:hover{
+	text-decoration:none;
+	color:red;
+}
+
 
 
 </style>
@@ -275,6 +318,10 @@ left: 43px;
 <body>
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
+	
+	<img src="<%=request.getContextPath()%>/front-end/ord/member.jpg" style="width:1520px">
+<%-- 	<img src="<%=request.getContextPath()%>/front-end/ord/member2.jpg" style="width:1500px"> --%>
+<%-- 	<img src="<%=request.getContextPath()%>/front-end/ord/banner4.jpg" style="width:1500px"> --%>
 	
 <!-- 	<div class="container"> -->
 <!-- 			<div class="row"> -->
@@ -293,24 +340,24 @@ left: 43px;
 <!-- 		</div> -->
 <!-- 	</div> -->
 
-	<section class="training-area section-gap">
-		<div class="container">
-			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
+	<section class="training-area">
+		<div class="container-fluid">
+			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 100px; bottom: auto;">
 				<div class="row">
-					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;">
-						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
-							<h3>我的訂單</h3>
-							<hr>
-							<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp">我的收貨管理</a></h5>
-							<hr>
-							<h5><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd_Ship.jsp">我的出貨管理</a></h5>
-							<hr>
+					<div class="col-xs-12 col-sm-2 sidebar" style="margin-left:40px; margin-top: 50px">
+						<div class="single-widget category-widget" style="padding-top:0px;">
+							<h2 class="title" style="margin-bottom:10px;padding-top:30px;margin-top:0px">我的訂單</h2>
+								<ul>
+									<li><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp" class="justify-content-between align-items-center d-flex"><h4>我的收貨管理</h4></a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd_Ship.jsp" class="justify-content-between align-items-center d-flex"><h4>我的出貨管理</h4></a></li>
+						
+								</ul>
 						</div>
-					</div> <!-- position: fixed -->
+					</div>
 					
-					<div class="col-xs-12 col-sm-10">
+					<div class="col-xs-12 col-sm-8" style="margin-left:40px; margin-top: 50px; margin-bottom: 100px;">
 						<div class="row">
-							<div class="page-header">
+							<div class="">
 							<%-- 錯誤表列 --%>
 								<c:if test="${not empty errorMsgs}">
 									<div>
@@ -352,7 +399,7 @@ left: 43px;
 									        <div role="tabpanel" class="tab-pane active" id="tab1">
 												<table id="table1" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
-														<tr class="success">
+														<tr class="" style="background-color:#e6efb3">
 <!-- 															<th style="width: 30px">序號</th> -->
 															<th width="100px">訂單編號</th>
 															<th width="100px">照片</th>
@@ -370,27 +417,70 @@ left: 43px;
 														<c:forEach var="ordItemVO" items="${ordItemlist}">
 															<c:if test="${ordItemVO.ord_item_rc_status==null && ordItemVO.ord_item_rt_status==null}" var="condition" scope="page">
 																<% no++; %>
-																<tr>
+																<tr id="tr_ntf<%= no %>">
 <%-- 																	<td><%=no %></td> --%>
 <%-- 																	<td style=" margin-bottom: auto">${ordItemVO.ord_id}</td> --%>
 																	<!--改成modal彈跳視窗 -->
 <%-- 																	<td><A href="<%=request.getContextPath()%>/ordItem/ordItem.do?prod_id=${ordItemVO.prod_id}&ord_id=${ordItemVO.ord_id}&action=getOneModal_For_Detail">${ordItemVO.ord_id}</a></td> --%>
-																	<td><input type="submit" value="${ordItemVO.ord_id}" id="ord_detail" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#detail_modal_c<%= no %>"}></td>
+																	<td id="tr_ord_id<%= no %>"><input type="submit" value="${ordItemVO.ord_id}" id="ord_detail" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#detail_modal_c<%= no %>"}></td>
 																	<!--改成modal彈跳視窗 -->
 																	<td style=" margin-bottom: auto"><img class="img-fluid" src="<%=request.getContextPath()%>/util/PicReader?prod_id=${ordItemVO.prod_id}" alt="" width="50px" style="margin-bottom: auto"></td>
-																	<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${ordItemVO.prod_id}">${prodSvc.getOneProd(ordItemVO.prod_id).prod_name}</a></td>
+																	<td style=" margin-bottom: auto" id="tr_prod_name<%= no %>"><a href="<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=${ordItemVO.prod_id}">${prodSvc.getOneProd(ordItemVO.prod_id).prod_name}</a></td>
 																	<td style=" margin-bottom: auto">${prodSvc.getOneProd(ordItemVO.prod_id).prod_price}</td>
 																	<td style=" margin-bottom: auto">${ordItemVO.ord_item_qty}</td>
 																	<td style=" margin-bottom: auto"><fmt:formatDate value="${ordSvc.getOneOrd(ordItemVO.ord_id).ord_date}" pattern="yyyy-MM-dd"/></td>
 																	<td style=" margin-bottom: auto">
 <%-- 																		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ordItem/ordItem.do" style="text-align: center; margin-bottom: auto"> --%>
-																		<input type="button" value="${ordItemVO.ord_item_sp_status==null? '尚未出貨': '確認收貨'} " id='rc_confirm<%= no %>' ${ordItemVO.ord_item_sp_status==null? "disabled": ""}>
+																		<input type="button" value="${ordItemVO.ord_item_sp_status==null? '尚未出貨': '確認收貨'} " id='rc_confirm<%= no %>' ${ordItemVO.ord_item_sp_status==null? "disabled": ""} class="btn btn-outline-info mb-1">
 <%-- 																	<input type="hidden" name="whichPage"  value="<%=whichPage%>"> --%>
 																		<input type="hidden" name="prod_id"  value="${ordItemVO.prod_id}">
 																		<input type="hidden" name="ord_id"  value="${ordItemVO.ord_id}">
 																		<input type="hidden" name="tab"  value="1">
 																		<input type="hidden" name="action"	value="getOne_For_Receive_Update">
 <!-- 																		</FORM> -->
+
+
+
+<!-- 通知要顯示出哪一筆 -->
+<script type="text/javascript">
+	
+// 	$(function(){
+		var $ntf_dt = '${ntf_dt}';
+		var $tr_ord_id = $("#tr_ord_id<%= no %>").children();
+		var $tr_prod_name = $("#tr_prod_name<%= no %>").children();
+		console.log("$ntf_dt===" +$ntf_dt);
+		console.log("$tr_ord_id===" +$tr_ord_id.val());
+		console.log("$tr_prod_name===" +$tr_prod_name.text());
+		
+		console.log("${ord_id}===" + '${ord_id}');
+		console.log("${prod_name}===" + '${prod_name}');
+		
+		if($ntf_dt.indexOf("請盡快出貨")){
+			
+			console.log("請盡快出貨===")
+				 
+			$(".nav-tabs li").attr("class","");
+			$(".nav-tabs li").eq(0).attr("class","active");
+		}
+		console.log("訂單編號===" + '${ord_id}');
+		console.log("訂單編號===" + $tr_ord_id.val());
+		console.log('${ord_id}'== $tr_ord_id.val());
+		console.log("商品名稱===" + '${prod_name}');
+		console.log("商品名稱===" + $tr_prod_name.text());
+		console.log('${prod_name}'== $tr_prod_name.text());
+					
+		if('${ord_id}'== $tr_ord_id.val() && '${prod_name}'== $tr_prod_name.text()){
+				 
+			console.log("ntf_src_id==="+ '${ntf_src_id}');
+			console.log("ntf_prod_name="+ '${ntf_prod_name}');
+					
+			$("#tr_ntf<%= no %>").css("background-color","#c0ebee");
+					
+		}	
+// 	});
+</script>
+
+
 
 
 <script>
@@ -494,7 +584,8 @@ left: 43px;
 <!--  		    			<br>  -->
  		    		</div> 
  		    		<div id="preview<%= no %>"></div> 
- 		    		<input type="submit" value="送出" id="submit<%= no %>">
+<%--  		    		<input type="submit" value="送出" id="submit<%= no %>"> --%>
+ 		    		<input type="button" value="提交" class="button" id="submit<%=no %>">
  		    		<input type="hidden" name="prod_id" id="prod<%= no %>"  value="${ordItemVO.prod_id}">
 					<input type="hidden" name="ord_id" id="ord<%= no %>"  value="${ordItemVO.ord_id}">
 					<input type="hidden" name="img"  value="">
@@ -503,7 +594,7 @@ left: 43px;
 								                        
 								                        </div>
 								                        <div class="modal-footer">
-								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+<!-- 								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button> -->
 <!-- 								                            <button type="button" class="btn btn-primary">Confirm</button> -->
 								                        </div>
 								                    </div>
@@ -772,7 +863,7 @@ left: 43px;
 <%-- 										    <%@ include file="page1.file" %>  --%>
 												<table id="table2" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
-														<tr class="success">
+														<tr class="" style="background-color:#e6efb3">
 <!-- 															<th style="width: 30px">序號</th> -->
 															<th width="100px">訂單編號</th>
 															<th width="100px">照片</th>
@@ -969,7 +1060,7 @@ left: 43px;
 <%-- 										    <%@ include file="page1.file" %>  --%>
 												<table id="table3" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
-														<tr class="success">
+														<tr class="" style="background-color:#e6efb3">
 <!-- 															<th style="width: 30px">序號</th> -->
 															<th width="100px">訂單編號</th>
 															<th width="100px">照片</th>

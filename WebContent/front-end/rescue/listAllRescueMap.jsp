@@ -64,14 +64,15 @@ div {
 			<div class="justify-content-center" >
 				<div align="center"><h1>今日救援地圖</h1></div>
 				
-				<div ><img id="tips" style="width:60px;height:60px;cursor: pointer;"class="img img-fluid" src="<%=request.getContextPath()%>/images/lightoff.png" title="提示"></div>
+				<div style="height:81px" ><img id="tips" style="width:60px;height:60px;cursor: pointer;"class="img img-fluid" src="<%=request.getContextPath()%>/images/lightoff.png" title="提示"></div>
 	    		<br>
 	    		<div id="map"></div>
-    
+   
     		</div>
     		<div style="display:none">
     		<form>
     		<c:forEach var="rescueVO" items="${allRescueList}">
+    		<c:if test="${rescueVO.rsc_sta !='下架'}" var="condition" scope="page">
     		<div class="rsc" style="display:none" id="${rescueVO.rsc_id}">
     		<input type="hidden" name="rsc_name" value="${rescueVO.rsc_name}">
     		<input type="hidden" name="rsc_lat" value="${rescueVO.rsc_lat}">
@@ -80,6 +81,7 @@ div {
     		<input type="hidden" name="rsc_btime" value="<fmt:formatDate value="${rescueVO.rsc_btime}" type="both"/>">
     		<input type="hidden" name="rsc_sta" value="${rescueVO.rsc_sta}">
     		</div>
+    		</c:if>
     		</c:forEach>
     		</form>
     		</div>

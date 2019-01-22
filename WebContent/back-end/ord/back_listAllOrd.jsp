@@ -53,6 +53,11 @@
     
 <!--     <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
     
+
+
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
+
 <!-- 若要使用fai那版外掛icon，要import CDN，快捷鍵facdn=>tab -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -63,8 +68,6 @@
 	integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
 	crossorigin="anonymous">
 
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
 
     
@@ -80,6 +83,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <!-- w3 CSS tabs -->
+
 
     
 <!-- datatable -->
@@ -342,6 +346,12 @@ box-shadow: 0 5px #666;
 transform: translateY(4px); 
 } 
 
+html {
+    overflow-x: scroll; 
+    overflow-y: scroll;
+  }
+
+
 
 
     </style>
@@ -352,7 +362,7 @@ transform: translateY(4px);
 	<jsp:include page="/back-end/manager/back_end_index_header.jsp" flush="true" />
 	
  <!-- Right Panel -->
-    <div id="right-panel" class="right-panel">
+    <div id="right-panel" class="right-panel" style="margin-top:-30px">
 <!--         Header -->
 <!--         <header id="header" class="header"> -->
 <!--         </header> -->
@@ -413,7 +423,7 @@ transform: translateY(4px);
     <table id="bootstrap-data-table2" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
 <!-- 														<tr class="success"> -->
-														<tr>
+														<tr class="">
 															<th width="100px">訂單編號</th>
 															<th width="100px">照片</th>
 															<th width="100px">商品名稱</th>
@@ -795,7 +805,7 @@ transform: translateY(4px);
     <p> </p> 
     <table id="bootstrap-data-table1" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
-														<tr class="success">
+														<tr class="">
 															<th width="100px">訂單編號</th>
 															<th width="100px">照片</th>
 															<th width="100px">商品名稱</th>
@@ -982,7 +992,6 @@ transform: translateY(4px);
 														</c:forEach>
 													</tbody>
 												</table>
-  </div>
 
 </div>
                             
@@ -1005,6 +1014,7 @@ transform: translateY(4px);
                 </div>
             </div><!-- .animated -->
         </div><!-- .content -->   
+        </div>
         <!-- /.content -->
         <div class="clearfix"></div>
     </div>

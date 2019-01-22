@@ -245,74 +245,25 @@ div {
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
 	
+	<img src="<%=request.getContextPath()%>/front-end/product/banner5.png" style="width:1600px; height:300px">
+	
 	<!-- BackToTop Button -->
 	<a href="javascript:void(0);" id="scroll" title="Scroll to Top" style="display: none;">Top<span></span></a>
 
-	<!-- ++++++++++++ Page Content Goes Here ++++++++++++ -->
-	
-	
-<!-- 	<div class="container"> -->
-<!-- 			<div class="row"> -->
-
-			
-<!-- 			<!-- 左側邊list-group --> 
-<!-- 			<div class="col-xs-12 col-sm-3"> -->
-<!-- 				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto"> -->
-<!-- 					<h3>商品分類</h3> -->
-<!-- 					<hr> -->
-<%-- 					    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" name="form1"> --%>
-<!-- 					        <h5><b>選擇動物:</b></h5> -->
-<!-- 						        <label><input type="checkbox" name="prod_ani_type_id" value="貓"> 貓</label>　　 -->
-<!-- 								<label><input type="checkbox" name="prod_ani_type_id" value="狗"> 狗</label>　<br> -->
-<!-- 								<label><input type="checkbox" name="prod_ani_type_id" value="兔"> 兔</label>　　 -->
-<!-- 								<label><input type="checkbox" name="prod_ani_type_id" value="飛禽"> 飛禽</label>　<br> -->
-<!-- 								<label><input type="checkbox" name="prod_ani_type_id" value="其他"> 其他</label>　<br> -->
-<!-- 					        <hr> -->
-<!-- 					       	<h5><b>選擇商品種類:</b></h5> -->
-<!-- 					       		<label><input type="checkbox" name="prod_type_id" value="食" > 食</label>　　 -->
-<!-- 								<label><input type="checkbox" name="prod_type_id" value="衣" > 衣</label>　<br> -->
-<!-- 								<label><input type="checkbox" name="prod_type_id" value="住" > 住</label>　　 -->
-<!-- 								<label><input type="checkbox" name="prod_type_id" value="行" > 行</label>　<br> -->
-<!-- 								<label><input type="checkbox" name="prod_type_id" value="育" > 育</label>　　 -->
-<!-- 								<label><input type="checkbox" name="prod_type_id" value="樂" > 樂</label>　<br> -->
-<%-- <%-- 					        <%= Arrays.asList(prod_type_id).contains("樂")? "checked":"" %> --%> 
-					        
-<!-- 					        <hr> -->
-<!-- 					       	<h5><b>選擇價格區間:</b></h5> -->
-<%-- 					       		<label><input type="radio" name="prod_price" value="0 and 50" <%= "0 and 50".equals(prod_price)? "checked":"" %> > $ 50以下</label>　<br> --%>
-<%-- 								<label><input type="radio" name="prod_price" value="50 and 100" <%= "50 and 100".equals(prod_price)? "checked":"" %>> $ 50~100</label>　<br> --%>
-<%-- 								<label><input type="radio" name="prod_price" value="101 and 200" <%= "101 and 200".equals(prod_price)? "checked":"" %>> $ 101~200</label>　<br> --%>
-<%-- 								<label><input type="radio" name="prod_price" value="200" <%= "200".equals(prod_price)? "checked":"" %>> $ 200以上</label>　<br> --%>
-<!-- 							<br> -->
-<!-- 							<input type="submit" value="查詢"> -->
-<!--         					<input type="hidden" name="action" value="listAll_ByCompositeQuery"> -->
-					    
-<!-- 					     </FORM> -->
-
-<!-- 				</div> -->
-<!-- 			</div> -->
-			
-			
-			
-<!-- 		</div> -->
-<!-- 	</div> -->
-	
-	
 
 	<section class="training-area">
 		<div class="container-fluid">
-<!-- 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;"> -->
 				<div class="row">
-					<div class="col-xs-3 offset-xs-1 col-md-2 offset-md-1 " style="top: 180px; bottom: auto;">
-						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 110px; position: fixed; bottom: auto"> 
+					<div class="col-xs-3 offset-xs-1 col-md-2 offset-md-1" style="padding-top: 30px">
+					<div id="sider" class="n-browse-nav m-sticky-on" style="top: 110px; bottom: auto"> 
 					<h3>分類查詢</h3>
 <!-- 					<hr> -->
 						 
 					    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" name="form1">
 					    <hr>
-					         <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
-						    	<p style="height:16px">動物</p>
-						 	 </div>
+<!-- 					         <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif"> -->
+<!-- 						    	<p style="height:16px">動物</p> -->
+<!-- 						 	 </div> -->
 							 	 <label class="check_ctn" style="display:inline; font-size:16px">貓
 							 	 	<input type="checkbox" name="prod_ani_type_id" value="貓">
 								  		<span class="checkmark"></span>
@@ -341,9 +292,10 @@ div {
 								 </label>
 								 <br>
 <!-- 								 <br> -->
-							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
-						    	<p style="height:16px">商品種類</p>
-						 	 </div>
+<!-- 							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif"> -->
+<!-- 						    	<p style="height:16px">商品種類</p> -->
+<!-- 						 	 </div> -->
+								<hr>
 
 
 
@@ -379,11 +331,11 @@ div {
 <!-- 								<label><input type="checkbox" name="prod_type_id" value="樂" > 樂</label>　<br> -->
 <%-- 					        <%= Arrays.asList(prod_type_id).contains("樂")? "checked":"" %>  --%>
 					        
-<!--  					        <hr>  -->
+ 					        <hr> 
 <!--  					       	<h5><b style="background-color:bisque; color:black">價格區間</b></h5>  -->
-							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
-						    	<p style="height:16px">價格區間</p>
-						 	 </div>
+<!-- 							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif"> -->
+<!-- 						    	<p style="height:16px">價格區間</p> -->
+<!-- 						 	 </div> -->
 <%-- 					       		<label><input type="radio" name="prod_price" value="0 and 50" <%= "0 and 50".equals(prod_price)? "checked":"" %> > $ 50以下</label>　<br> --%>
 <%-- 								<label><input type="radio" name="prod_price" value="50 and 100" <%= "50 and 100".equals(prod_price)? "checked":"" %>> $ 50~100</label>　<br> --%>
 <%-- 								<label><input type="radio" name="prod_price" value="101 and 200" <%= "101 and 200".equals(prod_price)? "checked":"" %>> $ 101~200</label>　<br> --%>
@@ -422,7 +374,53 @@ div {
 
 				</div>
 					</div> <!-- position: fixed -->
-					<div class="col-xs-7 col-sm-8" style="top: 15px; bottom: auto;">
+					<br>
+					<div class="col-xs-7 col-sm-8" style="padding-top: 50px; bottom: auto;">
+						<ol class="breadcrumb">
+							<li>
+								<a href="<%=request.getContextPath()%>/front-end/product/listAllProd.jsp">商城</a>
+							</li>
+							<li class="active">
+								分類查詢
+							</li>
+							<li class="active">
+							<% int c=0;
+							   if (prod_ani_type_id!=null){
+							       for (int i=0; i<prod_ani_type_id.length; i++){ 
+								       if(c!=0){ %>
+								    	 +
+								       <% }
+							    	   c++;
+							           System.out.println("prod_ani_type_id=="+prod_ani_type_id[i]);%>
+							           <%=prod_ani_type_id[i]  %>
+							<% };%>
+							<% };%>
+							<% if (prod_type_id!=null){
+							       for (int i=0; i<prod_type_id.length; i++){ 
+							    	   if(c!=0){ %>
+								    	 +
+								       <% }
+							    	   c++;
+							           System.out.println("prod_type_id=="+prod_type_id[i]);%>
+							           <%=prod_type_id[i]  %>
+							<% };%>
+							<% };%>
+							<% if (prod_price!=null){
+								   if(c!=0){ %>
+							    	 +
+							       <% }
+						    	   c++;
+							       System.out.println("prod_price=="+prod_price);%>
+							       <% if(prod_price.equals("0 and 50")){ %>
+							              $50以下
+							       <% } else {%>
+							       		  $50~100
+							       <% } %>
+							<% };%>
+							</li>
+							
+						</ol>
+						<br>
 						<div class="row">
 						<%@ include file="/front-end/product/pages/page1_ByCompositeQuery.file" %> 
 							<c:forEach var="prodVO" items="${listAllProd_ByCompositeQuery}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -546,7 +544,7 @@ div {
     var host = window.location.host;
     var path = window.location.pathname;
     var webCtx = path.substring(0, path.indexOf('/', 1));
-    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+    var endPointURL = "wss://" + window.location.host + webCtx + MyPoint;
     console.log("endPointURL="+endPointURL);
     
 	var webSocket;

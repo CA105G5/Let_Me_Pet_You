@@ -1,6 +1,6 @@
 <%@page import="java.util.*"%>
 <%@page import="com.rescue.model.*"%>
-<%@page import="com.rescuing.model.*"%>
+<%@page import="com.rscRt.model.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,14 +8,14 @@
 	 
 	
 <%
-List<RescuingVO> rescuingReviewList;
-rescuingReviewList = (List<RescuingVO>) request.getAttribute("rescuingReviewList");
-if (rescuingReviewList==null){
-	RescuingService rescuingSvc = new RescuingService(); 
-	rescuingReviewList = rescuingSvc.getAll();
-	pageContext.setAttribute("rescuingReviewList", rescuingReviewList);
+List<RscRtVO> rscRtReviewList;
+rscRtReviewList = (List<RscRtVO>) request.getAttribute("rscRtReviewList");
+if (rscRtReviewList==null){
+	RscRtService rscRtSvc = new RscRtService(); 
+	rscRtReviewList = rscRtSvc.getAll();
+	pageContext.setAttribute("rscRtReviewList", rscRtReviewList);
 	request.setAttribute("Test", "Test");
-	System.out.println("rescuingReviewList= " + rescuingReviewList);
+	System.out.println("rscRtReviewList= " + rscRtReviewList);
 }
 
 %>	
@@ -139,6 +139,7 @@ if (rescuingReviewList==null){
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">待審核救援案例檢舉</strong>
+                                
                             </div>
                             <div class="card-body">
                                 <table style="text-align:center" id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -146,48 +147,48 @@ if (rescuingReviewList==null){
                                         <tr>
                                         	<th style="width: 30px">序號</th>
                                             <th>救援案例編號</th>
-                                            <th>完成案例送審會員</th>
-                                            <th>完成送審描述</th>
-                                            <th>完成救援時間</th>
+                                            <th>檢舉會員</th>
+                                            <th>檢舉原因</th>
+                                            <th>檢舉時間</th>
                                             <th>審核</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% int no=0;%>
-										<c:forEach var="rescuingVO" items="${rescuingReviewList}">
-										<c:if test="${rescuingVO.rscing_sta =='完成救援送審中' and rescuingVO.rscing_cdes != null}" var="condition" scope="page">
+										<c:forEach var="rscRtVO" items="${rscRtReviewList}">
+										<c:if test="${rscRtVO.rsc_rt_status =='未審核'}" var="condition" scope="page">
 												<% no++; %>
 												<tr>
 													<td><%=no %></td>
-													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rescuingVO.rsc_id}">${rescuingVO.rsc_id}</a></td>
-													<td style=" margin-bottom: auto">${rescuingVO.rscing_ptcp}<br>暱稱：${memSvc.getOneMem(rescuingVO.rscing_ptcp).memb_nick}</td>
+													<td style=" margin-bottom: auto"><a href="<%=request.getContextPath()%>/front-end/rescue/rescue.do?action=getOne_For_Display&rsc_id=${rscRtVO.rsc_id}" target="_blank">${rscRtVO.rsc_id}</a></td>
+													<td style=" margin-bottom: auto">${rscRtVO.memb_id}<br>暱稱：${memSvc.getOneMem(rscRtVO.memb_id).memb_nick}</td>
 													<td style=" margin-bottom: auto">
-														<button type="button" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#${rescuingVO.rsc_id}">完成報告</button>
+														<button type="button" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#${rscRtVO.rsc_id}">檢舉原因</button>
 													</td>
-													<td style=" margin-bottom: auto"><fmt:formatDate value="${rescuingVO.rscing_ctime}" type="both" /></td>
+													<td style=" margin-bottom: auto"><fmt:formatDate value="${rscRtVO.rsc_rt_time}" type="both" /></td>
 													<td style=" margin-bottom: auto">
 											
 														<select name="bootstrap-data-table_length"
 															aria-controls="bootstrap-data-table"
 															class="form-control form-control-sm status">
 															<option value="">請選擇</option>
-															<option value="完成救援">通過</option>
+															<option value="通過">通過</option>
 															<option value="不通過">不通過</option>
 														</select>
-														<div style="display:none">${rescuingVO.rsc_id}</div>
+														<div style="display:none">${rscRtVO.rsc_rt_id}</div>
 													</td>
 												</tr>
-									       <div class="modal fade" id="${rescuingVO.rsc_id}" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+									       <div class="modal fade" id="${rscRtVO.rsc_id}" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
 								                <div class="modal-dialog modal-lg" role="document">
 								                    <div class="modal-content">
 								                        <div class="modal-header">
-								                            <h5 class="modal-title" id="largeModalLabel">完成報告</h5>
+								                            <h5 class="modal-title" id="largeModalLabel">檢舉原因</h5>
 								                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								                                <span aria-hidden="true">&times;</span>
 								                            </button>
 								                        </div>
 								                        <div class="modal-body">
-								                            ${rescuingVO.rscing_cdes}
+								                            ${rscRtVO.rsc_rt_comm}
 								                        </div>
 								                        <div class="modal-footer">
 								                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
@@ -286,7 +287,7 @@ if (rescuingReviewList==null){
         		 console.log("$this.val()=" + $this.val());
         		 console.log($this.next().text());
         		 
-        		 if($this.val()=='完成救援'){
+        		 if($this.val()=='通過'){
         			 console.log("yyyyyyyy");
         			 
             		swal({
@@ -300,14 +301,14 @@ if (rescuingReviewList==null){
        				  
 	       				  $.ajax({
 	       	     		     type: "POST",
-	        	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do", 
-	       	     			 data:{"action":"doneRscPass","rsc_id":$this.next().text()},
+	        	     			 url: "<%=request.getContextPath()%>/back-end/rscRt/RscRtAjax.do", 
+	       	     			 data:{"action":"rscRtPass","rsc_rt_id":$this.next().text()},
 	       	     			 datatype:"json",
 	       	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
 	       	     			 success:function(data){
 	       	     				swal({
 		    				    	     title: "完成!",
-		    				    	     text: "已發通知給會員!",
+		    				    	     text: "案例已下架!",
 		    				    	     type: "success",
 		    				    	    
 		    				    	}).then(
@@ -322,7 +323,7 @@ if (rescuingReviewList==null){
        			  	 }
        			}, function(dismiss) { // dismiss can be "cancel" | "overlay" | "esc" | "cancel" | "timer"
 	            		swal("取消", "取消審核", "error");
-		        	}).catch(swal.noop);
+       			}).catch(swal.noop);
 
         			 	 
         		 }else{
@@ -347,8 +348,8 @@ if (rescuingReviewList==null){
 								
           				  $.ajax({
           	     		     type: "POST",
-           	     			 url: "<%=request.getContextPath()%>/back-end/rescuing/RescuingAjax.do", 
-          	     			 data:{"action":"doneRscNoPass","rsc_id":$this.next().text(),"rscing_rv_des":result},
+           	     			 url: "<%=request.getContextPath()%>/back-end/rscRt/RscRtAjax.do", 
+          	     			 data:{"action":"RscRtNoPass","rsc_rt_id":$this.next().text(),"rsc_rv_des":result},
           	     			 datatype:"json",
           	     			 error: function(){alert("AJAX-grade發生錯誤囉!")},
           	     			 success:function(data){

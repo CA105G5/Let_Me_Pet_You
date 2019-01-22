@@ -255,7 +255,7 @@ html {
 <!--                 </div> -->
 <!--             </div> -->
 <!--         </div> -->
-        <div class="content" style="height: 200%">
+        <div class="content" style="height: 1800px">
             <div class="animated fadeIn">
                 <div class="row">
 
@@ -817,7 +817,7 @@ html {
     var host_res = window.location.host;
     var path_res = window.location.pathname;
     var webCtx_res = path_res.substring(0, path_res.indexOf('/', 1));
-    var endPointURL_res = "ws://" + window.location.host + webCtx_res + MyPoint_res;
+    var endPointURL_res = "wss://" + window.location.host + webCtx_res + MyPoint_res;
     console.log("endPointURL_res"+endPointURL_res);
     
 	var webSocket_res;
@@ -890,7 +890,7 @@ html {
     var host = window.location.host;
     var path = window.location.pathname;
     var webCtx = path.substring(0, path.indexOf('/', 1));
-    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+    var endPointURL = "wss://" + window.location.host + webCtx + MyPoint;
     
 	var statusOutput = document.getElementById("statusOutput");
 	var webSocket;

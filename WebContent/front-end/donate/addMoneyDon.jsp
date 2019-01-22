@@ -23,7 +23,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Horse Club</title>
+<title>愛心捐贈</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -135,7 +136,7 @@ dl {
 
 .tabPanel-widget label:nth-child(5),
 .tabPanel-widget h2:nth-child(7) {
-  left: 21.4em;
+  left: 21.85em;
 }
 
 .tabPanel-widget label:nth-child(9),
@@ -282,6 +283,14 @@ label{margin-left: 20px;}
 #datepicker{width:180px; margin: 0 20px 20px 20px;}
 #datepicker > span:hover{cursor: pointer;}
 
+li>a{
+	color:black;
+}
+li>a:hover{
+	text-decoration:none;
+	color:red;
+}
+
 </style>
 </head>
 <body>
@@ -290,41 +299,26 @@ label{margin-left: 20px;}
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
 	
-<!-- 	<div class="container"> -->
-<!-- 		<div class="row"> -->
-
-<!-- 			<!-- 左側邊list-group --> 
-<!-- 			<div class="col-xs-12 col-sm-3"> -->
-<!-- 				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto"> -->
-<!-- 					<h3>愛心捐贈</h3> -->
-<!-- 					<hr> -->
-<%-- 					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心捐款</a></h5> --%>
-<!-- 					<hr> -->
-<%-- 					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></h5> --%>
-<!-- 					<hr> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
+	<img src="banner10.jpg" style="width:1500px; height:300px">
 	
-<!-- 	<section class="training-area section-gap"> -->
-		<div class="container">
-<!-- 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 30px; bottom: auto;"> -->
+		<div class="container-fluid" style="padding-top: 50px">
 				<div class="row">
-					<div class="col-lg-3 cl-md-3" style="top: 0px; bottom: auto;">
-						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
-							<h3>愛心捐贈</h3>
-							<hr>
-							<h5><a href="<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp">愛心捐款</a></h5>
-							<hr>
-							<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></h5>
-							<hr>
-						</div>
-						<div style="margin-top: 250px;position: fixed">
+					<div class="col-xs-12 col-sm-1"></div>
+					<div class="col-xs-12 col-sm-2 sidebar" style="top: 0px; bottom: auto;">
+					<div class="single-widget category-widget" style="padding-top:0px;">
+						<h2 class="title" style="margin-bottom:10px;padding-top:30px;margin-top:0px">愛心捐贈</h2>
+							<ul>
+								<li><a href="<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp" class="justify-content-between align-items-center d-flex"><h4>愛心捐款</h4></a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp" class="justify-content-between align-items-center d-flex"><h4>愛心商品捐贈</h4></a></li>
+					
+							</ul>
+						<div style="padding-top: 20px;padding-left: 20px;">
                     		<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">	
                 		</div>
-					</div> <!-- position: fixed -->
-					<div class="col-xs-12 col-sm-9">
+					</div>
+					</div>
+					<div class="col-xs-12 col-sm-1"></div>
+					<div class="col-xs-12 col-sm-7">
 						<div class="row">
 							<h1 class="pb-10">愛心捐款</h1>
 							<%-- 錯誤表列 --%>
@@ -343,17 +337,34 @@ label{margin-left: 20px;}
 							<br>
 							
 							<div class="tabPanel-widget" style="width:1000px;" >
-								<label for="tab-1" tabindex="0" style="right: 0px;margin-right: 0px; margin-left: 0px;"></label>
+								<label for="tab-1" tabindex="0" style="width: 437.5px;right: 10px;margin-right: 0px; margin-left: 0px;"></label>
 								<input id="tab-1" type="radio" name="tabs" checked="true" aria-hidden="true" style="height:50px">
 								<h2 style="padding-top:12px"><b style="color:black">轉帳捐款</b></h2>
 								<div>
-									<h4>
-										收款帳號資訊: <br>
-										銀行代碼：中華郵政（700）中壢分行<br>
-										銀行戶名：浪我陪你動物救援協會<br>
-										銀行帳號：1234567-7654321<br>
-										可臨櫃填寫匯款單，也可使用ATM轉帳，轉帳後請填寫下表捐款資訊。<br>
-									</h4>
+<!-- 									<h4> -->
+<!-- 										收款帳號資訊: <br> -->
+<!-- 										銀行代碼：中華郵政（700）中壢分行<br> -->
+<!-- 										銀行戶名：浪我陪你動物救援協會<br> -->
+<!-- 										銀行帳號：1234567-7654321<br> -->
+<!-- 										可臨櫃填寫匯款單，也可使用ATM轉帳，轉帳後請填寫下表捐款資訊。<br> -->
+<!-- 									</h4> -->
+<!-- 									<br> -->
+									<div class="w3-card-4" style="background-color: white">
+										<img src="" alt="">
+										<div class="w3-container" style="background-color: white">
+											<p>
+											<h4>收款帳號資訊</h4>
+											<hr>
+											銀行代碼：中華郵政（700）中壢分行<br>
+											銀行戶名：浪我陪你動物救援協會<br>
+											銀行帳號：1234567-7654321<br>
+											<br>
+											*可臨櫃填寫匯款單，也可使用ATM轉帳，轉帳後請填寫下表捐款資訊。<br>
+											<br>
+											</p>
+										</div>
+									</div>
+									<br>
 									<br>
 <%-- 									<form METHOD="post" ACTION="<%=request.getContextPath()%>/donate/donate.do" enctype="multipart/form-data"> --%>
 				                        <div class="card">
@@ -441,7 +452,7 @@ label{margin-left: 20px;}
 								
 							    </div>
 							    
-							    <label for="tab-2" tabindex="0" style="width: 427.5px;right: 0px;border-right-width: 0px;margin-left: 0px;left: 500;left: 427.5px;"></label>
+							    <label for="tab-2" tabindex="0" style="width: 437.5px;right: 0px;border-right-width: 0px;margin-left: 0px;left: 437.5px;"></label>
 							    <input id="tab-2" type="radio" name="tabs" aria-hidden="true" checked="true">
 							    <h2 style="padding-top:12px"><b style="color:black">信用卡捐款</b></h2>
 							    <div>
