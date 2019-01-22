@@ -72,7 +72,7 @@ public class missingMsgReportServlet extends HttpServlet {
 				missingMsgReportVO = missingMsgReportSvc.addMissingMsgReport(missing_msg_id, memb_id,
 						missing_msg_rt_cont, missing_msg_rt_sta, missing_msg_rt_time);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "http://localhost:8081/CA105G5/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id="
+				String url = req.getContextPath()+"/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id="
 						+ missing_case_id;
 				res.sendRedirect(url); // 新增成功後轉交回該檢舉案例
 

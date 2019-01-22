@@ -25,6 +25,7 @@ public class reportMissingServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		System.out.println("action==="+action);
 
 		if ("insert".equals(action)) {
 
@@ -38,6 +39,7 @@ public class reportMissingServlet extends HttpServlet {
 				String report_missing_cont = req.getParameter("report_missing_cont");
 				String report_missing_sta = req.getParameter("report_missing_sta");
 				java.sql.Timestamp report_missing_time = null;
+				System.out.println("report_missing_cont==="+report_missing_cont);
 
 				if (report_missing_cont == null || report_missing_cont.trim().length() == 0) {
 					errorMsgs.add("請輸入檢舉理由");
@@ -69,7 +71,7 @@ public class reportMissingServlet extends HttpServlet {
 				reportMissingVO = reportMissingSvc.addReportMissing(missing_case_id, memb_id, report_missing_cont,
 						report_missing_sta, report_missing_time);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "http://localhost:8081/CA105G5/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id="
+				String url = req.getContextPath()+"/front-end/missingCase/miss.do?action=getOne_For_Display&missing_case_id="
 						+ missing_case_id;
 				res.sendRedirect(url); // 新增成功後轉交回該檢舉案例
 

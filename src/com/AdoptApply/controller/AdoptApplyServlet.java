@@ -63,7 +63,7 @@ public class AdoptApplyServlet extends HttpServlet {
 				AdoptApplyService adoptApplySvc = new AdoptApplyService();
 				adoptApplyVO = adoptApplySvc.addApply(memb_id, adopt_id, adopt_des);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "http://localhost:8081/CA105G5/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="
+				String url = req.getContextPath()+"/front-end/adopt/adoptionServlet.do?action=getOne_For_Display&adopt_id="
 						+ adopt_id;
 //				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listOneAdopt
 //				successView.forward(req, res);
