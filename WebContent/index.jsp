@@ -43,6 +43,22 @@ System.out.println( "是否登入:"+ (memVO != null));
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		
 <style>
+
+		p {
+			font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
+				monospace;
+		}
+		
+		div {
+			font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
+				monospace;
+		}
+		
+		h1 {
+			font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
+				monospace;
+		}
+		
   table#table-1 {
 	width: 450px;
 	background-color: #CCCCFF;
@@ -281,49 +297,50 @@ System.out.println( "是否登入:"+ (memVO != null));
 	
 
 <%-- 移動照片區 --%>
-<center><h1>官方製作團隊</h1></center>
+<center><h1 style="font-family: Microsoft JhengHei">官方製作團隊</h1></center>
+	<br>
 	<section class="gallery-area">
 				<div class="container-fluid">
 					<div class="row no-padding">
 						<div class="active-gallery">
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="<%=request.getContextPath()%>/front-end/members/images/m1.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m1.jpg" alt="" height="250px" width="250px" style='border-radius: 50%;'>
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="<%=request.getContextPath()%>/front-end/members/images/m2.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m2.jpg" alt="" height="250px" width="250px" style='border-radius: 50%;'>
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="<%=request.getContextPath()%>/front-end/members/images/m3.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m3.jpg" alt="" height="250px" width="250px" style='border-radius: 50%;'>
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="<%=request.getContextPath()%>/front-end/members/images/m4.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m4.jpg" alt="" height="250px" width="250px" style='border-radius: 50%;'>
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="<%=request.getContextPath()%>/front-end/members/images/m5.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/m5.jpg" alt="" height="250px" width="250px" style='border-radius: 50%;'>
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
 							</div>	
 							<div class="item single-gallery">
 							    <div class="thumb">
-							        <img src="<%=request.getContextPath()%>/front-end/members/images/java.jpg" alt="" height="300px">
+							        <img src="<%=request.getContextPath()%>/front-end/members/images/cat_member.PNG" alt="" height="250px" width="250px" style='border-radius: 50%;'>
 							        <div class="align-items-center justify-content-center d-flex">
 							        </div>
 							    </div>
