@@ -263,6 +263,14 @@
     <servlet-name>AndroidRegionServlet</servlet-name>
     <url-pattern>/region/RegionServlet.do</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>AndroidAdoptionServlet</servlet-name>
+    <servlet-class>com.adoption.android.controller.AdoptionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AndroidAdoptionServlet</servlet-name>
+    <url-pattern>/adoption/AdoptionServlet.do</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>DonateServlet</servlet-name>
     <servlet-class>com.donate.controller.DonateServlet</servlet-class>
