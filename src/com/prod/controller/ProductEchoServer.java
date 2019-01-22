@@ -24,7 +24,7 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 
 	
 	@OnMessage
-	public void onMessage(Session userSession, String message) {
+	public void onMessage(Session userSession, String message) { 
 		for (Session session : allSessions) {
 			if (session.isOpen())
 				session.getAsyncRemote().sendText(message);
