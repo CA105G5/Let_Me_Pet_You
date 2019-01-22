@@ -54,7 +54,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <title>我的訂單</title>
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 
