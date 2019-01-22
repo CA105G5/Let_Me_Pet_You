@@ -146,7 +146,7 @@ if (prodReviewList==null){
         }
         #flotPie1 table {
             top: 20px!important;
-            right: -10px!important;
+            right: -10px!important; 
         }
         .chart-container {
             display: table;
