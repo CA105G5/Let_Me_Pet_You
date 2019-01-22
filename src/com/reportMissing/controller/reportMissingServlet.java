@@ -31,7 +31,7 @@ public class reportMissingServlet extends HttpServlet {
 
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-
+ 
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String missing_case_id = req.getParameter("missing_case_id");
