@@ -152,7 +152,7 @@
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
-									<div class="modal-body">
+									<div class="modal-body"> 
 										<form METHOD="post" 
 											ACTION="<%=(membVO == null)
 					? request.getContextPath() + "/front-end/members/login.jsp"
