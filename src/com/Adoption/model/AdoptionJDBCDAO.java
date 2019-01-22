@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.AdoptApply.model.AdoptApplyVO;
 import com.mysql.jdbc.Driver;
+import com.rescue.model.RescueVO;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -33,6 +34,13 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 	
 	private static final String UPDATE_STATUS =
 			"UPDATE ADOPTION SET ADOPT_STATUS='下架' WHERE ADOPT_ID=?";
+	
+	//安卓指令
+	private static final String FIND_PHOTO_BY_RSCID = 
+			"SELECT ADOPT_IMG FROM ADOPTION WHERE ADOPT_ID = ?";
+	private static final String GET_ALL_ADOPTION = 
+			"SELECT * FROM ADOPTION ORDER BY ADOPT_ID";
+
 	
 	
 	public AdoptionJDBCDAO() {
@@ -514,6 +522,112 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 //	
 //		}
 //	
+	@Override
+	public byte[] getImage(String adopt_id) {
+		byte[] picture = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(FIND_PHOTO_BY_RSCID);
+			
+			pstmt.setString(1,adopt_id);
+			rs = pstmt.executeQuery();
+			
+		if (rs.next()) {
+			picture = rs.getBytes(1); 
+		}
+			
+		}catch(ClassNotFoundException ce){
+			throw new RuntimeException("Couldn't load database driver."+ce.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		} return picture;
+	}
+	@Override
+	public List<AdoptionVO> getAllAdoption() {
+		List<AdoptionVO> list = new ArrayList<>();
+		AdoptionVO adoptionVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(GET_ALL_ADOPTION);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				adoptionVO = new AdoptionVO();
+				adoptionVO.setAdopt_id(rs.getString("adopt_id"));
+				adoptionVO.setAdopt_species(rs.getString("adopt_species"));
+				adoptionVO.setAdopt_sponsor(rs.getString("adopt_sponsor"));
+				adoptionVO.setAdopt_status(rs.getString("adopt_status"));
+				adoptionVO.setAdopt_apply_status(rs.getString("adopt_apply_status"));
+				adoptionVO.setAdopt_btime(rs.getTimestamp("adopt_btime"));
+				adoptionVO.setAdopt_etime(rs.getTimestamp("adopt_etime"));
+				adoptionVO.setAdopt_des(rs.getString("adopt_des"));
+				
+				list.add(adoptionVO);
+			} 
+				
+				
+		} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+				
+		} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				
+		} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				} 
+		}
+		return list;
+			
+	}
 	
 	
 }	

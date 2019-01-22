@@ -66,8 +66,6 @@ public class RescueServlet extends HttpServlet {
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
-		
-		
 		if ("getAllRescue".equals(action)) {
 			List<RescueVO> rescueList = rescueDao.getAllRescue();
 			writeText(res,gson.toJson(rescueList));
