@@ -156,7 +156,7 @@
 										<form METHOD="post"
 											ACTION="<%=(membVO == null)
 					? request.getContextPath() + "/front-end/members/login.jsp"
-					: "http://localhost:8081/CA105G5/front-end/missingCase/reportMissing.do"%>">
+					: request.getContextPath()+"/front-end/missingCase/reportMissing.do"%>">
 											<div class="input-group mb-3">
 												<input type="text" class="form-control"
 													name="report_missing_cont" aria-label="Default"
