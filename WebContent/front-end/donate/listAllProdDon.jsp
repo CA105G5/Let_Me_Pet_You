@@ -40,7 +40,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Horse Club</title>
+<title>我的愛心商品捐贈紀錄</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">

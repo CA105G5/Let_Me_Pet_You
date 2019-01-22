@@ -24,7 +24,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Horse Club</title>
+<title>愛心商品捐贈</title>
 
 <script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 

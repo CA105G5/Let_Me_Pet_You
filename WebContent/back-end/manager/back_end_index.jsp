@@ -317,7 +317,7 @@ if (prodReviewList==null){
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">                            
-                            <li><i class="fa fa-id-card-o"></i><a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp">審核訂單檢舉
+                            <li><i class="fa fa-id-card-o"></i><a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp">訂單檢舉審核
                             <%if(no9>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no9%></font>
 				  	<%} %>

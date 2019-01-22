@@ -23,7 +23,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>愛心捐贈</title>
+<title>愛心捐款</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
