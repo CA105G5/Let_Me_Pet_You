@@ -209,7 +209,7 @@ if (prodReviewList==null){
 				  		<% no3++; %>
 						</c:if>
 					</c:forEach>																		
-                    <li class="menu-title active">後台管理</li><!-- /.menu-title -->
+                    <li class="menu-title active" style="font-family: Microsoft JhengHei">後台管理</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-plus-square"></i>救援管理
                         <%if((no1+no2+no3)>0){ %>									
@@ -217,22 +217,24 @@ if (prodReviewList==null){
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">                            
-                        	<li><i class="fa fa-list-ul"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescue.jsp">救援案例列表
-					<%if(no1>0){ %>									
-				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no1%></font>
+                        	<li><i class="fa fa-list-ul"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescue.jsp" style="padding-left: 50px;">救援案例列表
+					<%if(no1>0){ %>
+					<div style="background-color:#ff0000; height:30px; width:30px; border-radius: 50%; display:inline">								
+				  		<font style="color:white; text-align:center; display:inline"><%=no1%></font>
+				  	</div>	
 				  	<%} %>
                         	</a></li>
-                            <li><i class="fa fa-exclamation-circle"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp">逾時案例列表
+                            <li><i class="fa fa-exclamation-circle"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp" style="padding-left: 50px;">逾時案例列表
                       <%if(no2>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no2%></font>
 				  	<%} %>      
                             </a></li>
-                            <li><i class="fa fa-wpforms"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_done_rescue.jsp">完成的救援審核
+                            <li><i class="fa fa-wpforms"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_done_rescue.jsp" style="padding-left: 50px;">完成的救援審核
                     <%if(no3>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no3%></font>
 				  	<%} %>        
                             </a></li>
-                            <li><i class="fa fa-flag"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescueRt.jsp">救援檢舉審核</a></li>
+                            <li><i class="fa fa-flag"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescueRt.jsp" style="padding-left: 50px;">救援檢舉審核</a></li>
 <%--                              <li><i class="fa fa-comments"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescueMsgRt.jsp">救援留言檢舉審核</a></li> --%>
                             
                         </ul>
@@ -257,23 +259,23 @@ if (prodReviewList==null){
 										</c:if>
                                  </c:forEach>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>認養管理
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-gittip"></i>認養管理
                         <%if((no4+no5+no6)>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=(no4+no5+no6)%></font>
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/listAllAdopt.jsp">審核認養案例
+                            <li><i class="fa fa-pencil-square-o"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/listAllAdopt.jsp" style="padding-left: 50px;">審核認養案例
                             <%if(no4>0){ %>									
 						  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no4%></font>
 						  	<%} %>
                             </a></li>
-                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/listAllApply.jsp">認養案例申請者管理
+                            <li><i class="fa fa-group"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/listAllApply.jsp" style="padding-left: 50px;">認養案例申請者管理
                             <%if(no5>0){ %>									
 						  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no5%></font>
 						  	<%} %>
                             </a></li>
-                            <li><i class="fa fa-table"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/AdoptMsgReport.jsp">審核檢舉認養留言
+                            <li><i class="fa fa-comment-o"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/AdoptMsgReport.jsp" style="padding-left: 50px;">審核檢舉認養留言
                             <%if(no6>0){ %>									
 						  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no6%></font>
 						  	<%} %>
@@ -295,18 +297,18 @@ if (prodReviewList==null){
                                  </c:forEach>
                     
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>失蹤協尋管理
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-home"></i>失蹤協尋管理
                         <%if((no7+no8)>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=(no7+no8)%></font>
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/missingCase/back_MissingCaseReport.jsp">審核檢舉失蹤案例
+                            <li><i class="menu-icon fa fa-pencil-square-o"></i><a href="<%=request.getContextPath()%>/back-end/missingCase/back_MissingCaseReport.jsp" style="padding-left: 40px;">審核檢舉失蹤案例
                             <%if(no7>0){ %>									
 						  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no7%></font>
 						  	<%} %>
                             </a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/missingCase/back_listAllMissingMsgReport.jsp">審核檢舉失蹤案例留言
+                            <li><i class="menu-icon fa fa-comment-o"></i><a href="<%=request.getContextPath()%>/back-end/missingCase/back_listAllMissingMsgReport.jsp" style="padding-left: 40px;">審核檢舉失蹤案例留言
                             <%if(no8>0){ %>									
 						  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no8%></font>
 						  	<%} %>
@@ -330,7 +332,7 @@ if (prodReviewList==null){
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">                            
-                            <li><i class="fa fa-file-text-o"></i><a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp">訂單檢舉審核
+                            <li><i class="fa fa-file-text-o"></i><a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" style="padding-left: 50px;">訂單檢舉審核
                             <%if(no9>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no9%></font>
 				  	<%} %>
@@ -359,12 +361,12 @@ if (prodReviewList==null){
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">                            
-                            <li><i class="fa fa-credit-card"></i><a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp">愛心捐款管理
+                            <li><i class="fa fa-credit-card"></i><a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp" style="padding-left: 50px;">愛心捐款管理
                             <%if(no10>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no10%></font>
 				  	<%} %>
                             </a></li>
-                            <li><i class="fa fa-shopping-cart"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心商品管理
+                            <li><i class="fa fa-shopping-cart"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" style="padding-left: 50px;">愛心商品管理
                             <%if(no11>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no11%></font>
 				  	<%} %>
@@ -372,10 +374,10 @@ if (prodReviewList==null){
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>志工管理</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>志工管理</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/volunteer/addVolunteer.jsp">志工新增</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="<%=request.getContextPath()%>/back-end/volunteer/listAllVolunteer.jsp">志工查詢</a></li>
+                            <li><i class="menu-icon fa fa-plus"></i><a href="<%=request.getContextPath()%>/back-end/volunteer/addVolunteer.jsp" style="padding-left: 50px;">志工新增</a></li>
+                            <li><i class="menu-icon fa fa-search"></i><a href="<%=request.getContextPath()%>/back-end/volunteer/listAllVolunteer.jsp" style="padding-left: 50px;">志工查詢</a></li>
                         </ul>
                     </li>
                 </ul>
