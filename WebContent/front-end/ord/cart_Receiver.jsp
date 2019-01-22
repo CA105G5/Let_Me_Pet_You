@@ -23,6 +23,7 @@
 <head>
 <meta charset="UTF-8">
 <title>購物車</title>
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/ord/style.css" media="screen" title="no title" charset="utf-8">
 <link rel="stylesheet"

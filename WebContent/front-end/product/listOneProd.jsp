@@ -51,6 +51,7 @@
 <head>
 <meta charset="BIG5">
 <title>愛心商品</title>
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/ord/style.css" media="screen" title="no title" charset="utf-8">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
