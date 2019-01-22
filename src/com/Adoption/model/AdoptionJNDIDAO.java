@@ -445,7 +445,7 @@ public class AdoptionJNDIDAO implements AdoptionDAO_Interface{
 		}catch(SQLException se){
 			throw new RuntimeException("A database error occured."+se.getMessage());
 		}finally {
-			if(pstmt != null) {
+			if(pstmt != null) { 
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
