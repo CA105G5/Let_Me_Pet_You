@@ -153,7 +153,7 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										<form METHOD="post"
+										<form METHOD="post" 
 											ACTION="<%=(membVO == null)
 					? request.getContextPath() + "/front-end/members/login.jsp"
 					: request.getContextPath()+"/front-end/missingCase/reportMissing.do"%>">
