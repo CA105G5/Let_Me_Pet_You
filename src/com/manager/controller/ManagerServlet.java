@@ -101,6 +101,7 @@ public class ManagerServlet extends HttpServlet {
 		if("logout".equals(action)) {
 			HttpSession session = req.getSession();
 			session.setAttribute("managerVO", null);
+			session.setAttribute("location", null);
 			res.sendRedirect(req.getContextPath()+"/back-end/manager/login.jsp");
 			return;
 		}
