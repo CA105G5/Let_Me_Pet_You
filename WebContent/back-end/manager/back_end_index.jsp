@@ -146,7 +146,7 @@ if (prodReviewList==null){
         }
         #flotPie1 table {
             top: 20px!important;
-            right: -10px!important;
+            right: -10px!important; 
         }
         .chart-container {
             display: table;
@@ -165,7 +165,10 @@ if (prodReviewList==null){
         #cellPaiChart{
             height: 160px;
         }
-
+		* {
+		font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
+			monospace;
+		}
     </style>
 </head>
 
