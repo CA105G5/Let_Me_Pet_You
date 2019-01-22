@@ -25,6 +25,7 @@
 <head>
 <meta charset="UTF-8">
 <title>愛心商品捐贈</title>
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 
 <script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 

@@ -44,6 +44,7 @@
 <head>
 <meta charset="UTF-8">
 <title>我的捐款紀錄</title>
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/logo3.png">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
