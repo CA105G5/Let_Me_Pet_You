@@ -324,13 +324,13 @@ if (prodReviewList==null){
 
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>訂單管理
+                        <a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-file-text-o"></i>訂單管理
                         <%if(no9>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no9%></font>
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">                            
-                            <li><i class="fa fa-id-card-o"></i><a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp">訂單檢舉審核
+                            <li><i class="fa fa-file-text-o"></i><a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp">訂單檢舉審核
                             <%if(no9>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no9%></font>
 				  	<%} %>
@@ -353,18 +353,18 @@ if (prodReviewList==null){
 
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>捐贈管理
+                        <a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-usd"></i>捐贈管理
                         <%if((no10+no11)>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=(no10+no11)%></font>
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">                            
-                            <li><i class="fa fa-id-badge"></i><a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp">愛心捐款管理
+                            <li><i class="fa fa-credit-card"></i><a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp">愛心捐款管理
                             <%if(no10>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no10%></font>
 				  	<%} %>
                             </a></li>
-                            <li><i class="fa fa-bars"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心商品管理
+                            <li><i class="fa fa-shopping-cart"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心商品管理
                             <%if(no11>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no11%></font>
 				  	<%} %>
