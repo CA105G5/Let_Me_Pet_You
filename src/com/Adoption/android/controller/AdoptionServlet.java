@@ -35,7 +35,7 @@ import util.ImageUtil;
 
 
 
-public class AdoptionServlet extends HttpServlet {
+public class AdoptionServlet extends HttpServlet { 
 	private final static String CONTENT_TYPE = "text/html; charset=UTF-8";
 
 	@Override

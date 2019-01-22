@@ -253,7 +253,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>AndroidRescuingServlet</servlet-name>
-    <url-pattern>/rescuing/RescuingServlet.do</url-pattern>
+    <url-pattern>/rescuing/RescuingServlet.do</url-pattern> 
   </servlet-mapping>
   <servlet>
     <servlet-name>AndroidRegionServlet</servlet-name>

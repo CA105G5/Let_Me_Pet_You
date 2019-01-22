@@ -591,7 +591,7 @@ public class AdoptionJDBCDAO implements AdoptionDAO_Interface{
 				adoptionVO.setAdopt_des(rs.getString("adopt_des"));
 				
 				list.add(adoptionVO);
-			}
+			} 
 				
 				
 		} catch (ClassNotFoundException e) {
