@@ -220,7 +220,7 @@ if (prodReviewList==null){
 				  	<%} %>        
                             </a></li>
                             <li><i class="fa fa-flag"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescueRt.jsp">救援檢舉審核</a></li>
-                             <li><i class="fa fa-comments"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescueMsgRt.jsp">救援留言檢舉審核</a></li>
+<%--                              <li><i class="fa fa-comments"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescueMsgRt.jsp">救援留言檢舉審核</a></li> --%>
                             
                         </ul>
                     </li>
@@ -351,7 +351,7 @@ if (prodReviewList==null){
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no10%></font>
 				  	<%} %>
                             </a></li>
-                            <li><i class="fa fa-bars"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心物資管理
+                            <li><i class="fa fa-bars"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp">愛心商品管理
                             <%if(no11>0){ %>									
 				  	<font style="background-color:#ff0000;color:white;border-radius:10px"><%=no11%></font>
 				  	<%} %>
@@ -535,7 +535,7 @@ if (prodReviewList==null){
 				    
 				  </div> -->
 				  <div class="list-group">
-				  	<a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" class="list-group-item">審核訂單檢舉
+				  	<a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" class="list-group-item">訂單檢舉審核
 				  	
 				  					
 				  						
@@ -563,7 +563,7 @@ if (prodReviewList==null){
 				  	<font>個款項待確認</font>
 				  	<%} %>
 				  	</a>
-				  	<a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="list-group-item">愛心物資管理
+				  	<a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="list-group-item">愛心商品管理
 				  	
 					<%if(no11>0){ %>									
 				  	<font>:有</font>

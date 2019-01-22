@@ -35,7 +35,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>浪我陪你-後台</title>
+    <title>浪我陪你-後台-愛心商品管理</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -262,7 +262,7 @@ html {
                     <div class="col-xs-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">愛心商品捐贈審核</strong>
+                                <strong class="card-title">愛心商品管理</strong>
                             </div>
                             <div class="card-body">
                             
@@ -274,7 +274,7 @@ html {
 
   <div class="w3-row">
     <a href="javascript:void(0)" onclick="openTab(event, 'toBeReviewed');">
-      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding w3-border-red"><h4>待審核</h4></div>
+      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding w3-border-red"><h4>待審核商品</h4></div>
     </a>
     <a href="javascript:void(0)" onclick="openTab(event, 'reviewed');">
       <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"><h4>上架中</h4></div>
