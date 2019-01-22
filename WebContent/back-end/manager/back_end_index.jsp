@@ -893,13 +893,13 @@ if (prodReviewList==null){
 			console.log("Object.keys(jsonObj).length==="+Object.keys(jsonObj).length); 
 			console.log("length==="+length); 
 			
+			$("#info").html("");
 			var i =0;
 			for (i=0; i<length;i++){
 				var res_id = Object.keys(jsonObj)[i];
 				var res_name = jsonObj[Object.keys(jsonObj)[i]]
 				console.log("res_id===="+Object.keys(jsonObj)[i]); 
 				console.log("res_name==="+jsonObj[Object.keys(jsonObj)[i]]); 
-				$("#info").html("");
 				$("#info").append(
 						"<hr>"+
 						"<div class='row'>"+
