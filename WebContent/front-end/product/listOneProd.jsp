@@ -340,16 +340,16 @@ display:none;
 		<div class="container-fluid">
 <!-- 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;"> -->
 				<div class="row">	
-					<div class="col-xs-3 offset-xs-1 col-md-2 offset-md-1 " style="top: 180px; bottom: auto;">
-						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 110px; position: fixed; bottom: auto"> 
+					<div class="col-xs-3 offset-xs-1 col-md-2 offset-md-1">
+						<div id="sider" class="n-browse-nav m-sticky-on"> 
 						<h3>分類查詢</h3>
 <!-- 					<hr> -->
 						 
 					    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" name="form1">
 					    <hr>
-					         <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
-						    	<p style="height:16px">動物</p>
-						 	 </div>
+<!-- 					         <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif"> -->
+<!-- 						    	<p style="height:16px">動物</p> -->
+<!-- 						 	 </div> -->
 							 	 <label class="check_ctn" style="display:inline; font-size:16px">貓
 							 	 	<input type="checkbox" name="prod_ani_type_id" value="貓">
 								  		<span class="checkmark"></span>
@@ -378,9 +378,10 @@ display:none;
 								 </label>
 								 <br>
 <!-- 								 <br> -->
-							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
-						    	<p style="height:16px">商品種類</p>
-						 	 </div>
+<!-- 							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif"> -->
+<!-- 						    	<p style="height:16px">商品種類</p> -->
+<!-- 						 	 </div> -->
+								<hr>
 
 
 
@@ -416,11 +417,11 @@ display:none;
 <!-- 								<label><input type="checkbox" name="prod_type_id" value="樂" > 樂</label>　<br> -->
 <%-- 					        <%= Arrays.asList(prod_type_id).contains("樂")? "checked":"" %>  --%>
 					        
-<!--  					        <hr>  -->
+ 					        <hr> 
 <!--  					       	<h5><b style="background-color:bisque; color:black">價格區間</b></h5>  -->
-							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
-						    	<p style="height:16px">價格區間</p>
-						 	 </div>
+<!-- 							 <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif"> -->
+<!-- 						    	<p style="height:16px">價格區間</p> -->
+<!-- 						 	 </div> -->
 <%-- 					       		<label><input type="radio" name="prod_price" value="0 and 50" <%= "0 and 50".equals(prod_price)? "checked":"" %> > $ 50以下</label>　<br> --%>
 <%-- 								<label><input type="radio" name="prod_price" value="50 and 100" <%= "50 and 100".equals(prod_price)? "checked":"" %>> $ 50~100</label>　<br> --%>
 <%-- 								<label><input type="radio" name="prod_price" value="101 and 200" <%= "101 and 200".equals(prod_price)? "checked":"" %>> $ 101~200</label>　<br> --%>

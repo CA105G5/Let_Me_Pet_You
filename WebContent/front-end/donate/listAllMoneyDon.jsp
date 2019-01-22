@@ -59,6 +59,14 @@ div {
 	font-family: Microsoft JhengHei, serif, sans-serif, cursive, fantasy,
 		monospace;
 }
+
+li>a{
+	color:black;
+}
+li>a:hover{
+	text-decoration:none;
+	color:red;
+}
 </style>
 </head>
 <body>
@@ -66,41 +74,26 @@ div {
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
 	
-<!-- 	<div class="container"> -->
-<!-- 			<div class="row"> -->
-
-<!-- 			<!-- 左側邊list-group --> 
-<!-- 			<div class="col-xs-12 col-sm-3"> -->
-<!-- 				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto"> -->
-<!-- 					<h3>捐贈紀錄</h3> -->
-<!-- 					<hr> -->
-<%-- 					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心捐款紀錄</a></h5> --%>
-<!-- 					<hr> -->
-<%-- 					<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄</a></h5> --%>
-<!-- 					<hr> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
+	<img src="<%=request.getContextPath()%>/front-end/ord/member4.jpg" style="width:1520px">
 	
 	
-	<section class="training-area section-gap">
-		<div class="container">
-			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
+	<section class="training-area">
+		<div class="container-fluid">
+			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 100px; bottom: auto;">
 				<div class="row">
-					<div class="col-lg-2 cl-md-2" style="top: 180px; bottom: auto;">
-						<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
-							<h3>捐贈紀錄</h3>
-							<hr>
-							<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllMoneyDon.jsp">愛心捐款紀錄</a></h5>
-							<hr>
-							<h5><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp">愛心商品捐贈紀錄</a></h5>
-							<hr>
+					<div class="sidebar" style="margin-left:150px; margin-top: 50px; width:250px">
+						<div class="single-widget category-widget" style="padding-top:0px;">
+							<h2 class="title" style="margin-bottom:10px;padding-top:30px;margin-top:0px">捐贈紀錄</h2>
+								<ul>
+									<li><a href="<%=request.getContextPath()%>/front-end/donate/listAllMoneyDon.jsp" class="justify-content-between align-items-center d-flex"><h4>愛心捐款紀錄</h4></a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/donate/listAllProdDon.jsp" class="justify-content-between align-items-center d-flex"><h4>愛心商品捐贈紀錄</h4></a></li>
+						
+								</ul>
 						</div>
-					</div> <!-- position: fixed -->
-					<div class="col-xs-12 col-sm-10">
+					</div>
+					<div class="col-xs-12 col-sm-7" style="margin-left:100px; margin-top: 50px; margin-bottom: 100px;">
 						<div class="row">
-							<div class="page-header">
+							<div class="">
 							<%-- 錯誤表列 --%>
 								<c:if test="${not empty errorMsgs}">
 									<div>
@@ -145,7 +138,7 @@ div {
 <!-- 									        <div role="tabpanel" class="tab-pane active" id="tab1"> -->
 												<table id="table1" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
-														<tr class="success">
+														<tr class="" style="background-color:#f8e1d0">
 															<th style="width: 100px">捐款人</th>
 															<th style="width: 100px">捐款時間</th>
 															<th style="width: 100px">捐款金額</th>

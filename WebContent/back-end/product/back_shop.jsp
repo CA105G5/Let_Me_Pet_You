@@ -255,7 +255,7 @@ html {
 <!--                 </div> -->
 <!--             </div> -->
 <!--         </div> -->
-        <div class="content" style="height: 200%">
+        <div class="content" style="height: 1800px">
             <div class="animated fadeIn">
                 <div class="row">
 

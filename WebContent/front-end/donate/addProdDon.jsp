@@ -39,6 +39,14 @@ div {
 		monospace;
 }
 
+li>a{
+	color:black;
+}
+li>a:hover{
+	text-decoration:none;
+	color:red;
+}
+
 </style>
 </head>
 <body>
@@ -47,37 +55,40 @@ div {
 
 	<jsp:include page="/index_Header.jsp" flush="true" />
 	
-	<div class="container">
+	<img src="banner10.jpg" style="width:1500px; height:300px">
+	
+	<div class="container-fluid" style="padding-top: 50px">
 		<div class="row">
 
-			<!-- 左側邊list-group -->
-			<div class="col-xs-12 col-sm-3" style="top: 0px; bottom: auto;">
-				<div id="sider" class="n-browse-nav m-sticky-on" style="top: 150px; position: fixed; bottom: auto">
-					<h3>愛心捐贈</h3>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp">愛心捐款</a></h5>
-					<hr>
-					<h5><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp">愛心商品捐贈</a></h5>
-					<hr>
+			<div class="col-xs-12 col-sm-1"></div>
+				<div class="col-xs-12 col-sm-2 sidebar" style="top: 0px; bottom: auto;">
+					<div class="single-widget category-widget" style="padding-top:0px;">
+						<h2 class="title" style="margin-bottom:10px;padding-top:30px;margin-top:0px">愛心捐贈</h2>
+							<ul>
+								<li><a href="<%=request.getContextPath()%>/front-end/donate/addMoneyDon.jsp" class="justify-content-between align-items-center d-flex"><h4>愛心捐款</h4></a></li>
+								<li><a href="<%=request.getContextPath()%>/front-end/donate/addProdDon.jsp" class="justify-content-between align-items-center d-flex"><h4>愛心商品捐贈</h4></a></li>
+					
+							</ul>
+						<div style="padding-top: 20px;padding-left: 20px;">
+                    		<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">	
+                		</div>
+					</div>
 				</div>
-				<div style="margin-top: 250px;position: fixed">
-                    	<img id="miracleBtn" style="width:60px;height:60px;"class="img-fluid" src="<%=request.getContextPath()%>/images/magicbtn.png">	
-                </div>
-			</div>
-					<div class="col-md-9 pb-40 header-text text-center" style="padding-bottom: 0px">
-						<div class="row">
-							<h1 class="pb-10">愛心商品捐贈</h1>
-							<%-- 錯誤表列 --%>
-							<c:if test="${not empty errorMsgs}">
-								<div>
-									<font style="color:red">請修正以下錯誤:</font>
-									<ul>
-									    <c:forEach var="message" items="${errorMsgs}">
-											<li style="color:red">${message}</li>
-										</c:forEach>
-									</ul>
-								</div>
-							</c:if>
+			<div class="col-xs-12 col-sm-1"></div>
+			<div class="col-xs-12 col-sm-7">
+				<div class="row">
+					<h1 class="pb-10">愛心商品捐贈</h1>
+					<%-- 錯誤表列 --%>
+					<c:if test="${not empty errorMsgs}">
+						<div>
+							<font style="color:red">請修正以下錯誤:</font>
+							<ul>
+								<c:forEach var="message" items="${errorMsgs}">
+									<li style="color:red">${message}</li>
+								</c:forEach>
+							</ul>
+						</div>
+					</c:if>
 							<form METHOD="post" ACTION="<%=request.getContextPath()%>/product/product_upload.do" enctype="multipart/form-data">
 								<div class="card">
 			                        <div class="card-header" style="text-align:left">
@@ -232,14 +243,14 @@ div {
 				$(function(){
 					$('#miracleBtn').click(function(){
 					console.log('1111111111111111');
-					$('#prod_name').val('消臭大師森林香狗尿墊');
-					$('#prod_qty').val('10');
-					$('#prod_price').val('20');
+					$('#prod_name').val('仿生態烏龜缸');
+					$('#prod_qty').val('1');
+					$('#prod_price').val('100');
 					$('#prod_type_id').val('住');
-					$('#prod_ani_type_id').val('狗');
-					$('#prod_info').val('【產品名稱】消臭大師森林香狗尿墊LL42片<br>'+
-							'【產品規格】LL42片，尺寸約44cm*60cm<br>'+
-							'【產品產地】日本<br>');
+					$('#prod_ani_type_id').val('其他');
+					$('#prod_info').val('【產品名稱】仿生態烏龜缸+加溫燈泡+烏龜島造景<br>'+
+							'【產品規格】尺寸約50cm*60cm*60cm<br>'+
+							'【產品產地】美國<br>');
 					});
 				});
 	</script>

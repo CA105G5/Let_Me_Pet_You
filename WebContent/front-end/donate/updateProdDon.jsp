@@ -60,7 +60,7 @@ div {
 			</div>
 	</div>
 	
-	<section class="training-area section-gap">
+	<section class="training-area" style="padding-top:20px">
 		<div class="container">
 			<div id="sider" class="n-browse-nav m-sticky-on" style="top: 180px; bottom: auto;">
 				<div class="row">

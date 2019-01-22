@@ -42,6 +42,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>浪我陪你-後台</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -161,7 +162,7 @@ html {
 <!--                 </div> -->
 <!--             </div> -->
 <!--         </div> -->
-        <div class="content" style="height: 200%">
+        <div class="content" style="height: 800px">
             <div class="animated fadeIn">
                 <div class="row">
 
@@ -191,7 +192,7 @@ html {
  	<p> </p> 
     <table id="bootstrap-data-table2" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
-														<tr class="success">
+														<tr class="">
 															<th style="width: 100px">捐款人</th>
 															<th style="width: 100px">捐款人電話</th>
 <!-- 															<th style="width: 100px">捐款人e-mail</th> -->
@@ -285,21 +286,40 @@ html {
 
   <div id="reviewed" class="w3-container city" style="display:none" style="width:1100px">
    <br>
-    <p style="display:inline; padding-left:15px">依捐款年月份查詢　</p> 
+   
 	
-    
-    <select style="width: 120px" id="donate_month" name="donate_month" style="display:inline">
-		<option value="0">All</option>
-		<option value="2018-12">2018/12</option>
-		<option value="2019-01">2019/01</option>
-	</select>
-<!-- 	<br> -->
-<!-- 	<br> -->
-	<p style="display:inline"><h3 id="total" style="display:inline; padding-left:50px">目前收到捐款總計 $ </h3></p> 
+    <div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4">
+			<br>
+			 <p style="display:inline;">依捐款年月份查詢　</p> 
+			    <select style="width: 120px; display:inline" id="donate_month" name="donate_month">
+					<option value="0">All</option>
+					<option value="2018-12">2018/12</option>
+					<option value="2019-01">2019/01</option>
+				</select>
+				<br>
+				<br>
+			</div>
+
+			<div class="col-xs-12 col-sm-8">
+				<div class="w3-card-4" style="background-color: #fbecbb; width:680px; margin-left:0px">
+					<img src="" alt="">
+						<div class="w3-container" style="background-color: #fbecbb" style="width:600px">
+							<p style="display:inline">
+							<h3 id="total" style="display:inline; padding-left:50px">目前收到捐款總計 $ </h3>
+							</p> 
+						</div>
+				</div>
+				<br>
+			</div>
+		</div>
+	</div>
+	
 	<br>
     <table id="bootstrap-data-table" class="table table-striped table-bordered table-hover" style="width:100%">
 													<thead>
-														<tr class="success">
+														<tr class="">
 															<th style="width: 100px">捐款人</th>
 															<th style="width: 100px">捐款人電話</th>
 <!-- 															<th style="width: 100px">捐款人e-mail</th> -->
@@ -323,7 +343,7 @@ html {
 																	<td style=" margin-bottom: auto">${donateVO.donate_name}</td>
 																	<td style=" margin-bottom: auto">${donateVO.donate_phone}</td>
 <%-- 																	<td style=" margin-bottom: auto">${donateVO.donate_mail}</td> --%>
-																	<td class="info" style=" margin-bottom: auto"><fmt:formatDate value="${donateVO.donate_date}" pattern="yyyy-MM-dd"/></td>
+																	<td style=" margin-bottom: auto"><fmt:formatDate value="${donateVO.donate_date}" pattern="yyyy-MM-dd"/></td>
 																	<td style=" margin-bottom: auto">${donateVO.donate_src}</td>
 																	<td style=" margin-bottom: auto">${donateVO.donate_amount}</td>
 																	<td style=" margin-bottom: auto">${donateVO.donate_src_trn==null? donateVO.donate_src_cre : donateVO.donate_src_trn}</td>
@@ -354,6 +374,7 @@ html {
                 </div>
             </div><!-- .animated -->
         </div><!-- .content -->   
+        </div>
         <!-- /.content -->
         <div class="clearfix"></div>
     <!-- /#right-panel -->
