@@ -200,30 +200,30 @@ if (prodReviewList==null){
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-plus-square"></i>救援管理
                         <%if((no1+no2+no3)>0){ %>		
-                        <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  		<span style="color:white; border-radius:10px;padding-left: 6px;"><%=(no1+no2+no3)%></span>
+                        <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  		<span style="color:white; border-radius:10px;padding-left: 8px;"><%=(no1+no2+no3)%></span>
 						</div>							
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">                            
                         	<li><i class="fa fa-list-ul"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_rescue.jsp" style="padding-left: 50px;">救援案例列表
 					<%if(no1>0){ %>				
-					<div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  	<span style="color:white; border-radius:10px;padding-left: 6px;"><%=no1%></span>
+					<div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  	<span style="color:white; border-radius:10px;padding-left: 8px;"><%=no1%></span>
 					</div>	
 				  	<%} %>
                         	</a></li>
                             <li><i class="fa fa-exclamation-circle"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_delayed_rescue.jsp" style="padding-left: 50px;">逾時案例列表
                       <%if(no2>0){ %>	
-                    <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  	<span style="color:white; border-radius:10px;padding-left: 6px;"><%=no2%></span>
+                    <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  	<span style="color:white; border-radius:10px;padding-left: 8px;"><%=no2%></span>
 					</div>							
 				  	<%} %>      
                             </a></li>
                             <li><i class="fa fa-wpforms"></i><a href="<%=request.getContextPath()%>/back-end/rescue/back_done_rescue.jsp" style="padding-left: 50px;">完成的救援審核
                     <%if(no3>0){ %>	
-                    <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  	<span style="color:white; border-radius:10px;padding-left: 6px;"><%=no3%></span>
+                    <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  	<span style="color:white; border-radius:10px;padding-left: 8px;"><%=no3%></span>
 					</div>							
 				  	<%} %>        
                             </a></li>
@@ -254,30 +254,30 @@ if (prodReviewList==null){
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-gittip"></i>認養管理
                         <%if((no4+no5+no6)>0){ %>	
-                        <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  		<span style="color:white; border-radius:10px;padding-left: 6px;"><%=(no4+no5+no6)%></span>
+                        <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  		<span style="color:white; border-radius:10px;padding-left: 8px;"><%=(no4+no5+no6)%></span>
 						</div>								
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-pencil-square-o"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/listAllAdopt.jsp" style="padding-left: 50px;">審核認養案例
                             <%if(no4>0){ %>	
-                            <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  			<span style="color:white; border-radius:10px;padding-left: 6px;"><%=no4%></span>
+                            <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  			<span style="color:white; border-radius:10px;padding-left: 8px;"><%=no4%></span>
 							</div>									
 						  	<%} %>
                             </a></li>
                             <li><i class="fa fa-group"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/listAllApply.jsp" style="padding-left: 50px;">認養案例申請者管理
                             <%if(no5>0){ %>		
-                            <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  			<span style="color:white; border-radius:10px;padding-left: 6px;"><%=no5%></span>
+                            <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  			<span style="color:white; border-radius:10px;padding-left: 8px;"><%=no5%></span>
 							</div>								
 						  	<%} %>
                             </a></li>
                             <li><i class="fa fa-comment-o"></i><a href="<%=request.getContextPath()%>/back-end/Adopt/AdoptMsgReport.jsp" style="padding-left: 50px;">審核檢舉認養留言
                             <%if(no6>0){ %>	
-                            <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  			<span style="color:white; border-radius:10px;padding-left: 6px;"><%=no6%></span>
+                            <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  			<span style="color:white; border-radius:10px;padding-left: 8px;"><%=no6%></span>
 							</div>	
 						  	<%} %>
                             </a></li>
@@ -300,23 +300,23 @@ if (prodReviewList==null){
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-home"></i>失蹤協尋管理
                         <%if((no7+no8)>0){ %>	
-                        <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  		<span style="color:white; border-radius:10px;padding-left: 6px;"><%=(no7+no8)%></span>
+                        <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  		<span style="color:white; border-radius:10px;padding-left: 8px;"><%=(no7+no8)%></span>
 						</div>									
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-pencil-square-o"></i><a href="<%=request.getContextPath()%>/back-end/missingCase/back_MissingCaseReport.jsp" style="padding-left: 40px;">審核檢舉失蹤案例
                             <%if(no7>0){ %>	
-                            <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  			<span style="color:white; border-radius:10px;padding-left: 6px;"><%=no7%></span>
+                            <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  			<span style="color:white; border-radius:10px;padding-left: 8px;"><%=no7%></span>
 							</div>									
 						  	<%} %>
                             </a></li>
                             <li><i class="menu-icon fa fa-comment-o"></i><a href="<%=request.getContextPath()%>/back-end/missingCase/back_listAllMissingMsgReport.jsp" style="padding-left: 40px;">審核檢舉失蹤案例留言
                             <%if(no8>0){ %>	
-                            <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  			<span style="color:white; border-radius:10px;padding-left: 6px;"><%=no8%></span>
+                            <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  			<span style="color:white; border-radius:10px;padding-left: 8px;"><%=no8%></span>
 							</div>									
 						  	<%} %>
                             </a></li>
@@ -335,16 +335,16 @@ if (prodReviewList==null){
                     <li class="menu-item-has-children dropdown">
                         <a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-file-text-o"></i>訂單管理
                         <%if(no9>0){ %>	
-                        <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  		<span style="color:white; border-radius:10px;padding-left: 6px;"><%=no9%></span>
+                        <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  		<span style="color:white; border-radius:10px;padding-left: 8px;"><%=no9%></span>
 						</div>									
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">                            
                             <li><i class="fa fa-file-text-o"></i><a href="<%=request.getContextPath()%>/back-end/ord/back_listAllOrd.jsp" style="padding-left: 50px;">訂單檢舉審核
                             <%if(no9>0){ %>									
-				  		<div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  		<span style="color:white; border-radius:10px;padding-left: 6px;"><%=no9%></span>
+				  		<div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  		<span style="color:white; border-radius:10px;padding-left: 8px;"><%=no9%></span>
 						</div>
 				  	<%} %>
                             </a></li>
@@ -368,23 +368,23 @@ if (prodReviewList==null){
                     <li class="menu-item-has-children dropdown">
                         <a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-usd"></i>捐贈管理
                         <%if((no10+no11)>0){ %>	
-                        <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  		<span style="color:white; border-radius:10px;padding-left: 6px;"><%=(no10+no11)%></span>
+                        <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  		<span style="color:white; border-radius:10px;padding-left: 8px;"><%=(no10+no11)%></span>
 						</div>									
 				  	<%} %>
                         </a>
                         <ul class="sub-menu children dropdown-menu">                            
                             <li><i class="fa fa-credit-card"></i><a href="<%=request.getContextPath()%>/back-end/product/back_Money_Don.jsp" style="padding-left: 50px;">愛心捐款管理
                             <%if(no10>0){ %>				
-                            <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  			<span style="color:white; border-radius:10px;padding-left: 6px;"><%=no10%></span>
+                            <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  			<span style="color:white; border-radius:10px;padding-left: 8px;"><%=no10%></span>
 							</div>			
 				  	<%} %>
                             </a></li>
                             <li><i class="fa fa-shopping-cart"></i><a href="<%=request.getContextPath()%>/back-end/product/back_shop.jsp" style="padding-left: 50px;">愛心商品管理
                             <%if(no11>0){ %>		
-                            <div style="background-color:#ff0000; height:20px; width:20px; border-radius: 50%; display:inline-block;">								
-					  			<span style="color:white; border-radius:10px;padding-left: 6px;"><%=no11%></span>
+                            <div style="background-color:#ff0000; height:24px; width:24px; border-radius: 50%; display:inline-block;">								
+					  			<span style="color:white; border-radius:10px;padding-left: 8px;"><%=no11%></span>
 							</div>							
 				  	<%} %>
                             </a></li>
