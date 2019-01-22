@@ -871,7 +871,7 @@ if (prodReviewList==null){
     var host_res = window.location.host;
     var path_res = window.location.pathname;
     var webCtx_res = path_res.substring(0, path_res.indexOf('/', 1));
-    var endPointURL_res = "ws://" + window.location.host + webCtx_res + MyPoint_res;
+    var endPointURL_res = "wss://" + window.location.host + webCtx_res + MyPoint_res;
     console.log("endPointURL_res"+endPointURL_res);
     
 	var webSocket_res;
