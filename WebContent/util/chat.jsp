@@ -481,7 +481,7 @@
 	var endPointURL = "wss://" + window.location.host + webCtx + MyPoint;
 	
 // 	var statusOutput = document.getElementById("statusOutput");
-	var webSocket;
+	var webSocket; 
 	console.log("endPointURL==="+endPointURL);
 	
 	function connect() {
