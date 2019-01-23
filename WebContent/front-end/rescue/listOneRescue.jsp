@@ -203,7 +203,7 @@ li>a:hover{
 											<c:if test="${rescueVO.rsc_sta=='待救援' or rescueVO.rsc_sta=='救援中'}">
 											<% if(memVO != null){ %>
 												<%if(rtlist.isEmpty()){ %>
-													<%if(rescueVO.getRsc_rt_status().equals("已檢舉")){%>
+													<%if(rescueVO.getRsc_rt_status()!=null&&rescueVO.getRsc_rt_status().equals("已檢舉")){%>
 												 	<div class="btn-rt genric-btn disable">已被檢舉</div>
 													<%}else{%>
 												 	<button type="button" class="btn-rt genric-btn" data-toggle="modal" data-target="#exampleModalCenter" >檢舉</button>

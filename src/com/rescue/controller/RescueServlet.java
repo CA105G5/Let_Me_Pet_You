@@ -86,10 +86,12 @@ public class RescueServlet extends HttpServlet{
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/rescue/listAllRescue.jsp");
 					failureView.forward(req, res);
+					System.out.println("!!!!!!!!!!");
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				System.out.println("rescueVO====="+rescueVO.getRsc_id());
 				req.setAttribute("rescueVO", rescueVO); // 資料庫取出的donateVO物件,存入req
 				String url = "/front-end/rescue/listOneRescue.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneDonate.jsp
@@ -101,6 +103,7 @@ public class RescueServlet extends HttpServlet{
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/rescue/listAllRescue.jsp");
 				failureView.forward(req, res);
+				return;
 			}
 		}
 		
