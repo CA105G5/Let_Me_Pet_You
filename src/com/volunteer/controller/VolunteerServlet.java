@@ -453,7 +453,7 @@ public class VolunteerServlet extends HttpServlet{
 //			    String messageText = "Hello! " + ch_name + "，歡迎成為新志工，請謹記此密碼: " + passRandom + "\n" +" (已經啟用)";
 			    String messageText = "Hello! New volunteer! Your account had been activated. Your password is: " + passRandom + "."; 
 			       
-			    MailService mailService = new MailService();
+			    MailService mailService = new MailService(); 
 			    mailService.sendMail(to, subject, messageText);
 
 				// Send the use back to the form, if there were errors
