@@ -269,7 +269,7 @@ div {
 		$('#miracleBtn').click(function(){
 			console.log('1111111111111111');
 			$('#missingName').val('§p¿t¿t');
-			$('#missing_type').val('®‰•L');
+			$('#missing_type').val('ØQ¿t');
 			
 			
 		});

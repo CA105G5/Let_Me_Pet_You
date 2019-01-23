@@ -130,7 +130,7 @@ public class AdoptionServlet extends HttpServlet {
 				AdoptionService adoptionSvc = new AdoptionService();
 				adoptionVO = adoptionSvc.addAdoption(adopt_species, adopt_sponsor, adopt_des, adopt_img);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "http://localhost:8081/CA105G5/front-end/adopt/listAllAdopt.jsp";
+				String url = req.getContextPath()+"/front-end/adopt/listAllAdopt.jsp";
 //				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllMissingCase.jsp
 //				successView.forward(req, res);
 				res.sendRedirect(url);
