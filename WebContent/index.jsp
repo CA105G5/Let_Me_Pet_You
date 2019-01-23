@@ -6,7 +6,7 @@ MemVO memVO = (MemVO) session.getAttribute("memVO");
 System.out.println("111111111111111111111111111="+session.getId());
 System.out.println( "是否登入:"+ (memVO != null));
 %> 
-<html>
+<html> 
 <head>
 <%-- Mobile Specific Meta --%>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
