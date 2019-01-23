@@ -64,7 +64,7 @@ public class RescueAjax extends HttpServlet {
 				Send se = new Send();
 				System.out.println(cellMinusDash(vltVO.getVlt_tel()));
 			 	String[] tel ={cellMinusDash(vltVO.getVlt_tel())};
-			 	String message = "你有一份救援任務，請盡速完成!!!";
+			 	String message = "You have a rescue mission, complete it as soon as possible!";
 			 	
 			 	se.sendMessage(tel , message);
 				
