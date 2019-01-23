@@ -447,7 +447,7 @@ public class VolunteerServlet extends HttpServlet{
 //			    String subject = "新密碼通知";
 			    String subject = "Password Notification";
 			      
-			    String ch_name = vlt_name;      
+			    String ch_name = vlt_name;       
 
 			    String passRandom = vlt_pw;
 //			    String messageText = "Hello! " + ch_name + "，歡迎成為新志工，請謹記此密碼: " + passRandom + "\n" +" (已經啟用)";
