@@ -444,12 +444,15 @@ public class VolunteerServlet extends HttpServlet{
 				//寄密碼給志工
 				String to = vlt_mail;
 			      
-			    String subject = "新密碼通知";
+//			    String subject = "新密碼通知";
+			    String subject = "Password Notification";
 			      
 			    String ch_name = vlt_name;      
 
 			    String passRandom = vlt_pw;
-			    String messageText = "Hello! " + ch_name + "，歡迎成為新志工，請謹記此密碼: " + passRandom + "\n" +" (已經啟用)";
+//			    String messageText = "Hello! " + ch_name + "，歡迎成為新志工，請謹記此密碼: " + passRandom + "\n" +" (已經啟用)";
+			    String messageText = "Hello! New volunteer! Your account had been activated. Your password is: " + passRandom + "."; 
+			       
 			    MailService mailService = new MailService();
 			    mailService.sendMail(to, subject, messageText);
 
