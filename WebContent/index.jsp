@@ -1,11 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mem.model.*"%>
+<%@ page import="util.*"%>
 <%
 MemVO memVO = (MemVO) session.getAttribute("memVO");
 System.out.println("111111111111111111111111111="+session.getId());
 System.out.println( "是否登入:"+ (memVO != null));
 %> 
+
+<%
+	ListBroadcasts.main(new String[] {});
+	String liveId = ListBroadcasts.getLiveId();
+	System.out.println("liveId==="+liveId);
+	System.out.println("liveId_length==="+liveId.trim().length());
+%>
 <html> 
 <head>
 <%-- Mobile Specific Meta --%>
@@ -101,7 +109,7 @@ System.out.println( "是否登入:"+ (memVO != null));
 <script type="text/javascript" src="engine1/jquery.js"></script>
 <!-- End WOWSlider.com HEAD section -->
 </head>
-<body bgcolor='white'>
+<body bgcolor='white' onload="connect();" onunload="disconnect();">
 <jsp:include page="/index_Header.jsp" flush="true" />
 
 
@@ -144,9 +152,13 @@ System.out.println( "是否登入:"+ (memVO != null));
 						<div class="col-lg-6 about-video-left ">
 <!-- 							<div align="center"><h4 class="text-uppercase" style="color:red;font-size:20px">讓愛發散</h4></div> -->
 							<h1>
-								即刻救援 <br>
+								即刻救援 	<span id="liveBtn" style="padding-left:80px"></span>
+								<br>
 								世界因你而變 
 							</h1>
+							
+							
+							
 							<p>
 								<span>伸出小小的手散發大大的愛</span>
 							</p>
@@ -377,6 +389,79 @@ $('.carousel').carousel({
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/mail-script.js"></script>	
 			<script src="<%=request.getContextPath()%>/horse_UI_template/js/main.js"></script>
 			
+
+<!-- 直播中推播 -->
+<script>
+    var MyPoint = "/LiveEchoServer";
+    var host = window.location.host;
+    var path = window.location.pathname;
+    var webCtx = path.substring(0, path.indexOf('/', 1));
+    var endPointURL = "wss://" + window.location.host + webCtx + MyPoint;
+    console.log("endPointURL="+endPointURL);
+    
+	var webSocket;
+	
+	function connect() {
+		// 建立 websocket 物件
+		webSocket = new WebSocket(endPointURL);
+		console.log("websocket已連線");
+		
+		webSocket.onopen = function(event) {
+
+		};
+
+		webSocket.onmessage = function(event) {
+			
+	        var jsonObj = JSON.parse(event.data);
+	        var prod_id = jsonObj.prod_id;
+	        var prod_name = jsonObj.prod_name;
+	        var prod_price = jsonObj.prod_price;
+	        var img_src = '<%=request.getContextPath()%>/util/PicReader?prod_id=' + prod_id;
+	        var prod_link = '<%=request.getContextPath()%>/product/product_upload.do?action=getOne_For_Display&prod_id=' + prod_id;
+	        console.log("img_src="+img_src);
+	        console.log("prod_link=" + prod_link);
+	        console.log("prod_name=" + prod_name);
+	        console.log("prod_price=" + prod_price);
+	        $("#product_push_modal").find("img").attr("src", img_src);
+	        $("#broadcast_product_link").attr("href", prod_link);
+	        $("#broadcast_prod_name").text(prod_name);
+	        $("#broadcast_prod_price").text(prod_price);
+			$('#product_push_modal').modal('show');
+		};
+
+		webSocket.onclose = function(event) {
+			
+		};
+	}
+	
+	
+	function disconnect () {
+		webSocket.close();
+	}
+
+	
+</script>
+
+<script>
+
+$(function(){
+	console.log("!!!!!!!");
+	if (<%=liveId.trim().length()%> == 0){ 
+		console.log("aaaaa");
+		$("#liveBtn").append("<button type='button' style='padding: 0;border: none;background: none;'><img src='<%=request.getContextPath()%>/images/live-online.gif' style='width:100px'></button>");
+	}
+});
+
+$(function(){
+	$("#liveBtn").click(function(){
+		console.log('1111111111111111');
+		window.open('<%=request.getContextPath()%>/util/Map_direction.jsp', 'Chat', config='height=600, width=800');
+	});
+});
+
+</script>
+
+
 	
 </body>
 
