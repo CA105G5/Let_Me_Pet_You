@@ -35,7 +35,7 @@ public class ManagerLoginFilter implements Filter {
 		// 【從 session 判斷此user是否登入過】
 		Object managerVO = session.getAttribute("managerVO");
 		if (managerVO == null) {
-			session.setAttribute("location", req.getRequestURI());
+			session.setAttribute("location2", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/back-end/manager/login.jsp");
 			return;
 		} else {

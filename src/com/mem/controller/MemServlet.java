@@ -375,15 +375,15 @@ public class MemServlet extends HttpServlet {
 						session.setAttribute("memVO", memVO);
 						
 						try {                                                        
-					         String location = (String) session.getAttribute("location");
+					         String location1 = (String) session.getAttribute("location1");
 					         String adopt = (String) session.getAttribute("adopt");
-					         if (location != null) {
-					           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-					           if ("/CA105G5/front-end/ord/cart_Receiver.jsp".equals(location)) {
+					         if (location1 != null) {
+					           session.removeAttribute("location1");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+					           if ("/CA105G5/front-end/ord/cart_Receiver.jsp".equals(location1)) {
 					        	   res.sendRedirect("/CA105G5_Jen/prodcart.do?action=check_Cart");
 					        	   return;
 					           }
-					           res.sendRedirect(location);            
+					           res.sendRedirect(location1);            
 					           return;
 					         }
 					         if (adopt != null) {
@@ -427,7 +427,7 @@ public class MemServlet extends HttpServlet {
 		if("logout".equals(action)) {
 			HttpSession session = req.getSession();
 			session.setAttribute("memVO", null);
-			session.setAttribute("location", null);
+			session.setAttribute("location1", null);
 			res.sendRedirect(req.getContextPath()+"/index.jsp");
 			return;
 		}

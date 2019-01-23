@@ -31,7 +31,7 @@ public class VolunteerLoginFilter implements Filter {
 		// 【從 session 判斷此user是否登入過】
 		Object memVO = session.getAttribute("volunteerVO");
 		if (memVO == null) {
-			session.setAttribute("location", req.getRequestURI());
+			session.setAttribute("location3", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/front-end/volunteer/volunteer_login.jsp");
 			return;
 		} else {

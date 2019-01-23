@@ -28,7 +28,7 @@ public class LoginFilter implements Filter {
 		// 【從 session 判斷此user是否登入過】
 		Object memVO = session.getAttribute("memVO");
 		if (memVO == null) {
-			session.setAttribute("location", req.getRequestURI());
+			session.setAttribute("location1", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/front-end/members/login.jsp");
 			return;
 		} else {

@@ -60,10 +60,10 @@ public class ManagerServlet extends HttpServlet {
 						session.setAttribute("managerVO", managerVO);
 						
 						try {                                                        
-					         String location = (String) session.getAttribute("location");
-					         if (location != null) {
-					           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-					           res.sendRedirect(location);            
+					         String location2 = (String) session.getAttribute("location2");
+					         if (location2 != null) {
+					           session.removeAttribute("location2");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+					           res.sendRedirect(location2);            
 					           return;
 					         }
 					       }catch (Exception ignored) { 
@@ -101,7 +101,7 @@ public class ManagerServlet extends HttpServlet {
 		if("logout".equals(action)) {
 			HttpSession session = req.getSession();
 			session.setAttribute("managerVO", null);
-			session.setAttribute("location", null);
+			session.setAttribute("location2", null);
 			res.sendRedirect(req.getContextPath()+"/back-end/manager/login.jsp");
 			return;
 		}

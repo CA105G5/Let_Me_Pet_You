@@ -546,10 +546,10 @@ public class VolunteerServlet extends HttpServlet{
 						session.setAttribute("volunteerVO", volunteerVO);
 						
 						try {                                                        
-					         String location = (String) session.getAttribute("location");
-					         if (location != null) {
-					           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-					           res.sendRedirect(location);            
+					         String location3 = (String) session.getAttribute("location3");
+					         if (location3 != null) {
+					           session.removeAttribute("location3");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+					           res.sendRedirect(location3);            
 					           return;
 					         }
 					       }catch (Exception ignored) { 
@@ -588,6 +588,7 @@ public class VolunteerServlet extends HttpServlet{
 		if("logout".equals(action)) {
 			HttpSession session = req.getSession();
 			session.setAttribute("volunteerVO", null);
+			session.setAttribute("location3", null);
 			res.sendRedirect(req.getContextPath()+"/front-end/volunteer/volunteer_login.jsp");
 			return;
 		}
