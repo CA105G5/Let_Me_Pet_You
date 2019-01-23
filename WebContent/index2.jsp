@@ -93,11 +93,11 @@ System.out.println( "是否登入:"+ (memVO != null));
 <!-- Start WOWSlider.com BODY section -->
 <div id="wowslider-container1">
 <div class="ws_images"><ul>
-		<li><img src="data1/images/big6.jpg" alt="big6" title="big6" id="wows1_0"/></li>
-		<li><img src="data1/images/big2.jpg" alt="big2" title="big2" id="wows1_1"/></li>
-		<li><img src="data1/images/big3.jpg" alt="big3" title="big3" id="wows1_2"/></li>
-		<li><a href="http://wowslider.net"><img src="data1/images/big7.jpg" alt="html slider" title="big7" id="wows1_3"/></a></li>
-		<li><img src="data1/images/big8.jpg" alt="big8" title="big8" id="wows1_4"/></li>
+		<li><img src="data1/images/big6.jpg" alt="big6" title="" id="wows1_0"/></li>
+		<li><img src="data1/images/big2.jpg" alt="big2" title="" id="wows1_1"/></li>
+		<li><img src="data1/images/big3.jpg" alt="big3" title="" id="wows1_2"/></li>
+		<li><a href="http://wowslider.net"><img src="data1/images/big7.jpg" alt="html slider" title="" id="wows1_3"/></a></li>
+		<li><img src="data1/images/big8.jpg" alt="big8" title="" id="wows1_4"/></li>
 	</ul></div>
 	<div class="ws_bullets"><div>
 		<a href="#" title="big6"><span><img src="data1/tooltips/big6.jpg" alt="big6"/>1</span></a>
