@@ -8,7 +8,7 @@ public class Test1 {
 	}
 	public static int gcd(int [] number) {
 		int answer = -1;
-		//答案
+		//WRITE YOU CODE HERE -START-
 		Boolean check = true;
 		for(int i = 1 ;i<number[0];i++) {
 			check=true;
@@ -21,7 +21,7 @@ public class Test1 {
 				answer = i ;
 			}
 		}
-		//答案
+		//WRITE YOU CODE HERE -END-
 		return answer;
 	}
 
